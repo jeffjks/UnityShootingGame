@@ -1,0 +1,1106 @@
+fileFormatVersion: 2
+guid: 6b094766c26e02e4ea064ef858532c63
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Foot_L
+    100002: Foot_R
+    100004: LowerArm_L
+    100006: LowerArm_R
+    100008: LowerLeg_L
+    100010: LowerLeg_R
+    100012: LowerTorso
+    100014: //RootNode
+    100016: MechLvl1
+    100018: Root
+    100020: UpperArm_L
+    100022: UpperArm_R
+    100024: UpperLeg_L
+    100026: UpperLeg_R
+    100028: UpperTorso
+    100030: MechLvl1Mesh
+    400000: Foot_L
+    400002: Foot_R
+    400004: LowerArm_L
+    400006: LowerArm_R
+    400008: LowerLeg_L
+    400010: LowerLeg_R
+    400012: LowerTorso
+    400014: //RootNode
+    400016: MechLvl1
+    400018: Root
+    400020: UpperArm_L
+    400022: UpperArm_R
+    400024: UpperLeg_L
+    400026: UpperLeg_R
+    400028: UpperTorso
+    400030: MechLvl1Mesh
+    4300000: MechLvl1Mesh
+    7400000: MechLvl1Dead
+    7400002: MechLvl1Death
+    7400004: MechLvl1FireArmLeft
+    7400006: MechLvl1FireArmRight
+    7400008: MechLvl1FireBothArms
+    7400010: MechLvl1Hit1
+    7400012: MechLvl1Hit2
+    7400014: MechLvl1Hit3
+    7400016: MechLvl1Idle
+    7400018: MechLvl1Jump
+    7400020: MechLvl1JumpjetFlying
+    7400022: MechLvl1JumpLand
+    7400024: MechLvl1Run
+    7400026: MechLvl1TurnAround
+    7400028: MechLvl1Walk
+    7400030: MechLvl1WalkBack
+    7400032: MechLvl1XXXDefault
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: MechLvl1Mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: MechLvl1Dead
+      takeName: MechLvl1Dead
+      firstFrame: 1
+      lastFrame: 2
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Death
+      takeName: MechLvl1Death
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1FireArmLeft
+      takeName: MechLvl1FireArmLeft
+      firstFrame: 0
+      lastFrame: 6
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1FireArmRight
+      takeName: MechLvl1FireArmRight
+      firstFrame: 0
+      lastFrame: 6
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1FireBothArms
+      takeName: MechLvl1FireBothArms
+      firstFrame: 0
+      lastFrame: 8
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Hit1
+      takeName: MechLvl1Hit1
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Hit2
+      takeName: MechLvl1Hit2
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Hit3
+      takeName: MechLvl1Hit3
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Idle
+      takeName: MechLvl1Idle
+      firstFrame: 0
+      lastFrame: 200
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Jump
+      takeName: MechLvl1Jump
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1JumpjetFlying
+      takeName: MechLvl1JumpjetFlying
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1JumpLand
+      takeName: MechLvl1JumpLand
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Run
+      takeName: MechLvl1Run
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1TurnAround
+      takeName: MechLvl1TurnAround
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1Walk
+      takeName: MechLvl1Walk
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1WalkBack
+      takeName: MechLvl1WalkBack
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MechLvl1XXXDefault
+      takeName: MechLvl1XXXDefault
+      firstFrame: 1
+      lastFrame: 2
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MechLvl1
+        weight: 1
+      - path: MechLvl1/Root
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R
+        weight: 1
+      - path: MechLvl1/Root/LowerTorso/UpperTorso/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: MechLvl1Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .0199999996
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

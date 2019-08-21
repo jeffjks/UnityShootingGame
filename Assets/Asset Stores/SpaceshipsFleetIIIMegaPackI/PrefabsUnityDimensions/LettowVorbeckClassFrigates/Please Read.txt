@@ -1,0 +1,12 @@
+The prefabs in this folder are intended to be used as stand alone models. they are scaled to unity 
+dimensions and are at least one unity unit big.
+
+
+
+If you want to use the frigates together with my other spaceships like "Berlin Class Battlecruiser" or
+"Hindenburg Class Battleship" you should use the prefabs in the folder: 
+
+					"Prefabs"
+
+The prefabs in the above mentioned folder are scaled smaller so that the frigate sized sips are
+in relation to the capital ships.

@@ -1,0 +1,15 @@
+The prefabs in this folder are intended to be used with my other spaceships, e.g. Berlin Class 
+Battlecruiser or Hindenburg Class Battleship.
+
+These capital ships are one unity unit big. The prefabs of the frigate class sized ships in this 
+prefab folder are therefore smaller than one unity unit.
+
+If you want to rescale the capital and frigate sized ships you can use the same rescale factor for
+all ships.
+
+
+If you want to use the frigates separately you should use the prefabs in the folder: 
+
+			"PrefabsUnityDimensions"
+
+The prefabs in the above mentioned folder are scaled bigger so that one frigate is one unity unit big.

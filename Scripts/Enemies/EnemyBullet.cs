@@ -1,0 +1,186 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+
+public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
+{
+    public float targetValue, duration;
+
+    public EnemyBulletAccel(float targetValue, float duration) {
+        this.targetValue = targetValue;
+        this.duration = duration;
+    }
+}
+
+
+public class EnemyBullet : Enemy
+{
+    public string m_ObjectName;
+
+    [HideInInspector] public byte m_ImageType;
+    [HideInInspector] public float m_Timer;
+    [HideInInspector] public byte m_Type, m_NewImageType, m_NewDirectionType;
+    [HideInInspector] public float m_NewDirectionAdder, m_SecondTimer;
+    [HideInInspector] public int m_NewNumber;
+    [HideInInspector] public float m_NewInterval;
+    public MoveVector m_NewMoveVector;
+    public EnemyBulletAccel m_EnemyBulletAccel;
+    public EnemyBulletAccel m_NewEnemyBulletAccel;
+
+    private bool m_RotateBullet; // 자동 회전
+    private GameObject m_BulletExplosion;
+    private SpriteRenderer[] m_SpriteRenderers;
+
+    [SerializeField] private GameObject[] m_BulletTypeObject = null;
+    [SerializeField] private GameObject[] m_BulletEraseObject = null;
+    [SerializeField] private Animator[] m_EraseAnimator = null;
+
+    /* m_Type ====================
+    deltaValue가 0이면 속도 변화 X
+    0 = 일반 총알
+    1 = n초후 다른 총알 생성
+    2 = n초후 파괴 후 다른 총알 생성
+
+    생성 총알 : 0만 가능
+    ImageType
+    EnemyBulletAccel : targetValue = 0, deltaValue = 0
+    MoveVector : speed = v, direction = 고정 방향 + @, 플레이어 방향 + @, 현재 방향 + @
+
+    0 = image, pos, speed, direction, (accel)
+    1, 2 = image, pos, speed, direction, (accel) / type, timer, new_image, new_speed, new_direction, direction_add , new_accel)
+    =========================== */
+
+    protected override void Awake()
+    {
+        base.Awake();
+        m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+    }
+
+    void OnEnable()
+    {
+        m_RotateBullet = false;
+
+        for (int i=0; i<m_BulletTypeObject.Length; i++) {
+            m_BulletTypeObject[i].SetActive(false);
+        }
+        for (int i=0; i<m_BulletEraseObject.Length; i++) {
+            m_BulletEraseObject[i].SetActive(false);
+        }
+
+        if (m_BulletTypeObject.Length > 0) {
+            m_BulletTypeObject[m_ImageType].SetActive(true);
+        }
+
+        if (m_ImageType == 1 || m_ImageType == 4) { // Needle Form
+            m_BulletTypeObject[m_ImageType].transform.eulerAngles = new Vector3(0f, 0f, m_MoveVector.direction);
+        }
+        else if (m_ImageType == 3 || m_ImageType == 5) { // Blue Normal Form
+            m_RotateBullet = true;
+        }
+        else {
+            m_BulletTypeObject[m_ImageType].transform.rotation = Quaternion.identity;
+        }
+
+        SetSortingLayer();
+
+        switch(m_Type) {
+            case 1: // n초후 다른 총알 생성
+                if (m_SecondTimer > 0)
+                    InvokeRepeating("CreateSubBullet", m_Timer, m_SecondTimer);
+                else
+                    Invoke("CreateSubBullet", m_Timer);
+                break;
+            case 2: // n초후 다른 총알 생성 후 파괴
+                Invoke("CreateSubBullet", m_Timer);
+                Invoke("OnDeath", m_Timer);
+                break;
+            default:
+                break;
+        }
+
+        float targetValue = m_EnemyBulletAccel.targetValue;
+        float duration = m_EnemyBulletAccel.duration;
+
+        if (targetValue > 0) {
+            if (m_MoveVector.speed < targetValue) // 가속
+                DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, targetValue, duration).SetEase(Ease.InQuad);
+            else // 감속
+                DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, targetValue, duration).SetEase(Ease.OutQuad);
+        }
+    }
+    
+    void LateUpdate()
+    {
+        if (m_RotateBullet) {
+            m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, Time.deltaTime*200, Space.Self);
+        }
+    }
+
+    private void SetSortingLayer() {
+        m_SpriteRenderers[m_ImageType].sortingOrder = m_SystemManager.BulletsSortingLayer++;
+    }
+
+    private void CreateSubBullet() {
+        switch(m_NewDirectionType) {
+            case BulletDirection.FIXED:
+                m_NewMoveVector.direction = 0f;
+                break;
+            case BulletDirection.PLAYER:
+                m_NewMoveVector.direction = GetAngleToTarget(transform.position, m_PlayerPosition);
+                break;
+            case BulletDirection.CURRENT:
+                m_NewMoveVector.direction = m_MoveVector.direction;
+                break;
+            default:
+                m_NewMoveVector.direction = 0f;
+                break;
+        }
+        Vector3 pos = transform.position;
+        if (m_NewNumber == 0)
+            CreateBullet(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewEnemyBulletAccel);
+        else
+            CreateBulletsSector(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewEnemyBulletAccel, m_NewNumber, m_NewInterval);
+    }
+
+    public void OnDeath() {
+        CancelInvoke();
+        m_BulletTypeObject[m_ImageType].SetActive(false);
+
+        byte erase_type;
+        if (m_ImageType <= 2) {
+            erase_type = 0;
+        }
+        else {
+            erase_type = 1;
+        }
+        m_BulletEraseObject[erase_type].SetActive(true);
+        m_EraseAnimator[erase_type].Play("Erase", -1, 0f);
+        Invoke("Erase", 1f);
+    }
+
+    public void Erase() {
+        CancelInvoke();
+        DOTween.Kill(transform);
+        m_PoolingManager.PushToPool(m_ObjectName, gameObject, 1);
+    }
+
+    protected override bool BulletCondition(Vector3 pos) {
+        Vector2 camera_pos = m_PlayerManager.m_MainCamera.transform.position;
+
+        if (!m_PlayerManager.m_PlayerIsAlive) {
+            return false;
+        }
+        else if (m_SystemManager.m_PlayState >= 2) {
+            return false;
+        }
+        else if (2 * Mathf.Abs(pos.x - camera_pos.x) > Size.CAMERA_WIDTH) {
+            return false;
+        }
+        else if (pos.y > 0 || pos.y < - Size.CAMERA_HEIGHT) {
+            return false;
+        }
+        else
+            return true;
+    }
+}

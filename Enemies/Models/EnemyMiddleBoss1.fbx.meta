@@ -1,0 +1,246 @@
+fileFormatVersion: 2
+guid: 7029ace84c1a73b4583cf1008dc137bd
+timeCreated: 1506602123
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BigMissile
+    100004: BigMissile 1
+    100006: BigMissile.001
+    100008: BigMissile.001 1
+    100010: BigMissile.001_end
+    100012: BigMissile_end
+    100014: ChassisBack
+    100016: ChassisBackLeft
+    100018: ChassisBackLeft_end
+    100020: ChassisBackRight
+    100022: ChassisBackRight_end
+    100024: ChassisBackTopLeft
+    100026: ChassisBackTopLeft_end
+    100028: ChassisBackTopRight
+    100030: ChassisBackTopRight_end
+    100032: ChassisFront
+    100034: ChassisFront 1
+    100036: ChassisFront_end
+    100038: Cube.011
+    100040: Cylinder.004
+    100042: //RootNode
+    100044: FlapLeft
+    100046: FlapLeft_end
+    100048: FlapRight
+    100050: FlapRight_end
+    100052: Flaps
+    100054: HatchBack
+    100056: HatchBackLeft
+    100058: HatchBackLeft_end
+    100060: HatchBackRight
+    100062: HatchBackRight_end
+    100064: HatchFront
+    100066: HatchFrontLeft
+    100068: HatchFrontLeft_end
+    100070: HatchFrontRight
+    100072: HatchFrontRight_end
+    100074: Jet
+    100076: Jet 1
+    100078: SmallMissile
+    100080: SmallMissile 1
+    100082: SmallMissile.001
+    100084: SmallMissile.001 1
+    100086: SmallMissile.001_end
+    100088: SmallMissile.002
+    100090: SmallMissile.002 1
+    100092: SmallMissile.002_end
+    100094: SmallMissile.003
+    100096: SmallMissile.003 1
+    100098: SmallMissile.003_end
+    100100: SmallMissile.004
+    100102: SmallMissile.004 1
+    100104: SmallMissile.004_end
+    100106: SmallMissile.005
+    100108: SmallMissile.005 1
+    100110: SmallMissile.005_end
+    100112: SmallMissile.006
+    100114: SmallMissile_end
+    100116: WheelsBack
+    100118: WheelsFront
+    400000: Armature
+    400002: BigMissile
+    400004: BigMissile 1
+    400006: BigMissile.001
+    400008: BigMissile.001 1
+    400010: BigMissile.001_end
+    400012: BigMissile_end
+    400014: ChassisBack
+    400016: ChassisBackLeft
+    400018: ChassisBackLeft_end
+    400020: ChassisBackRight
+    400022: ChassisBackRight_end
+    400024: ChassisBackTopLeft
+    400026: ChassisBackTopLeft_end
+    400028: ChassisBackTopRight
+    400030: ChassisBackTopRight_end
+    400032: ChassisFront
+    400034: ChassisFront 1
+    400036: ChassisFront_end
+    400038: Cube.011
+    400040: Cylinder.004
+    400042: //RootNode
+    400044: FlapLeft
+    400046: FlapLeft_end
+    400048: FlapRight
+    400050: FlapRight_end
+    400052: Flaps
+    400054: HatchBack
+    400056: HatchBackLeft
+    400058: HatchBackLeft_end
+    400060: HatchBackRight
+    400062: HatchBackRight_end
+    400064: HatchFront
+    400066: HatchFrontLeft
+    400068: HatchFrontLeft_end
+    400070: HatchFrontRight
+    400072: HatchFrontRight_end
+    400074: Jet
+    400076: Jet 1
+    400078: SmallMissile
+    400080: SmallMissile 1
+    400082: SmallMissile.001
+    400084: SmallMissile.001 1
+    400086: SmallMissile.001_end
+    400088: SmallMissile.002
+    400090: SmallMissile.002 1
+    400092: SmallMissile.002_end
+    400094: SmallMissile.003
+    400096: SmallMissile.003 1
+    400098: SmallMissile.003_end
+    400100: SmallMissile.004
+    400102: SmallMissile.004 1
+    400104: SmallMissile.004_end
+    400106: SmallMissile.005
+    400108: SmallMissile.005 1
+    400110: SmallMissile.005_end
+    400112: SmallMissile.006
+    400114: SmallMissile_end
+    400116: WheelsBack
+    400118: WheelsFront
+    2300000: SmallMissile
+    3300000: SmallMissile
+    4300000: SmallMissile.006
+    4300002: SmallMissile.005
+    4300004: SmallMissile.004
+    4300006: SmallMissile.003
+    4300008: SmallMissile.002
+    4300010: SmallMissile.001
+    4300012: BigMissile.001
+    4300014: BigMissile
+    4300016: ChassisBack
+    4300018: ChassisFront
+    4300020: Cube.011
+    4300022: Cylinder.004
+    4300024: Flaps
+    4300026: HatchBack
+    4300028: HatchFront
+    4300030: Jet
+    4300032: SmallMissile
+    4300034: WheelsBack
+    4300036: WheelsFront
+    7400000: Armature|ChassisHide
+    7400002: Armature|ChassisRelease
+    7400004: Armature|ChassisHiddenPose
+    7400006: Armature|ChassisReleasedPose
+    9500000: //RootNode
+    13700000: BigMissile
+    13700002: BigMissile.001
+    13700004: ChassisBack
+    13700006: ChassisFront
+    13700008: Cube.011
+    13700010: Cylinder.004
+    13700012: Flaps
+    13700014: HatchBack
+    13700016: HatchFront
+    13700018: Jet
+    13700020: SmallMissile.001
+    13700022: SmallMissile.002
+    13700024: SmallMissile.003
+    13700026: SmallMissile.004
+    13700028: SmallMissile.005
+    13700030: SmallMissile.006
+    13700032: WheelsBack
+    13700034: WheelsFront
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

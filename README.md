@@ -43,30 +43,30 @@
    * Spaceships Fleet III Mega Pack I
 
 * 스프라이트
- *   Sci Fi UI Pack
- *   50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
+   * Sci Fi UI Pack
+   * 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
 
 * 이펙트
- *   Effect textures and prefabs
- *   Shockwave Effects
- *   Quality Explosion SpriteKit
- *   Waf FX
+   * Effect textures and prefabs
+   * Shockwave Effects
+   * Quality Explosion SpriteKit
+   * Waf FX
 
 사운드
- *   Fantasy Menu SFX
- *   CAVE Interactive CO.
- *   LTD (Ketsui)
- *   Fantasy Menu SFX
+   * Fantasy Menu SFX
+   * CAVE Interactive CO.
+   * LTD (Ketsui)
+   * Fantasy Menu SFX
 
 지형
- *   Standard Asset
- *   Grass And Flowers Pack 1
- *   Race Tracks
- *   Windridge City
- *   Seamless Textures
- *   City Street Props
- *   City Highways Construction Kit
- *   World Space Trees (FREE)
+   * Standard Asset
+   * Grass And Flowers Pack 1
+   * Race Tracks
+   * Windridge City
+   * Seamless Textures
+   * City Street Props
+   * City Highways Construction Kit
+   * World Space Trees (FREE)
 
 * 기타
    * Asset Usage Detector

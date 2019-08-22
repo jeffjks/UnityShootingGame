@@ -153,11 +153,8 @@ public class StageManager : MonoBehaviour
         }
         yield return new WaitForSeconds(20f);
         CreateEnemy(m_ItemHeli_1, new Vector2(1.5f, 3f)); // Item Heli
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(14f);
         CreateEnemy(m_PlaneMedium_1, new Vector2(3f, 3f));
-
-        
-
         yield return null;
     }
 

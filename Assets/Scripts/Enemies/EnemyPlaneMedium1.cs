@@ -30,6 +30,15 @@ public class EnemyPlaneMedium1 : EnemyUnit
     {
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
+
+        if (m_SystemManager.m_PlayState == 1) {
+            Debug.Log("Check");
+            CancelInvoke();
+            TimeLimit();
+            DOTween.Kill(m_Sequence);
+            m_Sequence = DOTween.Sequence();
+            m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));
+        }
         
         base.Update();
     }

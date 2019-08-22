@@ -61,13 +61,13 @@ public class EnemyPlaneMedium3 : EnemyUnit
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++) {
-                    CreateBulletsSector(2, pos, 5.5f, target_angle + random_value, accel, 3, 10f);
+                    CreateBulletsSector(2, pos, 6f, target_angle + random_value, accel, 3, 10f);
                     yield return new WaitForSeconds(0.087f);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
-                    CreateBulletsSector(2, pos, 6f, target_angle + random_value, accel, 3, 10f);
+                    CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
                     yield return new WaitForSeconds(0.08f);
                 }
             }

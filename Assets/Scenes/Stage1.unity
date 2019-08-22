@@ -656,53 +656,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98127840}
   m_CullTransparentMesh: 0
---- !u!1 &101488610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 101488611}
-  - component: {fileID: 101488612}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &101488611
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101488610}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1504383303}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &101488612
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101488610}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1 &103958676
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,7 +3399,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 436663300}
-  - component: {fileID: 436663302}
   - component: {fileID: 436663301}
   m_Layer: 12
   m_Name: EnemyTankSpawner (9) E
@@ -3465,8 +3417,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.7575365, z: 0, w: 0.6527929}
   m_LocalPosition: {x: -1.7, y: 4.07, z: 188.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 845126513}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 98.495, z: 0}
@@ -3493,7 +3444,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 845126514}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -3506,27 +3457,6 @@ MonoBehaviour:
   m_SpawnPeriod: 2.5
   m_RemoveTimer: 20
   m_MovePattern: []
---- !u!50 &436663302
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436663299}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &457603565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3756,53 +3686,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0019059181, y: -0.0003786087}
   m_SizeDelta: {x: 87.99641, y: 84.00331}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &488851696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 488851697}
-  - component: {fileID: 488851698}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &488851697
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488851696}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 509991694}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &488851698
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488851696}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1 &493116166
 GameObject:
   m_ObjectHideFlags: 0
@@ -4181,7 +4064,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 509991694}
-  - component: {fileID: 509991696}
   - component: {fileID: 509991695}
   m_Layer: 12
   m_Name: EnemyTankSpawner (7)
@@ -4200,8 +4082,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: 19.38, y: 4.07, z: 167}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 488851697}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -4228,7 +4109,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 488851698}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -4243,27 +4124,6 @@ MonoBehaviour:
   m_SpawnPeriod: 3
   m_RemoveTimer: 30
   m_MovePattern: []
---- !u!50 &509991696
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 509991693}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &526523004
 GameObject:
   m_ObjectHideFlags: 0
@@ -5542,7 +5402,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 729679358}
-  - component: {fileID: 729679360}
   - component: {fileID: 729679359}
   m_Layer: 12
   m_Name: EnemyTankSpawner (9) H
@@ -5561,8 +5420,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.7575365, z: 0, w: 0.6527929}
   m_LocalPosition: {x: -1.7, y: 4.07, z: 188.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2075563115}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 98.495, z: 0}
@@ -5589,7 +5447,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 2075563116}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -5603,27 +5461,6 @@ MonoBehaviour:
   m_SpawnPeriod: 2.5
   m_RemoveTimer: 20
   m_MovePattern: []
---- !u!50 &729679360
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729679357}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &735067751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6684,53 +6521,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845068220}
   m_CullTransparentMesh: 0
---- !u!1 &845126512
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 845126513}
-  - component: {fileID: 845126514}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &845126513
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845126512}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 436663300}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &845126514
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845126512}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1001 &854539015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6930,53 +6720,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 169706307}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &903852567
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 903852568}
-  - component: {fileID: 903852569}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &903852568
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903852567}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2021100113}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &903852569
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903852567}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1 &912747159
 GameObject:
   m_ObjectHideFlags: 0
@@ -9143,53 +8886,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1182643253}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1207592469
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1207592470}
-  - component: {fileID: 1207592471}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1207592470
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207592469}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2029864589}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1207592471
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207592469}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1 &1235789583
 GameObject:
   m_ObjectHideFlags: 0
@@ -9958,7 +9654,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1362216714}
-  - component: {fileID: 1362216716}
   - component: {fileID: 1362216715}
   m_Layer: 12
   m_Name: EnemyTankSpawner (5) H
@@ -9977,8 +9672,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: 17.32, y: 4.07, z: 111.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1718427854}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -10005,7 +9699,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 1718427855}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -10023,27 +9717,6 @@ MonoBehaviour:
   - delay: 12.8
     direction: 150
     time: 3
---- !u!50 &1362216716
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362216713}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1367081325
 GameObject:
   m_ObjectHideFlags: 0
@@ -10889,7 +10562,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1504383303}
-  - component: {fileID: 1504383305}
   - component: {fileID: 1504383304}
   m_Layer: 12
   m_Name: EnemyTankSpawner (8)
@@ -10908,8 +10580,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: 17.32, y: 4.07, z: 168.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 101488611}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -10936,7 +10607,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 101488612}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -10949,27 +10620,6 @@ MonoBehaviour:
   m_SpawnPeriod: 3
   m_RemoveTimer: 30
   m_MovePattern: []
---- !u!50 &1504383305
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504383302}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1506702865
 GameObject:
   m_ObjectHideFlags: 0
@@ -12000,53 +11650,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 550789890}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1718427853
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1718427854}
-  - component: {fileID: 1718427855}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1718427854
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718427853}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1362216714}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1718427855
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718427853}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1 &1724484314
 GameObject:
   m_ObjectHideFlags: 0
@@ -14423,7 +14026,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2021100113}
-  - component: {fileID: 2021100115}
   - component: {fileID: 2021100114}
   m_Layer: 12
   m_Name: EnemyTankSpawner (5) N, E
@@ -14442,8 +14044,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: 17.32, y: 4.07, z: 111.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 903852568}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -14470,7 +14071,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 903852569}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14486,27 +14087,6 @@ MonoBehaviour:
   - delay: 12.8
     direction: 150
     time: 3
---- !u!50 &2021100115
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021100112}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &2026058705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14591,7 +14171,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2029864589}
-  - component: {fileID: 2029864591}
   - component: {fileID: 2029864590}
   m_Layer: 12
   m_Name: EnemyTankSpawner (6)
@@ -14610,8 +14189,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: 18.49, y: 4.07, z: 113.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1207592470}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -14638,7 +14216,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 1207592471}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14654,27 +14232,6 @@ MonoBehaviour:
   - delay: 12.1
     direction: 150
     time: 1.5
---- !u!50 &2029864591
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029864588}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &2035126369
 GameObject:
   m_ObjectHideFlags: 0
@@ -14868,53 +14425,6 @@ Transform:
   m_Father: {fileID: 838861398}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2075563114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2075563115}
-  - component: {fileID: 2075563116}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2075563115
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075563114}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 729679358}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &2075563116
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075563114}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1 &198789297413330200
 GameObject:
   m_ObjectHideFlags: 0
@@ -14924,7 +14434,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4208690692939289833}
-  - component: {fileID: 5546174724641572519}
   - component: {fileID: 693802491743585856}
   m_Layer: 12
   m_Name: EnemyTankSpawner (2)
@@ -14942,7 +14451,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4208690691692911754}
-  - component: {fileID: 5546174723248361156}
   - component: {fileID: 693802492627160611}
   m_Layer: 12
   m_Name: EnemyTankSpawner (3)
@@ -14960,7 +14468,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4208690691949029171}
-  - component: {fileID: 5546174723521262973}
   - component: {fileID: 693802492900062618}
   m_Layer: 12
   m_Name: EnemyTankSpawner (4)
@@ -14969,27 +14476,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &277144539127877120
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5615241254453534143}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &566749147002680585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15076,7 +14562,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 1176484962013204710}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -15112,7 +14598,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 1176484960624187525}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -15148,7 +14634,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 1176484960888693564}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -15161,54 +14647,6 @@ MonoBehaviour:
   m_SpawnPeriod: 3
   m_RemoveTimer: 25
   m_MovePattern: []
---- !u!58 &1176484960624187525
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7046562091512281915}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
---- !u!58 &1176484960888693564
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7046562091248287874}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
---- !u!58 &1176484962013204710
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7046562090259608408}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!1001 &1287001183654992250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15353,65 +14791,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3275877223480787452}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3379123693832813567
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8635428214535462723}
-  - component: {fileID: 6880606522800871489}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4105121008331366279
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7046562091512281915}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4208690691692911754}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4105121008595346494
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7046562091248287874}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4208690691949029171}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4105121009587148772
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7046562090259608408}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4208690692939289833}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4208690691692911754
 Transform:
   m_ObjectHideFlags: 0
@@ -15422,8 +14801,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: -1.71, y: 4.07, z: 117.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4105121008331366279}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -15437,8 +14815,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.5, z: -0, w: 0.8660254}
   m_LocalPosition: {x: -2.8999996, y: 4.07, z: 115.20999}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4105121008595346494}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
@@ -15452,8 +14829,7 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.81915206, z: -0, w: 0.57357645}
   m_LocalPosition: {x: -1.7019997, y: 4.07, z: 22.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4105121009587148772}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 110, z: 0}
@@ -15543,7 +14919,7 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 6880606522800871489}
+  m_Collider2D: {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -15631,69 +15007,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5106608243037683371}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &5546174723248361156
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198789298269609339}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!50 &5546174723521262973
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198789298534115010}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!50 &5546174724641572519
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198789297413330200}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &5615241254453534143
 GameObject:
   m_ObjectHideFlags: 0
@@ -15703,7 +15016,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8450758519149911118}
-  - component: {fileID: 277144539127877120}
   - component: {fileID: 5084427962552585959}
   m_Layer: 12
   m_Name: EnemyTankSpawner (1)
@@ -15787,73 +15099,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6057111332003561741}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &6880606522800871489
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3379123693832813567}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
---- !u!1 &7046562090259608408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4105121009587148772}
-  - component: {fileID: 1176484962013204710}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &7046562091248287874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4105121008595346494}
-  - component: {fileID: 1176484960888693564}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &7046562091512281915
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4105121008331366279}
-  - component: {fileID: 1176484960624187525}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: EnemySpawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1001 &7584690389071225324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15935,25 +15180,10 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.81915206, z: -0, w: 0.57357645}
   m_LocalPosition: {x: 17.63, y: 4.07, z: 13.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8635428214535462723}
+  m_Children: []
   m_Father: {fileID: 1459673436}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 110, z: 0}
---- !u!4 &8635428214535462723
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3379123693832813567}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8450758519149911118}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8978217742692511690
 PrefabInstance:
   m_ObjectHideFlags: 0

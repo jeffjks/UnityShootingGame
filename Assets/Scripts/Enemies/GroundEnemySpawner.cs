@@ -25,7 +25,7 @@ public class GroundEnemySpawner : EnemyUnit
 
     protected override void Update()
     {
-        if (m_Collider2D.transform.position.y < Size.GAME_BOUNDARY_BOTTOM - 5f) {
+        if (m_Position2D.y < Size.GAME_BOUNDARY_BOTTOM - 10f) {
             Destroy(gameObject);
         }
         base.Update();

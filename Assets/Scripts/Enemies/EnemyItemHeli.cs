@@ -55,7 +55,6 @@ public class EnemyItemHeli : EnemyUnit {
         yield return new WaitForSeconds(m_AppearanceTime);
 
         while(!m_TimeLimitState) {
-            yield return new WaitForSeconds(1f);
             float random_value = Random.Range(-1f, 1f);
 
             pos1 = m_FirePosition[0].position;

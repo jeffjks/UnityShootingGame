@@ -12804,7 +12804,7 @@ MonoBehaviour:
   m_EnemySpawners: {fileID: 1459673435}
   m_MiddleBossUnit:
   - {fileID: 1140337607093124, guid: dacfe637feedf844fbd6790127b33c58, type: 3}
-  m_BossUnit: {fileID: 1152354105411914, guid: cdbec52167efb6a48b63cebb3284c246, type: 3}
+  m_BossUnit: {fileID: 100018, guid: d47850806cfc30c49a36864d829c7129, type: 3}
   m_AudioStage: {fileID: 1841405956}
   m_AudioBoss: {fileID: 1841405957}
   m_BossHealthBar: {fileID: 1724484319}

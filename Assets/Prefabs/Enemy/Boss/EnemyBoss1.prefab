@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400004}
   - component: {fileID: 3300004}
   - component: {fileID: 2300004}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlasmaCannonMKIYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 400006}
   - component: {fileID: 3300006}
   - component: {fileID: 2300006}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlasmaCannonMKIYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -165,9 +165,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400018}
-  m_Layer: 0
+  - component: {fileID: 7576829454061301919}
+  - component: {fileID: 8506718949116158364}
+  - component: {fileID: 6680336588109625789}
+  m_Layer: 10
   m_Name: EnemyBoss1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,36 +190,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &100020
-GameObject:
+--- !u!50 &7576829454061301919
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 400020}
-  m_Layer: 0
-  m_Name: StaticEquipment
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &400020
-Transform:
+  m_GameObject: {fileID: 100018}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &8506718949116158364
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100020}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7033721415200065922}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.3}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.8, y: 4}
+  m_EdgeRadius: 0
+--- !u!114 &6680336588109625789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f33e3c2ddf0a04cbb15e09b4b6a223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Health: 1000
+  m_Class: 2
+  m_Score: 0
+  m_Debris: 0
+  m_DefaultExplosion: 0
+  m_DefaultAudioClip: {fileID: 0}
+  m_Explosion: 
+  m_AudioClip: []
+  m_ItemBox: {fileID: 0}
+  m_GemNumber: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Collider2D: {fileID: 8506718949116158364}
+  m_MaxHealth: 0
+  m_IsDead: 0
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +274,7 @@ GameObject:
   - component: {fileID: 400022}
   - component: {fileID: 3300014}
   - component: {fileID: 2300014}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KreuzritterBomberHullYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +315,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -303,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3004855640862697177}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePosition0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6155251564605104993}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePosition4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +411,7 @@ GameObject:
   - component: {fileID: 8901012410711505932}
   - component: {fileID: 3743885367210154764}
   - component: {fileID: 2192625301356996549}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TorpedoTubeWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +488,7 @@ GameObject:
   - component: {fileID: 6498238743067596689}
   - component: {fileID: 6411904465322894493}
   - component: {fileID: 2037061106021077326}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TorpedoTubeWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +565,7 @@ GameObject:
   - component: {fileID: 188189165897564939}
   - component: {fileID: 33787053944315202}
   - component: {fileID: 7064261260813940193}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TorpedoTubeWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +642,7 @@ GameObject:
   - component: {fileID: 1179936390546786516}
   - component: {fileID: 2006358094370171346}
   - component: {fileID: 7806629880841978485}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBarrelAnimated1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2730931661666969876}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -709,7 +755,7 @@ GameObject:
   - component: {fileID: 100759688768266235}
   - component: {fileID: 5689724198633460432}
   - component: {fileID: 5725685190705819530}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBarrelAnimated1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +833,7 @@ GameObject:
   - component: {fileID: 6194056339324443020}
   - component: {fileID: 7634574291136870071}
   - component: {fileID: 4804349453463222143}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,7 +875,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -865,7 +911,7 @@ GameObject:
   - component: {fileID: 4625469548328905472}
   - component: {fileID: 2995756755901433456}
   - component: {fileID: 8344106312406074089}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LettowVorbeckClassAFrigateHullWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +957,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -945,7 +991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4666115178094670467}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LettowVorbeckClassAFrigateWhiteL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +1024,7 @@ GameObject:
   - component: {fileID: 6144209176833385691}
   - component: {fileID: 4691313486966467554}
   - component: {fileID: 3565178900284463642}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBarrelAnimated2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1020,7 +1066,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -1056,7 +1102,7 @@ GameObject:
   - component: {fileID: 5124997561848150039}
   - component: {fileID: 7089289023025138175}
   - component: {fileID: 9036967019908152613}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1134,7 +1180,7 @@ GameObject:
   - component: {fileID: 4875686314798177630}
   - component: {fileID: 565546429853725432}
   - component: {fileID: 5447138734436947537}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBarrelAnimated2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1257,7 @@ GameObject:
   - component: {fileID: 4462317260840269444}
   - component: {fileID: 4885049754337174033}
   - component: {fileID: 4788776934986196956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttachementSmall2RightGrey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1252,7 +1298,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -1286,7 +1332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6760417070174989234}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LettowVorbeckClassAFrigateWhiteR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1319,7 +1365,7 @@ GameObject:
   - component: {fileID: 2471040798103605845}
   - component: {fileID: 7287272136682184649}
   - component: {fileID: 7314019128276438906}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBarrelAnimated2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1396,7 +1442,7 @@ GameObject:
   - component: {fileID: 5118695768824802147}
   - component: {fileID: 1237363654394108521}
   - component: {fileID: 1995928278861370839}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1474,7 +1520,7 @@ GameObject:
   - component: {fileID: 3055730385995311633}
   - component: {fileID: 4528412361886973264}
   - component: {fileID: 1861461584890577659}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel1White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1551,7 +1597,7 @@ GameObject:
   - component: {fileID: 924658707738332776}
   - component: {fileID: 5751841351744789780}
   - component: {fileID: 4266798212207061790}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttachementSmall2LeftGrey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1592,7 +1638,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -1628,7 +1674,7 @@ GameObject:
   - component: {fileID: 6516891099504934881}
   - component: {fileID: 5215555526799853371}
   - component: {fileID: 1061617221330789245}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hull4White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1643,11 +1689,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4871576258517867924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.09200003, z: -0.0012000263}
-  m_LocalScale: {x: 1.2000011, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.12, z: 0}
+  m_LocalScale: {x: 1.2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7033721415200065922}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5215555526799853371
 MeshFilter:
@@ -1669,7 +1715,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -1705,7 +1751,7 @@ GameObject:
   - component: {fileID: 7812389648960034979}
   - component: {fileID: 3549942994314777501}
   - component: {fileID: 8659604173839819067}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LettowVorbeckClassAFrigateHullWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1751,7 +1797,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -1787,7 +1833,7 @@ GameObject:
   - component: {fileID: 5981474224951072908}
   - component: {fileID: 2452511072614896908}
   - component: {fileID: 6527514469842323829}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel1White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1863,7 +1909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8249486598820479741}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1894,7 +1940,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7033721415200065922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1913,7 +1959,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400022}
-  - {fileID: 400020}
   - {fileID: 6516891099504934881}
   m_Father: {fileID: 2730931661666969876}
   m_RootOrder: 0
@@ -1927,7 +1972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1278203729678038765}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1960,7 +2005,7 @@ GameObject:
   - component: {fileID: 8474660942474620595}
   - component: {fileID: 6242057761761685014}
   - component: {fileID: 8076753227389938371}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel1White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2035,7 +2080,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 618556789853471107}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2069,7 +2114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3258065114507138636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePosition1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2099,7 +2144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2454971062817819085}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2130,7 +2175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6198974166331824447}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePosition3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2162,7 +2207,7 @@ GameObject:
   - component: {fileID: 2931338110839329182}
   - component: {fileID: 7266992116405088969}
   - component: {fileID: 4194908585427632539}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretBarrelAnimated1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2177,7 +2222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7251838791670946200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05817601, z: 0.01039468}
+  m_LocalPosition: {x: 0, y: 0.06, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6144209176833385691}
@@ -2204,7 +2249,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -2238,7 +2283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8962546894195927483}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2269,7 +2314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2775689256702845394}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePosition2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2301,7 +2346,7 @@ GameObject:
   - component: {fileID: 4078550813884417291}
   - component: {fileID: 8468421886434570567}
   - component: {fileID: 8835974002806240143}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel1White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2377,7 +2422,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6894379770982909273}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrigateHeavyTurretWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2410,7 +2455,7 @@ GameObject:
   - component: {fileID: 72968321718383042}
   - component: {fileID: 4354797202145738144}
   - component: {fileID: 1601972369131324677}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TorpedoTubeWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

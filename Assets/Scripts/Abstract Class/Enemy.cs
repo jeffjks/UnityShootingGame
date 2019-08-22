@@ -398,7 +398,9 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     }
 
     public void AttackableTimer() {
-        StartCoroutine(SetAttackable());
+        if (m_Class != EnemyClass.Zako) {
+            StartCoroutine(SetAttackable());
+        }
     }
 
     private IEnumerator SetAttackable() { // 무적 해제 이펙트
@@ -566,11 +568,13 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
     void OnDestroy() { // 최종 파괴 (자연사도 작동)
         DOTween.Kill(transform);
-        if (m_Class == EnemyClass.Boss) {
-            m_SystemManager.StartCoroutine("StageClear");
-        }
-        else if (m_Class == EnemyClass.MiddleBoss) {
-            m_SystemManager.MiddleBossClear();
+        if (m_SystemManager != null) {
+            if (m_Class == EnemyClass.Boss) {
+                m_SystemManager.StartCoroutine("StageClear");
+            }
+            else if (m_Class == EnemyClass.MiddleBoss) {
+                m_SystemManager.MiddleBossClear();
+            }
         }
     }
 

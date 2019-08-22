@@ -32,8 +32,8 @@ public class StageManager : MonoBehaviour
 
         SetBackgroundSpeed(0f);
         StartCoroutine(MainTimeLine());
-        StartCoroutine(EnemyTimeLine());
-        //StartCoroutine(TestTimeLine()); // Test
+        //StartCoroutine(EnemyTimeLine());
+        StartCoroutine(TestTimeLine()); // Test
     }
 
     private IEnumerator MainTimeLine()
@@ -47,7 +47,7 @@ public class StageManager : MonoBehaviour
 
         yield return new WaitForSeconds(36f);
         StartCoroutine(SetBackgroundSpeedSoftly(-0.045f, 0.02f));
-        StartCoroutine(MiddleBossStart(0, 1f, 2f)); // Middle Boss
+        StartCoroutine(MiddleBossStart(new Vector3(12f, -13f, Depth.ENEMY), 1f)); // Middle Boss
 
         yield return new WaitForSeconds(55f);
         StartCoroutine(FadeOutMusic());
@@ -56,7 +56,7 @@ public class StageManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         StartCoroutine(SetBackgroundSpeedSoftly(-0.12f, 0.08f));
         m_AudioBoss.Play();
-        StartCoroutine(BossStart(2f));
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 2f));
         yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(0f);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
@@ -65,7 +65,8 @@ public class StageManager : MonoBehaviour
 
     private IEnumerator TestTimeLine()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 2f));
 
         yield return null;
     }
@@ -181,11 +182,10 @@ public class StageManager : MonoBehaviour
     }
 
 
-    private IEnumerator MiddleBossStart(byte number, float delay, float attackable = 0f) // attackable 후 attackable 활성화, delay 후 체력바 활성화
+    private IEnumerator MiddleBossStart(Vector3 pos, float delay, byte number = 0) // delay 후 체력바 활성화, number = 중간보스 번호
     {
         GameObject middle_boss;
-        Vector3 pos = new Vector3(12f, -13f, Depth.ENEMY);
-        middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos, attackable);
+        middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
         EnemyMiddleBoss1 enemy_unit = middle_boss.GetComponent<EnemyMiddleBoss1>();
         m_BossHealthBar.m_EnemyUnitBoss = enemy_unit;
 
@@ -195,12 +195,12 @@ public class StageManager : MonoBehaviour
     }
 
 
-    private IEnumerator BossStart(float delay, float timer = 0f)
+    private IEnumerator BossStart(Vector3 pos, float delay) // delay 후 체력바 활성화
     {
         GameObject boss;
-        Vector3 pos = new Vector3(0f, 4f, Depth.ENEMY);
-        boss = CreateEnemy(m_BossUnit, pos, timer);
+        boss = CreateEnemy(m_BossUnit, pos);
         m_BossHealthBar.m_EnemyUnitBoss = boss.GetComponent<EnemyUnit>();
+
         yield return new WaitForSeconds(delay);
         m_SystemManager.m_PlayState = 1;
         yield break;

@@ -16,6 +16,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
     void Start()
     {
         float time_limit = 19f;
+        DisableAttackable(m_AppearanceTime);
 
         m_UpdateTransform = false;
         m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);

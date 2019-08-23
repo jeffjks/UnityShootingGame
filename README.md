@@ -23,47 +23,46 @@
 ## 사용한 에셋
 
 * 모델링
-   * MSGDI
-   * Spaceship+Fighter+Set of...+
-   * Space Missiles
+   * Ballistic Turret
    * EnergyShieldEffect
-   * Low poly combat drone
-   * Powerup Crate
-   * Simple Gems Ultimate Animated Customizable Pack
    * Futuristic Aircrafts
    * Free SF Fighter
+   * Hyper Falcon Modular Spaceship
+   * Low poly combat drone
    * Military Helicopter
+   * MSGDI
+   * Powerup Crate
    * Scifi RTS Series Mega Pack I
    * Scifi RTS Series Mega Pack II
+   * Simple Gems Ultimate Animated Customizable Pack
    * Simple Sci-Fi Turret
-   * Ballistic Turret
-   * Hyper Falcon Modular Spaceship
+   * Spaceship+Fighter+Set of...+
+   * Space Missiles
    * Spaceships Fleet III Mega Pack I
 
 * 스프라이트
-   * Sci Fi UI Pack
    * 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
+   * Sci Fi UI Pack
 
 * 이펙트
    * Effect textures and prefabs
-   * Shockwave Effects
    * Quality Explosion SpriteKit
+   * Shockwave Effects
    * Waf FX
 
 * 사운드
+   * CAVE Interactive CO. LTD (Ketsui)
    * Fantasy Menu SFX
-   * CAVE Interactive CO.
-   * LTD (Ketsui)
    * Fantasy Menu SFX
 
 * 지형
-   * Standard Asset
+   * City Highways Construction Kit
+   * City Street Props
    * Grass And Flowers Pack 1
    * Race Tracks
-   * Windridge City
    * Seamless Textures
-   * City Street Props
-   * City Highways Construction Kit
+   * Standard Asset
+   * Windridge City
    * World Space Trees (FREE)
 
 * 기타

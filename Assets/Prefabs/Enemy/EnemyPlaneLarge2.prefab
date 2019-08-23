@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Health: 500
   m_Class: 0
   m_Score: 3000
+  m_Debris: 0
   m_DefaultExplosion: 6
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 0500000009000000
@@ -181,7 +182,14 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 5766523831904473403}
+  m_ShareHealth: 0
+  m_ChildEnemies:
+  - {fileID: 5806556476550940412}
+  - {fileID: 2522807402604534119}
+  - {fileID: 4118018873638344858}
+  - {fileID: 2621970015258479841}
+  m_Collider2D:
+  - {fileID: 5766523831904473403}
   m_MaxHealth: 0
   m_IsDead: 0
   m_Turret:
@@ -1107,6 +1115,7 @@ MonoBehaviour:
   m_Health: 150
   m_Class: 0
   m_Score: 250
+  m_Debris: 0
   m_DefaultExplosion: 8
   m_DefaultAudioClip: {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   m_Explosion: 
@@ -1114,7 +1123,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 2059762339551745271}
-  m_Collider2D: {fileID: 3495380941641939846}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 3495380941641939846}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:
@@ -1257,6 +1269,7 @@ MonoBehaviour:
   m_Health: 150
   m_Class: 0
   m_Score: 250
+  m_Debris: 0
   m_DefaultExplosion: 8
   m_DefaultAudioClip: {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   m_Explosion: 
@@ -1264,7 +1277,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 2059762339551745271}
-  m_Collider2D: {fileID: 1514228029162342736}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 1514228029162342736}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:
@@ -1342,6 +1358,7 @@ MonoBehaviour:
   m_Health: 150
   m_Class: 0
   m_Score: 250
+  m_Debris: 0
   m_DefaultExplosion: 4
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   m_Explosion: 
@@ -1349,7 +1366,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 2059762339551745271}
-  m_Collider2D: {fileID: 5672886455168811591}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 5672886455168811591}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:
@@ -1583,6 +1603,7 @@ MonoBehaviour:
   m_Health: 150
   m_Class: 0
   m_Score: 250
+  m_Debris: 0
   m_DefaultExplosion: 4
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   m_Explosion: 
@@ -1590,7 +1611,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 2059762339551745271}
-  m_Collider2D: {fileID: 1945945409773412059}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 1945945409773412059}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:

@@ -17,6 +17,8 @@ TagManager:
   - EnemyBulletParent
   - PlayerShot
   - Debris
+  - PlayerLaser
+  - PlayerLaserAura
   layers:
   - Default
   - TransparentFX

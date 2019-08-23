@@ -6,6 +6,7 @@ public class StageManager : MonoBehaviour
 {
 
     public GameObject m_TankSmall_1, m_TankSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeli_1, m_ShipSmall_1, m_PlaneMedium_1, m_PlaneMedium_3;
+    public GameObject m_Test;
     [Space(10)]
     [SerializeField] private GameObject[] m_EnemyPreloaded = new GameObject[3];
     [Space(10)]
@@ -66,6 +67,7 @@ public class StageManager : MonoBehaviour
     private IEnumerator TestTimeLine()
     {
         yield return new WaitForSeconds(1f);
+        //CreateEnemy(m_Test, new Vector2(2f, 4.5f)); // plane large 2
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 2f));
 
         yield return null;

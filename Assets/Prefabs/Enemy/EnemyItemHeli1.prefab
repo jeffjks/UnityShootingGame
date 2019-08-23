@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 6127219370126686149}
   - component: {fileID: 3464091935021092665}
   m_Layer: 10
-  m_Name: EnemyItemHeli
+  m_Name: EnemyItemHeli1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,10 +410,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 200
-  m_IsAir: 1
-  m_IsLarge: 1
   m_Class: 0
   m_Score: 300
+  m_Debris: 0
   m_DefaultExplosion: 4
   m_DefaultAudioClip: {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   m_Explosion: 
@@ -421,7 +420,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 100002, guid: 0efd0b8541a08014da3e8dab76e4eac2, type: 3}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 7987449607515456430}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 7987449607515456430}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:

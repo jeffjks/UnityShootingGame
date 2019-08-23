@@ -420,7 +420,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 100002, guid: 0c16c65c625a7de4b9d7f5ef58e52c65, type: 3}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 7987449607515456430}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 7987449607515456430}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:

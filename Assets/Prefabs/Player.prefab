@@ -10422,7 +10422,7 @@ GameObject:
   - component: {fileID: 4701711719303813620}
   m_Layer: 17
   m_Name: Fire
-  m_TagString: Untagged
+  m_TagString: PlayerLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34615,7 +34615,7 @@ GameObject:
   - component: {fileID: 4001119468438000080}
   m_Layer: 17
   m_Name: LaserShooter
-  m_TagString: Untagged
+  m_TagString: PlayerLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35138,7 +35138,7 @@ GameObject:
   - component: {fileID: 1352362481112320761}
   m_Layer: 17
   m_Name: Fire
-  m_TagString: Untagged
+  m_TagString: PlayerLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93095,7 +93095,7 @@ GameObject:
   - component: {fileID: 4859825019581901895}
   m_Layer: 17
   m_Name: Fire
-  m_TagString: Untagged
+  m_TagString: PlayerLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

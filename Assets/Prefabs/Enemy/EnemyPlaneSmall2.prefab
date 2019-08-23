@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Health: 8
   m_Class: 0
   m_Score: 125
+  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
@@ -135,7 +136,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 5774063208189514127}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:

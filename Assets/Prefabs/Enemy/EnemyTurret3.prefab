@@ -389,7 +389,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 4
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 8455782903374224084}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 8455782903374224084}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &493884270525782264
@@ -537,7 +540,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 4
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition:

@@ -207,14 +207,14 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
 public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외)
 {
-    public enum Debris
+    private enum Debris
     {
         None,
         Small,
         Large,
     };
 
-    public enum Explosion
+    private enum Explosion
     {
         None,
         ExplosionG_1,
@@ -243,14 +243,18 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     [SerializeField] private GameObject m_ItemBox = null;
     [SerializeField] private byte m_GemNumber = 0;
     [Space(10)]
-    public EnemyUnit m_ParentEnemy = null;
-    public Collider2D m_Collider2D = null; // 지상 적 콜라이더 보정 및 충돌 체크
+    public EnemyUnit m_ParentEnemy;
+    public bool m_ShareHealth;
+    public EnemyUnit[] m_ChildEnemies;
+    public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
 
     protected Material[] m_Materials;
+    protected Material[] m_MaterialsAll;
     protected Sequence m_Sequence = null;
     protected float m_CurrentAngle = 0f; // 현재 회전 각도
     protected bool m_IsAttackable = true;
     protected bool m_UpdateTransform = true;
+    protected int m_CollisionLaserCount = 0;
     
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
@@ -269,6 +273,25 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         m_DefaultAxis = -transform.transform.up;
         m_DefaultQuaternion = transform.localRotation;
 
+        if (m_ParentEnemy == null) { // 무적 해제 이벤트 용 (전체 Materials)
+            MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
+            m_MaterialsAll = new Material[meshRenderers.Length];
+            m_DefaultAlbedo = new Color[meshRenderers.Length];
+            for (int i = 0; i < meshRenderers.Length; i++) {
+                m_MaterialsAll[i] = meshRenderers[i].material;
+                m_DefaultAlbedo[i] = meshRenderers[i].material.color;
+            }
+        }
+        else {
+            m_MaterialsAll = new Material[0];
+        }
+
+        for (int i = 0; i < m_ChildEnemies.Length; i++) {
+            if (m_ChildEnemies[i].m_Collider2D.Length != 0) {
+                m_ChildEnemies[i].gameObject.SetActive(false);
+            }
+        }
+
         try {
             MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
             m_Materials = new Material[meshRenderers.Length];
@@ -281,6 +304,12 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         catch (System.NullReferenceException) {
             m_Materials = new Material[0];
         }
+
+        for (int i = 0; i < m_ChildEnemies.Length; i++) {
+            m_ChildEnemies[i].gameObject.SetActive(true);
+        }
+
+
         m_MaxHealth = m_Health;
     }
 
@@ -379,19 +408,21 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
 
     public void EnableAttackable() {
-        if (m_Collider2D == null)
+        if (m_Collider2D.Length == 0)
             return;
         m_IsAttackable = true;
-        m_Collider2D.enabled = true;
+        for (int i = 0; i < m_Collider2D.Length; i++)
+            m_Collider2D[i].enabled = true;
     }
 
     public void DisableAttackable(float timer = 0f) { // timer초간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
-        if (m_Collider2D == null)
+        if (m_Collider2D.Length == 0)
             return;
         if (timer == 0)
             return;
         m_IsAttackable = false;
-        m_Collider2D.enabled = false;
+        for (int i = 0; i < m_Collider2D.Length; i++)
+            m_Collider2D[i].enabled = false;
         
         if (timer != -1)
             Invoke("AttackableTimer", timer);
@@ -408,9 +439,9 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         byte color = 210; // white
         while(color > 0f) {
             color -= 10;
-            for (int i = 0; i < m_Materials.Length; i++) {
-                m_Materials[i].SetColor("_EmissionColor", new Color32(color, color, color, 255));
-                m_Materials[i].EnableKeyword("_EMISSION");
+            for (int i = 0; i < m_MaterialsAll.Length; i++) {
+                m_MaterialsAll[i].SetColor("_EmissionColor", new Color32(color, color, color, 255));
+                m_MaterialsAll[i].EnableKeyword("_EMISSION");
             }
             yield return null;
         }
@@ -453,9 +484,9 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             m_Position2D = transform.position;
         else {
             m_Position2D = GetScreenPosition(transform.position);
-            if (m_Collider2D != null) {
-                m_Collider2D.transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
-                m_Collider2D.transform.position = m_Position2D;
+            for (int i = 0; i < m_Collider2D.Length; i++) {
+                m_Collider2D[i].transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+                m_Collider2D[i].transform.position = m_Position2D;
             }
         }
 
@@ -464,6 +495,12 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     public void TakeDamage(float amount)
     {
         if (m_IsAttackable) {
+            if (m_ShareHealth) {
+                if (m_ParentEnemy.m_CollisionLaserCount == 0)
+                    m_ParentEnemy.m_Health -= amount;
+                else if (m_ParentEnemy.m_CollisionLaserCount == 1)
+                    m_ParentEnemy.m_Health -= amount;
+            }
             m_Health -= amount;
 
             if (!m_IsDead) {
@@ -546,11 +583,13 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             }
         }
         
-        if (m_Class == EnemyClass.Boss) {
-            m_SystemManager.BossClear();
-        }
-        else if (m_Class == EnemyClass.MiddleBoss) {
-            m_SystemManager.MiddleBossClear();
+        if (m_ParentEnemy == null) { // PlayState, 음악 정지, 무적 시간 등
+            if (m_Class == EnemyClass.Boss) {
+                m_SystemManager.BossClear();
+            }
+            else if (m_Class == EnemyClass.MiddleBoss) {
+                m_SystemManager.MiddleBossClear();
+            }
         }
         DOTween.Kill(transform);
         DisableAttackable(-1f);
@@ -568,28 +607,31 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
     void OnDestroy() { // 최종 파괴 (자연사도 작동)
         DOTween.Kill(transform);
-        if (m_SystemManager != null) {
-            if (m_Class == EnemyClass.Boss) {
-                m_SystemManager.StartCoroutine("StageClear");
-            }
-            else if (m_Class == EnemyClass.MiddleBoss) {
-                m_SystemManager.MiddleBossClear();
-            }
+        if (m_SystemManager == null)
+            return;
+        else if (m_ParentEnemy != null)
+            return;
+
+        if (m_Class == EnemyClass.Boss) {
+            m_SystemManager.StartCoroutine("StageClear");
+        }
+        else if (m_Class == EnemyClass.MiddleBoss) {
+            m_SystemManager.MiddleBossClear();
         }
     }
 
 
     protected void ImageBlend(Color target_color) {
-        if (m_ParentEnemy != null)
-            return;
+        //if (m_ParentEnemy != null)
+        //    return;
         for (int i = 0; i < m_Materials.Length; i++) {
             m_Materials[i].color = target_color;
         }
     }
 
     protected void ImageBlend(Color[] target_color) { // Overload
-        if (m_ParentEnemy != null)
-            return;
+        //if (m_ParentEnemy != null)
+        //    return;
         for (int i = 0; i < m_Materials.Length; i++) {
             m_Materials[i].color = target_color[i];
         }
@@ -655,19 +697,18 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return null;
         }
     }
-    
 
-
-    private void StopTimer() {
-        StartCoroutine(Stop());
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerLaser")) { // 대상이 레이저이면
+            m_CollisionLaserCount++;
+        }
     }
 
-    private IEnumerator Stop() {
-        while (m_MoveVector.speed > 0) {
-            m_MoveVector.speed -= 0.1f;
-            yield return null;
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerLaser")) { // 대상이 레이저이면
+            m_CollisionLaserCount--;
         }
-        m_MoveVector.speed = 0f;
-        yield break;
     }
 }

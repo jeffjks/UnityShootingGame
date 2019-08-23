@@ -45,7 +45,7 @@ public class EnemyBoss1 : EnemyUnit
         // m_Pattern1 = Pattern1(m_SystemManager.m_Difficulty);
         //StartCoroutine(m_Pattern1);
 
-        //Invoke("OnAppearanceComplete", m_AppearanceTime);
+        Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
     protected override void Update()
@@ -81,9 +81,12 @@ public class EnemyBoss1 : EnemyUnit
     }
 
     private void OnAppearanceComplete() {
-        float[] random_direction = { 70f, 110f, -70f, -110f };
-        m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 3 + 1)]);
-        m_UpdateTransform = true;
+        m_Sequence.Kill();
+        m_Sequence = DOTween.Sequence()
+        .Append(transform.DOMoveX(-1f, 2f).SetEase(Ease.Linear))
+        .Append(transform.DOMoveX(1f, 4f).SetEase(Ease.Linear))
+        .Append(transform.DOMoveX(0f, 2f).SetEase(Ease.Linear))
+        .SetLoops(-1, LoopType.Restart);
     }
 
 

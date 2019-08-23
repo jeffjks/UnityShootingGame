@@ -519,10 +519,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 50
-  m_IsAir: 1
-  m_IsLarge: 0
   m_Class: 0
   m_Score: 150
+  m_Debris: 0
   m_DefaultExplosion: 8
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
@@ -530,7 +529,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 3287350177743488085}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 3287350177743488085}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:

@@ -80,7 +80,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
-  m_Collider2D: {fileID: 7530292145792047302}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 7530292145792047302}
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition:
@@ -1170,7 +1173,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 2584976920722111438}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 2584976920722111438}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &2322565775998555043
@@ -1405,7 +1411,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 5549598710243160195}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 5549598710243160195}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &2322565775998555067
@@ -2086,7 +2095,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 8301701307625599181}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 5684359050705670321}
@@ -2381,7 +2392,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 1632029166667385801}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 8428805456461748912}
@@ -2801,7 +2814,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 3196711937077071633}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 8045332881984804941}
@@ -2978,7 +2993,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 782485757654861832}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 782485757654861832}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &4418592613851599877
@@ -3619,7 +3637,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 6620734080348137944}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 6620734080348137944}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &5631756929616188332
@@ -3677,7 +3698,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 9027605363290255020}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 7159419066801912129}
@@ -3740,7 +3763,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 7203049065426232769}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 3064629734270128876}
@@ -3857,7 +3882,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 7426759133943790757}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 7426759133943790757}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &6300869694629937862
@@ -4436,7 +4464,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 6427917142928611874}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 6427917142928611874}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &6534131235740254342
@@ -4697,7 +4728,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 1684498430852267478}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 4183970922750534229}
@@ -4807,7 +4840,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 901819169710789643}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 2045095297047164389}
@@ -4922,7 +4957,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 2951290784269847196}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 2951290784269847196}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &7374164287378832755
@@ -5317,7 +5355,9 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 3444866267482104060}
-  m_Collider2D: {fileID: 0}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 7984119759104757342}
@@ -5492,7 +5532,10 @@ MonoBehaviour:
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Collider2D: {fileID: 5366126447254452686}
+  m_ShareHealth: 0
+  m_ChildEnemies: []
+  m_Collider2D:
+  - {fileID: 5366126447254452686}
   m_MaxHealth: 0
   m_IsDead: 0
 --- !u!1 &8696809777875359945

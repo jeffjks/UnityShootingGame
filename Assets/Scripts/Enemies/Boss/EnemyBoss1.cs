@@ -5,10 +5,14 @@ using DG.Tweening;
 
 public class EnemyBoss1 : EnemyUnit
 {
+    public EnemyBoss1Turret0 m_Turret0;
+    public EnemyBoss1Turret1[] m_Turret1 = new EnemyBoss1Turret1[2];
+
+    [HideInInspector] public byte m_Phase = 0;
+
     private Vector3[] m_TargetPosition = new Vector3[2];
     private Quaternion[] m_TargetQuaternion = new Quaternion[2];
     private float m_AppearanceTime = 2f;
-    private byte m_Phase = 0;
 
     private IEnumerator m_Pattern1, m_Pattern2;
 
@@ -34,13 +38,6 @@ public class EnemyBoss1 : EnemyUnit
         .Append(transform.DOMoveX(0f, m_AppearanceTime*appearance_time_2).SetEase(Ease.InOutQuad))
         .Join(transform.DOMoveY(-4.5f, m_AppearanceTime*appearance_time_2).SetEase(Ease.OutQuad))
         .Join(transform.DORotateQuaternion(m_TargetQuaternion[1], m_AppearanceTime*appearance_time_2).SetEase(Ease.InQuad));
-        //.Append(DOTween.To(()=>transform.position, x=>transform.position = x, m_TargetPosition[1], 1.5f).SetEase(Ease.InQuad));
-        //.Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad))
-        /*
-        .Append(transform.DOMove(m_TargetPosition[0], m_AppearanceTime - 1.5f).SetEase(Ease.OutQuad))
-        .Join(transform.DORotateQuaternion(m_TargetQuaternion[0], m_AppearanceTime - 1.5f).SetEase(Ease.InQuad))
-        .Append(transform.DOMove(m_TargetPosition[0], m_AppearanceTime - 1.5f).SetEase(Ease.OutQuad))
-        .Join(transform.DORotateQuaternion(m_TargetQuaternion[0], m_AppearanceTime - 1.5f).SetEase(Ease.InQuad));*/
         
         // m_Pattern1 = Pattern1(m_SystemManager.m_Difficulty);
         //StartCoroutine(m_Pattern1);
@@ -52,28 +49,10 @@ public class EnemyBoss1 : EnemyUnit
     {
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
-                m_SystemManager.BulletsToGems(1f);
-                m_MoveVector.speed = 0f;
-                m_Phase = 1;
-                StopCoroutine(m_Pattern1);
+                // StopCoroutine(m_Pattern1);
                 // m_Pattern2 = Pattern2();
-                ExplosionEffect(2, -1, new Vector2(2f, 0f));
-                ExplosionEffect(2, 1, new Vector2(-2f, 0f));
-            }
-            
-            if (m_IsAttackable) {
-                if (transform.position.x >= m_TargetPosition[1].x + 2f) {
-                    m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
-                }
-                else if (transform.position.x <= m_TargetPosition[1].x - 2f) {
-                    m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.right));
-                }
-                else if (transform.position.y >= m_TargetPosition[1].y + 0.6f) {
-                    m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
-                }
-                else if (transform.position.y <= m_TargetPosition[1].y - 0.6f) {
-                    m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
-                }
+                m_ChildEnemies[0].OnDeath();
+                OnPhase1();
             }
         }
 
@@ -89,51 +68,67 @@ public class EnemyBoss1 : EnemyUnit
         .SetLoops(-1, LoopType.Restart);
     }
 
+    private void OnPhase1() {
+        m_Sequence.Kill();
+        m_Sequence = DOTween.Sequence()
+        .AppendInterval(1f)
+        .Append(transform.DOMove(new Vector3(Random.Range(0f, 2f), Random.Range(4.5f, 5.5f)), 1.5f).SetEase(Ease.InOutQuad))
+        .AppendInterval(1f)
+        .Append(transform.DOMove(new Vector3(Random.Range(-2f, 0f), Random.Range(4.5f, 5.5f)), 1.5f).SetEase(Ease.InOutQuad))
+        .SetLoops(-1, LoopType.Restart);
+        //.Join(transform.DORotateQuaternion(m_TargetQuaternion[0], m_AppearanceTime*appearance_time_1).SetEase(Ease.InOutQuad))
+    }
+
 
     
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         m_SystemManager.BulletsToGems(2f);
-        m_MoveVector = new MoveVector(1f, 0f);
+        m_MoveVector = new MoveVector(0.6f, 0f);
+        m_Turret0.OnDeath();
 
         yield return new WaitForSeconds(1.5f);
 
-        StartCoroutine(DeathExplosion1());
-        StartCoroutine(DeathExplosion2());
+        StartCoroutine(DeathExplosion1(2.8f));
+        StartCoroutine(DeathExplosion2(2.8f));
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3.5f);
         ExplosionEffect(2, 2); // 최종 파괴
-        ExplosionEffect(0, 0, new Vector2(3f, 0f));
-        ExplosionEffect(0, 0, new Vector2(-3f, 0f));
-        ExplosionEffect(0, 0, new Vector2(0f, 2f));
-        ExplosionEffect(0, 0, new Vector2(0f, -1.5f));
+        ExplosionEffect(1, -1, new Vector2(1.2f, 2.2f));
+        ExplosionEffect(1, -1, new Vector2(-1.2f, 2.2f));
+        ExplosionEffect(0, -1, new Vector2(2f, 0f));
+        ExplosionEffect(0, -1, new Vector2(-2f, 0f));
+        ExplosionEffect(1, -1, new Vector2(1.2f, -2.2f));
+        ExplosionEffect(1, -1, new Vector2(-1.2f, -2.2f));
         m_SystemManager.ScreenEffect(1);
         Destroy(gameObject);
         yield return null;
     }
 
-    private IEnumerator DeathExplosion1() {
-        float timer = 0f, random_timer = 0f;
+    private IEnumerator DeathExplosion1(float timer) {
+        float t = 0f, random_t = 0f;
         Vector2 random_pos;
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.2f, 0.5f);
-            random_pos = (Vector2) Random.insideUnitCircle * 3;
+        while (t < timer) {
+            random_t = Random.Range(0.35f, 0.5f);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
             ExplosionEffect(0, 0, random_pos);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
             ExplosionEffect(0, -1, random_pos);
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForSeconds(random_t);
         }
         yield return null;
     }
 
-    private IEnumerator DeathExplosion2() {
-        float timer = 0f, random_timer = 0f;
+    private IEnumerator DeathExplosion2(float timer) {
+        float t = 0f, random_t = 0f;
         Vector2 random_pos;
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.4f, 0.7f);
-            random_pos = (Vector2) Random.insideUnitCircle * 3;
+        while (t < timer) {
+            random_t = Random.Range(0.15f, 0.3f);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
             ExplosionEffect(1, 1, random_pos);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
             ExplosionEffect(1, -1, random_pos);
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForSeconds(random_t);
         }
         yield return null;
     }

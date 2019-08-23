@@ -181,10 +181,10 @@ public class EnemyMiddleBoss1 : EnemyUnit
 
         yield return new WaitForSeconds(1.6f);
         ExplosionEffect(2, 2); // 최종 파괴
-        ExplosionEffect(0, 0, new Vector2(3f, 0f));
-        ExplosionEffect(0, 0, new Vector2(-3f, 0f));
-        ExplosionEffect(0, 0, new Vector2(0f, 2f));
-        ExplosionEffect(0, 0, new Vector2(0f, -1.5f));
+        ExplosionEffect(0, -1, new Vector2(3f, 0f));
+        ExplosionEffect(0, -1, new Vector2(-3f, 0f));
+        ExplosionEffect(0, -1, new Vector2(0f, 2f));
+        ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         m_SystemManager.ScreenEffect(0);
         Destroy(gameObject);
         yield return null;
@@ -196,7 +196,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         while (timer < 1.5f) {
             random_timer = Random.Range(0.2f, 0.5f);
             random_pos = (Vector2) Random.insideUnitCircle * 2;
-            ExplosionEffect(0, 0, random_pos);
+            //ExplosionEffect(0, 0, random_pos);
             ExplosionEffect(0, -1, random_pos);
             yield return new WaitForSeconds(random_timer);
         }
@@ -209,7 +209,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         while (timer < 1.5f) {
             random_timer = Random.Range(0.4f, 0.7f);
             random_pos = (Vector2) Random.insideUnitCircle * 2;
-            ExplosionEffect(1, 1, random_pos);
+            //ExplosionEffect(1, 1, random_pos);
             ExplosionEffect(1, -1, random_pos);
             yield return new WaitForSeconds(random_timer);
         }

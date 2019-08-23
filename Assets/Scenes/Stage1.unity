@@ -3446,7 +3446,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -4113,7 +4113,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -5453,7 +5453,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -9707,7 +9707,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -10617,7 +10617,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14084,7 +14084,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14231,7 +14231,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14579,7 +14579,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14617,7 +14617,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14655,7 +14655,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:
@@ -14942,7 +14942,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
   m_Enemy:

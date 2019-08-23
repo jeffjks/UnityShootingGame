@@ -254,7 +254,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected float m_CurrentAngle = 0f; // 현재 회전 각도
     protected bool m_IsAttackable = true;
     protected bool m_UpdateTransform = true;
-    protected int m_CollisionLaserCount = 0;
+    protected bool m_CollisionLaser = false, m_CollisionLaserAura = false;
     
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
@@ -325,6 +325,8 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         else if (!m_IsDead) {
             ImageBlend(m_DefaultAlbedo);
         }
+        m_CollisionLaser = false;
+        m_CollisionLaserAura = false;
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         GetCoordinates();
     }
@@ -492,24 +494,38 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, byte laser_type = 0, bool blend = true)
     {
+        // laser type - 0: 일반 공격, 1: 레이저, 2: 레이저(Aura)
+        // blend - ImageBlend 실행 여부
         if (m_IsAttackable) {
             if (m_ShareHealth) {
-                if (m_ParentEnemy.m_CollisionLaserCount == 0)
-                    m_ParentEnemy.m_Health -= amount;
-                else if (m_ParentEnemy.m_CollisionLaserCount == 1)
-                    m_ParentEnemy.m_Health -= amount;
+                m_ParentEnemy.TakeDamage(amount, laser_type, false);
             }
+            if (laser_type == 1) {
+                if (m_CollisionLaser)
+                    return;
+                else
+                    m_CollisionLaser = true;
+            }
+            else if (laser_type == 2) {
+                if (m_CollisionLaserAura)
+                    return;
+                else
+                    m_CollisionLaserAura = true;
+            }
+
             m_Health -= amount;
 
             if (!m_IsDead) {
-                ImageBlend(m_DamagingAlbedo);
-                
-                m_TakingDamageTimer = 4f;
+                if (blend) {
+                    ImageBlend(m_DamagingAlbedo);
+                    m_TakingDamageTimer = 4f;
+                }
 
                 if (m_Health <= 0f) {
                     m_IsDead = true;
+                    KilledByPlayer();
                     OnDeath();
                 }
             }
@@ -546,38 +562,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             for (int i = 0; i < m_GemNumber; i++) {
                 obj[i] = m_PoolingManager.PopFromPool("ItemGemGround", 3);
             }
-            switch(m_GemNumber) {
-                case 1:
-                    obj[0].transform.position = transform.position;
-                    break;
-                case 2:
-                    obj[0].transform.position = transform.position + new Vector3(0f, 0f, 0.25f);
-                    obj[1].transform.position = transform.position + new Vector3(0f, 0f, -0.25f);
-                    break;
-                case 3:
-                    obj[0].transform.position = transform.position + new Vector3(0f, 0f, 0.25f);
-                    obj[1].transform.position = transform.position + new Vector3(-0.29f, 0f, -0.25f);
-                    obj[2].transform.position = transform.position + new Vector3(0.29f, 0f, -0.25f);
-                    break;
-                case 4:
-                    obj[0].transform.position = transform.position + new Vector3(-0.25f, 0f, 0.25f);
-                    obj[1].transform.position = transform.position + new Vector3(-0.25f, 0f, -0.25f);
-                    obj[2].transform.position = transform.position + new Vector3(0.25f, 0f, 0.25f);
-                    obj[3].transform.position = transform.position + new Vector3(0.25f, 0f, -0.25f);
-                    break;
-                case 5:
-                    obj[0].transform.position = transform.position + new Vector3(-0.3f, 0f, 0.3f);
-                    obj[1].transform.position = transform.position + new Vector3(-0.3f, 0f, -0.3f);
-                    obj[2].transform.position = transform.position;
-                    obj[3].transform.position = transform.position + new Vector3(0.3f, 0f, 0.3f);
-                    obj[4].transform.position = transform.position + new Vector3(0.3f, 0f, -0.3f);
-                    break;
-                default:
-                    for (int i = 0; i < m_GemNumber; i++) {
-                        obj[i].transform.position = transform.position + (Vector3) Random.insideUnitCircle;
-                    }
-                    break;
-            }
+            CreateGems(obj);
             for (int i = 0; i < m_GemNumber; i++) {
                 obj[i].SetActive(true);
             }
@@ -598,6 +583,10 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             m_Sequence.Kill();
         }
         StartCoroutine(AdditionalOnDeath());
+    }
+
+    protected virtual void KilledByPlayer() { // 플레이어가 죽인 경우
+        return;
     }
 
     protected virtual IEnumerator AdditionalOnDeath() { // 추가 폭발 이펙트 (기본값은 없음)
@@ -649,23 +638,24 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     }
 
     private GameObject DefatulExplosionEffect() {
-        if (m_DefaultExplosion == 0)
-            return null;
-        GameObject obj = m_PoolingManager.PopFromPool(m_DefaultExplosion.ToString(), PoolingParent.EXPLOSION);
+        GameObject obj = null;
+        if (m_DefaultExplosion != 0) {
+            obj = m_PoolingManager.PopFromPool(m_DefaultExplosion.ToString(), PoolingParent.EXPLOSION);
 
-        Vector3 explosion_pos;
+            Vector3 explosion_pos;
 
-        if ((1 << gameObject.layer & Layer.AIR) != 0) {
-            ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
-            explosion_effect.m_MoveVector = m_MoveVector;
-            explosion_pos = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
+            if ((1 << gameObject.layer & Layer.AIR) != 0) {
+                ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
+                explosion_effect.m_MoveVector = m_MoveVector;
+                explosion_pos = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
+            }
+            else
+                explosion_pos = transform.position;
+            
+            obj.transform.position = explosion_pos;
+
+            obj.SetActive(true);
         }
-        else
-            explosion_pos = transform.position;
-        
-        obj.transform.position = explosion_pos;
-
-        obj.SetActive(true);
         m_SystemManager.m_SoundManager.PlayAudio(m_DefaultAudioClip);
         return obj;
     }
@@ -698,17 +688,38 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("PlayerLaser")) { // 대상이 레이저이면
-            m_CollisionLaserCount++;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("PlayerLaser")) { // 대상이 레이저이면
-            m_CollisionLaserCount--;
+    private void CreateGems(GameObject[] obj) {
+        switch(m_GemNumber) {
+            case 1:
+                obj[0].transform.position = transform.position;
+                break;
+            case 2:
+                obj[0].transform.position = transform.position + new Vector3(0f, 0f, 0.25f);
+                obj[1].transform.position = transform.position + new Vector3(0f, 0f, -0.25f);
+                break;
+            case 3:
+                obj[0].transform.position = transform.position + new Vector3(0f, 0f, 0.25f);
+                obj[1].transform.position = transform.position + new Vector3(-0.29f, 0f, -0.25f);
+                obj[2].transform.position = transform.position + new Vector3(0.29f, 0f, -0.25f);
+                break;
+            case 4:
+                obj[0].transform.position = transform.position + new Vector3(-0.25f, 0f, 0.25f);
+                obj[1].transform.position = transform.position + new Vector3(-0.25f, 0f, -0.25f);
+                obj[2].transform.position = transform.position + new Vector3(0.25f, 0f, 0.25f);
+                obj[3].transform.position = transform.position + new Vector3(0.25f, 0f, -0.25f);
+                break;
+            case 5:
+                obj[0].transform.position = transform.position + new Vector3(-0.3f, 0f, 0.3f);
+                obj[1].transform.position = transform.position + new Vector3(-0.3f, 0f, -0.3f);
+                obj[2].transform.position = transform.position;
+                obj[3].transform.position = transform.position + new Vector3(0.3f, 0f, 0.3f);
+                obj[4].transform.position = transform.position + new Vector3(0.3f, 0f, -0.3f);
+                break;
+            default:
+                for (int i = 0; i < m_GemNumber; i++) {
+                    obj[i].transform.position = transform.position + (Vector3) Random.insideUnitCircle;
+                }
+                break;
         }
     }
 }

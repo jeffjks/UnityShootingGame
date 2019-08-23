@@ -29,7 +29,7 @@ public class PlayerLaser : PlayerDamageUnit {
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
                 if ((1 << other.gameObject.layer & Layer.LARGE) != 0) { // 대형이면
-                    enemyObject.TakeDamage(m_LaserDamage); // 데미지 줌
+                    enemyObject.TakeDamage(m_LaserDamage, 1); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
                     enemyObject.OnDeath();

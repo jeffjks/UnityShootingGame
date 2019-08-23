@@ -15,14 +15,12 @@
 
 * 제작자 : 강낭땅콩(jeff_jks@naver.com)
 
-* 제작 시작 : May 7th   * 2019 (유니티 학습 기간 포함)
+* 제작 시작 : May 7th, 2019 (유니티 학습 기간 포함)
 
 * 유니티 버전 : 2019.1.8f1
 
 
 ## 사용한 에셋
-
-### 에셋
 
 * 모델링
    * MSGDI
@@ -52,13 +50,13 @@
    * Quality Explosion SpriteKit
    * Waf FX
 
-사운드
+* 사운드
    * Fantasy Menu SFX
    * CAVE Interactive CO.
    * LTD (Ketsui)
    * Fantasy Menu SFX
 
-지형
+* 지형
    * Standard Asset
    * Grass And Flowers Pack 1
    * Race Tracks

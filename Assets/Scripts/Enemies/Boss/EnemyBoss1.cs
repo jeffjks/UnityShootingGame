@@ -46,7 +46,7 @@ public class EnemyBoss1 : EnemyUnit
     protected override void Update()
     {
         if (m_Phase == 0) {
-            if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
+            if (m_Health <= m_MaxHealth * 0.33f) { // 체력 33% 이하
                 ToPhase1();
                 m_ChildEnemies[0].OnDeath();
             }

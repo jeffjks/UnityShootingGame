@@ -51,7 +51,7 @@ public class PlayerHomingMissile : PlayerMissile {
                 continue;
 
             if (enemy.m_IsAttackable) {
-                Vector2 diff = target_temp.transform.position - transform.position;
+                Vector2 diff = enemy.m_Position2D - (Vector2) transform.position;
                 float curDistance = diff.sqrMagnitude;
                 if (curDistance < distance) {
                     target = target_temp;

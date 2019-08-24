@@ -74,6 +74,7 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_MissNumberText = null;
     [SerializeField] private Text m_WarningText = null;
     [SerializeField] private GameObject m_Transition = null;
+    [SerializeField] private AudioSource m_WarningAudio = null;
     [SerializeField] private OverviewHandler m_OverviewHandler = null;
 
     [HideInInspector] public StageManager m_StageManager;
@@ -240,7 +241,7 @@ public class SystemManager : MonoBehaviour
     }
 
     public IEnumerator StageClear() {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         m_PlayState = 3;
         m_PlayerManager.PlayerControlable = false;
         yield return new WaitForSeconds(2f);
@@ -319,8 +320,10 @@ public class SystemManager : MonoBehaviour
         }
     }
 
-    IEnumerator WarningText() {
+    public IEnumerator WarningText() {
         byte time = 0;
+        m_WarningAudio.Play();
+
         while (time < 10) {
             m_WarningText.CrossFadeAlpha(1f, 0.4f, true);
             time++;
@@ -370,10 +373,6 @@ public class SystemManager : MonoBehaviour
         if (m_BulletsEraseTimer < timer) {
             m_BulletsEraseTimer = timer;
         }
-    }
-
-    public void DamageToAll(float timer) {
-
     }
 
 

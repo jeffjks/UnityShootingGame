@@ -53,7 +53,7 @@ public class StageManager : MonoBehaviour
         yield return new WaitForSeconds(55f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
-        m_PlayerManager.StartCoroutine("WarningText");
+        m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(4f);
         StartCoroutine(SetBackgroundSpeedSoftly(-0.12f, 0.08f));
         m_AudioBoss.Play();

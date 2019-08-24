@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 public class OverviewHandler : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class OverviewHandler : MonoBehaviour
     [SerializeField] private GameObject m_TotalStageScore = null;
     [SerializeField] private GameObject m_Miss = null;
     [SerializeField] private GameObject m_FinalBonus = null;
+    [SerializeField] private SpriteRenderer m_OverviewBackground = null;
     
     private Text m_FinalBonusScoreText;
     private int m_DisplayTimer = 0;
@@ -93,6 +95,7 @@ public class OverviewHandler : MonoBehaviour
     }
 
     private void GoToNextDispalyStage() {
+        DOTween.Kill(m_OverviewBackground);
         m_DisplayTimer = 0;
         m_DisplayStage++;
     }
@@ -103,7 +106,7 @@ public class OverviewHandler : MonoBehaviour
         Text[] remains_score = m_RemainsScore.GetComponentsInChildren<Text>();
         Text[] total_stage_score = m_TotalStageScore.GetComponentsInChildren<Text>();
         Text[] miss = m_Miss.GetComponentsInChildren<Text>();
-
+        m_OverviewBackground.DOFade(0f, 1f);
         
         uint ground_gem_score = m_SystemManager.GemsGround * ItemScore.GEM_GROUND;
         uint air_gem_score = m_SystemManager.GemsAir * ItemScore.GEM_AIR;
@@ -156,6 +159,7 @@ public class OverviewHandler : MonoBehaviour
         m_DisplayStage = 0;
         m_BonusScale = 0;
         m_FinalBonusScore = 0;
+        m_OverviewBackground.color = new Color(1f, 1f, 1f, 0f);
         Init();
     }
 }

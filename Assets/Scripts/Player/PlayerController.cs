@@ -46,15 +46,15 @@ public class PlayerController : PlayerDamageUnit
 
         switch(m_PlayerManager.m_CurrentAttributes[1]) {
             case 0:
-                m_Speed = 6.4f;
+                m_Speed = 6f;
                 m_SlowSpeed = 4f;
                 break;
             case 1:
-                m_Speed = 7.25f;
+                m_Speed = 6.75f;
                 m_SlowSpeed = 4.2f;
                 break;
             case 2:
-                m_Speed = 8.1f;
+                m_Speed = 7.5f; // 8.1
                 m_SlowSpeed = 4.4f;
                 break;
             default:

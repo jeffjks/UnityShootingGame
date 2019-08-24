@@ -13,6 +13,12 @@ public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
     }
 }
 
+public static class BulletType
+{
+    public const byte NORMAL = 0; // 일반 총알
+    public const byte CREATE = 1; // n초후 다른 총알 생성
+    public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
+}
 
 public class EnemyBullet : Enemy
 {
@@ -85,18 +91,22 @@ public class EnemyBullet : Enemy
         SetSortingLayer();
 
         switch(m_Type) {
-            case 1: // n초후 다른 총알 생성
+            case BulletType.CREATE: // n초후 다른 총알 생성
                 if (m_SecondTimer > 0)
                     InvokeRepeating("CreateSubBullet", m_Timer, m_SecondTimer);
                 else
                     Invoke("CreateSubBullet", m_Timer);
                 break;
-            case 2: // n초후 다른 총알 생성 후 파괴
+            case BulletType.ERASE_AND_CREATE: // n초후 다른 총알 생성 후 파괴
                 Invoke("CreateSubBullet", m_Timer);
                 Invoke("OnDeath", m_Timer);
                 break;
             default:
                 break;
+        }
+
+        if (m_SystemManager.m_BulletsEraseTimer > 0f) {
+            OnDeath();
         }
 
         float targetValue = m_EnemyBulletAccel.targetValue;

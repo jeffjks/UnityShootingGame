@@ -176,8 +176,8 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector = new MoveVector(1f, 0f);
 
-        StartCoroutine(DeathExplosion1());
-        StartCoroutine(DeathExplosion2());
+        StartCoroutine(DeathExplosion1(1.5f));
+        StartCoroutine(DeathExplosion2(1.5f));
 
         yield return new WaitForSeconds(1.6f);
         ExplosionEffect(2, 2); // 최종 파괴
@@ -190,28 +190,32 @@ public class EnemyMiddleBoss1 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator DeathExplosion1() {
-        float timer = 0f, random_timer = 0f;
+    private IEnumerator DeathExplosion1(float timer) {
+        float t = 0f, t_add = 0f;
         Vector2 random_pos;
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.2f, 0.5f);
-            random_pos = (Vector2) Random.insideUnitCircle * 2;
-            //ExplosionEffect(0, 0, random_pos);
+        while (t < timer) {
+            t_add = Random.Range(0.2f, 0.5f);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
+            ExplosionEffect(0, 0, random_pos);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
             ExplosionEffect(0, -1, random_pos);
-            yield return new WaitForSeconds(random_timer);
+            t += t_add;
+            yield return new WaitForSeconds(t_add);
         }
         yield return null;
     }
 
-    private IEnumerator DeathExplosion2() {
-        float timer = 0f, random_timer = 0f;
+    private IEnumerator DeathExplosion2(float timer) {
+        float t = 0f, t_add = 0f;
         Vector2 random_pos;
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.4f, 0.7f);
-            random_pos = (Vector2) Random.insideUnitCircle * 2;
-            //ExplosionEffect(1, 1, random_pos);
+        while (t < timer) {
+            t_add = Random.Range(0.4f, 0.7f);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
+            ExplosionEffect(1, 1, random_pos);
+            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
             ExplosionEffect(1, -1, random_pos);
-            yield return new WaitForSeconds(random_timer);
+            t += t_add;
+            yield return new WaitForSeconds(t_add);
         }
         yield return null;
     }

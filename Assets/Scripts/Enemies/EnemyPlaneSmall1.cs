@@ -9,6 +9,7 @@ public class EnemyPlaneSmall1 : EnemyUnit
     [SerializeField] private Transform m_Rotator = null;
 
     private bool m_TargetPlayer = true;
+    private float m_Speed = 6.4f;
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class EnemyPlaneSmall1 : EnemyUnit
         InvokeRepeating("Pattern1", 0.8f, m_FireDelay[m_SystemManager.m_Difficulty]);
         RotateImmediately(m_PlayerPosition);
         float target_angle = GetAngleToTarget(m_Position2D, m_PlayerPosition);
-        m_MoveVector = new MoveVector(5.6f, target_angle);
+        m_MoveVector = new MoveVector(m_Speed, target_angle);
     }
 
     protected override void Update()

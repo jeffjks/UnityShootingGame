@@ -81,11 +81,9 @@ public class PlayerShooter : MonoBehaviour
         if (Time.timeScale == 0)
             return;
 
-        if (Input.GetButton("Fire1")) {
-            if (m_PlayerManager.PlayerControlable) {
-                if (m_ShotKeyPressTime < 10f) {
-                    m_ShotKeyPressTime += Time.deltaTime; // 버튼 누를시 m_ShotKeyPressTime 증가
-                }
+        if (Input.GetButton("Fire1") && m_PlayerManager.PlayerControlable) {
+            if (m_ShotKeyPressTime < 10f) {
+                m_ShotKeyPressTime += Time.deltaTime; // 버튼 누를시 m_ShotKeyPressTime 증가
             }
         }
         else {

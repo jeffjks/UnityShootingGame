@@ -57,11 +57,12 @@ public enum EnemyClass
 public abstract class Enemy : MonoBehaviour { // 총알
 
     public MoveVector m_MoveVector;
+    [HideInInspector] public Vector2 m_Position2D;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
-    protected Vector2 m_Position2D, m_PlayerPosition, m_BackgroundCameraSize;
+    protected Vector2 m_PlayerPosition, m_BackgroundCameraSize;
 
     private float m_SafeLine;
 
@@ -252,12 +253,12 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected Material[] m_MaterialsAll;
     protected Sequence m_Sequence = null;
     protected float m_CurrentAngle = 0f; // 현재 회전 각도
-    protected bool m_IsAttackable = true;
     protected bool m_UpdateTransform = true;
     protected bool m_CollisionLaser = false, m_CollisionLaserAura = false;
     
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
+    [HideInInspector] public bool m_IsAttackable = true;
 
     private float m_TakingDamageTimer = 0f;
     protected Color[] m_DefaultAlbedo;
@@ -273,7 +274,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         m_DefaultAxis = -transform.transform.up;
         m_DefaultQuaternion = transform.localRotation;
 
-        if (m_ParentEnemy == null) { // 무적 해제 이벤트 용 (전체 Materials)
+        if (m_ParentEnemy == null) { // 무적 해제, 사망 이펙트 용 (전체 Materials)
             MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
             m_MaterialsAll = new Material[meshRenderers.Length];
             m_DefaultAlbedo = new Color[meshRenderers.Length];
@@ -292,7 +293,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             }
         }
 
-        try {
+        if (m_Collider2D.Length > 0) {
             MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
             m_Materials = new Material[meshRenderers.Length];
             m_DefaultAlbedo = new Color[meshRenderers.Length];
@@ -301,7 +302,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
                 m_DefaultAlbedo[i] = meshRenderers[i].material.color;
             }
         }
-        catch (System.NullReferenceException) {
+        else {
             m_Materials = new Material[0];
         }
 
@@ -611,18 +612,16 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
 
     protected void ImageBlend(Color target_color) {
-        //if (m_ParentEnemy != null)
-        //    return;
         for (int i = 0; i < m_Materials.Length; i++) {
-            m_Materials[i].color = target_color;
+            if (m_Materials[i] != null)
+                m_Materials[i].color = target_color;
         }
     }
 
     protected void ImageBlend(Color[] target_color) { // Overload
-        //if (m_ParentEnemy != null)
-        //    return;
         for (int i = 0; i < m_Materials.Length; i++) {
-            m_Materials[i].color = target_color[i];
+            if (m_Materials[i] != null)
+                m_Materials[i].color = target_color[i];
         }
     }
 

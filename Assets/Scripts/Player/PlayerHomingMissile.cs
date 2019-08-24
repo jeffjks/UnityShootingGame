@@ -21,7 +21,7 @@ public class PlayerHomingMissile : PlayerMissile {
         if (m_Target == null)
             m_Target = FindClosestEnemy();
         
-        if (m_Target != null) {
+        else {
             Vector2 vec = (m_Target.transform.position - transform.position).normalized;
             transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
             m_Vector2 = transform.up * m_Speed;
@@ -33,13 +33,24 @@ public class PlayerHomingMissile : PlayerMissile {
     private GameObject FindClosestEnemy()
     {
         GameObject[] enemies;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject target = null;
+        Vector2 camera_pos = m_PlayerManager.m_MainCamera.transform.position;
         float distance = Mathf.Infinity;
+
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         foreach (GameObject target_temp in enemies) {
             EnemyUnit enemy = target_temp.GetComponentInParent<EnemyUnit>();
-            if (enemy.m_Collider2D != null) {
+            if (enemy.m_Position2D.x < camera_pos.x - Size.CAMERA_WIDTH*0.5f) // -6 (default)
+                continue;
+            else if (enemy.m_Position2D.x > camera_pos.x + Size.CAMERA_WIDTH*0.5f) // 6 (default)
+                continue;
+            else if (enemy.m_Position2D.y < camera_pos.y - Size.CAMERA_HEIGHT*0.5f) // -16
+                continue;
+            else if (enemy.m_Position2D.y > camera_pos.y + Size.CAMERA_HEIGHT*0.5f) // 0
+                continue;
+
+            if (enemy.m_IsAttackable) {
                 Vector2 diff = target_temp.transform.position - transform.position;
                 float curDistance = diff.sqrMagnitude;
                 if (curDistance < distance) {

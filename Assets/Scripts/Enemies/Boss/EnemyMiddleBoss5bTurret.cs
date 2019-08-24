@@ -35,16 +35,14 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         Vector3 pos;
         
         while(true) {
+            pos = m_FirePosition.position;
             if (m_SystemManager.m_Difficulty == 0) {
-                pos = m_FirePosition.position;
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 16f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
-                pos = m_FirePosition.position;
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 12f);
             }
             else {
-                pos = m_FirePosition.position;
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 12f);
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);

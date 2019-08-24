@@ -33,8 +33,8 @@ public class StageManager : MonoBehaviour
 
         SetBackgroundSpeed(0f);
         StartCoroutine(MainTimeLine());
-        //StartCoroutine(EnemyTimeLine());
-        StartCoroutine(TestTimeLine()); // Test
+        StartCoroutine(EnemyTimeLine());
+        //StartCoroutine(TestTimeLine()); // Test
     }
 
     private IEnumerator MainTimeLine()
@@ -57,7 +57,7 @@ public class StageManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         StartCoroutine(SetBackgroundSpeedSoftly(-0.12f, 0.08f));
         m_AudioBoss.Play();
-        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 2f));
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
         yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(0f);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
@@ -68,7 +68,7 @@ public class StageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         //CreateEnemy(m_Test, new Vector2(2f, 4.5f)); // plane large 2
-        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 2f));
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
 
         yield return null;
     }

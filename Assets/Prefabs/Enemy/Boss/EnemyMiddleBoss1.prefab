@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0304fe3ff90c0549a2149d5e4f2f0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 1000
   m_Class: 1
   m_Score: 7000
@@ -123,6 +124,7 @@ MonoBehaviour:
   - {fileID: 249530915590688650}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_Phase: 0
 --- !u!1 &1278176519813856
 GameObject:
@@ -149,14 +151,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278176519813856}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 4.57, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.55}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
   - {fileID: 4670490111964104}
   m_Father: {fileID: 5786706671073935468}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6767332435510479046
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -304,14 +306,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255523112096337132}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.432}
   m_Children:
   - {fileID: 4225467991558224153}
   m_Father: {fileID: 1666294648639295898}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &3418174634338234965
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -442,7 +444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3459466792628727691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1580997, y: 0, z: -0.25}
+  m_LocalPosition: {x: -3.1580997, y: 0.23, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 6105468507659351429}
@@ -461,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34a21ae95c070c4b97a11e85d23eb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -474,10 +477,10 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 5087952380757828139}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D:
-  - {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 3043764151725470927}
 --- !u!1 &4383482041012532249
 GameObject:
@@ -580,7 +583,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4645914307036803373}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -589,7 +592,7 @@ Transform:
   - {fileID: 4500595340916744}
   m_Father: {fileID: 4099828509215294}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &5661683864965097229
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,14 +618,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5661683864965097229}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.432}
   m_Children:
   - {fileID: 2277856919531366395}
   m_Father: {fileID: 1304863347695508149}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &7481653817409440057
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -693,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6042493767548043414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1581, y: 0, z: -0.25}
+  m_LocalPosition: {x: 3.1581, y: 0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 661043038904223000}
@@ -712,6 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34a21ae95c070c4b97a11e85d23eb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -725,10 +729,10 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 5087952380757828139}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D:
-  - {fileID: 0}
+  m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 6114288136030032698}
 --- !u!1 &7759709950132047256
 GameObject:

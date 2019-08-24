@@ -10,6 +10,7 @@ public class EnemyTurret1 : EnemyUnit
     protected override IEnumerator AdditionalOnDeath() { // 추가 폭발 이펙트 (기본값은 없음)
         Destroy(m_Collider);
         Destroy(m_Turret);
+        m_Collider2D = new Collider2D[0];
         ImageBlend(m_DefaultAlbedo);
         yield break;
     }

@@ -45,6 +45,9 @@ public abstract class Item : MonoBehaviour
         Vector2 modified_pos = new Vector2(
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
             screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y);
+        if (!m_IsAir) {
+            Debug.Log(screen_pos[1]*m_BackgroundCameraSize.y/Screen.height + ", " + m_BackgroundCameraSize.y);
+        }
         return modified_pos;
     }
 }

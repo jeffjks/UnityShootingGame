@@ -59,6 +59,11 @@ public class EnemyBoss1 : EnemyUnit
         m_Phase = 1;
         StopCoroutine(m_CurrentPattern);
         StopCoroutine(m_CurrentPhase);
+        m_Turret0.StopPattern();
+        m_Turret1[0].StopPattern();
+        m_Turret1[1].StopPattern();
+        m_Turret2[0].StopPattern();
+        m_Turret2[1].StopPattern();
         m_CurrentPhase = PatternPhase1();
         StartCoroutine(m_CurrentPhase);
         m_Sequence.Kill();
@@ -227,10 +232,10 @@ public class EnemyBoss1 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator Pattern3() {
+    private IEnumerator Pattern3() { // 청침탄 흩뿌리기
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float target_angle;
+        float target_angle1, target_angle2;
         float[] fire_delay = { 0.15f, 0.1f, 0.083f };
         float[] fire_number = { 20, 30, 36 };
         m_InPattern = true;
@@ -239,10 +244,11 @@ public class EnemyBoss1 : EnemyUnit
         for (int i = 0; i < fire_number[m_SystemManager.m_Difficulty]; i++) {
             pos1 = m_FirePosition[2].position;
             pos2 = m_FirePosition[3].position;
-            target_angle = GetAngleToTarget(transform.position, m_PlayerManager.m_Player.transform.position);
+            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.m_Player.transform.position);
+            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.m_Player.transform.position);
             
-            CreateBullet(4, pos1, 4.8f, target_angle + Random.Range(-40f, 40f), accel);
-            CreateBullet(4, pos2, 4.8f, target_angle + Random.Range(-40f, 40f), accel);
+            CreateBullet(4, pos1, 4.8f, target_angle1 + Random.Range(-52f, 52f), accel);
+            CreateBullet(4, pos2, 4.8f, target_angle2 + Random.Range(-52f, 52f), accel);
                 
             yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
         }

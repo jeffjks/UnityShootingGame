@@ -12,17 +12,24 @@ public class PlayerStart : MonoBehaviour
 
     private float m_Vspeed = 0f;
     private PlayerManager m_PlayerManager = null;
+    private SystemManager m_SystemManager = null;
 
     void Start()
     {
         m_PlayerManager = PlayerManager.instance_pm;
-        StartCoroutine(SpawnEvent());
+        m_SystemManager = SystemManager.instance_sm;
         m_PlayerController.DisableInvincible();
         SetAttributes();
+
+        if (m_SystemManager.m_DebugMod) {
+            EndOpening();
+            return;
+        }
+        StartCoroutine(SpawnEvent());
     }
 
     void Update() {
-        Move();
+        transform.Translate(Vector3.up * m_Vspeed * Time.deltaTime, Space.World);
     }
 
     private IEnumerator SpawnEvent() {
@@ -41,11 +48,7 @@ public class PlayerStart : MonoBehaviour
         m_PlayerController.EnableInvincible(m_PlayerController.m_ReviveInvincibleTime);
         m_PlayerManager.PlayerControlable = true;
         m_Vspeed = 0f;
-        GetComponent<PlayerStart>().enabled = false;
-    }
-
-    private void Move() {
-        transform.Translate(Vector3.up * m_Vspeed * Time.deltaTime, Space.World);
+        enabled = false;
     }
 
     void OnDestroy() {

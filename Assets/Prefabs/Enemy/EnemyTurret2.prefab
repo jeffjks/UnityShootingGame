@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e142797f051299448185354c4bc49e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 60
   m_Class: 0
   m_Score: 75
@@ -75,7 +76,7 @@ MonoBehaviour:
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
-  m_GemNumber: 1
+  m_GemNumber: 2
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
@@ -83,6 +84,7 @@ MonoBehaviour:
   - {fileID: 6192040104998937505}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918e1e41afccc5e4c996f4eb84159ab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 75
@@ -455,6 +458,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 8498697892288209725}
   m_FireDelay:
   - 1.25

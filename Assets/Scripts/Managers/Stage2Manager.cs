@@ -1,0 +1,130 @@
+﻿using UnityEngine;
+using System.Collections;
+using DG.Tweening;
+
+public class Stage2Manager : StageManager
+{
+    [Space(10)]
+    public GameObject m_TankSmall_1, m_TankSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeli_1, m_ShipSmall_1, m_PlaneMedium_1, m_PlaneMedium_3;
+
+    private const float WATER_HEIGHT = 2.32f;
+
+    protected override IEnumerator MainTimeLine()
+    {
+        yield return new WaitForSeconds(1f);
+        InitEnemies();
+        SetBackgroundSpeed(0.016f);
+
+        yield return new WaitForSeconds(70f);
+        SetBackgroundSpeed(new Vector3(0.02f, 0f, 0.01f), 0.75f);
+        
+        yield return new WaitForSeconds(15f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0.016f), 0.75f);
+
+        yield return new WaitForSeconds(55f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.StartCoroutine("WarningText");
+        yield return new WaitForSeconds(4f);
+        SetBackgroundSpeed(0.12f, 0.9375f);
+        m_AudioBoss.Play();
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
+        yield return new WaitForSeconds(2f);
+        SetBackgroundSpeed(0f);
+        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
+        yield return null;
+    }
+
+    protected override IEnumerator TestTimeLine()
+    {
+        yield return null;
+    }
+
+    protected override IEnumerator EnemyTimeLine()
+    {
+        yield return new WaitForSeconds(9f);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-3f, -3f), Random.Range(1.2f, 1.5f));
+        yield return new WaitForSeconds(2f);
+        if (m_SystemManager.m_Difficulty >= 1)
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 3f), new Vector2(1f, -3f), Random.Range(1.2f, 1.5f));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(5f, 3f), new Vector2(4f, -4f), Random.Range(1.2f, 1.5f));
+        yield return new WaitForSeconds(2f);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), Random.Range(1.2f, 1.5f));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(1f, -4f), Random.Range(1.2f, 1.5f));
+        yield return new WaitForSeconds(1f);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 3f), new Vector2(5f, -5f), Random.Range(1.2f, 1.5f));
+        yield return new WaitForSeconds(0.5f);
+        if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT) {
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(3f, 3f), new Vector2(2f, -1.5f), Random.Range(1.2f, 1.5f));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(6f, 3f), new Vector2(6f, -3f), Random.Range(1.2f, 1.5f));
+        }
+        yield return new WaitForSeconds(1.5f);
+        CreateEnemy(m_ItemHeli_1, new Vector2(-1f, 3f)); // Item Heli
+        yield return new WaitForSeconds(3f);
+        CreateEnemy(m_PlaneSmall_1, new Vector2(3f, 3f));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(6f, 3f));
+        yield return new WaitForSeconds(0.5f);
+        if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT) {
+            CreateEnemy(m_PlaneSmall_1, new Vector2(4f, 3f));
+            CreateEnemy(m_PlaneSmall_1, new Vector2(7f, 3f));
+        }
+        yield return new WaitForSeconds(1.5f);
+
+        if (m_SystemManager.m_Difficulty >= Difficulty.HELL) { // 3 small ship
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 147.5f), new MoveVector(4f, 70f), 3.2f);
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 150.44f), new MoveVector(4f, 70f), 3.2f);
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 148.93f), new MoveVector(4f, 70f), 3.2f);
+        }
+        yield return new WaitForSeconds(8f);
+        if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT)
+            CreateEnemy(m_PlaneMedium_3, new Vector2(-1f, 3f));
+        yield return new WaitForSeconds(3f);
+        CreateEnemy(m_PlaneMedium_3, new Vector2(-3f, 3f));
+        yield return new WaitForSeconds(3f);
+        CreateEnemy(m_PlaneMedium_1, new Vector2(2f, 3f));
+        yield return new WaitForSeconds(10f); // Middle Boss ==========================
+
+        for (int i = 0; i < 10; i++) {
+            if (m_SystemManager.m_PlayState == 0) {
+                CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -1f), 3f));
+                CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 5f), 3f));
+            }
+            yield return new WaitForSeconds(1f);
+        }
+
+        if (m_SystemManager.m_PlayState == 0) {
+            CreateEnemy(m_PlaneMedium_3, new Vector2(-4f, 3f));
+            if (m_SystemManager.m_Difficulty >= Difficulty.HELL)
+                CreateEnemy(m_PlaneMedium_3, new Vector2(4f, 3f));
+        }
+        yield return new WaitForSeconds(2f);
+        if (m_SystemManager.m_PlayState == 0) {
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -3f), Random.Range(1.2f, 1.5f));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), Random.Range(1.2f, 1.5f));
+        }
+        yield return new WaitForSeconds(1.5f);
+        if (m_SystemManager.m_PlayState == 0) {
+            CreateEnemy(m_PlaneMedium_3, new Vector2(0f, 3f));
+        }
+        yield return new WaitForSeconds(1.5f);
+        if (m_SystemManager.m_PlayState == 0) {
+            if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT)
+                CreateEnemy(m_PlaneMedium_3, new Vector2(3f, 3f));
+        }
+        yield return new WaitForSeconds(1f);
+        if (m_SystemManager.m_PlayState == 0) {
+            CreateEnemy(m_PlaneSmall_1, new Vector2(-3f, 3f));
+            CreateEnemy(m_PlaneSmall_1, new Vector2(-6f, 3f));
+        }
+        yield return new WaitForSeconds(0.5f);
+        if (m_SystemManager.m_PlayState == 0) {
+            CreateEnemy(m_PlaneSmall_1, new Vector2(-3f, 3f));
+            CreateEnemy(m_PlaneSmall_1, new Vector2(-6f, 3f));
+        }
+        yield return new WaitForSeconds(20f);
+        CreateEnemy(m_ItemHeli_1, new Vector2(1.5f, 3f)); // Item Heli
+        yield return new WaitForSeconds(14f);
+        CreateEnemy(m_PlaneMedium_1, new Vector2(3f, 3f));
+        yield return null;
+    }
+}

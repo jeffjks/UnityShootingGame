@@ -67,6 +67,8 @@ public class SystemManager : MonoBehaviour
     public Camera m_BackgroundCamera;
     public SoundManager m_SoundManager;
     public ScreenEffecter m_ScreenEffecter;
+    public BossHealthHandler m_BossHealthBar;
+    public OverviewHandler m_OverviewHandler;
 
     [SerializeField] private Text m_ScoreNuberText = null;
     [SerializeField] private Text m_DifficultyText = null;
@@ -75,7 +77,6 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_WarningText = null;
     [SerializeField] private GameObject m_Transition = null;
     [SerializeField] private AudioSource m_WarningAudio = null;
-    [SerializeField] private OverviewHandler m_OverviewHandler = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
@@ -84,7 +85,7 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public float m_BulletsEraseTimer = 0f;
     [HideInInspector] public byte m_Difficulty = 0;
     
-    public bool m_DebugMod;
+    public bool m_DebugMod, m_InvincibleMod;
     public DebugDifficulty m_DebugDifficulty; 
     
     private GameManager m_GameManager = null;
@@ -121,6 +122,9 @@ public class SystemManager : MonoBehaviour
         catch (System.NullReferenceException) {
             m_Difficulty = (byte) m_DebugDifficulty;
         }
+
+        m_BackgroundCameraSize.x = m_BackgroundCamera.orthographicSize * 2 * ((float) Screen.width/(float) Screen.height); // 256/9 = 28.444..
+        m_BackgroundCameraSize.y = m_BackgroundCamera.orthographicSize * 2; // 16
         
         DontDestroyOnLoad(gameObject);
 
@@ -135,9 +139,6 @@ public class SystemManager : MonoBehaviour
         SetStageManager();
         m_PoolingManager = PoolingManager.instance_op;
 
-        m_BackgroundCameraSize.x = m_BackgroundCamera.orthographicSize * 2 * ((float) Screen.width/(float) Screen.height); // 256/9 = 28.444..
-        m_BackgroundCameraSize.y = m_BackgroundCamera.orthographicSize * 2; // 16
-
         m_MissNumberText.text = "" + m_TotalMiss;
 
         CreateTransition();
@@ -149,7 +150,7 @@ public class SystemManager : MonoBehaviour
 
     void Update()
     {
-        m_BackgroundCamera.transform.position -= m_StageManager.m_BackgroundVector*Time.deltaTime*60;
+        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime*60;
 
         if (m_ReplayState) {
             if (m_FadingOut) {
@@ -219,16 +220,6 @@ public class SystemManager : MonoBehaviour
         }
     }
 
-    private void StageInit() {
-        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, -10f);
-        SetStageManager();
-        ScreenEffect(3);
-        m_PlayState = 0;
-        m_OverviewHandler.gameObject.SetActive(false);
-        m_PlayerManager.PlayerControlable = true;
-        m_PlayerController.EnableInvincible(3f);
-    }
-
 
     public void MiddleBossClear() {
         m_PlayState = 0;
@@ -252,11 +243,18 @@ public class SystemManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator NextStage() {
-        ScreenEffect(2);
+    private IEnumerator NextStage() { // 2스테이지 부터
+        ScreenEffect(3); // FadeIn
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Stage" + (m_Stage + 2));
-        StageInit();
+        
+        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 0f);
+        SetStageManager();
+        ScreenEffect(2); // Transition
+        m_PlayState = 0;
+        m_OverviewHandler.gameObject.SetActive(false);
+        m_PlayerManager.PlayerControlable = true;
+        m_PlayerController.EnableInvincible(3f);
         yield break;
     }
 

@@ -15,7 +15,7 @@ public class OverviewHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer m_OverviewBackground = null;
     
     private Text m_FinalBonusScoreText;
-    private int m_DisplayTimer = 0;
+    private float m_DisplayTimer = 0f;
     private byte m_DisplayStage = 0;
     private float m_BonusScale = 0;
     private uint m_FinalBonusScore = 0;
@@ -35,28 +35,29 @@ public class OverviewHandler : MonoBehaviour
             if (m_DisplayStage == 4) {
                 m_SystemManager.AddScore(m_FinalBonusScore);
                 m_FinalBonusScore = 0;
+                m_DisplayTimer = 0f;
                 UpdateFinalBonusScore();
             }
             else if (m_DisplayStage == 5) {
-                m_SystemManager.StartCoroutine("NextStage");
                 GoToNextDispalyStage();
+                GoToNextStage(); // 5일때 버튼 클릭시 다음 스테이지
             }
-            m_DisplayTimer = 100;
+            m_DisplayTimer = 100f;
         }
     }
 
     void LateUpdate()
     {
         if (m_DisplayStage <= 4)
-            m_DisplayTimer++;
+            m_DisplayTimer += Time.deltaTime*60f;
             
         if (m_DisplayStage == 0) { // 0
-            if (m_DisplayTimer > 60) {
+            if (m_DisplayTimer > 60f) {
                 GoToNextDispalyStage();
             }
         }
         else if (m_DisplayStage == 1) { // 1
-            if (m_DisplayTimer > 60) {
+            if (m_DisplayTimer > 60f) {
                 GoToNextDispalyStage();
                 m_GroundGem.SetActive(true);
                 m_AirGem.SetActive(true);
@@ -65,19 +66,19 @@ public class OverviewHandler : MonoBehaviour
             }
         }
         else if (m_DisplayStage == 2) { // 2
-            if (m_DisplayTimer > 60) {
+            if (m_DisplayTimer > 60f) {
                 GoToNextDispalyStage();
                 m_Miss.SetActive(true);
             }
         }
         else if (m_DisplayStage == 3) { // 3
-            if (m_DisplayTimer > 90) {
+            if (m_DisplayTimer > 90f) {
                 GoToNextDispalyStage();
                 m_FinalBonus.SetActive(true);
             }
         }
         else if (m_DisplayStage == 4) { // 4
-            if (m_DisplayTimer > 90) {
+            if (m_DisplayTimer > 90f) {
                 for (sbyte i = 10; i >= 0; i--) {
                     uint target_score = (uint) Mathf.Pow(7f, i);
                     if (m_FinalBonusScore >= target_score) {
@@ -89,15 +90,20 @@ public class OverviewHandler : MonoBehaviour
                 }
             }
             if (m_FinalBonusScore == 0) {
-                GoToNextDispalyStage(); // 5일때 버튼 클릭시 다음 스테이지
+                GoToNextDispalyStage();
             }
         }
     }
 
     private void GoToNextDispalyStage() {
-        DOTween.Kill(m_OverviewBackground);
-        m_DisplayTimer = 0;
+        m_DisplayTimer = 0f;
         m_DisplayStage++;
+    }
+    
+    private void GoToNextStage() {
+        DOTween.Kill(m_OverviewBackground);
+        m_OverviewBackground.color = Color.white;
+        m_SystemManager.StartCoroutine("NextStage");
     }
 
     private void Init() {
@@ -106,7 +112,7 @@ public class OverviewHandler : MonoBehaviour
         Text[] remains_score = m_RemainsScore.GetComponentsInChildren<Text>();
         Text[] total_stage_score = m_TotalStageScore.GetComponentsInChildren<Text>();
         Text[] miss = m_Miss.GetComponentsInChildren<Text>();
-        m_OverviewBackground.DOFade(0f, 1f);
+        m_OverviewBackground.DOFade(1f, 1f);
         
         uint ground_gem_score = m_SystemManager.GemsGround * ItemScore.GEM_GROUND;
         uint air_gem_score = m_SystemManager.GemsAir * ItemScore.GEM_AIR;
@@ -155,7 +161,7 @@ public class OverviewHandler : MonoBehaviour
         m_TotalStageScore.SetActive(false);
         m_Miss.SetActive(false);
         m_FinalBonus.SetActive(false);
-        m_DisplayTimer = 0;
+        m_DisplayTimer = 0f;
         m_DisplayStage = 0;
         m_BonusScale = 0;
         m_FinalBonusScore = 0;

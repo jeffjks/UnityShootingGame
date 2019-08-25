@@ -88,7 +88,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2269979634886200350}
-  - component: {fileID: 2269979634886200351}
   - component: {fileID: 2269979634886200349}
   m_Layer: 14
   m_Name: Transition
@@ -112,25 +111,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2269979634886200351
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2269979634886200344}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a4e9fe949684ea742b54be724b0eb4d3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2269979634886200349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,5 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9edec3e5aeedba468027df970e5a665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 2269979634886200351}
+  m_Animator: {fileID: 0}
   m_SpriteRenderer: {fileID: 2269979633754313389}

@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
 {
     public GameObject m_Player;
     public MainCamera m_MainCamera;
-    public float m_revivePointY = -13f;
+    public float m_RevivePointY = -13f;
     public float m_SafeLine = -12f;
     public GameObject m_ItemPowerUp;
 
@@ -92,7 +92,10 @@ public class PlayerManager : MonoBehaviour
         }
 
         m_PlayerIsAlive = true;
-        m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.Euler(-90.0f, 0.0f, 0.0f));
+        if (m_SystemManager.m_DebugMod)
+            m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
+        else
+            m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
     }
 

@@ -1,23 +1,14 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
  
 public class ScreenEffectAnimation : MonoBehaviour {
-
-    public Animator m_Animator;
+    
     public SpriteRenderer m_SpriteRenderer;
-
-    void Start() {
-        m_Animator.speed = 0f;
-    }
-
-    void OnEnable() {
-        m_Animator.speed = 0f;
-        transform.localScale = new Vector3(1f, 1f, 1f);
-    }
     
     public void PlayTransition() {
-        Invoke("Transition", 1f - transform.position[1]/12 + Random.Range(0f, 0.3f));
+        StartCoroutine(Transition());
     }
     
     public void PlayFadeIn() {
@@ -25,23 +16,26 @@ public class ScreenEffectAnimation : MonoBehaviour {
     }
     
 
-    private void Transition() {
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        m_Animator.speed = 1.5f;
-        m_Animator.Play("Transition", -1, 0f);
-        Invoke("Deactivate", 1.5f);
-    }
+    private IEnumerator Transition() {
+        float duration = 0.66f;
+        float delay = 1f - transform.position.y/12 + Random.Range(0f, 0.3f);
 
-    private IEnumerator FadeIn() {
-        for (float i = 0f; i < 1f; i += 0.02f) {
-            m_SpriteRenderer.color = new Color(0f, 0f, 0f, i);
-            yield return null;
-        }
+        yield return new WaitForSeconds(delay);
+        transform.DOScaleX(0f, duration);
+        yield return new WaitForSeconds(duration);
+        DOTween.Kill(transform);
+        transform.localScale = new Vector3(1f, 1f, 1f);
+        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
+        gameObject.SetActive(false);
         yield break;
     }
 
-    private void Deactivate() {
-        m_Animator.speed = 0f;
-        gameObject.SetActive(false);
+    private IEnumerator FadeIn() {
+        float duration = 1f;
+        m_SpriteRenderer.DOFade(1f, duration); // 점점 알파값 1로
+        yield return new WaitForSeconds(duration);
+        DOTween.Kill(m_SpriteRenderer);
+        m_SpriteRenderer.color = Color.black;
+        yield break;
     }
 }

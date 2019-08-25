@@ -100,8 +100,8 @@ public class PlayerController : PlayerDamageUnit
         float playerReviveX = transform.position.x;
         m_PlayerRevivePoint.position = new Vector3(
             Mathf.Clamp(playerReviveX, - m_MaxPlayerCamera, m_MaxPlayerCamera),
-            m_PlayerManager.m_revivePointY,
-            transform.position.z
+            m_PlayerManager.m_RevivePointY,
+            Depth.PLAYER
         );
         m_HasCollided = false;
     }
@@ -111,7 +111,7 @@ public class PlayerController : PlayerDamageUnit
         m_HasCollided = false;
         m_SlowMode = false;
         if (m_PlayerManager.PlayerControlable) { // 시작 이벤트가 아닐때만 방어막 켜기
-            if (!m_SystemManager.m_DebugMod) {
+            if (!m_SystemManager.m_InvincibleMod) {
                 EnableInvincible(m_ReviveInvincibleTime);
             }
         }
@@ -147,7 +147,7 @@ public class PlayerController : PlayerDamageUnit
     }
 
     public void EnableInvincible(float duration) {
-        if (m_SystemManager.m_DebugMod)
+        if (m_SystemManager.m_InvincibleMod)
             return;
         if (m_InvincibleTimer < duration) {
             m_PlayerShield.SetActive(true);
@@ -157,7 +157,7 @@ public class PlayerController : PlayerDamageUnit
     }
 
     public void DisableInvincible() {
-        if (m_SystemManager.m_DebugMod)
+        if (m_SystemManager.m_InvincibleMod)
             return;
         m_InvincibleTimer = 0f;
         m_PlayerShield.gameObject.SetActive(false);

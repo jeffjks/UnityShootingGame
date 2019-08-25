@@ -344,21 +344,29 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         Quaternion target_rotation;
         
         if (m_UpdateTransform) {
-            if ((1 << gameObject.layer & Layer.AIR) != 0) { // 공중
-                if (m_ParentEnemy == null)
-                    target_rotation = Quaternion.AngleAxis(m_CurrentAngle, m_AirEnemyAxis); // Vector3.forward
-                else
-                    target_rotation = Quaternion.AngleAxis(m_CurrentAngle, m_DefaultAxis); // Vector3.forward
+            float real_current_angle;
+            Vector3 real_air_axis;
+            if (m_ParentEnemy == null) { // 본체일 경우
+                real_current_angle = m_CurrentAngle;
+                real_air_axis = m_AirEnemyAxis;
             }
-            else { // 지상
-                target_rotation = Quaternion.AngleAxis(m_CurrentAngle, -transform.up); // Vector3.down
+            else {
+                real_current_angle = m_CurrentAngle - m_ParentEnemy.m_CurrentAngle;
+                real_air_axis = m_DefaultAxis;
             }
 
-            if (transform.parent == null) {
+            if ((1 << gameObject.layer & Layer.AIR) != 0) { // 공중
+                target_rotation = Quaternion.AngleAxis(real_current_angle, real_air_axis); // Vector3.forward
+            }
+            else { // 지상
+                target_rotation = Quaternion.AngleAxis(real_current_angle, -transform.up); // Vector3.down
+            }
+
+            if (m_ParentEnemy == null) { // 본체일 경우
                 transform.rotation = target_rotation;
             }
             else {
-                transform.rotation = target_rotation * transform.parent.localRotation * m_DefaultQuaternion;
+                transform.rotation = target_rotation * m_ParentEnemy.transform.rotation * transform.parent.localRotation * m_DefaultQuaternion;
             }
         }
     }

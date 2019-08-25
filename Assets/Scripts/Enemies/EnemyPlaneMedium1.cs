@@ -31,11 +31,14 @@ public class EnemyPlaneMedium1 : EnemyUnit
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
 
-        if (m_SystemManager.m_PlayState == 1) {
-            CancelInvoke();
-            TimeLimit();
-            DOTween.Sequence()
-            .Append(DOTween.To(()=>m_VSpeed, x=>m_VSpeed = x, 5f, 1f).SetEase(Ease.InQuad));
+        if (!m_TimeLimitState) {
+            if (m_SystemManager.m_PlayState == 1) {
+                CancelInvoke("TimeLimit");
+                TimeLimit();
+                m_Sequence.Kill();
+                m_Sequence = DOTween.Sequence()
+                .Append(DOTween.To(()=>m_VSpeed, x=>m_VSpeed = x, 5f, 1f).SetEase(Ease.InQuad));
+            }
         }
         
         base.Update();

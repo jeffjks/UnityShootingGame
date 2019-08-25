@@ -86,6 +86,7 @@ public class DebrisEffect : MonoBehaviour
     }
 
     public void OnDeath() {
+        CancelInvoke("OnDeath");
         DOTween.Kill(m_Materials[m_DebrisType]);
         m_Materials[m_DebrisType].SetColor("_Color", Color.white);
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.DEBRIS);

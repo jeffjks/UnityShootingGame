@@ -16,7 +16,11 @@ public class EnemyTankLarge3Turret : EnemyUnit
 
     protected override void Update()
     {
-        RotateImmediately(m_PlayerPosition);
+        if (m_PlayerManager.m_PlayerIsAlive)
+            RotateImmediately(m_PlayerPosition);
+        else
+            RotateSlightly(m_PlayerPosition, 100f);
+            
         base.Update();
     }
 

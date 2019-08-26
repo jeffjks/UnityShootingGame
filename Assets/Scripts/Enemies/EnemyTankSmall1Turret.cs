@@ -19,7 +19,6 @@ public class EnemyTankSmall1Turret : EnemyUnit
         if (2 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
             OnDeath();
         }
-
         
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 60f);

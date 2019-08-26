@@ -30,21 +30,6 @@ public struct MoveVector
     }
 }
 
-namespace UnityEngine
-{
-    public struct MathfCustom2
-    {
-        public static float SmoothEnd(float t) // 점점 완만해짐 (이차함수 상하반전) (t = 0~1)
-        {
-        double from = 0;
-        double to = 1;
-        t = Mathf.Clamp01(t);
-        t = (float) (- (double) t * (double) t + 2.0 * (double) t);
-        return (float) ((double) to * (double) t + (double) from * (1.0 - (double) t));
-        }
-    }
-}
-
 public enum EnemyClass
 {
     Zako,
@@ -246,12 +231,14 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     [Space(10)]
     public EnemyUnit m_ParentEnemy;
     public bool m_ShareHealth;
+    [Tooltip("자아(콜라이더)를 가진 자식들")]
     public EnemyUnit[] m_ChildEnemies;
     public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
 
     protected Material[] m_Materials;
     protected Material[] m_MaterialsAll;
     protected Sequence m_Sequence = null;
+    protected Color[] m_DefaultAlbedo;
     protected float m_CurrentAngle = 0f; // 현재 회전 각도
     protected bool m_UpdateTransform = true;
     protected bool m_CollisionLaser = false, m_CollisionLaserAura = false;
@@ -261,7 +248,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     [HideInInspector] public bool m_IsAttackable = true;
 
     private float m_TakingDamageTimer = 0f;
-    protected Color[] m_DefaultAlbedo;
+    private float m_LowHealthBlinkTimer = 0f;
     private Color m_DamagingAlbedo = new Color(0.64f, 0.64f, 1f, 1f); // blue
 
     private readonly Vector3 m_AirEnemyAxis = new Vector3(0f, -0.4f, 1f);
@@ -319,13 +306,9 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         if (m_Health > m_MaxHealth) {
             m_Health = m_MaxHealth;
         }
+        
+        UpdateColorTimer();
 
-        if (m_TakingDamageTimer > 0f) {
-            m_TakingDamageTimer -= 60 * Time.deltaTime;
-        }
-        else if (!m_IsDead) {
-            ImageBlend(m_DefaultAlbedo);
-        }
         m_CollisionLaser = false;
         m_CollisionLaserAura = false;
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
@@ -619,6 +602,47 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     }
 
 
+    private void UpdateColorTimer() {
+        if (m_IsDead)
+            return;
+
+        if (m_LowHealthBlinkTimer <= 23f) {
+            if (m_TakingDamageTimer > 0f) {
+                m_TakingDamageTimer -= 60f * Time.deltaTime;
+            }
+            else {
+                ImageBlend(m_DefaultAlbedo);
+            }
+        }
+
+        if (m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
+            if (m_Health < m_MaxHealth * 0.3f) {
+                LowHealthImageBlend();
+            }
+        }
+        else { // 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
+            if (m_Health < 300f) {
+                LowHealthImageBlend();
+            }
+        }
+    }
+
+    private void LowHealthImageBlend() {
+        if (m_LowHealthBlinkTimer > 0f) {
+            m_LowHealthBlinkTimer -= 60f * Time.deltaTime;
+            if (m_LowHealthBlinkTimer <= 23f) {
+                if (m_TakingDamageTimer > 0f)
+                    ImageBlend(m_DamagingAlbedo);
+                else
+                    ImageBlend(m_DefaultAlbedo);
+            }
+        }
+        else {
+            m_LowHealthBlinkTimer = 30f;
+            ImageBlend(Color.red);
+        }
+    }
+
     protected void ImageBlend(Color target_color) {
         for (int i = 0; i < m_Materials.Length; i++) {
             if (m_Materials[i] != null)
@@ -724,7 +748,8 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
                 break;
             default:
                 for (int i = 0; i < m_GemNumber; i++) {
-                    obj[i].transform.position = transform.position + (Vector3) Random.insideUnitCircle;
+                    Vector3 vec = Random.insideUnitSphere;
+                    obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.z);
                 }
                 break;
         }

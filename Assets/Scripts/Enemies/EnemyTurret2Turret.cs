@@ -17,7 +17,10 @@ public class EnemyTurret2Turret : EnemyUnit
 
     protected override void Update()
     {
-        RotateSlightly(m_PlayerPosition, 90f);
+        if (m_PlayerManager.m_PlayerIsAlive)
+            RotateSlightly(m_PlayerPosition, 90f);
+        else
+            RotateSlightly(m_PlayerPosition, 100f);
 
         if (2 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
             OnDeath();

@@ -18,8 +18,12 @@ public class EnemyTurret1Turret : EnemyUnit
 
     protected override void Update()
     {
-        if (!m_Shooting)
-            RotateSlightly(m_PlayerPosition, 90f);
+        if (m_PlayerManager.m_PlayerIsAlive) {
+            if (!m_Shooting)
+                RotateSlightly(m_PlayerPosition, 90f);
+        }
+        else
+            RotateSlightly(m_PlayerPosition, 100f);
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {

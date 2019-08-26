@@ -16,7 +16,10 @@ public class EnemyShipSmall1Turret : EnemyUnit
 
     protected override void Update()
     {
-        RotateSlightly(m_PlayerPosition, 60f);
+        if (m_PlayerManager.m_PlayerIsAlive)
+            RotateSlightly(m_PlayerPosition, 60f);
+        else
+            RotateSlightly(m_PlayerPosition, 100f);
         base.Update();
     }
 

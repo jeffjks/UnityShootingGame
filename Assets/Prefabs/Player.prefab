@@ -34826,8 +34826,8 @@ MonoBehaviour:
   - 1.8
   - 2
   m_MaxDamage:
-  - 2.4
-  - 2.7
+  - 2.6
+  - 2.8
   - 3
   m_LaserDamage: 0
 --- !u!1 &1744316119546190516

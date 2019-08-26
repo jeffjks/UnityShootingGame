@@ -18,8 +18,12 @@ public class PlayerShield : MonoBehaviour {
     {
         shieldMat = ShieldBody.GetComponent<MeshRenderer>().material;
     }
-	
-	// Update is called once per frame
+    
+    void Update()
+    {
+        transform.rotation = Quaternion.identity;
+    }
+
 	void FixedUpdate ()
     {
         Ring1.transform.Rotate(Vector3.right, Time.deltaTime * RotateSpeed);

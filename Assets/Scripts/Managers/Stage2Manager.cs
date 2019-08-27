@@ -25,18 +25,18 @@ public class Stage2Manager : StageManager
         yield return new WaitForSeconds(13f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.016f), 0.75f);
 
-        yield return new WaitForSeconds(55f);
+        yield return new WaitForSeconds(30f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(4f);
-        SetBackgroundSpeed(0.12f, 0.9375f);
+        SetBackgroundSpeed(0f, 0f);
+        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         m_AudioBoss.Play();
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
         yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(0f);
-        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator TestTimeLine()

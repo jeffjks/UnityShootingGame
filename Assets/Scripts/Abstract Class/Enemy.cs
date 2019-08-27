@@ -511,7 +511,6 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
             if (!m_IsDead) {
                 if (blend) {
-                    ImageBlend(m_DamagingAlbedo);
                     m_TakingDamageTimer = 4f;
                 }
 
@@ -603,44 +602,46 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
 
     private void UpdateColorTimer() {
+        bool red_blink = false;
         if (m_IsDead)
             return;
 
-        if (m_LowHealthBlinkTimer <= 23f) {
-            if (m_TakingDamageTimer > 0f) {
-                m_TakingDamageTimer -= 60f * Time.deltaTime;
-            }
-            else {
-                ImageBlend(m_DefaultAlbedo);
-            }
-        }
-
         if (m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
             if (m_Health < m_MaxHealth * 0.3f) {
-                LowHealthImageBlend();
+                red_blink = LowHealthImageBlend();
             }
         }
         else { // 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
             if (m_Health < 300f) {
-                LowHealthImageBlend();
+                red_blink = LowHealthImageBlend();
             }
+        }
+
+        if (m_TakingDamageTimer > 0f) {
+            m_TakingDamageTimer -= 60f * Time.deltaTime;
+            if (!red_blink) {
+                ImageBlend(m_DamagingAlbedo);
+            }
+        }
+        else {
+            if (!red_blink)
+                ImageBlend(m_DefaultAlbedo);
         }
     }
 
-    private void LowHealthImageBlend() {
+    private bool LowHealthImageBlend() { // true이면 빨간색
         if (m_LowHealthBlinkTimer > 0f) {
             m_LowHealthBlinkTimer -= 60f * Time.deltaTime;
-            if (m_LowHealthBlinkTimer <= 23f) {
-                if (m_TakingDamageTimer > 0f)
-                    ImageBlend(m_DamagingAlbedo);
-                else
-                    ImageBlend(m_DefaultAlbedo);
+            if (m_LowHealthBlinkTimer > 23f) {
+                return true;
             }
         }
         else {
             m_LowHealthBlinkTimer = 30f;
             ImageBlend(Color.red);
+            return true;
         }
+        return false;
     }
 
     protected void ImageBlend(Color target_color) {

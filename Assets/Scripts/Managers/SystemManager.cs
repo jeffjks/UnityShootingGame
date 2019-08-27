@@ -86,7 +86,8 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public byte m_Difficulty = 0;
     
     public bool m_DebugMod, m_InvincibleMod;
-    public DebugDifficulty m_DebugDifficulty; 
+    public DebugDifficulty m_DebugDifficulty;
+    public byte m_ShotLevel;
     
     private GameManager m_GameManager = null;
     private PlayerManager m_PlayerManager = null;

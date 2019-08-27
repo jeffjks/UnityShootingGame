@@ -97,6 +97,9 @@ public class PlayerManager : MonoBehaviour
         else
             m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
+
+        if (m_SystemManager.m_DebugMod)
+            m_PlayerShooter.m_ShotLevel = m_SystemManager.m_ShotLevel;
     }
 
     public void PlayerDead(Vector3 dead_position) {

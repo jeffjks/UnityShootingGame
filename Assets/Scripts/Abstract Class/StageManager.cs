@@ -67,7 +67,7 @@ public abstract class StageManager : MonoBehaviour
     {
         GameObject middle_boss;
         middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
-        EnemyMiddleBoss1 enemy_unit = middle_boss.GetComponent<EnemyMiddleBoss1>();
+        EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
         m_BossHealthBar.m_EnemyUnitBoss = enemy_unit;
 
         yield return new WaitForSeconds(delay);

@@ -9,8 +9,9 @@ public abstract class Item : MonoBehaviour
     public AudioClip m_AudioClip;
 
     protected abstract void ItemEffect(Collider2D other);
+    protected Transform m_MainCameraTransform;
+    protected Vector2 m_Position2D;
 
-    private Vector2 m_Position2D;
     private Vector2 m_BackgroundCameraSize;
     
     protected SystemManager m_SystemManager = null;
@@ -23,6 +24,7 @@ public abstract class Item : MonoBehaviour
         m_PlayerManager = PlayerManager.instance_pm;
 
         m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
+        m_MainCameraTransform = m_PlayerManager.m_MainCamera.transform;
     }
     
     protected virtual void Update()
@@ -55,8 +57,7 @@ public abstract class ItemBox : Item
 {
     [SerializeField] private float m_DisappearTime = 0f;
     protected MoveVector m_MoveVector;
-
-    private Transform m_MainCameraTransform;
+    
     private float m_MinX, m_MaxX, m_MinY, m_MaxY;
     private float m_Padding = 0.6f;
     private bool m_Disappear = false;
@@ -69,7 +70,6 @@ public abstract class ItemBox : Item
         m_MoveVector.direction = Random.Range(-45f, 45f);
 
         if (!m_Disappear) {
-            m_MainCameraTransform = m_PlayerManager.m_MainCamera.transform;
             m_MinX = - (7.555f - m_Padding);
             m_MaxX = 7.555f - m_Padding;
             m_MinY = - (16f - m_Padding);
@@ -91,16 +91,16 @@ public abstract class ItemBox : Item
 
         if (!m_Disappear && m_IsAir) {
             float angle = Random.Range(-45f, 45f);
-            if (transform.position.x <= m_MainCameraTransform.position.x - (6f - m_Padding)) { // left
+            if (transform.position.x <= m_MainCameraTransform.position.x - (Size.CAMERA_WIDTH*0.5f - m_Padding)) { // left
                 m_MoveVector.direction = 90f + angle;
             }
-            else if (transform.position.x >= m_MainCameraTransform.position.x + (6f - m_Padding)) { // right
+            else if (transform.position.x >= m_MainCameraTransform.position.x + (Size.CAMERA_WIDTH*0.5f - m_Padding)) { // right
                 m_MoveVector.direction = -90f + angle;
             }
-            else if (transform.position.y <= m_MainCameraTransform.position.y - (8f - m_Padding)) { // bottom
+            else if (transform.position.y <= m_MainCameraTransform.position.y - (Size.CAMERA_HEIGHT*0.5f - m_Padding)) { // bottom
                 m_MoveVector.direction = 180f + angle;
             }
-            else if (transform.position.y >= m_MainCameraTransform.position.y + (8f - m_Padding)) { // top
+            else if (transform.position.y >= m_MainCameraTransform.position.y + (Size.CAMERA_HEIGHT*0.5f - m_Padding)) { // top
                 m_MoveVector.direction = 0f + angle;
             }
         }
@@ -143,6 +143,17 @@ public abstract class ItemGem : Item
     {
         base.Awake();
         m_PoolingManager = PoolingManager.instance_op;
+
+        if (!m_IsAir) {
+            if (m_Position2D.x <= m_MainCameraTransform.position.x - (Size.CAMERA_WIDTH*0.5f))
+                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
+            else if (m_Position2D.x >= m_MainCameraTransform.position.x + (Size.CAMERA_WIDTH*0.5f))
+                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
+            else if (m_Position2D.y <= m_MainCameraTransform.position.y - (Size.CAMERA_HEIGHT*0.5f))
+                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
+            else if (m_Position2D.y >= m_MainCameraTransform.position.y + (Size.CAMERA_HEIGHT*0.5f))
+                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지

@@ -30,13 +30,12 @@ public class DebrisEffect : MonoBehaviour
         m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
 
         
-        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
         m_Materials = new Material[meshRenderers.Length];
         
         for (int i = 0; i < meshRenderers.Length; i++) {
             m_Materials[i] = meshRenderers[i].material;
         }
-        DeactivateAllChildren();
     }
     
     void Update()
@@ -71,17 +70,20 @@ public class DebrisEffect : MonoBehaviour
             case 1: // Small
                 m_DebrisType = Random.Range(0, 3);
                 break;
-            case 2: // Large
+            case 2: // Medium
                 m_DebrisType = Random.Range(3, 5);
+                break;
+            case 3: // Large
+                m_DebrisType = Random.Range(5, 7);
                 break;
             default:
                 m_DebrisType = -1;
                 OnDeath();
                 return;
         }
-
         m_DebrisObject[m_DebrisType].SetActive(true);
         m_Materials[m_DebrisType].DOFade(0f, "_Color", m_LifeTime);
+        
         Invoke("OnDeath", m_LifeTime);
     }
 

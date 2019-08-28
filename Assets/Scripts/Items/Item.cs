@@ -32,7 +32,7 @@ public abstract class Item : MonoBehaviour
         GetCoordinates();
     }
 
-    private void GetCoordinates() {
+    protected void GetCoordinates() {
         if (m_IsAir)
             m_Position2D = transform.position;
         else {
@@ -137,21 +137,30 @@ public abstract class ItemGem : Item
     public string m_ObjectName;
 
     private PoolingManager m_PoolingManager = null;
+    private bool m_OnEnable = false;
 
 
     protected override void Awake()
     {
         base.Awake();
         m_PoolingManager = PoolingManager.instance_op;
+    }
 
+    void OnEnable()
+    {
         if (!m_IsAir) {
-            if (m_Position2D.x <= m_MainCameraTransform.position.x - (Size.CAMERA_WIDTH*0.5f))
+            if (!m_OnEnable) {
+                m_OnEnable = true;
+                return;
+            }
+            GetCoordinates();
+            if (m_Position2D.x <= Size.GAME_BOUNDARY_LEFT)
                 m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
-            else if (m_Position2D.x >= m_MainCameraTransform.position.x + (Size.CAMERA_WIDTH*0.5f))
+            else if (m_Position2D.x >= Size.GAME_BOUNDARY_RIGHT)
                 m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
-            else if (m_Position2D.y <= m_MainCameraTransform.position.y - (Size.CAMERA_HEIGHT*0.5f))
+            else if (m_Position2D.y <= Size.GAME_BOUNDARY_BOTTOM)
                 m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
-            else if (m_Position2D.y >= m_MainCameraTransform.position.y + (Size.CAMERA_HEIGHT*0.5f))
+            else if (m_Position2D.y >= Size.GAME_BOUNDARY_TOP)
                 m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
         }
     }

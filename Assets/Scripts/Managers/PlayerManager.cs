@@ -92,14 +92,12 @@ public class PlayerManager : MonoBehaviour
         }
 
         m_PlayerIsAlive = true;
-        if (m_SystemManager.m_DebugMod)
-            m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
-        else
+        if (m_SystemManager.GetStage() == 0)
             m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
+        else
+            m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
-
-        if (m_SystemManager.m_DebugMod)
-            m_PlayerShooter.m_ShotLevel = m_SystemManager.m_ShotLevel;
+        m_PlayerShooter.m_ShotLevel = m_SystemManager.m_ShotLevel;
     }
 
     public void PlayerDead(Vector3 dead_position) {

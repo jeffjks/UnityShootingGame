@@ -13,6 +13,7 @@ Properties {
 	_HorizonColor ("Simple water horizon color", COLOR)  = ( .172, .463, .435, 1)
 	[HideInInspector] _ReflectionTex ("Internal Reflection", 2D) = "" {}
 	[HideInInspector] _RefractionTex ("Internal Refraction", 2D) = "" {}
+    [HideInInspector] _WaveOffset ("Internal Offset", Vector) = (0, 0, 0, 0)
 }
 
 

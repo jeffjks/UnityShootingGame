@@ -136,17 +136,17 @@ public class EnemyMiddleBoss2 : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBullet(3, GetScreenPosition(m_FirePosition2[0].position), 6.4f, m_Direction, accel);
                 CreateBullet(3, GetScreenPosition(m_FirePosition2[1].position), 6.4f, -m_Direction, accel);
-                yield return new WaitForSeconds(0.12f);
+                yield return new WaitForSeconds(0.11f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[0].position), 6.6f, m_Direction, accel, 2, 180f);
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[1].position), 6.6f, -m_Direction, accel, 2, 180f);
-                yield return new WaitForSeconds(0.09f);
+                yield return new WaitForSeconds(0.07f);
             }
             else {
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[0].position), 6.8f, m_Direction, accel, 2, 180f);
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[1].position), 6.8f, -m_Direction, accel, 2, 180f);
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForSeconds(0.04f);
             }
         }
     }
@@ -155,14 +155,14 @@ public class EnemyMiddleBoss2 : EnemyUnit
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         float random_value, target_angle;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 random_value = Random.Range(0f, 360f);
                 pos = GetScreenPosition(m_FirePosition0.position);
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
                 CreateBulletsSector(4, pos, 6f, random_value + target_angle, accel, 20, 18f);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1.8f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 random_value = Random.Range(0f, 360f);
@@ -172,7 +172,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 24, 15f);
                     yield return new WaitForSeconds(0.08f);
                 }
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.9f);
             }
             else {
                 random_value = Random.Range(0f, 360f);
@@ -182,7 +182,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 30, 12f);
                     yield return new WaitForSeconds(0.08f);
                 }
-                yield return new WaitForSeconds(0.6f);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

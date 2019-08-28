@@ -151,7 +151,7 @@ public class SystemManager : MonoBehaviour
 
     void Update()
     {
-        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime*60;
+        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime*60f;
 
         if (m_ReplayState) {
             if (m_FadingOut) {
@@ -167,6 +167,7 @@ public class SystemManager : MonoBehaviour
 
     private void SetStageManager() {
         m_StageManager = GameObject.FindGameObjectWithTag("StageManager").GetComponent<StageManager>();
+        m_Stage = m_StageManager.m_Stage;
     }
 
     public void SetPlayerManager() {
@@ -248,15 +249,20 @@ public class SystemManager : MonoBehaviour
         ScreenEffect(3); // FadeIn
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Stage" + (m_Stage + 2));
+        SceneManager.sceneLoaded += OnSceneLoaded;
         
         m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 0f);
-        SetStageManager();
         ScreenEffect(2); // Transition
         m_PlayState = 0;
         m_OverviewHandler.gameObject.SetActive(false);
         m_PlayerManager.PlayerControlable = true;
         m_PlayerController.EnableInvincible(3f);
         yield break;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetStageManager();
     }
 
 
@@ -280,6 +286,10 @@ public class SystemManager : MonoBehaviour
             m_GemsAir++;
         }
         UpdateScore();
+    }
+
+    public int GetStage() {
+        return m_Stage;
     }
 
     public uint GetStageScore() {

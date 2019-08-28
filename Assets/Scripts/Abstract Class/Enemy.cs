@@ -197,6 +197,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     {
         None,
         Small,
+        Medium,
         Large,
     };
 
@@ -231,7 +232,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     [Space(10)]
     public EnemyUnit m_ParentEnemy;
     public bool m_ShareHealth;
-    [Tooltip("자아(콜라이더)를 가진 자식들")]
+    [Tooltip("자아(콜라이더)를 가진 자식들 (붉은색 blend, 데미지 blend 용)")]
     public EnemyUnit[] m_ChildEnemies;
     public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
 
@@ -239,10 +240,10 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected Material[] m_MaterialsAll;
     protected Sequence m_Sequence = null;
     protected Color[] m_DefaultAlbedo;
-    protected float m_CurrentAngle = 0f; // 현재 회전 각도
     protected bool m_UpdateTransform = true;
     protected bool m_CollisionLaser = false, m_CollisionLaserAura = false;
     
+    [HideInInspector] public float m_CurrentAngle = 0f; // 현재 회전 각도
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
     [HideInInspector] public bool m_IsAttackable = true;
@@ -507,17 +508,19 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
                     m_CollisionLaserAura = true;
             }
 
-            m_Health -= amount;
-
             if (!m_IsDead) {
                 if (blend) {
                     m_TakingDamageTimer = 4f;
                 }
 
-                if (m_Health <= 0f) {
-                    m_IsDead = true;
-                    KilledByPlayer();
-                    OnDeath();
+                if (m_MaxHealth >= 0f) {
+                    m_Health -= amount;
+
+                    if (m_Health <= 0f) {
+                        m_IsDead = true;
+                        KilledByPlayer();
+                        OnDeath();
+                    }
                 }
             }
         }
@@ -606,7 +609,19 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         if (m_IsDead)
             return;
 
-        if (m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
+        if (m_MaxHealth < 0f) {
+            if (m_ParentEnemy.m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
+                if (m_ParentEnemy.m_Health < m_ParentEnemy.m_MaxHealth * 0.3f) {
+                    red_blink = LowHealthImageBlend();
+                }
+            }
+            else { // 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
+                if (m_ParentEnemy.m_Health < 300f) {
+                    red_blink = LowHealthImageBlend();
+                }
+            }
+        }
+        else if (m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
             if (m_Health < m_MaxHealth * 0.3f) {
                 red_blink = LowHealthImageBlend();
             }
@@ -749,7 +764,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
                 break;
             default:
                 for (int i = 0; i < m_GemNumber; i++) {
-                    Vector3 vec = Random.insideUnitSphere;
+                    Vector3 vec = Random.insideUnitSphere * Mathf.Sqrt(m_GemNumber) * 0.5f;
                     obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.z);
                 }
                 break;

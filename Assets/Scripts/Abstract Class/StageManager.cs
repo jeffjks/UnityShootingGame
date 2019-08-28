@@ -16,6 +16,7 @@ public abstract class StageManager : MonoBehaviour
     [SerializeField] protected GameObject m_EnemySpawners = null;
 
     [HideInInspector] public Vector3 m_BackgroundVector;
+    [HideInInspector] public int m_Stage;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -31,13 +32,16 @@ public abstract class StageManager : MonoBehaviour
         m_PlayerManager = PlayerManager.instance_pm;
         
         m_BossHealthBar = m_SystemManager.m_BossHealthBar;
+        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
 
         SetBackgroundSpeed(0f);
-        StartCoroutine(MainTimeLine());
-        if (m_SystemManager.m_DebugMod)
+        if (m_SystemManager.m_DebugMod) {
             StartCoroutine(TestTimeLine());
-        else
+        }
+        else {
+            StartCoroutine(MainTimeLine());
             StartCoroutine(EnemyTimeLine());
+        }
     }
 
     protected GameObject CreateEnemy(GameObject obj, Vector3 pos, float attackable = 0f) { // attackable 후 attackable 활성화
@@ -54,17 +58,22 @@ public abstract class StageManager : MonoBehaviour
         return ins;
     }
     
-    protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, float time) {
+    protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, float delay = -1, float time = -1) {
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;
-        DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, 0f, time).SetEase(Ease.InQuad);
-        return ins;
+        if (delay == -1)
+            return ins;
+        else {
+            DOTween.Sequence()
+            .AppendInterval(delay)
+            .Append(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, 0f, time).SetEase(Ease.InQuad));
+            return ins;
+        }
     }
 
 
-    protected IEnumerator MiddleBossStart(Vector3 pos, float delay, byte number = 0) // delay 후 체력바 활성화, number = 중간보스 번호
-    {
+    protected IEnumerator MiddleBossStart(Vector3 pos, float delay, byte number = 0) { // delay 후 체력바 활성화, number = 중간보스 번호
         GameObject middle_boss;
         middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
         EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
@@ -75,8 +84,7 @@ public abstract class StageManager : MonoBehaviour
         yield break;
     }
 
-    protected IEnumerator BossStart(Vector3 pos, float delay) // delay 후 체력바 활성화
-    {
+    protected IEnumerator BossStart(Vector3 pos, float delay) { // delay 후 체력바 활성화
         GameObject boss;
         boss = CreateEnemy(m_BossUnit, pos);
         m_BossHealthBar.m_EnemyUnitBoss = boss.GetComponent<EnemyUnit>();

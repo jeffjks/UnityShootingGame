@@ -66,10 +66,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0960a3217f5e12459e7af371c19da88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 200
   m_Class: 0
   m_Score: 350
-  m_Debris: 1
+  m_Debris: 2
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
   m_Explosion: 
@@ -83,6 +84,7 @@ MonoBehaviour:
   - {fileID: 9214580811006826016}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f180319ce840554e90b346230b5abc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -563,6 +566,7 @@ MonoBehaviour:
   m_Collider2D: []
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 2795246010226298155}
 --- !u!1 &6763888391552758240
 GameObject:

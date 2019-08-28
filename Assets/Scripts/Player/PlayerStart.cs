@@ -21,7 +21,7 @@ public class PlayerStart : MonoBehaviour
         m_PlayerController.DisableInvincible();
         SetAttributes();
 
-        if (m_SystemManager.m_DebugMod) {
+        if (m_SystemManager.GetStage() > 0) {
             EndOpening();
             return;
         }

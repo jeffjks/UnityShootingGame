@@ -220,10 +220,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128afc6adb7790740b8e0e0f7f041562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 350
   m_Class: 0
   m_Score: 600
-  m_Debris: 1
+  m_Debris: 2
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 
@@ -237,6 +238,7 @@ MonoBehaviour:
   - {fileID: 1665065765836201773}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 6020867135931591768}
   m_ArmorPosition:
   - {fileID: 7968192415374132389}
@@ -605,7 +607,7 @@ Transform:
   m_GameObject: {fileID: 5310136076867428798}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
   - {fileID: 4872138495968847295}
   - {fileID: 3691822432914976926}

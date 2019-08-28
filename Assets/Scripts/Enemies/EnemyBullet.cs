@@ -34,9 +34,10 @@ public class EnemyBullet : Enemy
     public EnemyBulletAccel m_EnemyBulletAccel;
     public EnemyBulletAccel m_NewEnemyBulletAccel;
 
-    private bool m_RotateBullet; // 자동 회전
+    private bool m_RotateBullet = false; // 자동 회전
     private GameObject m_BulletExplosion;
     private SpriteRenderer[] m_SpriteRenderers;
+    private bool m_OnEnable = false;
 
     [SerializeField] private GameObject[] m_BulletTypeObject = null;
     [SerializeField] private GameObject[] m_BulletEraseObject = null;
@@ -60,13 +61,13 @@ public class EnemyBullet : Enemy
     protected override void Awake()
     {
         base.Awake();
-        m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
     }
 
     void OnEnable()
     {
         m_RotateBullet = false;
-
+        
         for (int i=0; i<m_BulletTypeObject.Length; i++) {
             m_BulletTypeObject[i].SetActive(false);
         }

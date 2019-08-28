@@ -298,10 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c7adc58388dcb4c95ede7a0f21ef82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 250
   m_Class: 0
   m_Score: 400
-  m_Debris: 1
+  m_Debris: 2
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 
@@ -315,6 +316,7 @@ MonoBehaviour:
   - {fileID: 5915268304025218368}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 1125923927610817067}
   - {fileID: 4818967407035481534}

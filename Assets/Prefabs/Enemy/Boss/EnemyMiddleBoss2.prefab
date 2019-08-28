@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Health: 1600
   m_Class: 1
   m_Score: 6000
-  m_Debris: 0
+  m_Debris: 3
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 030000000400000005000000

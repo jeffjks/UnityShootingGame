@@ -22,7 +22,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
     protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
-            RotateSlightly(m_PlayerPosition, 50f);
+            RotateSlightly(m_PlayerPosition, 45f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         

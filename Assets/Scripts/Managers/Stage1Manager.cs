@@ -10,6 +10,11 @@ public class Stage1Manager : StageManager
 
     private const float WATER_HEIGHT = 2.32f;
 
+    void Awake()
+    {
+        m_Stage = 0;
+    }
+
     protected override IEnumerator MainTimeLine()
     {
         yield return new WaitForSeconds(1f);
@@ -20,7 +25,7 @@ public class Stage1Manager : StageManager
 
         yield return new WaitForSeconds(36f);
         SetBackgroundSpeed(0.045f, 0.75f);
-        StartCoroutine(MiddleBossStart(new Vector3(12f, -13f, Depth.ENEMY), 1f)); // Middle Boss
+        StartCoroutine(MiddleBossStart(new Vector3(12f, -13f, Depth.ENEMY), 1f)); // Middle Boss (42s)
 
         yield return new WaitForSeconds(55f);
         StartCoroutine(FadeOutMusic());
@@ -38,10 +43,6 @@ public class Stage1Manager : StageManager
 
     protected override IEnumerator TestTimeLine()
     {
-        yield return new WaitForSeconds(1f);
-        //CreateEnemy(m_Test, new Vector2(2f, 4.5f)); // plane large 2
-        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
-
         yield return null;
     }
 
@@ -76,10 +77,9 @@ public class Stage1Manager : StageManager
         yield return new WaitForSeconds(1.5f);
 
         if (m_SystemManager.m_Difficulty >= Difficulty.HELL) { // 3 small ship
-            Debug.Log("3 Boat");
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(4f, 70f), 3.2f);
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(4f, 70f), 3.2f);
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(4f, 70f), 3.2f);
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(4f, 70f), 0f, 3.2f);
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(4f, 70f), 0f, 3.2f);
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(4f, 70f), 0f, 3.2f);
         }
         yield return new WaitForSeconds(8f);
         if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT)

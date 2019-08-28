@@ -178,7 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af04fb0356b358a43b2100f0b67eab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Health: 250
+  m_Position2D: {x: 0, y: 0}
+  m_Health: 200
   m_Class: 0
   m_Score: 800
   m_Debris: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
   - {fileID: 3614948998550249195}
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 4368414503484632591}
   - {fileID: 8331787465577357396}

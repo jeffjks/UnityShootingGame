@@ -17,10 +17,16 @@ public class GroundEnemySpawner : EnemyUnit
     public float m_SpawnPeriod, m_RemoveTimer;
     [Space(10)]
     public MovePattern[] m_MovePattern;
+    [Space(10)]
+    [Tooltip("스포너 활성화 시간")]
+    public float m_ActivateTime;
+    [Tooltip("스포너 비활성화 시간")]
+    public float m_DeactivateTime;
 
     void Start()
     {
-        StartCoroutine(SpawnEnemyTanks());
+        Invoke("StartSpawning", m_ActivateTime);
+        Destroy(gameObject, m_DeactivateTime);
     }
 
     protected override void Update()
@@ -29,6 +35,10 @@ public class GroundEnemySpawner : EnemyUnit
             Destroy(gameObject);
         }
         base.Update();
+    }
+
+    private void StartSpawning() {
+        StartCoroutine(SpawnEnemyTanks());
     }
 
     private void SpawnEnemy(GameObject enemy) {

@@ -41,7 +41,7 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 for (int i = -1; i < 2; i++) {
                     CreateBulletsSector(5, pos1, 7f, m_CurrentAngle + 3f*i, accel, 4, 20f);
                 }
-                yield return new WaitForSeconds(1.1f);
+                yield return new WaitForSeconds(0.8f);
             }
             else {
                 pos0 = GetScreenPosition(m_FirePosition.position);
@@ -52,7 +52,7 @@ public class EnemyTankMedium1Turret : EnemyUnit
                     CreateBulletsSector(5, pos1, 7.2f, m_CurrentAngle + 3f*i, accel, 4, 20f);
                     CreateBulletsSector(5, pos0, 6.1f, m_CurrentAngle + 3f*i, accel, 3, 20f);
                 }
-                yield return new WaitForSeconds(1.1f);
+                yield return new WaitForSeconds(0.8f);
             }
 
             if (m_SystemManager.m_Difficulty != 0) {
@@ -63,7 +63,7 @@ public class EnemyTankMedium1Turret : EnemyUnit
                     CreateBullet(1, pos2, 5f + i, m_CurrentAngle + Random.Range(0f, 1f), accel);
                     yield return new WaitForSeconds(0.07f);
                 }
-                yield return new WaitForSeconds(1.2f);
+                yield return new WaitForSeconds(1f);
             }
         }
     }

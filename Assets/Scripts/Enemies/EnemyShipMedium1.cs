@@ -61,6 +61,8 @@ public class EnemyShipMedium1 : EnemyUnit
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector3(0f, 0f, -1.8f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

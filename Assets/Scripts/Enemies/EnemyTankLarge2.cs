@@ -62,6 +62,8 @@ public class EnemyTankLarge2 : EnemyUnit
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector3(0f, 0f, 2f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

@@ -121,6 +121,8 @@ public class EnemyPlaneMedium1 : EnemyUnit
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector2(2f, 0f));
         ExplosionEffect(0, -1, new Vector2(-2f, 0f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

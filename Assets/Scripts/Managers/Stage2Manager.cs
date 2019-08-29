@@ -31,21 +31,23 @@ public class Stage2Manager : StageManager
         yield return new WaitForSeconds(13f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.016f), 0.75f);
 
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(27f);
+        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 139f), 9f)); // Boss
+        yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");
-        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 138f), 3.5f)); // Boss
         yield return new WaitForSeconds(4f);
-        SetBackgroundSpeed(0f, 0f);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         SetBackgroundSpeed(0f);
-        m_AudioBoss.Play();
+        PlayBossMusic();
         yield break;
     }
 
     protected override IEnumerator TestTimeLine()
     {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(BossStart(new Vector3(0f, 5.6f, 27f), 3f)); // Boss
         yield return null;
     }
 

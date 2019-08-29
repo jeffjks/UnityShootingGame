@@ -37,7 +37,6 @@ public class EnemyBullet : Enemy
     private bool m_RotateBullet = false; // 자동 회전
     private GameObject m_BulletExplosion;
     private SpriteRenderer[] m_SpriteRenderers;
-    private bool m_OnEnable = false;
 
     [SerializeField] private GameObject[] m_BulletTypeObject = null;
     [SerializeField] private GameObject[] m_BulletEraseObject = null;
@@ -101,6 +100,7 @@ public class EnemyBullet : Enemy
             case BulletType.ERASE_AND_CREATE: // n초후 다른 총알 생성 후 파괴
                 Invoke("CreateSubBullet", m_Timer);
                 Invoke("OnDeath", m_Timer);
+                Invoke("StopBullet", m_Timer);
                 break;
             default:
                 break;
@@ -152,6 +152,11 @@ public class EnemyBullet : Enemy
             CreateBullet(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewEnemyBulletAccel);
         else
             CreateBulletsSector(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewEnemyBulletAccel, m_NewNumber, m_NewInterval);
+    }
+
+    private void StopBullet() {
+        DOTween.KillAll();
+        m_MoveVector.speed = 0f;
     }
 
     public void OnDeath() {

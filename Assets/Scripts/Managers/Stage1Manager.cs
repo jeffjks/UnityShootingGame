@@ -33,7 +33,7 @@ public class Stage1Manager : StageManager
         m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(4f);
         SetBackgroundSpeed(0.12f, 0.9375f);
-        m_AudioBoss.Play();
+        PlayBossMusic();
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
         yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(0f);

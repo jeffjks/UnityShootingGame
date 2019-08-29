@@ -60,6 +60,8 @@ public class EnemyShipLarge : EnemyUnit
         ExplosionEffect(1, 1, new Vector3(0f, 2f, 1.7f));
         ExplosionEffect(0, -1, new Vector3(0f, 2f, 0f));
         ExplosionEffect(1, -1, new Vector3(0f, 2f, -2f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

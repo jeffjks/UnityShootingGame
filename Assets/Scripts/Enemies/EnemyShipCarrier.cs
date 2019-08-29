@@ -133,6 +133,8 @@ public class EnemyShipCarrier : EnemyUnit
         ExplosionEffect(0, -1, new Vector3(-2f, explosion_height, -2f));
         ExplosionEffect(0, -1, new Vector3(2f, explosion_height, -4f));
         ExplosionEffect(0, -1, new Vector3(-2f, explosion_height, -4f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield return null;
     }

@@ -262,7 +262,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         m_DefaultAxis = -transform.transform.up;
         m_DefaultQuaternion = transform.localRotation;
 
-        if (m_ParentEnemy == null) { // 무적 해제, 사망 이펙트 용 (전체 Materials)
+        if (m_Collider2D.Length > 0) { // 무적 해제, 사망 이펙트 용 (전체 Materials)
             MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
             m_MaterialsAll = new Material[meshRenderers.Length];
             m_DefaultAlbedo = new Color[meshRenderers.Length];
@@ -533,6 +533,49 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         DefatulExplosionEffect();
         CreateDebris();
         
+        if (m_ParentEnemy == null) { // PlayState, 음악 정지, 무적 시간 등
+            if (m_Class == EnemyClass.Boss) {
+                m_SystemManager.BossClear();
+            }
+            else if (m_Class == EnemyClass.MiddleBoss) {
+                m_SystemManager.MiddleBossClear();
+            }
+        }
+        DOTween.Kill(transform);
+        DisableAttackable(-1f);
+        ImageBlend(Color.red);
+        if (m_Sequence != null) {
+            m_Sequence.Kill();
+        }
+        StartCoroutine(AdditionalOnDeath());
+    }
+
+    protected virtual void KilledByPlayer() { // 플레이어가 죽인 경우
+        return;
+    }
+
+    protected virtual IEnumerator AdditionalOnDeath() { // 추가 폭발 이펙트 (기본값은 없음)
+        CreateItems();
+        Destroy(gameObject);
+        yield break;
+    }
+
+    void OnDestroy() { // 최종 파괴 (자연사도 작동)
+        DOTween.Kill(transform);
+        if (m_SystemManager == null)
+            return;
+        else if (m_ParentEnemy != null)
+            return;
+
+        if (m_Class == EnemyClass.Boss) {
+            m_SystemManager.StartCoroutine("StageClear");
+        }
+        else if (m_Class == EnemyClass.MiddleBoss) {
+            m_SystemManager.MiddleBossClear();
+        }
+    }
+
+    protected void CreateItems() {
         if (m_ItemBox != null) { // 아이템 드랍
             Vector3 item_pos;
             if ((1 << gameObject.layer & Layer.AIR) != 0) {
@@ -560,46 +603,6 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             for (int i = 0; i < m_GemNumber; i++) {
                 obj[i].SetActive(true);
             }
-        }
-        
-        if (m_ParentEnemy == null) { // PlayState, 음악 정지, 무적 시간 등
-            if (m_Class == EnemyClass.Boss) {
-                m_SystemManager.BossClear();
-            }
-            else if (m_Class == EnemyClass.MiddleBoss) {
-                m_SystemManager.MiddleBossClear();
-            }
-        }
-        DOTween.Kill(transform);
-        DisableAttackable(-1f);
-        ImageBlend(Color.red);
-        if (m_Sequence != null) {
-            m_Sequence.Kill();
-        }
-        StartCoroutine(AdditionalOnDeath());
-    }
-
-    protected virtual void KilledByPlayer() { // 플레이어가 죽인 경우
-        return;
-    }
-
-    protected virtual IEnumerator AdditionalOnDeath() { // 추가 폭발 이펙트 (기본값은 없음)
-        Destroy(gameObject);
-        yield break;
-    }
-
-    void OnDestroy() { // 최종 파괴 (자연사도 작동)
-        DOTween.Kill(transform);
-        if (m_SystemManager == null)
-            return;
-        else if (m_ParentEnemy != null)
-            return;
-
-        if (m_Class == EnemyClass.Boss) {
-            m_SystemManager.StartCoroutine("StageClear");
-        }
-        else if (m_Class == EnemyClass.MiddleBoss) {
-            m_SystemManager.MiddleBossClear();
         }
     }
 

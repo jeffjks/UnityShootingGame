@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyBoss2Turret0_0 : EnemyUnit
 {
+    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition = null;
+
+    [HideInInspector] public bool m_InPattern = false;
     
     private IEnumerator m_CurrentPattern;
 
@@ -39,55 +42,69 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
     private IEnumerator Pattern1()
     {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        Vector3 pos = m_FirePosition.position;
-        //CreateBulletsSector(0, pos, 7f, m_CurrentAngle + Random.Range(-2f, 2f), accel, 7, 14f);
+        Vector3 pos;
+        m_InPattern = true;
+
+        if (m_SystemManager.m_Difficulty == 0) {
+            for (int i = 0; i < 3; i++) {
+                pos = GetScreenPosition(m_FirePosition.position);
+                CreateBulletsSector(5, pos, 5.2f, m_CurrentAngle, accel, 13, 12f);
+                CreateBulletsSector(5, pos, 6.0f, m_CurrentAngle, accel, 12, 12f);
+                if (i > 0)
+                    CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 13, 12f);
+                if (i > 1)
+                    CreateBulletsSector(5, pos, 7.6f, m_CurrentAngle, accel, 12, 12f);
+                yield return new WaitForSeconds(1.2f);
+            }
+        }
+        else if (m_SystemManager.m_Difficulty == 1) {
+            for (int i = 0; i < 4; i++) {
+                pos = GetScreenPosition(m_FirePosition.position);
+                CreateBulletsSector(5, pos, 5.2f, m_CurrentAngle, accel, 13, 11f);
+                CreateBulletsSector(5, pos, 5.8f, m_CurrentAngle, accel, 12, 11f);
+                if (i > 0)
+                    CreateBulletsSector(5, pos, 6.4f, m_CurrentAngle, accel, 13, 11f);
+                if (i > 1)
+                    CreateBulletsSector(5, pos, 7.0f, m_CurrentAngle, accel, 12, 11f);
+                if (i > 2)
+                    CreateBulletsSector(5, pos, 7.6f, m_CurrentAngle, accel, 13, 11f);
+                yield return new WaitForSeconds(0.9f);
+            }
+        }
+        else {
+            for (int i = 0; i < 4; i++) {
+                pos = GetScreenPosition(m_FirePosition.position);
+                CreateBulletsSector(5, pos, 5.2f, m_CurrentAngle, accel, 13, 9f);
+                CreateBulletsSector(5, pos, 5.8f, m_CurrentAngle, accel, 12, 9f);
+                if (i > 0)
+                    CreateBulletsSector(5, pos, 6.4f, m_CurrentAngle, accel, 13, 9f);
+                if (i > 1)
+                    CreateBulletsSector(5, pos, 7.0f, m_CurrentAngle, accel, 12, 9f);
+                if (i > 2)
+                    CreateBulletsSector(5, pos, 7.6f, m_CurrentAngle, accel, 13, 9f);
+                yield return new WaitForSeconds(0.9f);
+            }
+        }
+        m_InPattern = false;
         yield return null;
     }
 
     private IEnumerator Pattern2()
     {
+        Vector3 pos1, pos2, pos3;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        Vector3 pos;
-        float gap = 0.03f;
-        pos = m_FirePosition.position;
-
-        if (m_SystemManager.m_Difficulty == 0) {
-            for (int i = 0; i < 6; i++) {
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 3f, accel);
-                yield return new WaitForSeconds(0.06f);
+        float gap = 0.32f;
+        while(true) {
+            for (int i = 0; i < 3; i++) {
+                pos1 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
+                pos2 = GetScreenPosition(m_FirePosition.position);
+                pos3 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
+                CreateBullet(0, pos1, 5.3f, m_CurrentAngle, accel);
+                CreateBullet(0, pos2, 5.3f, m_CurrentAngle, accel);
+                CreateBullet(0, pos3, 5.3f, m_CurrentAngle, accel);
+                yield return new WaitForSeconds(0.09f);
             }
+            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
-            for (int i = 0; i < 6; i++) {
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 14f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 3f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 14f, accel);
-                yield return new WaitForSeconds(0.06f);
-            }
-        }
-        else {
-            for (int i = 0; i < 6; i++) {
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 18f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 10f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 3f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 10f, accel);
-                CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 18f, accel);
-                if (i == 5) {
-                    for (int j = -1; j < 2; j += 2) {
-                        pos = m_FirePosition.position;
-                        CreateBullet(3, pos, 9f, m_CurrentAngle - 26f*j, accel);
-                        CreateBullet(3, pos, 8.4f, m_CurrentAngle - 34f*j, accel);
-                        CreateBullet(3, pos, 7.8f, m_CurrentAngle - 43f*j, accel);
-                        CreateBullet(3, pos, 7.1f, m_CurrentAngle - 47f*j, accel);
-                        CreateBullet(3, pos, 6.3f, m_CurrentAngle - 52f*j, accel);
-                    }
-                }
-            yield return new WaitForSeconds(0.06f);
-            }
-        }
-        yield return null;
     }
 }

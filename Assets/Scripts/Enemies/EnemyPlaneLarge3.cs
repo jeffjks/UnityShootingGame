@@ -84,6 +84,8 @@ public class EnemyPlaneLarge3 : EnemyUnit
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector2(0.8f, 0.24f));
         ExplosionEffect(0, -1, new Vector2(-0.8f, 0.24f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

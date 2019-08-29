@@ -186,6 +186,8 @@ public class EnemyMiddleBoss1 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0f, 2f));
         ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         m_SystemManager.ScreenEffect(0);
+        
+        CreateItems();
         Destroy(gameObject);
         yield return null;
     }

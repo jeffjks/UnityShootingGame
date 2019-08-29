@@ -12,6 +12,8 @@ public class EnemyTurret1 : EnemyUnit
         Destroy(m_Turret);
         m_Collider2D = new Collider2D[0];
         ImageBlend(m_DefaultAlbedo);
+        
+        CreateItems();
         yield break;
     }
 }

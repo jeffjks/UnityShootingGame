@@ -44,6 +44,13 @@ public abstract class StageManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (m_AudioBoss.time > 128.08f) {
+            m_AudioBoss.time = 6.49f;
+        }
+    }
+
     protected GameObject CreateEnemy(GameObject obj, Vector3 pos, float attackable = 0f) { // attackable 후 attackable 활성화
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
@@ -102,6 +109,10 @@ public abstract class StageManager : MonoBehaviour
         DOTween.Kill(m_AudioStage);
         m_AudioStage.Stop();
         yield break;
+    }
+
+    protected void PlayBossMusic() {
+        m_AudioBoss.Play();
     }
 
     public void StopMusic() {

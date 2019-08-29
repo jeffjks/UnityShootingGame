@@ -89,6 +89,8 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         ((EnemyMiddleBoss2) m_ParentEnemy).ToPhase1();
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

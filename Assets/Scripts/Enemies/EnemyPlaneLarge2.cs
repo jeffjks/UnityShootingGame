@@ -71,6 +71,8 @@ public class EnemyPlaneLarge2 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(-1.5f, -3.8f));
         ExplosionEffect(1, -1, new Vector2(0f, -3.8f));
         ExplosionEffect(0, -1, new Vector2(1.5f, -3.8f));
+        
+        CreateItems();
         Destroy(gameObject);
         yield break;
     }

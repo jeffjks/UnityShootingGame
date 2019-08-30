@@ -84,11 +84,13 @@ public class PlayerManager : MonoBehaviour
             for (int i=0; i<m_GameManager.m_CurrentAttributes.Length; i++) {
                 m_CurrentAttributes[i] = m_GameManager.m_CurrentAttributes[i];
             }
+            Debug.Log("SpawnPlayer1");
         }
         catch {
             for (int i=0; i<6; i++) {
                 m_CurrentAttributes[i] = 0;
             }
+            Debug.Log("SpawnPlayer2");
         }
 
         m_PlayerIsAlive = true;

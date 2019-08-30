@@ -27,8 +27,6 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
     public void StartPattern(byte num, bool side = true) {
         if (num == 1)
             m_CurrentPattern = Pattern1(side);
-        else if (num == 2)
-            m_CurrentPattern = Pattern2();
         else if (num == 0)
             m_CurrentPattern = Pattern0();
         StartCoroutine(m_CurrentPattern);
@@ -82,15 +80,6 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             yield return new WaitForSeconds(1.5f);
         }
         
-        yield return null;
-    }
-
-    private IEnumerator Pattern2()
-    {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        Vector3 pos;
-        float gap = 0.03f;
-        pos = m_FirePosition.position;
         yield return null;
     }
 }

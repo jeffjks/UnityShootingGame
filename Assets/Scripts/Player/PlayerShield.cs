@@ -21,7 +21,7 @@ public class PlayerShield : MonoBehaviour {
     
     void Update()
     {
-        transform.rotation = Quaternion.identity;
+        transform.localRotation = Quaternion.identity;
     }
 
 	void FixedUpdate ()

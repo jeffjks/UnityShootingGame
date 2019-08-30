@@ -238,8 +238,8 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
     protected Material[] m_Materials;
     protected Material[] m_MaterialsAll;
-    protected Sequence m_Sequence = null;
     protected Color[] m_DefaultAlbedo;
+    protected Sequence m_Sequence = null;
     protected bool m_UpdateTransform = true;
     protected bool m_CollisionLaser = false, m_CollisionLaserAura = false;
     

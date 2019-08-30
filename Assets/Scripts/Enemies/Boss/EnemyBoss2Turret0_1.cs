@@ -15,7 +15,6 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     {
         GetCoordinates();
         RotateImmediately(m_PlayerPosition);
-        StartCoroutine(Pattern0());
     }
 
     protected override void Update()
@@ -43,7 +42,9 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     }
 
     public void StartPattern(byte num) {
-        if (num == 1)
+        if (num == 0)
+            m_CurrentPattern = Pattern0();
+        else if (num == 1)
             m_CurrentPattern = Pattern1();
         else if (num == 2)
             m_CurrentPattern = Pattern2();
@@ -78,7 +79,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos = m_FirePosition.position;
         while (true) {
-            if (m_PlayerManager.m_Player.transform.position.y >= -5.5f) {
+            if (m_PlayerManager.m_Player.transform.position.y >= -5.8f) {
                 if (!m_Pattern2Rotate) {
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 8, 2.5f);

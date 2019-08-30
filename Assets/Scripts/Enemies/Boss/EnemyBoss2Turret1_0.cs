@@ -30,8 +30,6 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
     public void StartPattern(byte num) {
         if (num == 1)
             m_CurrentPattern = Pattern1();
-        // else if (num == 2)
-            // m_CurrentPattern = Pattern2();
         StartCoroutine(m_CurrentPattern);
     }
 

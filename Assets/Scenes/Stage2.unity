@@ -8023,8 +8023,8 @@ MonoBehaviour:
   BulletsSortingLayer: 0
   m_BulletsEraseTimer: 0
   m_Difficulty: 0
-  m_DebugMod: 0
-  m_InvincibleMod: 0
+  m_DebugMod: 1
+  m_InvincibleMod: 1
   m_DebugDifficulty: 2
   m_ShotLevel: 2
 --- !u!4 &1511199302

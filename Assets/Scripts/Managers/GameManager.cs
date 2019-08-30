@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
-
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,6 +39,8 @@ public class GameManager : MonoBehaviour
         m_MaxResolutionNumber = m_ResolutionList.GetLength(0);
         m_MaxGraphicsQuality = 6;
         m_MaxLanguageOptions = 2;
+
+        DOTween.SetTweensCapacity(512, 64);
 
         SetOptions();
     }

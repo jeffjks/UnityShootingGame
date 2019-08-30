@@ -28,8 +28,6 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
     public void StartPattern(byte num) {
         if (num == 1)
             m_CurrentPattern = Pattern1();
-        else if (num == 2)
-            m_CurrentPattern = Pattern2();
         StartCoroutine(m_CurrentPattern);
     }
 
@@ -71,15 +69,6 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
                 yield return new WaitForSeconds(1.6f);
             }
         }
-        m_InPattern = false;
-        yield return null;
-    }
-
-    private IEnumerator Pattern2()
-    {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        Vector3 pos;
-        m_InPattern = true;
         m_InPattern = false;
         yield return null;
     }

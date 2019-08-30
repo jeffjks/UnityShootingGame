@@ -37,6 +37,7 @@ public class EnemyBullet : Enemy
     private bool m_RotateBullet = false; // 자동 회전
     private GameObject m_BulletExplosion;
     private SpriteRenderer[] m_SpriteRenderers;
+    private Tween m_Tween = null;
 
     [SerializeField] private GameObject[] m_BulletTypeObject = null;
     [SerializeField] private GameObject[] m_BulletEraseObject = null;
@@ -99,8 +100,7 @@ public class EnemyBullet : Enemy
                 break;
             case BulletType.ERASE_AND_CREATE: // n초후 다른 총알 생성 후 파괴
                 Invoke("CreateSubBullet", m_Timer);
-                Invoke("OnDeath", m_Timer);
-                Invoke("StopBullet", m_Timer);
+                Invoke("StopAndDeath", m_Timer);
                 break;
             default:
                 break;
@@ -114,10 +114,12 @@ public class EnemyBullet : Enemy
         float duration = m_EnemyBulletAccel.duration;
 
         if (targetValue > 0) {
-            if (m_MoveVector.speed < targetValue) // 가속
-                DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, targetValue, duration).SetEase(Ease.InQuad);
-            else // 감속
-                DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, targetValue, duration).SetEase(Ease.OutQuad);
+            if (m_MoveVector.speed < targetValue) { // 가속
+                m_Tween = DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, targetValue, duration).SetEase(Ease.InQuad);
+            }
+            else { // 감속
+                m_Tween = DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, targetValue, duration).SetEase(Ease.OutQuad);
+            }
         }
     }
     
@@ -154,9 +156,10 @@ public class EnemyBullet : Enemy
             CreateBulletsSector(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewEnemyBulletAccel, m_NewNumber, m_NewInterval);
     }
 
-    private void StopBullet() {
-        DOTween.KillAll();
+    private void StopAndDeath() {
+        m_Tween.Kill();
         m_MoveVector.speed = 0f;
+        OnDeath();
     }
 
     public void OnDeath() {
@@ -177,7 +180,7 @@ public class EnemyBullet : Enemy
 
     public void Erase() {
         CancelInvoke();
-        DOTween.Kill(transform);
+        m_Tween.Kill();
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, 1);
     }
 

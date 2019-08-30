@@ -5906,7 +5906,7 @@ MonoBehaviour:
   m_BulletsEraseTimer: 0
   m_Difficulty: 0
   m_DebugMod: 0
-  m_InvincibleMod: 1
+  m_InvincibleMod: 0
   m_DebugDifficulty: 2
   m_ShotLevel: 0
 --- !u!4 &760142282
@@ -13247,6 +13247,7 @@ MonoBehaviour:
   - {fileID: 801591460}
   m_EnemySpawners: {fileID: 1459673435}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
+  m_Stage: 0
   m_Test: {fileID: 100018, guid: d47850806cfc30c49a36864d829c7129, type: 3}
   m_TankSmall_1: {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_TankSmall_2: {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}

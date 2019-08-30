@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public static class Depth // Z Axis
 {
@@ -128,6 +129,8 @@ public class SystemManager : MonoBehaviour
         m_BackgroundCameraSize.y = m_BackgroundCamera.orthographicSize * 2; // 16
         
         DontDestroyOnLoad(gameObject);
+
+        DOTween.SetTweensCapacity(512, 64);
 
         CanvasRenderer cr1 = m_ReplayText.GetComponent<CanvasRenderer>();
         CanvasRenderer cr2 = m_WarningText.GetComponent<CanvasRenderer>();

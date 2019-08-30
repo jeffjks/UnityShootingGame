@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyPlaneMedium4Turret : EnemyUnit
 {
     [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    private IEnumerator m_Pattern;
+    private IEnumerator m_CurrentPattern = null;
 
     void Start()
     {
         GetCoordinates();
-        m_Pattern = Pattern1();
+        m_CurrentPattern = Pattern1();
     }
 
     protected override void Update()
@@ -21,11 +21,12 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
     }
 
     public void StartPattern() {
-        StartCoroutine(m_Pattern);
+        StartCoroutine(m_CurrentPattern);
     }
 
     public void StopPattern() {
-        StopCoroutine(m_Pattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
     
     private IEnumerator Pattern1() {

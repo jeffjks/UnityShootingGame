@@ -8016,7 +8016,8 @@ MonoBehaviour:
   m_WarningText: {fileID: 1713901400}
   m_Transition: {fileID: 2269979634886200344, guid: d0761a9720d58d34abf5d80e8bfdce27,
     type: 3}
-  m_WarningAudio: {fileID: 1511199295}
+  m_AudioWarning: {fileID: 1511199295}
+  m_AudioStageClear: {fileID: 856541434}
   m_StageManager: {fileID: 0}
   m_BackgroundCameraSize: {x: 0, y: 0}
   m_PlayState: 0
@@ -9291,7 +9292,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 782550325
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!4 &1857098440 stripped
 Transform:

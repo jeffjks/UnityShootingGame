@@ -3884,7 +3884,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -5853744554792782671, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 96b5f15a4ad760c4c9ea0f90e5b52772, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5898,7 +5898,8 @@ MonoBehaviour:
   m_WarningText: {fileID: 236915289}
   m_Transition: {fileID: 2269979634886200344, guid: d0761a9720d58d34abf5d80e8bfdce27,
     type: 3}
-  m_WarningAudio: {fileID: 760142288}
+  m_AudioWarning: {fileID: 760142288}
+  m_AudioStageClear: {fileID: 479106162}
   m_StageManager: {fileID: 0}
   m_BackgroundCameraSize: {x: 0, y: 0}
   m_PlayState: 0
@@ -12177,7 +12178,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 782550325
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &1724484318
 RectTransform:
@@ -12715,7 +12716,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 782550325
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!1001 &1799742709
 PrefabInstance:

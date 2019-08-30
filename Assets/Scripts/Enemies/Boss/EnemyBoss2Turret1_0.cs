@@ -9,7 +9,7 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
 
     [HideInInspector] public bool m_InPattern = false;
     
-    private IEnumerator m_CurrentPattern;
+    private IEnumerator m_CurrentPattern = null;
 
     void Start()
     {
@@ -34,7 +34,8 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
     }
 
     public void StopPattern() {
-        StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     private IEnumerator Pattern1()

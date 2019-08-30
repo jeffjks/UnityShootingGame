@@ -7,7 +7,7 @@ public class EnemyBoss1Turret2 : EnemyUnit
     public float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition = null;
     
-    private IEnumerator m_CurrentPattern;
+    private IEnumerator m_CurrentPattern = null;
 
     void Start()
     {
@@ -34,7 +34,8 @@ public class EnemyBoss1Turret2 : EnemyUnit
     }
 
     public void StopPattern() {
-        StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     private IEnumerator Pattern1()

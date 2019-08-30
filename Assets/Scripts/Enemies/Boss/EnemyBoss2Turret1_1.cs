@@ -6,7 +6,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
 {
     public Transform m_FirePosition = null;
     
-    private IEnumerator m_CurrentPattern;
+    private IEnumerator m_CurrentPattern = null;
     [HideInInspector] public bool m_InPattern = false;
 
     void Start()
@@ -32,7 +32,8 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
     }
 
     public void StopPattern() {
-        StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     
@@ -46,8 +47,8 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
         if (m_SystemManager.m_Difficulty == 0) {
             for (int i = 0; i < 3; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(4, pos, 3.6f, m_CurrentAngle, accel, 15, 12f);
-                CreateBulletsSector(4, pos, 4.4f, m_CurrentAngle, accel, 10, 12f);
+                CreateBulletsSector(4, pos, 3.6f, m_CurrentAngle, accel, 15, 13f);
+                CreateBulletsSector(4, pos, 4.4f, m_CurrentAngle, accel, 10, 13f);
                 yield return new WaitForSeconds(1.6f);
             }
         }

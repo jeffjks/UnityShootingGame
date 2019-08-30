@@ -294,7 +294,7 @@ public class EnemyBoss2 : EnemyUnit
         float t = 0f, t_add = 0f;
         Vector2 random_pos;
         while (t < timer) {
-            t_add = Random.Range(0.35f, 0.45f);
+            t_add = Random.Range(0.25f, 0.45f);
             random_pos = Random.insideUnitCircle * 3f;
             ExplosionEffect(0, -1, new Vector3(random_pos.x, 5.5f, random_pos.y - 8f));
             random_pos = Random.insideUnitCircle * 3f;

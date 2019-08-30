@@ -6,7 +6,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
 {
     public Transform m_FirePosition = null;
     
-    private IEnumerator m_CurrentPattern;
+    private IEnumerator m_CurrentPattern = null;
 
     void Start()
     {
@@ -33,7 +33,8 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
     }
 
     public void StopPattern() {
-        StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     private IEnumerator Pattern0() {
@@ -61,23 +62,23 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
                 yield return new WaitForSeconds(1.5f);
                 for (int i = 0; i < 2; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 3f + i*0.7f, m_CurrentAngle, accel, 7, 13f);
+                    CreateBulletsSector(2, pos, 6.6f + i*0.8f, m_CurrentAngle, accel, 5, 16f);
                 }
                 break;
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 2; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 3f + i*0.7f, m_CurrentAngle, accel, 9, 11f);
+                    CreateBulletsSector(2, pos, 7f + i*0.8f, m_CurrentAngle, accel, 9, 11f);
                 }
             }
             else {
                 for (int i = 0; i < 2; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 3f + i*0.7f, m_CurrentAngle, accel, 11, 9f);
+                    CreateBulletsSector(2, pos, 7f + i*0.8f, m_CurrentAngle, accel, 11, 9f);
                 }
             }
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(3f);
         }
         
         yield return null;

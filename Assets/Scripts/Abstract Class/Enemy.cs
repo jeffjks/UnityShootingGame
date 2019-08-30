@@ -262,45 +262,54 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         m_DefaultAxis = -transform.transform.up;
         m_DefaultQuaternion = transform.localRotation;
 
-        if (m_Collider2D.Length > 0) { // 무적 해제, 사망 이펙트 용 (전체 Materials)
-            MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
-            m_MaterialsAll = new Material[meshRenderers.Length];
-            m_DefaultAlbedo = new Color[meshRenderers.Length];
-            for (int i = 0; i < meshRenderers.Length; i++) {
-                m_MaterialsAll[i] = meshRenderers[i].material;
-                m_DefaultAlbedo[i] = meshRenderers[i].material.color;
-            }
+        m_MaxHealth = m_Health;
+
+        m_MaterialsAll = GetAllMetrials();
+        m_Materials = GetMaterials();
+    }
+
+    private Material[] GetAllMetrials() { // 무적 해제, 사망 이펙트 용 (전체 Materials)
+        if (m_Collider2D.Length == 0)
+            return new Material[0];
+
+        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
+        Material[] mat = new Material[meshRenderers.Length];
+        m_DefaultAlbedo = new Color[meshRenderers.Length];
+        for (int i = 0; i < meshRenderers.Length; i++) {
+            mat[i] = meshRenderers[i].material;
+            m_DefaultAlbedo[i] = meshRenderers[i].material.color;
         }
-        else {
-            m_MaterialsAll = new Material[0];
+        return mat;
+    }
+
+    private Material[] GetMaterials() {
+        if (m_Collider2D.Length == 0) {
+            if (m_ChildEnemies.Length == 0)
+                return new Material[0];
         }
+        if (m_MaxHealth < 0)
+            return new Material[0];
 
         for (int i = 0; i < m_ChildEnemies.Length; i++) {
-            if (m_ChildEnemies[i].m_Collider2D.Length != 0) {
+            if (m_ChildEnemies[i].m_Collider2D.Length == 0) {
                 m_ChildEnemies[i].gameObject.SetActive(false);
             }
         }
-
-        if (m_Collider2D.Length > 0) {
-            MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
-            m_Materials = new Material[meshRenderers.Length];
-            m_DefaultAlbedo = new Color[meshRenderers.Length];
-            for (int i = 0; i < meshRenderers.Length; i++) {
-                m_Materials[i] = meshRenderers[i].material;
-                m_DefaultAlbedo[i] = meshRenderers[i].material.color;
-            }
-        }
-        else {
-            m_Materials = new Material[0];
+        
+        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        Material[] mat = new Material[meshRenderers.Length];
+        m_DefaultAlbedo = new Color[meshRenderers.Length];
+        for (int i = 0; i < meshRenderers.Length; i++) {
+            mat[i] = meshRenderers[i].material;
+            m_DefaultAlbedo[i] = meshRenderers[i].material.color;
         }
 
         for (int i = 0; i < m_ChildEnemies.Length; i++) {
             m_ChildEnemies[i].gameObject.SetActive(true);
         }
-
-
-        m_MaxHealth = m_Health;
+        return mat;
     }
+
 
     protected virtual void Update()
     {
@@ -481,7 +490,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             m_Position2D = GetScreenPosition(transform.position);
             for (int i = 0; i < m_Collider2D.Length; i++) {
                 m_Collider2D[i].transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
-                m_Collider2D[i].transform.position = m_Position2D;
+                m_Collider2D[i].transform.position = GetScreenPosition(transform.position);
             }
         }
 
@@ -493,7 +502,10 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         // blend - ImageBlend 실행 여부
         if (m_IsAttackable) {
             if (m_ShareHealth) {
-                m_ParentEnemy.TakeDamage(amount, laser_type, false);
+                if (m_MaxHealth == -1)
+                    m_ParentEnemy.TakeDamage(amount, laser_type, true);
+                else
+                    m_ParentEnemy.TakeDamage(amount, laser_type, false);
             }
             if (laser_type == 1) {
                 if (m_CollisionLaser)
@@ -635,15 +647,15 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             }
         }
 
+        if (red_blink)
+            return;
+
         if (m_TakingDamageTimer > 0f) {
             m_TakingDamageTimer -= 60f * Time.deltaTime;
-            if (!red_blink) {
-                ImageBlend(m_DamagingAlbedo);
-            }
+            ImageBlend(m_DamagingAlbedo);
         }
         else {
-            if (!red_blink)
-                ImageBlend(m_DefaultAlbedo);
+            ImageBlend(m_DefaultAlbedo);
         }
     }
 

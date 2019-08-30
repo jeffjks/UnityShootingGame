@@ -77,7 +77,8 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_MissNumberText = null;
     [SerializeField] private Text m_WarningText = null;
     [SerializeField] private GameObject m_Transition = null;
-    [SerializeField] private AudioSource m_WarningAudio = null;
+    [SerializeField] private AudioSource m_AudioWarning = null;
+    [SerializeField] private AudioSource m_AudioStageClear = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
@@ -240,6 +241,7 @@ public class SystemManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         m_PlayState = 3;
         m_PlayerManager.PlayerControlable = false;
+        m_AudioStageClear.Play();
         yield return new WaitForSeconds(2f);
         m_StageManager.SetBackgroundSpeed(0f);
         m_StageManager.StopCoroutine("MainTimeLine");
@@ -334,7 +336,7 @@ public class SystemManager : MonoBehaviour
 
     public IEnumerator WarningText() {
         byte time = 0;
-        m_WarningAudio.Play();
+        m_AudioWarning.Play();
 
         while (time < 10) {
             m_WarningText.CrossFadeAlpha(1f, 0.4f, true);

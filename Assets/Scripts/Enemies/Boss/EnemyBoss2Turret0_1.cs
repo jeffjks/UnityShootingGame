@@ -7,7 +7,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition = null;
     
-    private IEnumerator m_CurrentPattern;
+    private IEnumerator m_CurrentPattern = null;
     private int m_Side = 1, m_RoateState = 0;
     private bool m_Pattern2Rotate = false;
 
@@ -55,7 +55,8 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
 
     public void StopPattern(bool stop_rotate = false) {
         m_RoateState = -1;
-        StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
         if (stop_rotate)
             StartCoroutine(StopRotate());
         else

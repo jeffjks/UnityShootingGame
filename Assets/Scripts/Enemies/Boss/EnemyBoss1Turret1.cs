@@ -6,7 +6,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
 {
     public Transform m_FirePosition = null;
     
-    private IEnumerator m_CurrentPattern;
+    private IEnumerator m_CurrentPattern = null;
 
     void Start()
     {
@@ -40,7 +40,8 @@ public class EnemyBoss1Turret1 : EnemyUnit
     }
 
     public void StopPattern() {
-        StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     private IEnumerator Pattern1()

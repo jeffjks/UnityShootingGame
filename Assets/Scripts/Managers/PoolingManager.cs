@@ -47,7 +47,6 @@ public class PoolingManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("PoolingManager");
         m_PlayerManager = PlayerManager.instance_pm;
 
         m_Module = m_PlayerManager.m_CurrentAttributes[5]; // 모듈 종류

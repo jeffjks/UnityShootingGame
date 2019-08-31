@@ -45,11 +45,11 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
         m_InPattern = true;
 
         if (m_SystemManager.m_Difficulty == 0) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 2; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(4, pos, 3.6f, m_CurrentAngle, accel, 15, 13f);
-                CreateBulletsSector(4, pos, 4.4f, m_CurrentAngle, accel, 10, 13f);
-                yield return new WaitForSeconds(1.6f);
+                CreateBulletsSector(4, pos, 3.6f, m_CurrentAngle, accel, 15, 14f);
+                CreateBulletsSector(4, pos, 4.4f, m_CurrentAngle, accel, 10, 14f);
+                yield return new WaitForSeconds(2.4f);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {

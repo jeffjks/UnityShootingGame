@@ -2639,7 +2639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_Health: 4800
+  m_Health: 5600
   m_Class: 2
   m_Score: 25000
   m_Debris: 0
@@ -3079,7 +3079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_Health: 1600
+  m_Health: 2000
   m_Class: 2
   m_Score: 0
   m_Debris: 0
@@ -3348,7 +3348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_Health: 1600
+  m_Health: 2000
   m_Class: 2
   m_Score: 0
   m_Debris: 0

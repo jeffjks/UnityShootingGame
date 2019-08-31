@@ -13,7 +13,6 @@ public class EnemyMiddleBoss2 : EnemyUnit
     
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
-    private bool m_TimeLimitState = false;
     private float m_Direction = 0f;
 
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;

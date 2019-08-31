@@ -121,7 +121,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
             while (true) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(4, pos, 6f, m_CurrentAngle, accel, 2, 18f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.12f);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {

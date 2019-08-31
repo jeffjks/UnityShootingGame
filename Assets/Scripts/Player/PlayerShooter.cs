@@ -305,8 +305,8 @@ public class PlayerShooter : MonoBehaviour
         Vector3[] shotPosition = new Vector3[2];
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
-        CreatePlayerAttacks(m_PlayerMissileName[1], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 0f));
-        CreatePlayerAttacks(m_PlayerMissileName[1], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 0f));
+        CreatePlayerAttacks(m_PlayerMissileName[1], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, -15f));
+        CreatePlayerAttacks(m_PlayerMissileName[1], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 15f));
     }
 
     private void CreateRocket() {

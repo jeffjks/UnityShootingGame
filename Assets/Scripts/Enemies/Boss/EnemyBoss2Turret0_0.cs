@@ -49,41 +49,39 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
         if (m_SystemManager.m_Difficulty == 0) {
             for (int i = 0; i < 3; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 5.2f, m_CurrentAngle, accel, 13, 12f);
-                CreateBulletsSector(5, pos, 6.0f, m_CurrentAngle, accel, 12, 12f);
+                CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 7, 19f);
+                CreateBulletsSector(5, pos, 5.8f, m_CurrentAngle, accel, 8, 19f);
                 if (i > 0)
-                    CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 13, 12f);
-                if (i > 1)
-                    CreateBulletsSector(5, pos, 7.6f, m_CurrentAngle, accel, 12, 12f);
+                    CreateBulletsSector(5, pos, 6.6f, m_CurrentAngle, accel, 7, 19f);
                 yield return new WaitForSeconds(1.2f);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             for (int i = 0; i < 4; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 5.2f, m_CurrentAngle, accel, 13, 11f);
-                CreateBulletsSector(5, pos, 5.8f, m_CurrentAngle, accel, 12, 11f);
+                CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 13, 12f);
+                CreateBulletsSector(5, pos, 5.6f, m_CurrentAngle, accel, 12, 12f);
                 if (i > 0)
-                    CreateBulletsSector(5, pos, 6.4f, m_CurrentAngle, accel, 13, 11f);
+                    CreateBulletsSector(5, pos, 6.2f, m_CurrentAngle, accel, 13, 12f);
                 if (i > 1)
-                    CreateBulletsSector(5, pos, 7.0f, m_CurrentAngle, accel, 12, 11f);
+                    CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 12, 12f);
                 if (i > 2)
-                    CreateBulletsSector(5, pos, 7.6f, m_CurrentAngle, accel, 13, 11f);
-                yield return new WaitForSeconds(0.9f);
+                    CreateBulletsSector(5, pos, 7.4f, m_CurrentAngle, accel, 13, 12f);
+                yield return new WaitForSeconds(0.9f + i*0.1f);
             }
         }
         else {
             for (int i = 0; i < 4; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 5.2f, m_CurrentAngle, accel, 13, 9f);
-                CreateBulletsSector(5, pos, 5.8f, m_CurrentAngle, accel, 12, 9f);
+                CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 13, 10f);
+                CreateBulletsSector(5, pos, 5.6f, m_CurrentAngle, accel, 12, 10f);
                 if (i > 0)
-                    CreateBulletsSector(5, pos, 6.4f, m_CurrentAngle, accel, 13, 9f);
+                    CreateBulletsSector(5, pos, 6.2f, m_CurrentAngle, accel, 13, 10f);
                 if (i > 1)
-                    CreateBulletsSector(5, pos, 7.0f, m_CurrentAngle, accel, 12, 9f);
+                    CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 12, 10f);
                 if (i > 2)
-                    CreateBulletsSector(5, pos, 7.6f, m_CurrentAngle, accel, 13, 9f);
-                yield return new WaitForSeconds(0.9f);
+                    CreateBulletsSector(5, pos, 7.4f, m_CurrentAngle, accel, 13, 10f);
+                yield return new WaitForSeconds(0.9f + i*0.1f);
             }
         }
         m_InPattern = false;

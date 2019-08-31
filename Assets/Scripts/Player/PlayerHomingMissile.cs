@@ -7,14 +7,19 @@ public class PlayerHomingMissile : PlayerMissile {
     [Space(10)]
     [SerializeField] private float m_RotationSpeed = 0.09f;
     private GameObject m_Target;
+    private Vector2 m_MainCameraPosition;
     
     protected override void OnStart()
     {
+        m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
         m_Vector2 = transform.up * m_Speed;
+        m_Target = null;
     }
 
     void Update()
     {
+        m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
+
         if (Time.timeScale == 0)
             return;
         
@@ -25,7 +30,14 @@ public class PlayerHomingMissile : PlayerMissile {
             Vector2 vec = (m_Target.transform.position - transform.position).normalized;
             transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
             m_Vector2 = transform.up * m_Speed;
+            Debug.DrawLine(transform.position, m_Target.transform.position, Color.red, 0.1f);
         }
+        Vector2 left = new Vector2(m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f, -8f);
+        Vector2 right = new Vector2(m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f, -8f);
+        Vector2 top = new Vector2(0f, m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f);
+        Vector2 bottom = new Vector2(0f, m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f);
+        Debug.DrawLine(left, right, Color.green, 0.1f);
+        Debug.DrawLine(top, bottom, Color.green, 0.1f);
 
         MoveVector();
     }
@@ -34,24 +46,23 @@ public class PlayerHomingMissile : PlayerMissile {
     {
         GameObject[] enemies;
         GameObject target = null;
-        Vector2 camera_pos = m_PlayerManager.m_MainCamera.transform.position;
         float distance = Mathf.Infinity;
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         foreach (GameObject target_temp in enemies) {
             EnemyUnit enemy = target_temp.GetComponentInParent<EnemyUnit>();
-            if (enemy.m_Position2D.x < camera_pos.x - Size.CAMERA_WIDTH*0.5f) // -6 (default)
+            if (target_temp.transform.position.x < m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f) // -6 (default)
                 continue;
-            else if (enemy.m_Position2D.x > camera_pos.x + Size.CAMERA_WIDTH*0.5f) // 6 (default)
+            else if (target_temp.transform.position.x > m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f) // 6 (default)
                 continue;
-            else if (enemy.m_Position2D.y < camera_pos.y - Size.CAMERA_HEIGHT*0.5f) // -16
+            else if (target_temp.transform.position.y < m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f) // -16
                 continue;
-            else if (enemy.m_Position2D.y > camera_pos.y + Size.CAMERA_HEIGHT*0.5f) // 0
+            else if (target_temp.transform.position.y > m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f) // 0
                 continue;
 
             if (enemy.m_IsAttackable) {
-                Vector2 diff = enemy.m_Position2D - (Vector2) transform.position;
+                Vector2 diff = target_temp.transform.position - transform.position;
                 float curDistance = diff.sqrMagnitude;
                 if (curDistance < distance) {
                     target = target_temp;

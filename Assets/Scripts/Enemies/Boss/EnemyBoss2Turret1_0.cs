@@ -51,8 +51,8 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
             for (int k = 0; k < 3; k++) {
                 for (int i = 0; i < num[k]; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    for (int j = 0; j < 11; j++) {
-                        CreateBullet(0, pos, 13.7f, m_CurrentAngle - 14f*5.5f + j*14f, accel1, BulletType.ERASE_AND_CREATE, duration,
+                    for (int j = 0; j < 7; j++) {
+                        CreateBullet(0, pos, 13.7f, m_CurrentAngle - 18f*3.5f + j*18f, accel1, BulletType.ERASE_AND_CREATE, duration,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-6f, 6f), accel2);
                     }
                     yield return new WaitForSeconds(0.3f);

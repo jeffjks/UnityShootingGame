@@ -13,6 +13,7 @@ public class DebrisEffect : MonoBehaviour
     private Vector2 m_Position2D;
     private Vector2 m_BackgroundCameraSize;
     private Material[] m_Materials;
+    private Tween m_Tween = null;
     private int m_DebrisType;
     private bool m_OnEnable = false;
 
@@ -82,14 +83,14 @@ public class DebrisEffect : MonoBehaviour
                 return;
         }
         m_DebrisObject[m_DebrisType].SetActive(true);
-        m_Materials[m_DebrisType].DOFade(0f, "_Color", m_LifeTime);
+        m_Tween = m_Materials[m_DebrisType].DOFade(0f, "_Color", m_LifeTime);
         
         Invoke("OnDeath", m_LifeTime);
     }
 
     public void OnDeath() {
         CancelInvoke("OnDeath");
-        DOTween.Kill(m_Materials[m_DebrisType]);
+        DOTween.Kill(m_Tween);
         m_Materials[m_DebrisType].SetColor("_Color", Color.white);
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.DEBRIS);
     }

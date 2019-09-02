@@ -97,7 +97,18 @@ public class PlayerManager : MonoBehaviour
         else
             m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
-        m_PlayerShooter.m_ShotLevel = m_SystemManager.m_ShotLevel;
+
+        switch(m_SystemManager.GetStage()) {
+            case 0: 
+                m_PlayerShooter.m_ShotLevel = 0;
+                break;
+            case 1: 
+                m_PlayerShooter.m_ShotLevel = 2;
+                break;
+            default:
+                m_PlayerShooter.m_ShotLevel = 4;
+                break;
+        }
     }
 
     public void PlayerDead(Vector3 dead_position) {

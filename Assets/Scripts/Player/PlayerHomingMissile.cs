@@ -30,14 +30,11 @@ public class PlayerHomingMissile : PlayerMissile {
             Vector2 vec = (m_Target.transform.position - transform.position).normalized;
             transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
             m_Vector2 = transform.up * m_Speed;
-            Debug.DrawLine(transform.position, m_Target.transform.position, Color.red, 0.1f);
         }
         Vector2 left = new Vector2(m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f, -8f);
         Vector2 right = new Vector2(m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f, -8f);
         Vector2 top = new Vector2(0f, m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f);
         Vector2 bottom = new Vector2(0f, m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f);
-        Debug.DrawLine(left, right, Color.green, 0.1f);
-        Debug.DrawLine(top, bottom, Color.green, 0.1f);
 
         MoveVector();
     }

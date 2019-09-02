@@ -89,7 +89,6 @@ public class SystemManager : MonoBehaviour
     
     public bool m_DebugMod, m_InvincibleMod;
     public DebugDifficulty m_DebugDifficulty;
-    public byte m_ShotLevel;
     
     private GameManager m_GameManager = null;
     private PlayerManager m_PlayerManager = null;
@@ -256,7 +255,7 @@ public class SystemManager : MonoBehaviour
         SceneManager.LoadScene("Stage" + (m_Stage + 2));
         SceneManager.sceneLoaded += OnSceneLoaded;
         
-        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 0f);
+        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 24f);
         ScreenEffect(2); // Transition
         m_PlayState = 0;
         m_OverviewHandler.gameObject.SetActive(false);

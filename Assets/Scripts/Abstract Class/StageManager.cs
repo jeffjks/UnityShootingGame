@@ -46,8 +46,35 @@ public abstract class StageManager : MonoBehaviour
 
     void Update()
     {
-        if (m_AudioBoss.time > 128.08f) {
-            m_AudioBoss.time = 6.49f;
+        if (m_SystemManager.m_PlayState <= 1) {
+            switch(m_Stage) {
+                case 2: // Stage 3
+                    if (m_AudioStage.time > 215.25f) {
+                        m_AudioStage.time = 14.496f;
+                    }
+                    break;
+                case 4: // Stage 5
+                    if (m_AudioStage.time > 182.66f) {
+                        m_AudioStage.time = 94.75f;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {
+            switch(m_Stage) {
+                case 4: // Last Boss
+                    if (m_AudioBoss.time > 215.25f) {
+                        m_AudioBoss.time = 12.77f;
+                    }
+                    break;
+                default:
+                    if (m_AudioBoss.time > 128.08f) {
+                        m_AudioBoss.time = 6.49f;
+                    }
+                    break;
+            }
         }
     }
 
@@ -133,7 +160,8 @@ public abstract class StageManager : MonoBehaviour
             m_BackgroundVector.z = target;
             yield break;
         }
-        DOTween.To(()=>m_BackgroundVector.z, x=>m_BackgroundVector.z = x, target, duration).SetEase(Ease.Linear);
+        Vector3 target_vector = new Vector3(0f, 0f, target);
+        DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target_vector, duration).SetEase(Ease.Linear);
 
         yield return new WaitForSeconds(duration);
         DOTween.Kill(m_BackgroundVector.z);

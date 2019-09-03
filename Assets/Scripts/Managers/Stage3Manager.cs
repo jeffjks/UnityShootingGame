@@ -22,25 +22,22 @@ public class Stage3Manager : StageManager
         //InitEnemies();
         SetBackgroundSpeed(0.016f);
 
-        yield return new WaitForSeconds(62f);
+        yield return new WaitForSeconds(55f);
         SetBackgroundSpeed(-0.016f, 2f);
-        //StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.2f, 29f), 1f)); // Middle Boss (36s)
+        //StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.2f, 29f), 1f)); // Middle Boss (56s)
 
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(26f);
         SetBackgroundSpeed(new Vector3(-0.032f, 0f, -0.012f), 0.75f);
         
         yield return new WaitForSeconds(13f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.016f), 0.75f);
-        yield break;
 
-        yield return new WaitForSeconds(27f);
-        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(40f);
+        //StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(4f);
-        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         SetBackgroundSpeed(0f);
         PlayBossMusic();
         yield break;

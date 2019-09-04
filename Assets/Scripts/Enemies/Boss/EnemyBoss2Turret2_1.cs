@@ -7,6 +7,7 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition = null;
     
+    private bool m_Activate = false;
     private bool m_Shooting = false;
 
     void Start()
@@ -17,18 +18,21 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
 
     protected override void Update()
     {
-        if (m_PlayerManager.m_PlayerIsAlive) {
-            if (m_Shooting)
-                RotateSlightly(m_PlayerPosition, 60f);
-            }
-        else
-            RotateSlightly(m_PlayerPosition, 100f);
+        if (m_Activate) {
+            if (m_PlayerManager.m_PlayerIsAlive) {
+                if (m_Shooting)
+                    RotateSlightly(m_PlayerPosition, 60f);
+                }
+            else
+                RotateSlightly(m_PlayerPosition, 100f);
+        }
         
         base.Update();
     }
 
     public void StartPattern() {
         StartCoroutine(Pattern1());
+        m_Activate = true;
     }
 
     private IEnumerator Pattern1()

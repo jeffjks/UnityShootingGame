@@ -80,7 +80,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
             m_Turret1[1].OnDeath();
         
         m_Collider2D[0].gameObject.SetActive(true);
-        m_SystemManager.EraseBullets(1f);
+        m_SystemManager.EraseBullets(0.5f);
     }
 
 

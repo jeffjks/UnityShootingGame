@@ -241,7 +241,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected Color[] m_DefaultAlbedo;
     protected Sequence m_Sequence = null;
     protected bool m_UpdateTransform = true;
-    protected bool m_CollisionLaser = false, m_CollisionLaserAura = false;
+    protected bool[] m_TakeDamageType = { false, false, false };
     
     [HideInInspector] public float m_CurrentAngle = 0f; // 현재 회전 각도
     [HideInInspector] public float m_MaxHealth;
@@ -261,6 +261,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         base.Awake();
         m_DefaultAxis = -transform.transform.up;
         m_DefaultQuaternion = transform.localRotation;
+        m_CurrentAngle = - transform.rotation.eulerAngles.y;
 
         m_MaxHealth = m_Health;
 
@@ -318,9 +319,10 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         }
         
         UpdateColorTimer();
+        
+        for (int i = 0; i < m_TakeDamageType.Length; i++)
+            m_TakeDamageType[i] = false;
 
-        m_CollisionLaser = false;
-        m_CollisionLaserAura = false;
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         GetCoordinates();
     }
@@ -496,28 +498,22 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
     }
 
-    public void TakeDamage(float amount, byte laser_type = 0, bool blend = true)
+    public void TakeDamage(float amount, sbyte damage_type = -1, bool blend = true)
     {
-        // laser type - 0: 일반 공격, 1: 레이저, 2: 레이저(Aura)
+        // damage_type - -1: 일반 공격, 0: 레이저, 1: 레이저(Aura), 2: 폭탄
         // blend - ImageBlend 실행 여부
         if (m_IsAttackable) {
             if (m_ShareHealth) {
                 if (m_MaxHealth == -1)
-                    m_ParentEnemy.TakeDamage(amount, laser_type, true);
+                    m_ParentEnemy.TakeDamage(amount, damage_type, true);
                 else
-                    m_ParentEnemy.TakeDamage(amount, laser_type, false);
+                    m_ParentEnemy.TakeDamage(amount, damage_type, false);
             }
-            if (laser_type == 1) {
-                if (m_CollisionLaser)
+            if (damage_type >= 0) {
+                if (m_TakeDamageType[damage_type])
                     return;
                 else
-                    m_CollisionLaser = true;
-            }
-            else if (laser_type == 2) {
-                if (m_CollisionLaserAura)
-                    return;
-                else
-                    m_CollisionLaserAura = true;
+                    m_TakeDamageType[damage_type] = true;
             }
 
             if (!m_IsDead) {

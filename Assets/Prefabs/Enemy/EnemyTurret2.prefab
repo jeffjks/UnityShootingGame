@@ -82,6 +82,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6192040104998937505}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
@@ -454,8 +455,8 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 4661517338647869441}
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D:
-  - {fileID: 0}
+  m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
@@ -567,7 +568,7 @@ Transform:
   m_GameObject: {fileID: 8162417348542934593}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 1338945817588538131}
   - {fileID: 636589910696652763}

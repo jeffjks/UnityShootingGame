@@ -44,8 +44,19 @@ public abstract class StageManager : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
+        MusicLoop();
+    }
+
+    protected void BackgroundLoop(float z, float subtract) {
+        Vector3 pos = m_SystemManager.m_BackgroundCamera.transform.position;
+        if (pos.z > z - 24f) {
+            m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(pos.x, pos.y, pos.z - subtract);
+        }
+    }
+
+    private void MusicLoop() {
         if (m_SystemManager.m_PlayState <= 1) {
             switch(m_Stage) {
                 case 2: // Stage 3

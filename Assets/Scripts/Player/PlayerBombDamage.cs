@@ -23,17 +23,13 @@ public class PlayerBombDamage : PlayerDamageUnit
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
 
             if (enemyObject.m_Class == EnemyClass.Zako) {
-                enemyObject.TakeDamage(m_Damage);
+                enemyObject.TakeDamage(m_Damage, 2);
             }
             if (enemyObject.m_Class == EnemyClass.MiddleBoss) {
-                if (enemyObject.m_ParentEnemy == null) {
-                    enemyObject.TakeDamage(m_Damage * 0.5f);
-                }
+                enemyObject.TakeDamage(m_Damage * 0.5f, 2);
             }
             if (enemyObject.m_Class == EnemyClass.Boss) {
-                if (enemyObject.m_ParentEnemy == null) {
-                    enemyObject.TakeDamage(m_Damage * 0.33f);
-                }
+                enemyObject.TakeDamage(m_Damage * 0.33f, 2);
             }
         }
     }

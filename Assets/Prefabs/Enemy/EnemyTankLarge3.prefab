@@ -229,10 +229,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf33f82730c91e34083a4af406c361cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 750
   m_Class: 0
   m_Score: 2200
-  m_Debris: 2
+  m_Debris: 3
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 01000000
@@ -244,8 +245,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 194190709792130662}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 1494443869040272853}
   - {fileID: 8398562093700003551}
@@ -1069,6 +1072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498bb7f16d66af84ba827f77bf817467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1079,12 +1083,14 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
+  m_ParentEnemy: {fileID: 1954327149335142907}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 1610580103404080784}
   m_FireDelay:
   - 2

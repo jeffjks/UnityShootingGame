@@ -377,10 +377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe9baeb7b7cb3419f8136016281aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 900
   m_Class: 0
   m_Score: 2000
-  m_Debris: 2
+  m_Debris: 3
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 0200000001000000
@@ -392,8 +393,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 1534149398655828823}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 3642231956075061742}
   - {fileID: 1117458527355304265}
@@ -956,6 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a8741b09eacd40b5655033947907b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 500
@@ -970,8 +974,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 4287026626115791604}
   - {fileID: 6612182412610256966}
@@ -1097,6 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb12c0062e1a7434b94cfaa7034a8240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1111,8 +1118,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &5318184344933796676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,6 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a8741b09eacd40b5655033947907b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 500
@@ -1218,8 +1228,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 22032423976621568}
   - {fileID: 583097748549169610}

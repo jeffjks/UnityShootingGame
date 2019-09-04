@@ -16,10 +16,17 @@ public class Stage3Manager : StageManager
         m_Stage = 2;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        BackgroundLoop(98f, 24f);
+    }
+
     protected override IEnumerator MainTimeLine()
     {
         yield return new WaitForSeconds(1f);
-        //InitEnemies();
+        InitEnemies();
         SetBackgroundSpeed(0.016f);
 
         yield return new WaitForSeconds(55f);
@@ -38,7 +45,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(4f);
-        SetBackgroundSpeed(0f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0.064f), 1f);
         PlayBossMusic();
         yield break;
     }

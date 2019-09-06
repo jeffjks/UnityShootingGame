@@ -349,7 +349,8 @@ MonoBehaviour:
   m_AudioStage: {fileID: 35179873}
   m_AudioBoss: {fileID: 35179872}
   m_BossUnit: {fileID: 0}
-  m_MiddleBossUnit: []
+  m_MiddleBossUnit:
+  - {fileID: 100000, guid: 473812caa50370642aef744627df5d27, type: 3}
   m_EnemyPreloaded:
   - {fileID: 517710599}
   - {fileID: 439542155}

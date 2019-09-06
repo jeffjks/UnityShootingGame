@@ -20,16 +20,16 @@ public class Stage2Manager : StageManager
     {
         yield return new WaitForSeconds(1f);
         InitEnemies();
-        SetBackgroundSpeed(0.016f);
+        SetBackgroundSpeed(0.96f);
 
         yield return new WaitForSeconds(35f);
         StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.2f, 29f), 1f)); // Middle Boss (36s)
 
         yield return new WaitForSeconds(35f);
-        SetBackgroundSpeed(new Vector3(0.02f, 0f, 0.01f), 0.75f);
+        SetBackgroundSpeed(new Vector3(1.2f, 0f, 0.6f), 0.75f);
         
         yield return new WaitForSeconds(13f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0.016f), 0.75f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 0.75f);
 
         yield return new WaitForSeconds(27f);
         StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss

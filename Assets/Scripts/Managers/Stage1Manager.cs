@@ -19,12 +19,12 @@ public class Stage1Manager : StageManager
     {
         yield return new WaitForSeconds(1f);
         InitEnemies();
-        SetBackgroundSpeed(0.3f);
+        SetBackgroundSpeed(18f);
         yield return new WaitForSeconds(5f);
-        SetBackgroundSpeed(0.03f, 1.6875f);
+        SetBackgroundSpeed(1.8f, 1.6875f);
 
         yield return new WaitForSeconds(36f);
-        SetBackgroundSpeed(0.045f, 0.75f);
+        SetBackgroundSpeed(2.7f, 0.75f);
         StartCoroutine(MiddleBossStart(new Vector3(12f, -13f, Depth.ENEMY), 1f)); // Middle Boss (42s)
 
         yield return new WaitForSeconds(55f);
@@ -32,7 +32,7 @@ public class Stage1Manager : StageManager
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(4f);
-        SetBackgroundSpeed(0.12f, 0.9375f);
+        SetBackgroundSpeed(7.2f, 0.9375f);
         PlayBossMusic();
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
         yield return new WaitForSeconds(2f);

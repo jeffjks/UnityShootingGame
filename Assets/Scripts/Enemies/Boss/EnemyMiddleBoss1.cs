@@ -11,7 +11,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
     private bool m_TimeLimitState = false;
     private float m_AppearanceTime = 2f;
 
-    private IEnumerator m_Pattern1, m_Pattern2;
+    private IEnumerator m_CurrentPattern1 = null, m_CurrentPattern2 = null;
 
     void Start()
     {
@@ -27,8 +27,8 @@ public class EnemyMiddleBoss1 : EnemyUnit
         .Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad))
         .Join(transform.DORotateQuaternion(m_TargetQuaternion, m_AppearanceTime).SetEase(Ease.InQuad));
         
-        m_Pattern1 = Pattern1(m_SystemManager.m_Difficulty);
-        StartCoroutine(m_Pattern1);
+        m_CurrentPattern1 = Pattern1(m_SystemManager.m_Difficulty);
+        StartCoroutine(m_CurrentPattern1);
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
@@ -39,10 +39,12 @@ public class EnemyMiddleBoss1 : EnemyUnit
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
                 m_SystemManager.BulletsToGems(1f);
                 m_Phase = 1;
-                StopCoroutine(m_Pattern1);
-                m_Pattern2 = Pattern2();
+                if (m_CurrentPattern1 != null)
+                    StopCoroutine(m_CurrentPattern1);
+                
+                m_CurrentPattern2 = Pattern2();
                 if (m_SystemManager.m_Difficulty == 2)
-                    StartCoroutine(m_Pattern2);
+                    StartCoroutine(m_CurrentPattern2);
                 ExplosionEffect(2, -1, new Vector2(2f, 0f));
                 ExplosionEffect(2, 1, new Vector2(-2f, 0f));
             }
@@ -70,7 +72,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
 
     private void OnAppearanceComplete() {
         float[] random_direction = { 70f, 110f, -70f, -110f };
-        m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 3 + 1)]);
+        m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_UpdateTransform = true;
     }
 

@@ -1,0 +1,316 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+
+public class EnemyMiddleBoss3 : EnemyUnit
+{
+    public Transform[] m_FirePosition = new Transform[3];
+    public float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    
+    private float m_Direction = 0f;
+    private Vector2 m_TargetPosition;
+    private byte m_Phase = 0;
+
+    private IEnumerator m_CurrentPhase = null, m_CurrentPattern1 = null, m_CurrentPattern2 = null;
+    private float m_AppearanceTimer = 3.5f;
+    private float m_RemoveTimer = 30f;
+
+    void Start()
+    {
+        float delay = 2f;
+        DisableAttackable(m_AppearanceTimer);
+        m_TargetPosition = new Vector2(0f, -5f);
+
+        m_Sequence = DOTween.Sequence()
+        .AppendInterval(delay)
+        .Append(transform.DOMoveY(2.4f, m_AppearanceTimer - delay));
+
+        Invoke("OnAppearanceComplete", m_AppearanceTimer);
+    }
+
+    private void OnAppearanceComplete() {
+        float[] random_direction = { 75f, 105f, -75f, -105f };
+        m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 4)]);
+
+        m_CurrentPhase = Phase0();
+        StartCoroutine(m_CurrentPhase);
+    }
+
+
+    protected override void Update()
+    {
+        Vector3 pos = transform.position;
+        transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f*Time.deltaTime);
+
+        if (m_Phase == 0) {
+            if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
+                ToPhase1();
+            }
+        }
+        
+        if (m_IsAttackable) {
+            if (m_Position2D.x >= m_TargetPosition.x + 1.6f) {
+                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
+            }
+            else if (m_Position2D.x <= m_TargetPosition.x - 1.6f) {
+                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.right));
+            }
+            else if (m_Position2D.y >= m_TargetPosition.y + 0.4f) {
+                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
+            }
+            else if (m_Position2D.y <= m_TargetPosition.y - 0.4f) {
+                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
+            }
+        }
+
+        m_Direction += 150f * Time.deltaTime;
+        if (m_Direction >= 360f)
+            m_Direction -= 360f;
+
+        base.Update();
+    }
+
+    public void ToPhase1() {
+        if (m_Phase == 1)
+            return;
+        m_Phase = 1;
+        StopCoroutine(m_CurrentPattern1);
+        StopCoroutine(m_CurrentPattern2);
+
+        if (m_CurrentPhase != null)
+            StopCoroutine(m_CurrentPhase);
+
+        ExplosionEffect(1, 0, new Vector3(0f, 3f, 2f));
+        ExplosionEffect(0, -1, new Vector3(1.4f, 3f, 0.8f));
+        ExplosionEffect(0, -1, new Vector3(-1.4f, 3f, 0.8f));
+        ExplosionEffect(1, -1, new Vector3(0f, 3f, -2f));
+
+        m_CurrentPattern1 = Pattern5();
+        StartCoroutine(m_CurrentPattern1);
+        StartCoroutine(m_CurrentPattern2);
+    }
+
+    
+
+    private IEnumerator Phase0() { // 페이즈0 패턴 ============================
+        yield return new WaitForSeconds(1f);
+        while (m_Phase == 0) {
+            m_CurrentPattern1 = Pattern1();
+            m_CurrentPattern2 = Pattern2();
+            StartCoroutine(m_CurrentPattern1);
+            StartCoroutine(m_CurrentPattern2);
+            yield return new WaitForSeconds(4f);
+            if (m_CurrentPattern1 != null)
+                StopCoroutine(m_CurrentPattern1);
+            if (m_CurrentPattern2 != null)
+                StopCoroutine(m_CurrentPattern2);
+            yield return new WaitForSeconds(2f);
+            
+            m_CurrentPattern1 = Pattern3();
+            m_CurrentPattern2 = Pattern4();
+            StartCoroutine(m_CurrentPattern1);
+            StartCoroutine(m_CurrentPattern2);
+            yield return new WaitForSeconds(3f);
+            if (m_CurrentPattern1 != null)
+                StopCoroutine(m_CurrentPattern1);
+            if (m_CurrentPattern2 != null)
+                StopCoroutine(m_CurrentPattern2);
+            yield return new WaitForSeconds(2f);
+        }
+        yield return null;
+    }
+
+    private IEnumerator Pattern1() {
+        Vector2 pos;
+        float timer = 1.25f;
+        float target_angle, random_value1, random_value2;
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, timer);
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0f);
+
+        while (true) {
+            random_value1 = Random.Range(-3f, 3f);
+            random_value2 = Random.Range(-70f, 70f);
+            pos = GetScreenPosition(m_FirePosition[2].position);
+            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+
+            if (m_SystemManager.m_Difficulty == 0) {
+                CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
+                BulletType.ERASE_AND_CREATE, timer, 4, 6f, BulletDirection.PLAYER, random_value1, accel2);
+            }
+            else if (m_SystemManager.m_Difficulty >= 1) {
+                for (int i = 0; i < 4; i++) {
+                    CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
+                    BulletType.ERASE_AND_CREATE, timer, 4, 5.6f + i*0.4f, BulletDirection.PLAYER, random_value1, accel2);
+                }
+            }
+            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+        }
+    }
+
+    private IEnumerator Pattern2() {
+        Vector2 pos;
+        float target_angle, random_value;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+
+        while (true) {
+            pos = GetScreenPosition(m_FirePosition[1].position);
+            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            random_value = Random.Range(0f, 360f);
+
+            if (m_SystemManager.m_Difficulty == 0) {
+                for (int i = 0; i < 4; i++) {
+                    CreateBulletsSector(0, pos, 7.2f, random_value + 32f*i, accel, 4, 2f);
+                }
+                yield return new WaitForSeconds(0.4f);
+            }
+            else if (m_SystemManager.m_Difficulty == 1) {
+                for (int i = 0; i < 5; i++) {
+                    CreateBulletsSector(0, pos, 7.2f, random_value + 25f*i, accel, 6, 2f);
+                }
+                yield return new WaitForSeconds(0.27f);
+            }
+            else {
+                for (int i = 0; i < 5; i++) {
+                    CreateBulletsSector(0, pos, 6.9f, random_value + 25f*i, accel, 6, 2f);
+                    CreateBulletsSector(0, pos, 7.5f, random_value + 25f*i, accel, 6, 2f);
+                }
+                yield return new WaitForSeconds(0.25f);
+            }
+        }
+    }
+
+    private IEnumerator Pattern3() {
+        Vector2 pos;
+        float target_angle;
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(7.9f, 0.8f);
+
+        for (int i = 0; i < 3; i++) {
+            pos = GetScreenPosition(m_FirePosition[2].position);
+            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+
+            if (m_SystemManager.m_Difficulty == 0) {
+                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 11, 13f);
+                CreateBulletsSector(0, pos, 5.9f, target_angle, accel1, 11, 13f);
+                yield return new WaitForSeconds(1.2f);
+                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 11, 13f);
+                CreateBulletsSector(0, pos, 5.9f, target_angle, accel1, 11, 13f);
+                break;
+            }
+            else if (m_SystemManager.m_Difficulty == 1) {
+                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 13, 10f);
+                CreateBulletsSector(0, pos, 5.9f, target_angle, accel1, 13, 10f);
+                yield return new WaitForSeconds(0.8f);
+            }
+            else {
+                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 15, 8f);
+                CreateBulletsSector(0, pos, 6f, target_angle, accel2, 16, 8f);
+                yield return new WaitForSeconds(0.8f);
+            }
+        }
+        yield break;
+    }
+
+    private IEnumerator Pattern4() {
+        Vector2 pos;
+        float target_angle;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+
+        while (true) {
+            pos = GetScreenPosition(m_FirePosition[1].position);
+            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+
+            if (m_SystemManager.m_Difficulty == 0) {
+                CreateBullet(3, pos, 5.3f, target_angle + Random.Range(-40f, 40f), accel);
+                yield return new WaitForSeconds(0.08f);
+            }
+            else if (m_SystemManager.m_Difficulty == 1) {
+                CreateBullet(3, pos, Random.Range(5f, 5.8f), target_angle + Random.Range(-40f, 40f), accel);
+                yield return new WaitForSeconds(0.05f);
+            }
+            else {
+                CreateBullet(3, pos, Random.Range(5f, 6f), target_angle + Random.Range(-40f, 40f), accel);
+                yield return new WaitForSeconds(0.03f);
+            }
+        }
+    }
+
+    private IEnumerator Pattern5() {
+        Vector2 pos;
+        float target_angle;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+
+        while (true) {
+            pos = GetScreenPosition(m_FirePosition[0].position);
+            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+
+            if (m_SystemManager.m_Difficulty == 0) {
+                CreateBullet(5, pos, 5.3f, target_angle + Random.Range(-40f, 40f), accel);
+                yield return new WaitForSeconds(0.12f);
+            }
+            else if (m_SystemManager.m_Difficulty == 1) {
+                CreateBullet(5, pos, Random.Range(5f, 5.8f), target_angle + Random.Range(-40f, 40f), accel);
+                yield return new WaitForSeconds(0.08f);
+            }
+            else {
+                CreateBulletsSector(5, pos, 6.2f, m_Direction, accel, 5, 72f);
+                yield return new WaitForSeconds(0.06f);
+            }
+        }
+    }
+
+
+
+    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+        m_SystemManager.BulletsToGems(2f);
+        m_MoveVector.speed = 0f;
+
+        StartCoroutine(DeathExplosion1(1.9f));
+        StartCoroutine(DeathExplosion2(1.9f));
+
+        yield return new WaitForSeconds(2f);
+        ExplosionEffect(3, 3, new Vector3(0f, 3f, 5f)); // 최종 파괴
+        ExplosionEffect(2, -1, new Vector3(1.5f, 3f, 2f));
+        ExplosionEffect(2, -1, new Vector3(-1.5f, 3f, 2f));
+        ExplosionEffect(3, -1, new Vector3(0f, 3f, -1f));
+        ExplosionEffect(2, -1, new Vector3(1.5f, 3f, -4f));
+        ExplosionEffect(2, -1, new Vector3(-1.5f, 3f, -4f));
+        ExplosionEffect(3, -1, new Vector3(0f, 3f, -7f));
+        m_SystemManager.ScreenEffect(0);
+        
+        CreateItems();
+        Destroy(gameObject);
+        yield return null;
+    }
+
+    private IEnumerator DeathExplosion1(float timer) {
+        float t = 0f, t_add = 0f;
+        Vector3 random_pos;
+        while (t < timer) {
+            t_add = Random.Range(0.2f, 0.4f);
+            random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
+            ExplosionEffect(0, 2, random_pos);
+            random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
+            ExplosionEffect(0, -1, random_pos);
+            t += t_add;
+            yield return new WaitForSeconds(t_add);
+        }
+        yield return null;
+    }
+
+    private IEnumerator DeathExplosion2(float timer) {
+        float t = 0f, t_add = 0f;
+        Vector3 random_pos;
+        while (t < timer) {
+            t_add = Random.Range(0.4f, 0.7f);
+            random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
+            ExplosionEffect(1, 1, random_pos);
+            random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
+            ExplosionEffect(1, -1, random_pos);
+            t += t_add;
+            yield return new WaitForSeconds(t_add);
+        }
+        yield return null;
+    }
+}

@@ -8,7 +8,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
     [SerializeField] private Transform[] m_FirePosition = new Transform[3];
     [SerializeField] private GameObject m_Hull = null;
     [SerializeField] private EnemyMiddleBoss5bTurret m_Turret = null;
-    private IEnumerator m_Pattern1, m_Pattern2;
+    private IEnumerator m_CurrentPattern1 = null, m_CurrentPattern2 = null;
     
     private Vector3 m_TargetPosition;
     private float m_AppearanceTime = 2f;
@@ -38,8 +38,8 @@ public class EnemyMiddleBoss5b : EnemyUnit
         
         GetCoordinates();
         InvokeRepeating("Pattern1", 1f, m_FireDelay[m_SystemManager.m_Difficulty]);
-        m_Pattern1 = Pattern1();
-        StartCoroutine(m_Pattern1);
+        m_CurrentPattern1 = Pattern1();
+        StartCoroutine(m_CurrentPattern1);
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -48,7 +48,8 @@ public class EnemyMiddleBoss5b : EnemyUnit
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
                 m_Phase = 1;
-                StopCoroutine(m_Pattern2);
+                if (m_CurrentPattern2 != null)
+                    StopCoroutine(m_CurrentPattern2);
                 Destroy(m_Hull);
                 ExplosionEffect(0, 0);
                 
@@ -79,8 +80,8 @@ public class EnemyMiddleBoss5b : EnemyUnit
             pos[0] = m_FirePosition[0].position;
             pos[1] = m_FirePosition[1].position;
             if (m_Phase == 0) {
-                m_Pattern2 = Pattern2(state);
-                StartCoroutine(m_Pattern2);
+                m_CurrentPattern2 = Pattern2(state);
+                StartCoroutine(m_CurrentPattern2);
             }
             else if (m_Phase == 1) {
                 m_Turret.StartCoroutine("Pattern2");
@@ -178,7 +179,8 @@ public class EnemyMiddleBoss5b : EnemyUnit
         m_MoveVector = new MoveVector(1.5f, 0f);
         m_SystemManager.BulletsToGems(3f);
         m_Phase = 2;
-        StopCoroutine(m_Pattern1);
+        if (m_CurrentPattern1 != null)
+            StopCoroutine(m_CurrentPattern1);
         m_Turret.OnDeath();
 
         StartCoroutine(DeathExplosion1());

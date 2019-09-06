@@ -22,7 +22,7 @@ public class EnemyBoss2 : EnemyUnit
     private float m_AppearanceTime = 10f;
     private bool m_InPattern = false;
 
-    private IEnumerator m_CurrentPhase, m_CurrentPattern;
+    private IEnumerator m_CurrentPhase = null, m_CurrentPattern = null;
 
     void Start()
     {
@@ -65,7 +65,9 @@ public class EnemyBoss2 : EnemyUnit
     public void ToNextPhase(float duration) {
         m_Phase++;
         if (m_Phase > 0) {
-            StopCoroutine(m_CurrentPattern);
+            if (m_CurrentPattern != null)
+                StopCoroutine(m_CurrentPattern);
+            if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
 
             if (m_Phase == 1) {
@@ -233,8 +235,10 @@ public class EnemyBoss2 : EnemyUnit
 
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        StopCoroutine(m_CurrentPattern);
-        StopCoroutine(m_CurrentPhase);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPhase != null)
+            StopCoroutine(m_CurrentPhase);
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector = new MoveVector(0f, 0f);
         m_Part[2].OnDeath();

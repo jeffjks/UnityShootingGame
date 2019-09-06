@@ -8,13 +8,13 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
     
     private bool m_Shooting = false;
     private byte m_Phase = 0;
-    private IEnumerator m_Pattern1, m_Pattern2;
+    private IEnumerator m_CurrentPattern = null;
 
     void Start()
     {
         GetCoordinates();
-        m_Pattern1 = Pattern1();
-        StartCoroutine(m_Pattern1);
+        m_CurrentPattern = Pattern1();
+        StartCoroutine(m_CurrentPattern);
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -32,9 +32,10 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
         else {
             if (m_Phase == 0) {
                 m_Phase = 1;
-                StopCoroutine(m_Pattern1);
-                m_Pattern2 = Pattern2();
-                StartCoroutine(m_Pattern2);
+                if (m_CurrentPattern != null)
+                    StopCoroutine(m_CurrentPattern);
+                m_CurrentPattern = Pattern2();
+                StartCoroutine(m_CurrentPattern);
             }
         }
 

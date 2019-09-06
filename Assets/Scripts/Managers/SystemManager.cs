@@ -154,7 +154,7 @@ public class SystemManager : MonoBehaviour
 
     void Update()
     {
-        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime*60f;
+        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
 
         if (m_ReplayState) {
             if (m_FadingOut) {

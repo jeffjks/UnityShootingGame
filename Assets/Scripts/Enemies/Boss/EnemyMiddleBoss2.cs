@@ -11,11 +11,9 @@ public class EnemyMiddleBoss2 : EnemyUnit
     public EnemyMiddleBoss2Turret1[] m_Turret1 = new EnemyMiddleBoss2Turret1[2];
     [HideInInspector] public byte m_Phase = 0;
     
-    private Vector3 m_TargetPosition;
-    private Quaternion m_TargetQuaternion;
     private float m_Direction = 0f;
 
-    private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
+    private IEnumerator m_CurrentPattern1 = null, m_CurrentPattern2 = null;
 
     void Start()
     {
@@ -65,7 +63,8 @@ public class EnemyMiddleBoss2 : EnemyUnit
         if (m_Phase == 1)
             return;
         m_Phase = 1;
-        StopCoroutine(m_CurrentPattern1);
+        if (m_CurrentPattern1 != null)
+            StopCoroutine(m_CurrentPattern1);
 
         m_CurrentPattern1 = Pattern2();
         m_CurrentPattern2 = Pattern3();

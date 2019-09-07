@@ -14,7 +14,7 @@ public class AttributesHandler : AttributeSelectButtonUI
     public float m_DefaultY;
     
     private float m_TargetY;
-    private float m_yVelocity = 0f;
+    private float m_yVelocity;
 
     void Update()
 	{

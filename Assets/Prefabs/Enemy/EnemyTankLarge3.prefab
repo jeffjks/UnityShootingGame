@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_Health: 750
+  m_Health: 500
   m_Class: 0
   m_Score: 2200
   m_Debris: 3

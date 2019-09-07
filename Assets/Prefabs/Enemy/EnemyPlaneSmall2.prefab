@@ -125,12 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03f0ffb79b1b1144ba310434e9d1fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 8
   m_Class: 0
   m_Score: 125
   m_Debris: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
+  m_DefaultExplosion: 7
+  m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
@@ -140,8 +141,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5774063208189514127}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FireDelay:
   - 0
   - 0

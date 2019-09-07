@@ -22,7 +22,7 @@ public class EnemyBoss2 : EnemyUnit
     private float m_AppearanceTime = 10f;
     private bool m_InPattern = false;
 
-    private IEnumerator m_CurrentPhase = null, m_CurrentPattern = null;
+    private IEnumerator m_CurrentPhase, m_CurrentPattern;
 
     void Start()
     {

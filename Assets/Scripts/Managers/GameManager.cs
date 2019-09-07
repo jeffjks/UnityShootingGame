@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int m_MaxResolutionNumber, m_GraphicsQuality, m_MaxGraphicsQuality;
     [HideInInspector] public bool m_AntiAliasing;
     [HideInInspector] public int[] m_CurrentAttributes = {0, 0, 0, 0, 0, 0, 0};
-    [HideInInspector] public int m_UsedCost = 0;
-    [HideInInspector] public byte m_Difficulty = 0;
+    [HideInInspector] public int m_UsedCost;
+    [HideInInspector] public byte m_Difficulty;
 
     private int[,] m_ResolutionList;
     private PlayerManager m_PlayerManager = null;

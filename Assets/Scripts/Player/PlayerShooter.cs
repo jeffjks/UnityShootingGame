@@ -24,8 +24,8 @@ public class PlayerShooter : MonoBehaviour
     private float m_FireDelayWait;
     private int m_ShotNumber;
     private bool m_NowShooting, m_NowAttacking = false;
-    private int m_AutoShot = 0;
-    private float m_ShotKeyPressTime = 0f;
+    private int m_AutoShot;
+    private float m_ShotKeyPressTime;
     private int m_ShotDamage, m_LaserDamage, m_Module;
     private int m_DefaultBombNumber, m_BombNumber, m_MaxBombNumber = 5;
     private bool m_BombEnable = true;

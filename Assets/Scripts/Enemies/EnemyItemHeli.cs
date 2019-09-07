@@ -12,7 +12,7 @@ public class EnemyItemHeli : EnemyUnit {
     
     private bool m_TimeLimitState = false;
     private float m_AppearanceTime = 1.5f;
-    private float m_PositionY, m_AddPositionY = 0f;
+    private float m_PositionY, m_AddPositionY;
     private float m_VSpeed = 1f;
 
     void Start ()

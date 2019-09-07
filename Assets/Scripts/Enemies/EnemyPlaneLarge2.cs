@@ -6,7 +6,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
 {
     [SerializeField] private EnemyUnit[] m_Turret = new EnemyUnit[4];
     [SerializeField] private Transform m_FirePosition = null;
-    private byte m_Phase = 0;
+    private byte m_Phase;
 
     void Start() {
         m_MoveVector = new MoveVector(0.8f, 0f);

@@ -10,6 +10,8 @@ public class EnemyPlaneSmall1 : EnemyUnit
 
     private bool m_TargetPlayer = true;
     private float m_Speed = 6.4f;
+    private float m_MaxTilt = 30f;
+    private float m_CurrentTilt;
 
     void Start()
     {
@@ -25,6 +27,7 @@ public class EnemyPlaneSmall1 : EnemyUnit
         RotateImmediately(m_MoveVector.direction);
 
         Vector2 previous_vector = m_MoveVector.GetVector();
+        float target_tilt;
 
         if (m_TargetPlayer == true) {
             float player_distance = ((Vector2) transform.position - m_PlayerPosition).magnitude;
@@ -36,12 +39,14 @@ public class EnemyPlaneSmall1 : EnemyUnit
         }
 
         Vector2 after_vector = m_MoveVector.GetVector();
-        float max_tilt = 30f;
-        float max_angle = 0.6f; // -0.5 -> 0, 0.5 -> 1
-        float angle = Vector2.SignedAngle(previous_vector, after_vector) / (max_angle * 2) + max_angle / 2;
-
-        float tilt = Mathf.Lerp(-max_tilt, max_tilt, angle);
-        Turn(tilt);
+        
+        if (previous_vector == after_vector)
+            target_tilt = 0;
+        else
+            target_tilt = Mathf.Sign(Vector2.SignedAngle(previous_vector, after_vector)) * m_MaxTilt;
+        m_CurrentTilt = Mathf.MoveTowards(m_CurrentTilt, target_tilt, 72f*Time.deltaTime);
+        
+        Turn(m_CurrentTilt);
         
         base.Update();
     }

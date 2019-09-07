@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyMiddleBoss1Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
+    public Transform m_FirePosition;
     
     private bool m_Shooting = false;
-    private byte m_Phase = 0;
-    private IEnumerator m_CurrentPattern = null;
+    private byte m_Phase;
+    private IEnumerator m_CurrentPattern;
 
     void Start()
     {

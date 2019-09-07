@@ -11,7 +11,7 @@ public class SoundMenuHandler : GameUI
     private int m_MusicVolumeOptions;
     private int m_SoundVolumeOptions;
 
-    private int m_Delay = 0;
+    private int m_Delay;
 
     void OnEnable() {
         UpdateValues();

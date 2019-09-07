@@ -7,7 +7,7 @@ public class EnemyShipLargeTurret3 : EnemyUnit
     [SerializeField] private Transform m_FirePosition = null;
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
 
-    private int m_Side = 0;
+    private int m_Side;
 
     void Start()
     {

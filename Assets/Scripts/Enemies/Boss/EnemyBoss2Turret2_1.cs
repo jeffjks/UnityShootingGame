@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBoss2Turret2_1 : EnemyUnit
 {
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    public Transform m_FirePosition = null;
+    public Transform m_FirePosition;
     
     private bool m_Activate = false;
     private bool m_Shooting = false;

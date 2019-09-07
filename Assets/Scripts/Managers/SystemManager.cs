@@ -82,10 +82,10 @@ public class SystemManager : MonoBehaviour
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
-    [HideInInspector] public byte m_PlayState = 0; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수 화면
-    [HideInInspector] public int BulletsSortingLayer = 0;
-    [HideInInspector] public float m_BulletsEraseTimer = 0f;
-    [HideInInspector] public byte m_Difficulty = 0;
+    [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수 화면
+    [HideInInspector] public int BulletsSortingLayer;
+    [HideInInspector] public float m_BulletsEraseTimer;
+    [HideInInspector] public byte m_Difficulty;
     
     public bool m_DebugMod, m_InvincibleMod;
     public DebugDifficulty m_DebugDifficulty;
@@ -255,7 +255,7 @@ public class SystemManager : MonoBehaviour
         SceneManager.LoadScene("Stage" + (m_Stage + 2));
         SceneManager.sceneLoaded += OnSceneLoaded;
         
-        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 24f);
+        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, -24f);
         ScreenEffect(2); // Transition
         m_PlayState = 0;
         m_OverviewHandler.gameObject.SetActive(false);

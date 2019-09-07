@@ -30,7 +30,7 @@ public class PlayerController : PlayerDamageUnit
     private float m_DefaultRotation;
     private float m_TiltSpeed = 0.2f;
     private bool m_Invincibility = false;
-    private float m_InvincibleTimer = 0;
+    private float m_InvincibleTimer;
     private bool m_HasCollided = false;
     private float m_Speed, m_SlowSpeed;
     private float m_OverviewSpeed;

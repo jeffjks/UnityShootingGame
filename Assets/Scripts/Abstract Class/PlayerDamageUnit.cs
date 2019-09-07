@@ -34,14 +34,14 @@ public abstract class PlayerDamageUnit : MonoBehaviour
 
 public abstract class PlayerMissile : PlayerDamageUnit
 {
-    [SerializeField] private float m_DamageBonus = 0;
+    [SerializeField] private float m_DamageBonus = 0f;
     [SerializeField] protected float m_Speed = 1f;
     [SerializeField] private bool m_IsPenetrate = false;
     [SerializeField] private GameObject[] m_ActivatedObject = null;
     [Header("-1 : None / 0 : Shot(fire) / 1 : Homing(purple) / 2 : Rocket(metal)")]
     [SerializeField] private int m_HitEffectNumber = -1;
 
-    [HideInInspector] public int m_DamageLevel = 0;
+    [HideInInspector] public int m_DamageLevel;
     
     protected bool m_HasDamaged = false;
 

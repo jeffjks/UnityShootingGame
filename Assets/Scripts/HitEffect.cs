@@ -6,12 +6,12 @@ public class HitEffect : MonoBehaviour
 {
     public string m_ObjectName;
 
-    // [SerializeField] private float m_Lifetime = 0f;
+    // [SerializeField] private float m_Lifetime;
     [SerializeField] private GameObject[] m_ActivatedObject = null;
     private PoolingManager m_PoolingManager = null;
     private Animator[] m_Animator = new Animator[3];
 
-    [HideInInspector] public int m_HitEffectType = 0;
+    [HideInInspector] public int m_HitEffectType;
 
     void Awake()
     {

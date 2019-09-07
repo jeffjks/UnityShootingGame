@@ -18,7 +18,7 @@ public class PlayerDrone : MonoBehaviour
     private float m_CurrentTargetLocalR; // 현재 회전 타겟
     private float m_CurrentLocalR; // 현재 회전
     private int m_ShotForm;
-    private int m_ShotLevel = 0;
+    private int m_ShotLevel;
     private float m_ParticleLocalScale;
     private float m_DefaultDepth;
     

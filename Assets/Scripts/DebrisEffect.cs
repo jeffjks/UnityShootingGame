@@ -83,6 +83,7 @@ public class DebrisEffect : MonoBehaviour
                 return;
         }
         m_DebrisObject[m_DebrisType].SetActive(true);
+        m_Materials[m_DebrisType].SetColor("_Color", Color.white);
         m_Tween = m_Materials[m_DebrisType].DOFade(0f, "_Color", m_LifeTime);
         
         Invoke("OnDeath", m_LifeTime);

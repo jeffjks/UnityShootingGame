@@ -4,14 +4,14 @@ using DG.Tweening;
 
 public class EnemyMiddleBoss1 : EnemyUnit
 {
-    [HideInInspector] public byte m_Phase = 0;
+    [HideInInspector] public byte m_Phase;
     
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
     private bool m_TimeLimitState = false;
     private float m_AppearanceTime = 2f;
 
-    private IEnumerator m_CurrentPattern1 = null, m_CurrentPattern2 = null;
+    private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
 
     void Start()
     {

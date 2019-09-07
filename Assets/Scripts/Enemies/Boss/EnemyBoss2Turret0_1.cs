@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyBoss2Turret0_1 : EnemyUnit
 {
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    public Transform m_FirePosition = null;
+    public Transform m_FirePosition;
     
-    private IEnumerator m_CurrentPattern = null;
-    private int m_Side = 1, m_RoateState = 0;
+    private IEnumerator m_CurrentPattern;
+    private int m_Side = 1, m_RoateState;
     private bool m_Pattern2Rotate = false;
 
     void Start()

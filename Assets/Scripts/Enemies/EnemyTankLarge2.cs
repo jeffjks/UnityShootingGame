@@ -6,7 +6,7 @@ public class EnemyTankLarge2 : EnemyUnit
 {
     [SerializeField] private Transform[] m_FirePosition = new Transform[2];
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    private float m_Direction = 0f;
+    private float m_Direction;
 
     void Start()
     {

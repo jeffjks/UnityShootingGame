@@ -41,7 +41,7 @@ public class PoolingManager : MonoBehaviour
         }
         instance_op = this;
         
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     
 
@@ -137,7 +137,7 @@ public class PooledObject
 {
     // public string m_PoolItemName = string.Empty;
     public GameObject m_PooledPrefabs = null;
-    public int m_DefaultPoolCount = 0;
+    public int m_DefaultPoolCount;
     
     [SerializeField]
     private Queue<GameObject> m_PoolQueue = new Queue<GameObject>();

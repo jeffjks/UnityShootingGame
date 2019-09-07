@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eed25edeaad5ed449e44da87a92454d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 600
   m_Class: 0
   m_Score: 5000
@@ -84,8 +85,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 7530292145792047302}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 8600843656446972908}
   - {fileID: 1627735005470464450}
@@ -1162,6 +1165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 5
   m_Class: 0
   m_Score: 50
@@ -1177,8 +1181,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 2584976920722111438}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &2322565775998555043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 5
   m_Class: 0
   m_Score: 50
@@ -1415,8 +1422,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5549598710243160195}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &2322565775998555067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,6 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bd3a540f6fcb54c867d09c2466f667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 70
@@ -2098,8 +2108,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 5684359050705670321}
   m_FireDelay:
   - 2.4
@@ -2381,6 +2393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff86242ba39b134a8b5fc47f7ebb531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 50
@@ -2395,8 +2408,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 8428805456461748912}
   m_FireDelay:
   - 2.4
@@ -2803,6 +2818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bd3a540f6fcb54c867d09c2466f667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 70
@@ -2817,8 +2833,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 8045332881984804941}
   m_FireDelay:
   - 2.4
@@ -2982,6 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 8
   m_Class: 0
   m_Score: 60
@@ -2997,8 +3016,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 782485757654861832}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &4418592613851599877
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,6 +3647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 8
   m_Class: 0
   m_Score: 60
@@ -3641,8 +3663,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6620734080348137944}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &5631756929616188332
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,6 +3711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bd3a540f6fcb54c867d09c2466f667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 70
@@ -3701,8 +3726,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 7159419066801912129}
   m_FireDelay:
   - 2.4
@@ -3752,6 +3779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff86242ba39b134a8b5fc47f7ebb531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 50
@@ -3766,8 +3794,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 3064629734270128876}
   m_FireDelay:
   - 2.4
@@ -3871,6 +3901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 5
   m_Class: 0
   m_Score: 50
@@ -3886,8 +3917,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 7426759133943790757}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &6300869694629937862
 GameObject:
   m_ObjectHideFlags: 0
@@ -4453,6 +4486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 8
   m_Class: 0
   m_Score: 60
@@ -4468,8 +4502,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6427917142928611874}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &6534131235740254342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4717,6 +4753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bd3a540f6fcb54c867d09c2466f667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 70
@@ -4731,8 +4768,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 4183970922750534229}
   m_FireDelay:
   - 2.4
@@ -4829,6 +4868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff86242ba39b134a8b5fc47f7ebb531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 50
@@ -4843,8 +4883,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 2045095297047164389}
   m_FireDelay:
   - 2.4
@@ -4946,6 +4988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 8
   m_Class: 0
   m_Score: 60
@@ -4961,8 +5004,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 2951290784269847196}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &7374164287378832755
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,6 +5389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff86242ba39b134a8b5fc47f7ebb531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 0
   m_Class: 0
   m_Score: 50
@@ -5358,8 +5404,10 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FirePosition: {fileID: 7984119759104757342}
   m_FireDelay:
   - 2.4
@@ -5420,7 +5468,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 3, y: 2.5}
   m_EdgeRadius: 0
 --- !u!1 &8485072251415770144
 GameObject:
@@ -5521,6 +5569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 5
   m_Class: 0
   m_Score: 50
@@ -5536,8 +5585,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5366126447254452686}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
 --- !u!1 &8696809777875359945
 GameObject:
   m_ObjectHideFlags: 0

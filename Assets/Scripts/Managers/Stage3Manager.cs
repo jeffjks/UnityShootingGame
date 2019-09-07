@@ -6,7 +6,8 @@ public class Stage3Manager : StageManager
 {
     [Space(10)]
     public GameObject m_Test;
-    public GameObject m_TankSmall_1, m_TankSmall_2, m_ShipSmall_1, m_ShipSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeli_1, m_ItemHeli_2, m_Gunship, m_PlaneMedium_2, m_PlaneMedium_3;
+    public GameObject m_ShipSmall_1, m_ShipSmall_2, m_ShipMedium, m_ShipLarge, m_ShipCarrier_1, m_TankLarge_3,
+    m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_ItemHeli_1, m_ItemHeli_2, m_PlaneMedium_5;
 
     private const float WATER_HEIGHT = 2.32f;
     private IEnumerator m_CurrentSpawn;
@@ -59,33 +60,109 @@ public class Stage3Manager : StageManager
 
     protected override IEnumerator EnemyTimeLine()
     {
-        yield break;
         yield return new WaitForSeconds(3f);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-3.5f, 3f), new Vector2(-3f, -3f), Random.Range(1.2f, 1.5f));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(3.5f, 3f), new Vector2(3f, -3f), Random.Range(1.2f, 1.5f));
-        yield return new WaitForSeconds(4f);
-        CreateEnemy(m_ItemHeli_1, new Vector2(-2f, 3f)); // Item Heli 1
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -2f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(2f, 5f), Random.Range(2f, 4f)));
+        yield return new WaitForSeconds(0.7f);
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-6f, -2f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(2f, 6f), Random.Range(2f, 4f)));
+        yield return new WaitForSeconds(0.7f);
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-6f, -2f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(2f, 6f), Random.Range(2f, 4f)));
+        yield return new WaitForSeconds(0.6f);
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -2f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(2f, 5f), Random.Range(2f, 4f)));
+        CreateEnemy(m_ItemHeli_1, new Vector2(2f, 3f)); // Item Heli 1
         yield return new WaitForSeconds(2f);
-        CreateEnemy(m_ItemHeli_2, new Vector2(3.5f, 3f)); // Item Heli 2
+        CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-6f, -3f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-3f, 0f), Random.Range(2f, 4f)));
+        yield return new WaitForSeconds(1f);
+        CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-6f, -3f), Random.Range(2f, 4f)));
+        CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-3f, 0f), Random.Range(2f, 4f)));
+        yield return new WaitForSeconds(1f);
+        CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_LEFT - 3f, WATER_HEIGHT, 13f), new MoveVector(1.5f, 80f), 4f, 1f);
+        yield return new WaitForSeconds(5f);
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(1f, WATER_HEIGHT, 20f), new MoveVector(1.5f, 5f), 3f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(3.2f, WATER_HEIGHT, 22f), new MoveVector(1.5f, -2f), 3f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(5.6f, WATER_HEIGHT, 21f), new MoveVector(1.5f, 1f), 3f, 1f);
+        yield return new WaitForSeconds(2f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -2f), new Vector2(4f, -3f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(4.5f, -5.5f), 1f);
+        yield return new WaitForSeconds(2f);
+        CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(0f, WATER_HEIGHT, 25f), new MoveVector(1.5f, 0f), 3.7f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(-4.5f, WATER_HEIGHT, 27f), new MoveVector(1.5f, -3f), 3.7f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-6.5f, WATER_HEIGHT, 26f), new MoveVector(1.5f, 2f), 3.7f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-2.8f, WATER_HEIGHT, 26.5f), new MoveVector(1.5f, 0f), 3.7f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(Size.GAME_BOUNDARY_RIGHT + 3f, WATER_HEIGHT, 26f), new MoveVector(1.5f, -50f), 5f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(Size.GAME_BOUNDARY_RIGHT + 4f, WATER_HEIGHT, 24f), new MoveVector(1.5f, -46f), 5f, 1f);
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(Size.GAME_BOUNDARY_RIGHT + 2f, WATER_HEIGHT, 21f), new MoveVector(1.5f, -40f), 5f, 1f);
+        yield return new WaitForSeconds(3f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-4f, -3f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-4.5f, -5.5f), 1f);
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(SpawnPlane2());
+        yield return new WaitForSeconds(6f);
+        CreateEnemyWithMoveVector(m_ShipCarrier_1, new Vector3(Size.GAME_BOUNDARY_LEFT + 1f, WATER_HEIGHT, 34.8f), new MoveVector(0.6f, 70f), 7f, 1f);
+        yield return new WaitForSeconds(12f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -2f), new Vector2(3f, -2f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(5f, -3.5f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(3.4f, -5f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(5.2f, -6.5f), 1f);
+        yield return new WaitForSeconds(3f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-3f, -2f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-5f, -3.5f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -4f), new Vector2(-3.4f, -5f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-5.2f, -6.5f), 1f);
+        yield return new WaitForSeconds(2f);
+        CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_RIGHT + 3f, WATER_HEIGHT, 47f), new MoveVector(1.4f, -80f));
+        yield return new WaitForSeconds(5f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-1.25f, -3f), 1.5f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(1.25f, -3f), 1.5f);
+        yield return new WaitForSeconds(1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5.5f), new Vector2(-3f, -6f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5.5f), new Vector2(3f, -6f), 1f);
+        yield return new WaitForSeconds(4f);
+        // Middle Boss (56s)
+        yield return new WaitForSeconds(10f);
+        for (int i = 0; i < 33; i++) {
+            if (m_SystemManager.m_PlayState == 0) {
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-8f, -6f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-5f, -2.5f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2.5f, 5f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(6f, 8f), Random.Range(2f, 3f)));
+            }
+            yield return new WaitForSeconds(0.6f);
+        }
+        yield return new WaitForSeconds(9.2f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -3f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -7f), new Vector2(4f, -7f), 1f);
+        yield return new WaitForSeconds(1f);
+        CreateEnemy(m_ItemHeli_1, new Vector2(1f, 3f)); // Item Heli 1
+        yield return new WaitForSeconds(2f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(2f, -4f), 1f);
+        CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -6f), new Vector2(5f, -6f), 1f);
+        yield return new WaitForSeconds(3f);
+        CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(-36.5f, 3f, 26f), new MoveVector(4f, 85f), 1.2f, 1f);
+        yield return new WaitForSeconds(10f);
+        CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
+        yield return new WaitForSeconds(12f);
+        CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
+        yield return new WaitForSeconds(3f);
+        CreateEnemy(m_ItemHeli_1, new Vector2(3f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeli_2, new Vector2(-3f, 3f)); // Item Heli 2
         yield break;
     }
 
-    private IEnumerator SpawnPlane1()
+    private IEnumerator SpawnPlane2()
     {
-        while (true) {
-            for (int i = 0; i < 2; i++) {
-                if (m_SystemManager.m_Difficulty == Difficulty.NORMAL) {
-                    CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-2f, -1f), Random.Range(2f, 4f)));
-                    CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 2f), Random.Range(2f, 4f)));
-                }
-                else {
-                    CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-3f, -2f), Random.Range(2f, 4f)));
-                    CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(2f, 4f)));
-                    CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(2f, 3f), Random.Range(2f, 4f)));
-                }
-                yield return new WaitForSeconds(0.6f);
-            }
-            yield return new WaitForSeconds(5f);
+        for (int i = 0; i < 10; i++) {
+            CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-7f, -4f), Random.Range(2f, 4f)));
+            CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 4f)));
+            CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(4f, 7f), Random.Range(2f, 4f)));
+            yield return new WaitForSeconds(0.6f);
         }
     }
 }

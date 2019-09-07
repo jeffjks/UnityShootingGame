@@ -5,15 +5,15 @@ using DG.Tweening;
 
 public class EnemyMiddleBoss2 : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition0 = null;
-    [SerializeField] private Transform[] m_FirePosition2 = new Transform[2];
+    public Transform m_FirePosition0;
+    public Transform[] m_FirePosition2 = new Transform[2];
     public EnemyMiddleBoss2Turret0 m_Turret0;
     public EnemyMiddleBoss2Turret1[] m_Turret1 = new EnemyMiddleBoss2Turret1[2];
-    [HideInInspector] public byte m_Phase = 0;
+    [HideInInspector] public byte m_Phase;
     
-    private float m_Direction = 0f;
+    private float m_Direction;
 
-    private IEnumerator m_CurrentPattern1 = null, m_CurrentPattern2 = null;
+    private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
 
     void Start()
     {

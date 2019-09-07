@@ -11,7 +11,7 @@ public class EnemyBoss1 : EnemyUnit
     public EnemyBoss1Part m_Part;
     public Transform[] m_FirePosition = new Transform[4];
 
-    [HideInInspector] public byte m_Phase = 0;
+    [HideInInspector] public byte m_Phase;
 
     private Vector3[] m_TargetPosition = new Vector3[2];
     private Quaternion[] m_TargetQuaternion = new Quaternion[2];

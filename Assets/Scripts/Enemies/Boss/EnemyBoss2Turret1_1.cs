@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyBoss2Turret1_1 : EnemyUnit
 {
-    public Transform m_FirePosition = null;
+    public Transform m_FirePosition;
     
-    private IEnumerator m_CurrentPattern = null;
+    private IEnumerator m_CurrentPattern;
     [HideInInspector] public bool m_InPattern = false;
 
     void Start()

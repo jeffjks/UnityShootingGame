@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyPlaneMedium4Turret : EnemyUnit
 {
     [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    private IEnumerator m_CurrentPattern = null;
+    private IEnumerator m_CurrentPattern;
 
     void Start()
     {

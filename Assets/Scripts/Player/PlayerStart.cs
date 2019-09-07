@@ -10,7 +10,7 @@ public class PlayerStart : MonoBehaviour
     public GameObject m_ModulePart;
     public GameObject m_PlayerShield;
 
-    private float m_Vspeed = 0f;
+    private float m_Vspeed;
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
 

@@ -8,11 +8,11 @@ public class EnemyMiddleBoss5b : EnemyUnit
     [SerializeField] private Transform[] m_FirePosition = new Transform[3];
     [SerializeField] private GameObject m_Hull = null;
     [SerializeField] private EnemyMiddleBoss5bTurret m_Turret = null;
-    private IEnumerator m_CurrentPattern1 = null, m_CurrentPattern2 = null;
+    private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     
     private Vector3 m_TargetPosition;
     private float m_AppearanceTime = 2f;
-    private byte m_Phase = 0;
+    private byte m_Phase;
 
     void Start()
     {

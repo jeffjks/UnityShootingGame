@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyBoss1Turret2 : EnemyUnit
 {
     public float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    public Transform m_FirePosition = null;
+    public Transform m_FirePosition;
     
-    private IEnumerator m_CurrentPattern = null;
+    private IEnumerator m_CurrentPattern;
 
     void Start()
     {

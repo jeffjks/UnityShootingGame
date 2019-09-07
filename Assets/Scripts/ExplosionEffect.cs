@@ -4,8 +4,7 @@ using System.Collections;
 public class ExplosionEffect : MonoBehaviour
 {
     public string m_ObjectName;
-
-    [SerializeField] private float m_Lifetime = 0f;
+    public float m_Lifetime;
 
     [HideInInspector] public MoveVector m_MoveVector;
     

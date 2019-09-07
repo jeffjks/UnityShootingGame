@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class EnemyPlaneMedium5 : EnemyUnit
 {
-    [HideInInspector] public byte m_State = 0;
+    [HideInInspector] public byte m_State;
     private float m_AppearanceTime = 3f;
     private sbyte m_Side;
 

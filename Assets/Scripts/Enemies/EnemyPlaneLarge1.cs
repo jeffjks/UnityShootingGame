@@ -16,7 +16,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private IEnumerator m_Pattern1, m_Pattern2;
     private bool m_TimeLimitState = false;
     private float m_AppearanceTime = 2.3f;
-    private byte m_Phase = 0;
+    private byte m_Phase;
 
     void Start ()
     {

@@ -243,13 +243,13 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected bool m_UpdateTransform = true;
     protected bool[] m_TakeDamageType = { false, false, false };
     
-    [HideInInspector] public float m_CurrentAngle = 0f; // 현재 회전 각도
+    [HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
     [HideInInspector] public bool m_IsAttackable = true;
 
-    private float m_TakingDamageTimer = 0f;
-    private float m_LowHealthBlinkTimer = 0f;
+    private float m_TakingDamageTimer;
+    private float m_LowHealthBlinkTimer;
     private Color m_DamagingAlbedo = new Color(0.64f, 0.64f, 1f, 1f); // blue
 
     private readonly Vector3 m_AirEnemyAxis = new Vector3(0f, -0.4f, 1f);
@@ -259,9 +259,9 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected override void Awake()
     {
         base.Awake();
-        m_DefaultAxis = -transform.transform.up;
+        m_DefaultAxis = - transform.transform.up;
         m_DefaultQuaternion = transform.localRotation;
-        m_CurrentAngle = - transform.rotation.eulerAngles.y;
+        m_MoveVector.direction = - transform.rotation.eulerAngles.y;
 
         m_MaxHealth = m_Health;
 

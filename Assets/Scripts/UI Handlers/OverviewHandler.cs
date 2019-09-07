@@ -15,10 +15,10 @@ public class OverviewHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer m_OverviewBackground = null;
     
     private Text m_FinalBonusScoreText;
-    private float m_DisplayTimer = 0f;
-    private byte m_DisplayStage = 0;
-    private float m_BonusScale = 0;
-    private uint m_FinalBonusScore = 0;
+    private float m_DisplayTimer;
+    private byte m_DisplayStage;
+    private float m_BonusScale;
+    private uint m_FinalBonusScore;
 
     private SystemManager m_SystemManager = null;
 

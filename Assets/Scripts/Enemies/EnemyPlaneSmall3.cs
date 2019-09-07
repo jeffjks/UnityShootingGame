@@ -17,6 +17,7 @@ public class EnemyPlaneSmall3 : EnemyUnit
         GetCoordinates();
         RotateImmediately(m_PlayerPosition);
 
+        InvokeRepeating("Pattern1", 1f, m_FireDelay[m_SystemManager.m_Difficulty]);
         Invoke("TimeLimit", time_limit);
     }
 

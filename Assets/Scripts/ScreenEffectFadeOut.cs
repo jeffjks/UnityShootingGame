@@ -8,7 +8,7 @@ public class ScreenEffectFadeOut : MonoBehaviour
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;
 
-    private float m_Delta = 0;
+    private float m_Delta;
     
     void FixedUpdate()
     {

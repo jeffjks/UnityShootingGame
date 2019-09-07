@@ -6,7 +6,9 @@ public class ItemPowerUp : ItemBox
 {
     protected override void ItemEffect(Collider2D other) {
         PlayerShooter playerShooter = other.GetComponentInParent<PlayerShooter>();
-        m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
-        playerShooter.PowerUp();
+        if (playerShooter != null) {
+            m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
+            playerShooter.PowerUp();
+        }
     }
 }

@@ -13,7 +13,7 @@ public abstract class GameUI : MonoBehaviour {
     protected int m_Total;
     protected bool m_isVerticalAxisInUse = false;
     protected bool m_isHorizontalAxisInUse = false;
-    protected float m_Alpha = 0f;
+    protected float m_Alpha;
     protected Color m_ColorSelectedImage_0 = new Color32(255, 255, 0, 83);
     protected Color m_ColorSelectedImage_1 = new Color32(255, 255, 0, 200);
     protected Color m_ColorSelectedText = new Color32(54, 219, 54, 255); // green

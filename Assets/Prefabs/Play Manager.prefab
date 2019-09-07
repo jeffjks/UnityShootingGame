@@ -989,7 +989,6 @@ MonoBehaviour:
   m_DebugMod: 0
   m_InvincibleMod: 0
   m_DebugDifficulty: 2
-  m_ShotLevel: 0
 --- !u!114 &5824299595195028251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,7 +1579,7 @@ Transform:
   m_GameObject: {fileID: 5824299595324622241}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -8, z: 0}
-  m_LocalScale: {x: 1.15, y: 1.15, z: 1}
+  m_LocalScale: {x: 1.15, y: 1.3, z: 1}
   m_Children: []
   m_Father: {fileID: 5824299595195028252}
   m_RootOrder: 2

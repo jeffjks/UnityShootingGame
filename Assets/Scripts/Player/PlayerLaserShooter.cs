@@ -14,7 +14,7 @@ public class PlayerLaserShooter : MonoBehaviour
     public float m_HitOffset;
     public float m_EndPointAlpha;
 
-    [HideInInspector] public float m_MaxLength = 0f;
+    [HideInInspector] public float m_MaxLength;
     [HideInInspector] public int m_LaserIndex;
     
     private PlayerLaserCreater m_PlayerLaserCreater;

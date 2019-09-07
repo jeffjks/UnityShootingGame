@@ -124,15 +124,15 @@ public class EnemyShipCarrier : EnemyUnit
             timer += random_timer;
         }
         yield return new WaitForSeconds(0.2f);
-        ExplosionEffect(0, -1, new Vector3(2f, explosion_height, 2f));
-        ExplosionEffect(0, -1, new Vector3(-2f, explosion_height, 2f));
-        ExplosionEffect(0, -1, new Vector3(2f, explosion_height, 4f));
-        ExplosionEffect(0, -1, new Vector3(-2f, explosion_height, 4f));
-        ExplosionEffect(1, 2, new Vector3(0f, explosion_height, 0f));
-        ExplosionEffect(0, -1, new Vector3(2f, explosion_height, -2f));
-        ExplosionEffect(0, -1, new Vector3(-2f, explosion_height, -2f));
-        ExplosionEffect(0, -1, new Vector3(2f, explosion_height, -4f));
-        ExplosionEffect(0, -1, new Vector3(-2f, explosion_height, -4f));
+        ExplosionEffect(0, -1, new Vector3(2f, 2f, 2f));
+        ExplosionEffect(0, -1, new Vector3(-2f, 2f, 2f));
+        ExplosionEffect(0, -1, new Vector3(2f, 2f, 4f));
+        ExplosionEffect(0, -1, new Vector3(-2f, 2f, 4f));
+        ExplosionEffect(1, 2, new Vector3(0f, 2f, 0f));
+        ExplosionEffect(0, -1, new Vector3(2f, 2f, -2f));
+        ExplosionEffect(0, -1, new Vector3(-2f, 2f, -2f));
+        ExplosionEffect(0, -1, new Vector3(2f, 2f, -4f));
+        ExplosionEffect(0, -1, new Vector3(-2f, 2f, -4f));
         
         CreateItems();
         Destroy(gameObject);

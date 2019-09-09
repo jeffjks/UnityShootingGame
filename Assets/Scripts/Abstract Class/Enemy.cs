@@ -421,20 +421,29 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             m_Collider2D[i].enabled = true;
     }
 
-    public void DisableAttackable(float timer = 0f) { // timer초간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    public void EnableInvincible(float duration) {
+        m_IsAttackable = false;
+        Invoke("DisableInvincible", duration);
+    }
+
+    public void DisableAttackable(float duration = 0f) { // duration초간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
         if (m_Collider2D.Length == 0)
             return;
-        if (timer == 0)
+        if (duration == 0)
             return;
         m_IsAttackable = false;
         for (int i = 0; i < m_Collider2D.Length; i++)
             m_Collider2D[i].enabled = false;
         
-        if (timer != -1)
-            Invoke("AttackableTimer", timer);
+        if (duration != -1)
+            Invoke("AttackableTimer", duration);
     }
 
-    public void AttackableTimer() {
+    private void DisableInvincible() {
+        m_IsAttackable = true;
+    }
+
+    private void AttackableTimer() {
         if (m_Class != EnemyClass.Zako) {
             StartCoroutine(SetAttackable());
         }

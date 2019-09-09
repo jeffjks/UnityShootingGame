@@ -13,13 +13,10 @@ public class PauseManager : MonoBehaviour {
     [SerializeField]
     private GameObject m_PausePanel = null;
 
-    void Awake() {
+    void Start() {
         m_PlayerManager = PlayerManager.instance_pm;
         m_SystemManager = SystemManager.instance_sm;
         m_PauseMenuHandler = m_PausePanel.GetComponent<PauseMenuHandler>();
-    }
-
-    void Start() {
         m_PausePanel.SetActive(false);
     }
 

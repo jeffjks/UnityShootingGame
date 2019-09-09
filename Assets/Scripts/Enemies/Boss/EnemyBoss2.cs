@@ -68,7 +68,7 @@ public class EnemyBoss2 : EnemyUnit
             if (m_CurrentPattern != null)
                 StopCoroutine(m_CurrentPattern);
             if (m_CurrentPhase != null)
-            StopCoroutine(m_CurrentPhase);
+                StopCoroutine(m_CurrentPhase);
 
             if (m_Phase == 1) {
                 m_CurrentPhase = PatternPhase1();

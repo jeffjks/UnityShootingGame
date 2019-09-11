@@ -32,13 +32,9 @@ public class GameOuterBoundary : MonoBehaviour
         if (other.CompareTag("Enemy")) {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             if (!enemyObject.m_IsDead) {
-                Destroy(enemyObject.gameObject);
+                if (enemyObject.m_Class != EnemyClass.Boss)
+                    Destroy(enemyObject.gameObject);
                 }
-        }
-
-        else if (other.CompareTag("EnemySpawner")) {
-            EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-            Destroy(enemyObject.gameObject);
         }
 
         else if (other.CompareTag("ItemGem")) {

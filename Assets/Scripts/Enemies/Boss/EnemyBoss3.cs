@@ -6,8 +6,9 @@ using DG.Tweening;
 public class EnemyBoss3 : EnemyUnit
 {
     public EnemyBoss3Turret[] m_Turret = new EnemyBoss3Turret[2];
-    public GameObject m_Part;
+    public EnemyBoss3Part m_Part;
     public Transform[] m_FirePosition = new Transform[3];
+    public EnemyBoss3Barrel[] m_EnemyBoss3Barrel = new EnemyBoss3Barrel[2];
 
     [HideInInspector] public sbyte m_Phase;
     
@@ -15,10 +16,11 @@ public class EnemyBoss3 : EnemyUnit
     private Vector3 m_DefaultScale;
     private float m_AppearanceTime1 = 3f, m_AppearanceTime2 = 1.2f;
     private float m_Direction;
-    private bool m_Pattern1Direction;
+    private int m_RotateDirection;
     private bool m_InPattern = false;
+    private int m_CurrentPatternNumber;
 
-    private IEnumerator m_CurrentPhase, m_CurrentPattern, m_CurrentSubPattern1, m_CurrentSubPattern2;
+    private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2, m_CurrentPattern3;
 
     void Start()
     {
@@ -30,10 +32,10 @@ public class EnemyBoss3 : EnemyUnit
         RotateImmediately(m_MoveVector.direction);
         
         DisableAttackable(4.2f);
+        m_Part.DisableAttackable(4.2f);
 
         m_Sequence = DOTween.Sequence()
         .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 15f, 2f).SetEase(Ease.InQuad));
-        //ToNextPhase(m_AppearanceTime);
 
         Invoke("Appearance", m_AppearanceTime1);
     }
@@ -61,10 +63,12 @@ public class EnemyBoss3 : EnemyUnit
             }
         }
 
-        if (m_Pattern1Direction)
-            m_Direction += 90f*Time.deltaTime;
-        else
-            m_Direction -= 90f*Time.deltaTime;
+        if (m_CurrentPatternNumber == 1) {
+            m_Direction += 90f*Time.deltaTime*m_RotateDirection;
+        }
+        else if (m_CurrentPatternNumber == 3) {
+            m_Direction += 71f*Time.deltaTime*m_RotateDirection;
+        }
         
         if (m_Direction > 360f)
             m_Direction -= 360f;
@@ -91,23 +95,34 @@ public class EnemyBoss3 : EnemyUnit
         StartCoroutine(m_CurrentPhase);
     }
 
+    private int RandomValue() {
+        int random_value = Random.Range(0, 2);
+        if (random_value == 0)
+            random_value = -1;
+        return random_value;
+    }
+
     public void ToNextPhase() {
         float duration = 2f;
         m_Phase++;
         if (m_Phase > 0) {
             m_SystemManager.EraseBullets(1f);
             
-            if (m_CurrentPattern != null)
-                StopCoroutine(m_CurrentPattern);
+            if (m_CurrentPattern1 != null)
+                StopCoroutine(m_CurrentPattern1);
+            if (m_CurrentPattern2 != null)
+                StopCoroutine(m_CurrentPattern2);
+            if (m_CurrentPattern3 != null)
+                StopCoroutine(m_CurrentPattern3);
             if (m_CurrentPhase != null)
                 StopCoroutine(m_CurrentPhase);
+            m_Turret[0].StopPattern();
+            m_Turret[1].StopPattern();
 
             if (m_Phase == 1) {
                 m_CurrentPhase = PatternPhase1();
                 StartCoroutine(m_CurrentPhase);
-                m_Part.SetActive(false);
-                m_Collider2D[0].gameObject.SetActive(false);
-                m_Collider2D[1].gameObject.SetActive(true);
+                m_Part.OnDeath();
                 EnableInvincible(duration);
                 NextPhaseExplosion(duration);
             }
@@ -115,8 +130,6 @@ public class EnemyBoss3 : EnemyUnit
     }
 
     private void NextPhaseExplosion(float duration) {
-        ExplosionEffect(0, 0, new Vector2(1f, 0.44f));
-        ExplosionEffect(0, -1, new Vector2(-1f, 0.44f));
         StartCoroutine(NextPhaseExplosionEffect1(duration));
         StartCoroutine(NextPhaseExplosionEffect2(duration));
     }
@@ -144,15 +157,15 @@ public class EnemyBoss3 : EnemyUnit
         yield break;
     }
 
-    private IEnumerator PatternPhase0() {
+    private IEnumerator PatternPhase0() { // 페이즈 0 패턴 =================
         int side;
         yield return new WaitForSeconds(1f);
         while(m_Phase == 0) {
-            m_CurrentPattern = Pattern1();
-            StartCoroutine(m_CurrentPattern);
+            m_CurrentPattern1 = Pattern1();
+            StartCoroutine(m_CurrentPattern1);
             while (m_InPattern)
                 yield return null;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             
             side = Random.Range(0, 2);
             if (side == 0)
@@ -160,13 +173,27 @@ public class EnemyBoss3 : EnemyUnit
             
             m_Turret[0].StartPattern(1, side);
             m_Turret[1].StartPattern(1, side);
-            m_CurrentPattern = Pattern2();
-            StartCoroutine(m_CurrentPattern);
+            m_CurrentPattern1 = Pattern2();
+            StartCoroutine(m_CurrentPattern1);
             while (m_InPattern)
                 yield return null;
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
             yield return new WaitForSeconds(2f);
+
+            m_CurrentPattern1 = Pattern3A();
+            m_CurrentPattern2 = Pattern3B();
+            StartCoroutine(m_CurrentPattern1);
+            StartCoroutine(m_CurrentPattern2);
+            yield return new WaitForSeconds(5f);
+            if (m_CurrentPattern1 != null)
+                StopCoroutine(m_CurrentPattern1);
+            if (m_CurrentPattern2 != null)
+                StopCoroutine(m_CurrentPattern2);
+            yield return new WaitForSeconds(0.7f);
+            m_CurrentPattern1 = Pattern4();
+            StartCoroutine(m_CurrentPattern1);
+            yield return new WaitForSeconds(3f);
         }
         yield break;
     }
@@ -179,34 +206,29 @@ public class EnemyBoss3 : EnemyUnit
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         float[] fire_delay = { 0.18f, 0.13f, 0.1f };
-        int random_value = Random.Range(0, 2);
 
-        if (random_value == 0) {
-            random_value = -1;
-            m_Pattern1Direction = false;
-        }
-        else
-            m_Pattern1Direction = true;
+        m_RotateDirection = RandomValue();
         
         m_InPattern = true;
+        m_CurrentPatternNumber = 1;
 
         for (int i = 0; i < 3; i++) {
             pos = m_FirePosition[0].position;
-            m_Direction = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position) - 45f*random_value;
-            m_CurrentSubPattern1 = Pattern1A(i);
-            m_CurrentSubPattern2 = Pattern1B(i);
-            StartCoroutine(m_CurrentSubPattern1);
-            StartCoroutine(m_CurrentSubPattern2);
+            m_Direction = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position) - 45f*m_RotateDirection;
+            m_CurrentPattern2 = Pattern1A(i);
+            m_CurrentPattern3 = Pattern1B(i);
+            StartCoroutine(m_CurrentPattern2);
+            StartCoroutine(m_CurrentPattern3);
             yield return new WaitForSeconds(1f);
-            if (m_CurrentSubPattern1 != null)
-                StopCoroutine(m_CurrentSubPattern1);
-            if (m_CurrentSubPattern2 != null)
-                StopCoroutine(m_CurrentSubPattern2);
-            m_Pattern1Direction ^= true;
-            random_value *= -1;
+            if (m_CurrentPattern2 != null)
+                StopCoroutine(m_CurrentPattern2);
+            if (m_CurrentPattern3 != null)
+                StopCoroutine(m_CurrentPattern3);
+            m_RotateDirection *= -1;
         }
         
         m_InPattern = false;
+        m_CurrentPatternNumber = 0;
         yield break;
     }
 
@@ -274,27 +296,130 @@ public class EnemyBoss3 : EnemyUnit
         float[] fire_delay = { 1f, 0.5f, 0.33f };
 
         m_InPattern = true;
+        m_CurrentPatternNumber = 2;
+        yield return new WaitForSeconds(1.5f);
 
         for (int j = 0; j < 4; j++) {
             duration = 0f;
             while (duration < 1.6f) {
                 duration += fire_delay[m_SystemManager.m_Difficulty];
                 pos = m_FirePosition[0].position;
-                for (int i = 0; i < j; i++) {
+                for (int i = 0; i <= j; i++) {
                     CreateBullet(3, pos, 7f + i*0.6f, GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position), accel);
                 }
                 yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
             }
         }
         m_InPattern = false;
+        m_CurrentPatternNumber = 0;
+        yield break;
+    }
+
+    private IEnumerator Pattern3A() {
+        Vector3 pos;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        float[] fire_delay = { 0.19f, 0.12f, 0.09f };
+        float duration = 0f;
+        
+        m_CurrentPatternNumber = 3;
+        m_RotateDirection = RandomValue();
+
+        while (true) {
+            duration += fire_delay[m_SystemManager.m_Difficulty];
+            pos = m_FirePosition[0].position;
+            CreateBulletsSector(2, pos, 7.2f, m_Direction, accel, 8, 45f);
+            CreateBulletsSector(5, pos, 7.2f, -m_Direction, accel, 8, 45f);
+            yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
+        }
+    }
+
+    private IEnumerator Pattern3B() {
+        Vector3 pos;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        
+        m_RotateDirection = RandomValue();
+        yield return new WaitForSeconds(1f);
+        
+        if (m_SystemManager.m_Difficulty == 0) {
+            while (true) {
+                pos = m_FirePosition[0].position;
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                yield return new WaitForSeconds(2.4f);
+            }
+        }
+        else if (m_SystemManager.m_Difficulty == 1) {
+            while (true) {
+                pos = m_FirePosition[0].position;
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                yield return new WaitForSeconds(0.22f);
+                pos = m_FirePosition[0].position;
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                yield return new WaitForSeconds(2f);
+            }
+        }
+        else {
+            while (true) {
+                pos = m_FirePosition[0].position;
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                yield return new WaitForSeconds(0.22f);
+                pos = m_FirePosition[0].position;
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                yield return new WaitForSeconds(0.22f);
+                pos = m_FirePosition[0].position;
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                yield return new WaitForSeconds(1.5f);
+            }
+        }
+    }
+
+    private IEnumerator Pattern4() {
+        Vector3 pos1, pos2;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel new_accel = new EnemyBulletAccel(7.3f, 1.5f);
+        
+        m_CurrentPatternNumber = 3;
+        m_RotateDirection = RandomValue();
+        
+        pos1 = m_FirePosition[1].position;
+        pos2 = m_FirePosition[2].position;
+
+        if (m_SystemManager.m_Difficulty == 0) {
+            CreateBullet(3, pos1, 10f, 0f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.2f, 0.3f));
+            CreateBullet(3, pos2, 10f, 0f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.2f, 0.3f));
+        }
+        else if (m_SystemManager.m_Difficulty == 1) {
+            CreateBullet(3, pos1, 10f, 0f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
+            CreateBullet(3, pos2, 10f, 0f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
+        }
+        else {
+            CreateBullet(3, pos1, 10f, 0f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
+            CreateBullet(3, pos2, 10f, 0f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
+            CreateBullet(3, pos1, 10f, 40f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
+            CreateBullet(3, pos2, 10f, -40f, accel, BulletType.CREATE, Random.Range(0f, 0.1f),
+            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
+        }
+        
+        m_EnemyBoss3Barrel[0].BarrelShotAnimation(-0.5f);
+        m_EnemyBoss3Barrel[1].BarrelShotAnimation(-0.5f);
         yield break;
     }
 
 
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        if (m_CurrentPattern != null)
-            StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPattern1 != null)
+            StopCoroutine(m_CurrentPattern1);
+        if (m_CurrentPattern2 != null)
+            StopCoroutine(m_CurrentPattern2);
+        if (m_CurrentPattern3 != null)
+            StopCoroutine(m_CurrentPattern3);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         m_SystemManager.BulletsToGems(2f);

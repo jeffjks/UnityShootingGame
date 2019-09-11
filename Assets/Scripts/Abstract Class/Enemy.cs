@@ -104,11 +104,11 @@ public abstract class Enemy : MonoBehaviour { // 총알
     // Type (0), 1, 2 총알
     protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval,
     byte type, float timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
-    int new_num = 0, float new_interval = 0f, float secondTimer = 0) {
+    int new_num = 0, float new_interval = 0f, Vector2 second_timer = new Vector2()) {
         GameObject[] objs = new GameObject[num];
         for (int i=0; i<num; i++) {
             objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel,
-            type, timer, new_image, new_speed, new_direction, direction_add, new_accel, new_num, new_interval, secondTimer);
+            type, timer, new_image, new_speed, new_direction, direction_add, new_accel, new_num, new_interval, second_timer);
         }
         return objs;
     }
@@ -138,7 +138,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     // Type (0), 1, 2 총알
     protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel,
     byte type, float timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
-    int new_num = 0, float new_interval = 0f, float secondTimer = 0)
+    int new_num = 0, float new_interval = 0f, Vector2 second_timer = new Vector2())
     {
         GameObject obj = null;
         if (BulletCondition(pos)) {
@@ -160,7 +160,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
             enemyBullet.m_NewDirectionAdder = direction_add;
             enemyBullet.m_NewEnemyBulletAccel = new_accel;
 
-            enemyBullet.m_SecondTimer = secondTimer;
+            enemyBullet.m_SecondTimer = second_timer;
             enemyBullet.m_NewNumber = new_num;
             enemyBullet.m_NewInterval = new_interval;
 
@@ -239,7 +239,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected Material[] m_Materials;
     protected Material[] m_MaterialsAll;
     protected Color[] m_DefaultAlbedo;
-    protected Sequence m_Sequence = null;
+    protected Sequence m_Sequence;
     protected bool m_UpdateTransform = true;
     protected bool[] m_TakeDamageType = { false, false, false };
     

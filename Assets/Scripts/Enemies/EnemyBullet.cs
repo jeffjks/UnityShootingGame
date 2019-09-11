@@ -27,7 +27,8 @@ public class EnemyBullet : Enemy
     [HideInInspector] public byte m_ImageType;
     [HideInInspector] public float m_Timer;
     [HideInInspector] public byte m_Type, m_NewImageType, m_NewDirectionType;
-    [HideInInspector] public float m_NewDirectionAdder, m_SecondTimer;
+    [HideInInspector] public float m_NewDirectionAdder;
+    [HideInInspector] public Vector2 m_SecondTimer;
     [HideInInspector] public int m_NewNumber;
     [HideInInspector] public float m_NewInterval;
     public MoveVector m_NewMoveVector;
@@ -93,8 +94,8 @@ public class EnemyBullet : Enemy
 
         switch(m_Type) {
             case BulletType.CREATE: // n초후 다른 총알 생성
-                if (m_SecondTimer > 0)
-                    InvokeRepeating("CreateSubBullet", m_Timer, m_SecondTimer);
+                if (m_SecondTimer.magnitude > 0)
+                    InvokeRepeating("CreateSubBullet", m_Timer, Random.Range(m_SecondTimer.x, m_SecondTimer.y));
                 else
                     Invoke("CreateSubBullet", m_Timer);
                 break;

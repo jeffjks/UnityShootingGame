@@ -24,6 +24,7 @@ public class EnemyBoss1 : EnemyUnit
     void Start()
     {
         DisableAttackable(m_AppearanceTime);
+        m_Part.DisableAttackable(m_AppearanceTime);
 
         m_UpdateTransform = false;
         m_TargetPosition[0] = new Vector3(4f, -1f, Depth.ENEMY);

@@ -9,6 +9,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
     private bool m_Shooting = false;
     private byte m_Phase;
     private IEnumerator m_CurrentPattern;
+    private byte m_RotateState;
 
     void Start()
     {
@@ -24,26 +25,27 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
             OnDeath();
         }
 
-        if (((EnemyMiddleBoss1) m_ParentEnemy).m_Phase == 0) {
+        if (m_RotateState == 0) {
             if (!m_Shooting) {
                 RotateSlightly(m_PlayerPosition, 90f);
             }
         }
-        else {
-            if (m_Phase == 0) {
-                m_Phase = 1;
-                if (m_CurrentPattern != null)
-                    StopCoroutine(m_CurrentPattern);
-                m_CurrentPattern = Pattern2();
-                StartCoroutine(m_CurrentPattern);
-            }
-        }
-
-        if (m_Phase == 1) {
+        else if (m_RotateState == 1) {
             RotateImmediately(m_CurrentAngle + 300f*transform.localScale.x * Time.deltaTime);
         }
         
         base.Update();
+    }
+
+    public void StartPattern() {
+        m_CurrentPattern = Pattern2();
+        StartCoroutine(m_CurrentPattern);
+        m_RotateState = 1;
+    }
+
+    public void StopPattern() {
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     private IEnumerator Pattern1()

@@ -44,7 +44,7 @@ public class PlayerController : PlayerDamageUnit
 
         m_SystemManager = SystemManager.instance_sm;
 
-        switch(m_PlayerManager.m_CurrentAttributes[1]) {
+        switch(m_PlayerManager.m_CurrentAttributes.m_Speed) {
             case 0:
                 m_Speed = 6f;
                 m_SlowSpeed = 4f;

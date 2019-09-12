@@ -2,6 +2,70 @@
 using UnityEngine.Audio;
 using DG.Tweening;
 
+[System.Serializable]
+public class Attributes {
+    public int m_Color, m_Speed, m_ShotForm, m_ShotDamage, m_LaserDamage, m_Module, m_Bomb;
+    
+    public Attributes(int color, int speed, int shot_form, int shot_damage, int laser_damage, int module, int bomb) {
+        m_Color = color;
+        m_Speed = speed;
+        m_ShotForm = shot_form;
+        m_ShotDamage = shot_damage;
+        m_LaserDamage = laser_damage;
+        m_Module = module;
+        m_Bomb = bomb;
+    }
+
+    public void SetAttributes(byte num, int value) {
+        switch (num) {
+            case 0:
+                m_Color = value;
+                break;
+            case 1:
+                m_Speed = value;
+                break;
+            case 2:
+                m_ShotForm = value;
+                break;
+            case 3:
+                m_ShotDamage = value;
+                break;
+            case 4:
+                m_LaserDamage = value;
+                break;
+            case 5:
+                m_Module = value;
+                break;
+            case 6:
+                m_Bomb = value;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int GetAttributes(byte num) {
+        switch (num) {
+            case 0:
+                return m_Color;
+            case 1:
+                return m_Speed;
+            case 2:
+                return m_ShotForm;
+            case 3:
+                return m_ShotDamage;
+            case 4:
+                return m_LaserDamage;
+            case 5:
+                return m_Module;
+            case 6:
+                return m_Bomb;
+            default:
+                return -1;
+        }
+    }
+}
+
 public class GameManager : MonoBehaviour
 {
     [HideInInspector] public int[] m_Resolution;
@@ -10,7 +74,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int m_MaxLanguageOptions, m_Language;
     [HideInInspector] public int m_MaxResolutionNumber, m_GraphicsQuality, m_MaxGraphicsQuality;
     [HideInInspector] public bool m_AntiAliasing;
-    [HideInInspector] public int[] m_CurrentAttributes = {0, 0, 0, 0, 0, 0, 0};
+    [HideInInspector] public Attributes m_CurrentAttributes;
     [HideInInspector] public int m_UsedCost;
     [HideInInspector] public byte m_Difficulty;
 
@@ -34,6 +98,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         
         m_PlayerManager = PlayerManager.instance_pm;
+        m_CurrentAttributes = new Attributes(0, 0, 0, 0, 0, 0, 0);
 
         m_ResolutionList = new int[,] {{600, 900}, {1600, 900}, {720, 960}, {1280, 960}, {768, 1024}, {1280, 1024}, {810, 1080}, {1920, 1080}};
         m_MaxResolutionNumber = m_ResolutionList.GetLength(0);

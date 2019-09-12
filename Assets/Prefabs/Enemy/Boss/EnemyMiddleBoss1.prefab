@@ -122,9 +122,13 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 249530915590688650}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
+  m_Turret:
+  - {fileID: 1456182595892666218}
+  - {fileID: 5089846689053469985}
   m_Phase: 0
 --- !u!1 &1278176519813856
 GameObject:
@@ -478,6 +482,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
@@ -730,6 +735,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1

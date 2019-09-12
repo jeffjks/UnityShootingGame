@@ -28,27 +28,27 @@ public class PlayerPreview2 : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false);
         }
         // Speed
-        if (m_GameManager.m_CurrentAttributes[1] == 0)
+        if (m_GameManager.m_CurrentAttributes.m_Speed == 0)
             transform.GetChild(1).gameObject.SetActive(true);
-        else if (m_GameManager.m_CurrentAttributes[1] == 1)
+        else if (m_GameManager.m_CurrentAttributes.m_Speed == 1)
             transform.GetChild(2).gameObject.SetActive(true);
-        else if (m_GameManager.m_CurrentAttributes[1] == 2)
+        else if (m_GameManager.m_CurrentAttributes.m_Speed == 2)
             transform.GetChild(3).gameObject.SetActive(true);
 
         // Shot Damage
-        if (m_GameManager.m_CurrentAttributes[3] == 2)
+        if (m_GameManager.m_CurrentAttributes.m_ShotDamage == 2)
             transform.GetChild(4).gameObject.SetActive(true);
         
         // Laser Damage
-        if (m_GameManager.m_CurrentAttributes[4] == 2)
+        if (m_GameManager.m_CurrentAttributes.m_LaserDamage == 2)
             transform.GetChild(5).gameObject.SetActive(true);
         
         // Module
-        if (m_GameManager.m_CurrentAttributes[5] == 1)
+        if (m_GameManager.m_CurrentAttributes.m_Module == 1)
             transform.GetChild(6).gameObject.SetActive(true);
-        else if (m_GameManager.m_CurrentAttributes[5] == 2)
+        else if (m_GameManager.m_CurrentAttributes.m_Module == 2)
             transform.GetChild(7).gameObject.SetActive(true);
-        else if (m_GameManager.m_CurrentAttributes[5] == 3)
+        else if (m_GameManager.m_CurrentAttributes.m_Module == 3)
             transform.GetChild(8).gameObject.SetActive(true);
         
         MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
@@ -57,7 +57,7 @@ public class PlayerPreview2 : MonoBehaviour
         
         // Color
         for (int i=0; i<3; i++) {
-            if (m_GameManager.m_CurrentAttributes[0] == i)
+            if (m_GameManager.m_CurrentAttributes.m_Color == i)
                 for (int j=0; j<max_meshRenderer; j++) {
                 meshRenderer[j].material = playerColors.m_Materials[i];
             }

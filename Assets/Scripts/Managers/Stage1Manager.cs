@@ -43,7 +43,14 @@ public class Stage1Manager : StageManager
 
     protected override IEnumerator TestTimeLine()
     {
-        yield return null;
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.StartCoroutine("WarningText");
+        yield return new WaitForSeconds(4f);
+        SetBackgroundSpeed(7.2f, 0.9375f);
+        PlayBossMusic();
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
+        yield break;
     }
 
     protected override IEnumerator EnemyTimeLine()

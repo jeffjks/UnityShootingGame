@@ -24,7 +24,7 @@ public class EnemyBoss1Part : EnemyUnit
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         m_SystemManager.EraseBullets(0.5f);
-        ((EnemyBoss1) m_ParentEnemy).ToPhase1();
+        ((EnemyBoss1) m_ParentEnemy).ToNextPhase();
 
         ExplosionEffect(0, -1, new Vector3(-0.66f, 0f, 0f));
         ExplosionEffect(0, -1, new Vector3(0.66f, 0f, 0f));

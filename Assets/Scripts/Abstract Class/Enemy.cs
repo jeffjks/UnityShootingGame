@@ -267,6 +267,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
         m_MaterialsAll = GetAllMetrials();
         m_Materials = GetMaterials();
+        GetCoordinates();
     }
 
     private Material[] GetAllMetrials() { // 무적 해제, 사망 이펙트 용 (전체 Materials)

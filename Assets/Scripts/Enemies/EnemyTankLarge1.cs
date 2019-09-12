@@ -7,7 +7,7 @@ public class EnemyTankLarge1 : EnemyUnit
     [SerializeField] private Transform[] m_FirePosition = new Transform[2];
     [SerializeField] private Transform m_LauncherRotation = null;
 
-    [HideInInspector] public byte m_Phase;
+    [HideInInspector] public sbyte m_Phase;
     private Quaternion m_LauncherRotationTarget;
     private float m_Rotation = -240f;
 

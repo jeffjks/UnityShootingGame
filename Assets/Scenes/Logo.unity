@@ -205,7 +205,14 @@ MonoBehaviour:
   m_GraphicsQuality: 0
   m_MaxGraphicsQuality: 0
   m_AntiAliasing: 0
-  m_CurrentAttributes: 00000000000000000000000000000000000000000000000000000000
+  m_CurrentAttributes:
+    m_Color: 0
+    m_Speed: 0
+    m_ShotForm: 0
+    m_ShotDamage: 0
+    m_LaserDamage: 0
+    m_Module: 0
+    m_Bomb: 0
   m_UsedCost: 0
   m_Difficulty: 0
   m_AudioMixer: {fileID: 24100000, guid: 706bf0cd1f348574b9e5e470eff1e0b1, type: 2}

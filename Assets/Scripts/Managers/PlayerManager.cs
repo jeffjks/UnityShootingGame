@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     public float m_RevivePointY = -13f;
     public float m_SafeLine = -12f;
     public GameObject m_ItemPowerUp;
+    public Attributes m_CurrentAttributes;
 
     [SerializeField] private BoxCollider2D m_CameraBoundary = null;
     [SerializeField] private BoxCollider2D m_CameraOuterBoundary = null;
@@ -36,7 +37,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private RectTransform m_CanvasUI = null;
 
     [HideInInspector] public bool m_PlayerIsAlive;
-    [HideInInspector] public int[] m_CurrentAttributes = {0, 0, 0, 0, 0, 0, 0}; // Color, Speed, ShotForm, ShotDamage, LaserDamage, Module, Bomb
     [HideInInspector] public float m_CameraMargin;
 
     private GameManager m_GameManager = null;
@@ -80,15 +80,8 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        try {
-            for (int i=0; i<m_GameManager.m_CurrentAttributes.Length; i++) {
-                m_CurrentAttributes[i] = m_GameManager.m_CurrentAttributes[i];
-            }
-        }
-        catch {
-            for (int i=0; i<6; i++) {
-                m_CurrentAttributes[i] = 0;
-            }
+        if (m_GameManager != null) {
+            m_CurrentAttributes = m_GameManager.m_CurrentAttributes;
         }
 
         m_PlayerIsAlive = true;
@@ -100,13 +93,12 @@ public class PlayerManager : MonoBehaviour
 
         switch(m_SystemManager.GetStage()) {
             case 0: 
-                m_PlayerShooter.m_ShotLevel = 0;
                 break;
-            case 1: 
-                m_PlayerShooter.m_ShotLevel = 2;
+            case 1:
+                m_PlayerShooter.PowerSet(2);
                 break;
             default:
-                m_PlayerShooter.m_ShotLevel = 4;
+                m_PlayerShooter.PowerSet(4);
                 break;
         }
     }

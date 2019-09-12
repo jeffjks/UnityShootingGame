@@ -36,8 +36,12 @@ public class EnemyPlaneMedium1 : EnemyUnit
                 CancelInvoke("TimeLimit");
                 TimeLimit();
                 m_Sequence.Kill();
-                m_Sequence = DOTween.Sequence()
-                .Append(DOTween.To(()=>m_VSpeed, x=>m_VSpeed = x, 5f, 1f).SetEase(Ease.InQuad));
+                if (transform.position.x > 0f)
+                    m_Sequence = DOTween.Sequence()
+                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_RIGHT + 3f, 3f).SetEase(Ease.InQuad));
+                else
+                    m_Sequence = DOTween.Sequence()
+                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_LEFT - 3f, 3f).SetEase(Ease.InQuad));
             }
         }
         

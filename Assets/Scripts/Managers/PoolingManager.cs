@@ -49,7 +49,7 @@ public class PoolingManager : MonoBehaviour
     {
         m_PlayerManager = PlayerManager.instance_pm;
 
-        m_Module = m_PlayerManager.m_CurrentAttributes[5]; // 모듈 종류
+        m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
 
         Dictionary<string, PooledObject> pooledObject = new Dictionary<string, PooledObject>();
 

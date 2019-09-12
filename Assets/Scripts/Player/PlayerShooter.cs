@@ -42,15 +42,15 @@ public class PlayerShooter : MonoBehaviour
         m_AudioSource = GetComponent<AudioSource>();
         m_MainCamera = m_PlayerManager.m_MainCamera.transform;
 
-        for (int i=0; i<PlayerMissile.Length; i++) {
+        for (int i = 0; i < PlayerMissile.Length; i++) {
             m_PlayerMissileName[i] = PlayerMissile[i].GetComponent<PlayerMissile>().m_ObjectName;
         }
         
-        m_ShotDamage = m_PlayerManager.m_CurrentAttributes[3]; // 샷 데미지
-        m_LaserDamage = m_PlayerManager.m_CurrentAttributes[4]; // 레이저 데미지
-        m_Module = m_PlayerManager.m_CurrentAttributes[5]; // 모듈 종류
+        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.m_ShotForm; // 샷 데미지
+        m_LaserDamage = m_PlayerManager.m_CurrentAttributes.m_LaserDamage; // 레이저 데미지
+        m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
         
-        if (m_PlayerManager.m_CurrentAttributes[6] == 0) // 폭탄 개수
+        if (m_PlayerManager.m_CurrentAttributes.m_Bomb == 0) // 폭탄 개수
             m_DefaultBombNumber = 2;
         else
             m_DefaultBombNumber = 3;
@@ -164,7 +164,7 @@ public class PlayerShooter : MonoBehaviour
 
     private IEnumerator Shot() {
         m_AutoShot--;
-        for (int i=0; i<m_ShotNumber; i++) { // m_FireRate초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
+        for (int i = 0; i < m_ShotNumber; i++) { // m_FireRate초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
             if (m_ShotDamage == 0)
                 CreateShotNormal(m_ShotLevel);
             else if (m_ShotDamage == 1)
@@ -363,6 +363,11 @@ public class PlayerShooter : MonoBehaviour
         return false;
     }
 
+    public void PowerSet(int power) {
+        m_ShotLevel = Mathf.Clamp(power, 0, 4);
+        ResetLaser();
+        UpdateShotNumber();
+    }
 
     public void PowerUp() {
         if (m_ShotLevel < 4) {
@@ -372,8 +377,6 @@ public class PlayerShooter : MonoBehaviour
         else {
             // 점수 +
         }
-        for (int i=0; i<4; i++)
-            m_PlayerDrone[i].SetShotLevel(m_ShotLevel);
         UpdateShotNumber();
     }
     
@@ -382,8 +385,6 @@ public class PlayerShooter : MonoBehaviour
             m_ShotLevel--;
             ResetLaser();
         }
-        for (int i=0; i<4; i++)
-            m_PlayerDrone[i].SetShotLevel(m_ShotLevel);
         UpdateShotNumber();
     }
 
@@ -395,6 +396,8 @@ public class PlayerShooter : MonoBehaviour
     }
 
     private void UpdateShotNumber() {
+        for (int i = 0; i < m_PlayerDrone.Length; i++)
+            m_PlayerDrone[i].SetShotLevel(m_ShotLevel);
 
         if (m_ShotLevel <= -1) {
             m_PlayerDrone[2].gameObject.SetActive(false);

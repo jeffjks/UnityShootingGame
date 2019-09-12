@@ -16,7 +16,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
     protected override void Update()
     {
-        if (((EnemyBoss1) m_ParentEnemy).m_Phase == 0) {
+        if (((EnemyBoss1) m_ParentEnemy).m_Phase == 1) {
             if (m_PlayerManager.m_PlayerIsAlive)
                 RotateImmediately(m_PlayerPosition);
             else

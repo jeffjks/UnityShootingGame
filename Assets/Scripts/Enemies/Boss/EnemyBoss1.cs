@@ -11,7 +11,7 @@ public class EnemyBoss1 : EnemyUnit
     public EnemyBoss1Part m_Part;
     public Transform[] m_FirePosition = new Transform[4];
 
-    [HideInInspector] public byte m_Phase;
+    [HideInInspector] public sbyte m_Phase;
 
     private Vector3[] m_TargetPosition = new Vector3[2];
     private Quaternion[] m_TargetQuaternion = new Quaternion[2];
@@ -36,19 +36,16 @@ public class EnemyBoss1 : EnemyUnit
 
         m_QuaternionTurnRight = Quaternion.Euler(0f, -15f, 0f);
         m_QuaternionTurnLeft = Quaternion.Euler(0f, 15f, 0f);
-        
-        // m_Pattern1 = Pattern1(m_SystemManager.m_Difficulty);
 
-        OnPhase0();
+        OnPhase1();
 
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
     protected override void Update()
     {
-        if (m_Phase == 0) {
+        if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.30f) { // 체력 30% 이하
-                ToPhase1();
                 m_ChildEnemies[0].OnDeath();
             }
         }
@@ -56,19 +53,21 @@ public class EnemyBoss1 : EnemyUnit
         base.Update();
     }
 
-    public void ToPhase1() {
-        m_Phase = 1;
-        StopCoroutine(m_CurrentPattern);
-        StopCoroutine(m_CurrentPhase);
+    public void ToNextPhase() {
+        m_Phase++;
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPhase != null)
+            StopCoroutine(m_CurrentPhase);
         m_Turret0.StopPattern();
         m_Turret1[0].StopPattern();
         m_Turret1[1].StopPattern();
         m_Turret2[0].StopPattern();
         m_Turret2[1].StopPattern();
-        m_CurrentPhase = PatternPhase1();
+        m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
         m_Sequence.Kill();
-        OnPhase1();
+        OnPhase2();
     }
 
     private void OnAppearanceComplete() {
@@ -78,12 +77,13 @@ public class EnemyBoss1 : EnemyUnit
         .Append(transform.DOMoveX(1f, 4f).SetEase(Ease.Linear))
         .Append(transform.DOMoveX(0f, 2f).SetEase(Ease.Linear))
         .SetLoops(-1, LoopType.Restart);
-        m_CurrentPhase = PatternPhase0();
+        m_Phase = 1;
+        m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
     }
 
 
-    private void OnPhase0() {
+    private void OnPhase1() {
         float appearance_time_1 = 0.55f;
         float appearance_time_2 = 1f - 0.55f;
         
@@ -96,7 +96,7 @@ public class EnemyBoss1 : EnemyUnit
         .Join(transform.DORotateQuaternion(m_TargetQuaternion[1], m_AppearanceTime*appearance_time_2).SetEase(Ease.InQuad));
     }
 
-    private void OnPhase1() {
+    private void OnPhase2() {
         if (transform.position.x < 0f) {
             m_Sequence = DOTween.Sequence()
             .Append(transform.DOMove(new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f)), 1.5f).SetEase(Ease.InOutQuad))
@@ -133,21 +133,21 @@ public class EnemyBoss1 : EnemyUnit
 
     
 
-    private IEnumerator PatternPhase0() { // 페이즈0 패턴 ============================
+    private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForSeconds(1f);
-        while(m_Phase == 0) {
-            m_CurrentPattern = Pattern1();
+        while(m_Phase == 1) {
+            m_CurrentPattern = Pattern1A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
                 yield return null;
                 
-            m_CurrentPattern = Pattern2();
+            m_CurrentPattern = Pattern1B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
                 yield return null;
 
             m_Part.OpenPart();
-            m_CurrentPattern = Pattern3();
+            m_CurrentPattern = Pattern1C();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
                 yield return null;
@@ -157,10 +157,10 @@ public class EnemyBoss1 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator PatternPhase1() { // 페이즈1 패턴 ============================
+    private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForSeconds(1f);
-        while(m_Phase == 1) {
-            m_CurrentPattern = Pattern4();
+        while(m_Phase == 2) {
+            m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
                 yield return null;
@@ -169,7 +169,7 @@ public class EnemyBoss1 : EnemyUnit
     }
 
 
-    private IEnumerator Pattern1() {
+    private IEnumerator Pattern1A() {
         int random_value = Random.Range(0, 2);
         m_InPattern = true;
         m_Turret2[0].StartPattern(1);
@@ -195,7 +195,7 @@ public class EnemyBoss1 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator Pattern2() { // Blue Bomb
+    private IEnumerator Pattern1B() { // Blue Bomb
         Vector3 pos;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 0.8f);
         EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0f);
@@ -233,7 +233,7 @@ public class EnemyBoss1 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator Pattern3() { // 청침탄 흩뿌리기
+    private IEnumerator Pattern1C() { // 청침탄 흩뿌리기
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         float target_angle1, target_angle2;
@@ -259,7 +259,7 @@ public class EnemyBoss1 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator Pattern4() {
+    private IEnumerator Pattern2A() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         int random_value;
         m_InPattern = true;
@@ -299,8 +299,11 @@ public class EnemyBoss1 : EnemyUnit
 
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        StopCoroutine(m_CurrentPattern);
-        StopCoroutine(m_CurrentPhase);
+        m_Phase = -1;
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPhase != null)
+            StopCoroutine(m_CurrentPhase);
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector = new MoveVector(0.6f, 0f);
         m_Turret0.OnDeath();

@@ -29,10 +29,10 @@ public class PlayerDrone : MonoBehaviour
     {
         m_PlayerController = GetComponentInParent<PlayerController>();
         m_PlayerManager = PlayerManager.instance_pm;
-        m_ShotForm = m_PlayerManager.m_CurrentAttributes[2];
+        m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotForm;
         m_DefaultDepth = transform.localPosition.y;
 
-        int laser_damage = m_PlayerManager.m_CurrentAttributes[4];
+        int laser_damage = m_PlayerManager.m_CurrentAttributes.m_LaserDamage;
         if (laser_damage == 0) {
             m_Particle[0].SetActive(true);
             m_ParticleSystem = m_Particle[0].GetComponentInChildren<ParticleSystem>();

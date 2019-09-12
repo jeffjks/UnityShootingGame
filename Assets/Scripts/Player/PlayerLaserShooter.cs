@@ -24,7 +24,7 @@ public class PlayerLaserShooter : MonoBehaviour
     void Start()
     {
         m_PlayerManager = PlayerManager.instance_pm;
-        m_LaserIndex = m_PlayerManager.m_CurrentAttributes[4];
+        m_LaserIndex = m_PlayerManager.m_CurrentAttributes.m_LaserDamage;
         
         m_LaserInstance = m_LaserObjects[m_LaserIndex];
         m_LaserInstance.SetActive(true);

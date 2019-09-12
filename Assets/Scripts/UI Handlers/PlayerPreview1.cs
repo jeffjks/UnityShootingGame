@@ -32,9 +32,9 @@ public class PlayerPreview1 : MonoBehaviour
         }
         m_ModulePart.SetActive(false);
 
-        m_SpeedPart[m_GameManager.m_CurrentAttributes[1]].SetActive(true); // Speed
+        m_SpeedPart[m_GameManager.m_CurrentAttributes.m_Speed].SetActive(true); // Speed
         
-        if (m_GameManager.m_CurrentAttributes[5] != 0) // Module
+        if (m_GameManager.m_CurrentAttributes.m_Module != 0) // Module
             m_ModulePart.SetActive(true);
         
         SetPlayerPreviewColors();
@@ -47,7 +47,7 @@ public class PlayerPreview1 : MonoBehaviour
         
         // Color
         for (int i=0; i<3; i++) {
-            if (m_GameManager.m_CurrentAttributes[0] == i)
+            if (m_GameManager.m_CurrentAttributes.m_Color == i)
                 for (int j=0; j<max_meshRenderer; j++) {
                 meshRenderer[j].material = playerColors.m_Materials[i];
             }

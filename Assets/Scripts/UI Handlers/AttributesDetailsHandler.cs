@@ -6,7 +6,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 {
     public AttributesSelectHandler m_SelectAttributesHandler;
     public GameObject m_PreviousPanel;
-    public int m_Attributes;
+    public byte m_Attributes;
     public int[] m_Cost;
     public PlayerPreview1 m_PlayerPreview;
 
@@ -19,7 +19,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     {
         m_TotalAttributes = transform.childCount;
         m_GameManager = GameManager.instance_gm;
-        m_Selection = m_GameManager.m_CurrentAttributes[m_Attributes];
+        m_Selection = m_GameManager.m_CurrentAttributes.GetAttributes(m_Attributes);
         m_OriginalSelection = m_Selection;
 
         FindAudioSource();
@@ -27,7 +27,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 
     void OnEnable()
     {
-        m_PreviousSelction = m_GameManager.m_CurrentAttributes[m_Attributes];
+        m_PreviousSelction = m_GameManager.m_CurrentAttributes.GetAttributes(m_Attributes);
     }
 
     void Update()
@@ -48,7 +48,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 
                 if (has_changed) {
                     m_Selection = EndAndStart(m_Selection, m_TotalAttributes);
-                    m_GameManager.m_CurrentAttributes[m_Attributes] = m_Selection;
+                    m_GameManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_Selection);
                     m_PlayerPreview.SetPreviewDesign();
                 }
             }
@@ -83,8 +83,8 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
             Back();
     }
 
-    private void SelectDetail(int attribute, int cost_need) {
-        m_GameManager.m_CurrentAttributes[attribute] = m_Selection;
+    private void SelectDetail(byte attribute, int cost_need) {
+        m_GameManager.m_CurrentAttributes.SetAttributes(attribute, m_Selection);
         m_GameManager.m_UsedCost += cost_need;
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
@@ -95,7 +95,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 
     private void Back() {
         m_Selection = m_OriginalSelection;
-        m_GameManager.m_CurrentAttributes[m_Attributes] = m_OriginalSelection;
+        m_GameManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_OriginalSelection);
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
         m_PlayerPreview.SetPreviewDesign();

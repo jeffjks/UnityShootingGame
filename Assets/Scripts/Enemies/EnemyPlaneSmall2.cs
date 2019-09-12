@@ -9,7 +9,7 @@ public class EnemyPlaneSmall2 : EnemyUnit
     [SerializeField] private Transform m_Rotator = null;
 
     private bool m_TargetPlayer = true;
-    private float m_Speed = 6.1f;
+    private float m_Speed = 7.2f;
     private float m_MaxTilt = 30f;
     private float m_CurrentTilt;
 
@@ -61,7 +61,7 @@ public class EnemyPlaneSmall2 : EnemyUnit
         Vector3 pos = m_FirePosition.position;
         
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        CreateBullet(0, pos, 6f, m_CurrentAngle, accel);
-        CreateBulletsSector(2, pos, 6f, m_CurrentAngle, accel, 2, 28f);
+        CreateBullet(0, pos, 7.5f, m_CurrentAngle, accel);
+        CreateBulletsSector(2, pos, 7.5f, m_CurrentAngle, accel, 2, 28f);
     }
 }

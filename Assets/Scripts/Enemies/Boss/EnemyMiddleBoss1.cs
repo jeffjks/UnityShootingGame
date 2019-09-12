@@ -4,7 +4,8 @@ using DG.Tweening;
 
 public class EnemyMiddleBoss1 : EnemyUnit
 {
-    [HideInInspector] public byte m_Phase;
+    public EnemyMiddleBoss1Turret[] m_Turret = new EnemyMiddleBoss1Turret[2];
+    [HideInInspector] public sbyte m_Phase;
     
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
@@ -27,7 +28,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         .Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad))
         .Join(transform.DORotateQuaternion(m_TargetQuaternion, m_AppearanceTime).SetEase(Ease.InQuad));
         
-        m_CurrentPattern1 = Pattern1(m_SystemManager.m_Difficulty);
+        m_CurrentPattern1 = PatternA(m_SystemManager.m_Difficulty);
         StartCoroutine(m_CurrentPattern1);
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
         Invoke("OnAppearanceComplete", m_AppearanceTime);
@@ -35,18 +36,9 @@ public class EnemyMiddleBoss1 : EnemyUnit
 
     protected override void Update()
     {
-        if (m_Phase == 0) {
+        if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
-                m_SystemManager.BulletsToGems(1f);
-                m_Phase = 1;
-                if (m_CurrentPattern1 != null)
-                    StopCoroutine(m_CurrentPattern1);
-                
-                m_CurrentPattern2 = Pattern2();
-                if (m_SystemManager.m_Difficulty == 2)
-                    StartCoroutine(m_CurrentPattern2);
-                ExplosionEffect(2, -1, new Vector2(2f, 0f));
-                ExplosionEffect(2, 1, new Vector2(-2f, 0f));
+                ToNextPhase();
             }
         }
         
@@ -74,6 +66,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_UpdateTransform = true;
+        m_Phase = 1;
     }
 
     private void TimeLimit() {
@@ -83,7 +76,27 @@ public class EnemyMiddleBoss1 : EnemyUnit
         transform.DORotateQuaternion(Quaternion.Euler(0f, 30f, 0f), 3f).SetEase(Ease.Linear);
     }
 
-    private IEnumerator Pattern1(byte difficulty) {
+    private void ToNextPhase() {
+        m_Phase++;
+        m_SystemManager.BulletsToGems(1f);
+        if (m_CurrentPattern1 != null)
+            StopCoroutine(m_CurrentPattern1);
+        
+        m_CurrentPattern2 = PatternB();
+        if (m_SystemManager.m_Difficulty == 2)
+            StartCoroutine(m_CurrentPattern2);
+
+        m_Turret[0].StopPattern();
+        m_Turret[1].StopPattern();
+
+        m_Turret[0].StartPattern();
+        m_Turret[1].StartPattern();
+
+        ExplosionEffect(2, -1, new Vector2(2f, 0f));
+        ExplosionEffect(2, 1, new Vector2(-2f, 0f));
+    }
+
+    private IEnumerator PatternA(byte difficulty) {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         yield return new WaitForSeconds(1f);
         if (difficulty == 0) {
@@ -164,7 +177,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern2() {
+    private IEnumerator PatternB() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         yield return new WaitForSeconds(1.8f);
         while(true) {
@@ -177,6 +190,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector = new MoveVector(1f, 0f);
+        m_Phase = -1;
 
         StartCoroutine(DeathExplosion1(1.5f));
         StartCoroutine(DeathExplosion2(1.5f));

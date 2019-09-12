@@ -10,7 +10,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
     
     private float m_Direction1, m_Direction2;
     private Vector2 m_TargetPosition;
-    private byte m_Phase;
+    private sbyte m_Phase;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
     private float m_AppearanceTimer = 3.5f;
@@ -31,8 +31,8 @@ public class EnemyMiddleBoss3 : EnemyUnit
     private void OnAppearanceComplete() {
         float[] random_direction = { 75f, 105f, -75f, -105f };
         m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 4)]);
-
-        m_CurrentPhase = Phase0();
+        m_Phase = 1;
+        m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
     }
 
@@ -42,9 +42,9 @@ public class EnemyMiddleBoss3 : EnemyUnit
         Vector3 pos = transform.position;
         transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f*Time.deltaTime);
 
-        if (m_Phase == 0) {
+        if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
-                ToPhase1();
+                ToNextPhase();
             }
         }
         
@@ -74,10 +74,10 @@ public class EnemyMiddleBoss3 : EnemyUnit
         base.Update();
     }
 
-    public void ToPhase1() {
-        if (m_Phase == 1)
+    public void ToNextPhase() {
+        if (m_Phase == 2)
             return;
-        m_Phase = 1;
+        m_Phase = 2;
 
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
@@ -91,19 +91,19 @@ public class EnemyMiddleBoss3 : EnemyUnit
         ExplosionEffect(0, -1, new Vector3(-1.4f, 3f, 0.8f));
         ExplosionEffect(1, -1, new Vector3(0f, 3f, -1.2f));
 
-        m_CurrentPattern1 = Pattern5();
-        m_CurrentPattern2 = Pattern6();
+        m_CurrentPattern1 = Pattern2A1();
+        m_CurrentPattern2 = Pattern2A2();
         StartCoroutine(m_CurrentPattern1);
         StartCoroutine(m_CurrentPattern2);
     }
 
     
 
-    private IEnumerator Phase0() { // 페이즈0 패턴 ============================
+    private IEnumerator Phase1() { // 페이즈0 패턴 ============================
         yield return new WaitForSeconds(1f);
-        while (m_Phase == 0) {
-            m_CurrentPattern1 = Pattern1();
-            m_CurrentPattern2 = Pattern2();
+        while (m_Phase == 1) {
+            m_CurrentPattern1 = Pattern1A1();
+            m_CurrentPattern2 = Pattern1A2();
             StartCoroutine(m_CurrentPattern1);
             StartCoroutine(m_CurrentPattern2);
             yield return new WaitForSeconds(4f);
@@ -113,8 +113,8 @@ public class EnemyMiddleBoss3 : EnemyUnit
                 StopCoroutine(m_CurrentPattern2);
             yield return new WaitForSeconds(2f);
             
-            m_CurrentPattern1 = Pattern3();
-            m_CurrentPattern2 = Pattern4();
+            m_CurrentPattern1 = Pattern1B1();
+            m_CurrentPattern2 = Pattern1B2();
             StartCoroutine(m_CurrentPattern1);
             StartCoroutine(m_CurrentPattern2);
             yield return new WaitForSeconds(3f);
@@ -127,7 +127,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator Pattern1() {
+    private IEnumerator Pattern1A1() {
         Vector2 pos;
         float timer = 1.25f;
         float target_angle, random_value1, random_value2;
@@ -154,7 +154,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern2() {
+    private IEnumerator Pattern1A2() {
         Vector2 pos;
         float target_angle, random_value;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
@@ -186,7 +186,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern3() {
+    private IEnumerator Pattern1B1() {
         Vector2 pos;
         float target_angle;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, 0f);
@@ -218,7 +218,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         yield break;
     }
 
-    private IEnumerator Pattern4() {
+    private IEnumerator Pattern1B2() {
         Vector2 pos;
         float target_angle;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
@@ -242,7 +242,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern5() {
+    private IEnumerator Pattern2A1() {
         Vector2 pos;
         float target_angle;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
@@ -267,7 +267,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern6() {
+    private IEnumerator Pattern2A2() {
         Vector2 pos;
         float target_angle, speed;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
@@ -306,6 +306,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector.speed = 0f;
+        m_Phase = -1;
 
         StartCoroutine(DeathExplosion1(1.9f));
         StartCoroutine(DeathExplosion2(1.9f));

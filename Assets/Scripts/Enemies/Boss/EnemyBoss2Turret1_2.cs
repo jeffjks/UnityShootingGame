@@ -25,10 +25,10 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
     }
 
     public void StartPattern(byte num, bool side = true) {
-        if (num == 1)
-            m_CurrentPattern = Pattern1();
-        else if (num == 2)
-            m_CurrentPattern = Pattern2(side);
+        if (num == 0)
+            m_CurrentPattern = Pattern0();
+        else if (num == 1)
+            m_CurrentPattern = Pattern1(side);
         StartCoroutine(m_CurrentPattern);
     }
 
@@ -37,7 +37,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             StopCoroutine(m_CurrentPattern);
     }
 
-    private IEnumerator Pattern1() {
+    private IEnumerator Pattern0() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos = m_FirePosition.position;
         while (true) {
@@ -49,7 +49,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern2(bool side)
+    private IEnumerator Pattern1(bool side)
     {
         EnemyBulletAccel accel = new EnemyBulletAccel(5f, 0.5f);
         Vector3 pos = m_FirePosition.position;

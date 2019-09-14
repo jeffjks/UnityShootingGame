@@ -13,7 +13,6 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
     void Start()
     {
         GetCoordinates();
-        RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()

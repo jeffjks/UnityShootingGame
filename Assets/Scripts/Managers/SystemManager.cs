@@ -365,19 +365,28 @@ public class SystemManager : MonoBehaviour
     }
 
     public void BulletsToGems(float timer) {
-        GameObject[] obj = GameObject.FindGameObjectsWithTag("EnemyBulletParent");
-        for (int i = 0; i < obj.Length; i++) {
-            if (i <= 50) {
-                Vector3 pos = obj[i].transform.position;
+        List<GameObject> bullet_list = new List<GameObject>();
+        bullet_list.AddRange(GameObject.FindGameObjectsWithTag("EnemyBulletParent"));
+        int index, num = 0, count = bullet_list.Count;
+
+        while (count > 0) {
+            index = Random.Range(0, count);
+            if (num < 50) {
+                Vector3 pos = bullet_list[index].transform.position;
                 if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {
                     if (Size.GAME_BOUNDARY_BOTTOM < pos.y && pos.y < Size.GAME_BOUNDARY_TOP) {
-                        GameObject gem = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM);
-                        gem.transform.position = new Vector3(obj[i].transform.position.x, obj[i].transform.position.y, Depth.ITEMS);
+                        GameObject gem = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM); // Gem 생성
+                        gem.transform.position = new Vector3(bullet_list[index].transform.position.x, bullet_list[index].transform.position.y, Depth.ITEMS);
                         gem.SetActive(true);
+                        num++;
                     }
                 }
             }
-            obj[i].transform.position = new Vector3(0f, 1f, Depth.ENEMY_BULLET);
+            EnemyBullet enemy_bullet = bullet_list[index].GetComponent<EnemyBullet>();
+            enemy_bullet.Erase();
+            bullet_list.RemoveAt(index);
+
+            count--;
         }
         EraseBullets(timer);
     }

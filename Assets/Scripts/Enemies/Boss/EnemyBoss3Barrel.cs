@@ -11,7 +11,7 @@ public class EnemyBoss3Barrel : MonoBehaviour
 
     void Start()
     {
-        m_DefaultZ = transform.position.z;
+        m_DefaultZ = transform.localPosition.z;
     }
 
     public void BarrelShotAnimation(float target_z) {

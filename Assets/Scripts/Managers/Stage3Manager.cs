@@ -40,12 +40,13 @@ public class Stage3Manager : StageManager
         yield return new WaitForSeconds(13f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 0.75f);
 
-        yield return new WaitForSeconds(40f);
+        yield return new WaitForSeconds(38f);
         //StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");
-        StartCoroutine(BossStart(new Vector3(8.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
         yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1f);
         PlayBossMusic();
@@ -57,7 +58,7 @@ public class Stage3Manager : StageManager
         StartCoroutine(FadeOutMusic());
         m_SystemManager.StartCoroutine("WarningText");
         yield return new WaitForSeconds(2f);
-        StartCoroutine(BossStart(new Vector3(8.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
         yield return new WaitForSeconds(2f);
         PlayBossMusic();
         yield return null;

@@ -29,8 +29,10 @@ public class EnemyBoss2 : EnemyUnit
         m_TargetPosition = transform.position;
         ToNextPhase(m_AppearanceTime);
 
-        for (int i = 0; i < m_Part[1].m_Turret.Length; i++) {
-            m_Part[1].m_Turret[i].DisableAttackable(-1f);
+        for (int j = 0; j < m_Part.Length; j++) {
+            for (int i = 0; i < m_Part[j].m_Turret.Length; i++) {
+                m_Part[j].m_Turret[i].DisableAttackable(-1f);
+            }
         }
 
         Invoke("OnAppearanceComplete", m_AppearanceTime);
@@ -65,36 +67,33 @@ public class EnemyBoss2 : EnemyUnit
     }
 
     public void ToNextPhase(float duration) {
+        if (m_Phase == -1)
+            return;
+
         m_Phase++;
-        if (m_Phase >= 2) {
-            if (m_CurrentPattern != null)
-                StopCoroutine(m_CurrentPattern);
-            if (m_CurrentPhase != null)
-                StopCoroutine(m_CurrentPhase);
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
+        if (m_CurrentPhase != null)
+            StopCoroutine(m_CurrentPhase);
+
+        if (m_Phase <= 2) {
+            for (int i = 0; i < m_Part[m_Phase - 1].m_Turret.Length; i++) {
+                m_Part[m_Phase - 1].m_Turret[i].DisableAttackable(duration);
+            }
 
             if (m_Phase == 2) {
-                m_CurrentPhase = Phase1();
-                StartCoroutine(m_CurrentPhase);
-            }
-            else if (m_Phase == 3) {
                 m_CurrentPhase = Phase2();
                 StartCoroutine(m_CurrentPhase);
+                m_SystemManager.m_BackgroundCamera.transform.DOMoveZ(m_SystemManager.m_BackgroundCamera.transform.position.z + 13f, duration).SetEase(Ease.InOutQuad);
             }
         }
-        if (m_Phase <= 2) {
-            for (int i = 0; i < m_Part[m_Phase].m_Turret.Length; i++) {
-                m_Part[m_Phase].m_Turret[i].DisableAttackable(duration);
-            }
-        }
-        else {
+        else if (m_Phase == 3) {
             m_Collider2D[0].gameObject.SetActive(true);
             DisableAttackable(-1f);
             DisableAttackable(duration);
-        }
-        if (m_Phase == 2) {
-            m_SystemManager.m_BackgroundCamera.transform.DOMoveZ(m_SystemManager.m_BackgroundCamera.transform.position.z + 13f, duration).SetEase(Ease.InOutQuad);
-        }
-        else if (m_Phase == 3) {
+
+            m_CurrentPhase = Phase3();
+            StartCoroutine(m_CurrentPhase);
             m_SystemManager.m_BackgroundCamera.transform.DOMoveZ(m_SystemManager.m_BackgroundCamera.transform.position.z - 7.5f, duration).SetEase(Ease.InOutQuad);
         }
     }
@@ -173,9 +172,9 @@ public class EnemyBoss2 : EnemyUnit
     }
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
+        m_Turret1_2[0].StartPattern(0);
+        m_Turret1_2[1].StartPattern(0);
         yield return new WaitForSeconds(5f);
-        m_Turret1_2[0].StartPattern(1);
-        m_Turret1_2[1].StartPattern(1);
         while(m_Phase == 2) {
             m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
@@ -196,8 +195,8 @@ public class EnemyBoss2 : EnemyUnit
         m_InPattern = true;
         m_Turret1_1.StartPattern(1);
         if (m_PlayerManager.m_Player.transform.position.x < 0f) {
-            m_Turret1_2[0].StartPattern(2, true);
-            m_Turret1_2[1].StartPattern(2, false);
+            m_Turret1_2[0].StartPattern(1, true);
+            m_Turret1_2[1].StartPattern(1, false);
         }
         else {
             m_Turret1_2[0].StartPattern(1, false);
@@ -220,7 +219,7 @@ public class EnemyBoss2 : EnemyUnit
         yield return null;
     }
 
-    private IEnumerator PatternPhase3() { // 페이즈3 패턴 ============================
+    private IEnumerator Phase3() { // 페이즈3 패턴 ============================
         yield return new WaitForSeconds(5f);
         m_Turret2_0.StartPattern(1);
         m_Turret2_1.StartPattern();

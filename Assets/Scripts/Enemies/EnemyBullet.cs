@@ -182,7 +182,7 @@ public class EnemyBullet : Enemy
     public void Erase() {
         CancelInvoke();
         m_Tween.Kill();
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, 1);
+        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ENEMY_BULLET);
     }
 
     protected override bool BulletCondition(Vector3 pos) {

@@ -375,6 +375,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
         m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
+        UpdateTransform();
     }
 
     protected void RotateSlightly(float target_angle, float speed, float rot = 0f) {
@@ -382,6 +383,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return;
         }
         m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
+        UpdateTransform();
     }
 
     protected void RotateImmediately(Vector2 target, float rot = 0f) {
@@ -390,6 +392,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
         m_CurrentAngle = target_angle + rot;
+        UpdateTransform();
     }
 
     protected void RotateImmediately(float target_angle, float rot = 0f) {
@@ -397,6 +400,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return;
         }
         m_CurrentAngle = target_angle + rot;
+        UpdateTransform();
     }
 
     private bool CheckDeadState() { // true이면 죽은 상태

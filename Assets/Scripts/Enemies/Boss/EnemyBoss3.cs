@@ -202,7 +202,7 @@ public class EnemyBoss3 : EnemyUnit
 
     private IEnumerator Phase2() { // 페이즈 2 패턴 =================
         int random_value;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         m_CurrentPattern1 = Pattern2A();
         StartCoroutine(m_CurrentPattern1);
 
@@ -342,6 +342,7 @@ public class EnemyBoss3 : EnemyUnit
         float[] fire_delay = { 0.19f, 0.12f, 0.09f };
         float duration = 0f;
         
+        m_Direction = Random.Range(0f, 360f);
         m_DirectionState = 2;
         m_RotateDirection = RandomValue();
 
@@ -374,7 +375,7 @@ public class EnemyBoss3 : EnemyUnit
                 CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
                 yield return new WaitForSeconds(0.22f);
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 36, 10f);
                 yield return new WaitForSeconds(2f);
             }
         }
@@ -384,7 +385,7 @@ public class EnemyBoss3 : EnemyUnit
                 CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
                 yield return new WaitForSeconds(0.22f);
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 36, 10f);
                 yield return new WaitForSeconds(0.22f);
                 pos = m_FirePosition[0].position;
                 CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
@@ -426,15 +427,15 @@ public class EnemyBoss3 : EnemyUnit
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2(0.1f, 0.15f));
         }
         
-        m_EnemyBoss3Barrel[0].BarrelShotAnimation(-0.5f);
-        m_EnemyBoss3Barrel[1].BarrelShotAnimation(-0.5f);
+        m_EnemyBoss3Barrel[0].BarrelShotAnimation(-0.1f);
+        m_EnemyBoss3Barrel[1].BarrelShotAnimation(-0.1f);
         yield break;
     }
 
     private IEnumerator Pattern2A() {
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float total_duration = 1.4f, duration, fire_delay = 0.05f;
+        float total_duration = 1.4f, duration, fire_delay = 0.07f;
         
         m_DirectionState = 3;
         m_RotateDirection = RandomValue();

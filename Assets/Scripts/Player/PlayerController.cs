@@ -15,7 +15,7 @@ public class Boundary
     }
 }
 
-public class PlayerController : PlayerDamageUnit
+public class PlayerController : PlayerControllerManager
 {
     [SerializeField] private float m_Tilt = 30f;
     [SerializeField] private Boundary m_Boundary = new Boundary(-7f, 7f, -14.8f, -1f);
@@ -23,8 +23,6 @@ public class PlayerController : PlayerDamageUnit
     [SerializeField] private GameObject m_PlayerShield = null;
     [SerializeField] private string m_Explosion = string.Empty;
     public float m_ReviveInvincibleTime = 3f;
-
-    [HideInInspector] public bool m_SlowMode = false;
 
     private float m_MaxPlayerCamera;
     private float m_DefaultRotation;

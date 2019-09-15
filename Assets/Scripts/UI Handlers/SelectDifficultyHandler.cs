@@ -6,7 +6,7 @@ public class SelectDifficultyHandler : GameUI
 {
     public GameObject m_PreviousPanel;
     public GameObject m_SelectAttributesPanel;
-    public GameObject m_PlayerPreviewCamera;
+    public GameObject m_PlayerPreview;
 
     void Update()
 	{
@@ -30,7 +30,7 @@ public class SelectDifficultyHandler : GameUI
         m_GameManager.m_Difficulty = difficulty;
         
         m_SelectAttributesPanel.SetActive(true);
-        m_PlayerPreviewCamera.SetActive(true);
+        m_PlayerPreview.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }

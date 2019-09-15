@@ -8,9 +8,8 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     public GameObject m_PreviousPanel;
     public byte m_Attributes;
     public int[] m_Cost;
-    public PlayerPreview1 m_PlayerPreview;
-
-    // protected Transform[] m_SelectedAttribute;
+    public PlayerPreview[] m_PlayerPreview = new PlayerPreview[2];
+    
     protected int m_TotalAttributes;
     private int m_OriginalSelection;
     private int m_PreviousSelction;
@@ -49,7 +48,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
                 if (has_changed) {
                     m_Selection = EndAndStart(m_Selection, m_TotalAttributes);
                     m_GameManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_Selection);
-                    m_PlayerPreview.SetPreviewDesign();
+                    SetPreviewDesign();
                 }
             }
         }
@@ -98,9 +97,15 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
         m_GameManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_OriginalSelection);
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
-        m_PlayerPreview.SetPreviewDesign();
+        SetPreviewDesign();
         CancelSound();
         m_PreviousPanel.SetActive(true);
         gameObject.SetActive(false);
+    }
+
+    private void SetPreviewDesign() {
+        for (int i = 0; i < m_PlayerPreview.Length; i++) {
+            m_PlayerPreview[i].SetPreviewDesign();
+        }
     }
 }

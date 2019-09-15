@@ -25,8 +25,8 @@ public static class PoolingParent
 
 public class PoolingManager : MonoBehaviour
 {
-    private Dictionary<string, PooledObject> m_ObjectPoolDictionary = new Dictionary<string, PooledObject>();
-    public GameObject[] m_PooledPrefabs;
+    protected Dictionary<string, PooledObject> m_ObjectPoolDictionary = new Dictionary<string, PooledObject>();
+    [SerializeField] protected GameObject[] m_PooledPrefabs;
 
     private PlayerManager m_PlayerManager = null;
     private int m_Module;
@@ -90,29 +90,31 @@ public class PoolingManager : MonoBehaviour
         m_ObjectPoolDictionary.Add("Debris", new PooledObject(m_PooledPrefabs[19], 20, transform.GetChild(PoolingParent.DEBRIS)));
     }
 
-    public bool PushToPool(string itemName, GameObject item, sbyte parent) // = -1
+    public bool PushToPool(string itemName, GameObject item, sbyte parent = -1) // = -1
     {
         PooledObject pool = GetPoolItem(itemName);
         if (pool == null)
             return false;
         
-        if (parent == -1) {
-            pool.PushToPool(item, null);
-        }
-        else {
+        if (parent == -1)
+            pool.PushToPool(item, transform);
+        else
             pool.PushToPool(item, transform.GetChild(parent));
-        }
+
         //pool.PushToPool(item, parent == null ? transform : parent);
         return true;
     }
 
-    public GameObject PopFromPool(string itemName, sbyte child_number)
+    public GameObject PopFromPool(string itemName, sbyte child_number = -1)
     {
         PooledObject pool = GetPoolItem(itemName);
         if (pool == null)
             return null;
 
-        return pool.PopFromPool(transform.GetChild(child_number));
+        if (child_number == -1)
+            return pool.PopFromPool(transform);
+        else
+            return pool.PopFromPool(transform.GetChild(child_number));
     }
 
     private PooledObject GetPoolItem(string itemName)

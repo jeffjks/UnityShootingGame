@@ -17,8 +17,8 @@ public class PlayerLaserCreater : MonoBehaviour
     public ParticleSystem[] m_HitParticles;
 
     [SerializeField] private BoxCollider2D m_Collider2D = null;
-    [SerializeField] private PlayerLaserShooter m_LaserShooter = null;
-    [SerializeField] private PlayerShooter m_PlayerShooter = null;
+    [SerializeField] private PlayerLaserShooterManager m_LaserShooter = null;
+    [SerializeField] private PlayerShooterManager m_PlayerShooter = null;
 
     [HideInInspector] public float m_MaxLength;
     

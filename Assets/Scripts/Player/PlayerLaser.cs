@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLaser : PlayerDamageUnit {
-
-    [SerializeField] private PlayerLaserShooter m_PlayerLaserShooter = null;
-    [SerializeField] private PlayerShooter m_PlayerShooter = null;
-    [SerializeField] private PlayerController m_PlayerController = null;
+public class PlayerLaser : PlayerLaserManager {
+    
+    public PlayerShooter m_PlayerShooter;
+    public PlayerController m_PlayerController;
     public float[] m_MinDamage = new float[3];
     public float[] m_MaxDamage = new float[3];
 
     [HideInInspector] public float m_LaserDamage;
     private float m_ShotLevelBonus;
-    private int m_LaserIndex;
 
     void Start()
     {
@@ -40,9 +38,5 @@ public class PlayerLaser : PlayerDamageUnit {
 
     public void UpdateLaserDamage() {
         m_LaserDamage = (m_Damage + m_PlayerShooter.m_ShotLevel * m_ShotLevelBonus);
-    }
-
-    public override void OnDeath() {
-        Destroy(gameObject);
     }
 }

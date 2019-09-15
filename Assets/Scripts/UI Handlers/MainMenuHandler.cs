@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class MainMenuHandler : GameUI
 {
     public GameObject m_SelectDifficulty;
-    public GameObject m_PlayerPreviewCamera;
     public GameObject m_SettingsPanel;
     public GameObject m_KeyConfigPanel;
 

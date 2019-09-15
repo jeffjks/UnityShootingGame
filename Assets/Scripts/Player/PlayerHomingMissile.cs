@@ -11,7 +11,8 @@ public class PlayerHomingMissile : PlayerMissile {
     
     protected override void OnStart()
     {
-        m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
+        if (m_PlayerManager != null)
+            m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
         m_Vector2 = transform.up * m_Speed;
         m_Target = null;
     }

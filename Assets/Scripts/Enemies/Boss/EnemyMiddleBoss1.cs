@@ -78,7 +78,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
 
     private void ToNextPhase() {
         m_Phase++;
-        m_SystemManager.BulletsToGems(1f);
+        m_SystemManager.EraseBullets(1f);
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
         

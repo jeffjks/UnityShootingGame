@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_Sun: {fileID: 2086393857}
+  m_IndirectSpecularColor: {r: 0.44300547, g: 0.49219686, b: 0.57192594, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -51,7 +51,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -96,7 +96,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: cabde8ef627284043ad15e1518bda6e0,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -8939,7 +8940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
   m_SelectAttributesHandler: {fileID: 1863808932}
-  m_PlayerPreviewCamera: {fileID: 755607216}
+  m_PlayerPreviewCamera: {fileID: 395472084}
   m_PreviousPanel: {fileID: 1176499697}
   m_RectTransform: {fileID: 961212711}
   m_DetailsPanels:
@@ -18908,13 +18909,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086393856}
-  m_LocalRotation: {x: 0.46984634, y: -0.2961981, z: 0.17101005, w: 0.8137977}
+  m_LocalRotation: {x: 0.50448835, y: -0.23233682, z: 0.06332508, w: 0.8291569}
   m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60, y: -40, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: -40, z: -15}
 --- !u!1 &2092057641
 GameObject:
   m_ObjectHideFlags: 0

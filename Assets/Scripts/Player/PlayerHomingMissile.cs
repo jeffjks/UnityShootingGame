@@ -11,32 +11,33 @@ public class PlayerHomingMissile : PlayerMissile {
     
     protected override void OnStart()
     {
-        if (m_PlayerManager != null)
-            m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
         m_Vector2 = transform.up * m_Speed;
         m_Target = null;
     }
 
     void Update()
     {
-        m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
-
         if (Time.timeScale == 0)
             return;
-        
-        if (m_Target == null)
-            m_Target = FindClosestEnemy();
-        
-        else {
-            Vector2 vec = (m_Target.transform.position - transform.position).normalized;
-            transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
-            m_Vector2 = transform.up * m_Speed;
+
+        if (m_PlayerManager != null) {
+            m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
+            
+            if (m_Target == null) {
+                m_Target = FindClosestEnemy();
+            }
+            else {
+                Vector2 vec = (m_Target.transform.position - transform.position).normalized;
+                transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
+                m_Vector2 = transform.up * m_Speed;
+            }
         }
+        /*
         Vector2 left = new Vector2(m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f, -8f);
         Vector2 right = new Vector2(m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f, -8f);
         Vector2 top = new Vector2(0f, m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f);
         Vector2 bottom = new Vector2(0f, m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f);
-
+        */
         MoveVector();
     }
 

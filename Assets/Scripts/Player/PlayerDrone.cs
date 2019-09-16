@@ -20,16 +20,10 @@ public class PlayerDrone : MonoBehaviour
     protected int m_ShotForm;
     protected int m_ShotLevel;
     protected byte m_ShockWaveNumber;
-    protected float m_ParticleLocalScale;
     protected float m_DefaultDepth;
     
     private PlayerManager m_PlayerManager = null;
 
-    void Awake()
-    {
-        m_ParticleLocalScale = m_ParticleSystem[m_ShockWaveNumber].transform.localScale[0];
-    }
-    
     void Start()
     {
         int laser_damage;
@@ -50,7 +44,6 @@ public class PlayerDrone : MonoBehaviour
             m_ShockWaveNumber = 1;
 
         m_ParticleSystem[m_ShockWaveNumber].gameObject.SetActive(true);
-        m_ParticleLocalScale = m_ParticleSystem[m_ShockWaveNumber].transform.localScale[0];
     }
 
     void Update()
@@ -75,10 +68,11 @@ public class PlayerDrone : MonoBehaviour
     }
 
     public void SetShotLevel(int level) {
+        float coefficient = 0.3f;
         m_ShotLevel = level;
-        m_ParticleSystem[0].transform.localScale = new Vector3(m_ParticleLocalScale + level*4, m_ParticleLocalScale + level*4, m_ParticleLocalScale + level*4);
+        m_ParticleSystem[0].transform.localScale = new Vector3(1f + level*coefficient, 1f + level*coefficient, 1f + level*coefficient);
         m_ParticleSystem[0].transform.localPosition = new Vector3(0f, m_DefaultDepth, 2.5f + level*0.12f);
-        m_ParticleSystem[1].transform.localScale = new Vector3(m_ParticleLocalScale + level*4, m_ParticleLocalScale + level*4, m_ParticleLocalScale + level*4);
+        m_ParticleSystem[1].transform.localScale = new Vector3(1f + level*coefficient, 1f + level*coefficient, 1f + level*coefficient);
         m_ParticleSystem[1].transform.localPosition = new Vector3(0f, m_DefaultDepth, 2.5f + level*0.12f);
     }
 }

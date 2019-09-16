@@ -128,7 +128,7 @@ public class PlayerLaserCreater : MonoBehaviour
         }  
     }
 
-    public void DisablePrepare()
+    public void DisablePrepare() // Initiate Laser
     {
         m_LineRenderer.SetPosition(0, transform.position);
         m_LineRenderer.SetPosition(1, transform.position);

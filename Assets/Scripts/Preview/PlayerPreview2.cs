@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPreview2 : PlayerPreview
+public class PlayerPreview2 : PlayerPreviewManager
 {
     public PlayerPreviewDrone[] m_PlayerPreviewDrone = new PlayerPreviewDrone[4];
+    public PlayerPreviewLaserShooter m_PlayerPreviewLaserShooter;
+    public PlayerPreviewShooter m_PlayerPreviewShooter;
     public GameObject m_DronePart; // Shot Spawner
     public GameObject m_PreviewPoolingManager;
 
@@ -17,6 +19,8 @@ public class PlayerPreview2 : PlayerPreview
     private void SetPreviewWeapons() {
         for (int i = 0; i < m_PlayerPreviewDrone.Length; i++)
             m_PlayerPreviewDrone[i].SetPreviewDrones();
+        m_PlayerPreviewLaserShooter.SetLaserType();
+        m_PlayerPreviewShooter.SetPreviewShooter();
     }
 
     protected override void SetPlayerPreviewColors() {

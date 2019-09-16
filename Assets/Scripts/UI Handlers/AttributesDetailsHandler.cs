@@ -8,7 +8,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     public GameObject m_PreviousPanel;
     public byte m_Attributes;
     public int[] m_Cost;
-    public PlayerPreview[] m_PlayerPreview = new PlayerPreview[2];
+    public PlayerPreviewManager[] m_PlayerPreview = new PlayerPreviewManager[2];
     
     protected int m_TotalAttributes;
     private int m_OriginalSelection;

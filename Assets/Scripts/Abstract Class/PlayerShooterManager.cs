@@ -16,38 +16,16 @@ public abstract class PlayerShooterManager : MonoBehaviour
     [SerializeField] protected float m_HomingMissileMaxDelay = 0.4f, m_RocketMaxDelay = 1.2f, m_AddShotMaxDelay = 0.2f;
     [SerializeField] protected float m_HomingMissileMinDelay = 0.3f, m_RocketMinDelay = 0.6f, m_AddShotMinDelay = 0.2f;
     
-    [HideInInspector] public int m_ShotLevel = 0;
+    [HideInInspector] public int m_ShotLevel;
     protected string[] m_PlayerMissileName = new string[4];
     protected float m_FireDelayWait;
-    protected int m_ShotNumber;
-    protected bool m_NowShooting, m_NowAttacking = false;
-    protected int m_AutoShot;
-    protected float m_ShotKeyPressTime;
-    protected int m_ShotDamage, m_LaserDamage, m_Module;
+    protected int m_ShotNumber, m_ShotDamage, m_Module;
+    protected bool m_NowAttacking;
     protected float m_CurrentModuleDelay, m_ModuleDelay, m_ModuleMinDelay, m_ModuleMaxDelay;
     protected sbyte m_PlayerShotZ;
+    protected abstract IEnumerator Shot();
     protected abstract void CreatePlayerAttacks(string name, Vector3 pos, Quaternion rot, byte type = 0);
-    protected abstract void CheckNowShooting();
-
-    protected IEnumerator Shot() {
-        m_AutoShot--;
-        for (int i = 0; i < m_ShotNumber; i++) { // m_FireRate초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
-            if (m_ShotDamage == 0)
-                CreateShotNormal(m_ShotLevel);
-            else if (m_ShotDamage == 1)
-                CreateShotStrong(m_ShotLevel);
-            else if (m_ShotDamage == 2)
-                CreateShotVeryStrong(m_ShotLevel);
-            else {
-                m_ShotDamage = 0;
-            }
-            yield return new WaitForSeconds(m_FireRate);
-        }
-        yield return new WaitForSeconds(m_FireDelayWait); // m_FireDelay에서 m_FireRate가 차지하는 부분 빼기
-        m_NowShooting = false;
-        CheckNowShooting();
-        yield break;
-    }
+    public abstract void SetPreviewShooter();
 
     protected IEnumerator ModuleShot() {
         while(true) {
@@ -190,6 +168,63 @@ public abstract class PlayerShooterManager : MonoBehaviour
         else {
             CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 2);
             CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 2);
+        }
+    }
+
+    protected void UpdateShotNumber() {
+        for (int i = 0; i < m_PlayerDrone.Length; i++)
+            m_PlayerDrone[i].SetShotLevel(m_ShotLevel);
+
+        if (m_ShotLevel <= -1) {
+            m_PlayerDrone[2].gameObject.SetActive(false);
+            m_PlayerDrone[3].gameObject.SetActive(false);
+        }
+        else {
+            m_PlayerDrone[2].gameObject.SetActive(true);
+            m_PlayerDrone[3].gameObject.SetActive(true);
+            m_PlayerDrone[2].transform.localPosition = new Vector2(0f, -1f);
+            m_PlayerDrone[3].transform.localPosition = new Vector2(0f, -1f);
+        }
+        // 0 / 1 2 / 3 4
+        if (m_ShotLevel == 0) {
+            m_ShotNumber = 3;
+        }
+        else if (m_ShotLevel <= 2) {
+            m_ShotNumber = 4;
+        }
+        else {
+            m_ShotNumber = 5;
+        }
+
+        SetModuleDelay();
+        m_FireDelayWait = m_FireDelay - m_FireRate*m_ShotNumber;
+    }
+
+    protected void SetModule() {
+        if (m_Module == 1) {
+            m_ModuleMinDelay = m_HomingMissileMinDelay;
+            m_ModuleMaxDelay = m_HomingMissileMaxDelay;
+        }
+        else if (m_Module == 2) {
+            m_ModuleMinDelay = m_RocketMinDelay;
+            m_ModuleMaxDelay = m_RocketMaxDelay;
+        }
+        else if (m_Module == 3) {
+            m_ModuleMinDelay = m_AddShotMinDelay;
+            m_ModuleMaxDelay = m_AddShotMaxDelay;
+        }
+        m_ModuleDelay = (m_ModuleMaxDelay - m_ModuleMinDelay) * 0.25f;
+        SetModuleDelay();
+    }
+
+    private void SetModuleDelay() {
+        m_CurrentModuleDelay = m_ModuleMaxDelay - m_ModuleDelay*m_ShotLevel;
+    }
+
+    protected void ResetLaser() {
+        if (m_PlayerController.m_SlowMode) {
+            m_PlayerLaserShooter.StopLaser();
+            m_PlayerLaserShooter.StartLaser();
         }
     }
 }

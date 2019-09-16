@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPreview1 : PlayerPreview
+public class PlayerPreview1 : PlayerPreviewManager
 {
     void FixedUpdate()
     {

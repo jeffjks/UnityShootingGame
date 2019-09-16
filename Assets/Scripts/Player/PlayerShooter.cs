@@ -8,8 +8,9 @@ public class PlayerShooter : PlayerShooterManager
 
     private AudioSource m_AudioSource;
     private Transform m_MainCamera;
-    private int m_DefaultBombNumber, m_BombNumber, m_MaxBombNumber = 5;
-    private bool m_BombEnable = true;
+    private float m_ShotKeyPressTime;
+    private int m_AutoShot, m_DefaultBombNumber, m_BombNumber, m_MaxBombNumber = 5;
+    private bool m_BombEnable = true, m_NowShooting;
     
     private PlayerManager m_PlayerManager = null;
     private PoolingManager m_PoolingManager = null;
@@ -25,9 +26,7 @@ public class PlayerShooter : PlayerShooterManager
             m_PlayerMissileName[i] = PlayerMissile[i].GetComponent<PlayerMissile>().m_ObjectName;
         }
         
-        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.m_ShotDamage; // 샷 데미지
-        m_LaserDamage = m_PlayerManager.m_CurrentAttributes.m_LaserDamage; // 레이저 데미지
-        m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
+        SetPreviewShooter();
         m_PlayerShotZ = Depth.PLAYER_MISSILE;
         
         if (m_PlayerManager.m_CurrentAttributes.m_Bomb == 0) // 폭탄 개수
@@ -37,20 +36,7 @@ public class PlayerShooter : PlayerShooterManager
         m_BombNumber = m_DefaultBombNumber;
 
         if (m_Module != 0) {
-            if (m_Module == 1) {
-                m_ModuleMinDelay = m_HomingMissileMinDelay;
-                m_ModuleMaxDelay = m_HomingMissileMaxDelay;
-            }
-            else if (m_Module == 2) {
-                m_ModuleMinDelay = m_RocketMinDelay;
-                m_ModuleMaxDelay = m_RocketMaxDelay;
-            }
-            else if (m_Module == 3) {
-                m_ModuleMinDelay = m_AddShotMinDelay;
-                m_ModuleMaxDelay = m_AddShotMaxDelay;
-            }
-            m_ModuleDelay = (m_ModuleMaxDelay - m_ModuleMinDelay) / 4;
-
+            SetModule();
             UpdateShotNumber();
             StartCoroutine(ModuleShot());
         }
@@ -142,7 +128,7 @@ public class PlayerShooter : PlayerShooterManager
         }
     }
     
-    protected new IEnumerator Shot() {
+    protected override IEnumerator Shot() {
         m_AutoShot--;
         for (int i = 0; i < m_ShotNumber; i++) { // m_FireRate초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
             if (m_AudioSource != null)
@@ -164,7 +150,7 @@ public class PlayerShooter : PlayerShooterManager
         yield break;
     }
 
-    protected override void CheckNowShooting() { // Now Attacking : 현재 공격 중 (모듈 공격을 위한 변수)
+    private void CheckNowShooting() { // Now Attacking : 현재 공격 중 (모듈 공격을 위한 변수)
         if (m_AutoShot == 0) { // Now Shooting : 현재 샷 중 (샷 딜레이를 위한 변수)
             if (!m_PlayerController.m_SlowMode && !m_NowShooting)
                 m_NowAttacking = false;
@@ -223,13 +209,6 @@ public class PlayerShooter : PlayerShooterManager
         UpdateShotNumber();
     }
 
-    private void ResetLaser() {
-        if (m_PlayerController.m_SlowMode) {
-            m_PlayerLaserShooter.StopLaser();
-            m_PlayerLaserShooter.StartLaser();
-        }
-    }
-
     public void AddBomb() {
         if (m_BombNumber < m_MaxBombNumber) {
             m_BombNumber++;
@@ -238,33 +217,9 @@ public class PlayerShooter : PlayerShooterManager
             // 점수 +
         }
     }
-
-    private void UpdateShotNumber() {
-        for (int i = 0; i < m_PlayerDrone.Length; i++)
-            m_PlayerDrone[i].SetShotLevel(m_ShotLevel);
-
-        if (m_ShotLevel <= -1) {
-            m_PlayerDrone[2].gameObject.SetActive(false);
-            m_PlayerDrone[3].gameObject.SetActive(false);
-        }
-        else {
-            m_PlayerDrone[2].gameObject.SetActive(true);
-            m_PlayerDrone[3].gameObject.SetActive(true);
-            m_PlayerDrone[2].transform.localPosition = new Vector2(0f, -1f);
-            m_PlayerDrone[3].transform.localPosition = new Vector2(0f, -1f);
-        }
-        // 0 / 1 2 / 3 4
-        if (m_ShotLevel == 0) {
-            m_ShotNumber = 3;
-        }
-        else if (m_ShotLevel <= 2) {
-            m_ShotNumber = 4;
-        }
-        else {
-            m_ShotNumber = 5;
-        }
-
-        m_CurrentModuleDelay = m_ModuleMaxDelay - m_ModuleDelay*m_ShotLevel;
-        m_FireDelayWait = m_FireDelay - m_FireRate*m_ShotNumber;
+    
+    public override void SetPreviewShooter() {
+        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.m_ShotDamage; // 샷 데미지
+        m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
     }
 }

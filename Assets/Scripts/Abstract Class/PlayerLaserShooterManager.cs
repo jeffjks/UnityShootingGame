@@ -13,10 +13,10 @@ public abstract class PlayerLaserShooterManager : MonoBehaviour
     public float m_EndPointAlpha;
 
     [HideInInspector] public float m_MaxLength;
-    [HideInInspector] public int m_LaserIndex;
+    [HideInInspector] public int m_LaserIndex; // Laser Damage Type
     
     protected PlayerLaserCreater m_PlayerLaserCreater;
-    protected GameObject m_LaserInstance;
+    protected GameObject m_LaserInstance; // Laser Object
     public abstract void StartLaser();
     public abstract void StopLaser();
 

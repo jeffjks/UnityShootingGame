@@ -50,7 +50,12 @@ public class PlayerShield : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상 파괴
             EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-            enemyBullet.OnDeath();
+            try {
+                enemyBullet.OnDeath();
+            }
+            catch (System.NullReferenceException) {
+                return;
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ public class DebrisEffect : MonoBehaviour
     }
 
     private Vector2 GetScreenPosition(Vector3 pos) {
-        float main_camera_xpos = m_PlayerManager.m_MainCamera.transform.position.x;
+        float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
         Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
         Vector2 modified_pos = new Vector2(
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,

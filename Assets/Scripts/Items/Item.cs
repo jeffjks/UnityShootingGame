@@ -24,7 +24,7 @@ public abstract class Item : MonoBehaviour
         m_PlayerManager = PlayerManager.instance_pm;
 
         m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
-        m_MainCameraTransform = m_PlayerManager.m_MainCamera.transform;
+        m_MainCameraTransform = m_SystemManager.m_MainCamera.transform;
     }
     
     protected virtual void Update()
@@ -42,7 +42,7 @@ public abstract class Item : MonoBehaviour
     }
 
     private Vector2 GetScreenPosition(Vector3 pos) {
-        float main_camera_xpos = m_PlayerManager.m_MainCamera.transform.position.x;
+        float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
         Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
         Vector2 modified_pos = new Vector2(
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
@@ -137,7 +137,6 @@ public abstract class ItemGem : Item
     public string m_ObjectName;
 
     private PoolingManager m_PoolingManager = null;
-    private bool m_OnEnable = false;
 
 
     protected override void Awake()
@@ -148,20 +147,16 @@ public abstract class ItemGem : Item
 
     void OnEnable()
     {
-        if (!m_IsAir) {
-            if (!m_OnEnable) {
-                m_OnEnable = true;
-                return;
-            }
-            GetCoordinates();
-            if (m_Position2D.x <= Size.GAME_BOUNDARY_LEFT)
-                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
-            else if (m_Position2D.x >= Size.GAME_BOUNDARY_RIGHT)
-                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
-            else if (m_Position2D.y <= Size.GAME_BOUNDARY_BOTTOM)
-                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
-            else if (m_Position2D.y >= Size.GAME_BOUNDARY_TOP)
-                m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
+        GetCoordinates();
+    }
+
+    
+
+    protected override void Update()
+    {
+        base.Update();
+        if (m_SystemManager.m_PlayState == 4) {
+            OnDeath();
         }
     }
 
@@ -169,7 +164,11 @@ public abstract class ItemGem : Item
     {
         if (other.gameObject.CompareTag("PlayerBody")) { // 대상이 플레이어 바디면 자신 파괴
             ItemEffect(other);
-            m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
+            OnDeath();
         }
+    }
+
+    public void OnDeath() {
+        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
     }
 }

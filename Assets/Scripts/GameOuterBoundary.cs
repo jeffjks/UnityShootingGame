@@ -44,7 +44,7 @@ public class GameOuterBoundary : MonoBehaviour
                 ItemGem item_gem = other.gameObject.GetComponentInParent<ItemGem>();
                 if (item_gem == null)
                     return;
-                m_PoolingManager.PushToPool(item_gem.m_ObjectName, other.gameObject, PoolingParent.ITEM_GEM);
+                item_gem.OnDeath();
             }
         }
 

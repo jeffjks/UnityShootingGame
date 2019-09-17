@@ -788,7 +788,7 @@ MonoBehaviour:
   m_RemoveTimer: 25
   m_MovePattern: []
   m_ActivateTime: 26
-  m_DeactivateTime: 42
+  m_DeactivateTime: 48
 --- !u!1001 &388905875
 PrefabInstance:
   m_ObjectHideFlags: 0

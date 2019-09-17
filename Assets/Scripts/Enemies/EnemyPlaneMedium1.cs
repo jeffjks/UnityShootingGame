@@ -38,10 +38,10 @@ public class EnemyPlaneMedium1 : EnemyUnit
                 m_Sequence.Kill();
                 if (transform.position.x > 0f)
                     m_Sequence = DOTween.Sequence()
-                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_RIGHT + 3f, 3f).SetEase(Ease.InQuad));
+                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_RIGHT + 4f, 3f).SetEase(Ease.InQuad));
                 else
                     m_Sequence = DOTween.Sequence()
-                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_LEFT - 3f, 3f).SetEase(Ease.InQuad));
+                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_LEFT - 4f, 3f).SetEase(Ease.InQuad));
             }
         }
         

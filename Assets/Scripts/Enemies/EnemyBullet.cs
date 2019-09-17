@@ -186,7 +186,7 @@ public class EnemyBullet : Enemy
     }
 
     protected override bool BulletCondition(Vector3 pos) {
-        Vector2 camera_pos = m_PlayerManager.m_MainCamera.transform.position;
+        Vector2 camera_pos = m_SystemManager.m_MainCamera.transform.position;
 
         if (!m_PlayerManager.m_PlayerIsAlive) {
             return false;

@@ -6,10 +6,10 @@ public class MainCamera : MonoBehaviour {
     
     private PlayerManager m_PlayerManager = null;
     private Vector3 m_PlayerPosition;
-    private Camera m_Camera;
-    private Vector3 m_CameraPosition;
-    private float m_CameraMoveRate;
-    private float m_CameraMargin;
+    private Vector2 m_ShakePosition;
+    private float m_PositionY;
+    private float m_CameraMoveRate, m_CameraMargin;
+    private IEnumerator m_ShakeCamera;
 
     void Start()
     {
@@ -17,11 +17,10 @@ public class MainCamera : MonoBehaviour {
         m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
 
         m_CameraMargin = m_PlayerManager.m_CameraMargin;
-
-        m_Camera = GetComponentInChildren<Camera>();
         m_CameraMoveRate = m_CameraMargin / Size.CAMERA_MOVE_LIMIT;
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, Depth.CAMERA);
+        transform.position.Set(transform.position.x, transform.position.y, Depth.CAMERA);
+        m_PositionY = transform.position.y;
     }
 
     void LateUpdate()
@@ -37,8 +36,30 @@ public class MainCamera : MonoBehaviour {
         }
 
         camera_x = Mathf.Clamp(camera_x, - m_CameraMargin, m_CameraMargin);
+        
+        transform.position = new Vector3(camera_x, m_PositionY, Depth.CAMERA) + (Vector3) m_ShakePosition;
+    }
 
-        m_CameraPosition = new Vector3(camera_x, transform.position.y, Depth.CAMERA);
-        transform.position = m_CameraPosition;
+    public void ShakeCamera(float duration) {
+        if (m_ShakeCamera != null)
+            StopCoroutine(m_ShakeCamera);
+        m_ShakeCamera = ShakeCameraProcess(duration);
+        StartCoroutine(m_ShakeCamera);
+    }
+
+    private IEnumerator ShakeCameraProcess(float duration) {
+        float timer = 0, radius, radius_init;
+        radius = Mathf.Clamp01(duration) * 1.5f;
+        radius_init = radius;
+
+        while(timer < duration) {
+            m_ShakePosition = Random.insideUnitCircle * radius;
+    
+            timer += Time.deltaTime;
+            radius = Mathf.Lerp(radius_init, 0f, timer / duration);
+            yield return null;
+        }
+        m_ShakePosition = Vector2.zero;
+        yield break;
     }
 }

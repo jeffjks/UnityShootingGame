@@ -13,14 +13,16 @@ public class PlayerShooter : PlayerShooterManager
     private bool m_BombEnable = true, m_NowShooting;
     
     private PlayerManager m_PlayerManager = null;
+    private SystemManager m_SystemManager = null;
     private PoolingManager m_PoolingManager = null;
 
     void Start()
     {
         m_PlayerManager = PlayerManager.instance_pm;
+        m_SystemManager = SystemManager.instance_sm;
         m_PoolingManager = PoolingManager.instance_op;
         m_AudioSource = GetComponent<AudioSource>();
-        m_MainCamera = m_PlayerManager.m_MainCamera.transform;
+        m_MainCamera = m_SystemManager.m_MainCamera.transform;
 
         for (int i = 0; i < PlayerMissile.Length; i++) {
             m_PlayerMissileName[i] = PlayerMissile[i].GetComponent<PlayerMissile>().m_ObjectName;

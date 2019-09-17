@@ -68,6 +68,7 @@ public class SystemManager : MonoBehaviour
     public Camera m_BackgroundCamera;
     public SoundManager m_SoundManager;
     public ScreenEffecter m_ScreenEffecter;
+    public MainCamera m_MainCamera;
     public BossHealthHandler m_BossHealthBar;
     public OverviewHandler m_OverviewHandler;
 
@@ -82,7 +83,7 @@ public class SystemManager : MonoBehaviour
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
-    [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수 화면
+    [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수 화면, 4: 다음 스테이지 전환중
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public float m_BulletsEraseTimer;
     [HideInInspector] public byte m_Difficulty;
@@ -225,6 +226,10 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    public void ShakeCamera(float duration) {
+        m_MainCamera.ShakeCamera(duration);
+    }
+
 
     public void MiddleBossClear() {
         m_PlayState = 0;
@@ -250,6 +255,7 @@ public class SystemManager : MonoBehaviour
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터
+        m_PlayState = 4;
         ScreenEffect(3); // FadeIn
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Stage" + (m_Stage + 2));

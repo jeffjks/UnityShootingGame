@@ -8,9 +8,11 @@ public class PlayerHomingMissile : PlayerMissile {
     [SerializeField] private float m_RotationSpeed = 0.09f;
     private GameObject m_Target;
     private Vector2 m_MainCameraPosition;
+    private SystemManager m_SystemManager = null;
     
     protected override void OnStart()
     {
+        m_SystemManager = SystemManager.instance_sm;
         m_Vector2 = transform.up * m_Speed;
         m_Target = null;
     }
@@ -20,8 +22,8 @@ public class PlayerHomingMissile : PlayerMissile {
         if (Time.timeScale == 0)
             return;
 
-        if (m_PlayerManager != null) {
-            m_MainCameraPosition = m_PlayerManager.m_MainCamera.transform.position;
+        if (m_SystemManager != null) {
+            m_MainCameraPosition = m_SystemManager.m_MainCamera.transform.position;
             
             if (m_Target == null) {
                 m_Target = FindClosestEnemy();

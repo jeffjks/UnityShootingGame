@@ -69,7 +69,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     }
 
     protected Vector2 GetScreenPosition(Vector3 pos) {
-        float main_camera_xpos = m_PlayerManager.m_MainCamera.transform.position.x;
+        float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
         Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
         Vector2 modified_pos = new Vector2(
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
@@ -170,7 +170,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     }
 
     protected virtual bool BulletCondition(Vector3 pos) {
-        float camera_x = m_PlayerManager.m_MainCamera.transform.position.x;
+        float camera_x = m_SystemManager.m_MainCamera.transform.position.x;
 
         if (!m_PlayerManager.m_PlayerIsAlive) {
             return false;
@@ -293,9 +293,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return new Material[0];
 
         for (int i = 0; i < m_ChildEnemies.Length; i++) {
-            if (m_ChildEnemies[i].m_Collider2D.Length == 0) {
-                m_ChildEnemies[i].gameObject.SetActive(false);
-            }
+            m_ChildEnemies[i].gameObject.SetActive(false);
         }
         
         MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
@@ -635,12 +633,12 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return;
 
         if (m_MaxHealth < 0f) {
-            if (m_ParentEnemy.m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
+            if (m_ParentEnemy.m_MaxHealth < 1000f) { // 본체의 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
                 if (m_ParentEnemy.m_Health < m_ParentEnemy.m_MaxHealth * 0.3f) {
                     red_blink = LowHealthImageBlend();
                 }
             }
-            else { // 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
+            else { // 본체의 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
                 if (m_ParentEnemy.m_Health < 300f) {
                     red_blink = LowHealthImageBlend();
                 }

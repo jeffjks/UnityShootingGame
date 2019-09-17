@@ -578,6 +578,7 @@ public class EnemyBoss3 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0.2f, 0.18f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
         ExplosionEffect(0, -1, new Vector2(-0.2f, 0.18f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
         m_SystemManager.ScreenEffect(1);
+        m_SystemManager.ShakeCamera(1f);
         
         CreateItems();
         Destroy(gameObject);

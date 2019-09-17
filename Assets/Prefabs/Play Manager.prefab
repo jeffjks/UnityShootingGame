@@ -399,7 +399,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 782550325
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 8dabc69cdeeb7af4ea544c48f1c79d1d, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
@@ -969,6 +969,7 @@ MonoBehaviour:
   m_BackgroundCamera: {fileID: 5824299596396954923}
   m_SoundManager: {fileID: 5824299595624632995}
   m_ScreenEffecter: {fileID: 5824299595787162363}
+  m_MainCamera: {fileID: 5824299594861438883}
   m_BossHealthBar: {fileID: 5824299596427968521}
   m_OverviewHandler: {fileID: 5824299595459288743}
   m_ScoreNuberText: {fileID: 5824299595933309618}
@@ -1002,16 +1003,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 123456, guid: 628e600791d399f4faef047dfbf2edaa, type: 3}
-  m_MainCamera: {fileID: 5824299594861438883}
   m_RevivePointY: -13
   m_SafeLine: -12
   m_ItemPowerUp: {fileID: 100002, guid: 0efd0b8541a08014da3e8dab76e4eac2, type: 3}
+  m_CurrentAttributes:
+    m_Color: 0
+    m_Speed: 0
+    m_ShotForm: 0
+    m_ShotDamage: 0
+    m_LaserDamage: 0
+    m_Module: 0
+    m_Bomb: 0
   m_CameraBoundary: {fileID: 5824299594861438881}
   m_CameraOuterBoundary: {fileID: 5824299596092681067}
   m_GameOuterBoundary: {fileID: 5824299595324622255}
   m_CanvasUI: {fileID: 5824299596427968520}
   m_PlayerIsAlive: 0
-  m_CurrentAttributes: 00000000000000000000000000000000000000000000000000000000
   m_CameraMargin: 0
 --- !u!114 &5824299595195028250
 MonoBehaviour:
@@ -3980,7 +3987,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 782550325
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 8dabc69cdeeb7af4ea544c48f1c79d1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4429,7 +4436,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 782550325
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 86bea83ba85fb8c4f8fedb5abb92c754, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -4903,6 +4910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807f6672242f68a4eb793ad676d7decc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Preview: 0
 --- !u!1 &5824299596108933836
 GameObject:
   m_ObjectHideFlags: 0
@@ -7299,7 +7307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5824299596851000019
 RectTransform:
   m_ObjectHideFlags: 0

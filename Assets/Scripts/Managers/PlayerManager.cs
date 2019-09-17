@@ -24,7 +24,6 @@ public static class Size
 public class PlayerManager : MonoBehaviour
 {
     public GameObject m_Player;
-    public MainCamera m_MainCamera;
     public float m_RevivePointY = -13f;
     public float m_SafeLine = -12f;
     public GameObject m_ItemPowerUp;
@@ -66,7 +65,7 @@ public class PlayerManager : MonoBehaviour
         m_CanvasUI.sizeDelta = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
 
         m_SpawnPoint = new Vector3(0, -20f, Depth.PLAYER);
-        m_CameraMargin = (Size.GAME_WIDTH - Size.CAMERA_WIDTH) / 2; // 1.555
+        m_CameraMargin = (Size.GAME_WIDTH - Size.CAMERA_WIDTH) * 0.5f; // 1.555
         
         DontDestroyOnLoad(gameObject);
     }

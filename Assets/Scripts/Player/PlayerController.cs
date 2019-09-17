@@ -30,8 +30,7 @@ public class PlayerController : PlayerControllerManager
     private bool m_Invincibility = false;
     private float m_InvincibleTimer;
     private bool m_HasCollided = false;
-    private float m_Speed, m_SlowSpeed;
-    private float m_OverviewSpeed;
+    private float m_Speed, m_SlowSpeed, m_OverviewSpeed;
     
     private SystemManager m_SystemManager = null;
 

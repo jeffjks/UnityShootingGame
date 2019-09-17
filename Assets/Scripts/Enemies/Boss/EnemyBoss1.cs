@@ -323,6 +323,8 @@ public class EnemyBoss1 : EnemyUnit
         ExplosionEffect(1, -1, new Vector2(1.2f, -2.2f));
         ExplosionEffect(1, -1, new Vector2(-1.2f, -2.2f));
         m_SystemManager.ScreenEffect(1);
+        m_SystemManager.ShakeCamera(1f);
+        
         Destroy(gameObject);
         yield return null;
     }

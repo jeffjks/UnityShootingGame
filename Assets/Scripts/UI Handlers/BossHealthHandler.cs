@@ -44,6 +44,11 @@ public class BossHealthHandler : MonoBehaviour
         Vector3 HPVector3 = m_BossHealthBar.position;
         Vector3 TopUIVector3 = m_TopUI.localPosition;
 
+        if (m_PositionY <= 0)
+            m_BossHealthBar.gameObject.SetActive(false);
+        else
+            m_BossHealthBar.gameObject.SetActive(true);
+
         if (m_SystemManager.m_PlayState == 1) {
             m_PositionY = Mathf.MoveTowards(m_PositionY, 1f, 1f * Time.deltaTime);
         }

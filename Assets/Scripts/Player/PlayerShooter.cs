@@ -5,22 +5,27 @@ using UnityEngine;
 public class PlayerShooter : PlayerShooterManager
 {
     public GameObject m_Bomb = null;
+    [HideInInspector] public int m_ShotKeyPress, m_BombKeyPress;
 
     private AudioSource m_AudioSource;
     private Transform m_MainCamera;
     private float m_ShotKeyPressTime;
     private int m_AutoShot, m_DefaultBombNumber, m_BombNumber, m_MaxBombNumber = 5;
-    private bool m_BombEnable = true, m_NowShooting;
+    private bool m_ShotKeyPrevious = false, m_BombEnable = true, m_NowShooting;
     
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
     private PoolingManager m_PoolingManager = null;
 
-    void Start()
+    void Awake()
     {
         m_PlayerManager = PlayerManager.instance_pm;
         m_SystemManager = SystemManager.instance_sm;
         m_PoolingManager = PoolingManager.instance_op;
+    }
+
+    void Start()
+    {
         m_AudioSource = GetComponent<AudioSource>();
         m_MainCamera = m_SystemManager.m_MainCamera.transform;
 
@@ -46,33 +51,51 @@ public class PlayerShooter : PlayerShooterManager
             UpdateShotNumber();
     }
 
-    void Update ()
+    void Update()
     {
         if (Time.timeScale == 0)
             return;
 
-        if (Input.GetButton("Fire1") && m_PlayerManager.PlayerControlable) {
-            if (m_ShotKeyPressTime < 10f) {
-                m_ShotKeyPressTime += Time.deltaTime; // 버튼 누를시 m_ShotKeyPressTime 증가
+        if (m_PlayerManager.PlayerControlable) {
+            if (!m_SystemManager.m_ReplayState) {
+                if (Input.GetButton("Fire1")) {
+                    m_ShotKeyPress = 1; // 버튼 누를시 m_ShotKeyPressTime 증가
+                }
+                else {
+                    m_ShotKeyPress = 0;
+                }
+
+                if (Input.GetButtonDown("Fire2")) { // 폭탄 사용
+                    m_BombKeyPress = 1;
+                }
+                else {
+                    m_BombKeyPress = 0;
+                }
+            }
+        }
+    }
+
+    public void PlayerShooterBehaviour() {
+        if (m_ShotKeyPress == 1) {
+            m_ShotKeyPressTime += Time.fixedDeltaTime;
+            if (!m_ShotKeyPrevious) {
+                m_ShotKeyPrevious = true;
+                if (m_PlayerController.m_SlowMode == false) { // 샷 모드일 경우 AutoShot 증가
+                    if (m_AutoShot <= 1) {
+                        m_AutoShot++;
+                    }
+                }
             }
         }
         else {
+            m_ShotKeyPrevious = false;
             m_ShotKeyPressTime = 0f;
-            if (m_PlayerController.m_SlowMode == true) { // 버튼 떼면 샷 모드로
-                m_PlayerController.m_SlowMode = false;
-                m_PlayerLaserShooter.StopLaser();
-                m_NowAttacking = false;
-            }
+            m_PlayerController.m_SlowMode = false;
+            m_PlayerLaserShooter.StopLaser();
+            m_NowAttacking = false;
         }
-
+        
         if (m_PlayerManager.PlayerControlable) {
-            if (Input.GetButtonDown("Fire1")) {
-                if (m_PlayerController.m_SlowMode == false) { // 샷 모드일 경우 샷 발사
-                    if (m_AutoShot <= 1)
-                        m_AutoShot++;
-                }
-            }
-
             if (m_PlayerController.m_SlowMode == false) {
                 if (m_ShotKeyPressTime > 0.5f) { // 0.5초간 누르면 레이저 모드
                     m_PlayerController.m_SlowMode = true;
@@ -94,22 +117,24 @@ public class PlayerShooter : PlayerShooterManager
             m_NowAttacking = true;
         }
 
-        if (Input.GetButtonDown("Fire2")) { // 폭탄 사용
-            if (m_PlayerManager.PlayerControlable) {
-                if (m_BombNumber > 0) {
-                    if (m_BombEnable) {
-                        if (!m_Bomb.activeSelf) {
-                            Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
-                            ((PlayerController) m_PlayerController).EnableInvincible(4f);
-                            m_Bomb.SetActive(true);
-                            m_BombEnable = false;
-                            m_BombNumber--;
-                            Invoke("EnableBomb", 3f); // 폭탄 쿨타임
-                        }
+        if (m_BombKeyPress == 1) {
+            if (m_BombNumber > 0) {
+                if (m_BombEnable) {
+                    if (!m_Bomb.activeSelf) {
+                        UseBomb();
                     }
                 }
             }
         }
+    }
+
+    private void UseBomb() {
+        Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
+        ((PlayerController) m_PlayerController).EnableInvincible(4f);
+        m_Bomb.SetActive(true);
+        m_BombEnable = false;
+        m_BombNumber--;
+        Invoke("EnableBomb", 3f); // 폭탄 쿨타임
     }
 
     private void EnableBomb() {
@@ -144,9 +169,15 @@ public class PlayerShooter : PlayerShooterManager
             else {
                 m_ShotDamage = 0;
             }
-            yield return new WaitForSeconds(m_FireRate);
+            for (int t = 0; t < m_FireRate / Time.fixedDeltaTime; t++) {
+                yield return new WaitForFixedUpdate();
+            }
+            // yield return new WaitForSeconds(m_FireRate);
         }
-        yield return new WaitForSeconds(m_FireDelayWait); // m_FireDelay에서 m_FireRate가 차지하는 부분 빼기
+        for (int t = 0; t < m_FireDelayWait / Time.fixedDeltaTime; t++) {
+            yield return new WaitForFixedUpdate();
+        }
+        // yield return new WaitForSeconds(m_FireDelayWait); // m_FireDelay에서 m_FireRate가 차지하는 부분 빼기
         m_NowShooting = false;
         CheckNowShooting();
         yield break;
@@ -198,7 +229,7 @@ public class PlayerShooter : PlayerShooterManager
             ResetLaser();
         }
         else {
-            // 점수 +
+            // ToDo 점수 +
         }
         UpdateShotNumber();
     }
@@ -216,7 +247,7 @@ public class PlayerShooter : PlayerShooterManager
             m_BombNumber++;
         }
         else {
-            // 점수 +
+            // ToDo 점수 +
         }
     }
     

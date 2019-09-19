@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-
 m_ObjectPoolDictionary : 특정 종류의 오브젝트들의 List를 담은 PooledObject 들을 가진 Dictionary
-GetChild(0) : 플레이어 공격
-GetChild(1) : 적 총알
-GetChild(2) : 폭발
-GetChild(3) : 젬
-
 m_PoolQueue : 오브젝트들을 담은 Queue. PooledObject 클래스 안에 존재. 아직 생성되지 않은 오브젝트들이 Queue 안에 있음.
-
 */
 public static class PoolingParent
 {

@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     public float m_SafeLine = -12f;
     public GameObject m_ItemPowerUp;
     public Attributes m_CurrentAttributes;
+    public ReplayManager m_ReplayManager;
 
     [SerializeField] private BoxCollider2D m_CameraBoundary = null;
     [SerializeField] private BoxCollider2D m_CameraOuterBoundary = null;
@@ -41,7 +42,8 @@ public class PlayerManager : MonoBehaviour
     private GameManager m_GameManager = null;
     private SystemManager m_SystemManager = null;
 
-    private PlayerShooter m_PlayerShooter;
+    [HideInInspector] public PlayerShooter m_PlayerShooter;
+    [HideInInspector] public PlayerController m_PlayerController;
     private Vector3 m_SpawnPoint;
     private bool m_PlayerControlable = false;
     private float m_ReviveDelay = 2f;
@@ -75,6 +77,8 @@ public class PlayerManager : MonoBehaviour
         SpawnPlayer();
         m_SystemManager.SetPlayerManager();
         m_SystemManager.m_BackgroundCamera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+
+        m_ReplayManager.Init();
     }
 
     private void SpawnPlayer()
@@ -89,6 +93,7 @@ public class PlayerManager : MonoBehaviour
         else
             m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
+        m_PlayerController = m_Player.GetComponent<PlayerController>();
 
         switch(m_SystemManager.GetStage()) {
             case 0: 

@@ -57,21 +57,22 @@ LightmapSettings:
     serializedVersion: 12
     m_Resolution: 2
     m_BakeResolution: 40
-    m_AtlasSize: 4096
+    m_AtlasSize: 2048
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
     m_CompAOExponentDirect: 0
     m_ExtractAmbientOcclusion: 0
     m_Padding: 2
-    m_LightmapParameters: {fileID: 0}
+    m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000,
+      type: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-    m_MixedBakeMode: 0
+    m_MixedBakeMode: 2
     m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
@@ -98,7 +99,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 112000000, guid: b1950c42e958c7a40a7a2c8e76372801,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4500,6 +4501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807f6672242f68a4eb793ad676d7decc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Preview: 0
 --- !u!61 &724650215
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8157,7 +8159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 123456, guid: 628e600791d399f4faef047dfbf2edaa, type: 3}
-  m_MainCamera: {fileID: 2140972222}
   m_RevivePointY: -13
   m_SafeLine: -12
   m_ItemPowerUp: {fileID: 100002, guid: 0efd0b8541a08014da3e8dab76e4eac2, type: 3}
@@ -8190,6 +8191,7 @@ MonoBehaviour:
   m_BackgroundCamera: {fileID: 1529313096}
   m_SoundManager: {fileID: 217234611}
   m_ScreenEffecter: {fileID: 644537332}
+  m_MainCamera: {fileID: 0}
   m_BossHealthBar: {fileID: 1854235349}
   m_OverviewHandler: {fileID: 856541435}
   m_ScoreNuberText: {fileID: 86932149}
@@ -9192,7 +9194,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: NaN, z: 5.02e-43, w: -2.2180525e+29}
+  m_BoundingSphereOverride: {x: -3.11e-43, y: -1.114e-42, z: 6e-45, w: 6.4e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.Audio;
 using DG.Tweening;
 
@@ -84,6 +85,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioMixer m_AudioMixer = null;
 
     public static GameManager instance_gm = null;
+
+    private float test1, test2, test3;
 
     void Awake()
     {

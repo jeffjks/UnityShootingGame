@@ -87,6 +87,7 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public float m_BulletsEraseTimer;
     [HideInInspector] public byte m_Difficulty;
+    [HideInInspector] public bool m_ReplayState;
     
     public bool m_DebugMod, m_InvincibleMod;
     public DebugDifficulty m_DebugDifficulty;
@@ -103,13 +104,17 @@ public class SystemManager : MonoBehaviour
     private int m_Stage = 0;
     private byte m_TotalMiss = 0;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
-    private bool m_ReplayState = false;
-    private bool m_FadingOut = true;
+
+    private Sequence m_SequenceReplayText;
 
     public static SystemManager instance_sm = null;
 
     void Awake()
     {
+        m_ReplayState = true;
+
+        Application.targetFrameRate = 60;
+
         if (instance_sm != null) {
             Destroy(this.gameObject);
             return;
@@ -132,11 +137,6 @@ public class SystemManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         DOTween.SetTweensCapacity(512, 64);
-
-        CanvasRenderer cr1 = m_ReplayText.GetComponent<CanvasRenderer>();
-        CanvasRenderer cr2 = m_WarningText.GetComponent<CanvasRenderer>();
-        cr1.SetAlpha(0f);
-        cr2.SetAlpha(0f);
     }
 
     void Start()
@@ -146,25 +146,24 @@ public class SystemManager : MonoBehaviour
 
         m_MissNumberText.text = "" + m_TotalMiss;
 
+        if (m_ReplayState) {
+            m_ReplayText.gameObject.SetActive(true);
+            m_SequenceReplayText = DOTween.Sequence()
+            .Append(m_ReplayText.DOFade(0f, 0.2f))
+            .Append(m_ReplayText.DOFade(1f, 0.6f))
+            .SetEase(Ease.Linear)
+            .SetLoops(-1);
+        }
+
         CreateTransition();
         ScreenEffect(2);
         UpdateScore();
         SetDifficultyText();
-        StartCoroutine(FadeOutReplayText());
     }
 
     void Update()
     {
         m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
-
-        if (m_ReplayState) {
-            if (m_FadingOut) {
-                m_ReplayText.CrossFadeAlpha(0f, 0.2f, true);
-            }
-            else {
-                m_ReplayText.CrossFadeAlpha(1f, 0.4f, true);
-            }
-        }
 
         BulletEraseTimer();
     }
@@ -190,15 +189,6 @@ public class SystemManager : MonoBehaviour
                 r *= -1;
             }
             r *= -1;
-        }
-    }
-
-    private IEnumerator FadeOutReplayText() {
-        while (true) {
-            m_FadingOut = true;
-            yield return new WaitForSeconds(0.2f);
-            m_FadingOut = false;
-            yield return new WaitForSeconds(0.6f);
         }
     }
 
@@ -343,6 +333,7 @@ public class SystemManager : MonoBehaviour
         byte time = 0;
         m_AudioWarning.Play();
 
+        m_WarningText.gameObject.SetActive(true);
         while (time < 10) {
             m_WarningText.CrossFadeAlpha(1f, 0.4f, true);
             time++;
@@ -357,6 +348,7 @@ public class SystemManager : MonoBehaviour
             time++;
             yield return new WaitForSeconds(0.1f);
         }
+        m_WarningText.gameObject.SetActive(false);
         yield break;
     }
 

@@ -924,6 +924,7 @@ GameObject:
   - component: {fileID: 5824299595195028255}
   - component: {fileID: 5824299595195028251}
   - component: {fileID: 5824299595195028250}
+  - component: {fileID: 887243823951567483}
   - component: {fileID: 5824299595195028253}
   - component: {fileID: 5824299595195028249}
   - component: {fileID: 5824299595195028248}
@@ -987,6 +988,7 @@ MonoBehaviour:
   BulletsSortingLayer: 0
   m_BulletsEraseTimer: 0
   m_Difficulty: 0
+  m_ReplayState: 1
   m_DebugMod: 0
   m_InvincibleMod: 0
   m_DebugDifficulty: 2
@@ -1014,12 +1016,15 @@ MonoBehaviour:
     m_LaserDamage: 0
     m_Module: 0
     m_Bomb: 0
+  m_ReplayManager: {fileID: 887243823951567483}
   m_CameraBoundary: {fileID: 5824299594861438881}
   m_CameraOuterBoundary: {fileID: 5824299596092681067}
   m_GameOuterBoundary: {fileID: 5824299595324622255}
   m_CanvasUI: {fileID: 5824299596427968520}
   m_PlayerIsAlive: 0
   m_CameraMargin: 0
+  m_PlayerShooter: {fileID: 0}
+  m_PlayerController: {fileID: 0}
 --- !u!114 &5824299595195028250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1039,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PauseDelay: 2
   m_PausePanel: {fileID: 5824299596108933836}
+--- !u!114 &887243823951567483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824299595195028254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 486d8014a0dfec4449b8917a163ee827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!81 &5824299595195028253
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4018,7 +4035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5824299595753898113
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7590,7 +7607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5824299596917180174
 RectTransform:
   m_ObjectHideFlags: 0

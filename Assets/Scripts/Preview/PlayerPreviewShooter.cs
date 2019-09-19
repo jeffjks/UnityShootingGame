@@ -9,7 +9,7 @@ public class PlayerPreviewShooter : PlayerShooterManager
     private GameManager m_GameManager = null;
     private const int m_DefaultShotLevel = 4;
 
-    void Start()
+    void Awake()
     {
         m_NowAttacking = true;
         m_GameManager = GameManager.instance_gm;
@@ -21,7 +21,9 @@ public class PlayerPreviewShooter : PlayerShooterManager
         
         SetPreviewShooter();
         m_PlayerShotZ = 1;
-        
+    }
+
+    void OnEnable() {   
         StartCoroutine(ModuleShot());
         StartCoroutine(PreviewSlowMode());
         UpdateShotNumber();

@@ -31,11 +31,16 @@ public class PlayerController : PlayerControllerManager
     private float m_InvincibleTimer;
     private bool m_HasCollided = false;
     private float m_Speed, m_SlowSpeed, m_OverviewSpeed;
+
+    [HideInInspector] public int m_MoveRawHorizontal, m_MoveRawVertical;
     
     private SystemManager m_SystemManager = null;
 
+    void Start()
+    {
+        m_MoveRawHorizontal = 0;
+        m_MoveRawVertical = 0;
 
-    void Start() {
         m_MaxPlayerCamera = Size.CAMERA_MOVE_LIMIT;
         m_DefaultRotation = transform.eulerAngles[0];
 
@@ -61,23 +66,26 @@ public class PlayerController : PlayerControllerManager
         DontDestroyOnLoad(gameObject);
     }
 
-    void Update ()
+    void Update()
     {
-        float moveRawHorizontal = 0f;
-        float moveRawVertical = 0f;
-
         if (m_PlayerManager.PlayerControlable) {
-            moveRawHorizontal = Input.GetAxisRaw("Horizontal");
-            moveRawVertical = Input.GetAxisRaw ("Vertical");
+            if (!m_SystemManager.m_ReplayState) {
+                m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
+                m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
+            }
+        }
+    }
 
-            Vector2 movement = new Vector2 (moveRawHorizontal, moveRawVertical);
-
+    void FixedUpdate()
+    {
+        Vector2 movement = new Vector2(m_MoveRawHorizontal, m_MoveRawVertical);
+        if (m_PlayerManager.PlayerControlable) {
             if (m_SlowMode)
                 m_Vector2 = movement * m_SlowSpeed;
             else
                 m_Vector2 = movement * m_Speed;
         }
-        Turn(moveRawHorizontal);
+        Tilt(m_MoveRawHorizontal);
         MoveVector();
         OverviewPosition();
 
@@ -91,19 +99,20 @@ public class PlayerController : PlayerControllerManager
         }
 
         UpdateInvincible();
+        UpdateRevivePoint();
     }
 
-    void LateUpdate() {
+    private void UpdateRevivePoint() {
         float playerReviveX = transform.position.x;
         m_PlayerRevivePoint.position = new Vector3(
             Mathf.Clamp(playerReviveX, - m_MaxPlayerCamera, m_MaxPlayerCamera),
             m_PlayerManager.m_RevivePointY,
             Depth.PLAYER
         );
-        m_HasCollided = false;
     }
 
-    void OnEnable() {
+    void OnEnable()
+    {
         m_Invincibility = true;
         m_HasCollided = false;
         m_SlowMode = false;
@@ -114,9 +123,8 @@ public class PlayerController : PlayerControllerManager
         }
     }
 
-    private void Turn(float turnState)
-    {
-        Quaternion maxTilt = Quaternion.AngleAxis( - m_Tilt*turnState, Vector3.up);
+    private void Tilt(float tilt_state) {
+        Quaternion maxTilt = Quaternion.AngleAxis(- m_Tilt*tilt_state, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, maxTilt, m_TiltSpeed*Time.deltaTime*60);
     }
 

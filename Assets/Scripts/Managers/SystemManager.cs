@@ -111,7 +111,9 @@ public class SystemManager : MonoBehaviour
 
     void Awake()
     {
-        m_ReplayState = true;
+        m_GameManager = GameManager.instance_gm;
+
+        m_ReplayState = m_GameManager.m_ReplayState;
 
         Application.targetFrameRate = 60;
 
@@ -120,15 +122,14 @@ public class SystemManager : MonoBehaviour
             return;
         }
         instance_sm = this;
-
-        m_GameManager = GameManager.instance_gm;
+        
         try {
-            m_Difficulty = m_GameManager.m_Difficulty;
+            SetDifficulty(m_GameManager.m_Difficulty);
             AudioListener audioListener = gameObject.GetComponent<AudioListener>();
             audioListener.enabled = false;
         }
         catch (System.NullReferenceException) {
-            m_Difficulty = (byte) m_DebugDifficulty;
+            SetDifficulty((byte) m_DebugDifficulty);
         }
 
         m_BackgroundCameraSize.x = m_BackgroundCamera.orthographicSize * 2 * ((float) Screen.width/(float) Screen.height); // 256/9 = 28.444..
@@ -158,7 +159,6 @@ public class SystemManager : MonoBehaviour
         CreateTransition();
         ScreenEffect(2);
         UpdateScore();
-        SetDifficultyText();
     }
 
     void Update()
@@ -310,6 +310,12 @@ public class SystemManager : MonoBehaviour
         return m_StageMiss[m_Stage];
     }
 
+
+    public void SetDifficulty(byte difficulty)
+    {
+        m_Difficulty = difficulty;
+        SetDifficultyText();
+    }
 
     private void SetDifficultyText() {
         switch(m_Difficulty) {

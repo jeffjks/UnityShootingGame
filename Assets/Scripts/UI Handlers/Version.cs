@@ -12,6 +12,6 @@ public class Version : MonoBehaviour
         m_GameManager = GameManager.instance_gm;
 
         m_Text = GetComponent<Text>();
-        m_Text.text = "ver "+Application.version; // + "   Debug: "+ m_test1.ToString(); // + m_Language.ToString();
+        m_Text.text = "ver " + Application.version; // + "   Debug: "+ m_test1.ToString(); // + m_Language.ToString();
     }
 }

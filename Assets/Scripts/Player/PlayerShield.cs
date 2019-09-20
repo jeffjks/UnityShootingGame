@@ -22,10 +22,7 @@ public class PlayerShield : MonoBehaviour {
     void Update()
     {
         transform.localRotation = Quaternion.identity;
-    }
-
-	void FixedUpdate ()
-    {
+        
         Ring1.transform.Rotate(Vector3.right, Time.deltaTime * RotateSpeed);
         Ring2.transform.Rotate(Vector3.forward, Time.deltaTime * RotateSpeed);
 

@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Attributes m_CurrentAttributes;
     [HideInInspector] public int m_UsedCost;
     [HideInInspector] public byte m_Difficulty;
+    [HideInInspector] public bool m_ReplayState;
+    [HideInInspector] public byte m_ReplayNum;
+    [HideInInspector] public string m_ReplayDirectory;
 
     private int[,] m_ResolutionList;
     private PlayerManager m_PlayerManager = null;
@@ -107,6 +110,7 @@ public class GameManager : MonoBehaviour
         m_MaxResolutionNumber = m_ResolutionList.GetLength(0);
         m_MaxGraphicsQuality = 6;
         m_MaxLanguageOptions = 2;
+        m_ReplayDirectory = "";
 
         DOTween.SetTweensCapacity(512, 64);
 

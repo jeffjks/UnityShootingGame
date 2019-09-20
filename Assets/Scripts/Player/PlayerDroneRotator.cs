@@ -6,8 +6,12 @@ public class PlayerDroneRotator : MonoBehaviour
 {
     public int m_RotateReverse;
     
-    void FixedUpdate()
+    void Update()
     {
+        RotateSelf();
+    }
+
+    private void RotateSelf() {
         transform.Rotate(Vector3.forward * Time.deltaTime * 360f * m_RotateReverse, Space.Self);
     }
 }

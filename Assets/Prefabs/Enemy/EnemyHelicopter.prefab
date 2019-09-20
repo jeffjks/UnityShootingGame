@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ae22403ade7d1478aa71b02b757050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -132,8 +133,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6965917009482392081}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FireDelay:
   - 2
   - 1
@@ -141,7 +144,7 @@ MonoBehaviour:
   m_FirePosition: {fileID: 4041665380838663998}
   m_FanU: {fileID: 2610135649203121189}
   m_FanB: {fileID: 2610135649203121187}
-  m_FanRotationSpeed: 20
+  m_FanRotationSpeed: 1200
 --- !u!1 &2610135649203121187
 GameObject:
   m_ObjectHideFlags: 0

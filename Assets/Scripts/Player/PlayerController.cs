@@ -31,16 +31,12 @@ public class PlayerController : PlayerControllerManager
     private float m_InvincibleTimer;
     private bool m_HasCollided = false;
     private float m_Speed, m_SlowSpeed, m_OverviewSpeed;
-
-    [HideInInspector] public int m_MoveRawHorizontal, m_MoveRawVertical;
+    private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
     
     private SystemManager m_SystemManager = null;
 
     void Start()
     {
-        m_MoveRawHorizontal = 0;
-        m_MoveRawVertical = 0;
-
         m_MaxPlayerCamera = Size.CAMERA_MOVE_LIMIT;
         m_DefaultRotation = transform.eulerAngles[0];
 
@@ -78,6 +74,9 @@ public class PlayerController : PlayerControllerManager
 
     void FixedUpdate()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         Vector2 movement = new Vector2(m_MoveRawHorizontal, m_MoveRawVertical);
         if (m_PlayerManager.PlayerControlable) {
             if (m_SlowMode)
@@ -208,5 +207,15 @@ public class PlayerController : PlayerControllerManager
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    public int MoveRawHorizontal {
+        get { return m_MoveRawHorizontal; }
+        set { m_MoveRawHorizontal = value; }
+    }
+
+    public int MoveRawVertical {
+        get { return m_MoveRawVertical; }
+        set { m_MoveRawVertical = value; }
     }
 }

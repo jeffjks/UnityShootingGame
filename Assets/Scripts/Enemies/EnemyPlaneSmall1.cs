@@ -29,7 +29,7 @@ public class EnemyPlaneSmall1 : EnemyUnit
         Vector2 previous_vector = m_MoveVector.GetVector();
         float target_tilt;
 
-        if (m_TargetPlayer == true) {
+        if (m_TargetPlayer) {
             float player_distance = ((Vector2) transform.position - m_PlayerPosition).magnitude;
             m_MoveVector.direction = GetAngleToTarget(m_Position2D, m_PlayerPosition);
 

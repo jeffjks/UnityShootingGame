@@ -24,7 +24,7 @@ public class AttributesCostHandler : MonoBehaviour
             m_Text.text = "비용\n"+used+" / "+available;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         string available = m_AttributesSelectHandler.m_AvailableCost.ToString();
         string used = m_GameManager.m_UsedCost.ToString();

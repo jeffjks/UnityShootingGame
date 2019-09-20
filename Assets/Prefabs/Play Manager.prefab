@@ -5036,6 +5036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
+  m_IsEnabled: 010101
   m_SoundPanel: {fileID: 5824299596222305990}
   m_PauseManager: {fileID: 5824299595195028250}
 --- !u!1 &5824299596119848025
@@ -7454,6 +7455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
+  m_IsEnabled: 
   m_PreviousPanel: {fileID: 5824299596108933836}
   m_SoundPanel: {fileID: 5824299596222305990}
 --- !u!1 &5824299596909560529

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public abstract class GameUI : MonoBehaviour {
     public int m_InitialSelection;
+    public bool[] m_IsEnabled;
 
     protected int m_Selection;
     protected int m_Total;
@@ -23,7 +24,6 @@ public abstract class GameUI : MonoBehaviour {
     protected Color m_ColorDisabled_1 = new Color32(163, 163, 163, 200); // grey
     protected Image[] m_Image;
     protected Text[] m_Text;
-    protected bool[] m_IsEnabled;
     protected AudioSource[] m_AudioSource = new AudioSource[2];
 
     protected PlayerManager m_PlayerManager = null;
@@ -31,13 +31,12 @@ public abstract class GameUI : MonoBehaviour {
 
     void Awake()
     {
+        if (m_IsEnabled.Length == 0) {
+            m_IsEnabled = new bool[transform.childCount];
+        }
         m_Image = GetComponentsInChildren<Image>();
         m_Text = GetComponentsInChildren<Text>();
         m_Total = m_Text.Length;
-        m_IsEnabled = new bool[m_Total];
-
-        for (int i=0; i<m_Total; i++)
-            m_IsEnabled[i] = true;
         m_Selection = m_InitialSelection;
 
         FindAudioSource();
@@ -54,7 +53,7 @@ public abstract class GameUI : MonoBehaviour {
 
     protected void MoveCursorVertical(int move) {
         if (move != 0) {
-            if (m_isVerticalAxisInUse == false) {
+            if (!m_isVerticalAxisInUse) {
                 m_Selection -= move;
                 m_isVerticalAxisInUse = true;
             }
@@ -66,7 +65,7 @@ public abstract class GameUI : MonoBehaviour {
 
     protected bool MoveCursorHorizontal(int move, bool selection) {
         if (move != 0) {
-            if (m_isHorizontalAxisInUse == false) {
+            if (!m_isHorizontalAxisInUse) {
                 m_isHorizontalAxisInUse = true;
                 if (selection) {
                     m_Selection -= move;
@@ -97,7 +96,7 @@ public abstract class GameUI : MonoBehaviour {
         }
 
         for (int i = 0; i < m_Total; i++) {
-            if (m_IsEnabled[i] == false) {
+            if (!m_IsEnabled[i]) {
                 m_Image[i+1].color = m_ColorDisabled_0;
                 m_Text[i].color = m_ColorDisabled_0;
             }

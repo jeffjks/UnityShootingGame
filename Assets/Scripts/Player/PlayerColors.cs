@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerColors : MonoBehaviour
 {
-    public Material[] m_Materials;
+    public Material[] m_Materials = new Material[3];
 }

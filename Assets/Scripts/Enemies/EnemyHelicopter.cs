@@ -7,7 +7,7 @@ public class EnemyHelicopter : EnemyUnit
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     [SerializeField] private Transform m_FirePosition = null;
 	[SerializeField] private GameObject m_FanU = null, m_FanB = null;
-	[SerializeField] private float m_FanRotationSpeed = 20f;
+	[SerializeField] private float m_FanRotationSpeed = 240f;
     
     private bool m_TimeLimitState = false;
 
@@ -29,12 +29,14 @@ public class EnemyHelicopter : EnemyUnit
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
+        RotateFan();
+        
         base.Update();
     }
     
-	void FixedUpdate() {
-		m_FanU.transform.Rotate(0, 10 * m_FanRotationSpeed, 0);
-		m_FanB.transform.Rotate(-10 * m_FanRotationSpeed, 0 , 0);
+	private void RotateFan() {
+		m_FanU.transform.Rotate(0, m_FanRotationSpeed * Time.deltaTime, 0);
+		m_FanB.transform.Rotate(-m_FanRotationSpeed * Time.deltaTime, 0 , 0);
 	}
 
     private void TimeLimit() {

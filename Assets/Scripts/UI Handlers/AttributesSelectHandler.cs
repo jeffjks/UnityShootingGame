@@ -23,7 +23,7 @@ public abstract class AttributeSelectButtonUI : GameUI
         }
 
         for (int i = 0; i < m_Total; i++) {
-            if (m_IsEnabled[i] == false) {
+            if (!m_IsEnabled[i]) {
                 m_Image[i+1].color = m_ColorDisabled_0;
                 m_Text[i].color = m_ColorDisabled_0;
             }

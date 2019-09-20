@@ -27,7 +27,10 @@ public class MainMenuMusicController : MonoBehaviour
     }
 
     public void SetSelectMusicVolume(float value) {
-        m_AudioSelect.volume = 1 - value;
+        if (m_AudioMain.isPlaying)
+            m_AudioMain.volume = 1 - value;
+        else if (m_AudioSelect.isPlaying)
+            m_AudioSelect.volume = 1 - value;
     }
 
     public void StopAllMusic() {

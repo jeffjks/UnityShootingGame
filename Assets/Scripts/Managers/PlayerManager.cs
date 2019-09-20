@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (instance_pm != null) {
             Destroy(this.gameObject);
-            return; 
+            return;
         }
         instance_pm = this;
 
@@ -74,19 +74,20 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        SpawnPlayer();
-        m_SystemManager.SetPlayerManager();
-        m_SystemManager.m_BackgroundCamera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
-
-        m_ReplayManager.Init();
-    }
-
-    private void SpawnPlayer()
-    {
         if (m_GameManager != null) {
             m_CurrentAttributes = m_GameManager.m_CurrentAttributes;
         }
+        
+        m_ReplayManager.Init();
 
+        m_SystemManager.SetPlayerManager();
+        m_SystemManager.m_BackgroundCamera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+    }
+
+    public void SpawnPlayer(Attributes attributes = null)
+    {
+        if (attributes != null)
+            m_CurrentAttributes = attributes;
         m_PlayerIsAlive = true;
         if (m_SystemManager.GetStage() == 0)
             m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);

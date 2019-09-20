@@ -120,7 +120,7 @@ public class PlayerLaserCreater : MonoBehaviour
             m_Collider2D.size = new Vector2(m_Collider2D.size.x, m_LaserShooter.m_MaxLength);
 
             //Insurance against the appearance of a laser in the center of coordinates!
-            if (m_LineRenderer.enabled == false && LaserSaver == false)
+            if (!m_LineRenderer.enabled && !LaserSaver)
             {
                 LaserSaver = true;
                 m_LineRenderer.enabled = true;

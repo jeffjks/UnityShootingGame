@@ -67,8 +67,8 @@ public class GameOuterBoundary : MonoBehaviour
     {
         if (m_SystemManager.m_BulletsEraseTimer > 0) {
             if (other.CompareTag("EnemyBullet")) {
-                if (other.gameObject.activeSelf == true) {
-                    if (other.transform.parent.gameObject.activeSelf == true) {
+                if (other.gameObject.activeSelf) {
+                    if (other.transform.parent.gameObject.activeSelf) {
                         EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
                         enemyBullet.OnDeath();
                     }

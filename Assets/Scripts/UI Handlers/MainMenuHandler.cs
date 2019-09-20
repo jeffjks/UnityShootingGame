@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuHandler : GameUI
 {
     public GameObject m_SelectDifficulty;
+    public GameObject m_ReplayPanel;
     public GameObject m_SettingsPanel;
     public GameObject m_KeyConfigPanel;
 
@@ -14,11 +15,6 @@ public class MainMenuHandler : GameUI
     void OnEnable()
     {
         m_MainMenuMusicController.PlayMainMusic();
-    }
-
-    void Start()
-    {
-        m_IsEnabled[2] = false;
     }
 
     void Update()
@@ -31,12 +27,18 @@ public class MainMenuHandler : GameUI
                     SelectDifficulty();
                     break;
                 case 1:
-                    Option();
+                    Practice();
                     break;
                 case 2:
-                    KeyConfig();
+                    Replay();
                     break;
                 case 3:
+                    Option();
+                    break;
+                case 4:
+                    KeyConfig();
+                    break;
+                case 5:
                     ExitGame();
                     break;
                 default:
@@ -55,6 +57,19 @@ public class MainMenuHandler : GameUI
         gameObject.SetActive(false);
     }
 
+    private void Practice() {
+        CancelSound();
+        //m_ReplayPanel.SetActive(true);
+        //ConfirmSound();
+        //gameObject.SetActive(false);
+    }
+
+    private void Replay() {
+        m_ReplayPanel.SetActive(true);
+        ConfirmSound();
+        gameObject.SetActive(false);
+    }
+
     private void Option() {
         m_SettingsPanel.SetActive(true);
         ConfirmSound();
@@ -62,6 +77,7 @@ public class MainMenuHandler : GameUI
     }
 
     private void KeyConfig() {
+        CancelSound();
         // m_KeyConfigPanel.SetActive(true);
         // ConfirmSound();
         // gameObject.SetActive(false);

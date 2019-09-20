@@ -26,10 +26,8 @@ public class SettingsMenuHandler : GameUI
                 case 2:
                     Language();
                     break;
-                case 3:
-                    Back();
-                    break;
                 default:
+                    Back();
                     break;
             }
         }

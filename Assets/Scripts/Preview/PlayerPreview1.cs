@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerPreview1 : PlayerPreviewManager
 {
-    void FixedUpdate()
+    void Update()
     {
+        RotateSelf();
+    }
+
+    private void RotateSelf() {
         transform.Rotate(Vector3.up * 48f * Time.deltaTime);
     }
 

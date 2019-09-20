@@ -8,21 +8,31 @@ public class PauseManager : MonoBehaviour {
     private PauseMenuHandler m_PauseMenuHandler;
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
-    private bool m_CanPause = true;
+    private bool m_CanPause = true, m_PauseKeyPress = false;
 
     [SerializeField]
     private GameObject m_PausePanel = null;
 
-    void Start() {
+    void Start()
+    {
         m_PlayerManager = PlayerManager.instance_pm;
         m_SystemManager = SystemManager.instance_sm;
         m_PauseMenuHandler = m_PausePanel.GetComponent<PauseMenuHandler>();
         m_PausePanel.SetActive(false);
     }
 
-    void Update () {
+    void Update ()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
+            m_PauseKeyPress = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (m_PauseKeyPress) {
+            m_PauseKeyPress = false;
             Pause();
+        }
     }
 
     private void Pause() {

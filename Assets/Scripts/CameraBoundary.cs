@@ -27,14 +27,14 @@ public class CameraBoundary : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("PlayerMissile")) {
-            if (other.gameObject.activeSelf == true) {
+            if (other.gameObject.activeSelf) {
                 PlayerMissile playerMissile = other.gameObject.GetComponent<PlayerMissile>();
                 m_PoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
             }
         }
         else if (other.CompareTag("EnemyBullet")) {
-            if (other.gameObject.activeSelf == true) {
-                if (other.transform.parent.gameObject.activeSelf == true) {
+            if (other.gameObject.activeSelf) {
+                if (other.transform.parent.gameObject.activeSelf) {
                     EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
                     enemyBullet.Erase();
                 }

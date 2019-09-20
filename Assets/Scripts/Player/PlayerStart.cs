@@ -73,7 +73,7 @@ public class PlayerStart : MonoBehaviour
 
     private void SetPlayerColors() {
         MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
-        PlayerColors playerColors = GetComponent<PlayerColors>();
+        PlayerColors playerColors = GetComponentInChildren<PlayerColors>();
         int max_meshRenderer = meshRenderer.Length;
         
         // Color

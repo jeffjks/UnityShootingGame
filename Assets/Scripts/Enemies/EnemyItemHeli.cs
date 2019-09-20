@@ -7,7 +7,7 @@ public class EnemyItemHeli : EnemyUnit {
 
     [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
 	[SerializeField] private GameObject m_FanL = null, m_FanR = null, m_FanB = null;
-	[SerializeField] private float m_FanRotationSpeed = 20f;
+	[SerializeField] private float m_FanRotationSpeed = 240f;
     [SerializeField] private Transform[] m_FirePosition = new Transform[2];
     
     private bool m_TimeLimitState = false;
@@ -34,6 +34,7 @@ public class EnemyItemHeli : EnemyUnit {
     {
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
+        RotateFan();
         
         base.Update();
     }
@@ -41,12 +42,12 @@ public class EnemyItemHeli : EnemyUnit {
     private void TimeLimit() {
         m_TimeLimitState = true;
     }
-    
-	void FixedUpdate() {
-		m_FanL.transform.Rotate(0, 10 * m_FanRotationSpeed, 0);
-		m_FanR.transform.Rotate(0, 10 * m_FanRotationSpeed, 0);
-		m_FanB.transform.Rotate(-10 * m_FanRotationSpeed, 0 , 0);
-	}
+
+    private void RotateFan() {
+		m_FanL.transform.Rotate(0, m_FanRotationSpeed * Time.deltaTime, 0);
+		m_FanR.transform.Rotate(0, m_FanRotationSpeed * Time.deltaTime, 0);
+		m_FanB.transform.Rotate(- m_FanRotationSpeed * Time.deltaTime, 0 , 0);
+    }
     
     private IEnumerator Pattern1() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);

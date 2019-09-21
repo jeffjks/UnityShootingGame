@@ -14,10 +14,10 @@ public class EnemyShipMedium1 : EnemyUnit
         StartCoroutine(Pattern2());
     }
     
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         RotateImmediately(m_MoveVector.direction);
-        base.Update();
+        base.FixedUpdate();
     }
     
     private IEnumerator Pattern1() {

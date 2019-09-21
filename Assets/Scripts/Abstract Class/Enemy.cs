@@ -37,6 +37,10 @@ public enum EnemyClass
     Boss,
 }
 
+public interface CanDeath {
+    void OnDeath();
+}
+
 // ================ 적 ================ //
 
 public abstract class Enemy : MonoBehaviour { // 총알
@@ -62,7 +66,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
         m_SafeLine = m_PlayerManager.m_SafeLine;
     }
     
-    void Update()
+    void FixedUpdate()
     {
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
@@ -88,7 +92,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     {
         /* 총알용 MoveDirection */
         Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
-        transform.Translate(vector2 * speed * Time.deltaTime, Space.World);
+        transform.Translate(vector2 * speed * Time.fixedDeltaTime, Space.World);
     }
 
 
@@ -191,7 +195,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
 // ============================================================================================ //
 
-public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외)
+public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총알 제외)
 {
     private enum Debris
     {
@@ -241,7 +245,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected Color[] m_DefaultAlbedo;
     protected Sequence m_Sequence;
     protected bool m_UpdateTransform = true;
-    protected bool[] m_TakeDamageType = { false, false, false };
+    private bool[] m_TakeDamageType = { false, false, false };
     
     [HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
     [HideInInspector] public float m_MaxHealth;
@@ -311,14 +315,17 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     }
 
 
-    protected virtual void Update()
+    void Update()
     {
         if (m_Health > m_MaxHealth) {
             m_Health = m_MaxHealth;
         }
-        
+
         UpdateColorTimer();
-        
+    }
+
+    protected virtual void FixedUpdate()
+    {
         for (int i = 0; i < m_TakeDamageType.Length; i++)
             m_TakeDamageType[i] = false;
 
@@ -372,7 +379,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return;
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
+        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.fixedDeltaTime);
         UpdateTransform();
     }
 
@@ -380,7 +387,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
         if (CheckDeadState()) {
             return;
         }
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
+        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.fixedDeltaTime);
         UpdateTransform();
     }
 
@@ -487,12 +494,13 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
     protected override void MoveDirection(float speed, float direction) { // speed 속도로 direction 방향으로 이동.
         if ((1 << gameObject.layer & Layer.AIR) != 0) {
             Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
-            transform.Translate(vector2 * speed * Time.deltaTime, Space.World);
+            transform.Translate(vector2 * speed * Time.fixedDeltaTime, Space.World);
         }
         else {
             Vector3 vector3 = Quaternion.AngleAxis(direction, Vector3.down) * Vector3.back;
-            transform.Translate(vector3 * speed * Time.deltaTime, Space.World);
+            transform.Translate(vector3 * speed * Time.fixedDeltaTime, Space.World);
         }
+
         UpdateTransform();
     }
 
@@ -659,7 +667,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
             return;
 
         if (m_TakingDamageTimer > 0f) {
-            m_TakingDamageTimer -= 60f * Time.deltaTime;
+            m_TakingDamageTimer -= 60f * Time.fixedDeltaTime;
             ImageBlend(m_DamagingAlbedo);
         }
         else {
@@ -669,7 +677,7 @@ public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외
 
     private bool LowHealthImageBlend() { // true이면 빨간색
         if (m_LowHealthBlinkTimer > 0f) {
-            m_LowHealthBlinkTimer -= 60f * Time.deltaTime;
+            m_LowHealthBlinkTimer -= 60f * Time.fixedDeltaTime;
             if (m_LowHealthBlinkTimer > 23f) {
                 return true;
             }

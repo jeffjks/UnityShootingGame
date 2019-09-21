@@ -61,7 +61,7 @@ public class Stage3Manager : StageManager
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
         yield return new WaitForSeconds(2f);
         PlayBossMusic();
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator EnemyTimeLine()

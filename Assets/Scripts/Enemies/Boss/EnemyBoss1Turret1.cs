@@ -14,7 +14,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (((EnemyBoss1) m_ParentEnemy).m_Phase == 1) {
             if (m_PlayerManager.m_PlayerIsAlive)
@@ -26,7 +26,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
             RotateSlightly(0f, 100f);
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void StartPattern(byte num, bool right = true) {
@@ -82,7 +82,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
                 CreateBulletsSector(3, pos, 6.0f, m_CurrentAngle + 2.4f, accel, 7, 12f);
             }
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern2(bool right)
@@ -135,7 +135,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
                 }
             }
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern3()
@@ -160,6 +160,6 @@ public class EnemyBoss1Turret1 : EnemyUnit
             }
             yield return new WaitForSeconds(0.4f);
         }
-        yield return null;
+        yield break;
     }
 }

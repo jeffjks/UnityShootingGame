@@ -18,15 +18,15 @@ public class EnemyTankMedium2 : EnemyUnit
         m_ArmorPositionTarget[1] = new Vector3(-0.365f, m_ArmorPosition[1].localPosition.y, m_ArmorPosition[1].localPosition.z);
     }
     
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         RotateImmediately(m_MoveVector.direction);
 
         if (!m_ShootState) {
             if (m_Position2D.y < - 1.2f) {
                 if (m_ArmorPosition[0].localPosition != m_ArmorPositionTarget[0]) {
-                    m_ArmorPosition[0].localPosition = Vector3.MoveTowards(m_ArmorPosition[0].localPosition, m_ArmorPositionTarget[0], 0.6f*Time.deltaTime);
-                    m_ArmorPosition[1].localPosition = Vector3.MoveTowards(m_ArmorPosition[1].localPosition, m_ArmorPositionTarget[1], 0.6f*Time.deltaTime);
+                    m_ArmorPosition[0].localPosition = Vector3.MoveTowards(m_ArmorPosition[0].localPosition, m_ArmorPositionTarget[0], 0.6f*Time.fixedDeltaTime);
+                    m_ArmorPosition[1].localPosition = Vector3.MoveTowards(m_ArmorPosition[1].localPosition, m_ArmorPositionTarget[1], 0.6f*Time.fixedDeltaTime);
                 }
                 else {
                     m_ShootState = true;
@@ -35,7 +35,7 @@ public class EnemyTankMedium2 : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private IEnumerator Pattern1() {

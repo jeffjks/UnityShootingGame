@@ -14,14 +14,14 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void StartPattern(byte num, bool side = true) {
@@ -92,7 +92,6 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 50f, accel, 8, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 50f, accel, 8, 0.8f);
         }
-        
-        yield return null;
+        yield break;
     }
 }

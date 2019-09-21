@@ -28,8 +28,8 @@ public class PlayerStart : MonoBehaviour
         StartCoroutine(SpawnEvent());
     }
 
-    void Update() {
-        transform.Translate(Vector3.up * m_Vspeed * Time.deltaTime, Space.World);
+    void FixedUpdate() {
+        transform.Translate(Vector3.up * m_Vspeed * Time.fixedDeltaTime, Space.World);
     }
 
     private IEnumerator SpawnEvent() {

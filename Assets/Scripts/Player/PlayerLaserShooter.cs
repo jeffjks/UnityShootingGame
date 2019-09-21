@@ -8,6 +8,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
 {
     public AudioSource m_AudioLaser = null;
     public PlayerLaser m_PlayerLaser;
+    public float m_LaserSpeed;
 
     private PlayerManager m_PlayerManager = null;
 
@@ -25,7 +26,8 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
     public override void StartLaser() {
         m_PlayerLaser.UpdateLaserDamage();
         UpdateLaser();
-        m_AudioLaser.Play();
+        if (m_AudioLaser.enabled)
+            m_AudioLaser.Play();
     }
 
     public override void StopLaser() {
@@ -34,16 +36,17 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
             m_PlayerLaserCreater.DisablePrepare();
         }
         m_MaxLength = 0f;
-        m_AudioLaser.Stop();
+        if (m_AudioLaser.enabled)
+            m_AudioLaser.Stop();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Time.timeScale == 0)
             return;
         
         if (m_PlayerController.m_SlowMode) {
-            m_MaxLength += 30f * Time.deltaTime;
+            m_MaxLength += m_LaserSpeed * Time.fixedDeltaTime;
         }
         else {
             m_MaxLength = 0f;

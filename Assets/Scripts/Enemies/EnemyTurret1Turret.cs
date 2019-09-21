@@ -16,7 +16,7 @@ public class EnemyTurret1Turret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive) {
             if (!m_Shooting)
@@ -32,7 +32,7 @@ public class EnemyTurret1Turret : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private IEnumerator Pattern1() {

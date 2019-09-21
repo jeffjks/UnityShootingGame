@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyShipSmall2 : EnemyUnit
 {
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         RotateImmediately(m_MoveVector.direction);
-        base.Update();
+        base.FixedUpdate();
     }
 }

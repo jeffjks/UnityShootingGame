@@ -15,14 +15,14 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void StartPattern1() {
@@ -55,7 +55,7 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         Vector3 pos;
         
         if (m_SystemManager.m_Difficulty == 0) {
-            yield return null;
+            yield break;
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             for (int i = 0; i < 3; i++) {
@@ -69,6 +69,6 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
                 CreateBulletsSector(5, pos, 5.1f + i*0.9f, m_CurrentAngle, accel, 15, 7f);
             }
         }
-        yield return null;
+        yield break;
     }
 }

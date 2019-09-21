@@ -34,7 +34,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 0.35f) { // 체력 35% 이하
@@ -50,7 +50,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void OnAppearanceComplete() {
@@ -149,7 +149,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             m_Turret[1].StartCoroutine("Pattern1");
             yield return new WaitForSeconds(m_FireDelay1[m_SystemManager.m_Difficulty]);
         }
-        yield return null;
+        yield break;
     }
     
     private IEnumerator Pattern2() {

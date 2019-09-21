@@ -27,7 +27,7 @@ public abstract class Item : MonoBehaviour
         m_MainCameraTransform = m_SystemManager.m_MainCamera.transform;
     }
     
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         GetCoordinates();
     }
@@ -84,9 +84,9 @@ public abstract class ItemBox : Item
         }
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         MoveDirection(m_MoveVector);
 
         if (!m_Disappear && m_IsAir) {
@@ -110,7 +110,7 @@ public abstract class ItemBox : Item
     private void MoveDirection(MoveVector moveVector) {
         if (m_IsAir) {
             Vector2 vector2 = Quaternion.AngleAxis(moveVector.direction, Vector3.forward) * Vector2.down;
-            transform.Translate(vector2 * moveVector.speed * Time.deltaTime, Space.World);
+            transform.Translate(vector2 * moveVector.speed * Time.fixedDeltaTime, Space.World);
         }
     }
 
@@ -119,7 +119,7 @@ public abstract class ItemBox : Item
     }
 
     private void RotateBox() {
-        transform.Rotate(Vector3.up * Time.deltaTime * 100f, Space.Self);
+        transform.Rotate(Vector3.up * Time.fixedDeltaTime * 100f, Space.Self);
     }
 
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지
@@ -152,9 +152,9 @@ public abstract class ItemGem : Item
 
     
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         if (m_SystemManager.m_PlayState == 4) {
             OnDeath();
         }

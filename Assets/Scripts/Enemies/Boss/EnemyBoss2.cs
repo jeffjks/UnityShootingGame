@@ -38,7 +38,7 @@ public class EnemyBoss2 : EnemyUnit
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase > 0) {
             if (transform.position.x >= m_TargetPosition.x + 1f) {
@@ -55,7 +55,7 @@ public class EnemyBoss2 : EnemyUnit
             }
         }
 
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void OnAppearanceComplete() {
@@ -109,7 +109,7 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern1A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             m_Turret0_1[0].PrepareRotate(0, side[random_value]);
             m_Turret0_1[1].PrepareRotate(0, side[random_value]);
             random_value = Random.Range(0, 2);
@@ -118,7 +118,7 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern1B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             
             m_Turret0_1[0].PrepareRotate(0, side[random_value]);
             m_Turret0_1[1].PrepareRotate(0, side[1 - random_value]);
@@ -127,10 +127,10 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern1C();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             yield return new WaitForSeconds(2f);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern1A() {
@@ -139,12 +139,12 @@ public class EnemyBoss2 : EnemyUnit
         m_Turret0_1[0].StartPattern(1);
         m_Turret0_1[1].StartPattern(1);
         while(m_Turret0_0.m_InPattern) {
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         m_Turret0_1[0].StopPattern();
         m_Turret0_1[1].StopPattern();
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern1B() {
@@ -158,7 +158,7 @@ public class EnemyBoss2 : EnemyUnit
         m_Turret0_1[1].StopPattern();
 
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern1C() {
@@ -168,7 +168,7 @@ public class EnemyBoss2 : EnemyUnit
         yield return new WaitForSeconds(0.5f);
 
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
@@ -179,16 +179,16 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             yield return new WaitForSeconds(1.5f);
 
             m_CurrentPattern = Pattern2B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             yield return new WaitForSeconds(1f);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern2A() {
@@ -203,20 +203,20 @@ public class EnemyBoss2 : EnemyUnit
             m_Turret1_2[1].StartPattern(1, true);
         }
         while(m_Turret1_1.m_InPattern) {
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern2B() {
         m_InPattern = true;
         m_Turret1_0.StartPattern(1);
         while(m_Turret1_0.m_InPattern) {
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Phase3() { // 페이즈3 패턴 ============================
@@ -226,11 +226,11 @@ public class EnemyBoss2 : EnemyUnit
         m_Turret2_2[0].StartPattern();
         m_Turret2_2[1].StartPattern();
         while (m_Health >= 700f)
-            yield return null;
+            yield return new WaitForFixedUpdate();
         m_Turret2_0.StopPattern();
         yield return new WaitForSeconds(0.5f);
         m_Turret2_0.StartPattern(2);
-        yield return null;
+        yield break;
     }
 
 
@@ -264,7 +264,7 @@ public class EnemyBoss2 : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float timer) {
@@ -279,7 +279,7 @@ public class EnemyBoss2 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float timer) {
@@ -294,7 +294,7 @@ public class EnemyBoss2 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion3(float timer) {
@@ -309,6 +309,6 @@ public class EnemyBoss2 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 }

@@ -20,7 +20,7 @@ public static class BulletType
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
 }
 
-public class EnemyBullet : Enemy
+public class EnemyBullet : Enemy, CanDeath
 {
     public string m_ObjectName;
 
@@ -127,7 +127,7 @@ public class EnemyBullet : Enemy
     void LateUpdate()
     {
         if (m_RotateBullet) {
-            m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, Time.deltaTime*200, Space.Self);
+            m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, Time.fixedDeltaTime*200, Space.Self);
         }
     }
 

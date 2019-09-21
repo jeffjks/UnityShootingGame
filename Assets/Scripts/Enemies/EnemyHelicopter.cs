@@ -22,16 +22,19 @@ public class EnemyHelicopter : EnemyUnit
         Invoke("TimeLimit", time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
+        base.FixedUpdate();
+    }
+
+    void LateUpdate()
+    {
         RotateFan();
-        
-        base.Update();
     }
     
 	private void RotateFan() {

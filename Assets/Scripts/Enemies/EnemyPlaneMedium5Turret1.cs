@@ -13,14 +13,14 @@ public class EnemyPlaneMedium5Turret1 : EnemyUnit
         StartCoroutine(Pattern1());
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.Update();
+        base.FixedUpdate();
     }
     
     private IEnumerator Pattern1() {
@@ -54,6 +54,6 @@ public class EnemyPlaneMedium5Turret1 : EnemyUnit
             }
             yield return new WaitForSeconds(1.8f);
         }
-        yield return null;
+        yield break;
     }
 }

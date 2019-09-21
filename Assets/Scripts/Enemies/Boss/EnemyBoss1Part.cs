@@ -33,6 +33,6 @@ public class EnemyBoss1Part : EnemyUnit
         ExplosionEffect(1, -1, new Vector3(-0.69f, 0f, -0.4f));
         ExplosionEffect(1, -1, new Vector3(0.69f, 0f, -0.4f));
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 }

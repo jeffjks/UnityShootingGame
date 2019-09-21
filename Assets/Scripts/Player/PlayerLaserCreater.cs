@@ -70,7 +70,7 @@ public class PlayerLaserCreater : MonoBehaviour
         StopParticles(m_HitParticles);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (m_LineRenderer != null) {
             m_LineRenderer.SetPosition(0, transform.position);
@@ -96,7 +96,6 @@ public class PlayerLaserCreater : MonoBehaviour
                 PlayParticles(m_RushParticles);
             }
             else { // 아무 충돌이 없으면
-
                 var end_point = transform.position + transform.up * m_MaxLength;
                 m_LineRenderer.SetPosition(1, end_point);
                 m_HitEffect.transform.position = end_point;

@@ -18,10 +18,10 @@ public class EnemyShipCarrier : EnemyUnit
         StartCoroutine(Pattern2());
     }
     
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        m_Direction1 += 120f * Time.deltaTime;
-        m_Direction2 += 180f * Time.deltaTime;
+        m_Direction1 += 120f * Time.fixedDeltaTime;
+        m_Direction2 += 180f * Time.fixedDeltaTime;
 
         if (m_Direction1 > 360f) {
             m_Direction1 -= 360f;
@@ -32,7 +32,7 @@ public class EnemyShipCarrier : EnemyUnit
 
         RotateImmediately(m_MoveVector.direction);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     
@@ -136,7 +136,7 @@ public class EnemyShipCarrier : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float explosion_height) {
@@ -149,7 +149,7 @@ public class EnemyShipCarrier : EnemyUnit
             yield return new WaitForSeconds(random_timer);
             timer += random_timer;
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float explosion_height) {
@@ -162,6 +162,6 @@ public class EnemyShipCarrier : EnemyUnit
             yield return new WaitForSeconds(random_timer);
             timer += random_timer;
         }
-        yield return null;
+        yield break;
     }
 }

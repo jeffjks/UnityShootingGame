@@ -43,7 +43,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
     }
 
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.375f) { // 체력 37.5% 이하
@@ -51,13 +51,13 @@ public class EnemyMiddleBoss2 : EnemyUnit
             }
         }
 
-        m_Direction += 200f * Time.deltaTime;
+        m_Direction += 200f * Time.fixedDeltaTime;
         if (m_Direction >= 360f)
             m_Direction -= 360f;
 
         RotateImmediately(m_MoveVector.direction);
 
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void ToNextPhase() {
@@ -206,7 +206,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float timer) {
@@ -221,7 +221,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float timer) {
@@ -236,6 +236,6 @@ public class EnemyMiddleBoss2 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 }

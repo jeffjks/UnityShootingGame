@@ -37,10 +37,10 @@ public class EnemyMiddleBoss3 : EnemyUnit
     }
 
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f*Time.deltaTime);
+        transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f*Time.fixedDeltaTime);
 
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
@@ -63,15 +63,15 @@ public class EnemyMiddleBoss3 : EnemyUnit
             }
         }
 
-        m_Direction1 += 111f * Time.deltaTime;
+        m_Direction1 += 111f * Time.fixedDeltaTime;
         if (m_Direction1 >= 360f)
             m_Direction1 -= 360f;
 
-        m_Direction2 += 79f * Time.deltaTime;
+        m_Direction2 += 79f * Time.fixedDeltaTime;
         if (m_Direction2 >= 360f)
             m_Direction2 -= 360f;
 
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void ToNextPhase() {
@@ -124,7 +124,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
                 StopCoroutine(m_CurrentPattern2);
             yield return new WaitForSeconds(2f);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern1A1() {
@@ -323,7 +323,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float timer) {
@@ -338,7 +338,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float timer) {
@@ -353,6 +353,6 @@ public class EnemyMiddleBoss3 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 }

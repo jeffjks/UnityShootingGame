@@ -29,12 +29,12 @@ public class EnemyPlaneLarge3 : EnemyUnit
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        m_AddPositionY -= m_VSpeed * Time.deltaTime;
+        m_AddPositionY -= m_VSpeed * Time.fixedDeltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void TimeLimit() {
@@ -78,7 +78,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정

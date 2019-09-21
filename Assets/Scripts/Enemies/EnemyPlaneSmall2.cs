@@ -22,7 +22,7 @@ public class EnemyPlaneSmall2 : EnemyUnit
         m_MoveVector = new MoveVector(m_Speed, target_angle);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         Vector2 previous_vector = m_MoveVector.GetVector();
         float target_tilt;
@@ -46,11 +46,11 @@ public class EnemyPlaneSmall2 : EnemyUnit
             target_tilt = 0;
         else
             target_tilt = Mathf.Sign(Vector2.SignedAngle(previous_vector, after_vector)) * m_MaxTilt;
-        m_CurrentTilt = Mathf.MoveTowards(m_CurrentTilt, target_tilt, 72f*Time.deltaTime);
+        m_CurrentTilt = Mathf.MoveTowards(m_CurrentTilt, target_tilt, 72f*Time.fixedDeltaTime);
         
         Turn(m_CurrentTilt);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void Turn(float angle) {

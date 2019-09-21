@@ -21,7 +21,7 @@ public class EnemyPlaneSmall3 : EnemyUnit
         Invoke("TimeLimit", time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         Vector2 previous_vector = m_MoveVector.GetVector();
 
@@ -40,7 +40,7 @@ public class EnemyPlaneSmall3 : EnemyUnit
         float tilt = Mathf.Lerp(-max_tilt, max_tilt, tilt_lerp);
         Turn(tilt);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void Turn(float angle) {

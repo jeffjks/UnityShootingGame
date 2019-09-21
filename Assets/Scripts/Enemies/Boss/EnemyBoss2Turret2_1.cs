@@ -15,7 +15,7 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
         GetCoordinates();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Activate) {
             if (m_PlayerManager.m_PlayerIsAlive) {
@@ -26,7 +26,7 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
                 RotateSlightly(m_PlayerPosition, 100f);
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void StartPattern() {

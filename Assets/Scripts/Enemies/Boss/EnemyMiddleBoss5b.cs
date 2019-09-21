@@ -43,7 +43,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
@@ -63,11 +63,11 @@ public class EnemyMiddleBoss5b : EnemyUnit
             RotateSlightly(m_PlayerPosition, 100f);
         
         if (m_IsDead) {
-            m_CurrentAngle += 60f * Time.deltaTime;
-            transform.localScale -= new Vector3(1f, 1f, 1f) * 0.2f * Time.deltaTime;
+            m_CurrentAngle += 60f * Time.fixedDeltaTime;
+            transform.localScale -= new Vector3(1f, 1f, 1f) * 0.2f * Time.fixedDeltaTime;
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private IEnumerator Pattern1() {
@@ -171,7 +171,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
                 yield return new WaitForSeconds(0.15f);
             }
         }
-        yield return null;
+        yield break;
     }
 
 
@@ -193,7 +193,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         ExplosionEffect(1, -1, new Vector2(0f, 1.4f));
         m_SystemManager.ScreenEffect(0);
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1() {
@@ -205,7 +205,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
             ExplosionEffect(1, -1, random_pos);
             yield return new WaitForSeconds(random_timer);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2() {
@@ -217,6 +217,6 @@ public class EnemyMiddleBoss5b : EnemyUnit
             ExplosionEffect(2, 1, random_pos);
             yield return new WaitForSeconds(random_timer);
         }
-        yield return null;
+        yield break;
     }
 }

@@ -20,14 +20,22 @@ public class ItemGemAir : ItemGem
         m_Scale = Random.Range(-m_RandomScale, m_RandomScale);
         transform.localScale = new Vector3(1f, 1f, 1f) * (0.3f + m_Scale);
     }
-    
-	protected override void Update()
+
+    void Update()
     {
-        base.Update();
+        RotateSelf();
+    }
+
+    private void RotateSelf() {
         transform.rotation = Quaternion.AngleAxis(m_Angle, m_RandomAxis);
         m_Angle += 300f * Time.deltaTime;
+    }
+    
+	protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
 
-        transform.Translate(m_HorizontalSpeed * Time.deltaTime, m_VerticalSpeed * Time.deltaTime, 0f, Space.World);
+        transform.Translate(m_HorizontalSpeed * Time.fixedDeltaTime, m_VerticalSpeed * Time.fixedDeltaTime, 0f, Space.World);
 
         if (m_VerticalSpeed > -7f)
             m_VerticalSpeed -= 0.1f;

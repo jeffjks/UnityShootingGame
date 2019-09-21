@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAddShot : PlayerMissile
 {
-    void Update()
+    void FixedUpdate()
     {
         MoveVector();
     }

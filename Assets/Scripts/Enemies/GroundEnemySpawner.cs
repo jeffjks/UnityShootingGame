@@ -29,12 +29,12 @@ public class GroundEnemySpawner : EnemyUnit
         Destroy(gameObject, m_DeactivateTime);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Position2D.y < Size.GAME_BOUNDARY_BOTTOM - 10f) {
             Destroy(gameObject);
         }
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void StartSpawning() {

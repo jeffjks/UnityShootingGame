@@ -14,14 +14,14 @@ public class EnemyBoss1Turret0 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void StartPattern(byte num) {
@@ -42,7 +42,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos = m_FirePosition.position;
         CreateBulletsSector(0, pos, 7f, m_CurrentAngle + Random.Range(-2f, 2f), accel, 7, 14f);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern2()
@@ -89,6 +89,6 @@ public class EnemyBoss1Turret0 : EnemyUnit
             yield return new WaitForSeconds(0.06f);
             }
         }
-        yield return null;
+        yield break;
     }
 }

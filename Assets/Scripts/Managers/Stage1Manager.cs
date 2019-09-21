@@ -38,7 +38,7 @@ public class Stage1Manager : StageManager
         yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(0f);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator TestTimeLine()
@@ -138,6 +138,6 @@ public class Stage1Manager : StageManager
         CreateEnemy(m_ItemHeli_1, new Vector2(1.5f, 3f)); // Item Heli
         yield return new WaitForSeconds(14f);
         CreateEnemy(m_PlaneMedium_1, new Vector2(3f, 3f));
-        yield return null;
+        yield break;
     }
 }

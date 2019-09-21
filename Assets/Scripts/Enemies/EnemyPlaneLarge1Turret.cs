@@ -11,14 +11,14 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         GetCoordinates();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 24f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.Update();
+        base.FixedUpdate();
     }
     
     
@@ -49,7 +49,7 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
                 yield return new WaitForSeconds(0.08f);
             }
         }
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정

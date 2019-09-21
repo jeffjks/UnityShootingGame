@@ -15,7 +15,7 @@ public class EnemyTurret2Turret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 90f);
@@ -33,7 +33,7 @@ public class EnemyTurret2Turret : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void Pattern1() {

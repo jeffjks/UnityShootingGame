@@ -18,7 +18,7 @@ public class EnemyTankLarge1 : EnemyUnit
         m_LauncherRotationTarget = Quaternion.identity;
     }
     
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         RotateImmediately(m_MoveVector.direction);
 
@@ -30,7 +30,7 @@ public class EnemyTankLarge1 : EnemyUnit
         if (3 * m_Health <= m_MaxHealth) {
             if (m_Phase <= 1) {
                 if (m_LauncherRotation.localRotation != m_LauncherRotationTarget) {
-                    m_Rotation = Mathf.MoveTowards(m_Rotation, 0f, 400f*Time.deltaTime);
+                    m_Rotation = Mathf.MoveTowards(m_Rotation, 0f, 400f*Time.fixedDeltaTime);
                     m_LauncherRotation.localEulerAngles = new Vector3(m_Rotation, 0f, 0f);
                 }
                 else {
@@ -40,7 +40,7 @@ public class EnemyTankLarge1 : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
     
     private IEnumerator Pattern2() {

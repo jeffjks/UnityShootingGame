@@ -48,6 +48,18 @@ public class PlayerDrone : MonoBehaviour
 
     void Update()
     {
+        DisplayParticles();
+    }
+
+    void FixedUpdate()
+    {
+        m_CurrentLocalP = Vector3.MoveTowards(m_CurrentLocalP, m_CurrentTargetLocalP, 12f * Time.fixedDeltaTime);
+        m_CurrentLocalR = Mathf.MoveTowards(m_CurrentLocalR, m_CurrentTargetLocalR, 12f * Time.fixedDeltaTime);
+        transform.localPosition = m_CurrentLocalP;
+        transform.localRotation = Quaternion.Euler(0f, m_CurrentLocalR, 0f);
+    }
+
+    private void DisplayParticles() {
         if (!m_PlayerController.m_SlowMode) { // 샷 모드
             m_CurrentTargetLocalP = m_InitialLocalP[m_ShotForm];
             m_CurrentTargetLocalR = m_InitialLocalR[m_ShotForm];
@@ -60,11 +72,6 @@ public class PlayerDrone : MonoBehaviour
             if (!m_ParticleSystem[m_ShockWaveNumber].isPlaying)
                 m_ParticleSystem[m_ShockWaveNumber].Play();
         }
-        
-        m_CurrentLocalP = Vector3.MoveTowards(m_CurrentLocalP, m_CurrentTargetLocalP, 0.2f);
-        m_CurrentLocalR = Mathf.MoveTowards(m_CurrentLocalR, m_CurrentTargetLocalR, 0.2f);
-        transform.localPosition = m_CurrentLocalP;
-        transform.localRotation = Quaternion.Euler(0f, m_CurrentLocalR, 0f);
     }
 
     public void SetShotLevel(int level) {

@@ -161,11 +161,14 @@ public class SystemManager : MonoBehaviour
         UpdateScore();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
-
+        MoveBackgroundCamera();
         BulletEraseTimer();
+    }
+
+    private void MoveBackgroundCamera() {
+        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.fixedDeltaTime;
     }
 
     private void SetStageManager() {
@@ -361,7 +364,7 @@ public class SystemManager : MonoBehaviour
 
     private void BulletEraseTimer() {
         if (m_BulletsEraseTimer > 0) {
-            m_BulletsEraseTimer -= Time.deltaTime;
+            m_BulletsEraseTimer -= Time.fixedDeltaTime;
         }
         else {
             m_BulletsEraseTimer = 0f;

@@ -30,17 +30,21 @@ public class EnemyItemHeli : EnemyUnit {
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
-        RotateFan();
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void TimeLimit() {
         m_TimeLimitState = true;
+    }
+
+    void LateUpdate()
+    {
+        RotateFan();
     }
 
     private void RotateFan() {
@@ -57,6 +61,7 @@ public class EnemyItemHeli : EnemyUnit {
 
         while(!m_TimeLimitState) {
             float random_value = Random.Range(-1f, 1f);
+            Debug.Log(random_value);
 
             pos1 = m_FirePosition[0].position;
             pos2 = m_FirePosition[1].position;

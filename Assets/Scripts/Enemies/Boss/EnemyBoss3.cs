@@ -40,7 +40,7 @@ public class EnemyBoss3 : EnemyUnit
         Invoke("Appearance", m_AppearanceTime1);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.40f) { // 체력 40% 이하
@@ -65,16 +65,16 @@ public class EnemyBoss3 : EnemyUnit
 
         switch(m_DirectionState) {
             case 1:
-                m_Direction += 90f*Time.deltaTime*m_RotateDirection;
+                m_Direction += 90f*Time.fixedDeltaTime*m_RotateDirection;
                 break;
             case 2:
-                m_Direction += 71f*Time.deltaTime*m_RotateDirection;
+                m_Direction += 71f*Time.fixedDeltaTime*m_RotateDirection;
                 break;
             case 3:
-                m_Direction += 19f*Time.deltaTime*m_RotateDirection;
+                m_Direction += 19f*Time.fixedDeltaTime*m_RotateDirection;
                 break;
             case 4:
-                m_Direction += m_MaxRotation*Time.deltaTime*m_RotateDirection;
+                m_Direction += m_MaxRotation*Time.fixedDeltaTime*m_RotateDirection;
                 break;
         }
         
@@ -83,7 +83,7 @@ public class EnemyBoss3 : EnemyUnit
         else if (m_Direction < 0f)
             m_Direction += 360f;
 
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void Appearance() {
@@ -150,7 +150,7 @@ public class EnemyBoss3 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator NextPhaseExplosionEffect2(float duration) {
@@ -172,7 +172,7 @@ public class EnemyBoss3 : EnemyUnit
             m_CurrentPattern1 = Pattern1A();
             StartCoroutine(m_CurrentPattern1);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             yield return new WaitForSeconds(0.5f);
             
             side = RandomValue();
@@ -182,7 +182,7 @@ public class EnemyBoss3 : EnemyUnit
             m_CurrentPattern1 = Pattern1B();
             StartCoroutine(m_CurrentPattern1);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
             yield return new WaitForSeconds(2f);
@@ -210,7 +210,7 @@ public class EnemyBoss3 : EnemyUnit
         m_CurrentPattern1 = Pattern2A();
         StartCoroutine(m_CurrentPattern1);
         while (m_InPattern)
-            yield return null;
+            yield return new WaitForFixedUpdate();
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
 
@@ -582,7 +582,7 @@ public class EnemyBoss3 : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float timer) {
@@ -594,7 +594,7 @@ public class EnemyBoss3 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float timer) {
@@ -606,7 +606,7 @@ public class EnemyBoss3 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion3(float timer) {
@@ -618,6 +618,6 @@ public class EnemyBoss3 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 }

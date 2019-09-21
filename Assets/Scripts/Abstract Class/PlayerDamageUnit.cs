@@ -5,7 +5,7 @@ using UnityEngine;
 
 // ================ 적에게 데미지를 주는 개체 ================ //
 
-public abstract class PlayerDamageUnit : MonoBehaviour
+public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 {
     public string m_ObjectName;
     public float m_Damage;
@@ -14,7 +14,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour
     protected PoolingManager m_PoolingManager = null;
     protected float m_DefaultDamage;
 
-    protected Vector2 m_Vector2 = new Vector2(0f, 0f);
+    protected Vector2 m_Vector2 = Vector2.zero;
 
     public abstract void OnDeath();
 
@@ -26,7 +26,12 @@ public abstract class PlayerDamageUnit : MonoBehaviour
     }
 
     protected void MoveVector() {
-        transform.Translate(m_Vector2 * Time.deltaTime, Space.World);
+        transform.Translate(m_Vector2 * Time.fixedDeltaTime, Space.World);
+        
+        float pos_x = 0f, pos_y = 0f;
+        pos_x = Mathf.Round(transform.position.x * 100f) * 0.01f;
+        pos_y = Mathf.Round(transform.position.y * 100f) * 0.01f;
+        transform.position = new Vector3(pos_x, pos_y, Depth.PLAYER);
     }
 }
 

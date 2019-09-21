@@ -15,7 +15,7 @@ public class EnemyShipLarge : EnemyUnit
         RotateImmediately(m_MoveVector.direction);
     }
     
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         RotateImmediately(m_MoveVector.direction);
 
@@ -26,7 +26,7 @@ public class EnemyShipLarge : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
     
     private IEnumerator Pattern1() {

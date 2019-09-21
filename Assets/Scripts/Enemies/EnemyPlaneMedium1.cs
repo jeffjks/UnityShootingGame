@@ -26,9 +26,9 @@ public class EnemyPlaneMedium1 : EnemyUnit
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        m_AddPositionY -= m_VSpeed * Time.deltaTime;
+        m_AddPositionY -= m_VSpeed * Time.fixedDeltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
 
         if (!m_TimeLimitState) {
@@ -45,7 +45,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
             }
         }
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void TimeLimit() {
@@ -93,8 +93,11 @@ public class EnemyPlaneMedium1 : EnemyUnit
                 CreateBulletsSector(3, pos0, 6.4f, target_angle + 1.5f, accel, 10, 9f);
                 yield return new WaitForSeconds(0.2f);
                 for (int i = 0; i < 4; i++) {
+                    float random_value = Random.Range(-3f, 3f);
+                    Debug.Log(random_value);
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                    CreateBulletsSector(3, pos0, 6.4f, target_angle + Random.Range(-3f, 3f), accel, 9, 10f);
+                    CreateBulletsSector(3, pos0, 6.4f, target_angle + random_value, accel, 9, 10f);
+                    
                     yield return new WaitForSeconds(0.2f);
                 }
                 yield return new WaitForSeconds(0.1f);

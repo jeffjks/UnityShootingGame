@@ -28,7 +28,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         RotateImmediately(m_MoveVector.direction);
 
@@ -36,17 +36,17 @@ public class EnemyPlaneMedium5 : EnemyUnit
             Dissappearance();
         
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void Dissappearance() {
         if (m_MoveVector.speed < 6.4f)
-            m_MoveVector.speed += 4.4f * Time.deltaTime;
+            m_MoveVector.speed += 4.4f * Time.fixedDeltaTime;
         else
             m_MoveVector.speed = 6.4f;
 
         if (Mathf.Abs(m_MoveVector.direction) < 96f)
-            m_MoveVector.direction += -18f * m_Side * Time.deltaTime;
+            m_MoveVector.direction += -18f * m_Side * Time.fixedDeltaTime;
         else
             m_MoveVector.direction = -96f * m_Side;
     }

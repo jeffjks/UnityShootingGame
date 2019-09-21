@@ -48,7 +48,7 @@ public class Stage2Manager : StageManager
     {
         yield return new WaitForSeconds(1f);
         StartCoroutine(BossStart(new Vector3(0f, 5.6f, 27f), 3f)); // Boss
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator EnemyTimeLine()
@@ -173,7 +173,7 @@ public class Stage2Manager : StageManager
         CreateEnemy(m_ItemHeli_1, new Vector2(-2f, 3f)); // Item Heli 1
         yield return new WaitForSeconds(2f);
         CreateEnemy(m_ItemHeli_2, new Vector2(3.5f, 3f)); // Item Heli 2
-        yield return null;
+        yield break;
     }
 
     private IEnumerator SpawnPlane1()

@@ -42,7 +42,7 @@ public class EnemyBoss1 : EnemyUnit
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.30f) { // 체력 30% 이하
@@ -50,7 +50,7 @@ public class EnemyBoss1 : EnemyUnit
             }
         }
 
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void ToNextPhase() {
@@ -139,22 +139,22 @@ public class EnemyBoss1 : EnemyUnit
             m_CurrentPattern = Pattern1A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
                 
             m_CurrentPattern = Pattern1B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
 
             m_Part.OpenPart();
             m_CurrentPattern = Pattern1C();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
             m_Part.ClosePart();
             yield return new WaitForSeconds(2f);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
@@ -163,9 +163,9 @@ public class EnemyBoss1 : EnemyUnit
             m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return null;
+                yield return new WaitForFixedUpdate();
         }
-        yield return null;
+        yield break;
     }
 
 
@@ -192,7 +192,7 @@ public class EnemyBoss1 : EnemyUnit
             yield return new WaitForSeconds(3f);
 
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern1B() { // Blue Bomb
@@ -230,7 +230,7 @@ public class EnemyBoss1 : EnemyUnit
         yield return new WaitForSeconds(2f);
 
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern1C() { // 청침탄 흩뿌리기
@@ -256,7 +256,7 @@ public class EnemyBoss1 : EnemyUnit
         yield return new WaitForSeconds(0.5f);
 
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
     private IEnumerator Pattern2A() {
@@ -293,7 +293,7 @@ public class EnemyBoss1 : EnemyUnit
         yield return new WaitForSeconds(1.8f);
 
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 
 
@@ -326,7 +326,7 @@ public class EnemyBoss1 : EnemyUnit
         m_SystemManager.ShakeCamera(1f);
         
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float timer) {
@@ -341,7 +341,7 @@ public class EnemyBoss1 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float timer) {
@@ -356,7 +356,7 @@ public class EnemyBoss1 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion3(float timer) {
@@ -366,6 +366,6 @@ public class EnemyBoss1 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(0.2f);
         }
-        yield return null;
+        yield break;
     }
 }

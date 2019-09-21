@@ -17,6 +17,6 @@ public class EnemyBoss2Part : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 }

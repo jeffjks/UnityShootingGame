@@ -41,7 +41,7 @@ public abstract class PlayerShooterManager : MonoBehaviour
                 }
                 yield return new WaitForSeconds(m_CurrentModuleDelay);
             }
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 

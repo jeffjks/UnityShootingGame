@@ -34,7 +34,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
@@ -59,7 +59,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
             }
         }
 
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void OnAppearanceComplete() {
@@ -205,7 +205,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         
         CreateItems();
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion1(float timer) {
@@ -220,7 +220,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 
     private IEnumerator DeathExplosion2(float timer) {
@@ -235,6 +235,6 @@ public class EnemyMiddleBoss1 : EnemyUnit
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
-        yield return null;
+        yield break;
     }
 }

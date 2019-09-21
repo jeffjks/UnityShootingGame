@@ -12,7 +12,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
         m_MoveVector = new MoveVector(0.8f, 0f);
     }
     
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_Phase == 0) {
             if (m_Position2D.y < - 1f) {
@@ -21,7 +21,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             }
         }
 
-        base.Update();
+        base.FixedUpdate();
     }
     
     private IEnumerator Pattern1() {
@@ -55,7 +55,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             }
             yield return new WaitForSeconds(3f);
         }
-        yield return null;
+        yield break;
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정

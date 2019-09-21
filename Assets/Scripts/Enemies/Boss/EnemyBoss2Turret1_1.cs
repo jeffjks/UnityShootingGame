@@ -15,14 +15,14 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void StartPattern(byte num) {
@@ -71,6 +71,6 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
             }
         }
         m_InPattern = false;
-        yield return null;
+        yield break;
     }
 }

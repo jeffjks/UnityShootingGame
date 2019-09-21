@@ -75,6 +75,13 @@ public class PlayerShooter : PlayerShooterManager
     }
 
     public void PlayerShooterBehaviour() {
+        if (!m_PlayerManager.PlayerControlable) {
+            m_PlayerController.m_SlowMode = false;
+            m_ShotKeyPress = 0;
+            m_AutoShot = 0;
+            return;
+        }
+        
         if (m_ShotKeyPress == 1) {
             m_ShotKeyPressTime += Time.fixedDeltaTime;
             if (!m_ShotKeyPrevious) {
@@ -101,9 +108,6 @@ public class PlayerShooter : PlayerShooterManager
                 m_NowAttacking = true;
                 m_AutoShot = 0;
             }
-        }
-        else if (!m_PlayerManager.PlayerControlable) {
-            m_AutoShot = 0;
         }
 
         if (m_AutoShot > 0) {

@@ -23,8 +23,6 @@ public class HitEffect : MonoBehaviour
 
     void OnEnable()
     {
-        int randomRotation = (int) Random.Range(0f, 360f);
-        transform.eulerAngles = new Vector3(0f, 0f, randomRotation);
         for(int i=0; i<m_ActivatedObject.Length; i++) {
             m_ActivatedObject[i].SetActive(false);
         }

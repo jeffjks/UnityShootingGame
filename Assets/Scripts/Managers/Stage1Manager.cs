@@ -55,21 +55,37 @@ public class Stage1Manager : StageManager
 
     protected override IEnumerator EnemyTimeLine()
     {
+        float random_value;
         yield return new WaitForSeconds(9f);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-3f, -3f), Random.Range(1.2f, 1.5f));
+        random_value = Random.Range(1.2f, 1.5f);
+        Debug.Log(random_value);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-3f, -3f), random_value);
         yield return new WaitForSeconds(2f);
-        if (m_SystemManager.m_Difficulty >= 1)
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 3f), new Vector2(1f, -3f), Random.Range(1.2f, 1.5f));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(5f, 3f), new Vector2(4f, -4f), Random.Range(1.2f, 1.5f));
+        if (m_SystemManager.m_Difficulty >= 1) {
+            random_value = Random.Range(1.2f, 1.5f);
+            Debug.Log(random_value);
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 3f), new Vector2(1f, -3f), random_value);
+        }
+        random_value = Random.Range(1.2f, 1.5f);
+        Debug.Log(random_value);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(5f, 3f), new Vector2(4f, -4f), random_value);
         yield return new WaitForSeconds(2f);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), Random.Range(1.2f, 1.5f));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(1f, -4f), Random.Range(1.2f, 1.5f));
+        random_value = Random.Range(1.2f, 1.5f);
+        Debug.Log(random_value);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), random_value);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(1f, -4f), random_value);
         yield return new WaitForSeconds(1f);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 3f), new Vector2(5f, -5f), Random.Range(1.2f, 1.5f));
+        random_value = Random.Range(1.2f, 1.5f);
+        Debug.Log(random_value);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 3f), new Vector2(5f, -5f), random_value);
         yield return new WaitForSeconds(0.5f);
         if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT) {
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(3f, 3f), new Vector2(2f, -1.5f), Random.Range(1.2f, 1.5f));
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(6f, 3f), new Vector2(6f, -3f), Random.Range(1.2f, 1.5f));
+            random_value = Random.Range(1.2f, 1.5f);
+            Debug.Log(random_value);
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(3f, 3f), new Vector2(2f, -1.5f), random_value);
+            random_value = Random.Range(1.2f, 1.5f);
+            Debug.Log(random_value);
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(6f, 3f), new Vector2(6f, -3f), random_value);
         }
         yield return new WaitForSeconds(1.5f);
         CreateEnemy(m_ItemHeli_1, new Vector2(-1f, 3f)); // Item Heli

@@ -68,13 +68,13 @@ public class DebrisEffect : MonoBehaviour
 
         switch(m_DebrisSize) {
             case 1: // Small
-                m_DebrisType = Random.Range(0, 3);
+                m_DebrisType = System.Environment.TickCount % 3; // 0, 1, 2
                 break;
             case 2: // Medium
-                m_DebrisType = Random.Range(3, 5);
+                m_DebrisType = (System.Environment.TickCount % 2) + 3; // 3, 4
                 break;
             case 3: // Large
-                m_DebrisType = Random.Range(5, 7);
+                m_DebrisType = (System.Environment.TickCount % 2) + 5; // 5, 6
                 break;
             default:
                 m_DebrisType = -1;

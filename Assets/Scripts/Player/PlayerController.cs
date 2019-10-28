@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
 [System.Serializable]
 public class Boundary
@@ -32,6 +33,7 @@ public class PlayerController : PlayerControllerManager
     private bool m_HasCollided = false;
     private float m_Speed, m_SlowSpeed, m_OverviewSpeed;
     private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
+    private StringBuilder m_String = new StringBuilder();
     
     private SystemManager m_SystemManager = null;
 
@@ -108,6 +110,10 @@ public class PlayerController : PlayerControllerManager
 
         UpdateInvincible();
         UpdateRevivePoint();
+
+        m_String.Append(transform.position);
+        if (m_String.Length > 100)
+            Debug.LogWarning(m_String);
     }
 
     private void UpdateRevivePoint() {

@@ -215,6 +215,9 @@ MonoBehaviour:
     m_Bomb: 0
   m_UsedCost: 0
   m_Difficulty: 0
+  m_ReplayState: 0
+  m_ReplayNum: 0
+  m_ReplayDirectory: 
   m_AudioMixer: {fileID: 24100000, guid: 706bf0cd1f348574b9e5e470eff1e0b1, type: 2}
 --- !u!81 &1577670862
 AudioListener:

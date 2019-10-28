@@ -378,6 +378,7 @@ public class SystemManager : MonoBehaviour
 
         while (count > 0) {
             index = Random.Range(0, count);
+            Debug.Log(index);
             if (num < 50) {
                 Vector3 pos = bullet_list[index].transform.position;
                 if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {

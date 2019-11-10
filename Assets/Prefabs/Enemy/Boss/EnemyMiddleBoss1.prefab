@@ -575,7 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5786706671073935468}
   m_Layer: 10
-  m_Name: Renerer
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

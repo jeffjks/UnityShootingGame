@@ -11,8 +11,7 @@ public class AttributesAlphaHandler : MonoBehaviour
     private Image m_Image;
     private Text m_Text;
     private AttributesHandler m_AttributesHandler;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         m_Image = GetComponent<Image>();
@@ -20,7 +19,6 @@ public class AttributesAlphaHandler : MonoBehaviour
         m_AttributesHandler = GetComponentInParent<AttributesHandler>();
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         float alpha = 1 - Mathf.Abs((m_RectTransform.localPosition[1] - m_AttributesHandler.m_DefaultY - 60*m_SelectionNumber)/120);

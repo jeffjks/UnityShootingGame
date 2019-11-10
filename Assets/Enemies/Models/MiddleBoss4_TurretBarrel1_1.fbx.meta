@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c9edbedaecc169041b549f624fcecc38
+guid: f05c5470a362d3a4bbd3b27598aa3156
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -17,7 +17,7 @@ ModelImporter:
     second: //RootNode
   - first:
       43: 4300000
-    second: Barrel1
+    second: BomberTurretBarrel2Animated1
   - first:
       95: 9500000
     second: //RootNode
@@ -26,7 +26,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BomberEquipmentGrey
-    second: {fileID: 2100000, guid: 7a7abf866f12b1a4f9893083cf0980d3, type: 2}
+    second: {fileID: 2100000, guid: ee8b5922608424048ab61ef29c83df1b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

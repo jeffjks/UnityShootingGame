@@ -18,7 +18,7 @@ public class ItemGemAir : ItemGem
         m_VerticalSpeed = 0f;
         m_HorizontalSpeed = Random.Range(-0.8f, 0.8f);
         m_Scale = Random.Range(-m_RandomScale, m_RandomScale);
-        Debug.Log(m_Scale);
+        //Debug.Log(m_Scale);
         transform.localScale = new Vector3(1f, 1f, 1f) * (0.3f + m_Scale);
     }
 

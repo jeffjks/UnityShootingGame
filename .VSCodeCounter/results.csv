@@ -1,0 +1,231 @@
+filename, language, XML, JSON, C#, Properties, Markdown, ShaderLab, Log, comment, blank, total
+.gitattributes, Properties, 0, 0, 0, 12, 0, 0, 0, 3, 3, 18
+Assembly-CSharp-Editor-firstpass.csproj, XML, 664, 0, 0, 0, 0, 0, 0, 7, 1, 672
+Assembly-CSharp-Editor.csproj, XML, 669, 0, 0, 0, 0, 0, 0, 7, 1, 677
+Assembly-CSharp.csproj, XML, 852, 0, 0, 0, 0, 0, 0, 7, 1, 860
+Assets\Asset Stores\Explosions\Cartoon FX Easy Editor\Editor\CFXEasyEditor.cs, C#, 0, 0, 1259, 0, 0, 0, 0, 115, 222, 1596
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs, C#, 0, 0, 30, 0, 0, 0, 0, 3, 6, 39
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\CFX_Demo_RandomDir.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 4, 15
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\CFX_Demo_RotateCamera.cs, C#, 0, 0, 13, 0, 0, 0, 0, 0, 4, 17
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\CFX_Demo_Translate.cs, C#, 0, 0, 20, 0, 0, 0, 0, 1, 5, 26
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\WFX_Demo.cs, C#, 0, 0, 268, 0, 0, 0, 0, 21, 58, 347
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs, C#, 0, 0, 12, 0, 0, 0, 0, 0, 3, 15
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\WFX_Demo_New.cs, C#, 0, 0, 312, 0, 0, 0, 0, 18, 55, 385
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\WFX_Demo_RandomDir.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+Assets\Asset Stores\Explosions\WarFX\Demo\Assets\WFX_Demo_Wall.cs, C#, 0, 0, 18, 0, 0, 0, 0, 5, 4, 27
+Assets\Asset Stores\Explosions\WarFX\Editor\CFX_SpawnSystemEditor.cs, C#, 0, 0, 163, 0, 0, 0, 0, 5, 26, 194
+Assets\Asset Stores\Explosions\WarFX\Scripts\CFX_AutoDestructShuriken.cs, C#, 0, 0, 32, 0, 0, 0, 0, 0, 4, 36
+Assets\Asset Stores\Explosions\WarFX\Scripts\CFX_LightIntensityFade.cs, C#, 0, 0, 45, 0, 0, 0, 0, 7, 14, 66
+Assets\Asset Stores\Explosions\WarFX\Scripts\WFX_BulletHoleDecal.cs, C#, 0, 0, 55, 0, 0, 0, 0, 12, 11, 78
+Assets\Asset Stores\Explosions\WarFX\Scripts\WFX_LightFlicker.cs, C#, 0, 0, 27, 0, 0, 0, 0, 5, 7, 39
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Add Scroll.shader, ShaderLab, 0, 0, 0, 0, 0, 98, 0, 5, 16, 119
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Alpha-Diffuse TintColor.shader, ShaderLab, 0, 0, 0, 0, 0, 31, 0, 2, 8, 41
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Alpha-Specular TintColor.shader, ShaderLab, 0, 0, 0, 0, 0, 36, 0, 2, 8, 46
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S AlphaBlend NoSoftParticles.shader, ShaderLab, 0, 0, 0, 0, 0, 60, 0, 2, 11, 73
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S AlphaBlend Scroll.shader, ShaderLab, 0, 0, 0, 0, 0, 80, 0, 4, 14, 98
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Multiply Soft Scroll.shader, ShaderLab, 0, 0, 0, 0, 0, 56, 0, 5, 12, 73
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Multiply Soft.shader, ShaderLab, 0, 0, 0, 0, 0, 53, 0, 7, 11, 71
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Particle Add A8.shader, ShaderLab, 0, 0, 0, 0, 0, 86, 0, 5, 16, 107
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Particle AddSoft A8.shader, ShaderLab, 0, 0, 0, 0, 0, 86, 0, 5, 16, 107
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Particle Multiply A8.shader, ShaderLab, 0, 0, 0, 0, 0, 87, 0, 5, 16, 108
+Assets\Asset Stores\Explosions\WarFX\Shaders\WFX_S Smoke Scroll.shader, ShaderLab, 0, 0, 0, 0, 0, 58, 0, 5, 12, 75
+Assets\Asset Stores\Explosions\WarFX\Spawn System\CFX_SpawnSystem.cs, C#, 0, 0, 148, 0, 0, 0, 0, 46, 35, 229
+Assets\Asset Stores\ScifiRTSSeriesMegaPackII\Scripts\CombineChildren.cs, C#, 0, 0, 63, 0, 0, 0, 0, 14, 10, 87
+Assets\Asset Stores\ScifiRTSSeriesMegaPackII\Scripts\MeshCombineUtility.cs, C#, 0, 0, 197, 0, 0, 0, 0, 2, 26, 225
+Assets\Asset Stores\ShockWave\Script\NextPrefab.cs, C#, 0, 0, 67, 0, 0, 0, 0, 26, 39, 132
+Assets\Asset Stores\ShockWave\Script\UserCamera.cs, C#, 0, 0, 50, 0, 0, 0, 0, 1, 18, 69
+Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs, C#, 0, 0, 98, 0, 0, 0, 0, 80, 25, 203
+Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs, C#, 0, 0, 137, 0, 0, 0, 0, 60, 20, 217
+Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs, C#, 0, 0, 69, 0, 0, 0, 0, 26, 13, 108
+Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs, C#, 0, 0, 62, 0, 0, 0, 0, 17, 14, 93
+Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs, C#, 0, 0, 355, 0, 0, 0, 0, 185, 65, 605
+Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs, C#, 0, 0, 208, 0, 0, 0, 0, 62, 30, 300
+Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs, C#, 0, 0, 111, 0, 0, 0, 0, 27, 18, 156
+Assets\Plugins\AssetUsageDetector\Editor\AssetUsageDetector.cs, C#, 0, 0, 985, 0, 0, 0, 0, 86, 207, 1278
+Assets\Plugins\AssetUsageDetector\Editor\AssetUsageDetectorWindow.cs, C#, 0, 0, 459, 0, 0, 0, 0, 21, 158, 638
+Assets\Plugins\AssetUsageDetector\Editor\Enumerators.cs, C#, 0, 0, 84, 0, 0, 0, 0, 2, 20, 106
+Assets\Plugins\AssetUsageDetector\Editor\ObjectToSearch.cs, C#, 0, 0, 108, 0, 0, 0, 0, 6, 19, 133
+Assets\Plugins\AssetUsageDetector\Editor\SearchResult.cs, C#, 0, 0, 595, 0, 0, 0, 0, 40, 134, 769
+Assets\Plugins\AssetUsageDetector\Editor\Utilities.cs, C#, 0, 0, 271, 0, 0, 0, 0, 38, 59, 368
+Assets\Plugins\AssetUsageDetector\Editor\VariableGetter.cs, C#, 0, 0, 54, 0, 0, 0, 0, 6, 9, 69
+Assets\Scripts\Abstract Class\Enemy.cs, C#, 0, 0, 679, 0, 0, 0, 0, 10, 115, 804
+Assets\Scripts\Abstract Class\GameUI.cs, C#, 0, 0, 114, 0, 0, 0, 0, 1, 20, 135
+Assets\Scripts\Abstract Class\PlayerControllerManager.cs, C#, 0, 0, 10, 0, 0, 0, 0, 0, 2, 12
+Assets\Scripts\Abstract Class\PlayerDamageUnit.cs, C#, 0, 0, 74, 0, 0, 0, 0, 1, 18, 93
+Assets\Scripts\Abstract Class\PlayerLaserShooterManager.cs, C#, 0, 0, 22, 0, 0, 0, 0, 1, 6, 29
+Assets\Scripts\Abstract Class\PlayerPreviewManager.cs, C#, 0, 0, 28, 0, 0, 0, 0, 0, 9, 37
+Assets\Scripts\Abstract Class\PlayerShooterManager.cs, C#, 0, 0, 208, 0, 0, 0, 0, 1, 22, 231
+Assets\Scripts\Abstract Class\StageManager.cs, C#, 0, 0, 173, 0, 0, 0, 0, 24, 36, 233
+Assets\Scripts\CameraBoundary.cs, C#, 0, 0, 39, 0, 0, 0, 0, 1, 5, 45
+Assets\Scripts\CameraOuterBoundary.cs, C#, 0, 0, 35, 0, 0, 0, 0, 1, 6, 42
+Assets\Scripts\DebrisEffect.cs, C#, 0, 0, 85, 0, 0, 0, 0, 0, 18, 103
+Assets\Scripts\Enemies\Boss\EnemyBoss1.cs, C#, 0, 0, 316, 0, 0, 0, 0, 0, 56, 372
+Assets\Scripts\Enemies\Boss\EnemyBoss1Part.cs, C#, 0, 0, 31, 0, 0, 0, 0, 0, 8, 39
+Assets\Scripts\Enemies\Boss\EnemyBoss1Turret0.cs, C#, 0, 0, 84, 0, 0, 0, 0, 0, 10, 94
+Assets\Scripts\Enemies\Boss\EnemyBoss1Turret1.cs, C#, 0, 0, 152, 0, 0, 0, 0, 0, 13, 165
+Assets\Scripts\Enemies\Boss\EnemyBoss1Turret2.cs, C#, 0, 0, 74, 0, 0, 0, 0, 0, 11, 85
+Assets\Scripts\Enemies\Boss\EnemyBoss2.cs, C#, 0, 0, 274, 0, 0, 0, 0, 0, 41, 315
+Assets\Scripts\Enemies\Boss\EnemyBoss2Part.cs, C#, 0, 0, 18, 0, 0, 0, 0, 0, 5, 23
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret0_0.cs, C#, 0, 0, 98, 0, 0, 0, 0, 0, 11, 109
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret0_1.cs, C#, 0, 0, 176, 0, 0, 0, 0, 0, 16, 192
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret1_0.cs, C#, 0, 0, 84, 0, 0, 0, 0, 0, 10, 94
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret1_1.cs, C#, 0, 0, 65, 0, 0, 0, 0, 0, 11, 76
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret1_2.cs, C#, 0, 0, 87, 0, 0, 0, 0, 0, 10, 97
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret2_0.cs, C#, 0, 0, 111, 0, 0, 0, 0, 0, 14, 125
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret2_1.cs, C#, 0, 0, 48, 0, 0, 0, 0, 0, 8, 56
+Assets\Scripts\Enemies\Boss\EnemyBoss2Turret2_2.cs, C#, 0, 0, 30, 0, 0, 0, 0, 0, 5, 35
+Assets\Scripts\Enemies\Boss\EnemyBoss3.cs, C#, 0, 0, 545, 0, 0, 0, 0, 4, 75, 624
+Assets\Scripts\Enemies\Boss\EnemyBoss3Barrel.cs, C#, 0, 0, 18, 0, 0, 0, 0, 0, 5, 23
+Assets\Scripts\Enemies\Boss\EnemyBoss3Part.cs, C#, 0, 0, 12, 0, 0, 0, 0, 0, 3, 15
+Assets\Scripts\Enemies\Boss\EnemyBoss3Turret.cs, C#, 0, 0, 103, 0, 0, 0, 0, 0, 14, 117
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss1.cs, C#, 0, 0, 215, 0, 0, 0, 0, 0, 26, 241
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss1Turret.cs, C#, 0, 0, 109, 0, 0, 0, 0, 0, 12, 121
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss2.cs, C#, 0, 0, 214, 0, 0, 0, 0, 0, 28, 242
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss2Turret0.cs, C#, 0, 0, 87, 0, 0, 0, 0, 0, 11, 98
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss2Turret1.cs, C#, 0, 0, 58, 0, 0, 0, 0, 0, 9, 67
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss3.cs, C#, 0, 0, 310, 0, 0, 0, 0, 0, 49, 359
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss5b.cs, C#, 0, 0, 200, 0, 0, 0, 0, 0, 23, 223
+Assets\Scripts\Enemies\Boss\EnemyMiddleBoss5bTurret.cs, C#, 0, 0, 63, 0, 0, 0, 0, 0, 12, 75
+Assets\Scripts\Enemies\EnemyBullet.cs, C#, 0, 0, 165, 0, 0, 0, 0, 14, 28, 207
+Assets\Scripts\Enemies\EnemyGunship.cs, C#, 0, 0, 65, 0, 0, 0, 0, 0, 11, 76
+Assets\Scripts\Enemies\EnemyHelicopter.cs, C#, 0, 0, 47, 0, 0, 0, 0, 0, 13, 60
+Assets\Scripts\Enemies\EnemyItemHeli.cs, C#, 0, 0, 66, 0, 0, 0, 0, 2, 18, 86
+Assets\Scripts\Enemies\EnemyPlaneLarge1.cs, C#, 0, 0, 198, 0, 0, 0, 0, 0, 23, 221
+Assets\Scripts\Enemies\EnemyPlaneLarge1Turret.cs, C#, 0, 0, 53, 0, 0, 0, 0, 0, 10, 63
+Assets\Scripts\Enemies\EnemyPlaneLarge2.cs, C#, 0, 0, 70, 0, 0, 0, 0, 0, 10, 80
+Assets\Scripts\Enemies\EnemyPlaneLarge2Turret0.cs, C#, 0, 0, 32, 0, 0, 0, 0, 0, 5, 37
+Assets\Scripts\Enemies\EnemyPlaneLarge2Turret2.cs, C#, 0, 0, 50, 0, 0, 0, 0, 0, 7, 57
+Assets\Scripts\Enemies\EnemyPlaneLarge3.cs, C#, 0, 0, 78, 0, 0, 0, 0, 0, 15, 93
+Assets\Scripts\Enemies\EnemyPlaneLarge3Turret.cs, C#, 0, 0, 49, 0, 0, 0, 0, 0, 7, 56
+Assets\Scripts\Enemies\EnemyPlaneMedium1.cs, C#, 0, 0, 121, 0, 0, 0, 0, 0, 16, 137
+Assets\Scripts\Enemies\EnemyPlaneMedium2.cs, C#, 0, 0, 113, 0, 0, 0, 0, 0, 19, 132
+Assets\Scripts\Enemies\EnemyPlaneMedium3.cs, C#, 0, 0, 66, 0, 0, 0, 0, 0, 12, 78
+Assets\Scripts\Enemies\EnemyPlaneMedium3Turret.cs, C#, 0, 0, 50, 0, 0, 0, 0, 0, 7, 57
+Assets\Scripts\Enemies\EnemyPlaneMedium4.cs, C#, 0, 0, 69, 0, 0, 0, 0, 0, 14, 83
+Assets\Scripts\Enemies\EnemyPlaneMedium4Turret.cs, C#, 0, 0, 66, 0, 0, 0, 0, 0, 10, 76
+Assets\Scripts\Enemies\EnemyPlaneMedium5.cs, C#, 0, 0, 55, 0, 0, 0, 0, 0, 17, 72
+Assets\Scripts\Enemies\EnemyPlaneMedium5Turret1.cs, C#, 0, 0, 53, 0, 0, 0, 0, 0, 7, 60
+Assets\Scripts\Enemies\EnemyPlaneMedium5Turret2.cs, C#, 0, 0, 61, 0, 0, 0, 0, 0, 8, 69
+Assets\Scripts\Enemies\EnemyPlaneSmall1.cs, C#, 0, 0, 50, 0, 0, 0, 0, 0, 15, 65
+Assets\Scripts\Enemies\EnemyPlaneSmall2.cs, C#, 0, 0, 54, 0, 0, 0, 0, 0, 14, 68
+Assets\Scripts\Enemies\EnemyPlaneSmall3.cs, C#, 0, 0, 70, 0, 0, 0, 0, 0, 18, 88
+Assets\Scripts\Enemies\EnemyShipCarrier.cs, C#, 0, 0, 144, 0, 0, 0, 0, 0, 24, 168
+Assets\Scripts\Enemies\EnemyShipCarrierCargo.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+Assets\Scripts\Enemies\EnemyShipLarge.cs, C#, 0, 0, 58, 0, 0, 0, 0, 0, 11, 69
+Assets\Scripts\Enemies\EnemyShipLargeTurret1.cs, C#, 0, 0, 49, 0, 0, 0, 0, 0, 8, 57
+Assets\Scripts\Enemies\EnemyShipLargeTurret2.cs, C#, 0, 0, 40, 0, 0, 0, 0, 0, 8, 48
+Assets\Scripts\Enemies\EnemyShipLargeTurret3.cs, C#, 0, 0, 36, 0, 0, 0, 0, 0, 10, 46
+Assets\Scripts\Enemies\EnemyShipMedium1.cs, C#, 0, 0, 59, 0, 0, 0, 0, 0, 11, 70
+Assets\Scripts\Enemies\EnemyShipSmall1.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+Assets\Scripts\Enemies\EnemyShipSmall1Turret.cs, C#, 0, 0, 28, 0, 0, 0, 0, 0, 6, 34
+Assets\Scripts\Enemies\EnemyShipSmall2.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+Assets\Scripts\Enemies\EnemyShipSmall2Turret.cs, C#, 0, 0, 30, 0, 0, 0, 0, 0, 7, 37
+Assets\Scripts\Enemies\EnemyTank.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+Assets\Scripts\Enemies\EnemyTankLarge1.cs, C#, 0, 0, 85, 0, 0, 0, 0, 0, 11, 96
+Assets\Scripts\Enemies\EnemyTankLarge1Turret1.cs, C#, 0, 0, 160, 0, 0, 0, 0, 0, 12, 172
+Assets\Scripts\Enemies\EnemyTankLarge1Turret2.cs, C#, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+Assets\Scripts\Enemies\EnemyTankLarge2.cs, C#, 0, 0, 61, 0, 0, 0, 0, 0, 9, 70
+Assets\Scripts\Enemies\EnemyTankLarge2Turret.cs, C#, 0, 0, 69, 0, 0, 0, 0, 0, 6, 75
+Assets\Scripts\Enemies\EnemyTankLarge3.cs, C#, 0, 0, 42, 0, 0, 0, 0, 0, 8, 50
+Assets\Scripts\Enemies\EnemyTankLarge3Turret.cs, C#, 0, 0, 80, 0, 0, 0, 0, 0, 6, 86
+Assets\Scripts\Enemies\EnemyTankMedium1Turret.cs, C#, 0, 0, 62, 0, 0, 0, 0, 0, 9, 71
+Assets\Scripts\Enemies\EnemyTankMedium2.cs, C#, 0, 0, 78, 0, 0, 0, 0, 0, 11, 89
+Assets\Scripts\Enemies\EnemyTankMedium3.cs, C#, 0, 0, 35, 0, 0, 0, 0, 0, 8, 43
+Assets\Scripts\Enemies\EnemyTankSmall1Turret.cs, C#, 0, 0, 31, 0, 0, 0, 0, 0, 8, 39
+Assets\Scripts\Enemies\EnemyTankSmall2Turret.cs, C#, 0, 0, 46, 0, 0, 0, 0, 0, 8, 54
+Assets\Scripts\Enemies\EnemyTankSmall3Turret.cs, C#, 0, 0, 48, 0, 0, 0, 0, 0, 6, 54
+Assets\Scripts\Enemies\EnemyTurret1.cs, C#, 0, 0, 16, 0, 0, 0, 0, 0, 4, 20
+Assets\Scripts\Enemies\EnemyTurret1Turret.cs, C#, 0, 0, 48, 0, 0, 0, 0, 0, 8, 56
+Assets\Scripts\Enemies\EnemyTurret2.cs, C#, 0, 0, 6, 0, 0, 0, 0, 0, 2, 8
+Assets\Scripts\Enemies\EnemyTurret2Turret.cs, C#, 0, 0, 36, 0, 0, 0, 0, 0, 10, 46
+Assets\Scripts\Enemies\EnemyTurret3.cs, C#, 0, 0, 6, 0, 0, 0, 0, 0, 2, 8
+Assets\Scripts\Enemies\EnemyTurret3Turret.cs, C#, 0, 0, 53, 0, 0, 0, 0, 0, 10, 63
+Assets\Scripts\Enemies\GroundEnemySpawner.cs, C#, 0, 0, 65, 0, 0, 0, 0, 0, 10, 75
+Assets\Scripts\ExplosionEffect.cs, C#, 0, 0, 44, 0, 0, 0, 0, 0, 10, 54
+Assets\Scripts\GameOuterBoundary.cs, C#, 0, 0, 69, 0, 0, 0, 0, 1, 10, 80
+Assets\Scripts\HitEffect.cs, C#, 0, 0, 40, 0, 0, 0, 0, 2, 10, 52
+Assets\Scripts\Items\Item.cs, C#, 0, 0, 151, 0, 0, 0, 0, 0, 33, 184
+Assets\Scripts\Items\ItemBomb.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+Assets\Scripts\Items\ItemGemAir.cs, C#, 0, 0, 42, 0, 0, 0, 0, 0, 10, 52
+Assets\Scripts\Items\ItemGemGround.cs, C#, 0, 0, 8, 0, 0, 0, 0, 0, 3, 11
+Assets\Scripts\Items\ItemLife.cs, C#, 0, 0, 8, 0, 0, 0, 0, 1, 2, 11
+Assets\Scripts\Items\ItemPowerUp.cs, C#, 0, 0, 13, 0, 0, 0, 0, 0, 2, 15
+Assets\Scripts\MainCamera.cs, C#, 0, 0, 52, 0, 0, 0, 0, 0, 14, 66
+Assets\Scripts\Managers\ForceCameraRatio.cs, C#, 0, 0, 206, 0, 0, 0, 0, 51, 37, 294
+Assets\Scripts\Managers\GameManager.cs, C#, 0, 0, 293, 0, 0, 0, 0, 0, 39, 332
+Assets\Scripts\Managers\PauseManager.cs, C#, 0, 0, 56, 0, 0, 0, 0, 0, 9, 65
+Assets\Scripts\Managers\PlayerLaserManager.cs, C#, 0, 0, 10, 0, 0, 0, 0, 0, 4, 14
+Assets\Scripts\Managers\PlayerManager.cs, C#, 0, 0, 116, 0, 0, 0, 0, 0, 29, 145
+Assets\Scripts\Managers\PoolingManager.cs, C#, 0, 0, 144, 0, 0, 0, 0, 8, 35, 187
+Assets\Scripts\Managers\ReplayManager.cs, C#, 0, 0, 188, 0, 0, 0, 0, 3, 29, 220
+Assets\Scripts\Managers\SoundManager.cs, C#, 0, 0, 21, 0, 0, 0, 0, 0, 5, 26
+Assets\Scripts\Managers\Stage1Manager.cs, C#, 0, 0, 148, 0, 0, 0, 0, 0, 11, 159
+Assets\Scripts\Managers\Stage2Manager.cs, C#, 0, 0, 181, 0, 0, 0, 0, 0, 16, 197
+Assets\Scripts\Managers\Stage3Manager.cs, C#, 0, 0, 159, 0, 0, 0, 0, 2, 13, 174
+Assets\Scripts\Managers\SystemManager.cs, C#, 0, 0, 349, 0, 0, 0, 0, 4, 65, 418
+Assets\Scripts\Player\PlayerAddShot.cs, C#, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+Assets\Scripts\Player\PlayerBomb.cs, C#, 0, 0, 55, 0, 0, 0, 0, 0, 13, 68
+Assets\Scripts\Player\PlayerBombDamage.cs, C#, 0, 0, 37, 0, 0, 0, 0, 0, 8, 45
+Assets\Scripts\Player\PlayerColors.cs, C#, 0, 0, 7, 0, 0, 0, 0, 0, 2, 9
+Assets\Scripts\Player\PlayerController.cs, C#, 0, 0, 199, 0, 0, 0, 0, 0, 32, 231
+Assets\Scripts\Player\PlayerDrone.cs, C#, 0, 0, 73, 0, 0, 0, 0, 0, 13, 86
+Assets\Scripts\Player\PlayerDroneRotator.cs, C#, 0, 0, 14, 0, 0, 0, 0, 0, 4, 18
+Assets\Scripts\Player\PlayerHomingMissile.cs, C#, 0, 0, 60, 0, 0, 0, 0, 6, 14, 80
+Assets\Scripts\Player\PlayerLaser.cs, C#, 0, 0, 35, 0, 0, 0, 0, 0, 7, 42
+Assets\Scripts\Player\PlayerLaserAura.cs, C#, 0, 0, 32, 0, 0, 0, 0, 0, 7, 39
+Assets\Scripts\Player\PlayerLaserCreater.cs, C#, 0, 0, 123, 0, 0, 0, 0, 3, 30, 156
+Assets\Scripts\Player\PlayerLaserShooter.cs, C#, 0, 0, 50, 0, 0, 0, 0, 0, 9, 59
+Assets\Scripts\Player\PlayerRocket.cs, C#, 0, 0, 22, 0, 0, 0, 0, 0, 6, 28
+Assets\Scripts\Player\PlayerShield.cs, C#, 0, 0, 51, 0, 0, 0, 0, 0, 8, 59
+Assets\Scripts\Player\PlayerShooter.cs, C#, 0, 0, 233, 0, 0, 0, 0, 4, 33, 270
+Assets\Scripts\Player\PlayerShot.cs, C#, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+Assets\Scripts\Player\PlayerShotSpawner.cs, C#, 0, 0, 10, 0, 0, 0, 0, 0, 2, 12
+Assets\Scripts\Player\PlayerStart.cs, C#, 0, 0, 69, 0, 0, 0, 0, 2, 17, 88
+Assets\Scripts\Preview\PlayerPreview1.cs, C#, 0, 0, 24, 0, 0, 0, 0, 1, 5, 30
+Assets\Scripts\Preview\PlayerPreview2.cs, C#, 0, 0, 36, 0, 0, 0, 0, 1, 7, 44
+Assets\Scripts\Preview\PlayerPreviewDrone.cs, C#, 0, 0, 29, 0, 0, 0, 0, 0, 9, 38
+Assets\Scripts\Preview\PlayerPreviewLaser.cs, C#, 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
+Assets\Scripts\Preview\PlayerPreviewLaserShooter.cs, C#, 0, 0, 48, 0, 0, 0, 0, 0, 10, 58
+Assets\Scripts\Preview\PlayerPreviewShooter.cs, C#, 0, 0, 76, 0, 0, 0, 0, 0, 15, 91
+Assets\Scripts\Preview\PreviewPoolingManager.cs, C#, 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+Assets\Scripts\ScreenEffectAnimation.cs, C#, 0, 0, 32, 0, 0, 0, 0, 0, 9, 41
+Assets\Scripts\ScreenEffectFadeOut.cs, C#, 0, 0, 22, 0, 0, 0, 0, 0, 4, 26
+Assets\Scripts\ScreenEffecter.cs, C#, 0, 0, 55, 0, 0, 0, 0, 0, 8, 63
+Assets\Scripts\TerrainWater.cs, C#, 0, 0, 321, 0, 0, 0, 0, 36, 54, 411
+Assets\Scripts\TestScript.cs, C#, 0, 0, 45, 0, 0, 0, 0, 2, 7, 54
+Assets\Scripts\UI Handlers\AttributesAlphaHandler.cs, C#, 0, 0, 26, 0, 0, 0, 0, 2, 5, 33
+Assets\Scripts\UI Handlers\AttributesConfirmHandler.cs, C#, 0, 0, 49, 0, 0, 0, 0, 0, 10, 59
+Assets\Scripts\UI Handlers\AttributesCostHandler.cs, C#, 0, 0, 31, 0, 0, 0, 0, 0, 6, 37
+Assets\Scripts\UI Handlers\AttributesDetailsHandler.cs, C#, 0, 0, 94, 0, 0, 0, 0, 0, 18, 112
+Assets\Scripts\UI Handlers\AttributesHandler.cs, C#, 0, 0, 84, 0, 0, 0, 0, 0, 17, 101
+Assets\Scripts\UI Handlers\AttributesSelectHandler.cs, C#, 0, 0, 38, 0, 0, 0, 0, 0, 7, 45
+Assets\Scripts\UI Handlers\BossHealthHandler.cs, C#, 0, 0, 66, 0, 0, 0, 0, 0, 15, 81
+Assets\Scripts\UI Handlers\GraphicsMenuHandler.cs, C#, 0, 0, 113, 0, 0, 0, 0, 0, 19, 132
+Assets\Scripts\UI Handlers\KeyConfigMenuHandler.cs, C#, 0, 0, 52, 0, 0, 0, 0, 0, 13, 65
+Assets\Scripts\UI Handlers\LanguageMenuHandler.cs, C#, 0, 0, 73, 0, 0, 0, 0, 0, 16, 89
+Assets\Scripts\UI Handlers\LogoScreen.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+Assets\Scripts\UI Handlers\MainMenuHandler.cs, C#, 0, 0, 72, 0, 0, 0, 0, 6, 12, 90
+Assets\Scripts\UI Handlers\MainMenuMusicController.cs, C#, 0, 0, 35, 0, 0, 0, 0, 0, 7, 42
+Assets\Scripts\UI Handlers\OverviewGemRotator.cs, C#, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+Assets\Scripts\UI Handlers\OverviewHandler.cs, C#, 0, 0, 155, 0, 0, 0, 0, 0, 17, 172
+Assets\Scripts\UI Handlers\PauseMenuHandler.cs, C#, 0, 0, 52, 0, 0, 0, 0, 2, 10, 64
+Assets\Scripts\UI Handlers\ReplayMenuHandler.cs, C#, 0, 0, 84, 0, 0, 0, 0, 0, 13, 97
+Assets\Scripts\UI Handlers\SelectDifficultyHandler.cs, C#, 0, 0, 35, 0, 0, 0, 0, 0, 9, 44
+Assets\Scripts\UI Handlers\SettingsMenuHandler.cs, C#, 0, 0, 59, 0, 0, 0, 0, 0, 9, 68
+Assets\Scripts\UI Handlers\SoundMenuHandler.cs, C#, 0, 0, 85, 0, 0, 0, 0, 0, 17, 102
+Assets\Scripts\UI Handlers\TextLanguage.cs, C#, 0, 0, 25, 0, 0, 0, 0, 0, 4, 29
+Assets\Scripts\UI Handlers\Version.cs, C#, 0, 0, 13, 0, 0, 0, 0, 0, 5, 18
+Assets\Scripts\Unused\PlayerAddShotModule.cs, C#, 0, 0, 12, 0, 0, 0, 0, 1, 3, 16
+Assets\Shaders\Laser_Add_CenterGlow.shader, ShaderLab, 0, 0, 0, 0, 0, 89, 0, 0, 1, 90
+Assets\Shaders\Laser_Add_DistortTexture.shader, ShaderLab, 0, 0, 0, 0, 0, 88, 0, 1, 3, 92
+Assets\Shaders\Laser_Blend_CenterGlow.shader, ShaderLab, 0, 0, 0, 0, 0, 91, 0, 0, 2, 93
+Assets\Shaders\player_shield_E.shader, ShaderLab, 0, 0, 0, 0, 0, 154, 0, 55, 7, 216
+Assets\Terrains\Tree\Trees_WorldSpace\Misc\Obselete_canDelete\ShaderForgeDepricated\Depricated_canDelete\SF_Dep_TreeBarkShader.shader, ShaderLab, 0, 0, 0, 0, 0, 452, 0, 15, 11, 478
+Assets\Terrains\Tree\Trees_WorldSpace\Misc\Obselete_canDelete\ShaderForgeDepricated\Depricated_canDelete\SF_Dep_TreeLeavesSwitcher.shader, ShaderLab, 0, 0, 0, 0, 0, 615, 0, 17, 12, 644
+Assets\Terrains\Tree\Trees_WorldSpace\Shaders\BarkShaderAS.shader, ShaderLab, 0, 0, 0, 0, 0, 61, 0, 53, 4, 118
+Assets\Terrains\Tree\Trees_WorldSpace\Shaders\TreeLeafSwitcherAS.shader, ShaderLab, 0, 0, 0, 0, 0, 273, 0, 142, 10, 425
+Assets\Terrains\Water\FXWaterPro.shader, ShaderLab, 0, 0, 0, 0, 0, 124, 0, 9, 32, 165
+Logs\Packages-Update.log, Log, 0, 0, 0, 0, 0, 0, 41, 0, 4, 45
+Packages\manifest.json, JSON, 0, 41, 0, 0, 0, 0, 0, 0, 1, 42
+README.md, Markdown, 0, 0, 0, 0, 53, 0, 0, 0, 20, 73
+Total, -, 2185, 41, 20068, 12, 53, 2678, 41, 1498, 3867, 30443

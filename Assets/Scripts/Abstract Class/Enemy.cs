@@ -232,7 +232,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     [SerializeField] protected AudioClip[] m_AudioClip = new AudioClip[0];
     [Space(10)]
     [SerializeField] private GameObject m_ItemBox = null;
-    [SerializeField] private byte m_GemNumber = 0;
+    [SerializeField] protected byte m_GemNumber = 0;
     [Space(10)]
     public EnemyUnit m_ParentEnemy;
     public bool m_ShareHealth;

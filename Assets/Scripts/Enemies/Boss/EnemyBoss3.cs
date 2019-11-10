@@ -146,6 +146,7 @@ public class EnemyBoss3 : EnemyUnit
         float t = 0f, t_add = 0f;
         while (t < duration) {
             t_add = Random.Range(0.35f, 0.5f);
+            m_SystemManager.ShakeCamera(0.3f);
             ExplosionEffect(1, 1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
             t += t_add;
             yield return new WaitForSeconds(t_add);

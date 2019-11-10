@@ -3235,7 +3235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
-  m_IsEnabled: 
+  m_IsEnabled: 01
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_ScreenEffectFadeOut: {fileID: 1613340734}
   m_AudioSally: {fileID: 252500226}

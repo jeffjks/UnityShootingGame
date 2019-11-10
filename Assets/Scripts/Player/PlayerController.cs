@@ -112,8 +112,8 @@ public class PlayerController : PlayerControllerManager
         UpdateRevivePoint();
 
         m_String.Append(transform.position);
-        if (m_String.Length > 100)
-            Debug.LogWarning(m_String);
+        //if (m_String.Length > 100)
+            //Debug.LogWarning(m_String);
     }
 
     private void UpdateRevivePoint() {

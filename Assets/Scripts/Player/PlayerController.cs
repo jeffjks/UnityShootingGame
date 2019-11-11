@@ -21,6 +21,7 @@ public class PlayerController : PlayerControllerManager
     [SerializeField] private float m_Tilt = 30f;
     [SerializeField] private Boundary m_Boundary = new Boundary(-7f, 7f, -14.8f, -1f);
     [SerializeField] private Transform m_PlayerRevivePoint = null;
+    [SerializeField] private Transform m_PlayerBody = null;
     [SerializeField] private GameObject m_PlayerShield = null;
     [SerializeField] private string m_Explosion = string.Empty;
     public float m_ReviveInvincibleTime = 3f;
@@ -76,8 +77,8 @@ public class PlayerController : PlayerControllerManager
     }
 
     private void Tilt(float tilt_state) {
-        Quaternion maxTilt = Quaternion.AngleAxis(- m_Tilt*tilt_state, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, maxTilt, m_TiltSpeed*Time.deltaTime*60);
+        Quaternion maxTilt = Quaternion.AngleAxis(- m_Tilt*tilt_state, Vector3.forward);
+        m_PlayerBody.localRotation = Quaternion.Lerp(m_PlayerBody.localRotation, maxTilt, m_TiltSpeed*Time.deltaTime*60);
     }
 
     void FixedUpdate()

@@ -94,7 +94,6 @@ public class EnemyPlaneMedium1 : EnemyUnit
                 yield return new WaitForSeconds(0.2f);
                 for (int i = 0; i < 4; i++) {
                     float random_value = Random.Range(-3f, 3f);
-                    Debug.Log(random_value);
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBulletsSector(3, pos0, 6.4f, target_angle + random_value, accel, 9, 10f);
                     

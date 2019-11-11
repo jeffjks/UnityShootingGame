@@ -61,7 +61,6 @@ public class EnemyItemHeli : EnemyUnit {
 
         while(!m_TimeLimitState) {
             float random_value = Random.Range(-1f, 1f);
-            Debug.Log(random_value);
 
             pos1 = m_FirePosition[0].position;
             pos2 = m_FirePosition[1].position;

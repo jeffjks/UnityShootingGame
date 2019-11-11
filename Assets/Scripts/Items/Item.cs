@@ -68,7 +68,6 @@ public abstract class ItemBox : Item
         base.Awake();
         m_MoveVector.speed = m_Speed;
         float random_value = Random.Range(-45f, 45f);
-        Debug.Log(random_value);
         m_MoveVector.direction = random_value;
 
         if (!m_Disappear) {
@@ -95,22 +94,18 @@ public abstract class ItemBox : Item
             float angle;
             if (transform.position.x <= m_MainCameraTransform.position.x - (Size.CAMERA_WIDTH*0.5f - m_Padding)) { // left
                 angle = Random.Range(-45f, 45f);
-                Debug.Log(angle);
                 m_MoveVector.direction = 90f + angle;
             }
             else if (transform.position.x >= m_MainCameraTransform.position.x + (Size.CAMERA_WIDTH*0.5f - m_Padding)) { // right
                 angle = Random.Range(-45f, 45f);
-                Debug.Log(angle);
                 m_MoveVector.direction = -90f + angle;
             }
             else if (transform.position.y <= m_MainCameraTransform.position.y - (Size.CAMERA_HEIGHT*0.5f - m_Padding)) { // bottom
                 angle = Random.Range(-45f, 45f);
-                Debug.Log(angle);
                 m_MoveVector.direction = 180f + angle;
             }
             else if (transform.position.y >= m_MainCameraTransform.position.y + (Size.CAMERA_HEIGHT*0.5f - m_Padding)) { // top
                 angle = Random.Range(-45f, 45f);
-                Debug.Log(angle);
                 m_MoveVector.direction = 0f + angle;
             }
         }

@@ -113,8 +113,6 @@ public class SystemManager : MonoBehaviour
     {
         m_GameManager = GameManager.instance_gm;
 
-        m_ReplayState = m_GameManager.m_ReplayState;
-
         Application.targetFrameRate = 60;
 
         if (instance_sm != null) {
@@ -124,11 +122,13 @@ public class SystemManager : MonoBehaviour
         instance_sm = this;
         
         try {
+            m_ReplayState = m_GameManager.m_ReplayState;
             SetDifficulty(m_GameManager.m_Difficulty);
             AudioListener audioListener = gameObject.GetComponent<AudioListener>();
             audioListener.enabled = false;
         }
         catch (System.NullReferenceException) {
+            m_ReplayState = false;
             SetDifficulty((byte) m_DebugDifficulty);
         }
 

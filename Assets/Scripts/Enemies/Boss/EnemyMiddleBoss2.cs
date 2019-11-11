@@ -196,8 +196,8 @@ public class EnemyMiddleBoss2 : EnemyUnit
         StartCoroutine(DeathExplosion2(1.9f));
 
         yield return new WaitForSeconds(2f);
-        ExplosionEffect(0, 0, new Vector2(-1f, 0f)); // 최종 파괴
-        ExplosionEffect(0, -1, new Vector2(1f, 0f));
+        ExplosionEffect(0, 0, new Vector3(-1f, 0f, 0f)); // 최종 파괴
+        ExplosionEffect(0, -1, new Vector3(1f, 0f, 0f));
         ExplosionEffect(0, -1, new Vector3(-1f, 0f, 1.2f));
         ExplosionEffect(0, -1, new Vector3(1f, 0f, 1.2f));
         ExplosionEffect(0, -1, new Vector3(-1f, 0f, -1.2f));

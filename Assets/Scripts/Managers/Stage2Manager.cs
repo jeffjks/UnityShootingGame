@@ -47,7 +47,7 @@ public class Stage2Manager : StageManager
     protected override IEnumerator TestTimeLine()
     {
         yield return new WaitForSeconds(1f);
-        StartCoroutine(BossStart(new Vector3(0f, 5.6f, 27f), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(0f, 5.6f, 3.6f), 3f)); // Boss
         yield break;
     }
 

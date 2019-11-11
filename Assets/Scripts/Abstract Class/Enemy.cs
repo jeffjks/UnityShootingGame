@@ -236,7 +236,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     [Space(10)]
     public EnemyUnit m_ParentEnemy;
     public bool m_ShareHealth;
-    [Tooltip("자아(콜라이더)를 가진 자식들 (붉은색 blend, 데미지 blend 용)")]
+    [Tooltip("자아(콜라이더)를 가진 자식들 (체크시 독립적인 붉은색 blend, 데미지 blend를 가짐)")]
     public EnemyUnit[] m_ChildEnemies;
     public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
 
@@ -520,7 +520,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
     public void TakeDamage(float amount, sbyte damage_type = -1, bool blend = true)
     {
-        // damage_type - -1: 일반 공격, 0: 레이저, 1: 레이저(Aura), 2: 폭탄
+        // damage_type - -1:일반공격, 0:레이저, 1:레이저(Aura), 2:폭탄
         // blend - ImageBlend 실행 여부
         if (m_IsAttackable) {
             if (m_ShareHealth) {

@@ -2602,6 +2602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2983762852865417424}
+  - {fileID: 5495885955905563518}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2654,33 +2655,28 @@ MonoBehaviour:
   m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
-  m_ChildEnemies:
-  - {fileID: 6126426208822267428}
-  - {fileID: 958800411501811925}
+  m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 9150750381125795836}
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
-  m_Turret0_0: {fileID: 4290915110437636274}
-  m_Turret0_1:
+  m_Part1_Turrets:
+  - {fileID: 4290915110437636274}
   - {fileID: 1930508077926966483}
   - {fileID: 6264403718401427560}
-  m_Turret1_0: {fileID: 8056355742807195994}
-  m_Turret1_1: {fileID: 5306440694364322796}
-  m_Turret1_2:
+  m_Part2_Turrets:
+  - {fileID: 8056355742807195994}
+  - {fileID: 5306440694364322796}
   - {fileID: 1324290597776598711}
   - {fileID: 113999165123358369}
-  m_Turret2_0: {fileID: 6851075153167954100}
-  m_Turret2_1: {fileID: 8780047693038037609}
-  m_Turret2_2:
+  m_Part3_Turrets:
+  - {fileID: 6851075153167954100}
+  - {fileID: 8780047693038037609}
   - {fileID: 6518978689234915253}
   - {fileID: 5280752894283785234}
-  m_Part:
-  - {fileID: 6126426208822267428}
-  - {fileID: 958800411501811925}
-  - {fileID: 1325071211821548518}
+  m_NextPhaseDelay: 4
   m_Phase: 0
 --- !u!1 &100148
 GameObject:
@@ -2877,7 +2873,7 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 958800411501811925}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:
@@ -2968,12 +2964,12 @@ MonoBehaviour:
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 0}
+  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 958800411501811925}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:
@@ -3040,7 +3036,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 381963357252432224}
-  - component: {fileID: 958800411501811925}
   m_Layer: 12
   m_Name: Part1
   m_TagString: Untagged
@@ -3066,47 +3061,6 @@ Transform:
   m_Father: {fileID: 2983762852865417424}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &958800411501811925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006839794886338658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bde23da1bb631e4a8dbc4e1771d9e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_Health: 2000
-  m_Class: 2
-  m_Score: 0
-  m_Debris: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_ParentEnemy: {fileID: 4034944517753554836}
-  m_ShareHealth: 1
-  m_ChildEnemies:
-  - {fileID: 8056355742807195994}
-  - {fileID: 5306440694364322796}
-  - {fileID: 1324290597776598711}
-  - {fileID: 113999165123358369}
-  m_Collider2D: []
-  m_CurrentAngle: 0
-  m_MaxHealth: 0
-  m_IsDead: 0
-  m_IsAttackable: 1
-  m_Turret:
-  - {fileID: 8056355742807195994}
-  - {fileID: 5306440694364322796}
-  - {fileID: 1324290597776598711}
-  - {fileID: 113999165123358369}
-  m_NextPhaseDelay: 4
 --- !u!1 &1021739693282602690
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,7 +3117,7 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 958800411501811925}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:
@@ -3310,7 +3264,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314851356220602208}
-  - component: {fileID: 6126426208822267428}
   m_Layer: 12
   m_Name: Part0
   m_TagString: Untagged
@@ -3335,45 +3288,6 @@ Transform:
   m_Father: {fileID: 2983762852865417424}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6126426208822267428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477390045937833694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bde23da1bb631e4a8dbc4e1771d9e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_Health: 2000
-  m_Class: 2
-  m_Score: 0
-  m_Debris: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_ParentEnemy: {fileID: 4034944517753554836}
-  m_ShareHealth: 1
-  m_ChildEnemies:
-  - {fileID: 4290915110437636274}
-  - {fileID: 1930508077926966483}
-  - {fileID: 6264403718401427560}
-  m_Collider2D: []
-  m_CurrentAngle: 0
-  m_MaxHealth: 0
-  m_IsDead: 0
-  m_IsAttackable: 1
-  m_Turret:
-  - {fileID: 4290915110437636274}
-  - {fileID: 1930508077926966483}
-  - {fileID: 6264403718401427560}
-  m_NextPhaseDelay: 4
 --- !u!1 &1592991552641946125
 GameObject:
   m_ObjectHideFlags: 0
@@ -3454,7 +3368,7 @@ MonoBehaviour:
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 0}
+  m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
@@ -3564,7 +3478,7 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 6126426208822267428}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:
@@ -3690,12 +3604,12 @@ MonoBehaviour:
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 2
-  m_DefaultAudioClip: {fileID: 0}
+  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 6126426208822267428}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:
@@ -3718,7 +3632,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1971151408947628312}
-  - component: {fileID: 1325071211821548518}
   m_Layer: 12
   m_Name: Part2
   m_TagString: Untagged
@@ -3744,44 +3657,6 @@ Transform:
   m_Father: {fileID: 2983762852865417424}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1325071211821548518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2663365298486977755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bde23da1bb631e4a8dbc4e1771d9e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_Health: 1600
-  m_Class: 2
-  m_Score: 0
-  m_Debris: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_ParentEnemy: {fileID: 4034944517753554836}
-  m_ShareHealth: 0
-  m_ChildEnemies: []
-  m_Collider2D:
-  - {fileID: 9150750381125795836}
-  m_CurrentAngle: 0
-  m_MaxHealth: 0
-  m_IsDead: 0
-  m_IsAttackable: 1
-  m_Turret:
-  - {fileID: 6851075153167954100}
-  - {fileID: 8780047693038037609}
-  - {fileID: 6518978689234915253}
-  - {fileID: 5280752894283785234}
-  m_NextPhaseDelay: 0
 --- !u!1 &2860598287606647807
 GameObject:
   m_ObjectHideFlags: 0
@@ -3885,7 +3760,7 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 6126426208822267428}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:
@@ -4185,6 +4060,36 @@ Transform:
   m_Father: {fileID: 400096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6606431420335353993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5495885955905563518}
+  m_Layer: 12
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5495885955905563518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6606431420335353993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 0, z: -6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400146}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7222181017306631055
 GameObject:
   m_ObjectHideFlags: 0
@@ -4339,7 +4244,7 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 958800411501811925}
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_ShareHealth: 1
   m_ChildEnemies: []
   m_Collider2D:

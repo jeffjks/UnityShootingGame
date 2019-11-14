@@ -12,7 +12,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
         m_MoveVector = new MoveVector(0.8f, 0f);
     }
     
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase == 0) {
             if (m_Position2D.y < - 1f) {
@@ -21,7 +21,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             }
         }
 
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

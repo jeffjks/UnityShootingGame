@@ -13,11 +13,11 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
         m_CurrentPattern = Pattern1();
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        m_CurrentAngle += 180f * Time.fixedDeltaTime * transform.localScale.x;
+        m_CurrentAngle += 180f * Time.deltaTime * transform.localScale.x;
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern() {

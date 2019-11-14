@@ -14,22 +14,22 @@ public class EnemyTankLarge2 : EnemyUnit
         StartCoroutine(Pattern1());
     }
     
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         RotateImmediately(m_MoveVector.direction);
 
         if (m_SystemManager.m_Difficulty == 0) {
-            m_Direction += 97f * Time.fixedDeltaTime;
+            m_Direction += 97f * Time.deltaTime;
         }
         else {
-            m_Direction += 123f * Time.fixedDeltaTime;
+            m_Direction += 123f * Time.deltaTime;
         }
 
         if (m_Direction >= 360f) {
             m_Direction -= 360f;
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

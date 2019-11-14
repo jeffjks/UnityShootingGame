@@ -34,7 +34,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 0.35f) { // 체력 35% 이하
@@ -50,7 +50,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             }
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     private void OnAppearanceComplete() {

@@ -17,7 +17,7 @@ public class PlayerHomingMissile : PlayerMissile {
         m_Target = null;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Time.timeScale == 0)
             return;

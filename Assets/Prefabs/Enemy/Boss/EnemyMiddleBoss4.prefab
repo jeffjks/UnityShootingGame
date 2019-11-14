@@ -702,6 +702,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
   - {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_ItemBox: {fileID: 0}
+  m_GemNumber: 0
   m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies:
@@ -715,6 +716,9 @@ MonoBehaviour:
   m_IsAttackable: 1
   m_Turret1: {fileID: 8222217728715106486}
   m_Turret2: {fileID: 22921206767153171}
+  m_Part:
+  - {fileID: 16369976585349203}
+  - {fileID: 5449007875833902652}
   m_Phase: 0
 --- !u!1 &100042
 GameObject:
@@ -770,6 +774,7 @@ MonoBehaviour:
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
+  m_GemNumber: 0
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_ShareHealth: 0
   m_ChildEnemies: []
@@ -5647,6 +5652,7 @@ MonoBehaviour:
   m_Explosion: 0500000006000000
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
+  m_GemNumber: 0
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_ShareHealth: 1
   m_ChildEnemies: []
@@ -5656,6 +5662,7 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
+  m_FirePosition: {fileID: 662745243422472866}
 --- !u!1 &722535104322429457
 GameObject:
   m_ObjectHideFlags: 0
@@ -5861,7 +5868,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.05, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5872,7 +5879,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 3.2}
+  m_Size: {x: 0.85, y: 3.2}
   m_EdgeRadius: 0
 --- !u!1 &3165764783749943438
 GameObject:
@@ -6119,6 +6126,7 @@ MonoBehaviour:
   m_Explosion: 0500000006000000
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
+  m_GemNumber: 0
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_ShareHealth: 1
   m_ChildEnemies: []
@@ -6128,6 +6136,7 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_IsDead: 0
   m_IsAttackable: 1
+  m_FirePosition: {fileID: 1837222700635009042}
 --- !u!1 &3886653976196852472
 GameObject:
   m_ObjectHideFlags: 0
@@ -6320,6 +6329,7 @@ MonoBehaviour:
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
+  m_GemNumber: 0
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_ShareHealth: 0
   m_ChildEnemies: []
@@ -11273,7 +11283,7 @@ Transform:
   m_GameObject: {fileID: 6495153438117235452}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 3010082393821486993}
   - {fileID: 8707208900066329858}
@@ -11551,7 +11561,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11562,7 +11572,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 3.2}
+  m_Size: {x: 0.85, y: 3.2}
   m_EdgeRadius: 0
 --- !u!1 &8862815589110683853
 GameObject:
@@ -11668,7 +11678,7 @@ Transform:
   m_GameObject: {fileID: 8963459220406279177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 400040}
   m_RootOrder: 0

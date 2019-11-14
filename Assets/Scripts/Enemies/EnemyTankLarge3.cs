@@ -13,10 +13,10 @@ public class EnemyTankLarge3 : EnemyUnit
         StartCoroutine(Pattern1());
     }
     
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         RotateImmediately(m_MoveVector.direction);
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

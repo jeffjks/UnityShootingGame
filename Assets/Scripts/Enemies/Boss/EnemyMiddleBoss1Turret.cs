@@ -19,7 +19,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_ParentEnemy.m_Health <= 0) {
             OnDeath();
@@ -31,10 +31,10 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
             }
         }
         else if (m_RotateState == 1) {
-            RotateImmediately(m_CurrentAngle + 300f*transform.localScale.x * Time.fixedDeltaTime);
+            RotateImmediately(m_CurrentAngle + 300f*transform.localScale.x * Time.deltaTime);
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern() {

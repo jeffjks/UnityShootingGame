@@ -14,14 +14,14 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
         RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
         else
             RotateSlightly(m_PlayerPosition + new Vector2(0f, 1.5f), 100f);
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern(byte num) {

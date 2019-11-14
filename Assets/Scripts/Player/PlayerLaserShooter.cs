@@ -40,13 +40,13 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
             m_AudioLaser.Stop();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Time.timeScale == 0)
             return;
         
         if (m_PlayerController.m_SlowMode) {
-            m_MaxLength += m_LaserSpeed * Time.fixedDeltaTime;
+            m_MaxLength += m_LaserSpeed * Time.deltaTime;
         }
         else {
             m_MaxLength = 0f;

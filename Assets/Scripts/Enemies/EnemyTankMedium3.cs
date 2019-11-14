@@ -16,16 +16,16 @@ public class EnemyTankMedium3 : EnemyUnit
     }
 
     
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         RotateImmediately(m_MoveVector.direction);
 
         if (m_Direction >= 360f) {
             m_Direction -= 360f;
         }
-        m_Direction += 90f * Time.fixedDeltaTime;
+        m_Direction += 90f * Time.deltaTime;
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     private IEnumerator Pattern1() {

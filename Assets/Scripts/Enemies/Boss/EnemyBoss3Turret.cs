@@ -16,7 +16,7 @@ public class EnemyBoss3Turret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (80f < m_CurrentAngle && m_CurrentAngle < 180f) {
             m_RandomValue = 1;
@@ -37,7 +37,7 @@ public class EnemyBoss3Turret : EnemyUnit
                 break;
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern(byte num, int random_value = 1) {

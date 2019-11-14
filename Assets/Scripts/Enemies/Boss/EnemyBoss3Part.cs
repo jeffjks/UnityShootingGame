@@ -6,9 +6,9 @@ using DG.Tweening;
 
 public class EnemyBoss3Part : EnemyUnit
 {
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         m_CurrentAngle = m_ParentEnemy.m_CurrentAngle;
-        base.FixedUpdate();
+        base.Update();
     }
 }

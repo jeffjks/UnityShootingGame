@@ -37,7 +37,7 @@ public class EnemyBoss2 : EnemyUnit
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase > 0) {
             if (transform.position.x >= m_TargetPosition.x + 1f) {
@@ -73,7 +73,7 @@ public class EnemyBoss2 : EnemyUnit
             }
         }
 
-        base.FixedUpdate();
+        base.Update();
     }
 
     private void OnAppearanceComplete() {
@@ -129,7 +129,7 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern1A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
             ((EnemyBoss2Turret0_1) m_Part1_Turrets[1]).PrepareRotate(0, side[random_value]);
             ((EnemyBoss2Turret0_1) m_Part1_Turrets[2]).PrepareRotate(0, side[random_value]);
             random_value = Random.Range(0, 2);
@@ -138,7 +138,7 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern1B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
             
             ((EnemyBoss2Turret0_1) m_Part1_Turrets[1]).PrepareRotate(0, side[random_value]);
             ((EnemyBoss2Turret0_1) m_Part1_Turrets[2]).PrepareRotate(0, side[1 - random_value]);
@@ -147,7 +147,7 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern1C();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
             yield return new WaitForSeconds(2f);
         }
         yield break;
@@ -160,7 +160,7 @@ public class EnemyBoss2 : EnemyUnit
         ((EnemyBoss2Turret0_1) m_Part1_Turrets[1]).StartPattern(1);
         ((EnemyBoss2Turret0_1) m_Part1_Turrets[2]).StartPattern(1);
         while(((EnemyBoss2Turret0_0)m_Part1_Turrets[0]).m_InPattern) {
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
         ((EnemyBoss2Turret0_1) m_Part1_Turrets[1]).StopPattern();
         ((EnemyBoss2Turret0_1) m_Part1_Turrets[2]).StopPattern();
@@ -200,13 +200,13 @@ public class EnemyBoss2 : EnemyUnit
             m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
             yield return new WaitForSeconds(1.5f);
 
             m_CurrentPattern = Pattern2B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
             yield return new WaitForSeconds(1f);
         }
         yield break;
@@ -224,7 +224,7 @@ public class EnemyBoss2 : EnemyUnit
            ((EnemyBoss2Turret1_2) m_Part2_Turrets[3]).StartPattern(1, true);
         }
         while(((EnemyBoss2Turret1_1) m_Part2_Turrets[1]).m_InPattern) {
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
         m_InPattern = false;
         yield break;
@@ -234,7 +234,7 @@ public class EnemyBoss2 : EnemyUnit
         m_InPattern = true;
         ((EnemyBoss2Turret1_0) m_Part2_Turrets[0]).StartPattern(1);
         while(((EnemyBoss2Turret1_0) m_Part2_Turrets[0]).m_InPattern) {
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
         m_InPattern = false;
         yield break;
@@ -247,7 +247,7 @@ public class EnemyBoss2 : EnemyUnit
         ((EnemyBoss2Turret2_2) m_Part3_Turrets[2]).StartPattern();
         ((EnemyBoss2Turret2_2) m_Part3_Turrets[3]).StartPattern();
         while (m_Health >= 700f)
-            yield return new WaitForFixedUpdate();
+            yield return null;
         ((EnemyBoss2Turret2_0) m_Part3_Turrets[0]).StopPattern();
         yield return new WaitForSeconds(0.5f);
         ((EnemyBoss2Turret2_0) m_Part3_Turrets[0]).StartPattern(2);

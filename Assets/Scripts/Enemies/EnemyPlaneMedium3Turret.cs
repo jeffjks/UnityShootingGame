@@ -12,14 +12,14 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

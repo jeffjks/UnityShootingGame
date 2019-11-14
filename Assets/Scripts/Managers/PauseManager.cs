@@ -25,10 +25,7 @@ public class PauseManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             m_PauseKeyPress = true;
-    }
-
-    void FixedUpdate()
-    {
+        
         if (m_PauseKeyPress) {
             m_PauseKeyPress = false;
             Pause();

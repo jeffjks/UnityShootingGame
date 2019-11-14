@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyTank : EnemyUnit
 {
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         RotateImmediately(m_MoveVector.direction);
-        base.FixedUpdate();
+        base.Update();
     }
 }

@@ -26,7 +26,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
     }
 
     protected void MoveVector() {
-        transform.Translate(m_Vector2 * Time.fixedDeltaTime, Space.World);
+        transform.Translate(m_Vector2 * Time.deltaTime, Space.World);
     }
 }
 
@@ -51,7 +51,7 @@ public abstract class PlayerMissile : PlayerDamageUnit
     {
         OnStart();
         m_Damage = m_DefaultDamage + m_DamageBonus * m_DamageLevel;
-        for(int i=0; i<m_ActivatedObject.Length; i++) {
+        for(int i = 0; i < m_ActivatedObject.Length; i++) {
             m_ActivatedObject[i].SetActive(false);
         }
         if (m_ActivatedObject.Length > 0) {

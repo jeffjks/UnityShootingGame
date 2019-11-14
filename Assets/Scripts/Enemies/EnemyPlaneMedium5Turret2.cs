@@ -14,14 +14,14 @@ public class EnemyPlaneMedium5Turret2 : EnemyUnit
         StartCoroutine(Pattern1());
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

@@ -14,7 +14,7 @@ public class PlayerRocket : PlayerMissile
         m_Vector2 = transform.up * m_CurrentSpeed;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Time.timeScale == 0)
             return;

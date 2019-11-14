@@ -14,7 +14,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
         StartCoroutine(Pattern1());
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         float target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.m_Player.transform.position); // Special (Parent 기준)
         if (m_PlayerManager.m_PlayerIsAlive)
@@ -22,7 +22,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
         else
             RotateSlightly(target_angle, 100f);
         
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

@@ -49,12 +49,8 @@ public class PlayerDrone : MonoBehaviour
     void Update()
     {
         DisplayParticles();
-    }
-
-    void FixedUpdate()
-    {
-        m_CurrentLocalP = Vector3.MoveTowards(m_CurrentLocalP, m_CurrentTargetLocalP, 12f * Time.fixedDeltaTime);
-        m_CurrentLocalR = Mathf.MoveTowards(m_CurrentLocalR, m_CurrentTargetLocalR, 12f * Time.fixedDeltaTime);
+        m_CurrentLocalP = Vector3.MoveTowards(m_CurrentLocalP, m_CurrentTargetLocalP, 12f * Time.deltaTime);
+        m_CurrentLocalR = Mathf.MoveTowards(m_CurrentLocalR, m_CurrentTargetLocalR, 12f * Time.deltaTime);
         transform.localPosition = m_CurrentLocalP;
         transform.localRotation = Quaternion.Euler(0f, m_CurrentLocalR, 0f);
     }

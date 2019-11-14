@@ -11,14 +11,14 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         GetCoordinates();
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 24f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.FixedUpdate();
+        base.Update();
     }
     
     

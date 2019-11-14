@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetResolutionNumber() {
-        for (int i=0; i<m_MaxResolutionNumber; i++) {
+        for (int i = 0; i < m_MaxResolutionNumber; i++) {
             if (m_Resolution[0] == m_ResolutionList[i,0] && m_Resolution[1] == m_ResolutionList[i,1])
                 return i;
         }
@@ -292,7 +292,7 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetGraphicsQualityNumber() {
-        for (int i=0; i<6; i++) {
+        for (int i = 0; i < 6; i++) {
             if (i == QualitySettings.GetQualityLevel())
                 return i;
         }

@@ -18,10 +18,10 @@ public class EnemyShipCarrier : EnemyUnit
         StartCoroutine(Pattern2());
     }
     
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        m_Direction1 += 120f * Time.fixedDeltaTime;
-        m_Direction2 += 180f * Time.fixedDeltaTime;
+        m_Direction1 += 120f * Time.deltaTime;
+        m_Direction2 += 180f * Time.deltaTime;
 
         if (m_Direction1 > 360f) {
             m_Direction1 -= 360f;
@@ -32,7 +32,7 @@ public class EnemyShipCarrier : EnemyUnit
 
         RotateImmediately(m_MoveVector.direction);
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     

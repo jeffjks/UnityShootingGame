@@ -10,11 +10,11 @@ public class ScreenEffectFadeOut : MonoBehaviour
 
     private float m_Delta;
     
-    void FixedUpdate()
+    void Update()
     {
         m_SpriteRenderer.color = new Color(0f, 0f, 0f, m_Delta);
         if (m_Delta < 1f) {
-            m_Delta += 0.012f;
+            m_Delta += 0.072f * Time.deltaTime;
             m_MainMenuMusicController.SetSelectMusicVolume(m_Delta);
         }
         else {

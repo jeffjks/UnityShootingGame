@@ -17,7 +17,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Pattern2Rotate) {
             if (m_RoateState == -1)
@@ -38,7 +38,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
                 RotateSlightly(m_PlayerPosition, 100f);
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern(byte num) {

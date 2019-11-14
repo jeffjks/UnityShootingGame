@@ -14,7 +14,7 @@ public class EnemyShipLargeTurret1 : EnemyUnit
         StartCoroutine(Pattern1());
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 50f);
@@ -25,7 +25,7 @@ public class EnemyShipLargeTurret1 : EnemyUnit
             OnDeath();
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
     
     private IEnumerator Pattern1() {

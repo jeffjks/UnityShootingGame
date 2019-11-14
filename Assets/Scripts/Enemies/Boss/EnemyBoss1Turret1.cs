@@ -14,7 +14,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (((EnemyBoss1) m_ParentEnemy).m_Phase == 1) {
             if (m_PlayerManager.m_PlayerIsAlive)
@@ -26,7 +26,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
             RotateSlightly(0f, 100f);
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern(byte num, bool right = true) {

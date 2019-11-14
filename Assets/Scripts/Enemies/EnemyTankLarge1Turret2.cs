@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyTankLarge1Turret2 : EnemyUnit
 {
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (3 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
             OnDeath();
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 }

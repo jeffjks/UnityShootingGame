@@ -34,7 +34,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
@@ -59,7 +59,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
             }
         }
 
-        base.FixedUpdate();
+        base.Update();
     }
 
     private void OnAppearanceComplete() {

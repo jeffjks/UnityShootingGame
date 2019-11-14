@@ -15,14 +15,14 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern1() {

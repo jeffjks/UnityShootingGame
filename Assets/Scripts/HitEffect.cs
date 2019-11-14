@@ -16,14 +16,14 @@ public class HitEffect : MonoBehaviour
     void Awake()
     {
         m_PoolingManager = PoolingManager.instance_op;
-        for(int i=0; i<m_ActivatedObject.Length; i++) {
+        for(int i = 0; i < m_ActivatedObject.Length; i++) {
             m_Animator[i] = m_ActivatedObject[i].GetComponent<Animator>();
         }
     }
 
     void OnEnable()
     {
-        for(int i=0; i<m_ActivatedObject.Length; i++) {
+        for(int i = 0; i < m_ActivatedObject.Length; i++) {
             m_ActivatedObject[i].SetActive(false);
         }
         if (m_ActivatedObject.Length > 0) {

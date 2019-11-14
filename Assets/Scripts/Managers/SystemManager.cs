@@ -161,14 +161,14 @@ public class SystemManager : MonoBehaviour
         UpdateScore();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         MoveBackgroundCamera();
         BulletEraseTimer();
     }
 
     private void MoveBackgroundCamera() {
-        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.fixedDeltaTime;
+        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
     }
 
     private void SetStageManager() {
@@ -183,8 +183,8 @@ public class SystemManager : MonoBehaviour
 
     private void CreateTransition() {
         int r = 1;
-        for(int i=0; i<8; i++) { // 가로 6개, 세로 8개. 12*16
-            for(int j=0; j<6; j++) {
+        for(int i = 0; i < 8; i++) { // 가로 6개, 세로 8개. 12*16
+            for(int j = 0; j < 6; j++) {
                 GameObject ins = Instantiate(m_Transition, new Vector3(j*2f-5f, i*2f-15f, Depth.TRANSITION), Quaternion.Euler(0, 0, 45+45*r)); // depth = -4f
                 ins.transform.parent = m_ScreenEffecter.transform;
                 ScreenEffectAnimation animation = ins.GetComponent<ScreenEffectAnimation>();
@@ -364,7 +364,7 @@ public class SystemManager : MonoBehaviour
 
     private void BulletEraseTimer() {
         if (m_BulletsEraseTimer > 0) {
-            m_BulletsEraseTimer -= Time.fixedDeltaTime;
+            m_BulletsEraseTimer -= Time.deltaTime;
         }
         else {
             m_BulletsEraseTimer = 0f;

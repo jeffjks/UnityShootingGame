@@ -14,7 +14,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (3 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
             OnDeath();
@@ -42,7 +42,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
             RotateSlightly(m_PlayerPosition, 100f, -48f);
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     

@@ -17,14 +17,14 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
         GetCoordinates();
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        m_Direction += 80f * Time.fixedDeltaTime;
+        m_Direction += 80f * Time.deltaTime;
         if (m_Direction > 360f) {
             m_Direction -= 360f;
         }
 
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void StartPattern(byte num) {

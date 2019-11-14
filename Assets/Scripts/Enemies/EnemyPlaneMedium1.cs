@@ -26,9 +26,9 @@ public class EnemyPlaneMedium1 : EnemyUnit
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        m_AddPositionY -= m_VSpeed * Time.fixedDeltaTime;
+        m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
 
         if (!m_TimeLimitState) {
@@ -45,7 +45,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
             }
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     private void TimeLimit() {

@@ -70,7 +70,7 @@ public class PlayerLaserCreater : MonoBehaviour
         StopParticles(m_HitParticles);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (m_LineRenderer != null) {
             m_LineRenderer.SetPosition(0, transform.position);

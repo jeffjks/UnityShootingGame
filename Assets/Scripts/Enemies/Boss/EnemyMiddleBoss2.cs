@@ -43,7 +43,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
     }
 
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.375f) { // 체력 37.5% 이하
@@ -51,13 +51,13 @@ public class EnemyMiddleBoss2 : EnemyUnit
             }
         }
 
-        m_Direction += 200f * Time.fixedDeltaTime;
+        m_Direction += 200f * Time.deltaTime;
         if (m_Direction >= 360f)
             m_Direction -= 360f;
 
         RotateImmediately(m_MoveVector.direction);
 
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void ToNextPhase() {

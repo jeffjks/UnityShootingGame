@@ -43,7 +43,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
@@ -63,11 +63,11 @@ public class EnemyMiddleBoss5b : EnemyUnit
             RotateSlightly(m_PlayerPosition, 100f);
         
         if (m_IsDead) {
-            m_CurrentAngle += 60f * Time.fixedDeltaTime;
-            transform.localScale -= new Vector3(1f, 1f, 1f) * 0.2f * Time.fixedDeltaTime;
+            m_CurrentAngle += 60f * Time.deltaTime;
+            transform.localScale -= new Vector3(1f, 1f, 1f) * 0.2f * Time.deltaTime;
         }
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     private IEnumerator Pattern1() {

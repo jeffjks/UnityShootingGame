@@ -65,6 +65,11 @@ public class PlayerController : PlayerControllerManager
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Tilt(float tilt_state) {
+        Quaternion maxTilt = Quaternion.AngleAxis(- m_Tilt*tilt_state, Vector3.forward);
+        m_PlayerBody.localRotation = Quaternion.Lerp(m_PlayerBody.localRotation, maxTilt, m_TiltSpeed*Time.deltaTime * 60f);
+    }
+
     void Update()
     {
         if (m_PlayerManager.PlayerControlable) {
@@ -74,15 +79,7 @@ public class PlayerController : PlayerControllerManager
             }
         }
         Tilt(m_MoveRawHorizontal);
-    }
 
-    private void Tilt(float tilt_state) {
-        Quaternion maxTilt = Quaternion.AngleAxis(- m_Tilt*tilt_state, Vector3.forward);
-        m_PlayerBody.localRotation = Quaternion.Lerp(m_PlayerBody.localRotation, maxTilt, m_TiltSpeed*Time.deltaTime*60);
-    }
-
-    void FixedUpdate()
-    {
         if (Time.timeScale == 0)
             return;
         
@@ -149,12 +146,12 @@ public class PlayerController : PlayerControllerManager
             return;
         }
         m_Vector2 = new Vector2(0f, 0f);
-        transform.position = Vector3.MoveTowards(transform.position, target_pos, m_OverviewSpeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target_pos, m_OverviewSpeed * Time.deltaTime);
     }
 
     private void UpdateInvincible() {
         if (m_InvincibleTimer > 0f) {
-            m_InvincibleTimer -= Time.fixedDeltaTime;
+            m_InvincibleTimer -= Time.deltaTime;
         }
         else {
             DisableInvincible();

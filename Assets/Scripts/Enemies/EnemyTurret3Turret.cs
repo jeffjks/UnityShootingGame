@@ -18,7 +18,7 @@ public class EnemyTurret3Turret : EnemyUnit
         RotateImmediately(m_PlayerPosition);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
@@ -35,7 +35,7 @@ public class EnemyTurret3Turret : EnemyUnit
         m_CurrentTurretPosition = Mathf.MoveTowards(m_CurrentTurretPosition, m_InitaialTurretPosition, 0.02f);
         m_TurretAnimation.localPosition = new Vector3(m_TurretAnimation.localPosition.x, m_TurretAnimation.localPosition.y, m_CurrentTurretPosition);
         
-        base.FixedUpdate();
+        base.Update();
     }
 
     private void Pattern1() {

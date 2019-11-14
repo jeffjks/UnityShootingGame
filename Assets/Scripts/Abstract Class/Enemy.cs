@@ -66,9 +66,9 @@ public abstract class Enemy : MonoBehaviour { // 총알
         m_SafeLine = m_PlayerManager.m_SafeLine;
     }
     
-    void FixedUpdate()
+    void Update()
     {
-        MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
+        MoveDirection(m_MoveVector.speed * Time.deltaTime, m_MoveVector.direction);
         m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
     }
 
@@ -92,14 +92,14 @@ public abstract class Enemy : MonoBehaviour { // 총알
     {
         /* 총알용 MoveDirection */
         Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
-        transform.Translate(vector2 * speed * Time.fixedDeltaTime, Space.World);
+        transform.Translate(vector2 * speed * Time.deltaTime * 60f, Space.World);
     }
 
 
     // Type 0 총알
     protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval) {
         GameObject[] objs = new GameObject[num];
-        for (int i=0; i<num; i++) {
+        for (int i = 0; i < num; i++) {
             objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel);
         }
         return objs;
@@ -110,7 +110,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     byte type, float timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
     int new_num = 0, float new_interval = 0f, Vector2 second_timer = new Vector2()) {
         GameObject[] objs = new GameObject[num];
-        for (int i=0; i<num; i++) {
+        for (int i = 0; i < num; i++) {
             objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel,
             type, timer, new_image, new_speed, new_direction, direction_add, new_accel, new_num, new_interval, second_timer);
         }
@@ -315,22 +315,19 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     }
 
 
-    void Update()
+    protected virtual void Update()
     {
+        for (int i = 0; i < m_TakeDamageType.Length; i++)
+            m_TakeDamageType[i] = false;
+
+        MoveDirection(m_MoveVector.speed * Time.deltaTime * 60f, m_MoveVector.direction);
+        GetCoordinates();
+
         if (m_Health > m_MaxHealth) {
             m_Health = m_MaxHealth;
         }
 
         UpdateColorTimer();
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        for (int i = 0; i < m_TakeDamageType.Length; i++)
-            m_TakeDamageType[i] = false;
-
-        MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        GetCoordinates();
     }
 
     protected void UpdateTransform()
@@ -379,7 +376,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             return;
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.fixedDeltaTime);
+        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
         UpdateTransform();
     }
 
@@ -387,7 +384,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         if (CheckDeadState()) {
             return;
         }
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.fixedDeltaTime);
+        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
         UpdateTransform();
     }
 
@@ -494,11 +491,11 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     protected override void MoveDirection(float speed, float direction) { // speed 속도로 direction 방향으로 이동.
         if ((1 << gameObject.layer & Layer.AIR) != 0) {
             Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
-            transform.Translate(vector2 * speed * Time.fixedDeltaTime, Space.World);
+            transform.Translate(vector2 * speed * Time.deltaTime, Space.World);
         }
         else {
             Vector3 vector3 = Quaternion.AngleAxis(direction, Vector3.down) * Vector3.back;
-            transform.Translate(vector3 * speed * Time.fixedDeltaTime, Space.World);
+            transform.Translate(vector3 * speed * Time.deltaTime, Space.World);
         }
 
         UpdateTransform();
@@ -667,7 +664,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             return;
 
         if (m_TakingDamageTimer > 0f) {
-            m_TakingDamageTimer -= 60f * Time.fixedDeltaTime;
+            m_TakingDamageTimer -= 60f * Time.deltaTime;
             ImageBlend(m_DamagingAlbedo);
         }
         else {
@@ -677,7 +674,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
     private bool LowHealthImageBlend() { // true이면 빨간색
         if (m_LowHealthBlinkTimer > 0f) {
-            m_LowHealthBlinkTimer -= 60f * Time.fixedDeltaTime;
+            m_LowHealthBlinkTimer -= 60f * Time.deltaTime;
             if (m_LowHealthBlinkTimer > 23f) {
                 return true;
             }

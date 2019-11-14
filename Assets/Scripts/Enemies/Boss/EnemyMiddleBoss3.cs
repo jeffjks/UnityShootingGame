@@ -37,10 +37,10 @@ public class EnemyMiddleBoss3 : EnemyUnit
     }
 
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f*Time.fixedDeltaTime);
+        transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f*Time.deltaTime);
 
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
@@ -63,15 +63,15 @@ public class EnemyMiddleBoss3 : EnemyUnit
             }
         }
 
-        m_Direction1 += 111f * Time.fixedDeltaTime;
+        m_Direction1 += 111f * Time.deltaTime;
         if (m_Direction1 >= 360f)
             m_Direction1 -= 360f;
 
-        m_Direction2 += 79f * Time.fixedDeltaTime;
+        m_Direction2 += 79f * Time.deltaTime;
         if (m_Direction2 >= 360f)
             m_Direction2 -= 360f;
 
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void ToNextPhase() {
@@ -99,7 +99,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
 
     
 
-    private IEnumerator Phase1() { // 페이즈0 패턴 ============================
+    private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForSeconds(1f);
         while (m_Phase == 1) {
             m_CurrentPattern1 = Pattern1A1();

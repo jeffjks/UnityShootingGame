@@ -83,7 +83,7 @@ public class PlayerShooter : PlayerShooterManager
         }
         
         if (m_ShotKeyPress == 1) {
-            m_ShotKeyPressTime += Time.fixedDeltaTime;
+            m_ShotKeyPressTime += Time.deltaTime;
             if (!m_ShotKeyPrevious) {
                 m_ShotKeyPrevious = true;
                 if (!m_PlayerController.m_SlowMode) { // 샷 모드일 경우 AutoShot 증가
@@ -170,13 +170,13 @@ public class PlayerShooter : PlayerShooterManager
             else {
                 m_ShotDamage = 0;
             }
-            for (int t = 0; t < m_FireRate / Time.fixedDeltaTime; t++) {
-                yield return new WaitForFixedUpdate();
+            for (int t = 0; t < m_FireRate / Time.deltaTime; t++) {
+                yield return null;
             }
             // yield return new WaitForSeconds(m_FireRate);
         }
-        for (int t = 0; t < m_FireDelayWait / Time.fixedDeltaTime; t++) {
-            yield return new WaitForFixedUpdate();
+        for (int t = 0; t < m_FireDelayWait / Time.deltaTime; t++) {
+            yield return null;
         }
         // yield return new WaitForSeconds(m_FireDelayWait); // m_FireDelay에서 m_FireRate가 차지하는 부분 빼기
         m_NowShooting = false;

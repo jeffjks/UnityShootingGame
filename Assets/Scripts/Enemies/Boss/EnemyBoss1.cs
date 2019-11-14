@@ -42,7 +42,7 @@ public class EnemyBoss1 : EnemyUnit
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.30f) { // 체력 30% 이하
@@ -50,7 +50,7 @@ public class EnemyBoss1 : EnemyUnit
             }
         }
 
-        base.FixedUpdate();
+        base.Update();
     }
 
     public void ToNextPhase() {
@@ -139,18 +139,18 @@ public class EnemyBoss1 : EnemyUnit
             m_CurrentPattern = Pattern1A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
                 
             m_CurrentPattern = Pattern1B();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
 
             m_Part.OpenPart();
             m_CurrentPattern = Pattern1C();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
             m_Part.ClosePart();
             yield return new WaitForSeconds(2f);
         }
@@ -163,7 +163,7 @@ public class EnemyBoss1 : EnemyUnit
             m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)
-                yield return new WaitForFixedUpdate();
+                yield return null;
         }
         yield break;
     }

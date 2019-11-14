@@ -69,10 +69,10 @@ public class EnemyBullet : Enemy, CanDeath
     {
         m_RotateBullet = false;
         
-        for (int i=0; i<m_BulletTypeObject.Length; i++) {
+        for (int i = 0; i < m_BulletTypeObject.Length; i++) {
             m_BulletTypeObject[i].SetActive(false);
         }
-        for (int i=0; i<m_BulletEraseObject.Length; i++) {
+        for (int i = 0; i < m_BulletEraseObject.Length; i++) {
             m_BulletEraseObject[i].SetActive(false);
         }
 
@@ -127,7 +127,7 @@ public class EnemyBullet : Enemy, CanDeath
     void LateUpdate()
     {
         if (m_RotateBullet) {
-            m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, Time.fixedDeltaTime*200, Space.Self);
+            m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, Time.deltaTime*200, Space.Self);
         }
     }
 

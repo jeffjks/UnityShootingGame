@@ -18,7 +18,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
 
     void Start()
     {
-        float time_limit = 30f;
+        float time_limit = 40f;
         DisableAttackable(m_AppearanceTime);
         m_ChildEnemies[0].DisableAttackable(m_AppearanceTime);
         m_ChildEnemies[1].DisableAttackable(m_AppearanceTime);

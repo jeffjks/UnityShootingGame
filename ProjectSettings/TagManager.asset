@@ -35,11 +35,11 @@ TagManager:
   - GroundLargeEnemy
   - EnemyBullet
   - ScreenEffect
-  - VFX
-  - Items
+  - VFX_Air
+  - VFX_Ground
   - Player
   - Player'sAttack
-  - 
+  - Items
   - 
   - 
   - 

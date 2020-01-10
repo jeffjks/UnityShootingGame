@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
-  m_Layer: 16
+  m_Layer: 19
   m_Name: bomb_crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 1608746193201346141}
   - component: {fileID: 3754379696956131122}
-  m_Layer: 16
+  m_Layer: 19
   m_Name: ItemBomb
   m_TagString: ItemBox
   m_Icon: {fileID: 0}

@@ -873,7 +873,7 @@ GameObject:
   - component: {fileID: 976920857114685243}
   - component: {fileID: 663773686616626909}
   m_Layer: 10
-  m_Name: enginesL
+  m_Name: EngineEffect (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6458,7 +6458,7 @@ GameObject:
   - component: {fileID: 4146686588772708293}
   - component: {fileID: 3554531589060894372}
   m_Layer: 10
-  m_Name: enginesR
+  m_Name: EngineEffect (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

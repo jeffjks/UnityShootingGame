@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000010941335856}
   - component: {fileID: 2174750725071441294}
   - component: {fileID: 7898624762947922464}
-  m_Layer: 16
+  m_Layer: 19
   m_Name: ItemGemGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4245819964342738811}
   - component: {fileID: 3366174822769475971}
-  m_Layer: 16
+  m_Layer: 19
   m_Name: Collider
   m_TagString: ItemGem
   m_Icon: {fileID: 0}

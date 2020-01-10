@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -4236653689785038940}
   - component: {fileID: 8443037383033269228}
   - component: {fileID: 6113428378056944020}
-  m_Layer: 16
+  m_Layer: 19
   m_Name: ItemGemAir
   m_TagString: ItemGem
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 6163617864463290003}
   - component: {fileID: 4612458306832651054}
   - component: {fileID: 8147460482884559363}
-  m_Layer: 16
+  m_Layer: 19
   m_Name: ItemGemAir
   m_TagString: Untagged
   m_Icon: {fileID: 0}

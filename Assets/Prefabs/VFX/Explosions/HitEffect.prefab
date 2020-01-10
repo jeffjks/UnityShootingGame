@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7785075160610010971}
   - component: {fileID: 7571234007298513307}
   - component: {fileID: 1292944650161721733}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9852,7 +9852,7 @@ GameObject:
   - component: {fileID: 2099112767832211176}
   - component: {fileID: 4613819632488032199}
   - component: {fileID: 3261527218068912519}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 19800000}
   - component: {fileID: 19900000}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Dot Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4811,7 +4811,7 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 19800002}
   - component: {fileID: 19900002}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9419,7 +9419,7 @@ GameObject:
   - component: {fileID: 400004}
   - component: {fileID: 19800004}
   - component: {fileID: 19900004}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Glow sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14247,7 +14247,7 @@ GameObject:
   - component: {fileID: 19800006}
   - component: {fileID: 19900006}
   - component: {fileID: -5599676391902848293}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Explosion Ground Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18978,7 +18978,7 @@ GameObject:
   - component: {fileID: 400008}
   - component: {fileID: 19800008}
   - component: {fileID: 19900008}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Dot Sparkles Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23778,7 +23778,7 @@ GameObject:
   - component: {fileID: 400010}
   - component: {fileID: 19800010}
   - component: {fileID: 19900010}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28627,7 +28627,7 @@ GameObject:
   - component: {fileID: 400012}
   - component: {fileID: 19800012}
   - component: {fileID: 19900012}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Glow Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}

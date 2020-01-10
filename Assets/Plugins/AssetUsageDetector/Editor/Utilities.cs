@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace AssetUsageDetectorNamespace.Extras
@@ -10,20 +12,43 @@ namespace AssetUsageDetectorNamespace.Extras
 	public static class Utilities
 	{
 		// A set of commonly used Unity types
-		private static readonly HashSet<Type> primitiveUnityTypes = new HashSet<Type>() {
-				typeof( string ), typeof( Vector4 ), typeof( Vector3 ), typeof( Vector2 ), typeof( Rect ),
-				typeof( Quaternion ), typeof( Color ), typeof( Color32 ), typeof( LayerMask ),
-				typeof( Matrix4x4 ), typeof( AnimationCurve ), typeof( Gradient ), typeof( RectOffset ),
-				typeof( Assembly ) // Searching assembly variables for reference throws InvalidCastException on .NET 4.0 runtime
+		private static readonly HashSet<Type> primitiveUnityTypes = new HashSet<Type>()
+		{
+			typeof( string ), typeof( Vector4 ), typeof( Vector3 ), typeof( Vector2 ), typeof( Rect ),
+			typeof( Quaternion ), typeof( Color ), typeof( Color32 ), typeof( LayerMask ), typeof( Bounds ),
+			typeof( Matrix4x4 ), typeof( AnimationCurve ), typeof( Gradient ), typeof( RectOffset ),
+			typeof( bool[] ), typeof( byte[] ), typeof( sbyte[] ), typeof( char[] ), typeof( decimal[] ),
+			typeof( double[] ), typeof( float[] ), typeof( int[] ), typeof( uint[] ), typeof( long[] ),
+			typeof( ulong[] ), typeof( short[] ), typeof( ushort[] ), typeof( string[] ),
+			typeof( Vector4[] ), typeof( Vector3[] ), typeof( Vector2[] ), typeof( Rect[] ),
+			typeof( Quaternion[] ), typeof( Color[] ), typeof( Color32[] ), typeof( LayerMask[] ), typeof( Bounds[] ),
+			typeof( Matrix4x4[] ), typeof( AnimationCurve[] ), typeof( Gradient[] ), typeof( RectOffset[] ),
+			typeof( List<bool> ), typeof( List<byte> ), typeof( List<sbyte> ), typeof( List<char> ), typeof( List<decimal> ),
+			typeof( List<double> ), typeof( List<float> ), typeof( List<int> ), typeof( List<uint> ), typeof( List<long> ),
+			typeof( List<ulong> ), typeof( List<short> ), typeof( List<ushort> ), typeof( List<string> ),
+			typeof( List<Vector4> ), typeof( List<Vector3> ), typeof( List<Vector2> ), typeof( List<Rect> ),
+			typeof( List<Quaternion> ), typeof( List<Color> ), typeof( List<Color32> ), typeof( List<LayerMask> ), typeof( List<Bounds> ),
+			typeof( List<Matrix4x4> ), typeof( List<AnimationCurve> ), typeof( List<Gradient> ), typeof( List<RectOffset> ),
+#if UNITY_2017_2_OR_NEWER
+			typeof( Vector3Int ), typeof( Vector2Int ), typeof( RectInt ), typeof( BoundsInt ),
+			typeof( Vector3Int[] ), typeof( Vector2Int[] ), typeof( RectInt[] ), typeof( BoundsInt[] ),
+			typeof( List<Vector3Int> ), typeof( List<Vector2Int> ), typeof( List<RectInt> ), typeof( List<BoundsInt> )
+#endif
 		};
 
 		private static readonly HashSet<string> folderContentsSet = new HashSet<string>();
+
+#if UNITY_2018_3_OR_NEWER
+		private static int previousPingedPrefabInstanceId;
+		private static double previousPingedPrefabPingTime;
+#endif
 
 		public static readonly GUILayoutOption GL_EXPAND_WIDTH = GUILayout.ExpandWidth( true );
 		public static readonly GUILayoutOption GL_EXPAND_HEIGHT = GUILayout.ExpandHeight( true );
 		public static readonly GUILayoutOption GL_WIDTH_25 = GUILayout.Width( 25 );
 		public static readonly GUILayoutOption GL_WIDTH_100 = GUILayout.Width( 100 );
 		public static readonly GUILayoutOption GL_WIDTH_250 = GUILayout.Width( 250 );
+		public static readonly GUILayoutOption GL_HEIGHT_0 = GUILayout.Height( 0 );
 		public static readonly GUILayoutOption GL_HEIGHT_30 = GUILayout.Height( 30 );
 		public static readonly GUILayoutOption GL_HEIGHT_35 = GUILayout.Height( 35 );
 		public static readonly GUILayoutOption GL_HEIGHT_40 = GUILayout.Height( 40 );
@@ -129,9 +154,9 @@ namespace AssetUsageDetectorNamespace.Extras
 
 			Event e = Event.current;
 
-			// If CTRL key is pressed, do a multi-select;
+			// If CTRL or Shift keys are pressed, do a multi-select;
 			// otherwise select only the clicked object and ping it in editor
-			if( !e.control )
+			if( !e.control && !e.shift )
 				Selection.activeObject = obj.PingInEditor();
 			else
 			{
@@ -198,23 +223,26 @@ namespace AssetUsageDetectorNamespace.Extras
 				{
 					string assetPath = AssetDatabase.GetAssetPath( objTR.gameObject );
 					var openPrefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+
+					// Try to open the prefab stage of pinged prefabs if they are double clicked
+					if( previousPingedPrefabInstanceId == objTR.GetInstanceID() && EditorApplication.timeSinceStartup - previousPingedPrefabPingTime <= 0.3f &&
+						( openPrefabStage == null || !openPrefabStage.stageHandle.IsValid() || assetPath != openPrefabStage.prefabAssetPath ) )
+					{
+						AssetDatabase.OpenAsset( objTR.gameObject );
+						openPrefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+					}
+
+					previousPingedPrefabInstanceId = objTR.GetInstanceID();
+					previousPingedPrefabPingTime = EditorApplication.timeSinceStartup;
+
 					if( openPrefabStage != null && openPrefabStage.stageHandle.IsValid() && assetPath == openPrefabStage.prefabAssetPath )
 					{
-						// Ping the object in prefab stage
-						Transform targetParent = objTR;
-						Transform selectedObject = ( (GameObject) obj ).transform;
-						objTR = openPrefabStage.prefabContentsRoot.transform;
-						while( targetParent != selectedObject )
+						GameObject prefabStageGO = FollowSymmetricHierarchy( (GameObject) obj, openPrefabStage.prefabContentsRoot );
+						if( prefabStageGO != null )
 						{
-							Transform temp = selectedObject;
-							while( temp.parent != targetParent )
-								temp = temp.parent;
-
-							objTR = objTR.GetChild( temp.GetSiblingIndex() );
-							targetParent = temp;
+							objTR = prefabStageGO.transform;
+							selection = objTR.gameObject;
 						}
-
-						selection = objTR.gameObject;
 					}
 #if UNITY_2019_1_OR_NEWER
 					else if( obj != objTR.gameObject )
@@ -238,6 +266,38 @@ namespace AssetUsageDetectorNamespace.Extras
 
 			EditorGUIUtility.PingObject( obj );
 			return selection;
+		}
+
+		public static GameObject FollowSymmetricHierarchy( this GameObject go, GameObject symmetricRoot )
+		{
+			Transform target = go.transform;
+			Transform root1 = target.root;
+			Transform root2 = symmetricRoot.transform;
+			while( root1 != target )
+			{
+				Transform temp = target;
+				while( temp.parent != root1 )
+					temp = temp.parent;
+
+				Transform newRoot2;
+				int siblingIndex = temp.GetSiblingIndex();
+				if( siblingIndex < root2.childCount )
+				{
+					newRoot2 = root2.GetChild( siblingIndex );
+					if( newRoot2.name != temp.name )
+						newRoot2 = root2.Find( temp.name );
+				}
+				else
+					newRoot2 = root2.Find( temp.name );
+
+				if( newRoot2 == null )
+					return null;
+
+				root2 = newRoot2;
+				root1 = temp;
+			}
+
+			return root2.gameObject;
 		}
 
 		// Check if the field is serializable
@@ -294,7 +354,7 @@ namespace AssetUsageDetectorNamespace.Extras
 		// Check if the type is a common Unity type (let's call them primitives)
 		public static bool IsPrimitiveUnityType( this Type type )
 		{
-			return type.IsPrimitive || primitiveUnityTypes.Contains( type );
+			return type.IsPrimitive || primitiveUnityTypes.Contains( type ) || type.IsEnum;
 		}
 
 		// Get <get> function for a field
@@ -319,24 +379,28 @@ namespace AssetUsageDetectorNamespace.Extras
 		// Get <get> function for a property
 		public static VariableGetVal CreateGetter( this PropertyInfo propertyInfo )
 		{
-			// Ignore indexer properties
-			if( propertyInfo.GetIndexParameters().Length > 0 )
-				return null;
-
 			// Can't use PropertyWrapper (which uses CreateDelegate) for property getters of structs
 			if( propertyInfo.DeclaringType.IsValueType )
 				return propertyInfo.CanRead ? ( ( obj ) => propertyInfo.GetValue( obj, null ) ) : (VariableGetVal) null;
 
-			MethodInfo mi = propertyInfo.GetGetMethod( true );
-			if( mi != null )
-			{
-				Type GenType = typeof( PropertyWrapper<,> ).MakeGenericType( propertyInfo.DeclaringType, propertyInfo.PropertyType );
-				return ( (IPropertyAccessor) Activator.CreateInstance( GenType, mi ) ).GetValue;
-			}
-
-			return null;
+			Type GenType = typeof( PropertyWrapper<,> ).MakeGenericType( propertyInfo.DeclaringType, propertyInfo.PropertyType );
+			return ( (IPropertyAccessor) Activator.CreateInstance( GenType, propertyInfo.GetGetMethod( true ) ) ).GetValue;
 		}
 
+		// Check if all open scenes are saved (not dirty)
+		public static bool AreScenesSaved()
+		{
+			for( int i = 0; i < EditorSceneManager.loadedSceneCount; i++ )
+			{
+				Scene scene = EditorSceneManager.GetSceneAt( i );
+				if( scene.isDirty || string.IsNullOrEmpty( scene.path ) )
+					return false;
+			}
+
+			return true;
+		}
+
+		// Check if all the objects inside the list are null
 		public static bool IsEmpty( this List<ObjectToSearch> objectsToSearch )
 		{
 			if( objectsToSearch == null )
@@ -351,18 +415,67 @@ namespace AssetUsageDetectorNamespace.Extras
 			return true;
 		}
 
-		public static bool IsEmpty( this List<Object> searchInAssetsSubset )
+		// Check if all the objects inside the list are null
+		public static bool IsEmpty( this List<Object> objects )
 		{
-			if( searchInAssetsSubset == null )
+			if( objects == null )
 				return true;
 
-			for( int i = 0; i < searchInAssetsSubset.Count; i++ )
+			for( int i = 0; i < objects.Count; i++ )
 			{
-				if( searchInAssetsSubset[i] != null && !searchInAssetsSubset[i].Equals( null ) )
+				if( objects[i] != null && !objects[i].Equals( null ) )
 					return false;
 			}
 
 			return true;
+		}
+
+		// Check if all the objects that are enumerated are null
+		public static bool IsEmpty( this IEnumerable<Object> objects )
+		{
+			if( objects == null )
+				return true;
+
+			using( IEnumerator<Object> enumerator = objects.GetEnumerator() )
+			{
+				while( enumerator.MoveNext() )
+				{
+					if( enumerator.Current != null && !enumerator.Current.Equals( null ) )
+						return false;
+				}
+			}
+
+			return true;
+		}
+
+		public static bool ContainsFast<T>( this List<T> list, T element )
+		{
+			if( !( element is ValueType ) )
+			{
+				for( int i = list.Count - 1; i >= 0; i-- )
+				{
+					if( ReferenceEquals( list[i], element ) )
+						return true;
+				}
+			}
+			else
+			{
+				for( int i = list.Count - 1; i >= 0; i-- )
+				{
+					if( element.Equals( list[i] ) )
+						return true;
+				}
+			}
+
+			return false;
+		}
+
+		public static void RemoveAtFast<T>( this List<T> list, int index )
+		{
+			int lastElementIndex = list.Count - 1;
+
+			list[index] = list[lastElementIndex];
+			list.RemoveAt( lastElementIndex );
 		}
 	}
 }

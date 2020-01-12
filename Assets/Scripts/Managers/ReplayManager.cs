@@ -7,6 +7,8 @@ using System.Text;
 
 public class ReplayManager : MonoBehaviour
 {
+    public bool m_Activate;
+
     private int m_RandomSeed;
     private string m_Version;
     private Attributes m_Attributes;
@@ -28,54 +30,62 @@ public class ReplayManager : MonoBehaviour
         m_GameManager = GameManager.instance_gm;
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
+        m_RandomSeed = System.Environment.TickCount; // Generate Random Seed
 
-        try {
-            if (m_SystemManager.m_ReplayState) { // 리플레이 (파일 읽기)
-                m_FilePath = m_GameManager.m_ReplayDirectory + "replay" + m_GameManager.m_ReplayNum + ".rep";
+        if (m_Activate) {
+            try {
+                if (m_SystemManager.m_ReplayState) { // 리플레이 (파일 읽기)
+                    m_FilePath = m_GameManager.m_ReplayDirectory + "replay" + m_GameManager.m_ReplayNum + ".rep";
 
-                if (System.IO.File.Exists(m_FilePath)) {
-                    m_FileStream = new FileStream(m_FilePath, FileMode.Open);
-                    m_RandomSeed = BinaryDeserializeInt(); // 시드 읽기
-                    m_Version = BinaryDeserializeString(); // 버전 읽기
-                    m_Attributes = BinaryDeserializeAttributes(); // 기체 스펙 읽기
-                    m_Difficulty = (byte) BinaryDeserializeInt(); // 난이도 읽기
+                    if (System.IO.File.Exists(m_FilePath)) {
+                        m_FileStream = new FileStream(m_FilePath, FileMode.Open);
+                        m_RandomSeed = BinaryDeserializeInt(); // 시드 읽기
+                        m_Version = BinaryDeserializeString(); // 버전 읽기
+                        m_Attributes = BinaryDeserializeAttributes(); // 기체 스펙 읽기
+                        m_Difficulty = (byte) BinaryDeserializeInt(); // 난이도 읽기
 
-                    if (m_Version.Equals(Application.version)) {
-                        m_PlayerManager.SpawnPlayer(m_Attributes);
+                        if (m_Version.Equals(Application.version)) {
+                            m_PlayerManager.SpawnPlayer(m_Attributes);
+                        }
+                        else {
+                            // ToDo 버전이 다름
+                        }
+                        m_SystemManager.SetDifficulty(m_Difficulty);
                     }
-                    else {
-                        // ToDo 버전이 다름
-                    }
-                    m_SystemManager.SetDifficulty(m_Difficulty);
+                }
+                else { // 노 리플레이 (파일 쓰기)
+                    m_FilePath = m_GameManager.m_ReplayDirectory + "replayTemp.rep";
+                    m_PlayerManager.SpawnPlayer();
+
+                    m_FileStream = new FileStream(m_FilePath, FileMode.Create);
+                    m_Attributes = m_PlayerManager.m_CurrentAttributes;
+                    m_Difficulty = m_SystemManager.m_Difficulty;
+                    BinarySerialize(m_RandomSeed); // 시드 쓰기
+                    BinarySerialize(Application.version); // 버전 쓰기
+                    BinarySerialize(m_Attributes); // 기체 스펙 쓰기
+                    BinarySerialize((int) m_Difficulty); // 난이도 쓰기
+                    m_FileStream.Close();
+                    m_FileStream = new FileStream(m_FilePath, FileMode.Append);
                 }
             }
-            else { // 노 리플레이 (파일 쓰기)
-                m_FilePath = m_GameManager.m_ReplayDirectory + "replayTemp.rep";
+            catch (System.NullReferenceException) {
                 m_PlayerManager.SpawnPlayer();
-
-                m_FileStream = new FileStream(m_FilePath, FileMode.Create);
-                m_RandomSeed = System.Environment.TickCount; // Generate Random Seed
-                m_Attributes = m_PlayerManager.m_CurrentAttributes;
-                m_Difficulty = m_SystemManager.m_Difficulty;
-                BinarySerialize(m_RandomSeed); // 시드 쓰기
-                BinarySerialize(Application.version); // 버전 쓰기
-                BinarySerialize(m_Attributes); // 기체 스펙 쓰기
-                BinarySerialize((int) m_Difficulty); // 난이도 쓰기
-                m_FileStream.Close();
-                m_FileStream = new FileStream(m_FilePath, FileMode.Append);
+            }
+            finally {
+                Random.InitState(m_RandomSeed);
+                m_PlayerController = m_PlayerManager.m_PlayerController;
+                m_PlayerShooter = m_PlayerManager.m_PlayerShooter;
             }
         }
-        catch (System.NullReferenceException) {
+        else {
             m_PlayerManager.SpawnPlayer();
-        }
-        finally {
             Random.InitState(m_RandomSeed);
             m_PlayerController = m_PlayerManager.m_PlayerController;
             m_PlayerShooter = m_PlayerManager.m_PlayerShooter;
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Time.timeScale == 0)
             return;

@@ -1046,11 +1046,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5824299595195028254}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 486d8014a0dfec4449b8917a163ee827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Activate: 0
 --- !u!81 &5824299595195028253
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6003,7 +6004,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 71952
+    m_Bits: 629008
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -64,6 +64,11 @@ public abstract class StageManager : MonoBehaviour
                         m_AudioStage.time = 14.496f;
                     }
                     break;
+                case 3: // Stage 4
+                    if (m_AudioStage.time > 168.23f) {
+                        m_AudioStage.time = 4.518f;
+                    }
+                    break;
                 case 4: // Stage 5
                     if (m_AudioStage.time > 182.66f) {
                         m_AudioStage.time = 94.75f;

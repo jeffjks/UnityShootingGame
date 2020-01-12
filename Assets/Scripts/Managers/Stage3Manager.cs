@@ -10,7 +10,6 @@ public class Stage3Manager : StageManager
     m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_ItemHeli_1, m_ItemHeli_2, m_PlaneMedium_5;
 
     private const float WATER_HEIGHT = 2.32f;
-    private IEnumerator m_CurrentSpawn;
 
     void Awake()
     {

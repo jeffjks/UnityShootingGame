@@ -394,7 +394,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400016}
-  - component: {fileID: 11400002}
   m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
@@ -421,19 +420,6 @@ Transform:
   m_Father: {fileID: 3312976831173502154}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f75db77e0bb6ec14f88c890bc40efbc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generateTriangleStrips: 0
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ab818f284e17d4dbdc2a50d8e0739a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
   m_Health: 50
   m_Class: 0
   m_Score: 150
@@ -533,8 +520,10 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 3287350177743488085}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
+  m_IsAttackable: 1
   m_FireDelay:
   - 4
   - 2

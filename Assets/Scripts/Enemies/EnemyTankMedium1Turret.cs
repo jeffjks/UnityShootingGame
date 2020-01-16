@@ -27,6 +27,7 @@ public class EnemyTankMedium1Turret : EnemyUnit
         Vector3 pos0, pos1, pos2;
         float gap = 0.07f;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        yield return new WaitForSeconds(Random.Range(0f, 1.5f));
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));

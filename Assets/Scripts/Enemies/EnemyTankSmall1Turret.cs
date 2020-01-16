@@ -10,7 +10,7 @@ public class EnemyTankSmall1Turret : EnemyUnit
     void Start()
     {
         GetCoordinates();
-        InvokeRepeating("Pattern1", 0f, m_FireDelay[m_SystemManager.m_Difficulty]);
+        InvokeRepeating("Pattern1", Random.Range(0f, 0.5f), m_FireDelay[m_SystemManager.m_Difficulty]);
         RotateImmediately(m_PlayerPosition);
     }
 

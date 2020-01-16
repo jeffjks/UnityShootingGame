@@ -182,7 +182,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
 
         while (true) {
-            pos = GetScreenPosition(m_Turret1.m_FirePosition.position);
+            pos = m_Turret1.m_FirePosition.position;
             target_angle = m_Turret1.m_CurrentAngle + Random.Range(-1.5f, 1.5f);
             random_value = Random.Range(0.5f,14f);
 
@@ -213,7 +213,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
             if (random_value == 0) {
                 if (m_SystemManager.m_Difficulty == 0) {
                     for (int i = 0; i < 5; i++) {
-                        pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+                        pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
                         CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 7, 14f);
                         yield return new WaitForSeconds(0.07f);
@@ -222,7 +222,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
                 }
                 else if (m_SystemManager.m_Difficulty == 1) {
                     for (int i = 0; i < 5; i++) {
-                        pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+                        pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
                         CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 9, 11f);
                         yield return new WaitForSeconds(0.07f);
@@ -231,7 +231,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
                 }
                 else {
                     for (int i = 0; i < 5; i++) {
-                        pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+                        pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
                         CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 11, 8f);
                         yield return new WaitForSeconds(0.07f);
@@ -242,7 +242,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
             else {
                 if (m_SystemManager.m_Difficulty == 0) {
                     for (int i = 0; i < 3; i++) {
-                        pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+                        pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
                         CreateBulletsSector(2, pos, 8.4f, target_angle - 2f, accel, 5, 17f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 5, 17f);
@@ -253,7 +253,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
                 }
                 else if (m_SystemManager.m_Difficulty == 1) {
                     for (int i = 0; i < 3; i++) {
-                        pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+                        pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
                         CreateBulletsSector(2, pos, 8.4f, target_angle - 1.5f, accel, 7, 13f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 7, 15f);
@@ -264,7 +264,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
                 }
                 else {
                     for (int i = 0; i < 3; i++) {
-                        pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+                        pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
                         CreateBulletsSector(2, pos, 8.4f, target_angle - 1.5f, accel, 7, 13f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 7, 15f);
@@ -283,7 +283,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
 
         while (m_Pattern1B) {
-            pos = GetScreenPosition(m_Turret1.m_FirePosition.position);
+            pos = m_Turret1.m_FirePosition.position;
 
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 6; i++) {
@@ -318,7 +318,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
 
         while (m_Pattern1B) {
-            pos = GetScreenPosition(m_Turret2.m_FirePosition.position);
+            pos = m_Turret2.m_FirePosition.position;
             target_angle = m_Turret2.m_CurrentAngle;
 
             if (m_SystemManager.m_Difficulty == 0) {
@@ -390,7 +390,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
 
         while (true) {
-            pos = GetScreenPosition(m_Turret1.m_FirePosition.position);
+            pos = m_Turret1.m_FirePosition.position;
             target_angle = m_Turret1.m_CurrentAngle;
             random_value = Random.Range(-12f, 12f);
 
@@ -426,7 +426,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
 
         while (true) {
-            pos = GetScreenPosition(m_Turret1.m_FirePosition.position);
+            pos = m_Turret1.m_FirePosition.position;
             target_angle = m_Turret1.m_CurrentAngle;
 
             if (m_SystemManager.m_Difficulty == 0) {

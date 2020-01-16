@@ -39,6 +39,7 @@ public class EnemyTurret1Turret : EnemyUnit
         float gap = 0.18f;
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        yield return new WaitForSeconds(Random.Range(0f, 1f));
         while(true) {
             m_Shooting = true;
             for (int i = 0; i < 4; i++) {

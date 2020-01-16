@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -224,7 +225,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Normal: 1
@@ -237,9 +237,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 2.7
     direction: 90
+    speed: -1
     time: 16
   m_ActivateTime: 50
   m_DeactivateTime: 90
+  m_AttackableTimer: 0
 --- !u!1 &84663665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,6 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1055,7 +1058,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
@@ -1069,9 +1071,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
+    speed: -1
     time: 13.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
+  m_AttackableTimer: 0
 --- !u!1 &845341422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1133,7 +1138,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Normal: 0
@@ -1146,9 +1150,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
+    speed: -1
     time: 12.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
+  m_AttackableTimer: 0
 --- !u!1 &882221969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,6 +1562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1573,7 +1580,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -1587,9 +1593,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
+    speed: -1
     time: 12.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
+  m_AttackableTimer: 0
 --- !u!1 &1150961309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,6 +2626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -2635,7 +2644,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 1
@@ -2648,9 +2656,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
+    speed: -1
     time: 12.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
+  m_AttackableTimer: 0
 --- !u!1001 &1934945172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2928,6 +2938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -2945,7 +2956,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 1
@@ -2958,6 +2968,8 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 2.7
     direction: 90
+    speed: -1
     time: 17
   m_ActivateTime: 50
   m_DeactivateTime: 90
+  m_AttackableTimer: 0

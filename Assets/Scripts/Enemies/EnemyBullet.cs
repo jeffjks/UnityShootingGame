@@ -63,6 +63,7 @@ public class EnemyBullet : Enemy, CanDeath
     {
         base.Awake();
         m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        m_IsAttackable = false;
     }
 
     void OnEnable()

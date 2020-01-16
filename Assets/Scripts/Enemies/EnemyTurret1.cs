@@ -6,6 +6,12 @@ public class EnemyTurret1 : EnemyUnit
 {
     [SerializeField] private GameObject m_Collider = null;
     [SerializeField] private GameObject m_Turret = null;
+    
+    protected override void Update()
+    {
+        RotateImmediately(m_MoveVector.direction);
+        base.Update();
+    }
 
     protected override IEnumerator AdditionalOnDeath() { // 추가 폭발 이펙트 (기본값은 없음)
         Destroy(m_Collider);

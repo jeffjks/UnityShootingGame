@@ -108,7 +108,7 @@ public abstract class StageManager : MonoBehaviour
         return ins;
     }
     
-    protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, float delay = -1, float time = -1) {
+    protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, float delay = -1, float time = -1) { // delay 후 time에 걸쳐 속도 0으로
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;

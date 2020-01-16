@@ -35,6 +35,7 @@ public class EnemyTankSmall2Turret : EnemyUnit
     private IEnumerator Pattern1() {
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
         while(true) {
             float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
             m_Shooting = true;

@@ -1294,6 +1294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1311,7 +1312,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 0
@@ -1324,6 +1324,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 75
   m_DeactivateTime: 95
+  m_AttackableTimer: 0
 --- !u!1001 &457603565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1528,6 +1529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1545,7 +1547,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -1560,6 +1561,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 45
   m_DeactivateTime: 85
+  m_AttackableTimer: 0
 --- !u!1001 &543081753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2510,6 +2512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -2527,7 +2530,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -2541,6 +2543,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 75
   m_DeactivateTime: 95
+  m_AttackableTimer: 0
 --- !u!1001 &735067751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4375,6 +4378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -4392,7 +4396,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -4407,9 +4410,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 12.8
     direction: 150
+    speed: -1
     time: 3
   m_ActivateTime: 40
   m_DeactivateTime: 72
+  m_AttackableTimer: 0
 --- !u!1001 &1406121554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4933,6 +4938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -4950,7 +4956,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 1
@@ -4963,6 +4968,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 45
   m_DeactivateTime: 85
+  m_AttackableTimer: 0
 --- !u!1 &1506702865
 GameObject:
   m_ObjectHideFlags: 0
@@ -6595,6 +6601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6612,7 +6619,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Normal: 1
@@ -6625,9 +6631,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 12.8
     direction: 150
+    speed: -1
     time: 3
   m_ActivateTime: 40
   m_DeactivateTime: 72
+  m_AttackableTimer: 0
 --- !u!1001 &2026058705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6747,6 +6755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6764,7 +6773,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 1
@@ -6777,9 +6785,11 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 12.1
     direction: 150
+    speed: -1
     time: 1.5
   m_ActivateTime: 40
   m_DeactivateTime: 72
+  m_AttackableTimer: 0
 --- !u!1001 &2071506235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7005,6 +7015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7022,7 +7033,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Normal: 1
@@ -7035,6 +7045,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 5
   m_DeactivateTime: 35
+  m_AttackableTimer: 0
 --- !u!114 &693802492627160611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7048,6 +7059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7065,7 +7077,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Normal: 1
@@ -7078,6 +7089,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 45
   m_DeactivateTime: 75
+  m_AttackableTimer: 0
 --- !u!114 &693802492900062618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7091,6 +7103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7108,7 +7121,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 1
@@ -7121,6 +7133,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 45
   m_DeactivateTime: 75
+  m_AttackableTimer: 0
 --- !u!1001 &1287001183654992250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7383,6 +7396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7400,7 +7414,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Normal: 1
@@ -7413,6 +7426,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 5
   m_DeactivateTime: 30
+  m_AttackableTimer: 0
 --- !u!1001 &5106608243037683371
 PrefabInstance:
   m_ObjectHideFlags: 0

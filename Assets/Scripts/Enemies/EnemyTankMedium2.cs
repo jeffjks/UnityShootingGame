@@ -41,6 +41,7 @@ public class EnemyTankMedium2 : EnemyUnit
     private IEnumerator Pattern1() {
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        yield return new WaitForSeconds(Random.Range(0f, 1f));
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 pos = GetScreenPosition(m_FirePosition.position);

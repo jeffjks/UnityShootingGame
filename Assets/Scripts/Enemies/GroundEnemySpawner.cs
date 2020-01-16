@@ -8,7 +8,7 @@ public class GroundEnemySpawner : EnemyUnit
     [System.Serializable]
     public class MovePattern
     {
-        public float delay, direction, time;
+        public float delay, direction, speed, time;
     }
 
     public GameObject[] m_Enemy;
@@ -22,6 +22,8 @@ public class GroundEnemySpawner : EnemyUnit
     public float m_ActivateTime;
     [Tooltip("스포너 비활성화 시간")]
     public float m_DeactivateTime;
+    [Space(10)]
+    public float m_AttackableTimer;
 
     void Start()
     {
@@ -46,14 +48,31 @@ public class GroundEnemySpawner : EnemyUnit
         EnemyUnit enemy_unit = obj.GetComponent<EnemyUnit>();
         Sequence sequence = DOTween.Sequence();
         enemy_unit.m_MoveVector = new MoveVector(m_Speed, m_Direction);
-        
-        for (int i = 0; i < m_MovePattern.Length; i++) {
-            sequence.AppendInterval(m_MovePattern[i].delay)
-            .Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, m_MovePattern[i].direction, m_MovePattern[i].time).SetEase(Ease.Linear));
+        if (m_AttackableTimer != 0f) {
+            enemy_unit.DisableAttackable(m_AttackableTimer);
         }
         
-        if (m_RemoveTimer > 0)
+        for (int i = 0; i < m_MovePattern.Length; i++) {
+            float pattern_delay = m_MovePattern[i].delay;
+            float pattern_direction = m_MovePattern[i].direction;
+            float pattern_speed = m_MovePattern[i].speed;
+            float pattern_time = m_MovePattern[i].time;
+
+            if (pattern_direction == -1f) {
+                pattern_direction = enemy_unit.m_MoveVector.direction;
+            }
+            if (pattern_speed == -1f) {
+                pattern_speed = enemy_unit.m_MoveVector.speed;
+            }
+
+            sequence.AppendInterval(pattern_delay)
+            .Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, pattern_direction, pattern_time).SetEase(Ease.Linear))
+            .Join(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, pattern_speed, pattern_time).SetEase(Ease.Linear));
+        }
+        
+        if (m_RemoveTimer > 0) {
             Destroy(obj, m_RemoveTimer);
+        }
     }
 
     IEnumerator SpawnEnemyTanks()

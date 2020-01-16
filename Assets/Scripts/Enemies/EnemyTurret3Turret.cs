@@ -27,7 +27,7 @@ public class EnemyTurret3Turret : EnemyUnit
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {
-                InvokeRepeating("Pattern1", 0f, m_FireDelay[m_SystemManager.m_Difficulty]);
+                InvokeRepeating("Pattern1", Random.Range(0f, m_FireDelay[m_SystemManager.m_Difficulty]), m_FireDelay[m_SystemManager.m_Difficulty]);
                 m_Active = true;
             }
         }

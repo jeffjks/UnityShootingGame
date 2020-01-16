@@ -690,6 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 3600
   m_Class: 1
   m_Score: 10000
@@ -713,7 +714,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Turret1: {fileID: 8222217728715106486}
   m_Turret2: {fileID: 22921206767153171}
   m_Part:
@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -782,7 +783,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition: {fileID: 669105014784677143}
 --- !u!1 &100048
 GameObject:
@@ -5643,6 +5643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 600
   m_Class: 1
   m_Score: 3000
@@ -5661,7 +5662,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition: {fileID: 662745243422472866}
 --- !u!1 &722535104322429457
 GameObject:
@@ -6117,6 +6117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 600
   m_Class: 1
   m_Score: 3000
@@ -6135,7 +6136,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition: {fileID: 1837222700635009042}
 --- !u!1 &3886653976196852472
 GameObject:
@@ -6320,6 +6320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6337,7 +6338,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition: {fileID: 5870584973789005791}
 --- !u!1 &5808371363815577756
 GameObject:

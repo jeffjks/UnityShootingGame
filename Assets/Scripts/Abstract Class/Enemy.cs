@@ -46,7 +46,9 @@ public interface CanDeath {
 public abstract class Enemy : MonoBehaviour { // 총알
 
     public MoveVector m_MoveVector;
+    public EnemyUnit m_ParentEnemy;
     [HideInInspector] public Vector2 m_Position2D;
+    [HideInInspector] public bool m_IsAttackable;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -72,7 +74,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
         m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
     }
 
-    protected Vector2 GetScreenPosition(Vector3 pos) {
+    protected Vector2 GetScreenPosition(Vector3 pos) { // Only Ground Units
         float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
         Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
         Vector2 modified_pos = new Vector2(
@@ -188,8 +190,17 @@ public abstract class Enemy : MonoBehaviour { // 총알
         else if (pos.y > 0 || pos.y < m_SafeLine) {
             return false;
         }
-        else
-            return true;
+        else {
+            if (m_ParentEnemy == null) {
+                if (!m_IsAttackable) {
+                    return false;
+                }
+            }
+            else if (!m_ParentEnemy.m_IsAttackable) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
@@ -220,6 +231,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         ExplosionMine,
     };
 
+    [Space(10)]
     public float m_Health;
     public EnemyClass m_Class;
     public uint m_Score;
@@ -234,7 +246,6 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     [SerializeField] private GameObject m_ItemBox = null;
     [SerializeField] protected byte m_GemNumber = 0;
     [Space(10)]
-    public EnemyUnit m_ParentEnemy;
     public bool m_ShareHealth;
     [Tooltip("자아(콜라이더)를 가진 자식들 (체크시 독립적인 붉은색 blend, 데미지 blend를 가짐)")]
     public EnemyUnit[] m_ChildEnemies;
@@ -250,7 +261,6 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     [HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
-    [HideInInspector] public bool m_IsAttackable = true;
 
     private float m_TakingDamageTimer;
     private float m_LowHealthBlinkTimer;
@@ -268,6 +278,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         m_MoveVector.direction = - transform.rotation.eulerAngles.y;
 
         m_MaxHealth = m_Health;
+        m_IsAttackable = true;
 
         m_MaterialsAll = GetAllMetrials();
         m_Materials = GetMaterials();
@@ -451,13 +462,13 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     }
 
     private void AttackableTimer() {
+        EnableAttackable();
         if (m_Class != EnemyClass.Zako) {
-            StartCoroutine(SetAttackable());
+            StartCoroutine(SetAttackableEffect());
         }
     }
 
-    private IEnumerator SetAttackable() { // 무적 해제 이펙트
-        EnableAttackable();
+    private IEnumerator SetAttackableEffect() { // 무적 해제 이펙트
         byte color = 210; // white
         while(color > 0f) {
             color -= 10;

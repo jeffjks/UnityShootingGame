@@ -60,34 +60,34 @@ public class Stage2Manager : StageManager
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4.5f, 3f), new Vector2(-4.5f, -3f), Random.Range(1.2f, 1.5f));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(4.5f, 3f), new Vector2(4.5f, -3f), Random.Range(1.2f, 1.5f));
         yield return new WaitForSeconds(1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-6.2f, 3f, 11f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1.2f, 3f, 12f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(2f, 3f, 10f), new MoveVector(1f, 0f), 7f, 1f);
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-6.2f, 3f, 11f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1.2f, 3f, 12f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(2f, 3f, 10f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-6f, 3f), new Vector2(-6f, -5f), Random.Range(1.2f, 1.5f));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), Random.Range(1.2f, 1.5f));
         yield return new WaitForSeconds(2f);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(6f, 3f), new Vector2(6f, -5f), Random.Range(1.2f, 1.5f));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -3f), Random.Range(1.2f, 1.5f));
-        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(-3.5f, 3f, 14f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(1f, 3f, 16f), new MoveVector(1f, 0f), 7f, 1f);
+        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(-3.5f, 3f, 14f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(1f, 3f, 16f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
         CreateEnemy(m_ItemHeli_1, new Vector2(0f, 3f)); // Item Heli 1
         yield return new WaitForSeconds(2f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-5f, 3f, 17f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-3.5f, 3f, 15f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1f, 3f, 18f), new MoveVector(1f, 0f), 7f, 1f);
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-5f, 3f, 17f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-3.5f, 3f, 15f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1f, 3f, 18f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
         if (m_SystemManager.m_Difficulty >= Difficulty.HELL) {
             CreateEnemy(m_PlaneMedium_2, new Vector2(-4f, 3f));
         }
         yield return new WaitForSeconds(2f);
-        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(4f, 3f, 21f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(0f, 3f, 23f), new MoveVector(1f, 0f), 7f, 1f);
+        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(4f, 3f, 21f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(0f, 3f, 23f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(3f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(1.5f, 3f, 23f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(6.5f, 3f, 24f), new MoveVector(1f, 0f), 7f, 1f);
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(5f, 3f, 27f), new MoveVector(1f, 0f), 7f, 1f);
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(1.5f, 3f, 23f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(6.5f, 3f, 24f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(5f, 3f, 27f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(11f);
         if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT) {
             CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));

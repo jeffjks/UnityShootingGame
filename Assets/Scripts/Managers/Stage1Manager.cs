@@ -93,9 +93,9 @@ public class Stage1Manager : StageManager
         yield return new WaitForSeconds(1.5f);
 
         if (m_SystemManager.m_Difficulty >= Difficulty.HELL) { // 3 small ship
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(4f, 70f), 0f, 3.2f);
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(4f, 70f), 0f, 3.2f);
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(4f, 70f), 0f, 3.2f);
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(4f, 70f), new MovePattern[] {new MovePattern(0f, 8739f, 0f, 3.2f)});
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(4f, 70f), new MovePattern[] {new MovePattern(0f, 8739f, 0f, 3.2f)});
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(4f, 70f), new MovePattern[] {new MovePattern(0f, 8739f, 0f, 3.2f)});
         }
         yield return new WaitForSeconds(8f);
         if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT)

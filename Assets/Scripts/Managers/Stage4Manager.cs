@@ -48,9 +48,11 @@ public class Stage4Manager : StageManager
     protected override IEnumerator EnemyTimeLine()
     {
         yield return new WaitForSeconds(47f);
-        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(2.61f, 3.18f, 56.17f), new MoveVector(0.7f, -32f), 2f, 0.7f);
-        yield return new WaitForSeconds(64f);
-        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-14.35f, 3.21f, 82.5f), new MoveVector(-1.6f, 0f), 1.2f, 0.5f);
-        yield break;
+        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(2.61f, 3.18f, 56.17f), new MoveVector(0.7f, -32f), new MovePattern[] {new MovePattern(2f, 8739f, 0f, 0.7f)});
+        yield return new WaitForSeconds(75f);
+        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-24.35f, 3.21f, 84.5f), new MoveVector(-4f, -90f), new MovePattern[] {new MovePattern(1.4f, 8739f, 0f, 1.4f)});
+        yield return new WaitForSeconds(35f);
+        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
+            new MovePattern[] {new MovePattern(1f, 8739f, 0f, 1f), new MovePattern(2f, 8739f, -0.8f, 1f), new MovePattern(6f, 8739f, 0f, 0.5f)});
     }
 }

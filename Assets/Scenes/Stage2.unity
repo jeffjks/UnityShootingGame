@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
   m_Health: 0
@@ -218,7 +219,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 2.7
     direction: 90
-    speed: -1
+    speed: 8739
     time: 16
   m_ActivateTime: 50
   m_DeactivateTime: 90
@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
   m_Health: 0
@@ -1051,7 +1052,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
-    speed: -1
+    speed: 8739
     time: 13.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
@@ -1119,6 +1119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
   m_Health: 0
@@ -1131,7 +1132,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
-    speed: -1
+    speed: 8739
     time: 12.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
@@ -1561,6 +1561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
   m_Health: 0
@@ -1573,7 +1574,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
-    speed: -1
+    speed: 8739
     time: 12.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
@@ -2625,6 +2625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
   m_Health: 0
@@ -2637,7 +2638,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
@@ -2656,7 +2656,7 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 0
     direction: 225
-    speed: -1
+    speed: 8739
     time: 12.5
   m_ActivateTime: 55
   m_DeactivateTime: 95
@@ -2937,6 +2937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
   m_Health: 0
@@ -2949,7 +2950,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
@@ -2968,7 +2968,7 @@ MonoBehaviour:
   m_MovePattern:
   - delay: 2.7
     direction: 90
-    speed: -1
+    speed: 8739
     time: 17
   m_ActivateTime: 50
   m_DeactivateTime: 90

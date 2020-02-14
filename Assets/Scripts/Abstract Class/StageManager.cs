@@ -21,6 +21,18 @@ public abstract class StageManager : MonoBehaviour
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected BossHealthHandler m_BossHealthBar;
+    
+    protected class MovePattern
+    {
+        public float delay, direction, speed, time;
+
+        public MovePattern(float delay, float direction, float speed, float time) {
+            this.delay = delay;
+            this.direction = direction;
+            this.speed = speed;
+            this.time = time;
+        }
+    }
 
     protected abstract IEnumerator MainTimeLine();
     protected abstract IEnumerator EnemyTimeLine();
@@ -108,16 +120,33 @@ public abstract class StageManager : MonoBehaviour
         return ins;
     }
     
-    protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, float delay = -1, float time = -1) { // delay 후 time에 걸쳐 속도 0으로
+    protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, MovePattern[] movePattern = null) { // delay 후 time에 걸쳐 속도 0으로
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;
-        if (delay == -1)
+
+        if (movePattern.Equals(null)) {
             return ins;
+        }
         else {
-            DOTween.Sequence()
-            .AppendInterval(delay)
-            .Append(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, 0f, time).SetEase(Ease.InQuad));
+            for (int i = 0; i < movePattern.Length; i++) {
+                float pattern_delay = movePattern[i].delay;
+                float pattern_direction = movePattern[i].direction;
+                float pattern_speed = movePattern[i].speed;
+                float pattern_time = movePattern[i].time;
+
+                if (pattern_direction == 8739f) {
+                    pattern_direction = enemy_unit.m_MoveVector.direction;
+                }
+                if (pattern_speed == 8739f) {
+                    pattern_speed = enemy_unit.m_MoveVector.speed;
+                }
+
+                DOTween.Sequence()
+                .AppendInterval(pattern_delay)
+                .Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, pattern_direction, pattern_time).SetEase(Ease.Linear))
+                .Join(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, pattern_speed, pattern_time).SetEase(Ease.Linear));
+            }
             return ins;
         }
     }

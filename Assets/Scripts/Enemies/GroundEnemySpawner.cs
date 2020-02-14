@@ -58,10 +58,10 @@ public class GroundEnemySpawner : EnemyUnit
             float pattern_speed = m_MovePattern[i].speed;
             float pattern_time = m_MovePattern[i].time;
 
-            if (pattern_direction == -1f) {
+            if (pattern_direction == 8739f) {
                 pattern_direction = enemy_unit.m_MoveVector.direction;
             }
-            if (pattern_speed == -1f) {
+            if (pattern_speed == 8739f) {
                 pattern_speed = enemy_unit.m_MoveVector.speed;
             }
 

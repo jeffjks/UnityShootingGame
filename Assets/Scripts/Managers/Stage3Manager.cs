@@ -40,7 +40,6 @@ public class Stage3Manager : StageManager
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 0.75f);
 
         yield return new WaitForSeconds(38f);
-        //StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.StartCoroutine("WarningText");

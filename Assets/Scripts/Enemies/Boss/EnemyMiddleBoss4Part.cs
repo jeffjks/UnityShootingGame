@@ -60,7 +60,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        float timer = 0.5f;
+        float timer = 0.3f;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, timer);
         EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0f);
         Vector3 pos;

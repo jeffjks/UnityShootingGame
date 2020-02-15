@@ -24,14 +24,17 @@
 
 * 모델링
    * Ballistic Turret
+   * Chainlink Fences
    * EnergyShieldEffect
    * Futuristic Aircrafts
    * Free SF Fighter
    * Hyper Falcon Modular Spaceship
    * Low poly combat drone
    * Military Helicopter
+   * Modular Space Platform Kit
    * MSGDI
    * Powerup Crate
+   * Rock and Boulders 2
    * Scifi RTS Series Mega Pack I
    * Scifi RTS Series Mega Pack II
    * Simple Gems Ultimate Animated Customizable Pack
@@ -40,9 +43,10 @@
    * Space Missiles
    * Spaceships Fleet III Mega Pack I
 
-* 스프라이트
+* 스프라이트, 텍스쳐
    * 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
    * Sci Fi UI Pack
+   * Sci-Fi Texture Pack
 
 * 이펙트
    * Effect textures and prefabs

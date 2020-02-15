@@ -9,9 +9,8 @@ public class PlayerShooter : PlayerShooterManager
     private AudioSource m_AudioSource;
     private Transform m_MainCamera;
     private float m_ShotKeyPressTime;
-    private int m_AutoShot, m_DefaultBombNumber, m_BombNumber, m_MaxBombNumber = 5;
     private bool m_ShotKeyPrevious = false, m_BombEnable = true, m_NowShooting;
-    private int m_ShotKeyPress = 0, m_BombKeyPress = 0;
+    private int m_AutoShot, m_ShotKeyPress = 0, m_BombKeyPress = 0;
     
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
@@ -35,12 +34,14 @@ public class PlayerShooter : PlayerShooterManager
         
         SetPreviewShooter();
         m_PlayerShotZ = Depth.PLAYER_MISSILE;
+
+        
         
         if (m_PlayerManager.m_CurrentAttributes.m_Bomb == 0) // 폭탄 개수
-            m_DefaultBombNumber = 2;
+            m_SystemManager.SetMaxBombNumber(2);
         else
-            m_DefaultBombNumber = 3;
-        m_BombNumber = m_DefaultBombNumber;
+            m_SystemManager.SetMaxBombNumber(3);
+        m_SystemManager.InitBombNumber();
 
         if (m_Module != 0) {
             SetModule();
@@ -119,7 +120,7 @@ public class PlayerShooter : PlayerShooterManager
         }
 
         if (m_BombKeyPress == 1) {
-            if (m_BombNumber > 0) {
+            if (m_SystemManager.GetBombNumber() > 0) {
                 if (m_BombEnable) {
                     if (!m_Bomb.activeSelf) {
                         UseBomb();
@@ -134,7 +135,7 @@ public class PlayerShooter : PlayerShooterManager
         ((PlayerController) m_PlayerController).EnableInvincible(4f);
         m_Bomb.SetActive(true);
         m_BombEnable = false;
-        m_BombNumber--;
+        m_SystemManager.SetBombNumber(-1);
         Invoke("EnableBomb", 3f); // 폭탄 쿨타임
     }
 
@@ -148,7 +149,7 @@ public class PlayerShooter : PlayerShooterManager
         m_NowShooting = false;
         m_NowAttacking = false;
         m_AutoShot = 0;
-        m_BombNumber = m_DefaultBombNumber;
+        m_SystemManager.InitBombNumber();
         m_ShotKeyPressTime = 0f;
         m_PlayerLaserShooter.StopLaser();
         if (m_PlayerManager != null) {
@@ -244,8 +245,8 @@ public class PlayerShooter : PlayerShooterManager
     }
 
     public void AddBomb() {
-        if (m_BombNumber < m_MaxBombNumber) {
-            m_BombNumber++;
+        if (m_SystemManager.GetBombNumber() < m_SystemManager.GetMaxBombNumber()) {
+            m_SystemManager.SetBombNumber(1);
         }
         else {
             // ToDo 점수 +

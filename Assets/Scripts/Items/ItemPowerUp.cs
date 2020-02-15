@@ -10,5 +10,8 @@ public class ItemPowerUp : ItemBox
             m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
             playerShooter.PowerUp();
         }
+        else {
+            Debug.LogAssertion("Can not find PlayerShooter Component.");
+        }
     }
 }

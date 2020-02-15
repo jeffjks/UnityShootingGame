@@ -75,7 +75,7 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_ScoreNuberText = null;
     [SerializeField] private Text m_DifficultyText = null;
     [SerializeField] private Text m_ReplayText = null;
-    [SerializeField] private Text m_MissNumberText = null;
+    [SerializeField] private Text m_BombNumberText = null;
     [SerializeField] private Text m_WarningText = null;
     [SerializeField] private GameObject m_Transition = null;
     [SerializeField] private AudioSource m_AudioWarning = null;
@@ -102,7 +102,8 @@ public class SystemManager : MonoBehaviour
     private uint[] m_StageScore = new uint[5] {0, 0, 0, 0, 0};
     private uint m_GemsGround = 0, m_GemsAir = 0; // 점수가 아닌 먹은 개수
     private int m_Stage = 0;
-    private byte m_TotalMiss = 0;
+    private int m_BombNumber, m_MaxBombNumber;
+    private byte m_TotalMiss;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
 
     private Sequence m_SequenceReplayText;
@@ -144,8 +145,7 @@ public class SystemManager : MonoBehaviour
     {
         SetStageManager();
         m_PoolingManager = PoolingManager.instance_op;
-
-        m_MissNumberText.text = "" + m_TotalMiss;
+        UpdateBombNumber();
 
         if (m_ReplayState) {
             m_ReplayText.gameObject.SetActive(true);
@@ -299,10 +299,35 @@ public class SystemManager : MonoBehaviour
         return m_StageScore[m_Stage];
     }
 
+    public void InitBombNumber() {
+        m_BombNumber = m_MaxBombNumber;
+        UpdateBombNumber();
+    }
+
+    public void SetBombNumber(int add) {
+        m_BombNumber += add;
+        UpdateBombNumber();
+    }
+
+    public int GetBombNumber() {
+        return m_BombNumber;
+    }
+
+    public void SetMaxBombNumber(int max_bomb_number) {
+        m_MaxBombNumber = max_bomb_number;
+    }
+
+    public int GetMaxBombNumber() {
+        return m_MaxBombNumber;
+    }
+
+    public void UpdateBombNumber() {
+        m_BombNumberText.text = m_BombNumber + " / " + m_MaxBombNumber;
+    }
+
     public void AddMiss() {
         m_TotalMiss++;
         m_StageMiss[m_Stage]++;
-        m_MissNumberText.text = "" + m_TotalMiss;
     }
 
     public byte GetTotalMiss() {

@@ -76,7 +76,7 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_DifficultyText = null;
     [SerializeField] private Text m_ReplayText = null;
     [SerializeField] private Text m_BombNumberText = null;
-    [SerializeField] private Text m_WarningText = null;
+    [SerializeField] private WarningUI m_WarningUI = null;
     [SerializeField] private GameObject m_Transition = null;
     [SerializeField] private AudioSource m_AudioWarning = null;
     [SerializeField] private AudioSource m_AudioStageClear = null;
@@ -363,27 +363,58 @@ public class SystemManager : MonoBehaviour
         }
     }
 
-    public IEnumerator WarningText() {
-        byte time = 0;
+    public void WarningText() {
+        StartCoroutine(WarningTextAnimation());
+    }
+
+    private IEnumerator WarningTextAnimation() {
+        float value = 0f;
+        float time = 0f;
         m_AudioWarning.Play();
 
-        m_WarningText.gameObject.SetActive(true);
-        while (time < 10) {
-            m_WarningText.CrossFadeAlpha(1f, 0.4f, true);
-            time++;
-            yield return new WaitForSeconds(0.1f);
-        }
-        
-        time = 0;
-        yield return new WaitForSeconds(2f);
+        m_WarningUI.m_WarningPanelWhite.color = new Color(1f, 1f, 1f, 0f);
+        m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, 0f, m_WarningUI.transform.localScale.z);
+        m_WarningUI.gameObject.SetActive(true);
 
-        while (time < 10) {
-            m_WarningText.CrossFadeAlpha(0f, 0.4f, true);
-            time++;
-            yield return new WaitForSeconds(0.1f);
+        while (value < 1f) { // Increase yScale
+            m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, value, m_WarningUI.transform.localScale.z);
+            value += Time.deltaTime * 4f;
+            value = Mathf.Clamp01(value);
+            yield return null;
         }
-        m_WarningText.gameObject.SetActive(false);
-        yield break;
+        value = 0f;
+
+        while (value < 1f) { // White Blink Effect
+            m_WarningUI.m_WarningPanelWhite.color = new Color(1f, 1f, 1f, 1f - value);
+            value += Time.deltaTime * 3f;
+            value = Mathf.Clamp01(value);
+            yield return null;
+        }
+        value = 0f;
+
+        while (time < 3f) {
+            float alpha_gap = 0.4f;
+            while (value < 1f) { // Text Effect
+                m_WarningUI.m_WarningText.color = new Color(1f - value*alpha_gap, 1f - value*alpha_gap, 1f - value*alpha_gap, 1f);
+                value += Time.deltaTime * 4f;
+                value = Mathf.Clamp01(value);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            value = 0f;
+            yield return null;
+        }
+        value = 0f;
+
+        while (value < 1f) { // Decrease yScale
+            m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, 1f - value, m_WarningUI.transform.localScale.z);
+            value += Time.deltaTime * 4f;
+            value = Mathf.Clamp01(value);
+            yield return null;
+        }
+        value = 0f;
+
+        m_WarningUI.gameObject.SetActive(false);
     }
 
 

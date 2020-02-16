@@ -42,7 +42,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForSeconds(38f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
-        m_SystemManager.StartCoroutine("WarningText");
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(1f);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
         yield return new WaitForSeconds(2f);
@@ -62,7 +62,7 @@ public class Stage3Manager : StageManager
     protected override IEnumerator TestTimeLine()
     {
         StartCoroutine(FadeOutMusic());
-        m_SystemManager.StartCoroutine("WarningText");
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(2f);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
         StartCoroutine(BossStart(new Vector3(0f, 5.6f, 3.6f), 3f)); // Boss

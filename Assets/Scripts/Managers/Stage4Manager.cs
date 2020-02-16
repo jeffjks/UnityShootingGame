@@ -16,6 +16,13 @@ public class Stage4Manager : StageManager
         m_Stage = 3;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        BackgroundLoop(228f, 60f);
+    }
+
     protected override IEnumerator MainTimeLine()
     {
         yield return new WaitForSeconds(1f);
@@ -38,11 +45,11 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(16f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
-        m_SystemManager.StartCoroutine("WarningText");
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(1f);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
         yield return new WaitForSeconds(2f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
         PlayBossMusic();
         yield break;
     }
@@ -58,7 +65,7 @@ public class Stage4Manager : StageManager
     {
         yield return new WaitForSeconds(3f);
         CreateEnemy(m_ItemHeli_1, new Vector2(0f, 3f)); // Item Heli 1
-        StartCoroutine(SpawnHelicopters());
+        StartCoroutine(SpawnHelicopters1());
         yield return new WaitForSeconds(2f);
         CreateEnemy(m_PlaneMedium_3, new Vector2(3f, 3f));
         yield return new WaitForSeconds(2f);
@@ -94,7 +101,7 @@ public class Stage4Manager : StageManager
         CreateEnemy(m_PlaneMedium_4, new Vector2(-4.5f, 3f));
         CreateEnemy(m_PlaneMedium_4, new Vector2(4.5f, 3f));
         yield return new WaitForSeconds(1f);
-        StartCoroutine(SpawnHelicopters());
+        StartCoroutine(SpawnHelicopters2());
         yield return new WaitForSeconds(9f);
         CreateEnemy(m_PlaneLarge_3, new Vector2(-2f, 3f));
         yield return new WaitForSeconds(31f);
@@ -103,7 +110,7 @@ public class Stage4Manager : StageManager
         }
         yield return new WaitForSeconds(4f);
         if (m_SystemManager.m_PlayState == 0) {
-            CreateEnemy(m_PlaneLarge_3, new Vector2(2f, 3f));
+            CreateEnemy(m_PlaneLarge_3, new Vector2(3f, 3f));
         }
         yield return new WaitForSeconds(6f);
         if (m_SystemManager.m_PlayState == 0) {
@@ -141,25 +148,25 @@ public class Stage4Manager : StageManager
         CreateEnemyWithTarget(m_Helicopter, new Vector2(4.5f, 3f), new Vector2(4.5f, -6f), Random.Range(1.2f, 1.5f));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -3f), Random.Range(1.2f, 1.5f));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -6f), Random.Range(1.2f, 1.5f));
-        yield return new WaitForSeconds(4f);
-        CreateEnemy(m_PlaneLarge_3, new Vector2(2f, 3f));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+        CreateEnemy(m_PlaneLarge_2, new Vector2(2.5f, 5f));
+        yield return new WaitForSeconds(3f);
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(-4f, -3f), 3f));
         yield return new WaitForSeconds(3f);
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(-4f, -3f), 3f));
         yield return new WaitForSeconds(4f);
-        CreateEnemy(m_PlaneLarge_3, new Vector2(-2f, 3f));
+        CreateEnemy(m_PlaneLarge_3, new Vector2(-3f, 3f));
         yield return new WaitForSeconds(1f);
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(3f, 4f), 3f));
         yield return new WaitForSeconds(3f);
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(3f, 4f), 3f));
         yield return new WaitForSeconds(3f);
-        CreateEnemy(m_PlaneLarge_2, new Vector2(2f, 5f));
+        CreateEnemy(m_PlaneLarge_2, new Vector2(-2f, 5f));
         yield return new WaitForSeconds(6f);
-        CreateEnemy(m_PlaneMedium_4, new Vector2(-2f, 3f));
+        CreateEnemy(m_PlaneMedium_4, new Vector2(3f, 3f));
         yield return new WaitForSeconds(7f);
-        CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4f, -4f), 1.2f);
-        CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -4f), 1.2f);
+        CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4.5f, -4.5f), 1.2f);
+        CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4.5f, -4.5f), 1.2f);
         yield return new WaitForSeconds(10f);
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
             new MovePattern[] {new MovePattern(1f, 8739f, 0f, 1f), new MovePattern(2f, 8739f, -0.8f, 1f), new MovePattern(6f, 8739f, 0f, 0.5f)});
@@ -168,11 +175,21 @@ public class Stage4Manager : StageManager
         yield break;
     }
 
-    private IEnumerator SpawnHelicopters()
+    private IEnumerator SpawnHelicopters1()
     {
         for (int i = 0; i < 8; i++) {
             CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(-6f, -2f), 3f), new Vector2(Random.Range(-6f, -2f), Random.Range(-2f, -7f)), Random.Range(1.2f, 1.5f));
             CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(2f, 6f), 3f), new Vector2(Random.Range(2f, 6f), Random.Range(-2f, -7f)), Random.Range(1.2f, 1.5f));
+            yield return new WaitForSeconds(0.5f);
+        }
+        yield break;
+    }
+
+    private IEnumerator SpawnHelicopters2()
+    {
+        for (int i = 0; i < 8; i++) {
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(-3f, -0.5f), 3f), new Vector2(Random.Range(-3f, -0.5f), Random.Range(-2f, -8f)), Random.Range(1.2f, 1.5f));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(0.5f, 3f), 3f), new Vector2(Random.Range(0.5f, 3f), Random.Range(-2f, -8f)), Random.Range(1.2f, 1.5f));
             yield return new WaitForSeconds(0.5f);
         }
         yield break;

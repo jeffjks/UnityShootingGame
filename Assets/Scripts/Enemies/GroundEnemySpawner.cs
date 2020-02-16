@@ -31,14 +31,6 @@ public class GroundEnemySpawner : EnemyUnit
         Destroy(gameObject, m_DeactivateTime);
     }
 
-    protected override void Update()
-    {
-        if (m_Position2D.y < Size.GAME_BOUNDARY_BOTTOM - 10f) {
-            Destroy(gameObject);
-        }
-        base.Update();
-    }
-
     private void StartSpawning() {
         StartCoroutine(SpawnEnemyTanks());
     }

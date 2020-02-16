@@ -31,7 +31,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
 
-        if (!m_TimeLimitState) {
+        if (!m_TimeLimitState) { // Retreat when boss or middle boss state
             if (m_SystemManager.m_PlayState > 0) {
                 CancelInvoke("TimeLimit");
                 TimeLimit();

@@ -36,7 +36,7 @@ public class Stage2Manager : StageManager
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
-        m_SystemManager.StartCoroutine("WarningText");
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(4f);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         SetBackgroundSpeed(0f);

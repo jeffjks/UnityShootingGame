@@ -26,7 +26,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
     public override void StartLaser() {
         m_PlayerLaser.UpdateLaserDamage();
         UpdateLaser();
-        if (m_AudioLaser.enabled)
+        if (transform.root.gameObject.activeInHierarchy)
             m_AudioLaser.Play();
     }
 
@@ -36,8 +36,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
             m_PlayerLaserCreater.DisablePrepare();
         }
         m_MaxLength = 0f;
-        if (m_AudioLaser.enabled)
-            m_AudioLaser.Stop();
+        m_AudioLaser.Stop();
     }
 
     void Update()

@@ -125,7 +125,7 @@ public abstract class StageManager : MonoBehaviour
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;
 
-        if (movePattern.Equals(null)) {
+        if (movePattern == null) {
             return ins;
         }
         else {

@@ -30,7 +30,7 @@ public class Stage1Manager : StageManager
         yield return new WaitForSeconds(55f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
-        m_SystemManager.StartCoroutine("WarningText");
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(4f);
         SetBackgroundSpeed(7.2f, 0.9375f);
         PlayBossMusic();
@@ -45,7 +45,7 @@ public class Stage1Manager : StageManager
     {
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
-        m_SystemManager.StartCoroutine("WarningText");
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(4f);
         SetBackgroundSpeed(7.2f, 0.9375f);
         PlayBossMusic();

@@ -51,6 +51,11 @@ public class Stage2Manager : StageManager
         yield break;
     }
 
+    protected override IEnumerator BossOnlyTimeLine()
+    {
+        yield break;
+    }
+
     protected override IEnumerator EnemyTimeLine()
     {
         yield return new WaitForSeconds(3f);

@@ -3,6 +3,13 @@ using System.Collections;
 using UnityEngine.Audio;
 using DG.Tweening;
 
+public struct PracticeInfo
+{
+    public int m_Stage;
+    public bool m_BossOnly;
+    public byte m_Difficulty;
+}
+
 [System.Serializable]
 public class Attributes {
     public int m_Color, m_Speed, m_ShotForm, m_ShotDamage, m_LaserDamage, m_Module, m_Bomb;
@@ -81,6 +88,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool m_ReplayState;
     [HideInInspector] public byte m_ReplayNum;
     [HideInInspector] public string m_ReplayDirectory;
+    [HideInInspector] public bool m_PracticeState;
+    [HideInInspector] public PracticeInfo m_PracticeInfo;
 
     private int[,] m_ResolutionList;
     private PlayerManager m_PlayerManager = null;
@@ -88,8 +97,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioMixer m_AudioMixer = null;
 
     public static GameManager instance_gm = null;
-
-    private float test1, test2, test3;
 
     void Awake()
     {

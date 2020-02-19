@@ -8,7 +8,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     public GameObject m_PreviousPanel;
     public byte m_Attributes;
     public int[] m_Cost;
-    public PlayerPreviewManager[] m_PlayerPreview = new PlayerPreviewManager[2];
+    public AttributesHandler m_AttributesHandler;
     
     protected int m_TotalAttributes;
     private int m_OriginalSelection;
@@ -104,8 +104,6 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     }
 
     private void SetPreviewDesign() {
-        for (int i = 0; i < m_PlayerPreview.Length; i++) {
-            m_PlayerPreview[i].SetPreviewDesign();
-        }
+        m_AttributesHandler.SetPreviewDesign();
     }
 }

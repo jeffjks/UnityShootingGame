@@ -89,22 +89,34 @@ public class PlayerManager : MonoBehaviour
         if (attributes != null)
             m_CurrentAttributes = attributes;
         m_PlayerIsAlive = true;
-        if (m_SystemManager.GetStage() == 0)
+        if (m_SystemManager.GetStage() == 0 && !m_SystemManager.m_BossOnlyState)
             m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
         else
             m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
         m_PlayerController = m_Player.GetComponent<PlayerController>();
 
-        switch(m_SystemManager.GetStage()) {
-            case 0: 
-                break;
-            case 1:
-                m_PlayerShooter.PowerSet(2);
-                break;
-            default:
-                m_PlayerShooter.PowerSet(4);
-                break;
+        if (m_SystemManager.m_BossOnlyState) {
+            switch(m_SystemManager.GetStage()) {
+                case 0:
+                    break;
+                case 1:
+                    m_PlayerShooter.PowerSet(2);
+                    break;
+                default:
+                    m_PlayerShooter.PowerSet(4);
+                    break;
+            }
+        }
+        else {
+            switch(m_SystemManager.GetStage()) {
+                case 0:
+                    m_PlayerShooter.PowerSet(2);
+                    break;
+                default:
+                    m_PlayerShooter.PowerSet(4);
+                    break;
+            }
         }
     }
 

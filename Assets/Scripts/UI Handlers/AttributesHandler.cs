@@ -9,6 +9,7 @@ public class AttributesHandler : AttributeSelectButtonUI
     public GameObject m_PlayerPreviewCamera;
     public GameObject m_PreviousPanel;
     public RectTransform m_RectTransform;
+    public PlayerPreviewManager[] m_PlayerPreview = new PlayerPreviewManager[2];
 
     public GameObject[] m_DetailsPanels;
     public float m_DefaultY;
@@ -44,6 +45,7 @@ public class AttributesHandler : AttributeSelectButtonUI
 
     void OnEnable() {
         m_Enable = true;
+        SetPreviewDesign();
     }
 
     private void CheckInput() {
@@ -81,6 +83,12 @@ public class AttributesHandler : AttributeSelectButtonUI
             gameObject.SetActive(false);
         } catch {
             return;
+        }
+    }
+
+    public void SetPreviewDesign() {
+        for (int i = 0; i < m_PlayerPreview.Length; i++) {
+            m_PlayerPreview[i].SetPreviewDesign();
         }
     }
 

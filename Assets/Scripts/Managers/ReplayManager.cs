@@ -90,15 +90,18 @@ public class ReplayManager : MonoBehaviour
         if (Time.timeScale == 0)
             return;
         
-        if (m_SystemManager.m_ReplayState) { // 리플레이
-            ReadUserInput();
-            m_PlayerShooter.PlayerShooterBehaviour();
+        
+        if (m_PlayerShooter.gameObject.activeInHierarchy) {
+            if (m_SystemManager.m_ReplayState) { // 리플레이
+                ReadUserInput();
+                m_PlayerShooter.PlayerShooterBehaviour();
+            }
+            else {
+                m_PlayerShooter.PlayerShooterBehaviour();
+                WriteUserInput();
+            }
+            m_PlayerShooter.ResetKeyPress();
         }
-        else {
-            m_PlayerShooter.PlayerShooterBehaviour();
-            WriteUserInput();
-        }
-        m_PlayerShooter.ResetKeyPress();
     }
 
     private void ReadUserInput() {

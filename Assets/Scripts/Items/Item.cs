@@ -9,6 +9,7 @@ public abstract class Item : MonoBehaviour
     public AudioClip m_AudioClip;
 
     protected abstract void ItemEffect(Collider2D other);
+    public abstract void OnDeath();
     protected Transform m_MainCameraTransform;
     protected Vector2 m_Position2D;
 
@@ -30,6 +31,7 @@ public abstract class Item : MonoBehaviour
     protected virtual void Update()
     {
         GetCoordinates();
+        CheckOutside();
     }
 
     protected void GetCoordinates() {
@@ -38,6 +40,23 @@ public abstract class Item : MonoBehaviour
         else {
             m_Position2D = GetScreenPosition(transform.position);
             m_Collider2D.transform.position = m_Position2D;
+        }
+    }
+
+    private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
+        float gap = 0.5f;
+        Vector3 pos;
+        if (m_IsAir) {
+            pos = transform.position;
+        }
+        else {
+            pos = m_Position2D;
+        }
+        if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + gap) {
+            OnDeath();
+        }
+        else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + gap) {
+            OnDeath();
         }
     }
 
@@ -131,8 +150,12 @@ public abstract class ItemBox : Item
     {
         if (other.gameObject.CompareTag("PlayerBody")) { // 대상이 플레이어 바디면 자신 파괴
             ItemEffect(other);
-            Destroy(gameObject);
+            OnDeath();
         }
+    }
+
+    public override void OnDeath() {
+        Destroy(gameObject);
     }
 }
 
@@ -155,8 +178,6 @@ public abstract class ItemGem : Item
         GetCoordinates();
     }
 
-    
-
     protected override void Update()
     {
         base.Update();
@@ -173,7 +194,7 @@ public abstract class ItemGem : Item
         }
     }
 
-    public void OnDeath() {
+    public override void OnDeath() {
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
     }
 }

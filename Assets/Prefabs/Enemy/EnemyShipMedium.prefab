@@ -1427,6 +1427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707b1dffbc7df0d48ad5ab6ed14f6383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
+  m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 0
   m_Health: 300
   m_Class: 0
   m_Score: 500
@@ -1437,11 +1440,11 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 689643523573826911}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition:
@@ -1636,7 +1639,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

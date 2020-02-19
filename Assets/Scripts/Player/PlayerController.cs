@@ -177,7 +177,7 @@ public class PlayerController : PlayerControllerManager
     }
     
     
-    void OnTriggerStay2D(Collider2D other) // 충돌 감지
+    void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
         if (other.gameObject.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상과 자신 파괴
             if (!m_Invincibility) {

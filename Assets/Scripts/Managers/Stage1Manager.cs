@@ -53,6 +53,24 @@ public class Stage1Manager : StageManager
         yield break;
     }
 
+    protected override IEnumerator BossOnlyTimeLine()
+    {
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 284.6f);
+        SetBackgroundSpeed(2.7f);
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.WarningText();
+        yield return new WaitForSeconds(4f);
+        SetBackgroundSpeed(7.2f, 0.9375f);
+        PlayBossMusic();
+        StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1f));
+        yield return new WaitForSeconds(2f);
+        SetBackgroundSpeed(0f);
+        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
+        yield break;
+    }
+
     protected override IEnumerator EnemyTimeLine()
     {
         float random_value;

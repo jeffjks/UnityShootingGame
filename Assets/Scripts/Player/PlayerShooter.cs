@@ -73,6 +73,7 @@ public class PlayerShooter : PlayerShooterManager
 
     public void ResetKeyPress() {
         m_BombKeyPress = 0;
+        m_ShotKeyPress = 0;
     }
 
     public void PlayerShooterBehaviour() {
@@ -80,6 +81,7 @@ public class PlayerShooter : PlayerShooterManager
             m_PlayerController.m_SlowMode = false;
             m_ShotKeyPress = 0;
             m_AutoShot = 0;
+            m_PlayerLaserShooter.StopLaser();
             return;
         }
         
@@ -145,6 +147,7 @@ public class PlayerShooter : PlayerShooterManager
     
     void OnEnable()
     {
+        ResetKeyPress();
         m_PlayerController.m_SlowMode = false;
         m_NowShooting = false;
         m_NowAttacking = false;

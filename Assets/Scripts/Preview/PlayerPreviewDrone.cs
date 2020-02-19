@@ -7,13 +7,16 @@ public class PlayerPreviewDrone : PlayerDrone
     private PlayerShooterManager m_PlayerShooter;
     private GameManager m_GameManager = null;
 
-    void Start()
+    void Awake()
     {
         m_GameManager = GameManager.instance_gm;
         m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
         m_PlayerController = GetComponentInParent<PlayerControllerManager>();
         ((PlayerPreviewShooter) m_PlayerShooter).InitShotLevel();
+    }
 
+    void Start()
+    {
         m_DefaultDepth = transform.localPosition.y;
         SetPreviewDrones();
     }

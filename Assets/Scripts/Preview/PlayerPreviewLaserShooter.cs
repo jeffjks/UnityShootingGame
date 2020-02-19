@@ -8,7 +8,7 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
 {
     private GameManager m_GameManager = null;
 
-    void Start()
+    void Awake()
     {
         m_GameManager = GameManager.instance_gm;
         SetLaserType();

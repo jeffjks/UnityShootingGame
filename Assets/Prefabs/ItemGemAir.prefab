@@ -62,7 +62,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4612458306832651054}
   - component: {fileID: 8147460482884559363}
   m_Layer: 19
-  m_Name: ItemGemAir
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

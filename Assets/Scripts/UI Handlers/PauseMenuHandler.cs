@@ -52,12 +52,6 @@ public class PauseMenuHandler : GameUI
     }
 
     private void QuitGame() {
-        Time.timeScale = 1;
-        AudioListener.pause = false;
-        // CancelSound();
-        Destroy(m_PlayerManager.m_Player);
-        Destroy(m_SystemManager.gameObject);
-        Destroy(m_PoolingManager.gameObject);
-        SceneManager.LoadScene("MainMenu");
+        m_SystemManager.QuitGame();
     }
 }

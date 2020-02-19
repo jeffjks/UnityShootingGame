@@ -66,7 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eed25edeaad5ed449e44da87a92454d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 600
   m_Class: 0
   m_Score: 5000
@@ -80,7 +82,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -88,7 +89,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition:
   - {fileID: 8600843656446972908}
   - {fileID: 1627735005470464450}
@@ -237,7 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -248,7 +250,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -256,7 +257,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &682094867577990052
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +447,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -458,7 +460,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -466,7 +467,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &958070308450450945
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +627,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -638,7 +640,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -646,7 +647,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &1378899526354185720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,7 +1570,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -1581,7 +1583,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -1589,7 +1590,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &4085729612522455767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,7 +1844,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -1855,7 +1857,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -1863,7 +1864,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &4759009957738583957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,7 +2725,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -2736,7 +2738,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -2744,7 +2745,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &7122131320952026749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2965,7 +2965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -2976,7 +2978,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -2984,7 +2985,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &7511557456684220912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3222,7 +3222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 258503854877788582}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 5
   m_Class: 0
   m_Score: 100
@@ -3233,7 +3235,6 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -3241,7 +3242,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
 --- !u!1 &8000015583859297947
 GameObject:
   m_ObjectHideFlags: 0
@@ -3398,7 +3398,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

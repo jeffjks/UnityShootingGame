@@ -65,7 +65,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.1}
@@ -103,7 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0304fe3ff90c0549a2149d5e4f2f0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 1000
   m_Class: 1
   m_Score: 7000
@@ -117,7 +119,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
@@ -125,7 +126,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Turret:
   - {fileID: 1456182595892666218}
   - {fileID: 5089846689053469985}
@@ -467,7 +467,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34a21ae95c070c4b97a11e85d23eb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 5087952380757828139}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -478,14 +480,12 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 5087952380757828139}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition: {fileID: 3043764151725470927}
 --- !u!1 &4383482041012532249
 GameObject:
@@ -720,7 +720,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34a21ae95c070c4b97a11e85d23eb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 5087952380757828139}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -731,14 +733,12 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 5087952380757828139}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_FirePosition: {fileID: 6114288136030032698}
 --- !u!1 &7759709950132047256
 GameObject:

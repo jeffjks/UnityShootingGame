@@ -74,7 +74,7 @@ public class SystemManager : MonoBehaviour
 
     [SerializeField] private Text m_ScoreNuberText = null;
     [SerializeField] private Text m_DifficultyText = null;
-    [SerializeField] private Text m_ReplayText = null;
+    [SerializeField] private Text m_StateText = null;
     [SerializeField] private Text m_BombNumberText = null;
     [SerializeField] private WarningUI m_WarningUI = null;
     [SerializeField] private GameObject m_Transition = null;
@@ -87,7 +87,7 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public float m_BulletsEraseTimer;
     [HideInInspector] public byte m_Difficulty;
-    [HideInInspector] public bool m_ReplayState;
+    [HideInInspector] public bool m_ReplayState, m_PracticeState, m_BossOnlyState;
     
     public bool m_DebugMod, m_InvincibleMod;
     public DebugDifficulty m_DebugDifficulty;
@@ -124,12 +124,20 @@ public class SystemManager : MonoBehaviour
         
         try {
             m_ReplayState = m_GameManager.m_ReplayState;
-            SetDifficulty(m_GameManager.m_Difficulty);
+            m_PracticeState = m_GameManager.m_PracticeState;
+            if (m_PracticeState) {
+                SetDifficulty(m_GameManager.m_PracticeInfo.m_Difficulty);
+                m_BossOnlyState = m_GameManager.m_PracticeInfo.m_BossOnly;
+            }
+            else {
+                SetDifficulty(m_GameManager.m_Difficulty);
+            }
             AudioListener audioListener = gameObject.GetComponent<AudioListener>();
             audioListener.enabled = false;
         }
         catch (System.NullReferenceException) {
             m_ReplayState = false;
+            m_PracticeState = false;
             SetDifficulty((byte) m_DebugDifficulty);
         }
 
@@ -147,11 +155,17 @@ public class SystemManager : MonoBehaviour
         m_PoolingManager = PoolingManager.instance_op;
         UpdateBombNumber();
 
-        if (m_ReplayState) {
-            m_ReplayText.gameObject.SetActive(true);
+        if (m_ReplayState || m_PracticeState) {
+            if (m_ReplayState) {
+                m_StateText.text = "REPLAY";
+            }
+            else {
+                m_StateText.text = "PRACTICE";
+            }
+            m_StateText.gameObject.SetActive(true);
             m_SequenceReplayText = DOTween.Sequence()
-            .Append(m_ReplayText.DOFade(0f, 0.2f))
-            .Append(m_ReplayText.DOFade(1f, 0.6f))
+            .Append(m_StateText.DOFade(0f, 0.2f))
+            .Append(m_StateText.DOFade(1f, 0.6f))
             .SetEase(Ease.Linear)
             .SetLoops(-1);
         }
@@ -251,16 +265,31 @@ public class SystemManager : MonoBehaviour
         m_PlayState = 4;
         ScreenEffect(3); // FadeIn
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Stage" + (m_Stage + 2));
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        
-        m_BackgroundCamera.transform.position = new Vector3(0f, 40f, -24f);
-        ScreenEffect(2); // Transition
-        m_PlayState = 0;
-        m_OverviewHandler.gameObject.SetActive(false);
-        m_PlayerManager.PlayerControlable = true;
-        m_PlayerController.EnableInvincible(3f);
+
+        if (m_PracticeState) {
+            QuitGame();
+        }
+        else {
+            SceneManager.LoadScene("Stage" + (m_Stage + 2));
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            m_BackgroundCamera.transform.position = new Vector3(0f, 40f, -24f);
+            ScreenEffect(2); // Transition
+            m_PlayState = 0;
+            m_OverviewHandler.gameObject.SetActive(false);
+            m_PlayerManager.PlayerControlable = true;
+            m_PlayerController.EnableInvincible(3f);
+        }
         yield break;
+    }
+
+    public void QuitGame() {
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+        Destroy(m_PlayerManager.m_Player);
+        Destroy(m_PoolingManager.gameObject);
+        Destroy(gameObject);
+        SceneManager.LoadScene("MainMenu");
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

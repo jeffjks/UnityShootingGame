@@ -4,14 +4,14 @@ using System.Collections;
 
 public class CameraBoundary : MonoBehaviour
 {
-    // PlayerMissile, Bullet 파괴
+    // PlayerMissile
     #if UNITY_EDITOR
         [CustomEditor(typeof(CameraBoundary))]
         [CanEditMultipleObjects]
         public class InfoInspector : Editor {
             public override void OnInspectorGUI()
             {
-                EditorGUILayout.HelpBox("PlayerMissile, Bullet 파괴", MessageType.Info);
+                EditorGUILayout.HelpBox("화면 바깥으로 나가는 PlayerMissile 파괴", MessageType.Info);
                 base.OnInspectorGUI();
             }
         }
@@ -32,6 +32,7 @@ public class CameraBoundary : MonoBehaviour
                 m_PoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
             }
         }
+        /*
         else if (other.CompareTag("EnemyBullet")) {
             if (other.gameObject.activeSelf) {
                 if (other.transform.parent.gameObject.activeSelf) {
@@ -39,6 +40,6 @@ public class CameraBoundary : MonoBehaviour
                     enemyBullet.Erase();
                 }
             }
-        }
+        }*/
     }
 }

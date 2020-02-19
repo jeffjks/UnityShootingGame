@@ -67,12 +67,6 @@ public abstract class Enemy : MonoBehaviour { // 총알
         m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
         m_SafeLine = m_PlayerManager.m_SafeLine;
     }
-    
-    void Update()
-    {
-        MoveDirection(m_MoveVector.speed * Time.deltaTime, m_MoveVector.direction);
-        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
-    }
 
     protected Vector2 GetScreenPosition(Vector3 pos) { // Only Ground Units
         float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
@@ -246,8 +240,8 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     [SerializeField] private GameObject m_ItemBox = null;
     [SerializeField] protected byte m_GemNumber = 0;
     [Space(10)]
-    public bool m_ShareHealth;
     [Tooltip("자아(콜라이더)를 가진 자식들 (체크시 독립적인 붉은색 blend, 데미지 blend를 가짐)")]
+    public bool m_ShareHealth;
     public EnemyUnit[] m_ChildEnemies;
     public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
 
@@ -259,6 +253,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     private bool[] m_TakeDamageType = { false, false, false };
     
     [HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
+    [Tooltip("-1일 경우 무적이며 데미지를 parent 오브젝트에게 전달")]
     [HideInInspector] public float m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
 
@@ -331,7 +326,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         for (int i = 0; i < m_TakeDamageType.Length; i++)
             m_TakeDamageType[i] = false;
 
-        MoveDirection(m_MoveVector.speed * Time.deltaTime * 60f, m_MoveVector.direction);
+        MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         GetCoordinates();
 
         if (m_Health > m_MaxHealth) {
@@ -533,9 +528,9 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         if (m_IsAttackable) {
             if (m_ShareHealth) {
                 if (m_MaxHealth == -1)
-                    m_ParentEnemy.TakeDamage(amount, damage_type, true);
+                    m_ParentEnemy.TakeDamage(amount, damage_type, true); // 최대체력이 -1일시 본체에게 데미지 그대로 전달 및 본체 색 blend
                 else
-                    m_ParentEnemy.TakeDamage(amount, damage_type, false);
+                    m_ParentEnemy.TakeDamage(amount, damage_type, false); // 최대체력이 -1이 아닐시 본체에게 데미지 그대로 전달 및 자신 색 blend
             }
             if (damage_type >= 0) {
                 if (m_TakeDamageType[damage_type])

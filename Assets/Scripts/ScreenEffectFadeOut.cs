@@ -8,7 +8,13 @@ public class ScreenEffectFadeOut : MonoBehaviour
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;
 
+    private GameManager m_GameManager = null;
+
     private float m_Delta;
+
+    void Start() {
+        m_GameManager = GameManager.instance_gm;
+    }
     
     void Update()
     {
@@ -19,7 +25,12 @@ public class ScreenEffectFadeOut : MonoBehaviour
         }
         else {
             m_MainMenuMusicController.StopAllMusic();
-            SceneManager.LoadScene("Stage1");
+            if (m_GameManager.m_PracticeState) {
+                SceneManager.LoadScene("Stage" + (m_GameManager.m_PracticeInfo.m_Stage + 1));
+            }
+            else {
+                SceneManager.LoadScene("Stage1");
+            }
         }
     }
 }

@@ -903,7 +903,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.2}
@@ -921,6 +921,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144559a35836dac41a9b5adf58117d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
+  m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 0
   m_Health: 320
   m_Class: 0
   m_Score: 1000
@@ -931,11 +934,11 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 1142205127903841125}
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_State: 0
@@ -1016,6 +1019,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736265d33fb2252438ac1aba56f1c8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 4972793159689678571}
+  m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1026,16 +1032,12 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 4972793159689678571}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_FireDelay:
-  - 1.8
-  - 1
-  - 0.6
   m_FirePosition: {fileID: 5694996110566419362}
 --- !u!1 &100040
 GameObject:
@@ -1223,6 +1225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8899b1cb598c30f40b79fda66cfc007f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 4972793159689678571}
+  m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1233,10 +1238,10 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 4972793159689678571}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
+  m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
   m_FireDelay:

@@ -12,7 +12,7 @@ public class GameOuterBoundary : MonoBehaviour
         public class InfoInspector : Editor {
             public override void OnInspectorGUI()
             {
-                EditorGUILayout.HelpBox("Enemy, EnemySpawner, ItemGem, Item 파괴\n적 총알 소거", MessageType.Info);
+                EditorGUILayout.HelpBox("바깥으로 나간 Enemy, EnemySpawner, 파괴", MessageType.Info);
                 base.OnInspectorGUI();
             }
         }
@@ -39,6 +39,7 @@ public class GameOuterBoundary : MonoBehaviour
             }
         }
 
+        /*
         else if (other.CompareTag("ItemGem")) {
             if (other.gameObject.activeSelf) {
                 ItemGem item_gem = other.gameObject.GetComponentInParent<ItemGem>();
@@ -51,7 +52,7 @@ public class GameOuterBoundary : MonoBehaviour
         else if (other.CompareTag("ItemBox")) {
             ItemBox item_box = other.gameObject.GetComponentInParent<ItemBox>();
             Destroy(item_box.gameObject);
-        }
+        }*/
 
         else if (other.CompareTag("Debris")) {
             if (other.gameObject.activeSelf) {
@@ -63,6 +64,7 @@ public class GameOuterBoundary : MonoBehaviour
         }
     }
 
+    /*
     void OnTriggerStay2D(Collider2D other) // 탄 소거
     {
         if (m_SystemManager.m_BulletsEraseTimer > 0) {
@@ -75,5 +77,5 @@ public class GameOuterBoundary : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }

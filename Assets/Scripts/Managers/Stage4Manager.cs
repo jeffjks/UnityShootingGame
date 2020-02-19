@@ -8,8 +8,10 @@ public class Stage4Manager : StageManager
     public GameObject m_Test;
     public GameObject m_Helicopter, m_TankLarge_2, m_Gunship,
     m_PlaneSmall_1, m_ItemHeli_1, m_ItemHeli_2, m_PlaneMedium_3, m_PlaneMedium_4, m_PlaneLarge_2, m_PlaneLarge_3;
+    public Transform[] m_BossTerrains = new Transform[3];
 
     private float m_BackgroundPos;
+    private bool m_LoopTerrain = false;
 
     void Awake()
     {
@@ -19,8 +21,20 @@ public class Stage4Manager : StageManager
     protected override void Update()
     {
         base.Update();
+        if (m_LoopTerrain)
+            LoopTerrain();
+    }
 
-        BackgroundLoop(228f, 60f);
+    private void LoopTerrain() {
+        for (int i = 0; i < m_BossTerrains.Length; i++) {
+            m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z - 3.12f * Time.deltaTime);
+        }
+
+        if (m_BossTerrains[1].position.z < 24f) {
+            for (int i = 0; i < m_BossTerrains.Length; i++) {
+                m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z + 60f);
+            }
+        }
     }
 
     protected override IEnumerator MainTimeLine()
@@ -42,22 +56,60 @@ public class Stage4Manager : StageManager
             m_BackgroundPos += 4f * Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(16f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        yield return new WaitForSeconds(17f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.WarningText();
         yield return new WaitForSeconds(1f);
-        StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
-        yield return new WaitForSeconds(2f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
+        yield return new WaitForSeconds(0.5f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
+        m_LoopTerrain = true;
+        yield return new WaitForSeconds(1.5f);
         PlayBossMusic();
         yield break;
     }
 
     protected override IEnumerator TestTimeLine()
     {
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31871f, 40f, 83.9f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.WarningText();
         yield return new WaitForSeconds(1f);
-        StartCoroutine(MiddleBossStart(new Vector3(0f, 2.5f, Depth.ENEMY), 1f)); // Middle Boss
+        SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
+        yield return new WaitForSeconds(0.5f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
+        m_LoopTerrain = true;
+        yield return new WaitForSeconds(1.5f);
+        PlayBossMusic();
+        yield break;
+    }
+
+    protected override IEnumerator BossOnlyTimeLine()
+    {
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31871f, 40f, 83.9f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.WarningText();
+        yield return new WaitForSeconds(1f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
+        yield return new WaitForSeconds(0.5f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
+        m_LoopTerrain = true;
+        yield return new WaitForSeconds(1.5f);
+        PlayBossMusic();
         yield break;
     }
 
@@ -86,10 +138,12 @@ public class Stage4Manager : StageManager
         CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f));
         yield return new WaitForSeconds(7f);
         CreateEnemy(m_PlaneMedium_4, new Vector2(3f, 3f));
-        StartCoroutine(SpawnPlaneSmall1s());
+        StartCoroutine(SpawnPlaneSmalls1());
         yield return new WaitForSeconds(6f);
         CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f));
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnPlaneSmalls2());
+        yield return new WaitForSeconds(2f);
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(2.61f, 3.18f, 56.17f), new MoveVector(0.7f, -32f), new MovePattern[] {new MovePattern(2f, 8739f, 0f, 0.7f)});
         yield return new WaitForSeconds(2f);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4f, -4f), 1.2f);
@@ -195,13 +249,22 @@ public class Stage4Manager : StageManager
         yield break;
     }
 
-    private IEnumerator SpawnPlaneSmall1s()
+    private IEnumerator SpawnPlaneSmalls1()
     {
         for (int i = 0; i < 10; i++) {
             CreateEnemy(m_PlaneSmall_1, new Vector2(-5f, 3f));
             yield return new WaitForSeconds(0.2f);
             CreateEnemy(m_PlaneSmall_1, new Vector2(5f, 3f));
             yield return new WaitForSeconds(0.2f);
+        }
+        yield break;
+    }
+
+    private IEnumerator SpawnPlaneSmalls2()
+    {
+        for (int i = 0; i < 4; i++) {
+            CreateEnemy(m_PlaneSmall_1, new Vector2(2.25f - 1.5f*i, 3f));
+            yield return new WaitForSeconds(0.4f);
         }
         yield break;
     }

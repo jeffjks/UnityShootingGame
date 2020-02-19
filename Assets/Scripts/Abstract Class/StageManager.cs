@@ -36,6 +36,7 @@ public abstract class StageManager : MonoBehaviour
 
     protected abstract IEnumerator MainTimeLine();
     protected abstract IEnumerator EnemyTimeLine();
+    protected abstract IEnumerator BossOnlyTimeLine();
     protected abstract IEnumerator TestTimeLine();
 
     void Start ()
@@ -47,7 +48,10 @@ public abstract class StageManager : MonoBehaviour
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
 
         SetBackgroundSpeed(0f);
-        if (m_SystemManager.m_DebugMod) {
+        if (m_SystemManager.m_BossOnlyState) {
+            StartCoroutine(BossOnlyTimeLine());
+        }
+        else if (m_SystemManager.m_DebugMod) {
             StartCoroutine(TestTimeLine());
         }
         else {

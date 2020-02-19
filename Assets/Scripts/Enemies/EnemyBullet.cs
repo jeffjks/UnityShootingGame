@@ -124,6 +124,14 @@ public class EnemyBullet : Enemy, CanDeath
             }
         }
     }
+
+    void Update()
+    {
+        CheckDeath();
+        CheckOutside();
+        MoveDirection(m_MoveVector.speed * Time.deltaTime, m_MoveVector.direction);
+        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
+    }
     
     void LateUpdate()
     {
@@ -178,6 +186,25 @@ public class EnemyBullet : Enemy, CanDeath
         m_BulletEraseObject[erase_type].SetActive(true);
         m_EraseAnimator[erase_type].Play("Erase", -1, 0f);
         Invoke("Erase", 1f);
+    }
+
+    private void CheckDeath() { // 탄 소거시 Bullet 파괴
+        if (m_SystemManager.m_BulletsEraseTimer > 0) {
+            if (m_BulletTypeObject[m_ImageType].activeSelf) {
+                OnDeath();
+            }
+        }
+    }
+
+    private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
+        float gap = 0.5f;
+        Vector3 pos = transform.position;
+        if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + gap) {
+            Erase();
+        }
+        else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + gap) {
+            Erase();
+        }
     }
 
     public void Erase() {

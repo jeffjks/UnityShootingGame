@@ -28,9 +28,10 @@ public class SelectDifficultyHandler : GameUI
 
     private void SelectDifficulty(byte difficulty) {
         m_GameManager.m_Difficulty = difficulty;
+        m_GameManager.m_PracticeState = false;
         
-        m_SelectAttributesPanel.SetActive(true);
         m_PlayerPreview.SetActive(true);
+        m_SelectAttributesPanel.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }

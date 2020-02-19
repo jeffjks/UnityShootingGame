@@ -58,6 +58,11 @@ public class Stage3Manager : StageManager
         yield break;
     }
 
+    protected override IEnumerator BossOnlyTimeLine()
+    {
+        yield break;
+    }
+
 /*
     protected override IEnumerator TestTimeLine()
     {

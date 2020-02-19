@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5824299594861438883}
   - component: {fileID: 5824299594861438880}
   - component: {fileID: 5824299594861438884}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -975,7 +975,7 @@ MonoBehaviour:
   m_OverviewHandler: {fileID: 5824299595459288743}
   m_ScoreNuberText: {fileID: 5824299595933309618}
   m_DifficultyText: {fileID: 5824299596817021783}
-  m_ReplayText: {fileID: 5824299596917180172}
+  m_StateText: {fileID: 5824299596917180172}
   m_BombNumberText: {fileID: 5824299595381150553}
   m_WarningUI: {fileID: 734995183694014843}
   m_Transition: {fileID: 2269979634886200344, guid: d0761a9720d58d34abf5d80e8bfdce27,
@@ -989,6 +989,7 @@ MonoBehaviour:
   m_BulletsEraseTimer: 0
   m_Difficulty: 0
   m_ReplayState: 1
+  m_PracticeState: 0
   m_DebugMod: 0
   m_InvincibleMod: 0
   m_DebugDifficulty: 2
@@ -1588,7 +1589,7 @@ GameObject:
   - component: {fileID: 5824299595324622253}
   - component: {fileID: 5824299595324622255}
   - component: {fileID: 5824299595324622254}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Game Outer Boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4862,7 +4863,7 @@ GameObject:
   - component: {fileID: 5824299596092681064}
   - component: {fileID: 5824299596092681067}
   - component: {fileID: 5824299596092681066}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Camera Outer Boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7619,7 +7620,7 @@ GameObject:
   - component: {fileID: 5824299596917180172}
   - component: {fileID: 5824299596917180175}
   m_Layer: 5
-  m_Name: Replay
+  m_Name: State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7685,7 +7686,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '[Replay]'
+  m_Text: '[State]'
 --- !u!114 &5824299596917180175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8104,7 +8105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2261583706995932485}
   - component: {fileID: 6613655049968164588}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WarningPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8183,7 +8184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5996152318133723688}
   - component: {fileID: 8807133865122927875}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WarningPanelWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8262,7 +8263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6058836468021325675}
   - component: {fileID: 2614718813274772838}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WarningText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

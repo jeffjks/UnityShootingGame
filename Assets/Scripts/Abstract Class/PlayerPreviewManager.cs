@@ -10,7 +10,7 @@ public abstract class PlayerPreviewManager : MonoBehaviour
     protected GameManager m_GameManager = null;
     protected abstract void SetPlayerPreviewColors();
     
-    void Start()
+    void Awake()
     {
         m_GameManager = GameManager.instance_gm;
         SpeedPart();

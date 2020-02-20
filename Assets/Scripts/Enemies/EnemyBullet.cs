@@ -57,6 +57,8 @@ public class EnemyBullet : Enemy, CanDeath
 
     0 = image, pos, speed, direction, (accel)
     1, 2 = image, pos, speed, direction, (accel) / type, timer, new_image, new_speed, new_direction, direction_add , new_accel)
+
+    second_timer : Vector(a, b) : a~b 사이 랜덤한 시간 간격으로 반복
     =========================== */
 
     protected override void Awake()

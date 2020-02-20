@@ -43,18 +43,16 @@ public class EnemyBoss4SmallTurret : EnemyUnit
         Vector3 pos;
 
         while(true) {
+            pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.m_Difficulty == 0) {
-                pos = GetScreenPosition(m_FirePosition.position);
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForSeconds(3f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
-                pos = GetScreenPosition(m_FirePosition.position);
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForSeconds(2f);
             }
             else {
-                pos = GetScreenPosition(m_FirePosition.position);
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForSeconds(1f);
             }

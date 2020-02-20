@@ -5,22 +5,22 @@ using DG.Tweening;
 
 public class EnemyBoss4 : EnemyUnit
 {
-    public EnemyUnit[] m_SmallTurrets = new EnemyUnit[4];
-    public EnemyUnit[] m_FrontTurrets = new EnemyUnit[2];
-    public EnemyUnit m_MainTurret;
-    public EnemyUnit[] m_SubTurrets = new EnemyUnit[2];
-    public Transform[] m_FirePosition = new Transform[2];
+    public EnemyBoss4SmallTurret[] m_SmallTurrets = new EnemyBoss4SmallTurret[4];
+    public EnemyBoss4FrontTurret[] m_FrontTurrets = new EnemyBoss4FrontTurret[2];
+    public EnemyBoss4MainTurret m_MainTurret;
+    public EnemyBoss4SubTurret[] m_SubTurrets = new EnemyBoss4SubTurret[2];
+    public EnemyBoss4Launcher[] m_Launchers = new EnemyBoss4Launcher[2];
 
     [HideInInspector] public sbyte m_Phase;
+    [HideInInspector] public float m_Direction;
     
     private Vector3 m_TargetPosition;
     private float m_AppearanceTime = 5f;
     private bool m_InPattern = false;
     private int m_MoveDirection;
     private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
-    private float m_Direction;
 
-    private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2, m_CurrentPattern3;
+    private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
 
     void Start()
     {
@@ -68,31 +68,38 @@ public class EnemyBoss4 : EnemyUnit
         }
 
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 0.60f) { // 체력 60% 이하
+            if (m_Health <= m_MaxHealth * 0.65f) { // 체력 65% 이하
                 for (int i = 0; i < m_FrontTurrets.Length; i++) {
                     if (m_FrontTurrets[i] != null)
                         m_FrontTurrets[i].OnDeath();
                 }
                 m_SystemManager.EraseBullets(2f);
-                ExplosionEffect(1, 2, new Vector3(0f, 2f, -4.2f));
-                ExplosionEffect(0, -1, new Vector3(-2.8f, 2f, 0f));
-                ExplosionEffect(0, -1, new Vector3(2.8f, 2f, 0f));
-                ExplosionEffect(0, -1, new Vector3(-2.5f, 2f, 3.3f));
-                ExplosionEffect(0, -1, new Vector3(2.5f, 2f, 3.3f));
-                ExplosionEffect(0, -1, new Vector3(-2.8f, 2f, -3.2f));
-                ExplosionEffect(0, -1, new Vector3(2.8f, 2f, -3.2f));
+                StartCoroutine(NextPhaseExplosion1(2f));
+                StartCoroutine(NextPhaseExplosion2(2f));
+                
                 for (int i = 0; i < m_SmallTurrets.Length; i++) {
                     if (m_SmallTurrets[i] != null)
-                        ((EnemyBoss4SmallTurret) m_SmallTurrets[i]).StopPattern();
+                        m_SmallTurrets[i].StopPattern();
                 }
                 for (int i = 0; i < m_SubTurrets.Length; i++) {
                     if (m_SubTurrets[i] != null)
-                        ((EnemyBoss4SubTurret) m_SubTurrets[i]).StopPattern();
+                        m_SubTurrets[i].StopPattern();
                 }
-                ((EnemyBoss4MainTurret) m_MainTurret).StopPattern();
+                for (int i = 0; i < m_Launchers.Length; i++) {
+                    m_Launchers[i].StopPattern();
+                }
+                m_MainTurret.StopPattern();
                 ToNextPhase();
             }
         }
+        else if (m_Phase == 2) {
+            m_Direction += Time.deltaTime * 80f;
+        }
+
+        if (m_Direction > 360f)
+            m_Direction -= 360f;
+        else if (m_Direction < 0f)
+            m_Direction += 360f;
 
         base.Update();
     }
@@ -107,8 +114,10 @@ public class EnemyBoss4 : EnemyUnit
     }
 
     public void ToNextPhase() {
-        ((EnemyBoss4SubTurret) m_SubTurrets[0]).m_RotatePattern = 10;
-        ((EnemyBoss4SubTurret) m_SubTurrets[1]).m_RotatePattern = 10;
+        m_SubTurrets[0].m_RotatePattern = 10;
+        m_SubTurrets[1].m_RotatePattern = 10;
+        m_Launchers[0].SetMoving(false);
+        m_Launchers[1].SetMoving(false);
         m_Phase++;
         StopAllPatterns();
         if (m_CurrentPhase != null)
@@ -118,13 +127,17 @@ public class EnemyBoss4 : EnemyUnit
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
         }
+        else if (m_Phase == 3) {
+            m_CurrentPhase = Phase3();
+            StartCoroutine(m_CurrentPhase);
+        }
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForSeconds(1.5f);
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
             if (m_SmallTurrets[i] != null)
-                ((EnemyBoss4SmallTurret) m_SmallTurrets[i]).StartPattern(1);
+                m_SmallTurrets[i].StartPattern(1);
         }
         yield return new WaitForSeconds(1f);
         m_InPattern = true;
@@ -138,54 +151,56 @@ public class EnemyBoss4 : EnemyUnit
         StopAllPatterns();
 
         while(m_Phase == 1) {
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).m_RotatePattern = 20;
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).m_RotatePattern = 20;
-            ((EnemyBoss4FrontTurret) m_FrontTurrets[0]).m_RotatePattern = 20;
-            ((EnemyBoss4FrontTurret) m_FrontTurrets[1]).m_RotatePattern = 20;
+            m_SubTurrets[0].m_RotatePattern = 20;
+            m_SubTurrets[1].m_RotatePattern = 20;
+            m_FrontTurrets[0].m_RotatePattern = 20;
+            m_FrontTurrets[1].m_RotatePattern = 20;
             yield return new WaitForSeconds(2f);
             for (int i = 0; i < m_SmallTurrets.Length; i++) {
                 if (m_SmallTurrets[i] != null)
-                    ((EnemyBoss4SmallTurret) m_SmallTurrets[i]).StopPattern();
+                    m_SmallTurrets[i].StopPattern();
             }
 
             m_CurrentPattern1 = Pattern1B1();
             StartCoroutine(m_CurrentPattern1);
-            m_CurrentPattern2 = Pattern1B2_1();
+            m_CurrentPattern2 = Pattern1B2();
             StartCoroutine(m_CurrentPattern2);
             
             yield return new WaitForSeconds(2f);
-            ((EnemyBoss4MainTurret) m_MainTurret).StartPattern(1);
+            m_MainTurret.StartPattern(1);
             yield return new WaitForSeconds(6f);
-            ((EnemyBoss4MainTurret) m_MainTurret).StopPattern();
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).m_RotatePattern = 10;
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).m_RotatePattern = 10;
-            ((EnemyBoss4FrontTurret) m_FrontTurrets[0]).m_RotatePattern = 10;
-            ((EnemyBoss4FrontTurret) m_FrontTurrets[1]).m_RotatePattern = 10;
+            m_MainTurret.StopPattern();
+            m_Launchers[0].StopPattern();
+            m_Launchers[1].StopPattern();
+            m_SubTurrets[0].m_RotatePattern = 10;
+            m_SubTurrets[1].m_RotatePattern = 10;
+            m_FrontTurrets[0].m_RotatePattern = 10;
+            m_FrontTurrets[1].m_RotatePattern = 10;
             StopAllPatterns();
             yield return new WaitForSeconds(1f);
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).m_RotatePattern = 31;
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).m_RotatePattern = 32;
+            m_SubTurrets[0].m_RotatePattern = 31;
+            m_SubTurrets[1].m_RotatePattern = 32;
             yield return new WaitForSeconds(1f);
             for (int i = 0; i < m_SmallTurrets.Length; i++) {
                 if (m_SmallTurrets[i] != null)
-                    ((EnemyBoss4SmallTurret) m_SmallTurrets[i]).StartPattern(1);
+                    m_SmallTurrets[i].StartPattern(1);
             }
             yield return new WaitForSeconds(1f);
 
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).m_RotatePattern = 30;
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).m_RotatePattern = 30;
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).StartPattern(3);
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).StartPattern(3);
+            m_SubTurrets[0].m_RotatePattern = 30;
+            m_SubTurrets[1].m_RotatePattern = 30;
+            m_SubTurrets[0].StartPattern(3);
+            m_SubTurrets[1].StartPattern(3);
             m_CurrentPattern1 = Pattern1C1();
             StartCoroutine(m_CurrentPattern1);
             m_CurrentPattern2 = Pattern1C2();
             StartCoroutine(m_CurrentPattern2);
 
             yield return new WaitForSeconds(5f);
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).StopPattern();
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).StopPattern();
-            ((EnemyBoss4SubTurret) m_SubTurrets[0]).m_RotatePattern = 10;
-            ((EnemyBoss4SubTurret) m_SubTurrets[1]).m_RotatePattern = 10;
+            m_SubTurrets[0].StopPattern();
+            m_SubTurrets[1].StopPattern();
+            m_SubTurrets[0].m_RotatePattern = 10;
+            m_SubTurrets[1].m_RotatePattern = 10;
             StopAllPatterns();
 
             yield return new WaitForSeconds(2f);
@@ -206,7 +221,7 @@ public class EnemyBoss4 : EnemyUnit
         int r = Random.Range(0, 2);
         int[] n = {6, 12, 12};
         for (int i = 0; i < n[m_SystemManager.m_Difficulty]; i++) {
-            ((EnemyBoss4SubTurret) m_SubTurrets[r]).StartPattern(1);
+            m_SubTurrets[r].StartPattern(1);
             
             if (m_SystemManager.m_Difficulty == 0) {
                 yield return new WaitForSeconds(1f);
@@ -229,10 +244,10 @@ public class EnemyBoss4 : EnemyUnit
 
         while (true) {
             if (m_FrontTurrets[r] != null) {
-                ((EnemyBoss4FrontTurret) m_FrontTurrets[r]).StartPattern(1);
+                m_FrontTurrets[r].StartPattern(1);
             }
             else if (m_FrontTurrets[1-r] != null) {
-                ((EnemyBoss4FrontTurret) m_FrontTurrets[1-r]).StartPattern(1);
+                m_FrontTurrets[1-r].StartPattern(1);
             }
             else {
                 yield break;
@@ -257,11 +272,11 @@ public class EnemyBoss4 : EnemyUnit
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < m_SubTurrets.Length; j++) {
                 if (m_SubTurrets[j] != null)
-                    ((EnemyBoss4SubTurret) m_SubTurrets[j]).StartPattern(2);
+                    m_SubTurrets[j].StartPattern(2);
             }
             for (int j = 0; j < m_FrontTurrets.Length; j++) {
                 if (m_FrontTurrets[j] != null)
-                    ((EnemyBoss4FrontTurret) m_FrontTurrets[j]).StartPattern(2);
+                    m_FrontTurrets[j].StartPattern(2);
             }
             
             if (m_SystemManager.m_Difficulty == 0) {
@@ -276,72 +291,41 @@ public class EnemyBoss4 : EnemyUnit
         }
     }
 
-    private IEnumerator Pattern1B2_1() {
-        int r1 = Random.Range(0, 2), r2 = Random.Range(0, 2);
+    private IEnumerator Pattern1B2() {
+        int rand1 = Random.Range(0, 2), rand2;
 
         while (true) {
             m_Direction = Random.Range(0f, 360f);
-            m_CurrentPattern3 = Pattern1B2_2(r1);
-            StartCoroutine(m_CurrentPattern3);
-            
+            m_Launchers[rand1].StartPattern(1);
+            rand2 = Random.Range(0, 2);
             for (int i = 0; i < 40; i++) {
-                m_Direction += Time.deltaTime * 30f * (2*r2 - 1);
+                m_Direction += Time.deltaTime * (20f + m_SystemManager.m_Difficulty*5f) * (2*rand2 - 1);
                 yield return null;
             }
+            rand2 = Random.Range(0, 2);
             for (int i = 0; i < 40; i++) {
-                m_Direction -= Time.deltaTime * 30f * (2*r2 - 1);
+                m_Direction -= Time.deltaTime * (20f + m_SystemManager.m_Difficulty*5f) * (2*rand2 - 1);
                 yield return null;
             }
-            if (m_CurrentPattern3 != null) {
-                StopCoroutine(m_CurrentPattern3);
-            }
-            r1 = 1 - r1;
+            m_Launchers[rand1].StopPattern();
+            rand1 = 1 - rand1;
             yield return null;
         }
     }
 
-    private IEnumerator Pattern1B2_2(int rand) {
-        Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-
-        while (true) {
-            if (m_SystemManager.m_Difficulty == 0) {
-                pos[rand] = GetScreenPosition(m_FirePosition[rand].position);
-                CreateBulletsSector(4, pos[rand], 6.1f, m_Direction, accel, 4, 90f);
-                yield return new WaitForSeconds(0.1f);
-            }
-            else if (m_SystemManager.m_Difficulty == 1) {
-                pos[rand] = GetScreenPosition(m_FirePosition[rand].position);
-                CreateBulletsSector(4, pos[rand], 6.4f, m_Direction, accel, 5, 72f);
-                yield return new WaitForSeconds(0.08f);
-            }
-            else {
-                pos[rand] = GetScreenPosition(m_FirePosition[rand].position);
-                CreateBulletsSector(4, pos[rand], 6.8f, m_Direction, accel, 6, 60f);
-                yield return new WaitForSeconds(0.07f);
-            }
-        }
-    }
-
     private IEnumerator Pattern1C1() {
-        Vector3[] pos = new Vector3[2];
         EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 0.5f);
 
         while (true) {
             int rand = Random.Range(0, 2);
+            m_Launchers[rand].StartPattern(2);
             if (m_SystemManager.m_Difficulty == 0) {
-                pos[rand] = GetScreenPosition(m_FirePosition[rand].position);
-                CreateBulletsSector(2, pos[rand], 7f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForSeconds(1.8f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
-                pos[rand] = GetScreenPosition(m_FirePosition[rand].position);
-                CreateBulletsSector(2, pos[rand], 7.6f, Random.Range(0f, 360f), accel, 36, 10f);
                 yield return new WaitForSeconds(1.2f);
             }
             else {
-                pos[rand] = GetScreenPosition(m_FirePosition[rand].position);
-                CreateBulletsSector(2, pos[rand], 8f, Random.Range(0f, 360f), accel, 45, 8f);
                 yield return new WaitForSeconds(0.8f);
             }
         }
@@ -353,10 +337,10 @@ public class EnemyBoss4 : EnemyUnit
 
         while (true) {
             if (m_FrontTurrets[r] != null) {
-                ((EnemyBoss4FrontTurret) m_FrontTurrets[r]).StartPattern(3);
+                m_FrontTurrets[r].StartPattern(3);
             }
             else if (m_FrontTurrets[1-r] != null) {
-                ((EnemyBoss4FrontTurret) m_FrontTurrets[1-r]).StartPattern(3);
+                m_FrontTurrets[1-r].StartPattern(3);
             }
             else {
                 yield break;
@@ -379,7 +363,7 @@ public class EnemyBoss4 : EnemyUnit
         int r = Random.Range(0, 2);
         int[] n = {6, 12, 12};
         for (int i = 0; i < n[m_SystemManager.m_Difficulty]; i++) {
-            ((EnemyBoss4SubTurret) m_SubTurrets[r]).StartPattern(4);
+            m_SubTurrets[r].StartPattern(4);
             
             if (m_SystemManager.m_Difficulty == 0) {
                 yield return new WaitForSeconds(0.8f);
@@ -396,32 +380,183 @@ public class EnemyBoss4 : EnemyUnit
         yield break;
     }
 
+    
+
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
-        yield break;
+        int rand1 = Random.Range(0, 2), rand2;
+        bool first = true;
+        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < m_SmallTurrets.Length; i++) {
+            if (m_SmallTurrets[i] != null)
+                m_SmallTurrets[i].StartPattern(1);
+        }
+        yield return new WaitForSeconds(1f);
+
+        while (m_Phase == 2) {
+            m_InPattern = true;
+            m_Launchers[0].StartPattern(3, rand1);
+            m_Launchers[1].StartPattern(3, rand1);
+            m_Launchers[0].SetMoving(true);
+            m_Launchers[1].SetMoving(true);
+            m_CurrentPattern1 = Pattern2A();
+            StartCoroutine(m_CurrentPattern1);
+            while (m_InPattern)
+                yield return null;
+            rand1 = 1 - rand1;
+            m_Launchers[0].StopPattern();
+            m_Launchers[1].StopPattern();
+            m_Launchers[0].SetMoving(false);
+            m_Launchers[1].SetMoving(false);
+            if (m_Health <= m_MaxHealth * 0.20f) { // 체력 20% 이하
+                ToNextPhase();
+                break;
+            }
+            yield return new WaitForSeconds(1.5f);
+
+            rand2 = Random.Range(0, 2);
+            m_SubTurrets[0].m_RotatePattern = (byte) (41 + rand2);
+            m_SubTurrets[1].m_RotatePattern = (byte) (41 + rand2);
+            yield return new WaitForSeconds(1f);
+            m_SubTurrets[0].StartPattern(5);
+            m_SubTurrets[1].StartPattern(5);
+            yield return new WaitForSeconds(1f);
+            m_SubTurrets[0].m_RotatePattern = 10;
+            m_SubTurrets[1].m_RotatePattern = 10;
+            if (m_Health <= m_MaxHealth * 0.20f) { // 체력 20% 이하
+                ToNextPhase();
+                break;
+            }
+            if (first)
+                yield return new WaitForSeconds(2f);
+            first = false;
+
+            m_MainTurret.StartPattern(3);
+            m_SubTurrets[0].StartPattern(6);
+            m_SubTurrets[1].StartPattern(6);
+            yield return new WaitForSeconds(7f);
+            m_MainTurret.StopPattern();
+            m_SubTurrets[0].StopPattern();
+            m_SubTurrets[1].StopPattern();
+            if (m_Health <= m_MaxHealth * 0.20f) { // 체력 20% 이하
+                ToNextPhase();
+                break;
+            }
+            yield return new WaitForSeconds(2f);
+        }
     }
 
     private IEnumerator Pattern2A() {
-        yield break;
-    }
-
-    private IEnumerator Pattern2B() {
+        Vector3[] pos = new Vector3[2];
+        if (m_SystemManager.m_Difficulty == 0) {
+            for (int i = 0; i < 1; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < 1; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < 2; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < 2; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < 2; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        else if (m_SystemManager.m_Difficulty == 1) {
+            for (int i = 0; i < 1; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.9f);
+            for (int i = 0; i < 2; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.9f);
+            for (int i = 0; i < 2; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.9f);
+            for (int i = 0; i < 3; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.9f);
+            for (int i = 0; i < 3; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+        }
+        else {
+            for (int i = 0; i < 1; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.8f);
+            for (int i = 0; i < 2; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.8f);
+            for (int i = 0; i < 3; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.8f);
+            for (int i = 0; i < 3; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+            yield return new WaitForSeconds(0.8f);
+            for (int i = 0; i < 3; i++) {
+                m_MainTurret.StartPattern(2);
+                yield return new WaitForSeconds(0.4f);
+            }
+        }
+        m_InPattern = false;
         yield break;
     }
 
     private IEnumerator Phase3() { // 페이즈3 패턴 ============================
-        yield break;
-    }
+        int rand = Random.Range(0, 2);
+        m_SubTurrets[0].m_RotatePattern = 20;
+        m_SubTurrets[1].m_RotatePattern = 20;
+        yield return new WaitForSeconds(0.5f);
 
+        while (m_Phase == 3) {
+            m_MainTurret.m_RotatePattern = (byte) (21 + rand);
+            m_SubTurrets[rand].StartPattern(7);
+            yield return new WaitForSeconds(2f);
+            m_MainTurret.StartPattern(4);
+            yield return new WaitForSeconds(1f);
+            rand = 1 - rand;
+            m_MainTurret.m_RotatePattern = (byte) (21 + rand);
+            m_SubTurrets[rand].StartPattern(7);
+            yield return new WaitForSeconds(2f);
+            m_MainTurret.StartPattern(4);
+            yield return new WaitForSeconds(1f);
+            rand = 1 - rand;
+        }
+    }
 
     private void StopAllPatterns() {
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
         if (m_CurrentPattern2 != null)
             StopCoroutine(m_CurrentPattern2);
-        if (m_CurrentPattern3 != null)
-            StopCoroutine(m_CurrentPattern3);
     }
-
 
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
@@ -439,32 +574,32 @@ public class EnemyBoss4 : EnemyUnit
         StartCoroutine(DeathExplosion1(3.2f));
         StartCoroutine(DeathExplosion2(3.2f));
         yield return new WaitForSeconds(0.8f);
-        ExplosionEffect(3, 2, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
-        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
-        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, 2, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
         yield return new WaitForSeconds(0.8f);
-        ExplosionEffect(3, 2, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
-        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
-        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, 2, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
         yield return new WaitForSeconds(0.8f);
-        ExplosionEffect(3, 2, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
-        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
-        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 2f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, 2, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
+        ExplosionEffect(3, -1, new Vector3(Random.Range(-3.5f, 3.5f), 3f, Random.Range(-4.5f, 3.5f)));
         yield return new WaitForSeconds(0.8f);
         
         ExplosionEffect(4, 3, new Vector3(0f, 2f, 0f)); // 최종 파괴
-        ExplosionEffect(3, -1, new Vector3(-2f, 2f, -2f), new MoveVector(1.6f, -45f));
-        ExplosionEffect(3, -1, new Vector3(2f, 2f, -2f), new MoveVector(1.6f, 45f));
-        ExplosionEffect(3, -1, new Vector3(2f, 2f, 2f), new MoveVector(1.6f, 135f));
-        ExplosionEffect(3, -1, new Vector3(-2f, 2f, 2f), new MoveVector(1.6f, -135f));
-        ExplosionEffect(4, -1, new Vector3(-3.6f, 3.6f, -3.6f));
-        ExplosionEffect(4, -1, new Vector3(3.6f, 3.6f, -3.6f));
-        ExplosionEffect(4, -1, new Vector3(3.6f, 3.6f, 3.6f));
-        ExplosionEffect(4, -1, new Vector3(-3.6f, 3.6f, 3.6f));
-        ExplosionEffect(3, -1, new Vector3(-3f, 2f, 0f), new MoveVector(1.2f, -90f));
-        ExplosionEffect(3, -1, new Vector3(0f, 2f, -3f), new MoveVector(1.2f, 0f));
-        ExplosionEffect(3, -1, new Vector3(3f, 2f, 0f), new MoveVector(1.2f, 90f));
-        ExplosionEffect(3, -1, new Vector3(0f, 2f, 3f), new MoveVector(1.2f, 180f));
+        ExplosionEffect(3, -1, new Vector3(-2f, 3f, -2f), new MoveVector(1.6f, -45f));
+        ExplosionEffect(3, -1, new Vector3(2f, 3f, -2f), new MoveVector(1.6f, 45f));
+        ExplosionEffect(3, -1, new Vector3(2f, 3f, 2f), new MoveVector(1.6f, 135f));
+        ExplosionEffect(3, -1, new Vector3(-2f, 3f, 2f), new MoveVector(1.6f, -135f));
+        ExplosionEffect(4, -1, new Vector3(-3.6f, 3f, -3.6f));
+        ExplosionEffect(4, -1, new Vector3(3.6f, 3f, -3.6f));
+        ExplosionEffect(4, -1, new Vector3(3.6f, 3f, 3.6f));
+        ExplosionEffect(4, -1, new Vector3(-3.6f, 3f, 3.6f));
+        ExplosionEffect(3, -1, new Vector3(-3f, 3f, 0f), new MoveVector(1.2f, -90f));
+        ExplosionEffect(3, -1, new Vector3(0f, 3f, -3f), new MoveVector(1.2f, 0f));
+        ExplosionEffect(3, -1, new Vector3(3f, 3f, 0f), new MoveVector(1.2f, 90f));
+        ExplosionEffect(3, -1, new Vector3(0f, 3f, 3f), new MoveVector(1.2f, 180f));
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
@@ -473,13 +608,37 @@ public class EnemyBoss4 : EnemyUnit
         yield break;
     }
 
+    private IEnumerator NextPhaseExplosion1(float timer) {
+        float t = 0f, t_add = 0f;
+        while (t < timer) {
+            t_add = Random.Range(0.25f, 0.35f);
+            ExplosionEffect(0, 0, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)), new MoveVector(1.5f, Random.Range(0f, 360f)));
+            ExplosionEffect(0, -1, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)), new MoveVector(1.5f, Random.Range(0f, 360f)));
+            t += t_add;
+            yield return new WaitForSeconds(t_add);
+        }
+        yield break;
+    }
+
+    private IEnumerator NextPhaseExplosion2(float timer) {
+        float t = 0f, t_add = 0f;
+        while (t < timer) {
+            t_add = Random.Range(0.4f, 0.6f);
+            ExplosionEffect(1, 4, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)), new MoveVector(1.5f, Random.Range(0f, 360f)));
+            ExplosionEffect(1, -1, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)), new MoveVector(1.5f, Random.Range(0f, 360f)));
+            t += t_add;
+            yield return new WaitForSeconds(t_add);
+        }
+        yield break;
+    }
+
     private IEnumerator DeathExplosion1(float timer) {
         float t = 0f, t_add = 0f;
         while (t < timer) {
             t_add = Random.Range(0.25f, 0.35f);
-            ExplosionEffect(1, 0, new Vector3(Random.Range(-4f, 4f), 2f, Random.Range(-5.4f, 4f)));
-            ExplosionEffect(2, -1, new Vector3(Random.Range(-4f, 4f), 2f, Random.Range(-5.4f, 4f)));
-            ExplosionEffect(2, -1, new Vector3(Random.Range(-4f, 4f), 2f, Random.Range(-5.4f, 4f)));
+            ExplosionEffect(1, 0, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)));
+            ExplosionEffect(2, -1, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)));
+            ExplosionEffect(2, -1, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)));
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
@@ -490,8 +649,8 @@ public class EnemyBoss4 : EnemyUnit
         float t = 0f, t_add = 0f;
         while (t < timer) {
             t_add = Random.Range(0.2f, 0.6f);
-            ExplosionEffect(0, 1, new Vector3(Random.Range(-4f, 4f), 2f, Random.Range(-5.4f, 4f)), new MoveVector(2f, Random.Range(0f, 360f)));
-            ExplosionEffect(0, -1, new Vector3(Random.Range(-4f, 4f), 2f, Random.Range(-5.4f, 4f)), new MoveVector(2f, Random.Range(0f, 360f)));
+            ExplosionEffect(0, 1, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)), new MoveVector(2f, Random.Range(0f, 360f)));
+            ExplosionEffect(0, -1, new Vector3(Random.Range(-4f, 4f), 3f, Random.Range(-5.4f, 4f)), new MoveVector(2f, Random.Range(0f, 360f)));
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }

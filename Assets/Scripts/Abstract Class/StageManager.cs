@@ -20,6 +20,7 @@ public abstract class StageManager : MonoBehaviour
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
+    protected PoolingManager m_PoolingManager = null;
     protected BossHealthHandler m_BossHealthBar;
     
     protected class MovePattern
@@ -43,9 +44,11 @@ public abstract class StageManager : MonoBehaviour
     {
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
+        m_PoolingManager = PoolingManager.instance_op;
         
         m_BossHealthBar = m_SystemManager.m_BossHealthBar;
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
+        m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(0f, 0f, 0f);
 
         SetBackgroundSpeed(0f);
         if (m_SystemManager.m_BossOnlyState) {
@@ -76,17 +79,17 @@ public abstract class StageManager : MonoBehaviour
         if (m_SystemManager.m_PlayState <= 1) {
             switch(m_Stage) {
                 case 2: // Stage 3
-                    if (m_AudioStage.time > 215.25f) {
+                    if (m_AudioStage.time > 215.248f) {
                         m_AudioStage.time = 14.496f;
                     }
                     break;
                 case 3: // Stage 4
-                    if (m_AudioStage.time > 168.23f) {
+                    if (m_AudioStage.time > 168.228f) {
                         m_AudioStage.time = 4.518f;
                     }
                     break;
                 case 4: // Stage 5
-                    if (m_AudioStage.time > 182.66f) {
+                    if (m_AudioStage.time > 182.654f) {
                         m_AudioStage.time = 94.75f;
                     }
                     break;
@@ -97,12 +100,12 @@ public abstract class StageManager : MonoBehaviour
         else {
             switch(m_Stage) {
                 case 4: // Last Boss
-                    if (m_AudioBoss.time > 215.25f) {
+                    if (m_AudioBoss.time > 101.178f) {
                         m_AudioBoss.time = 12.77f;
                     }
                     break;
-                default:
-                    if (m_AudioBoss.time > 128.08f) {
+                default: // Boss
+                    if (m_AudioBoss.time > 128.077f) {
                         m_AudioBoss.time = 6.49f;
                     }
                     break;

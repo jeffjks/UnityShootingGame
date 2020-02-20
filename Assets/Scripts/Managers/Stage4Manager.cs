@@ -29,6 +29,11 @@ public class Stage4Manager : StageManager
         for (int i = 0; i < m_BossTerrains.Length; i++) {
             m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z - 3.12f * Time.deltaTime);
         }
+        Vector3 debris_pos;
+        debris_pos = m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position;
+        if (debris_pos.z > 0f) {
+            m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(debris_pos.x, debris_pos.y, debris_pos.z - 3.12f * Time.deltaTime);
+        }
 
         if (m_BossTerrains[1].position.z < 24f) {
             for (int i = 0; i < m_BossTerrains.Length; i++) {
@@ -54,6 +59,8 @@ public class Stage4Manager : StageManager
             float c_size = 1f;
             SetBackgroundSpeed(new Vector3(c_size*Mathf.Cos(Mathf.Deg2Rad * (180f + m_BackgroundPos)), 0f, c_size*Mathf.Sin(Mathf.Deg2Rad * (180f + m_BackgroundPos))));
             m_BackgroundPos += 4f * Time.deltaTime;
+            
+            Vector3 background_pos = m_SystemManager.m_BackgroundCamera.transform.position;
             yield return null;
         }
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
@@ -64,7 +71,7 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(1f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(14.31f, 3f, 125f), 3f)); // Boss
         yield return new WaitForSeconds(0.5f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
         m_LoopTerrain = true;
@@ -75,7 +82,7 @@ public class Stage4Manager : StageManager
 
     protected override IEnumerator TestTimeLine()
     {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31871f, 40f, 83.9f);
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31f, 40f, 83.9f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutMusic());
@@ -84,7 +91,7 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(1f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(14.31f, 3f, 125f), 3f)); // Boss
         yield return new WaitForSeconds(0.5f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
         m_LoopTerrain = true;
@@ -95,7 +102,7 @@ public class Stage4Manager : StageManager
 
     protected override IEnumerator BossOnlyTimeLine()
     {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31871f, 40f, 83.9f);
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31f, 40f, 83.9f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutMusic());
@@ -104,7 +111,7 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(1f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(14.31f, 3f, 125f), 3f)); // Boss
         yield return new WaitForSeconds(0.5f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
         m_LoopTerrain = true;

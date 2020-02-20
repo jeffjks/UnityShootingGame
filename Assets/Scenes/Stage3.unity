@@ -758,7 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -769,14 +771,12 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100048, guid: a6416b0ddb7a93e45b2dc48b34f355d1, type: 3}
   m_Normal: 1
@@ -789,6 +789,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 26
   m_DeactivateTime: 48
+  m_AttackableTimer: 0
 --- !u!1001 &388905875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1232,11 +1233,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028255, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_DebugDifficulty
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
         type: 3}
@@ -1695,7 +1691,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1706,14 +1704,12 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100016, guid: fde099b61cee14345a24c27a878ea83a, type: 3}
   m_Normal: 1
@@ -1726,6 +1722,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 65
   m_DeactivateTime: 90
+  m_AttackableTimer: 0
 --- !u!1001 &1174652684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3230,7 +3227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
+  m_IsAttackable: 1
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -3241,14 +3240,12 @@ MonoBehaviour:
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
   m_GemNumber: 0
-  m_ParentEnemy: {fileID: 0}
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_IsAttackable: 1
   m_Enemy:
   - {fileID: 100052, guid: 27f1241ee78b41e438b446db2c8ba5bf, type: 3}
   m_Normal: 1
@@ -3261,6 +3258,7 @@ MonoBehaviour:
   m_MovePattern: []
   m_ActivateTime: 0
   m_DeactivateTime: 40
+  m_AttackableTimer: 0
 --- !u!1 &781271977011726088
 GameObject:
   m_ObjectHideFlags: 0

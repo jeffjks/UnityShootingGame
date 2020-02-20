@@ -60,6 +60,16 @@ public class Stage3Manager : StageManager
 
     protected override IEnumerator BossOnlyTimeLine()
     {
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(-24.97961f, 40f, 29.3f);
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.WarningText();
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
+        yield return new WaitForSeconds(2f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1f);
+        PlayBossMusic();
         yield break;
     }
 
@@ -104,7 +114,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForSeconds(5f);
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(1f, WATER_HEIGHT, 20f), new MoveVector(1.5f, 5f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(3.2f, WATER_HEIGHT, 22f), new MoveVector(1.5f, -2f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
-        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(5.6f, WATER_HEIGHT, 21f), new MoveVector(1.5f, 1f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(6f, WATER_HEIGHT, 21f), new MoveVector(1.5f, 1f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -2f), new Vector2(4f, -3f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(4.5f, -5.5f), 1f);

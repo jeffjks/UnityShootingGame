@@ -62,7 +62,7 @@ public class PlayerLaserCreater : MonoBehaviour
         float laser_width = 1f + (float) m_PlayerShooter.m_ShotLevel*0.5f;
         m_LineRenderer.startWidth = laser_width;
         m_LineRenderer.endWidth = laser_width;
-        float hitbox_width = laser_width*0.8f;
+        float hitbox_width = laser_width*0.9f;
         m_LaserHitBoxWidth = new Vector3(hitbox_width*0.5f, 0f, 0f);
         m_Collider2D.size = new Vector2(hitbox_width, 0f);
         
@@ -115,7 +115,7 @@ public class PlayerLaserCreater : MonoBehaviour
             if (m_StormParticles.Length > 0)
                 m_ParticleMainModule.startLifetime = - m_LaserShooter.m_MaxLength / m_StormSpeed * 0.6f;
 
-            m_Collider2D.offset = new Vector2(m_Collider2D.offset.x, m_LaserShooter.m_MaxLength/2);
+            m_Collider2D.offset = new Vector2(m_Collider2D.offset.x, m_LaserShooter.m_MaxLength*0.5f);
             m_Collider2D.size = new Vector2(m_Collider2D.size.x, m_LaserShooter.m_MaxLength);
 
             //Insurance against the appearance of a laser in the center of coordinates!

@@ -9,6 +9,8 @@ public class EnemyTankLarge1Turret2 : EnemyUnit
         if (3 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
             OnDeath();
         }
+
+        RotateImmediately(m_ParentEnemy.m_CurrentAngle);
         
         base.Update();
     }

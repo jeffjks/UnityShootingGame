@@ -7,7 +7,6 @@ public class EnemyBoss4SubTurret : EnemyUnit
     public Transform m_FirePosition;
     
     private IEnumerator m_CurrentPattern;
-    private bool m_Shooting = false;
     [HideInInspector] public byte m_RotatePattern = 10;
 
     void Start()
@@ -21,8 +20,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
         switch (m_RotatePattern) {
             case 10:
                 if (m_PlayerManager.m_PlayerIsAlive) {
-                    if (!m_Shooting)
-                        RotateSlightly(m_PlayerPosition, 130f);
+                    RotateSlightly(m_PlayerPosition, 130f);
                 }
                 else {
                     RotateSlightly(m_PlayerPosition, 100f);
@@ -88,7 +86,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f, rand = Random.Range(-3f, 3f);
-        m_Shooting = true;
+        m_RotatePattern = 0;
         
         if (m_SystemManager.m_Difficulty == 0) {
             pos0 = GetScreenPosition(m_FirePosition.position);
@@ -117,7 +115,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
                 }
             }
         }
-        m_Shooting = false;
+        m_RotatePattern = 10;
         yield break;
     }
 
@@ -193,7 +191,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f, rand = Random.Range(-3f, 3f);
-        m_Shooting = true;
+        m_RotatePattern = 0;
         
         if (m_SystemManager.m_Difficulty == 0) {
             pos0 = GetScreenPosition(m_FirePosition.position);
@@ -222,7 +220,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
                 }
             }
         }
-        m_Shooting = false;
+        m_RotatePattern = 10;
         yield break;
     }
 

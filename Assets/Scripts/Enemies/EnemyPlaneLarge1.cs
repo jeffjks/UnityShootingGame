@@ -37,7 +37,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
     protected override void Update()
     {
         if (m_Phase == 0) {
-            if (m_Health <= m_MaxHealth * 0.35f) { // 체력 35% 이하
+            if (m_Health <= m_MaxHealth * 0.40f) { // 체력 40% 이하
                 m_Phase = 1;
                 m_Turret[0].OnDeath();
                 m_Turret[1].OnDeath();
@@ -157,7 +157,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         Vector3 pos;
         float target_angle, random_value;
         
-        yield return new WaitForSeconds(m_AppearanceTime);
+        yield return new WaitForSeconds(0.8f);
 
         while(!m_TimeLimitState) {
             random_value = Random.Range(-3f, 3f);
@@ -179,10 +179,10 @@ public class EnemyPlaneLarge1 : EnemyUnit
             else {
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
-                CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 6, 12f);
-                CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 12, 6f);
-                CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 6, 12f);
-                CreateBulletsSector(5, pos, 7.1f, target_angle + random_value, accel, 6, 12f);
+                CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 8, 12f);
+                CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 14, 6f);
+                CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 8, 12f);
+                CreateBulletsSector(5, pos, 7.1f, target_angle + random_value, accel, 8, 12f);
             }
             yield return new WaitForSeconds(m_FireDelay2[m_SystemManager.m_Difficulty]);
         }

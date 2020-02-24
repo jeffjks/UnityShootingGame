@@ -90,7 +90,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 5; j++) {
                         pos[0] = GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4.2f + j*0.8f, m_CurrentAngle, accel1);
+                        CreateBullet(5, pos[0], 4.2f + j*0.8f, m_CurrentAngle - j*3f, accel1);
                     }
                     yield return new WaitForSeconds(0.096f);
                 }
@@ -109,7 +109,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 5; j++) {
                         pos[0] = GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4.2f + j*0.8f, m_CurrentAngle, accel1);
+                        CreateBullet(5, pos[0], 4.2f + j*0.8f, m_CurrentAngle + j*3f, accel1);
                     }
                     yield return new WaitForSeconds(0.096f);
                 }
@@ -131,7 +131,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 12; i++) {
                     for (int j = 0; j < 6; j++) {
                         pos[0] = GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4f + j*0.8f, m_CurrentAngle, accel1);
+                        CreateBullet(5, pos[0], 4f + j*0.8f, m_CurrentAngle - j*3f, accel1);
                     }
                     yield return new WaitForSeconds(0.08f);
                 }
@@ -150,7 +150,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 12; i++) {
                     for (int j = 0; j < 6; j++) {
                         pos[0] = GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4f + j*0.8f, m_CurrentAngle, accel1);
+                        CreateBullet(5, pos[0], 4f + j*0.8f, m_CurrentAngle + j*3f, accel1);
                     }
                     yield return new WaitForSeconds(0.08f);
                 }

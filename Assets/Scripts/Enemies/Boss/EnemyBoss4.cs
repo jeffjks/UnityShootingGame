@@ -407,7 +407,7 @@ public class EnemyBoss4 : EnemyUnit
             m_Launchers[1].StopPattern();
             m_Launchers[0].SetMoving(false);
             m_Launchers[1].SetMoving(false);
-            if (m_Health <= m_MaxHealth * 0.20f) { // 체력 20% 이하
+            if (m_Health <= m_MaxHealth * 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -422,7 +422,7 @@ public class EnemyBoss4 : EnemyUnit
             yield return new WaitForSeconds(1f);
             m_SubTurrets[0].m_RotatePattern = 10;
             m_SubTurrets[1].m_RotatePattern = 10;
-            if (m_Health <= m_MaxHealth * 0.20f) { // 체력 20% 이하
+            if (m_Health <= m_MaxHealth * 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -437,7 +437,7 @@ public class EnemyBoss4 : EnemyUnit
             m_MainTurret.StopPattern();
             m_SubTurrets[0].StopPattern();
             m_SubTurrets[1].StopPattern();
-            if (m_Health <= m_MaxHealth * 0.20f) { // 체력 20% 이하
+            if (m_Health <= m_MaxHealth * 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -533,7 +533,7 @@ public class EnemyBoss4 : EnemyUnit
         int rand = Random.Range(0, 2);
         m_SubTurrets[0].m_RotatePattern = 20;
         m_SubTurrets[1].m_RotatePattern = 20;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.5f);
 
         while (m_Phase == 3) {
             m_MainTurret.m_RotatePattern = (byte) (21 + rand);

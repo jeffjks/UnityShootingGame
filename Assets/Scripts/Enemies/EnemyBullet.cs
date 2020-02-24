@@ -212,6 +212,7 @@ public class EnemyBullet : Enemy, CanDeath
     public void Erase() {
         CancelInvoke();
         m_Tween.Kill();
+        m_SystemManager.SubtractBullet();
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ENEMY_BULLET);
     }
 

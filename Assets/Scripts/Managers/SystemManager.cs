@@ -105,6 +105,7 @@ public class SystemManager : MonoBehaviour
     private int m_BombNumber, m_MaxBombNumber;
     private byte m_TotalMiss;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
+    private uint m_BulletNumber;
 
     private Sequence m_SequenceReplayText;
 
@@ -146,7 +147,7 @@ public class SystemManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
 
-        DOTween.SetTweensCapacity(512, 64);
+        DOTween.SetTweensCapacity(1024, 64);
     }
 
     void Start()
@@ -490,6 +491,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+
+    public void AddBullet() {
+        m_BulletNumber++;
+        //Debug.Log("Bullet: "+m_BulletNumber);
+    }
+
+    public void SubtractBullet() {
+        m_BulletNumber--;
+        //Debug.Log("Bullet: "+m_BulletNumber);
+    }
 
     public uint GemsGround {
         get { return m_GemsGround; }

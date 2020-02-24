@@ -263,9 +263,9 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 0
-  m_Health: 1200
+  m_Health: 1500
   m_Class: 1
-  m_Score: 15000
+  m_Score: 12500
   m_Debris: 0
   m_DefaultExplosion: 6
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}

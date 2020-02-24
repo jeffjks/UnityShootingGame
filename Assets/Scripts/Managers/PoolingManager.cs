@@ -62,7 +62,7 @@ public class PoolingManager : MonoBehaviour
                 break;
         }
 
-        m_ObjectPoolDictionary.Add("EnemyBullet", new PooledObject(m_PooledPrefabs[4], 512, transform.GetChild(PoolingParent.ENEMY_BULLET)));
+        m_ObjectPoolDictionary.Add("EnemyBullet", new PooledObject(m_PooledPrefabs[4], 1024, transform.GetChild(PoolingParent.ENEMY_BULLET)));
 
         m_ObjectPoolDictionary.Add("ExplosionG_1", new PooledObject(m_PooledPrefabs[5], 15, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("ExplosionG_2", new PooledObject(m_PooledPrefabs[6], 15, transform.GetChild(PoolingParent.EXPLOSION)));

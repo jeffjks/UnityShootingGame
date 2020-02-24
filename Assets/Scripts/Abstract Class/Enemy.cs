@@ -130,6 +130,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
             enemyBullet.m_Type = 0;
             enemyBullet.m_Timer = 0;
 
+            m_SystemManager.AddBullet();
             obj.SetActive(true);
         }
         return obj;
@@ -164,6 +165,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
             enemyBullet.m_NewNumber = new_num;
             enemyBullet.m_NewInterval = new_interval;
 
+            m_SystemManager.AddBullet();
             obj.SetActive(true);
         }
         return obj;
@@ -573,12 +575,12 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             }
         }
         DOTween.Kill(transform);
-        DisableAttackable(-1f);
         ImageBlend(Color.red);
         if (m_Sequence != null) {
             m_Sequence.Kill();
         }
         StartCoroutine(AdditionalOnDeath());
+        DisableAttackable(-1f);
     }
 
     protected virtual void KilledByPlayer() { // 플레이어가 죽인 경우

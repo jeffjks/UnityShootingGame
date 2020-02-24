@@ -42,6 +42,8 @@
    * Spaceship+Fighter+Set of...+
    * Space Missiles
    * Spaceships Fleet III Mega Pack I
+   * RPG/FPS Game Assets for PCbile (Industrial Set v2.0)
+   * PBR RPG/FPS Game Assets (Industrial Set v1.0)
 
 * 스프라이트, 텍스쳐
    * 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS

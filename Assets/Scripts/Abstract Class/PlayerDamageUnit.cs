@@ -34,7 +34,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 
 public abstract class PlayerMissile : PlayerDamageUnit
 {
-    [SerializeField] private float m_DamageBonus = 0f;
+    [SerializeField] private float[] m_DamageBonus = {0f, 0f, 0f};
     [SerializeField] protected float m_Speed = 1f;
     [SerializeField] private bool m_IsPenetrate = false;
     [SerializeField] private GameObject[] m_ActivatedObject = null;
@@ -50,7 +50,12 @@ public abstract class PlayerMissile : PlayerDamageUnit
     void OnEnable()
     {
         OnStart();
-        m_Damage = m_DefaultDamage + m_DamageBonus * m_DamageLevel;
+        try {
+            m_Damage = m_DefaultDamage + m_DamageBonus[m_DamageLevel];
+        }
+        catch {
+            Debug.LogAssertion("Damage Level Index Out Of Bound: "+m_DamageLevel);
+        }
         for(int i = 0; i < m_ActivatedObject.Length; i++) {
             m_ActivatedObject[i].SetActive(false);
         }

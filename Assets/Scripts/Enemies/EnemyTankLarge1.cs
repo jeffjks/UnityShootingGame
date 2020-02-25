@@ -52,10 +52,16 @@ public class EnemyTankLarge1 : EnemyUnit
                 for (int j = 0; j < 2; j++) {
                     pos[j] = GetScreenPosition(m_FirePosition[j].position);
                     target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.m_Player.transform.position);
-                    if (target_angle[j] < 0f) {
-                        target_angle[j] += 360f;
+
+                    float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
+                    if (delta_angle < -45f) {
+                        target_angle[j] = m_CurrentAngle + 45f;
                     }
-                    target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
+                    else if (delta_angle > 45f) {
+                        target_angle[j] = m_CurrentAngle - 45f;
+                    }
+
+                    //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
                     CreateBulletsSector(0, pos[j], 7f, target_angle[j], accel, 3, 22f);
                 }
             }
@@ -64,10 +70,16 @@ public class EnemyTankLarge1 : EnemyUnit
                     for (int j = 0; j < 2; j++) {
                         pos[j] = GetScreenPosition(m_FirePosition[j].position);
                         target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.m_Player.transform.position);
-                        if (target_angle[j] < 0f) {
-                            target_angle[j] += 360f;
+
+                        float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
+                        if (delta_angle < -45f) {
+                            target_angle[j] = m_CurrentAngle + 45f;
                         }
-                        target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
+                        else if (delta_angle > 45f) {
+                            target_angle[j] = m_CurrentAngle - 45f;
+                        }
+                        
+                        //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
                         CreateBulletsSector(0, pos[j], 6f + i*0.8f, target_angle[j], accel, 3, 22f);
                     }
                     yield return new WaitForSeconds(0.06f);
@@ -78,10 +90,16 @@ public class EnemyTankLarge1 : EnemyUnit
                     for (int j = 0; j < 2; j++) {
                         pos[j] = GetScreenPosition(m_FirePosition[j].position);
                         target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.m_Player.transform.position);
-                        if (target_angle[j] < 0f) {
-                            target_angle[j] += 360f;
+
+                        float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
+                        if (delta_angle < -45f) {
+                            target_angle[j] = m_CurrentAngle + 45f;
                         }
-                        target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
+                        else if (delta_angle > 45f) {
+                            target_angle[j] = m_CurrentAngle - 45f;
+                        }
+
+                        //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
                         CreateBulletsSector(2, pos[j], 6f + i*0.8f, target_angle[j], accel, 2, 22f);
                         CreateBulletsSector(0, pos[j], 6f + i*0.8f, target_angle[j], accel, 3, 22f);
                     }

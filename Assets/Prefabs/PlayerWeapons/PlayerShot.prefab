@@ -702,8 +702,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerShot
-  m_Damage: 1
-  m_DamageBonus: 0.5
+  m_Damage: 1.2
+  m_DamageBonus:
+  - 0
+  - 0.6
+  - 1.3
   m_Speed: 40
   m_IsPenetrate: 0
   m_ActivatedObject:

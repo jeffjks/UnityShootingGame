@@ -8,6 +8,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
     [SerializeField] private Transform[] m_FirePosition = new Transform[3];
     [SerializeField] private GameObject m_Hull = null;
     [SerializeField] private EnemyMiddleBoss5bTurret m_Turret = null;
+    public Transform m_Renderer;
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     
     private Vector3 m_TargetPosition;
@@ -25,8 +26,6 @@ public class EnemyMiddleBoss5b : EnemyUnit
         m_Sequence = DOTween.Sequence()
         .Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
@@ -58,14 +57,9 @@ public class EnemyMiddleBoss5b : EnemyUnit
         }
 
         if (m_PlayerManager.m_PlayerIsAlive)
-            RotateSlightly(m_PlayerPosition, 56f);
+            RotateSlightly(m_PlayerPosition, 40f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        if (m_IsDead) {
-            m_CurrentAngle += 60f * Time.deltaTime;
-            transform.localScale -= new Vector3(1f, 1f, 1f) * 0.2f * Time.deltaTime;
-        }
         
         base.Update();
     }
@@ -176,12 +170,16 @@ public class EnemyMiddleBoss5b : EnemyUnit
 
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        m_MoveVector = new MoveVector(1.5f, 0f);
+        m_MoveVector = new MoveVector(1.2f, 0f);
         m_SystemManager.BulletsToGems(3f);
         m_Phase = 2;
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
         m_Turret.OnDeath();
+        
+        m_Sequence = DOTween.Sequence()
+        .Append(m_Renderer.DORotateQuaternion(new Quaternion(-0.2f, 0.9f, -0.4f, -0.2f), 2.5f).SetEase(Ease.Linear))
+        .Join(m_Renderer.DOScale(new Vector3(0.7f, 0.7f, 0.7f), 2.5f).SetEase(Ease.Linear));
 
         StartCoroutine(DeathExplosion1());
         StartCoroutine(DeathExplosion2());

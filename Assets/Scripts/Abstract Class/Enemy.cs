@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -266,6 +267,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     private readonly Vector3 m_AirEnemyAxis = new Vector3(0f, -0.4f, 1f);
     private Quaternion m_DefaultQuaternion;
     private Vector3 m_DefaultAxis;
+    private List<EnemyUnit> m_ParentList = new List<EnemyUnit>();
 
     protected override void Awake()
     {
@@ -279,6 +281,14 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
         m_MaterialsAll = GetAllMetrials();
         m_Materials = GetMaterials();
+
+        EnemyUnit current_unit = m_ParentEnemy;
+        
+        while (current_unit != null) {
+            m_ParentList.Add(current_unit);
+            current_unit = current_unit.m_ParentEnemy;
+        }
+        
         GetCoordinates();
     }
 
@@ -352,12 +362,17 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         if (m_UpdateTransform) {
             float real_current_angle;
             Vector3 real_air_axis;
+
             if (m_ParentEnemy == null) { // 본체일 경우
                 real_current_angle = m_CurrentAngle;
                 real_air_axis = m_AirEnemyAxis;
             }
             else {
-                real_current_angle = m_CurrentAngle - m_ParentEnemy.m_CurrentAngle;
+                real_current_angle = m_CurrentAngle;
+                for (int i = 0; i < m_ParentList.Count; i++) {
+                    real_current_angle -= m_ParentList[i].m_CurrentAngle;
+                }
+                //real_current_angle = m_CurrentAngle - m_ParentEnemy.m_CurrentAngle;
                 real_air_axis = m_DefaultAxis;
             }
 

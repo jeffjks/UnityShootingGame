@@ -62,7 +62,7 @@ public class PlayerLaserCreater : MonoBehaviour
         float laser_width = 1f + (float) m_PlayerShooter.m_ShotLevel*0.5f;
         m_LineRenderer.startWidth = laser_width;
         m_LineRenderer.endWidth = laser_width;
-        float hitbox_width = laser_width*0.9f;
+        float hitbox_width = laser_width*0.9f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
         m_LaserHitBoxWidth = new Vector3(hitbox_width*0.5f, 0f, 0f);
         m_Collider2D.size = new Vector2(hitbox_width, 0f);
         

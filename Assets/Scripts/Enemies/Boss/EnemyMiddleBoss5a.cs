@@ -6,7 +6,6 @@ public class EnemyMiddleBoss5a : EnemyUnit
 {
     public EnemyMiddleBoss5aMainTurret m_MainTurret;
     public EnemyMiddleBoss5aTurret[] m_Turret = new EnemyMiddleBoss5aTurret[2];
-    public Transform m_Renderer;
     public EnemyMissile[] m_Missiles = new EnemyMissile[8];
     [HideInInspector] public sbyte m_Phase;
     
@@ -83,7 +82,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
             m_Turret[0].m_RotatePattern = 10;
             m_Turret[1].m_RotatePattern = 10;
             yield return new WaitForSeconds(2.2f);
-            m_MainTurret.StartPattern(1);
+            m_MainTurret.StartPattern(4);
             m_MainTurret.m_RotatePattern = 21;
             yield return new WaitForSeconds(0.5f);
             m_MainTurret.StopPattern();
@@ -144,10 +143,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         m_SystemManager.BulletsToGems(2.5f);
-        m_MoveVector = new MoveVector(1.2f, 0f);
-        m_Sequence = DOTween.Sequence()
-        .Append(m_Renderer.DORotateQuaternion(new Quaternion(-0.2f, 0.9f, -0.4f, -0.2f), 2.5f).SetEase(Ease.Linear))
-        .Join(m_Renderer.DOScale(new Vector3(2f, 2f, 2f), 2.5f).SetEase(Ease.Linear));
+        m_MoveVector = new MoveVector(1.5f, 0f);
         
         m_Phase = -1;
 

@@ -102,7 +102,7 @@ public class EnemyShipCarrier : EnemyUnit
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         float timer = 0f, random_timer = 0f;
-        float explosion_height = 4f;
+        float explosion_height = 3f;
         Vector3 random_pos1, random_pos2;
         m_SystemManager.EraseBullets(2f);
 
@@ -111,15 +111,15 @@ public class EnemyShipCarrier : EnemyUnit
                 m_EnemyUnits[i].OnDeath();
         }
 
-        StartCoroutine(DeathExplosion1(explosion_height));
-        StartCoroutine(DeathExplosion2(explosion_height));
+        StartCoroutine(DeathExplosion1(2f));
+        StartCoroutine(DeathExplosion2(2f));
 
         while (timer < 1.5f) {
             random_timer = Random.Range(0.1f, 0.25f);
-            random_pos1 = Random.insideUnitCircle * 2;
-            random_pos2 = Random.insideUnitCircle * 2;
-            ExplosionEffect(0, -1, new Vector3(random_pos1.x, explosion_height, random_pos1.z));
-            ExplosionEffect(2, -1, new Vector3(random_pos2.x, explosion_height, random_pos2.z));
+            random_pos1 = Random.insideUnitCircle * 3f;
+            random_pos2 = Random.insideUnitCircle * 3f;
+            ExplosionEffect(0, -1, new Vector3(random_pos1.x, explosion_height, random_pos1.z), new MoveVector(3f, Random.Range(0f, 360f)));
+            ExplosionEffect(2, -1, new Vector3(random_pos2.x, explosion_height, random_pos2.z), new MoveVector(3f, Random.Range(0f, 360f)));
             yield return new WaitForSeconds(random_timer);
             timer += random_timer;
         }
@@ -144,7 +144,7 @@ public class EnemyShipCarrier : EnemyUnit
         Vector3 random_pos;
         while (timer < 1.5f) {
             random_timer = Random.Range(0.1f, 0.25f);
-            random_pos = Random.insideUnitCircle * 3;
+            random_pos = Random.insideUnitCircle * 4f;
             ExplosionEffect(0, 0, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, 3.8f));
             yield return new WaitForSeconds(random_timer);
             timer += random_timer;
@@ -157,7 +157,7 @@ public class EnemyShipCarrier : EnemyUnit
         Vector3 random_pos;
         while (timer < 1.5f) {
             random_timer = Random.Range(0.1f, 0.25f);
-            random_pos = Random.insideUnitCircle * 3;
+            random_pos = Random.insideUnitCircle * 4f;
             ExplosionEffect(0, 1, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, -3.8f));
             yield return new WaitForSeconds(random_timer);
             timer += random_timer;

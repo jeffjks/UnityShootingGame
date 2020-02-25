@@ -66,6 +66,8 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
             m_CurrentPattern = Pattern2();
         else if (num == 3)
             m_CurrentPattern = Pattern3();
+        else if (num == 4)
+            m_CurrentPattern = Pattern4();
         StartCoroutine(m_CurrentPattern);
     }
 
@@ -80,18 +82,16 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
-                for (int i = 0; i < 3; i++) {
-                    CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle + Random.Range(-4f, 4f), accel, 6, 18f);
-                }
+                CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle + Random.Range(-4f, 4f), accel, 10, 13f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
-                CreateBulletsSector(3, m_FirePosition.position, 3.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
+                CreateBulletsSector(3, m_FirePosition.position, 3.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 12f);
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle - 2.25f + i*1.5f, accel, 7, 15f);
                 }
             }
             else {
-                CreateBulletsSector(3, m_FirePosition.position, 3f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
+                CreateBulletsSector(3, m_FirePosition.position, 3f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 12f);
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(3, m_FirePosition.position, 4.5f, m_CurrentAngle - 2.25f + i*1.5f, accel, 9, 12f);
                     CreateBulletsSector(3, m_FirePosition.position, 6f, m_CurrentAngle - 2.25f + i*1.5f, accel, 10, 12f);
@@ -151,6 +151,24 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
                 CreateBulletsSector(3, m_FirePosition.position, 5.7f, m_CurrentAngle, accel, 6, 1.2f);
                 yield return new WaitForSeconds(0.8f);
             }
+        }
+    }
+
+    private IEnumerator Pattern4()
+    {
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+
+        while(true) {
+            if (m_SystemManager.m_Difficulty == 0) {
+                CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle + Random.Range(-4f, 4f), accel, 10, 14f);
+            }
+            else if (m_SystemManager.m_Difficulty == 1) {
+                CreateBulletsSector(3, m_FirePosition.position, 5.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
+            }
+            else {
+                CreateBulletsSector(3, m_FirePosition.position, 6f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 }

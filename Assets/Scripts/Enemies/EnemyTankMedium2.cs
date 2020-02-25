@@ -48,8 +48,8 @@ public class EnemyTankMedium2 : EnemyUnit
                 CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForSeconds(1f);
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 30, 12f,
-                2, 0.5f, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 24, 15f,
+                2, 0.2f, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                 yield return new WaitForSeconds(1f);
             }
 
@@ -78,7 +78,7 @@ public class EnemyTankMedium2 : EnemyUnit
                 yield return new WaitForSeconds(0.7f);
                 for (int i = 0; i < 3; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 7.5f, Random.Range(0f, 360f), accel, 24, 15f,
+                    CreateBulletsSector(2, pos, 7.5f, Random.Range(0f, 360f), accel, 30, 12f,
                     2, 0.2f, 1, 6.5f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                     yield return new WaitForSeconds(0.38f);
                 }

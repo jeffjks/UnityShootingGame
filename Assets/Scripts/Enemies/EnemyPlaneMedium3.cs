@@ -54,21 +54,21 @@ public class EnemyPlaneMedium3 : EnemyUnit
             m_Turret[1].StartCoroutine("Pattern1");
 
             if (m_SystemManager.m_Difficulty == 0) {
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 3; i++) {
                     CreateBullet(2, pos, 5f, target_angle + random_value, accel);
-                    yield return new WaitForSeconds(0.096f);
+                    yield return new WaitForSeconds(0.084f);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 6f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.087f);
+                    yield return new WaitForSeconds(0.07f);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.08f);
+                    yield return new WaitForSeconds(0.06f);
                 }
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);

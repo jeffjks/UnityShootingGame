@@ -263,7 +263,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 0
-  m_Health: 1500
+  m_Health: 1800
   m_Class: 1
   m_Score: 12500
   m_Debris: 0
@@ -293,6 +293,7 @@ MonoBehaviour:
   - {fileID: 2319676086981174199}
   m_Hull: {fileID: 8301452804511892796}
   m_Turret: {fileID: 1427492857392280761}
+  m_Renderer: {fileID: 7551878699012226129}
 --- !u!1 &64298677514116869
 GameObject:
   m_ObjectHideFlags: 0

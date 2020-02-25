@@ -131,6 +131,7 @@ public abstract class StageManager : MonoBehaviour
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;
+        Sequence sequence = DOTween.Sequence();
 
         if (movePattern == null) {
             return ins;
@@ -149,8 +150,7 @@ public abstract class StageManager : MonoBehaviour
                     pattern_speed = enemy_unit.m_MoveVector.speed;
                 }
 
-                DOTween.Sequence()
-                .AppendInterval(pattern_delay)
+                sequence.AppendInterval(pattern_delay)
                 .Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, pattern_direction, pattern_time).SetEase(Ease.Linear))
                 .Join(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, pattern_speed, pattern_time).SetEase(Ease.Linear));
             }

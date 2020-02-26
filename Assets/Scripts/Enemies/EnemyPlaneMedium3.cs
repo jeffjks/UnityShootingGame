@@ -56,19 +56,19 @@ public class EnemyPlaneMedium3 : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 3; i++) {
                     CreateBullet(2, pos, 5f, target_angle + random_value, accel);
-                    yield return new WaitForSeconds(0.084f);
+                    yield return new WaitForSeconds(0.056f);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 6f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.07f);
+                    yield return new WaitForSeconds(0.047f);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForSeconds(0.04f);
                 }
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);

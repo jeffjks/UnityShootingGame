@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 9004368462895808605}
   - component: {fileID: 3834615729023172242}
   - component: {fileID: 693829336301384475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TunnelGateTopExtension (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &9004368462895808605
 Transform:
@@ -88,12 +88,12 @@ GameObject:
   - component: {fileID: 4228739762451515309}
   - component: {fileID: 1482689116653138460}
   - component: {fileID: 1772401174752262827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TunnelGateTopExtension (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &4228739762451515309
 Transform:
@@ -165,12 +165,12 @@ GameObject:
   - component: {fileID: 5579591821143016980}
   - component: {fileID: 64668998648871517}
   - component: {fileID: 3183454263033205374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TunnelGateTopExtension (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &5579591821143016980
 Transform:
@@ -396,12 +396,12 @@ GameObject:
   - component: {fileID: 6786405879225293060}
   - component: {fileID: 1558737259839850774}
   - component: {fileID: 5884869164464333531}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hangar (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &6786405879225293060
 Transform:
@@ -473,12 +473,12 @@ GameObject:
   - component: {fileID: 7889174106666032161}
   - component: {fileID: 353412601084260759}
   - component: {fileID: 5791352388436505262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TunnelGateTopExtension (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &7889174106666032161
 Transform:
@@ -553,7 +553,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &1633698830096929927
 Transform:
@@ -658,12 +658,12 @@ GameObject:
   - component: {fileID: 2835720345525130513}
   - component: {fileID: 4781349579317151632}
   - component: {fileID: 7279315068939646160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &2835720345525130513
 Transform:
@@ -738,7 +738,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &1003878050587188364
 Transform:
@@ -779,12 +779,12 @@ GameObject:
   - component: {fileID: 3336521115683039937}
   - component: {fileID: 8641771657706786037}
   - component: {fileID: 2056646135326747441}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &3336521115683039937
 Transform:
@@ -856,12 +856,12 @@ GameObject:
   - component: {fileID: 206860133953665334}
   - component: {fileID: 5759471832555089883}
   - component: {fileID: 1489150757231258579}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hangar (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &206860133953665334
 Transform:
@@ -933,12 +933,12 @@ GameObject:
   - component: {fileID: 5858518615995422171}
   - component: {fileID: 1592796259567183491}
   - component: {fileID: 8070028073013078703}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &5858518615995422171
 Transform:
@@ -1087,12 +1087,12 @@ GameObject:
   - component: {fileID: 8315057397775826108}
   - component: {fileID: 8315057397775023260}
   - component: {fileID: 8315057397773925980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &8315057397775826108
 Transform:

@@ -18,7 +18,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
 
     void Start()
     {
-        float time_limit = 40f;
+        float time_limit = 38f;
         
         m_TargetPosition = new Vector3(0f, -4f, Depth.ENEMY);
         
@@ -116,7 +116,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
             m_Turret[1].StartPattern(3);
             yield return new WaitForSeconds(2f);
             m_MainTurret.StartPattern(3);
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(6f);
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
             m_MainTurret.StopPattern();

@@ -79,6 +79,7 @@ public class PlayerShooter : PlayerShooterManager
     public void PlayerShooterBehaviour() {
         if (!m_PlayerManager.PlayerControlable) {
             m_PlayerController.m_SlowMode = false;
+            m_NowAttacking = false;
             m_ShotKeyPress = 0;
             m_AutoShot = 0;
             m_PlayerLaserShooter.StopLaser();
@@ -234,7 +235,8 @@ public class PlayerShooter : PlayerShooterManager
             ResetLaser();
         }
         else {
-            // ToDo 점수 +
+            m_SystemManager.AddScore(ItemScore.POWERUP);
+            // ToDo 점수 이펙트
         }
         UpdateShotNumber();
     }
@@ -252,7 +254,8 @@ public class PlayerShooter : PlayerShooterManager
             m_SystemManager.SetBombNumber(1);
         }
         else {
-            // ToDo 점수 +
+            m_SystemManager.AddScore(ItemScore.BOMB);
+            // ToDo 점수 이펙트
         }
     }
     

@@ -7,6 +7,7 @@ public class TextLanguage : MonoBehaviour
 {
     public Text m_Text;
     public Font[] m_Font;
+    [TextArea(4, 6)]
     public string[] m_String;
     private GameManager m_GameManager = null;
 

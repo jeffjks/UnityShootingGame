@@ -301,15 +301,26 @@ public class EnemyBoss4SubTurret : EnemyUnit
         pos = GetScreenPosition(m_FirePosition.position);
         if (m_SystemManager.m_Difficulty == 0) {
             for (int j = 0; j < 2; j++) {
-                CreateBullet(1, pos, 4f + j*0.15f, m_CurrentAngle, accel);
+                CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 3, 13f);
+                yield return new WaitForSeconds(0.33f);
+                CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 5, 13f);
+                yield return new WaitForSeconds(0.33f);
+                CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 8, 13f);
+                yield return new WaitForSeconds(0.33f);
+                CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 9, 13f);
             }
             yield return new WaitForSeconds(0.37f);
         }
         else if (m_SystemManager.m_Difficulty == 1) {
-            for (int j = 0; j < 3; j++) {
-                CreateBullet(1, pos, 4f + j*0.15f, m_CurrentAngle, accel);
-            }
-            yield return new WaitForSeconds(0.14f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 5, 9f);
+            yield return new WaitForSeconds(0.25f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 8, 9f);
+            yield return new WaitForSeconds(0.25f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 11, 9f);
+            yield return new WaitForSeconds(0.25f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 12, 9f);
+            yield return new WaitForSeconds(0.25f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 13, 9f);
         }
         else {
             CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 5, 7f);

@@ -99,8 +99,6 @@ public class PlayerManager : MonoBehaviour
         if (m_SystemManager.m_BossOnlyState) {
             switch(m_SystemManager.GetStage()) {
                 case 0:
-                    break;
-                case 1:
                     m_PlayerShooter.PowerSet(2);
                     break;
                 default:
@@ -111,6 +109,8 @@ public class PlayerManager : MonoBehaviour
         else {
             switch(m_SystemManager.GetStage()) {
                 case 0:
+                    break;
+                case 1:
                     m_PlayerShooter.PowerSet(2);
                     break;
                 default:

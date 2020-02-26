@@ -64,12 +64,13 @@ public class EnemyMiddleBoss4Part : EnemyUnit
         EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, timer);
         EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0f);
         Vector3 pos;
+        float[] period = {0.3f, 0.2f, 0.1f};
 
         while (true) {
             pos = m_FirePosition.position;
             CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, 2, timer,
             4, 8f, 0, 0f, accel2);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(period[m_SystemManager.m_Difficulty]);
         }
     }
 

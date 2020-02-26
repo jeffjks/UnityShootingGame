@@ -41,9 +41,11 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos = m_FirePosition.position;
         while (true) {
-            if (m_PlayerManager.m_Player.transform.position.y >= -7f) {
-                pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 12, 2.5f);
+            if (m_ParentEnemy.m_IsAttackable) {
+                if (m_PlayerManager.m_Player.transform.position.y >= -7f) {
+                    pos = GetScreenPosition(m_FirePosition.position);
+                    CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 12, 2.5f);
+                }
             }
             yield return new WaitForSeconds(0.5f);
         }

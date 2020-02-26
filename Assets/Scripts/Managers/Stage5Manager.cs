@@ -32,20 +32,36 @@ public class Stage5Manager : StageManager
         yield return new WaitForSeconds(50f);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 0.5f, 1)); // Middle Boss 1
         SetBackgroundSpeed(0.9f, 1f);
+        yield return new WaitForSeconds(142f);
+        
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.WarningText();
+        yield return new WaitForSeconds(1f);
+        //StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
+        yield return new WaitForSeconds(5f);
+        PlayBossMusic();
         yield break;
     }
 
     protected override IEnumerator TestTimeLine()
     {
-        //InitEnemies();
-        yield return new WaitForSeconds(1f);
-        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-5f, 2f, GetBackgroundZ() + 30f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(5f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
         yield break;
     }
 
     protected override IEnumerator BossOnlyTimeLine()
     {
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 389.4f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic());
+        yield return new WaitForSeconds(3f);
+        m_SystemManager.WarningText();
+        yield return new WaitForSeconds(1f);
+        //StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss
+        yield return new WaitForSeconds(5f);
+        PlayBossMusic();
         yield break;
     }
 
@@ -123,7 +139,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-4f, -3f), 1.2f);
         yield return new WaitForSeconds(0.5f);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(0f, -6f), 1.2f);
-        yield return new WaitForSeconds(30.5f); // Middle Boss 1
+        yield return new WaitForSeconds(30.5f); // Middle Boss 1 (137s)
 
         period = new float[] {0.6f, 0.3f, 0.25f};
         StartCoroutine(SpawnPlaneSmall_2s(15f, period[m_SystemManager.m_Difficulty]));
@@ -145,7 +161,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(12.1f, 3.51f, 177.6f), new MoveVector(1.2f, -45f), new MovePattern[] {new MovePattern(10f, 8739f, 0f, 2f)});
         yield return new WaitForSeconds(4f);
         CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
-        yield return new WaitForSeconds(12f);
+        yield return new WaitForSeconds(11f);
         CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f));
         yield return new WaitForSeconds(1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-4f, -2f), 1f);
@@ -155,7 +171,7 @@ public class Stage5Manager : StageManager
         yield return new WaitForSeconds(1f);
         CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f));
         CreateEnemy(m_PlaneMedium_4, new Vector2(4f, 3f));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -4f), new Vector2(-3f, -3f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-5f, -6f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(3f, -3f), 1f);
@@ -165,7 +181,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-6f, -5f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(5f, 2f), new Vector2(4f, -2f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(6f, -5f), 1f);
-        yield return new WaitForSeconds(20f); // Middle Boss 2
+        yield return new WaitForSeconds(20f); // Middle Boss 2 (216s)
 
         StartCoroutine(SpawnPlaneMedium_3s(10f));
         yield return new WaitForSeconds(4f);
@@ -202,21 +218,22 @@ public class Stage5Manager : StageManager
         yield return new WaitForSeconds(5f);
         CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_LEFT - 4f, WATER_HEIGHT, GetBackgroundZ() + 29f),
         new MoveVector(0.6f, 110f), new MovePattern[] {new MovePattern(12f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(5.5f, WATER_HEIGHT, GetBackgroundZ() + 32f),
         new MoveVector(0.5f, -30f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
         StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_2, 2f, 1f));
         yield return new WaitForSeconds(2f);
-        CreateEnemy(m_PlaneMedium_2, new Vector2(-3f, 3f));
-        yield return new WaitForSeconds(3f);
-        CreateEnemy(m_PlaneMedium_2, new Vector2(3f, 3f));
+        CreateEnemy(m_PlaneMedium_2, new Vector2(-1f, 3f));
+        yield return new WaitForSeconds(2f);
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(-5f, WATER_HEIGHT, GetBackgroundZ() + 29f), new MoveVector(0f, -130f));
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(-1.2f, WATER_HEIGHT, GetBackgroundZ() + 28.2f), new MoveVector(0f, -120f));
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
 
         CreateEnemyWithMoveVector(m_ShipCarrier_2, new Vector3(Size.GAME_BOUNDARY_LEFT, WATER_HEIGHT, GetBackgroundZ() + 31f),
         new MoveVector(0.7f, 75f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(14f);
+        yield return new WaitForSeconds(4f);
+        CreateEnemy(m_PlaneMedium_2, new Vector2(3f, 3f));
+        yield return new WaitForSeconds(8f);
         CreateEnemy(m_PlaneMedium_1, new Vector2(3f, 3f));
         yield return new WaitForSeconds(1f);
         CreateEnemy(m_PlaneMedium_1, new Vector2(-4f, 3f));
@@ -230,37 +247,47 @@ public class Stage5Manager : StageManager
         yield return new WaitForSeconds(2f);
         CreateEnemy(m_PlaneMedium_2, new Vector2(-1.5f, 3f));
         yield return new WaitForSeconds(4f);
-        CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(-Random.Range(5.5f, 6.5f), WATER_HEIGHT, GetBackgroundZ() + 28f),
-        new MoveVector(2f, 0f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
+        StartCoroutine(SpawnSmallShips());
         yield return new WaitForSeconds(1f);
         CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(-3.5f, WATER_HEIGHT, GetBackgroundZ() + 31f),
         new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(3.5f, WATER_HEIGHT, GetBackgroundZ() + 31f),
         new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
-        StartCoroutine(SpawnSmallShips());
         CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(0f, WATER_HEIGHT, GetBackgroundZ() + 31f),
         new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
         SetBackgroundSpeed(1.2f, 1f);
-
-        yield return new WaitForSeconds(9f); // Final Field
+        yield return new WaitForSeconds(8f); // Final Field (287s)
+        
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
         yield return new WaitForSeconds(2f);
-        StartCoroutine(SpawnHelicopters_C(4f, 1f));
+        StartCoroutine(SpawnHelicopters_C(4f, 1.3f));
         yield return new WaitForSeconds(2f);
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(5f);
         CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(-5f, 2f, GetBackgroundZ() + 30f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(5f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(3f);
+        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(2f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
+        yield return new WaitForSeconds(2.5f);
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(0f, 2f, GetBackgroundZ() + 30f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(5f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(3f);
+        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(2f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
+        yield return new WaitForSeconds(2.5f);
         CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(5f, 2f, GetBackgroundZ() + 30f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(5f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(12f);
+        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(2f, 8739f, -1f, 2f), new MovePattern(4f, 8739f, 0f, 1f)});
+        yield return new WaitForSeconds(11f);
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
+        yield return new WaitForSeconds(7f); // 319s
+
+        SetBackgroundSpeed(7f, 2f);
+        yield return new WaitForSeconds(2f);
+        period = new float[] {5.5f, 2f, 1.5f};
+        StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 10f, period[m_SystemManager.m_Difficulty]));
+        yield return new WaitForSeconds(11f);
+        SetBackgroundSpeed(1f, 4f);
+        yield return new WaitForSeconds(6f);
+        CreateEnemy(m_ItemHeli_1, new Vector2(3f, 3f));
+        CreateEnemy(m_ItemHeli_2, new Vector2(-3f, 3f));
+        yield break;
     }
     
 
@@ -408,10 +435,10 @@ public class Stage5Manager : StageManager
     private IEnumerator SpawnSmallShips() {
         GameObject[] ship = {m_ShipSmall_1, m_ShipSmall_2};
         for (int i = 0; i < 2; i++) {
-            CreateEnemyWithMoveVector(ship[i], new Vector3(-Random.Range(5.5f, 6.5f), WATER_HEIGHT, GetBackgroundZ() + 28f),
-            new MoveVector(0.8f, 0f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
-            CreateEnemyWithMoveVector(ship[i], new Vector3(Random.Range(5.5f, 6.5f), WATER_HEIGHT, GetBackgroundZ() + 28f),
-            new MoveVector(0.8f, 0f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
+            CreateEnemyWithMoveVector(ship[i], new Vector3(Size.GAME_BOUNDARY_LEFT - 2f, WATER_HEIGHT, GetBackgroundZ() + 26f),
+            new MoveVector(1.3f, 50f), new MovePattern[] {new MovePattern(2.7f, 8739f, 0f, 1.2f)});
+            CreateEnemyWithMoveVector(ship[i], new Vector3(Size.GAME_BOUNDARY_RIGHT + 2f, WATER_HEIGHT, GetBackgroundZ() + 26f),
+            new MoveVector(1.3f, -50f), new MovePattern[] {new MovePattern(2.7f, 8739f, 0f, 1.2f)});
             yield return new WaitForSeconds(4.8f);
         }
         yield break;

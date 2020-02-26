@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerRocket
-  m_Damage: 10
+  m_Damage: 7
   m_DamageBonus:
   - 0
   m_Speed: 5

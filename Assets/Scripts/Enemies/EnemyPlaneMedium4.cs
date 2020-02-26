@@ -32,6 +32,20 @@ public class EnemyPlaneMedium4 : EnemyUnit
     {
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
+
+        if (!m_TimeLimitState) { // Retreat when boss or middle boss state
+            if (m_SystemManager.m_PlayState > 0) {
+                CancelInvoke("TimeLimit");
+                TimeLimit();
+                m_Sequence.Kill();
+                if (transform.position.x > 0f)
+                    m_Sequence = DOTween.Sequence()
+                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_RIGHT + 4f, 3f).SetEase(Ease.InQuad));
+                else
+                    m_Sequence = DOTween.Sequence()
+                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_LEFT - 4f, 3f).SetEase(Ease.InQuad));
+            }
+        }
         
         base.Update();
     }

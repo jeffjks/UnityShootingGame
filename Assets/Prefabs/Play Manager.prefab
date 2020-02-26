@@ -990,6 +990,7 @@ MonoBehaviour:
   m_Difficulty: 0
   m_ReplayState: 1
   m_PracticeState: 0
+  m_BossOnlyState: 0
   m_DebugMod: 0
   m_InvincibleMod: 0
   m_DebugDifficulty: 2
@@ -4943,7 +4944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807f6672242f68a4eb793ad676d7decc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Preview: 0
+  m_PreviewPoolingManager: {fileID: 0}
 --- !u!1 &5824299596108933836
 GameObject:
   m_ObjectHideFlags: 0
@@ -6384,8 +6385,8 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - Final Bonus
-  - "\uCD5C\uC885 \uBCF4\uB108\uC2A4"
+  - Additional Bonus
+  - "\uCD94\uAC00 \uBCF4\uB108\uC2A4"
 --- !u!1 &5824299596531157700
 GameObject:
   m_ObjectHideFlags: 0

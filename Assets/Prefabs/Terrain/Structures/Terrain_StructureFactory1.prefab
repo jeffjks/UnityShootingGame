@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 9004368462895808605}
   - component: {fileID: 3834615729023172242}
   - component: {fileID: 693829336301384475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TunnelGateTopExtension (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &9004368462895808605
 Transform:
@@ -88,12 +88,12 @@ GameObject:
   - component: {fileID: 5579591821143016980}
   - component: {fileID: 64668998648871517}
   - component: {fileID: 3183454263033205374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TunnelGateTopExtension (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &5579591821143016980
 Transform:
@@ -164,11 +164,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1633698830096929927}
   m_Layer: 8
-  m_Name: Terrain_StructureFactory
+  m_Name: Terrain_StructureFactory1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &1633698830096929927
 Transform:
@@ -196,12 +196,12 @@ GameObject:
   - component: {fileID: 4560006937001142896}
   - component: {fileID: 4560006937004042832}
   - component: {fileID: 4560006937002911888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpacePlatformSmallGrey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &4560006937001142896
 Transform:
@@ -273,12 +273,12 @@ GameObject:
   - component: {fileID: 2835720345525130513}
   - component: {fileID: 4781349579317151632}
   - component: {fileID: 7279315068939646160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &2835720345525130513
 Transform:
@@ -353,7 +353,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &1003878050587188364
 Transform:
@@ -389,12 +389,12 @@ GameObject:
   - component: {fileID: 5338610055393863056}
   - component: {fileID: 8027455095479711853}
   - component: {fileID: 3959559186576242098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ThrusterGrey (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &5338610055393863056
 Transform:
@@ -466,12 +466,12 @@ GameObject:
   - component: {fileID: 6284350016197551350}
   - component: {fileID: 6284350016196224214}
   - component: {fileID: 6284350016195257878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ThrusterGrey (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &6284350016197551350
 Transform:
@@ -543,12 +543,12 @@ GameObject:
   - component: {fileID: 3336521115683039937}
   - component: {fileID: 8641771657706786037}
   - component: {fileID: 2056646135326747441}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &3336521115683039937
 Transform:
@@ -620,12 +620,12 @@ GameObject:
   - component: {fileID: 5858518615995422171}
   - component: {fileID: 1592796259567183491}
   - component: {fileID: 8070028073013078703}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &5858518615995422171
 Transform:
@@ -697,12 +697,12 @@ GameObject:
   - component: {fileID: 8315057397775826108}
   - component: {fileID: 8315057397775023260}
   - component: {fileID: 8315057397773925980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformJumpGrey (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 19
   m_IsActive: 1
 --- !u!4 &8315057397775826108
 Transform:

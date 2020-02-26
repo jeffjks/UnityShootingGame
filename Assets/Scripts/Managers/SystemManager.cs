@@ -33,8 +33,8 @@ public static class ItemScore // Z Axis
     // Far
     public const ushort GEM_GROUND = 500;
     public const ushort GEM_AIR = 700;
-    public const ushort POWERUP = 1000;
-    public const ushort BOMB = 2500;
+    public const ushort POWERUP = 2000;
+    public const ushort BOMB = 5000;
     // Close
 }
 

@@ -34,21 +34,21 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
             for (int i = 0; i < 3; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(4, pos, 6f, target_angle + random_value, accel);
-                yield return new WaitForSeconds(0.07f);
+                yield return new WaitForSeconds(0.047f);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(4, pos, 7f, target_angle + random_value, accel);
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForSeconds(0.04f);
             }
         }
         else {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition.position;
                 CreateBulletsSector(4, pos, 8f, target_angle + random_value, accel, 3, 12f);
-                yield return new WaitForSeconds(0.0525f);
+                yield return new WaitForSeconds(0.035f);
             }
         }
         yield break;

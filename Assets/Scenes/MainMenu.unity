@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 5892261}
   - component: {fileID: 5892260}
   - component: {fileID: 5892259}
+  - component: {fileID: 5892262}
   m_Layer: 5
   m_Name: Red Text
   m_TagString: Untagged
@@ -247,8 +248,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5892259
 MonoBehaviour:
@@ -292,12 +293,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: RED
 --- !u!222 &5892261
 CanvasRenderer:
@@ -307,6 +308,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5892257}
   m_CullTransparentMesh: 0
+--- !u!114 &5892262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5892257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 5892260}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'RED
+
+    [Cost: 0]
+
+
+    Paint the aircraft in red.'
+  - "\uBE68\uAC04\uC0C9\n[\uBE44\uC6A9: 0]\n\n\uAE30\uCCB4\uB97C \uBD89\uC740\uC0C9\uC73C\uB85C
+    \uB3C4\uC0C9\uD55C\uB2E4."
 --- !u!1 &18074093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,6 +1899,7 @@ GameObject:
   - component: {fileID: 141978715}
   - component: {fileID: 141978714}
   - component: {fileID: 141978713}
+  - component: {fileID: 141978716}
   m_Layer: 5
   m_Name: Three Text
   m_TagString: Untagged
@@ -1896,8 +1923,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &141978713
 MonoBehaviour:
@@ -1941,12 +1968,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1.2
   m_Text: 3
 --- !u!222 &141978715
 CanvasRenderer:
@@ -1956,6 +1983,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141978711}
   m_CullTransparentMesh: 0
+--- !u!114 &141978716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141978711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 141978714}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - '3
+
+    [Cost: 100]
+
+
+    Start with 3 bombs at the start. The maximum number of bombs is 3.'
+  - "3\n[\uBE44\uC6A9: 100]\n\n\uC2DC\uC791\uC2DC 3\uAC1C\uC758 \uD3ED\uD0C4\uC744
+    \uAC00\uC9C0\uACE0 \uC2DC\uC791\uD558\uBA70 \uD3ED\uD0C4\uC744 \uCD5C\uB300 3\uAC1C\uAE4C\uC9C0
+    \uBCF4\uC720\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
 --- !u!1 &144253012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,7 +2777,7 @@ MonoBehaviour:
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_PreviousPanel: {fileID: 961212710}
   m_Attributes: 4
-  m_Cost: 0000000064000000c8000000
+  m_Cost: 00000000960000002c010000
   m_AttributesHandler: {fileID: 961212712}
 --- !u!114 &206906428
 MonoBehaviour:
@@ -3073,6 +3126,7 @@ GameObject:
   - component: {fileID: 232940589}
   - component: {fileID: 232940588}
   - component: {fileID: 232940587}
+  - component: {fileID: 232940590}
   m_Layer: 5
   m_Name: None Text
   m_TagString: Untagged
@@ -3096,8 +3150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &232940587
 MonoBehaviour:
@@ -3141,12 +3195,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: NONE
 --- !u!222 &232940589
 CanvasRenderer:
@@ -3156,6 +3210,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232940585}
   m_CullTransparentMesh: 0
+--- !u!114 &232940590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232940585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 232940588}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'NONE
+
+    [Cost: 0]
+
+
+    Not use any modules.'
+  - "\uC5C6\uC74C\n[\uBE44\uC6A9: 0]\n\n\uCD94\uAC00 \uBB34\uC7A5\uC744 \uC0AC\uC6A9\uD558\uC9C0
+    \uC54A\uC2B5\uB2C8\uB2E4."
 --- !u!1 &236171573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4436,7 +4515,7 @@ GameObject:
   - component: {fileID: 346298393}
   - component: {fileID: 346298392}
   m_Layer: 5
-  m_Name: Homing Missile
+  m_Name: Homing Missiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6883,7 +6962,7 @@ MonoBehaviour:
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_PreviousPanel: {fileID: 961212710}
   m_Attributes: 2
-  m_Cost: 0000000064000000c8000000
+  m_Cost: 00000000640000002c010000
   m_AttributesHandler: {fileID: 961212712}
 --- !u!114 &482450035
 MonoBehaviour:
@@ -7155,8 +7234,9 @@ GameObject:
   - component: {fileID: 580389287}
   - component: {fileID: 580389286}
   - component: {fileID: 580389285}
+  - component: {fileID: 580389288}
   m_Layer: 5
-  m_Name: Homing Missile Text
+  m_Name: Homing Missiles Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7178,8 +7258,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580389285
 MonoBehaviour:
@@ -7223,13 +7303,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
-  m_Text: HOMING MISSILE
+    m_LineSpacing: 1.2
+  m_Text: HOMING MISSILES
 --- !u!222 &580389287
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7238,6 +7318,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580389283}
   m_CullTransparentMesh: 0
+--- !u!114 &580389288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580389283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 580389286}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'HOMING MISSILES
+
+    [Cost: 150]
+
+
+    Fire homing missiles to chase down enemies.'
+  - "\uC720\uB3C4 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 150]\n\n\uC801\uC744 \uCD94\uACA9\uD558\uB294
+    \uC720\uB3C4 \uBBF8\uC0AC\uC77C\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &582176297
 GameObject:
   m_ObjectHideFlags: 0
@@ -7250,6 +7355,7 @@ GameObject:
   - component: {fileID: 582176301}
   - component: {fileID: 582176300}
   - component: {fileID: 582176299}
+  - component: {fileID: 582176302}
   m_Layer: 5
   m_Name: Strong Text
   m_TagString: Untagged
@@ -7273,8 +7379,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &582176299
 MonoBehaviour:
@@ -7318,12 +7424,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: STRONG
 --- !u!222 &582176301
 CanvasRenderer:
@@ -7333,6 +7439,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582176297}
   m_CullTransparentMesh: 0
+--- !u!114 &582176302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582176297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 582176300}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'STRONG
+
+    [Cost: 150]
+
+
+    Fire a laser of high damage.'
+  - "\uB192\uC740 \uB808\uC774\uC800 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 150]\n\n\uD55C
+    \uCE35 \uB354 \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744
+    \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &601097498
 GameObject:
   m_ObjectHideFlags: 0
@@ -8164,6 +8296,7 @@ GameObject:
   - component: {fileID: 694256180}
   - component: {fileID: 694256179}
   - component: {fileID: 694256178}
+  - component: {fileID: 694256181}
   m_Layer: 5
   m_Name: Normal Text
   m_TagString: Untagged
@@ -8187,8 +8320,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &694256178
 MonoBehaviour:
@@ -8232,12 +8365,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: NORMAL
 --- !u!222 &694256180
 CanvasRenderer:
@@ -8247,6 +8380,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694256176}
   m_CullTransparentMesh: 0
+--- !u!114 &694256181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694256176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 694256179}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'NORMAL
+
+    [Cost: 100]
+
+
+    The aircraft moves at a normal speed.'
+  - "\uAE30\uBCF8 \uC18D\uB3C4\n[\uBE44\uC6A9: 100]\n\n\uAE30\uCCB4\uAC00 \uAE30\uBCF8
+    \uC18D\uB3C4\uB85C \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
 --- !u!1 &710827971
 GameObject:
   m_ObjectHideFlags: 0
@@ -8259,6 +8417,7 @@ GameObject:
   - component: {fileID: 710827975}
   - component: {fileID: 710827974}
   - component: {fileID: 710827973}
+  - component: {fileID: 710827976}
   m_Layer: 5
   m_Name: Normal Text
   m_TagString: Untagged
@@ -8282,8 +8441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &710827973
 MonoBehaviour:
@@ -8327,12 +8486,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: NORMAL
 --- !u!222 &710827975
 CanvasRenderer:
@@ -8342,6 +8501,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710827971}
   m_CullTransparentMesh: 0
+--- !u!114 &710827976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710827971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 710827974}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'NORMAL
+
+    [Cost: 100]
+
+
+    Fire a laser of normal damage.'
+  - "\uAE30\uBCF8 \uB808\uC774\uC800 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 100]\n\n\uAE30\uBCF8
+    \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &711418402
 GameObject:
   m_ObjectHideFlags: 0
@@ -8694,6 +8878,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23ac99bc14ffb3b499590abdfcda8355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &734040331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4447586408490073371, guid: 49791a7af10e8eb4aa2c4ffe45630c08,
+    type: 3}
+  m_PrefabInstance: {fileID: 734040329}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c882d90dfb3264e8f18c042e35f3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &746032248
@@ -10602,7 +10798,7 @@ MonoBehaviour:
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_PreviousPanel: {fileID: 961212710}
   m_Attributes: 5
-  m_Cost: 00000000640000006400000064000000
+  m_Cost: 0000000096000000c800000064000000
   m_AttributesHandler: {fileID: 961212712}
 --- !u!114 &983823691
 MonoBehaviour:
@@ -11986,8 +12182,9 @@ GameObject:
   - component: {fileID: 1124532237}
   - component: {fileID: 1124532236}
   - component: {fileID: 1124532235}
+  - component: {fileID: 1124532238}
   m_Layer: 5
-  m_Name: Rocket Missile Text
+  m_Name: Rocket Missiles Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12009,8 +12206,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1124532235
 MonoBehaviour:
@@ -12054,13 +12251,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
-  m_Text: ROCKET MISSILE
+    m_LineSpacing: 1.2
+  m_Text: ROCKET MISSILES
 --- !u!222 &1124532237
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12069,6 +12266,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124532233}
   m_CullTransparentMesh: 0
+--- !u!114 &1124532238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124532233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1124532236}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'ROCKET MISSILES
+
+    [Cost: 200]
+
+
+    Fire rocket missiles with powerful damage.'
+  - "\uB85C\uCF13 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 200]\n\n\uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758
+    \uB85C\uCF13 \uBBF8\uC0AC\uC77C\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1130346113
 GameObject:
   m_ObjectHideFlags: 0
@@ -13538,8 +13760,9 @@ GameObject:
   - component: {fileID: 1331922501}
   - component: {fileID: 1331922500}
   - component: {fileID: 1331922499}
+  - component: {fileID: 1331922502}
   m_Layer: 5
-  m_Name: Additional Shot Text
+  m_Name: Additional Shots Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13561,8 +13784,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1331922499
 MonoBehaviour:
@@ -13606,12 +13829,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1.2
   m_Text: ADDITIONAL SHOT
 --- !u!222 &1331922501
 CanvasRenderer:
@@ -13621,6 +13844,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331922497}
   m_CullTransparentMesh: 0
+--- !u!114 &1331922502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331922497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1331922500}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'ADDITIONAL SHOTS
+
+    [Cost: 100]
+
+
+    Fire additional shots that fire in the direction the aircraft is moving.'
+  - "\uCD94\uAC00 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 100]\n\n\uAE30\uCCB4\uAC00 \uC6C0\uC9C1\uC774\uB294
+    \uBC29\uD5A5\uC73C\uB85C \uBC1C\uC0AC\uB418\uB294 \uCD94\uAC00 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1335051996
 GameObject:
   m_ObjectHideFlags: 0
@@ -14450,6 +14698,7 @@ GameObject:
   - component: {fileID: 1389120821}
   - component: {fileID: 1389120820}
   - component: {fileID: 1389120819}
+  - component: {fileID: 1389120822}
   m_Layer: 5
   m_Name: Normal Text
   m_TagString: Untagged
@@ -14473,8 +14722,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1389120819
 MonoBehaviour:
@@ -14518,12 +14767,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: NORMAL
 --- !u!222 &1389120821
 CanvasRenderer:
@@ -14533,6 +14782,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389120817}
   m_CullTransparentMesh: 0
+--- !u!114 &1389120822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389120817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1389120820}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'NORMAL
+
+    [Cost: 100]
+
+
+    The shot is fired in a normal form.'
+  - "\uAE30\uBCF8 \uC0F7\n[\uBE44\uC6A9: 100]\n\n\uC0F7\uC774 \uAE30\uBCF8 \uD615\uD0DC\uB85C
+    \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1391158610
 GameObject:
   m_ObjectHideFlags: 0
@@ -14636,7 +14910,7 @@ GameObject:
   - component: {fileID: 1393559227}
   - component: {fileID: 1393559226}
   - component: {fileID: 1393559225}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Preview2 Boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14669,7 +14943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807f6672242f68a4eb793ad676d7decc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Preview: 1
+  m_PreviewPoolingManager: {fileID: 734040331}
 --- !u!61 &1393559226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15227,6 +15501,7 @@ GameObject:
   - component: {fileID: 1426053740}
   - component: {fileID: 1426053739}
   - component: {fileID: 1426053738}
+  - component: {fileID: 1426053741}
   m_Layer: 5
   m_Name: Normal Text
   m_TagString: Untagged
@@ -15250,8 +15525,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1426053738
 MonoBehaviour:
@@ -15295,12 +15570,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: NORMAL
 --- !u!222 &1426053740
 CanvasRenderer:
@@ -15310,6 +15585,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426053736}
   m_CullTransparentMesh: 0
+--- !u!114 &1426053741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426053736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1426053739}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'NORMAL
+
+    [Cost: 0]
+
+
+    Fire a shot of normal damage.'
+  - "\uAE30\uBCF8 \uC0F7 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 0]\n\n\uAE30\uBCF8 \uB370\uBBF8\uC9C0\uC758
+    \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1428638835
 GameObject:
   m_ObjectHideFlags: 0
@@ -15804,6 +16104,7 @@ GameObject:
   - component: {fileID: 1450123842}
   - component: {fileID: 1450123841}
   - component: {fileID: 1450123840}
+  - component: {fileID: 1450123843}
   m_Layer: 5
   m_Name: Blue Text
   m_TagString: Untagged
@@ -15827,8 +16128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450123840
 MonoBehaviour:
@@ -15872,12 +16173,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: BLUE
 --- !u!222 &1450123842
 CanvasRenderer:
@@ -15887,6 +16188,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450123838}
   m_CullTransparentMesh: 0
+--- !u!114 &1450123843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450123838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1450123841}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'BLUE
+
+    [Cost: 0]
+
+
+    Paint the aircraft in blue.'
+  - "\uD478\uB978\uC0C9\n[\uBE44\uC6A9: 0]\n\n\uAE30\uCCB4\uB97C \uD478\uB978\uC0C9\uC73C\uB85C
+    \uB3C4\uC0C9\uD55C\uB2E4."
 --- !u!1 &1461687301
 GameObject:
   m_ObjectHideFlags: 0
@@ -15899,6 +16225,7 @@ GameObject:
   - component: {fileID: 1461687305}
   - component: {fileID: 1461687304}
   - component: {fileID: 1461687303}
+  - component: {fileID: 1461687306}
   m_Layer: 5
   m_Name: Narrow Text
   m_TagString: Untagged
@@ -15922,8 +16249,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461687303
 MonoBehaviour:
@@ -15967,12 +16294,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: NARROW
 --- !u!222 &1461687305
 CanvasRenderer:
@@ -15982,6 +16309,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461687301}
   m_CullTransparentMesh: 0
+--- !u!114 &1461687306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461687301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1461687304}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'NARROW
+
+    [Cost: 0]
+
+
+    The shot is fired in a narrow form.'
+  - "\uC881\uC740 \uC0F7\n[\uBE44\uC6A9: 0]\n\n\uC0F7\uC774 \uC881\uC740 \uD615\uD0DC\uB85C
+    \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1495569092
 GameObject:
   m_ObjectHideFlags: 0
@@ -16637,6 +16989,7 @@ GameObject:
   - component: {fileID: 1556643425}
   - component: {fileID: 1556643424}
   - component: {fileID: 1556643423}
+  - component: {fileID: 1556643426}
   m_Layer: 5
   m_Name: Two Text
   m_TagString: Untagged
@@ -16660,8 +17013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1556643423
 MonoBehaviour:
@@ -16705,12 +17058,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1.2
   m_Text: 2
 --- !u!222 &1556643425
 CanvasRenderer:
@@ -16720,6 +17073,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556643421}
   m_CullTransparentMesh: 0
+--- !u!114 &1556643426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556643421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1556643424}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - '2
+
+    [Cost: 0]
+
+
+    Start with 2 bombs at the start. The maximum number of bombs is 2.'
+  - "2\n[\uBE44\uC6A9: 0]\n\n\uC2DC\uC791\uC2DC 2\uAC1C\uC758 \uD3ED\uD0C4\uC744 \uAC00\uC9C0\uACE0
+    \uC2DC\uC791\uD558\uBA70 \uD3ED\uD0C4\uC744 \uCD5C\uB300 2\uAC1C\uAE4C\uC9C0 \uBCF4\uC720\uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4."
 --- !u!1 &1557704840
 GameObject:
   m_ObjectHideFlags: 0
@@ -17226,6 +17605,7 @@ GameObject:
   - component: {fileID: 1616689050}
   - component: {fileID: 1616689049}
   - component: {fileID: 1616689048}
+  - component: {fileID: 1616689051}
   m_Layer: 5
   m_Name: Very Strong Text
   m_TagString: Untagged
@@ -17249,8 +17629,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1616689048
 MonoBehaviour:
@@ -17294,12 +17674,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: VERY STRONG
 --- !u!222 &1616689050
 CanvasRenderer:
@@ -17309,6 +17689,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616689046}
   m_CullTransparentMesh: 0
+--- !u!114 &1616689051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616689046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1616689049}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'VERY STRONG
+
+    [Cost: 300]
+
+
+    Fire a laser of very high damage.'
+  - "\uB9E4\uC6B0 \uB192\uC740 \uB808\uC774\uC800 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9:
+    300]\n\n\uAC00\uC7A5 \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744
+    \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1001 &1622906770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17516,6 +17922,7 @@ GameObject:
   - component: {fileID: 1643934932}
   - component: {fileID: 1643934931}
   - component: {fileID: 1643934930}
+  - component: {fileID: 1643934933}
   m_Layer: 5
   m_Name: Fast Text
   m_TagString: Untagged
@@ -17539,8 +17946,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643934930
 MonoBehaviour:
@@ -17584,12 +17991,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: FAST
 --- !u!222 &1643934932
 CanvasRenderer:
@@ -17599,6 +18006,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643934928}
   m_CullTransparentMesh: 0
+--- !u!114 &1643934933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643934928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1643934931}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'FAST
+
+    [Cost: 200]
+
+
+    The aircraft moves at a fast speed.'
+  - "\uBE60\uB978 \uC18D\uB3C4\n[\uBE44\uC6A9: 200]\n\n\uAE30\uCCB4\uAC00 \uBE60\uB978
+    \uC18D\uB3C4\uB85C \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
 --- !u!1 &1657329940
 GameObject:
   m_ObjectHideFlags: 0
@@ -17998,7 +18430,7 @@ GameObject:
   - component: {fileID: 1731282838}
   - component: {fileID: 1731282837}
   m_Layer: 5
-  m_Name: Rocket Missile
+  m_Name: Rocket Missiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18383,6 +18815,7 @@ GameObject:
   - component: {fileID: 1744972066}
   - component: {fileID: 1744972065}
   - component: {fileID: 1744972064}
+  - component: {fileID: 1744972067}
   m_Layer: 5
   m_Name: Slow Text
   m_TagString: Untagged
@@ -18406,8 +18839,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1744972064
 MonoBehaviour:
@@ -18451,12 +18884,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: SLOW
 --- !u!222 &1744972066
 CanvasRenderer:
@@ -18466,6 +18899,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744972062}
   m_CullTransparentMesh: 0
+--- !u!114 &1744972067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744972062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1744972065}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'SLOW
+
+    [Cost: 0]
+
+
+    The aircraft moves at a slow speed.'
+  - "\uB290\uB9B0 \uC18D\uB3C4\n[\uBE44\uC6A9: 0]\n\n\uAE30\uCCB4\uAC00 \uB290\uB9B0
+    \uC18D\uB3C4\uB85C \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
 --- !u!1 &1754079567
 GameObject:
   m_ObjectHideFlags: 0
@@ -19109,6 +19567,7 @@ GameObject:
   - component: {fileID: 1779008825}
   - component: {fileID: 1779008824}
   - component: {fileID: 1779008823}
+  - component: {fileID: 1779008826}
   m_Layer: 5
   m_Name: White Text
   m_TagString: Untagged
@@ -19132,8 +19591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779008823
 MonoBehaviour:
@@ -19177,12 +19636,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: WHITE
 --- !u!222 &1779008825
 CanvasRenderer:
@@ -19192,6 +19651,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779008821}
   m_CullTransparentMesh: 0
+--- !u!114 &1779008826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779008821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1779008824}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'WHITE
+
+    [Cost: 0]
+
+
+    Paint the aircraft in white.'
+  - "\uD558\uC580\uC0C9\n[\uBE44\uC6A9: 0]\n\n\uAE30\uCCB4\uB97C \uD558\uC580\uC0C9\uC73C\uB85C
+    \uB3C4\uC0C9\uD55C\uB2E4."
 --- !u!1 &1785280122
 GameObject:
   m_ObjectHideFlags: 0
@@ -19502,6 +19986,7 @@ GameObject:
   - component: {fileID: 1822010123}
   - component: {fileID: 1822010122}
   - component: {fileID: 1822010121}
+  - component: {fileID: 1822010124}
   m_Layer: 5
   m_Name: Wide Text
   m_TagString: Untagged
@@ -19525,8 +20010,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1822010121
 MonoBehaviour:
@@ -19570,12 +20055,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: WIDE
 --- !u!222 &1822010123
 CanvasRenderer:
@@ -19585,6 +20070,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1822010119}
   m_CullTransparentMesh: 0
+--- !u!114 &1822010124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822010119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1822010122}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'WIDE
+
+    [Cost: 300]
+
+
+    The shot is fired in a wide form.'
+  - "\uB113\uC740 \uC0F7\n[\uBE44\uC6A9: 300]\n\n\uC0F7\uC774 \uB113\uC740 \uD615\uD0DC\uB85C
+    \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1823974900
 GameObject:
   m_ObjectHideFlags: 0
@@ -20077,7 +20587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MainMenuMusicController: {fileID: 442270367}
   m_State: 1
-  m_AvailableCost: 1000
+  m_AvailableCost: 700
 --- !u!1 &1865177065
 GameObject:
   m_ObjectHideFlags: 0
@@ -21162,6 +21672,7 @@ GameObject:
   - component: {fileID: 1958321449}
   - component: {fileID: 1958321448}
   - component: {fileID: 1958321447}
+  - component: {fileID: 1958321450}
   m_Layer: 5
   m_Name: Very Strong Text
   m_TagString: Untagged
@@ -21185,8 +21696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1958321447
 MonoBehaviour:
@@ -21230,12 +21741,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: VERY STRONG
 --- !u!222 &1958321449
 CanvasRenderer:
@@ -21245,6 +21756,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958321445}
   m_CullTransparentMesh: 0
+--- !u!114 &1958321450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958321445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 1958321448}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'STRONG
+
+    [Cost: 200]
+
+
+    Fire a shot of very high damage.'
+  - "\uB9E4\uC6B0 \uB192\uC740 \uC0F7 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 200]\n\n\uAC00\uC7A5
+    \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1966025001
 GameObject:
   m_ObjectHideFlags: 0
@@ -22496,7 +23032,7 @@ GameObject:
   - component: {fileID: 2080456601}
   - component: {fileID: 2080456600}
   m_Layer: 5
-  m_Name: Additional Shot
+  m_Name: Additional Shots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23185,6 +23721,7 @@ GameObject:
   - component: {fileID: 2143757380}
   - component: {fileID: 2143757379}
   - component: {fileID: 2143757378}
+  - component: {fileID: 2143757381}
   m_Layer: 5
   m_Name: Strong Text
   m_TagString: Untagged
@@ -23208,8 +23745,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 400, y: 320}
+  m_AnchoredPosition: {x: 365, y: 0}
+  m_SizeDelta: {x: 400, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143757378
 MonoBehaviour:
@@ -23253,12 +23790,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 3
+    m_LineSpacing: 1.2
   m_Text: STRONG
 --- !u!222 &2143757380
 CanvasRenderer:
@@ -23268,3 +23805,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143757376}
   m_CullTransparentMesh: 0
+--- !u!114 &2143757381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143757376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 2143757379}
+  m_Font:
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - 'STRONG
+
+    [Cost: 100]
+
+
+    Fire a shot of high damage.'
+  - "\uB192\uC740 \uC0F7 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 100]\n\n\uD55C \uCE35
+    \uB354 \uAC15\uB825\uD55C \uB192\uC740 \uB370\uBBF8\uC9C0\uC758 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."

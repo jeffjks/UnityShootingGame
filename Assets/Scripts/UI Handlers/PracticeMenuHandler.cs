@@ -105,7 +105,7 @@ public class PracticeMenuHandler : GameUI
             }
         }
         else {
-            m_Text[0].text = "스테이지 " + (m_PracticeInfo.m_Stage + 1);
+            m_Text[0].text = "" + (m_PracticeInfo.m_Stage + 1);
             switch (m_PracticeInfo.m_Difficulty) {
                 case 0:
                     m_Text[1].text = Difficulty.DIFFICULTY1;

@@ -122,19 +122,19 @@ public class OverviewHandler : MonoBehaviour
 
         if (stage_miss == 0) {
             m_BonusScale = BonusScale.BONUS_0;
-            bonus_scale = "[ 50%! ]";
+            bonus_scale = "[ X 1.5 ]";
         }
         else if (stage_miss == 1) {
             m_BonusScale = BonusScale.BONUS_1;
-            bonus_scale = "[ 30%! ]";
+            bonus_scale = "[ X 1.3 ]";
         }
         else if (stage_miss == 2) {
             m_BonusScale = BonusScale.BONUS_2;
-            bonus_scale = "[ 10%! ]";
+            bonus_scale = "[ X 1.1 ]";
         }
         else {
             m_BonusScale = 0;
-            bonus_scale = "[ 0% ]";
+            bonus_scale = "[ X 0.0 ]";
         }
 
         m_FinalBonusScore = (uint) (stage_score * m_BonusScale);

@@ -399,14 +399,14 @@ public class EnemyMiddleBoss4 : EnemyUnit
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1.5f, accel, 4, 24f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value, accel, 4, 24f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 1.5f, accel, 4, 24f);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.6f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
-                CreateBulletsSector(2, pos, 3.6f, target_angle + random_value, accel, 7, 18f);
-                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1.5f, accel, 6, 18f);
-                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 0.5f, accel, 6, 18f);
-                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 0.5f, accel, 6, 18f);
-                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 1.5f, accel, 6, 18f);
+                CreateBulletsSector(2, pos, 3.6f, target_angle + random_value, accel, 6, 19.2f);
+                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1.5f, accel, 5, 19.2f);
+                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 0.5f, accel, 5, 19.2f);
+                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 0.5f, accel, 5, 19.2f);
+                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 1.5f, accel, 5, 19.2f);
                 yield return new WaitForSeconds(0.35f);
             }
             else {
@@ -431,22 +431,22 @@ public class EnemyMiddleBoss4 : EnemyUnit
 
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 3; i++) {
-                    CreateBulletsSector(1, pos, 5.8f + i*0.4f, target_angle, accel, 8, 45f);
-                    CreateBulletsSector(1, pos, 5.8f + i*0.4f, target_angle + 22.5f, accel, 8, 45f);
+                    CreateBulletsSector(1, pos, 5.6f + i*0.4f, target_angle, accel, 6, 60f);
+                    CreateBulletsSector(1, pos, 6f + i*0.4f, target_angle + 30f, accel, 6, 60f);
                 }
                 yield return new WaitForSeconds(1.5f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 3; i++) {
-                    CreateBulletsSector(1, pos, 5.8f + i*0.4f, target_angle, accel, 10, 36f);
-                    CreateBulletsSector(1, pos, 5.8f + i*0.4f, target_angle + 18f, accel, 10, 36f);
+                    CreateBulletsSector(1, pos, 5.6f + i*0.4f, target_angle, accel, 10, 36f);
+                    CreateBulletsSector(1, pos, 6f + i*0.4f, target_angle + 18f, accel, 10, 36f);
                 }
                 yield return new WaitForSeconds(1f);
             }
             else {
                 for (int i = 0; i < 3; i++) {
-                    CreateBulletsSector(1, pos, 5.8f + i*0.4f, target_angle, accel, 10, 36f);
-                    CreateBulletsSector(1, pos, 5.8f + i*0.4f, target_angle + 18f, accel, 10, 36f);
+                    CreateBulletsSector(1, pos, 5.6f + i*0.4f, target_angle, accel, 10, 36f);
+                    CreateBulletsSector(1, pos, 6f + i*0.4f, target_angle + 18f, accel, 10, 36f);
                 }
                 yield return new WaitForSeconds(0.8f);
             }

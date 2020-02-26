@@ -499,7 +499,7 @@ public class EnemyBoss3 : EnemyUnit
     private IEnumerator Pattern2B1() {
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float total_duration = 1.4f, duration, fire_delay = 0.07f;
+        float total_duration = 1.4f, duration, fire_delay = 0.08f;
         
         m_DirectionState = 4;
         m_RotateDirection = RandomValue();
@@ -513,8 +513,8 @@ public class EnemyBoss3 : EnemyUnit
                     pos2 = m_FirePosition[2].position;
 
                     if (m_SystemManager.m_Difficulty == 0) {
-                        CreateBulletsSector(0, pos1, 8.3f, m_Direction, accel, 6, 28f);
-                        CreateBulletsSector(0, pos2, 8.3f, m_Direction, accel, 6, 28f);
+                        CreateBulletsSector(0, pos1, 8f, m_Direction, accel, 6, 32f);
+                        CreateBulletsSector(0, pos2, 8f, m_Direction, accel, 6, 32f);
                     }
                     else if (m_SystemManager.m_Difficulty == 1) {
                         CreateBulletsSector(0, pos1, 8.3f, m_Direction, accel, 10, 20f);

@@ -46,8 +46,6 @@ public class Stage2Manager : StageManager
 
     protected override IEnumerator TestTimeLine()
     {
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(BossStart(new Vector3(0f, 5.6f, 3.6f), 3f)); // Boss
         yield break;
     }
 
@@ -114,11 +112,9 @@ public class Stage2Manager : StageManager
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -1f), 3f));
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 5f), 3f));
         yield return new WaitForSeconds(1f);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-3f, 3f), new Vector2(-3.5f, -3f), Random.Range(1.2f, 1.5f));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4.5f, 3f), new Vector2(-4.5f, -5f), Random.Range(1.2f, 1.5f));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(3.5f, 3f), new Vector2(3.5f, -4f), Random.Range(1.2f, 1.5f));
-
+        StartCoroutine(SpawnHelicopters(false));
         yield return new WaitForSeconds(2f);
+        StartCoroutine(SpawnHelicopters(true));
         yield return new WaitForSeconds(12f); // Middle Boss ==========================
 
         sbyte side = 1;
@@ -208,5 +204,25 @@ public class Stage2Manager : StageManager
             }
             yield return new WaitForSeconds(5f);
         }
+    }
+
+    private IEnumerator SpawnHelicopters(bool right_side)
+    {
+        float pos;
+        for (int i = 0; i < 4; i++) {
+            if (right_side)
+                pos = 6f - i*1.8f;
+            else
+                pos = -6f + i*1.8f;
+            if (m_SystemManager.m_Difficulty == Difficulty.NORMAL) {
+                CreateEnemyWithTarget(m_Helicopter, new Vector2(pos, 3f), new Vector2(pos, -3f - (3-i)*0.2f), 1.1f);
+            }
+            else {
+                CreateEnemyWithTarget(m_Helicopter, new Vector2(pos, 3f), new Vector2(pos, -2f - (3-i)*0.2f), 1.1f);
+                CreateEnemyWithTarget(m_Helicopter, new Vector2(pos, 3f), new Vector2(pos, -4f - (3-i)*0.2f), 1.1f);
+            }
+            yield return new WaitForSeconds(0.32f);
+        }
+        yield break;
     }
 }

@@ -32,14 +32,5 @@ public class CameraBoundary : MonoBehaviour
                 m_PoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
             }
         }
-        /*
-        else if (other.CompareTag("EnemyBullet")) {
-            if (other.gameObject.activeSelf) {
-                if (other.transform.parent.gameObject.activeSelf) {
-                    EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                    enemyBullet.Erase();
-                }
-            }
-        }*/
     }
 }

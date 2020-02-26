@@ -31,7 +31,7 @@ public class Stage4Manager : StageManager
         }
         Vector3 debris_pos;
         debris_pos = m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position;
-        if (debris_pos.z > 0f) {
+        if (debris_pos.z > -24f) {
             m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(debris_pos.x, debris_pos.y, debris_pos.z - 3.12f * Time.deltaTime);
         }
 
@@ -82,21 +82,6 @@ public class Stage4Manager : StageManager
 
     protected override IEnumerator TestTimeLine()
     {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31f, 40f, 83.9f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(FadeOutMusic());
-        yield return new WaitForSeconds(3f);
-        m_SystemManager.WarningText();
-        yield return new WaitForSeconds(1f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(BossStart(new Vector3(14.31f, 3f, 125f), 3f)); // Boss
-        yield return new WaitForSeconds(0.5f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
-        m_LoopTerrain = true;
-        yield return new WaitForSeconds(1.5f);
-        PlayBossMusic();
         yield break;
     }
 

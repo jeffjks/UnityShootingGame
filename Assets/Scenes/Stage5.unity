@@ -3816,6 +3816,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5824299595195028255, guid: 55eee244c70d8de4ea8bc30e93c1f075,
+        type: 3}
+      propertyPath: m_InvincibleMod
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
         type: 3}
       propertyPath: m_CurrentAttributes.m_ShotForm
@@ -3831,20 +3836,10 @@ PrefabInstance:
       propertyPath: m_CurrentAttributes.m_LaserDamage
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028255, guid: 55eee244c70d8de4ea8bc30e93c1f075,
+    - target: {fileID: 2593308019770431845, guid: 55eee244c70d8de4ea8bc30e93c1f075,
         type: 3}
-      propertyPath: m_InvincibleMod
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028255, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_DebugMod
+      propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028255, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_DebugDifficulty
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55eee244c70d8de4ea8bc30e93c1f075, type: 3}
@@ -7746,7 +7741,7 @@ MonoBehaviour:
   m_SpawnPeriod: 4
   m_RemoveTimer: 45
   m_MovePattern: []
-  m_ActivateTime: 287
+  m_ActivateTime: 283
   m_DeactivateTime: 310
   m_AttackableTimer: 2
 --- !u!1001 &1064501658
@@ -8446,7 +8441,7 @@ MonoBehaviour:
   m_SpawnPeriod: 4
   m_RemoveTimer: 45
   m_MovePattern: []
-  m_ActivateTime: 287
+  m_ActivateTime: 283
   m_DeactivateTime: 310
   m_AttackableTimer: 2
 --- !u!1001 &1177456854
@@ -11394,7 +11389,7 @@ MonoBehaviour:
   m_SpawnPeriod: 4
   m_RemoveTimer: 45
   m_MovePattern: []
-  m_ActivateTime: 281
+  m_ActivateTime: 279
   m_DeactivateTime: 305
   m_AttackableTimer: 4
 --- !u!1001 &1621462299
@@ -12296,7 +12291,7 @@ MonoBehaviour:
   m_SpawnPeriod: 4
   m_RemoveTimer: 45
   m_MovePattern: []
-  m_ActivateTime: 281
+  m_ActivateTime: 279
   m_DeactivateTime: 305
   m_AttackableTimer: 4
 --- !u!1001 &1764556248

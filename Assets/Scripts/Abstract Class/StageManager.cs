@@ -49,6 +49,7 @@ public abstract class StageManager : MonoBehaviour
         m_BossHealthBar = m_SystemManager.m_BossHealthBar;
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(0f, 0f, 0f);
+        m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(0f, 0f, 0f);
 
         SetBackgroundSpeed(0f);
         if (m_SystemManager.m_BossOnlyState) {
@@ -113,22 +114,30 @@ public abstract class StageManager : MonoBehaviour
         }
     }
 
-    protected GameObject CreateEnemy(GameObject obj, Vector3 pos, float attackable = 0f) { // attackable 후 attackable 활성화
+    private GameObject InstantiateEnemyObject(GameObject obj, Vector3 pos) {
+        if ((1 << obj.layer & Layer.AIR) != 0) {
+            pos = new Vector3(pos.x, pos.y, Depth.ENEMY);
+        }
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);
+        return ins;
+    }
+
+    protected GameObject CreateEnemy(GameObject obj, Vector3 pos, float attackable = 0f) { // attackable 후 attackable 활성화
+        GameObject ins = InstantiateEnemyObject(obj, pos);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.DisableAttackable(attackable);
         return ins;
     }
     
-    protected GameObject CreateEnemyWithTarget(GameObject obj, Vector3 pos, Vector2 vector, float time) {
-        GameObject ins = Instantiate(obj, pos, Quaternion.identity);
+    protected GameObject CreateEnemyWithTarget(GameObject obj, Vector3 pos, Vector3 target_pos, float time) { // Only Air Unit
+        GameObject ins = InstantiateEnemyObject(obj, pos);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
-        ins.transform.DOMove(vector, time).SetEase(Ease.OutQuad);
+        ins.transform.DOMove(new Vector3(target_pos.x, target_pos.y, Depth.ENEMY), time).SetEase(Ease.OutQuad);
         return ins;
     }
     
     protected GameObject CreateEnemyWithMoveVector(GameObject obj, Vector3 pos, MoveVector moveVector, MovePattern[] movePattern = null) { // delay 후 time에 걸쳐 속도 0으로
-        GameObject ins = Instantiate(obj, pos, Quaternion.identity);
+        GameObject ins = InstantiateEnemyObject(obj, pos);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;
         Sequence sequence = DOTween.Sequence();
@@ -180,8 +189,7 @@ public abstract class StageManager : MonoBehaviour
         yield break;
     }
 
-    protected IEnumerator FadeOutMusic() {
-        float duration = 3.3f;
+    protected IEnumerator FadeOutMusic(float duration = 3.3f) {
         m_AudioStage.DOFade(0f, duration);
 
         yield return new WaitForSeconds(duration);

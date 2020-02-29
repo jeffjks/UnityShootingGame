@@ -8,15 +8,17 @@ using DG.Tweening;
 public static class Depth // Z Axis
 {
     // Far
-    public const sbyte ENEMY = 0; // Only Air Enemy
-    public const sbyte EXPLOSION = -2; // Only Air Explosion
-    public const sbyte OVERVIEW = -4;
-    public const sbyte ITEMS = -4;
-    public const sbyte TRANSITION = -5;
-    public const sbyte PLAYER = -6; // Player, Laser
-    public const sbyte PLAYER_MISSILE = -7;
-    public const sbyte ENEMY_BULLET = -10;
-    public const sbyte CAMERA = -24;
+    public const sbyte ENEMY = 24 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Enemy
+    public const sbyte EXPLOSION = 22 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Explosion
+    public const sbyte OVERVIEW = 20 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte ITEMS = 20 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte TRANSITION = 19 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte PLAYER = 18 + (sbyte) Size.MAIN_CAMERA_POS; // Player, Laser
+    public const sbyte PLAYER_MISSILE = 17 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte WHITE_EFFECT = 16 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte SCORE_TEXT = 15 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte ENEMY_BULLET = 14 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const sbyte CAMERA = 0 + (sbyte) Size.MAIN_CAMERA_POS;
     // Close
 }
 
@@ -33,8 +35,8 @@ public static class ItemScore // Z Axis
     // Far
     public const ushort GEM_GROUND = 500;
     public const ushort GEM_AIR = 700;
-    public const ushort POWERUP = 2000;
-    public const ushort BOMB = 5000;
+    public const ushort POWERUP = 1000;
+    public const ushort BOMB = 2000;
     // Close
 }
 
@@ -309,17 +311,40 @@ public class SystemManager : MonoBehaviour
         UpdateScore();
     }
 
-    public void AddScore(uint score, bool ground_gem) { // Overload
-        m_TotalScore += score;
-        m_StageScore[m_Stage] += score;
+    public void AddScoreEffect(uint score) {
+        AddScore(score);
+        DisplayScoreText(score);
+    }
+
+    public void AddScoreEffect(uint score, bool ground_gem) { // Overload
+        AddScore(score);
         if (ground_gem) {
             m_GemsGround++;
         }
         else {
             m_GemsAir++;
         }
-        UpdateScore();
+        DisplayScoreText(score);
     }
+
+    private void DisplayScoreText(uint score) {
+        GameObject obj = m_PoolingManager.PopFromPool("ScoreText", PoolingParent.SCORE_TEXT);
+        ScoreText score_text = obj.GetComponent<ScoreText>();
+        Vector3 pos = m_PlayerController.transform.position;
+        score_text.m_TextMesh.text = ""+score;
+        if (pos.x < 0f) {
+            obj.transform.position = new Vector3(pos.x + 1f, pos.y + 1f, Depth.SCORE_TEXT);
+            score_text.m_TextMesh.alignment = TextAlignment.Left;
+            score_text.m_TextMesh.anchor = TextAnchor.LowerLeft;
+        }
+        else {
+            obj.transform.position = new Vector3(pos.x - 1f, pos.y + 1f, Depth.SCORE_TEXT);
+            score_text.m_TextMesh.alignment = TextAlignment.Right;
+            score_text.m_TextMesh.anchor = TextAnchor.LowerRight;
+        }
+        obj.SetActive(true);
+    }
+
 
     public int GetStage() {
         return m_Stage;
@@ -469,7 +494,7 @@ public class SystemManager : MonoBehaviour
                 Vector3 pos = bullet_list[index].transform.position;
                 if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {
                     if (Size.GAME_BOUNDARY_BOTTOM < pos.y && pos.y < Size.GAME_BOUNDARY_TOP) {
-                        GameObject gem = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM); // Gem 생성
+                        GameObject gem = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM_AIR); // Gem 생성
                         gem.transform.position = new Vector3(bullet_list[index].transform.position.x, bullet_list[index].transform.position.y, Depth.ITEMS);
                         gem.SetActive(true);
                         num++;

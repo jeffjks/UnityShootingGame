@@ -1251,7 +1251,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 5000
   m_Class: 1
-  m_Score: 15000
+  m_Score: 25000
   m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
@@ -1273,7 +1273,6 @@ MonoBehaviour:
   m_Turret:
   - {fileID: 7566465114371849519}
   - {fileID: 2438573132596744102}
-  m_Renderer: {fileID: 702167157285079517}
   m_Missiles:
   - {fileID: 7128904614764597024}
   - {fileID: 1725498716193962102}

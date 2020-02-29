@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public static class Size
 {
+    public const float MAIN_CAMERA_POS = -64f;
     public const float CAMERA_WIDTH = 12; // 정확히는 카메라 콜라이더
     public const float CAMERA_HEIGHT = 16;
     public const float GAME_WIDTH = 15.11f;

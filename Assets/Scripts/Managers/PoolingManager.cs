@@ -12,8 +12,10 @@ public static class PoolingParent
     public const sbyte PLAYER_MISSILE = 0;
     public const sbyte ENEMY_BULLET = 1;
     public const sbyte EXPLOSION = 2;
-    public const sbyte ITEM_GEM = 3;
-    public const sbyte DEBRIS = 4;
+    public const sbyte ITEM_GEM_AIR = 3;
+    public const sbyte ITEM_GEM_GROUND = 4;
+    public const sbyte DEBRIS = 5;
+    public const sbyte SCORE_TEXT = 6;
 }
 
 public class PoolingManager : MonoBehaviour
@@ -77,10 +79,13 @@ public class PoolingManager : MonoBehaviour
         m_ObjectPoolDictionary.Add("PlayerExplosion", new PooledObject(m_PooledPrefabs[15], 1, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("PlayerHitEffect", new PooledObject(m_PooledPrefabs[16], 20, transform.GetChild(PoolingParent.EXPLOSION)));
         
-        m_ObjectPoolDictionary.Add("ItemGemAir", new PooledObject(m_PooledPrefabs[17], 60, transform.GetChild(PoolingParent.ITEM_GEM)));
-        m_ObjectPoolDictionary.Add("ItemGemGround", new PooledObject(m_PooledPrefabs[18], 20, transform.GetChild(PoolingParent.ITEM_GEM)));
+        m_ObjectPoolDictionary.Add("ItemGemAir", new PooledObject(m_PooledPrefabs[17], 60, transform.GetChild(PoolingParent.ITEM_GEM_AIR)));
+        
+        m_ObjectPoolDictionary.Add("ItemGemGround", new PooledObject(m_PooledPrefabs[18], 20, transform.GetChild(PoolingParent.ITEM_GEM_GROUND)));
 
         m_ObjectPoolDictionary.Add("Debris", new PooledObject(m_PooledPrefabs[19], 20, transform.GetChild(PoolingParent.DEBRIS)));
+
+        m_ObjectPoolDictionary.Add("ScoreText", new PooledObject(m_PooledPrefabs[20], 20, transform.GetChild(PoolingParent.SCORE_TEXT)));
     }
 
     public bool PushToPool(string itemName, GameObject item, sbyte parent = -1) // = -1

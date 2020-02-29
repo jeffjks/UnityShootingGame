@@ -11,10 +11,10 @@ public abstract class PlayerShooterManager : MonoBehaviour
     public PlayerControllerManager m_PlayerController;
 
     [Header("ShotNumber회 m_FireRate초 간격으로 실행. 실행 주기는 m_FireDelay")]
-    [SerializeField] protected float m_FireRate = 0.05f;
-    [SerializeField] protected float m_FireDelay = 0.32f;
-    [SerializeField] protected float m_HomingMissileMaxDelay = 0.4f, m_RocketMaxDelay = 1.2f, m_AddShotMaxDelay = 0.2f;
-    [SerializeField] protected float m_HomingMissileMinDelay = 0.3f, m_RocketMinDelay = 0.6f, m_AddShotMinDelay = 0.2f;
+    [SerializeField] protected float m_FireRate, m_FireDelay; // 0.05f, 0.32f
+    [SerializeField] protected float m_HomingMissileMaxDelay, m_HomingMissileMinDelay; // 0.4f, 0.3f
+    [SerializeField] protected float m_RocketMaxDelay, m_RocketMinDelay; // 2f, 1f
+    [SerializeField] protected float m_AddShotMaxDelay, m_AddShotMinDelay; // 0.2f, 0.2f
     
     [HideInInspector] public int m_ShotLevel;
     protected string[] m_PlayerMissileName = new string[4];
@@ -154,7 +154,7 @@ public abstract class PlayerShooterManager : MonoBehaviour
 
     protected void CreateAddShot(int level) {
         Vector3[] shotPosition = new Vector3[2];
-        float rot = transform.rotation.eulerAngles[1];
+        float rot = m_PlayerController.m_PlayerBody.eulerAngles[1];
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
         if (level <= 1) {

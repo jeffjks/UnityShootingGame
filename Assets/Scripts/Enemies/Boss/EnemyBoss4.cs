@@ -10,6 +10,7 @@ public class EnemyBoss4 : EnemyUnit
     public EnemyBoss4MainTurret m_MainTurret;
     public EnemyBoss4SubTurret[] m_SubTurrets = new EnemyBoss4SubTurret[2];
     public EnemyBoss4Launcher[] m_Launchers = new EnemyBoss4Launcher[2];
+    public MeshRenderer m_Track;
 
     [HideInInspector] public sbyte m_Phase;
     [HideInInspector] public float m_Direction;
@@ -19,6 +20,7 @@ public class EnemyBoss4 : EnemyUnit
     private bool m_InPattern = false;
     private int m_MoveDirection;
     private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
+    private float m_TrackPos;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
 
@@ -101,7 +103,16 @@ public class EnemyBoss4 : EnemyUnit
         else if (m_Direction < 0f)
             m_Direction += 360f;
 
+        RunTracks();
         base.Update();
+    }
+
+    private void RunTracks() {
+        Material material = m_Track.material;
+        material.SetTextureOffset("_MainTex", new Vector2(m_TrackPos, 0f));
+        m_TrackPos += 5f * Time.deltaTime;
+        if (m_TrackPos > 1f)
+            m_TrackPos--;
     }
 
     private void OnAppearanceComplete() {
@@ -253,10 +264,7 @@ public class EnemyBoss4 : EnemyUnit
                 yield break;
             }
             
-            if (m_SystemManager.m_Difficulty == 0) {
-                yield return new WaitForSeconds(6f);
-            }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            if (m_SystemManager.m_Difficulty <= 1) {
                 yield return new WaitForSeconds(3f);
             }
             else {
@@ -280,13 +288,10 @@ public class EnemyBoss4 : EnemyUnit
             }
             
             if (m_SystemManager.m_Difficulty == 0) {
-                yield return new WaitForSeconds(3.2f);
-            }
-            else if (m_SystemManager.m_Difficulty == 1) {
-                yield return new WaitForSeconds(2.4f);
+                yield return new WaitForSeconds(3f);
             }
             else {
-                yield return new WaitForSeconds(1.8f);
+                yield return new WaitForSeconds(2f);
             }
         }
     }
@@ -347,9 +352,6 @@ public class EnemyBoss4 : EnemyUnit
             }
             
             if (m_SystemManager.m_Difficulty == 0) {
-                yield return new WaitForSeconds(6f);
-            }
-            else if (m_SystemManager.m_Difficulty == 1) {
                 yield return new WaitForSeconds(3f);
             }
             else {

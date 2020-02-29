@@ -21,11 +21,12 @@ public class PlayerStart : MonoBehaviour
         m_PlayerController.DisableInvincible();
         SetAttributes();
 
-        if (m_SystemManager.GetStage() > 0) {
-            EndOpening();
-            return;
+        if (m_SystemManager.GetStage() == 0 && !m_SystemManager.m_BossOnlyState) {
+            StartCoroutine(SpawnEvent());
         }
-        StartCoroutine(SpawnEvent());
+        else {
+            EndOpening();
+        }
     }
 
     void Update() {

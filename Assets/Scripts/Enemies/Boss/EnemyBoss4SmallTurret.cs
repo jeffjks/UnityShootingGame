@@ -7,11 +7,14 @@ public class EnemyBoss4SmallTurret : EnemyUnit
     public Transform m_FirePosition;
     
     private IEnumerator m_CurrentPattern;
+    private uint m_KillScore;
 
     void Start()
     {
         GetCoordinates();
         RotateImmediately(m_PlayerPosition);
+        m_KillScore = m_Score;
+        m_Score = 0;
     }
 
     protected override void Update()
@@ -60,6 +63,6 @@ public class EnemyBoss4SmallTurret : EnemyUnit
     }
 
     protected override void KilledByPlayer() {
-        m_Score = 1000;
+        m_Score = m_KillScore;
     }
 }

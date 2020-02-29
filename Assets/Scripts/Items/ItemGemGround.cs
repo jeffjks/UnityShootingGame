@@ -4,7 +4,11 @@ using System.Collections;
 public class ItemGemGround : ItemGem {
 
     protected override void ItemEffect(Collider2D other) {
-        m_SystemManager.AddScore(ItemScore.GEM_GROUND, true);
+        m_SystemManager.AddScoreEffect(ItemScore.GEM_GROUND, true);
         m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
+    }
+
+    public override void OnDeath() {
+        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM_GROUND);
     }
 }

@@ -11,6 +11,8 @@ public class ScreenEffecter : MonoBehaviour
     
     void Start()
     {
+        Vector3 pos = m_WE.transform.position;
+        m_WE.transform.position = new Vector3(pos.x, pos.y, Depth.WHITE_EFFECT);
         m_WESpriteRenderer = m_WE.GetComponent<SpriteRenderer>();
         m_WETransform = m_WE.transform;
 

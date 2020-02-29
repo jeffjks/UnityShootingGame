@@ -73709,6 +73709,7 @@ MonoBehaviour:
   m_ObjectName: PlayerPreview2
   m_Damage: 0
   m_SlowMode: 0
+  m_PlayerBody: {fileID: 5253696638162773602}
 --- !u!114 &7764462487831255088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73786,10 +73787,10 @@ MonoBehaviour:
   m_FireRate: 0.05
   m_FireDelay: 0.32
   m_HomingMissileMaxDelay: 0.4
-  m_RocketMaxDelay: 1.2
-  m_AddShotMaxDelay: 0.2
   m_HomingMissileMinDelay: 0.3
+  m_RocketMaxDelay: 1.2
   m_RocketMinDelay: 0.6
+  m_AddShotMaxDelay: 0.2
   m_AddShotMinDelay: 0.2
   m_ShotLevel: 0
   m_PreviewPoolingManager: {fileID: 4447586408490073371}

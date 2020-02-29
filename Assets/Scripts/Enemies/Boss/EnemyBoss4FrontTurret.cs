@@ -8,11 +8,14 @@ public class EnemyBoss4FrontTurret : EnemyUnit
     
     private IEnumerator m_CurrentPattern;
     [HideInInspector] public byte m_RotatePattern = 10;
+    private uint m_KillScore;
 
     void Start()
     {
         GetCoordinates();
         RotateImmediately(m_PlayerPosition);
+        m_KillScore = m_Score;
+        m_Score = 0;
     }
 
     protected override void Update()
@@ -53,11 +56,10 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         Vector3 pos;
         if (m_SystemManager.m_Difficulty == 0) {
             pos = GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 4f, m_CurrentAngle, accel, 3, 14f);
+            CreateBullet(0, pos, 4f, m_CurrentAngle, accel);
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             pos = GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 3.5f, m_CurrentAngle, accel, 2, 9f);
             CreateBulletsSector(0, pos, 4.1f, m_CurrentAngle, accel, 3, 14f);
         }
         else {
@@ -113,29 +115,23 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         Vector3 pos;
         if (m_SystemManager.m_Difficulty == 0) {
             pos = GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 6.4f, m_CurrentAngle, accel);
-            CreateBulletsSector(0, pos, 6.1f, m_CurrentAngle, accel, 2, 16f);
+            CreateBullet(0, pos, 6.5f, m_CurrentAngle, accel);
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             pos = GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 6.6f, m_CurrentAngle, accel);
-            CreateBullet(0, pos, 7.2f, m_CurrentAngle, accel);
-            CreateBulletsSector(0, pos, 6.3f, m_CurrentAngle, accel, 2, 15f);
-            CreateBulletsSector(0, pos, 6.9f, m_CurrentAngle, accel, 2, 16.5f);
+            CreateBullet(0, pos, 6.3f, m_CurrentAngle, accel);
+            CreateBullet(0, pos, 6.9f, m_CurrentAngle, accel);
         }
         else {
             pos = GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 5.8f, m_CurrentAngle, accel);
+            CreateBullet(0, pos, 6f, m_CurrentAngle, accel);
             CreateBullet(0, pos, 6.6f, m_CurrentAngle, accel);
             CreateBullet(0, pos, 7.2f, m_CurrentAngle, accel);
-            CreateBulletsSector(0, pos, 5.6f, m_CurrentAngle, accel, 2, 12f);
-            CreateBulletsSector(0, pos, 6.3f, m_CurrentAngle, accel, 2, 15f);
-            CreateBulletsSector(0, pos, 6.9f, m_CurrentAngle, accel, 2, 16.5f);
         }
         yield break;
     }
 
     protected override void KilledByPlayer() {
-        m_Score = 2000;
+        m_Score = m_KillScore;
     }
 }

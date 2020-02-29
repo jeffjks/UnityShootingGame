@@ -636,7 +636,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         }
         if ((1 << gameObject.layer & Layer.AIR) != 0) {
             for (int i = 0; i < m_GemNumber; i++) {
-                GameObject obj = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM);
+                GameObject obj = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM_AIR);
                 Vector3 pos = transform.position + (Vector3) Random.insideUnitCircle * 0.8f;
                 obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
                 obj.SetActive(true);

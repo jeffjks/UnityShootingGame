@@ -235,8 +235,7 @@ public class PlayerShooter : PlayerShooterManager
             ResetLaser();
         }
         else {
-            m_SystemManager.AddScore(ItemScore.POWERUP);
-            // ToDo 점수 이펙트
+            m_SystemManager.AddScoreEffect(ItemScore.POWERUP);
         }
         UpdateShotNumber();
     }
@@ -254,8 +253,7 @@ public class PlayerShooter : PlayerShooterManager
             m_SystemManager.SetBombNumber(1);
         }
         else {
-            m_SystemManager.AddScore(ItemScore.BOMB);
-            // ToDo 점수 이펙트
+            m_SystemManager.AddScoreEffect(ItemScore.BOMB);
         }
     }
     

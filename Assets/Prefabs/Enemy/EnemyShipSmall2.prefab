@@ -371,7 +371,7 @@ MonoBehaviour:
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsAttackable: 1
-  m_Health: 10
+  m_Health: 6
   m_Class: 0
   m_Score: 160
   m_Debris: 0

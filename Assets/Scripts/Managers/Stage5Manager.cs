@@ -32,11 +32,10 @@ public class Stage5Manager : StageManager
         yield return new WaitForSeconds(50f);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 0.5f, 1)); // Middle Boss 1
         SetBackgroundSpeed(0.9f, 1f);
-        yield return new WaitForSeconds(142f);
+        yield return new WaitForSeconds(143f);
         
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(FadeOutMusic());
-        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeOutMusic(5f));
+        yield return new WaitForSeconds(5f);
         m_SystemManager.WarningText();
         yield return new WaitForSeconds(1f);
         //StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3f)); // Boss

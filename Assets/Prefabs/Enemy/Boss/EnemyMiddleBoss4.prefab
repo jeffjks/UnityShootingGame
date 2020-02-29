@@ -5646,7 +5646,7 @@ MonoBehaviour:
   m_IsAttackable: 1
   m_Health: 600
   m_Class: 1
-  m_Score: 3000
+  m_Score: 4000
   m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
@@ -6120,7 +6120,7 @@ MonoBehaviour:
   m_IsAttackable: 1
   m_Health: 600
   m_Class: 1
-  m_Score: 3000
+  m_Score: 4000
   m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}

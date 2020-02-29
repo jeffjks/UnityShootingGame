@@ -254,7 +254,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3974737426013558430}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3300004
 MeshFilter:
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 360
   m_Class: 2
-  m_Score: 2000
+  m_Score: 2500
   m_Debris: 0
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 360
   m_Class: 2
-  m_Score: 2000
+  m_Score: 2500
   m_Debris: 0
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 360
   m_Class: 2
-  m_Score: 2000
+  m_Score: 2500
   m_Debris: 0
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
@@ -1251,7 +1251,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 360
   m_Class: 2
-  m_Score: 2000
+  m_Score: 2500
   m_Debris: 0
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
@@ -2683,7 +2683,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 1000
   m_Class: 2
-  m_Score: 0
+  m_Score: 5000
   m_Debris: 0
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
@@ -2750,7 +2750,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 1000
   m_Class: 2
-  m_Score: 0
+  m_Score: 5000
   m_Debris: 0
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
@@ -3033,7 +3033,7 @@ Transform:
   m_Children:
   - {fileID: 400198}
   m_Father: {fileID: 3974737426013558430}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3300158
 MeshFilter:
@@ -3401,7 +3401,7 @@ MonoBehaviour:
   m_IsAttackable: 0
   m_Health: 8400
   m_Class: 2
-  m_Score: 30000
+  m_Score: 50000
   m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
@@ -3442,6 +3442,7 @@ MonoBehaviour:
   m_Launchers:
   - {fileID: 3611633169431351014}
   - {fileID: 2854269366378152616}
+  m_Track: {fileID: 2300176}
   m_Phase: 0
   m_Direction: 0
 --- !u!1 &100214
@@ -3502,160 +3503,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 939b686152fc7b34993aad4d3515f2a0, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1 &100216
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 400216}
-  - component: {fileID: 3300172}
-  - component: {fileID: 2300172}
-  m_Layer: 12
-  m_Name: LandFortressTankGameTracksLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &400216
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100216}
-  m_LocalRotation: {x: -0.00000003774895, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3974737426013558430}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3300172
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100216}
-  m_Mesh: {fileID: 4300000, guid: 54a5b06c3019fc74fb975014b82b4c7f, type: 3}
---- !u!23 &2300172
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100216}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9922158ec81cef74f8e8b6f0cdfaa339, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1 &100218
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 400218}
-  - component: {fileID: 3300174}
-  - component: {fileID: 2300174}
-  m_Layer: 12
-  m_Name: LandFortressTankGameTracksRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &400218
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100218}
-  m_LocalRotation: {x: -0.00000003774895, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3974737426013558430}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3300174
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100218}
-  m_Mesh: {fileID: 4300000, guid: 3bdc9438ec77b294391f177aecbd25ef, type: 3}
---- !u!23 &2300174
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100218}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9922158ec81cef74f8e8b6f0cdfaa339, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3906,7 +3753,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.25}
   m_Children: []
   m_Father: {fileID: 3974737426013558430}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2928418591712727277
 MeshFilter:
@@ -4060,7 +3907,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.25}
   m_Children: []
   m_Father: {fileID: 3974737426013558430}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6857776968629185975
 MeshFilter:
@@ -4258,8 +4105,6 @@ Transform:
   - {fileID: 400204}
   - {fileID: 400202}
   - {fileID: 400220}
-  - {fileID: 400216}
-  - {fileID: 400218}
   - {fileID: 400196}
   - {fileID: 400004}
   - {fileID: 102049350586169991}

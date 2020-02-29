@@ -163,9 +163,12 @@ public abstract class ItemBox : Item
 public abstract class ItemGem : Item
 {
     public string m_ObjectName;
+    public MeshRenderer m_MeshRenderer;
 
-    private PoolingManager m_PoolingManager = null;
+    protected PoolingManager m_PoolingManager = null;
 
+    private byte m_Shiness;
+    private bool m_ShinessState;
 
     protected override void Awake()
     {
@@ -184,6 +187,24 @@ public abstract class ItemGem : Item
         if (m_SystemManager.m_PlayState == 4) {
             OnDeath();
         }
+
+        SetShiness();
+    }
+
+    private void SetShiness() {
+        Material material = m_MeshRenderer.material;
+        material.SetColor("_EmissionColor", new Color32(m_Shiness, m_Shiness, m_Shiness, 255));
+        material.EnableKeyword("_EMISSION");
+
+        if (m_Shiness <= 16)
+            m_ShinessState = true;
+        else if (m_Shiness >= 56)
+            m_ShinessState = false;
+        
+        if (m_ShinessState)
+            m_Shiness += 1;
+        else
+            m_Shiness -= 1;
     }
 
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지
@@ -192,9 +213,5 @@ public abstract class ItemGem : Item
             ItemEffect(other);
             OnDeath();
         }
-    }
-
-    public override void OnDeath() {
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM);
     }
 }

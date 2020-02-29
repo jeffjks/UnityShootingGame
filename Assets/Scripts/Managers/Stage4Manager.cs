@@ -29,10 +29,12 @@ public class Stage4Manager : StageManager
         for (int i = 0; i < m_BossTerrains.Length; i++) {
             m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z - 3.12f * Time.deltaTime);
         }
-        Vector3 debris_pos;
+        Vector3 debris_pos, item_gem_ground;
         debris_pos = m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position;
+        item_gem_ground = m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position;
         if (debris_pos.z > -24f) {
             m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(debris_pos.x, debris_pos.y, debris_pos.z - 3.12f * Time.deltaTime);
+            m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(item_gem_ground.x, item_gem_ground.y, item_gem_ground.z - 3.12f * Time.deltaTime);
         }
 
         if (m_BossTerrains[1].position.z < 24f) {

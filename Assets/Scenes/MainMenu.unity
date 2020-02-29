@@ -6962,7 +6962,7 @@ MonoBehaviour:
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_PreviousPanel: {fileID: 961212710}
   m_Attributes: 2
-  m_Cost: 00000000640000002c010000
+  m_Cost: 0000000064000000c8000000
   m_AttributesHandler: {fileID: 961212712}
 --- !u!114 &482450035
 MonoBehaviour:
@@ -7337,11 +7337,11 @@ MonoBehaviour:
   m_String:
   - 'HOMING MISSILES
 
-    [Cost: 150]
+    [Cost: 250]
 
 
     Fire homing missiles to chase down enemies.'
-  - "\uC720\uB3C4 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 150]\n\n\uC801\uC744 \uCD94\uACA9\uD558\uB294
+  - "\uC720\uB3C4 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 250]\n\n\uC801\uC744 \uCD94\uACA9\uD558\uB294
     \uC720\uB3C4 \uBBF8\uC0AC\uC77C\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &582176297
 GameObject:
@@ -10798,7 +10798,7 @@ MonoBehaviour:
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_PreviousPanel: {fileID: 961212710}
   m_Attributes: 5
-  m_Cost: 0000000096000000c800000064000000
+  m_Cost: 00000000fa0000002c010000c8000000
   m_AttributesHandler: {fileID: 961212712}
 --- !u!114 &983823691
 MonoBehaviour:
@@ -12285,11 +12285,11 @@ MonoBehaviour:
   m_String:
   - 'ROCKET MISSILES
 
-    [Cost: 200]
+    [Cost: 300]
 
 
     Fire rocket missiles with powerful damage.'
-  - "\uB85C\uCF13 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 200]\n\n\uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758
+  - "\uB85C\uCF13 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 300]\n\n\uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758
     \uB85C\uCF13 \uBBF8\uC0AC\uC77C\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1130346113
 GameObject:
@@ -13863,11 +13863,11 @@ MonoBehaviour:
   m_String:
   - 'ADDITIONAL SHOTS
 
-    [Cost: 100]
+    [Cost: 200]
 
 
     Fire additional shots that fire in the direction the aircraft is moving.'
-  - "\uCD94\uAC00 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 100]\n\n\uAE30\uCCB4\uAC00 \uC6C0\uC9C1\uC774\uB294
+  - "\uCD94\uAC00 \uBBF8\uC0AC\uC77C\n[\uBE44\uC6A9: 200]\n\n\uAE30\uCCB4\uAC00 \uC6C0\uC9C1\uC774\uB294
     \uBC29\uD5A5\uC73C\uB85C \uBC1C\uC0AC\uB418\uB294 \uCD94\uAC00 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1335051996
 GameObject:
@@ -20089,11 +20089,11 @@ MonoBehaviour:
   m_String:
   - 'WIDE
 
-    [Cost: 300]
+    [Cost: 200]
 
 
     The shot is fired in a wide form.'
-  - "\uB113\uC740 \uC0F7\n[\uBE44\uC6A9: 300]\n\n\uC0F7\uC774 \uB113\uC740 \uD615\uD0DC\uB85C
+  - "\uB113\uC740 \uC0F7\n[\uBE44\uC6A9: 200]\n\n\uC0F7\uC774 \uB113\uC740 \uD615\uD0DC\uB85C
     \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1823974900
 GameObject:

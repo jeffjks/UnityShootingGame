@@ -59,6 +59,7 @@ public class Stage3Manager : StageManager
     protected override IEnumerator BossOnlyTimeLine()
     {
         m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(-24.97961f, 40f, 29.3f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 0.75f);
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
@@ -115,7 +116,7 @@ public class Stage3Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-4f, -3f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-4.5f, -5.5f), 1f);
         yield return new WaitForSeconds(2f);
-        StartCoroutine(SpawnPlane2());
+        StartCoroutine(SpawnPlaneSmall2s_A());
         yield return new WaitForSeconds(6f);
         CreateEnemyWithMoveVector(m_ShipCarrier_1, new Vector3(Size.GAME_BOUNDARY_LEFT + 1f, WATER_HEIGHT, 34.8f), new MoveVector(0.6f, 70f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(12f);
@@ -139,16 +140,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForSeconds(4f);
         // Middle Boss (56s)
         yield return new WaitForSeconds(10f);
-        for (int i = 0; i < 33; i++) {
-            if (m_SystemManager.m_PlayState == 0) {
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-8f, -6f), Random.Range(2f, 3f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-5f, -2.5f), Random.Range(2f, 3f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(2f, 3f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2.5f, 5f), Random.Range(2f, 3f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(6f, 8f), Random.Range(2f, 3f)));
-            }
-            yield return new WaitForSeconds(0.6f);
-        }
+        StartCoroutine(SpawnPlaneSmall2s_B());
         yield return new WaitForSeconds(9.2f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -3f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -7f), new Vector2(4f, -7f), 1f);
@@ -169,13 +161,34 @@ public class Stage3Manager : StageManager
         yield break;
     }
 
-    private IEnumerator SpawnPlane2()
+    private IEnumerator SpawnPlaneSmall2s_A()
     {
-        for (int i = 0; i < 10; i++) {
+        float timer = 0f;
+        float[] period = {2f, 1f, 0.6f};
+        while (timer < 6f) {
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-7f, -4f), Random.Range(2f, 4f)));
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 4f)));
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(4f, 7f), Random.Range(2f, 4f)));
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(period[m_SystemManager.m_Difficulty]);
+            timer += period[m_SystemManager.m_Difficulty];
         }
+        yield break;
+    }
+
+    private IEnumerator SpawnPlaneSmall2s_B() {
+        float timer = 0f;
+        float[] period = {1.8f, 1f, 0.6f};
+        while (timer < 19.8f) {
+            if (m_SystemManager.m_PlayState == 0) {
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-8f, -6f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-5f, -2.5f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2.5f, 5f), Random.Range(2f, 3f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(6f, 8f), Random.Range(2f, 3f)));
+            }
+            yield return new WaitForSeconds(period[m_SystemManager.m_Difficulty]);
+            timer += period[m_SystemManager.m_Difficulty];
+        }
+        yield break;
     }
 }

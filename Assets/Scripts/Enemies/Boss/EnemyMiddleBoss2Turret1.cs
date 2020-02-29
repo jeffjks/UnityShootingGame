@@ -8,6 +8,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     [SerializeField] private Transform m_FirePosition = null;
     
     private IEnumerator m_CurrentPattern;
+    private uint m_KillScore;
 
     void Start()
     {
@@ -15,6 +16,8 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
         RotateImmediately(m_PlayerPosition);
+        m_KillScore = m_Score;
+        m_Score = 0;
     }
 
     protected override void Update()
@@ -62,5 +65,9 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
             
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
+    }
+
+    protected override void KilledByPlayer() {
+        m_Score = m_KillScore;
     }
 }

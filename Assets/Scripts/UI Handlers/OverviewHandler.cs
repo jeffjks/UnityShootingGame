@@ -32,31 +32,33 @@ public class OverviewHandler : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Fire1")) {
-            if (m_DisplayStage == 4) {
+            if (m_DisplayStage == 5) {
                 m_SystemManager.AddScore(m_FinalBonusScore);
                 m_FinalBonusScore = 0;
                 m_DisplayTimer = 0f;
                 UpdateFinalBonusScore();
             }
-            else if (m_DisplayStage == 5) {
+            else if (m_DisplayStage == 6) {
                 GoToNextDispalyStage();
                 GoToNextStage(); // 5일때 버튼 클릭시 다음 스테이지
             }
-            m_DisplayTimer = 100f;
+            else {
+                GoToNextDispalyStage();
+            }
         }
     }
 
     void LateUpdate()
     {
-        if (m_DisplayStage <= 4)
+        if (m_DisplayStage < 4) // 최종 점수 화면 이전에는 점수판 자동 진행
             m_DisplayTimer += Time.deltaTime*60f;
             
-        if (m_DisplayStage == 0) { // 0
+        if (m_DisplayStage == 0) { // 첫 화면
             if (m_DisplayTimer > 60f) {
                 GoToNextDispalyStage();
             }
         }
-        else if (m_DisplayStage == 1) { // 1
+        else if (m_DisplayStage == 1) { // Gem 점수
             if (m_DisplayTimer > 60f) {
                 GoToNextDispalyStage();
                 m_GroundGem.SetActive(true);
@@ -65,28 +67,26 @@ public class OverviewHandler : MonoBehaviour
                 m_TotalStageScore.SetActive(true);
             }
         }
-        else if (m_DisplayStage == 2) { // 2
+        else if (m_DisplayStage == 2) { // 미스 횟수
             if (m_DisplayTimer > 60f) {
                 GoToNextDispalyStage();
                 m_Miss.SetActive(true);
             }
         }
-        else if (m_DisplayStage == 3) { // 3
+        else if (m_DisplayStage == 3) { // 최종 보너스
             if (m_DisplayTimer > 90f) {
                 GoToNextDispalyStage();
                 m_FinalBonus.SetActive(true);
             }
         }
-        else if (m_DisplayStage == 4) { // 4
-            if (m_DisplayTimer > 90f) {
-                for (sbyte i = 10; i >= 0; i--) {
-                    uint target_score = (uint) Mathf.Pow(7f, i);
-                    if (m_FinalBonusScore >= target_score) {
-                        m_FinalBonusScore -= target_score;
-                        m_SystemManager.AddScore(target_score);
-                        UpdateFinalBonusScore();
-                        break;
-                    }
+        else if (m_DisplayStage == 5) { // 최종 보너스 합산
+            for (sbyte i = 10; i >= 0; i--) {
+                uint target_score = (uint) Mathf.Pow(7f, i);
+                if (m_FinalBonusScore >= target_score) {
+                    m_FinalBonusScore -= target_score;
+                    m_SystemManager.AddScore(target_score);
+                    UpdateFinalBonusScore();
+                    break;
                 }
             }
             if (m_FinalBonusScore == 0) {

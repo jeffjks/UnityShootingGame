@@ -42,7 +42,11 @@ public class ItemGemAir : ItemGem
     }
 
     protected override void ItemEffect(Collider2D other) {
-        m_SystemManager.AddScore(ItemScore.GEM_AIR, false);
+        m_SystemManager.AddScoreEffect(ItemScore.GEM_AIR, false);
         m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
+    }
+
+    public override void OnDeath() {
+        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM_AIR);
     }
 }

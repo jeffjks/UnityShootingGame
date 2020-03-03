@@ -10,9 +10,10 @@ public class Stage1Manager : StageManager
 
     private const float WATER_HEIGHT = 2.32f;
 
-    void Awake()
+    protected override void Init()
     {
         m_Stage = 0;
+        m_TrueLastBoss = false;
     }
 
     protected override IEnumerator MainTimeLine()
@@ -101,14 +102,14 @@ public class Stage1Manager : StageManager
             CreateEnemy(m_PlaneSmall_1, new Vector2(4f, 3f));
             CreateEnemy(m_PlaneSmall_1, new Vector2(7f, 3f));
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         if (m_SystemManager.m_Difficulty >= Difficulty.HELL) { // 3 small ship
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(4f, 70f), new MovePattern[] {new MovePattern(0f, 8739f, 0f, 3.2f)});
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(4f, 70f), new MovePattern[] {new MovePattern(0f, 8739f, 0f, 3.2f)});
-            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(4f, 70f), new MovePattern[] {new MovePattern(0f, 8739f, 0f, 3.2f)});
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(3f, 70f), new MovePattern[] {new MovePattern(2f, 8739f, 0f, 2f)});
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(3f, 70f), new MovePattern[] {new MovePattern(2f, 8739f, 0f, 2f)});
+            CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(3f, 70f), new MovePattern[] {new MovePattern(2f, 8739f, 0f, 2f)});
         }
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(9f);
         if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT)
             CreateEnemy(m_PlaneMedium_3, new Vector2(-1f, 3f));
         yield return new WaitForSeconds(3f);

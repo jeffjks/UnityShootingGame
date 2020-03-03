@@ -110,7 +110,7 @@ public class EnemyBoss4 : EnemyUnit
     private void RunTracks() {
         Material material = m_Track.material;
         material.SetTextureOffset("_MainTex", new Vector2(m_TrackPos, 0f));
-        m_TrackPos += 5f * Time.deltaTime;
+        m_TrackPos += 4f * Time.deltaTime;
         if (m_TrackPos > 1f)
             m_TrackPos--;
     }

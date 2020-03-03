@@ -43,7 +43,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         }
         
         if (!m_TimeLimitState) {
-            if (m_IsAttackable) {
+            if (!m_IsUnattackable) {
                 if (transform.position.x >= m_TargetPosition.x + 2f) {
                     m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
                 }

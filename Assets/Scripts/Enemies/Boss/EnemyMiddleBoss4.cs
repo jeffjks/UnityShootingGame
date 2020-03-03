@@ -42,7 +42,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         }
         
         if (!m_TimeLimitState) {
-            if (m_IsAttackable) {
+            if (!m_IsUnattackable) {
                 if (transform.position.x >= m_PlayerPosition.x * 0.14f + 1.2f) {
                     m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
                 }

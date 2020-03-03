@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4028232911304122}
   - component: {fileID: 33007847836602866}
   - component: {fileID: 23513265996540496}
-  - component: {fileID: 205813636411474352}
   m_Layer: 8
   m_Name: Terrain_Building3B
   m_TagString: Untagged
@@ -81,22 +80,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!205 &205813636411474352
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153640175193562}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.000038146973, y: 8.839456, z: 0}
-  m_Size: 64.650314
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.20215747
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23513265996540496}
-  m_Enabled: 0

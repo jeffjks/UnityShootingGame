@@ -99,12 +99,12 @@ public class EnemyBoss1 : EnemyUnit
     private void OnPhase2() {
         if (transform.position.x < 0f) {
             m_Sequence = DOTween.Sequence()
-            .Append(transform.DOMove(new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f)), 1.5f).SetEase(Ease.InOutQuad))
+            .Append(transform.DOMove(new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f), Depth.ENEMY), 1.5f).SetEase(Ease.InOutQuad))
             .OnComplete(()=> Move(true));
         }
         else {
             m_Sequence = DOTween.Sequence()
-            .Append(transform.DOMove(new Vector3(Random.Range(1f, 2f), Random.Range(-4.5f, -5.5f)), 1.5f).SetEase(Ease.InOutQuad))
+            .Append(transform.DOMove(new Vector3(Random.Range(1f, 2f), Random.Range(-4.5f, -5.5f), Depth.ENEMY), 1.5f).SetEase(Ease.InOutQuad))
             .OnComplete(()=> Move(false));
         }
     }
@@ -117,7 +117,7 @@ public class EnemyBoss1 : EnemyUnit
             .AppendInterval(delay)
             .Append(transform.DORotateQuaternion(m_QuaternionTurnRight, time*0.5f).SetEase(Ease.OutQuad))
             .Append(transform.DORotateQuaternion(Quaternion.identity, time*0.5f).SetEase(Ease.InQuad))
-            .Insert(delay, transform.DOMove(new Vector3(Random.Range(1f, 2f), Random.Range(-4.5f, -5.5f)), time).SetEase(Ease.InOutQuad))
+            .Insert(delay, transform.DOMove(new Vector3(Random.Range(1f, 2f), Random.Range(-4.5f, -5.5f), Depth.ENEMY), time).SetEase(Ease.InOutQuad))
             .OnComplete(()=> Move(false));
         }
         else {
@@ -125,7 +125,7 @@ public class EnemyBoss1 : EnemyUnit
             .AppendInterval(delay)
             .Append(transform.DORotateQuaternion(m_QuaternionTurnLeft, time*0.5f).SetEase(Ease.OutQuad))
             .Append(transform.DORotateQuaternion(Quaternion.identity, time*0.5f).SetEase(Ease.InQuad))
-            .Insert(delay, transform.DOMove(new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f)), time).SetEase(Ease.InOutQuad))
+            .Insert(delay, transform.DOMove(new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f), Depth.ENEMY), time).SetEase(Ease.InOutQuad))
             .OnComplete(()=> Move(true));
         }
     }
@@ -308,11 +308,11 @@ public class EnemyBoss1 : EnemyUnit
         m_MoveVector = new MoveVector(0.6f, 0f);
         m_Turret0.OnDeath();
 
-        StartCoroutine(DeathExplosion3(4.9f));
+        StartCoroutine(DeathExplosion1(4.9f));
         yield return new WaitForSeconds(1.5f);
 
-        StartCoroutine(DeathExplosion1(2.8f));
         StartCoroutine(DeathExplosion2(2.8f));
+        StartCoroutine(DeathExplosion3(2.8f));
 
         yield return new WaitForSeconds(3.5f);
         ExplosionEffect(2, 2); // 최종 파괴
@@ -331,15 +331,10 @@ public class EnemyBoss1 : EnemyUnit
 
     private IEnumerator DeathExplosion1(float timer) {
         float t = 0f, t_add = 0f;
-        Vector2 random_pos;
         while (t < timer) {
-            t_add = Random.Range(0.45f, 0.6f);
-            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(0, 0, random_pos);
-            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(0, -1, random_pos);
+            ExplosionEffect(0, -1, new Vector2(0f, 1.225f), new MoveVector(5f, 180f));
             t += t_add;
-            yield return new WaitForSeconds(t_add);
+            yield return new WaitForSeconds(0.2f);
         }
         yield break;
     }
@@ -348,11 +343,11 @@ public class EnemyBoss1 : EnemyUnit
         float t = 0f, t_add = 0f;
         Vector2 random_pos;
         while (t < timer) {
-            t_add = Random.Range(0.15f, 0.3f);
-            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(1, 1, random_pos);
-            random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(1, -1, random_pos);
+            t_add = Random.Range(0.45f, 0.6f);
+            random_pos = Random.insideUnitCircle * 2.5f;
+            ExplosionEffect(0, 0, random_pos);
+            random_pos = Random.insideUnitCircle * 2.5f;
+            ExplosionEffect(0, -1, random_pos);
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
@@ -361,10 +356,15 @@ public class EnemyBoss1 : EnemyUnit
 
     private IEnumerator DeathExplosion3(float timer) {
         float t = 0f, t_add = 0f;
+        Vector2 random_pos;
         while (t < timer) {
-            ExplosionEffect(0, -1, new Vector2(0f, 1.225f), new MoveVector(5f, 180f));
+            t_add = Random.Range(0.15f, 0.3f);
+            random_pos = Random.insideUnitCircle * 2.5f;
+            ExplosionEffect(1, 1, random_pos);
+            random_pos = Random.insideUnitCircle * 2.5f;
+            ExplosionEffect(1, -1, random_pos);
             t += t_add;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(t_add);
         }
         yield break;
     }

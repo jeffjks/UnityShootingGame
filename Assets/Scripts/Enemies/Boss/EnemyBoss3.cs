@@ -339,7 +339,7 @@ public class EnemyBoss3 : EnemyUnit
                 duration += fire_delay[m_SystemManager.m_Difficulty];
                 pos = m_FirePosition[0].position;
                 for (int i = 0; i <= j; i++) {
-                    CreateBullet(3, pos, 7f + i*0.6f, GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position), accel);
+                    CreateBullet(3, pos, 7f + i*0.6f, GetAngleToTarget(pos, m_PlayerPosition), accel);
                 }
                 yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
             }
@@ -513,8 +513,8 @@ public class EnemyBoss3 : EnemyUnit
                     pos2 = m_FirePosition[2].position;
 
                     if (m_SystemManager.m_Difficulty == 0) {
-                        CreateBulletsSector(0, pos1, 8f, m_Direction, accel, 6, 32f);
-                        CreateBulletsSector(0, pos2, 8f, m_Direction, accel, 6, 32f);
+                        CreateBulletsSector(0, pos1, 8f, m_Direction, accel, 4, 45f);
+                        CreateBulletsSector(0, pos2, 8f, m_Direction, accel, 4, 45f);
                     }
                     else if (m_SystemManager.m_Difficulty == 1) {
                         CreateBulletsSector(0, pos1, 8.3f, m_Direction, accel, 10, 20f);

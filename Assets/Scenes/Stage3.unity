@@ -348,7 +348,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AudioStage: {fileID: 35179873}
   m_AudioBoss: {fileID: 35179872}
-  m_BossUnit: {fileID: 100040, guid: c93e1719d14959746ba1d22a8ec1f6f4, type: 3}
+  m_BossUnit:
+  - {fileID: 100040, guid: c93e1719d14959746ba1d22a8ec1f6f4, type: 3}
   m_MiddleBossUnit:
   - {fileID: 100000, guid: 473812caa50370642aef744627df5d27, type: 3}
   m_EnemyPreloaded:
@@ -515,7 +516,7 @@ Light:
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 171799
+    m_Bits: 237335
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0

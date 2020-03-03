@@ -86,7 +86,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4920867687027854}
-  - component: {fileID: 205366302354827226}
   m_Layer: 8
   m_Name: Terrain_FillerBuilding01
   m_TagString: Untagged
@@ -110,36 +109,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &205366302354827226
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890158875878638}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 1.8598862, y: 4.7652354, z: -3.2642632}
-  m_Size: 49.330704
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 1.8
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23645014896906994}
-    - renderer: {fileID: 23226074218963838}
-  - screenRelativeHeight: 0.25006723
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 0}
-    - renderer: {fileID: 0}
-  - screenRelativeHeight: 0.14794002
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 0}
-    - renderer: {fileID: 0}
-  m_Enabled: 0
 --- !u!1 &1949041150460470
 GameObject:
   m_ObjectHideFlags: 0

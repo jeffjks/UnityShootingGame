@@ -62,7 +62,7 @@ public class PlayerHomingMissile : PlayerMissile {
             else if (target_temp.transform.position.y > m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f) // 0
                 continue;
 
-            if (enemy.m_IsAttackable) {
+            if (!enemy.m_IsUnattackable) {
                 Vector2 diff = target_temp.transform.position - transform.position;
                 float curDistance = diff.sqrMagnitude;
                 if (curDistance < distance) {

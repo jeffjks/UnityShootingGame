@@ -30,6 +30,7 @@ public class ScoreText : MonoBehaviour, CanDeath
     {
         Vector3 pos = transform.position;
         transform.position = new Vector3(pos.x + m_Hspeed*Time.deltaTime, pos.y, Depth.SCORE_TEXT);
+            m_Hspeed += 4f*Time.deltaTime;
     }
 
     private IEnumerator BlinkEffect() {
@@ -42,12 +43,11 @@ public class ScoreText : MonoBehaviour, CanDeath
     }
 
     private IEnumerator FadeOutEffect() {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
         float alpha = 1f;
         while (alpha > 0f) {
             m_TextMesh.color = new Color(m_TextMesh.color.r, m_TextMesh.color.g, m_TextMesh.color.b, alpha);
             alpha -= 3f*Time.deltaTime;
-            m_Hspeed += 1.5f*Time.deltaTime;
             yield return null;
         }
         OnDeath();

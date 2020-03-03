@@ -33,8 +33,10 @@
    * Military Helicopter
    * Modular Space Platform Kit
    * MSGDI
+   * PBR RPG/FPS Game Assets (Industrial Set v1.0)
    * Powerup Crate
    * Rock and Boulders 2
+   * RPG/FPS Game Assets for PCbile (Industrial Set v2.0)
    * Scifi RTS Series Mega Pack I
    * Scifi RTS Series Mega Pack II
    * Simple Gems Ultimate Animated Customizable Pack
@@ -42,12 +44,12 @@
    * Spaceship+Fighter+Set of...+
    * Space Missiles
    * Spaceships Fleet III Mega Pack I
-   * RPG/FPS Game Assets for PCbile (Industrial Set v2.0)
-   * PBR RPG/FPS Game Assets (Industrial Set v1.0)
+   * UXR Tetrahedron (by ENEA LE FONS, Sketchfab)
 
 * 스프라이트, 텍스쳐
    * 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
    * Sci Fi UI Pack
+   * Sci-Fi Skill Icon Pack
    * Sci-Fi Texture Pack
 
 * 이펙트
@@ -58,7 +60,6 @@
 
 * 사운드
    * CAVE Interactive CO. LTD (Ketsui)
-   * Fantasy Menu SFX
    * Fantasy Menu SFX
 
 * 지형

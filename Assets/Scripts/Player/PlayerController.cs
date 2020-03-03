@@ -33,7 +33,6 @@ public class PlayerController : PlayerControllerManager
     private bool m_HasCollided = false;
     private float m_Speed, m_SlowSpeed, m_OverviewSpeed;
     private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
-    private StringBuilder m_String = new StringBuilder();
     
     private SystemManager m_SystemManager = null;
 
@@ -107,10 +106,6 @@ public class PlayerController : PlayerControllerManager
 
         UpdateInvincible();
         UpdateRevivePoint();
-
-        m_String.Append(transform.position);
-        //if (m_String.Length > 100)
-            //Debug.LogWarning(m_String);
     }
 
     private void UpdateRevivePoint() {
@@ -139,11 +134,22 @@ public class PlayerController : PlayerControllerManager
     }
 
     private void OverviewPosition() {
-        Vector3 target_pos = new Vector3(0f, m_PlayerRevivePoint.position.y, Depth.PLAYER);
-        if (m_SystemManager.m_PlayState != 3) {
-            m_OverviewSpeed = Mathf.Max(Mathf.Abs(transform.position.x - target_pos.x), Mathf.Abs(transform.position.y - target_pos.y));
-            return;
+        Vector3 target_pos;
+        if (m_SystemManager.m_StageManager.m_Stage < 4) {
+            target_pos = new Vector3(0f, m_PlayerRevivePoint.position.y, Depth.PLAYER);
+            if (m_SystemManager.m_PlayState != 3) {
+                m_OverviewSpeed = Mathf.Max(Mathf.Abs(transform.position.x - target_pos.x), Mathf.Abs(transform.position.y - target_pos.y));
+                return;
+            }
         }
+        else {
+            target_pos = new Vector3(transform.position.x, 2f, Depth.PLAYER);
+            if (m_SystemManager.m_PlayState != 3) {
+                m_OverviewSpeed = 15f;
+                return;
+            }
+        }
+        // m_PlayState가 3일때만 이하 내용 실행
         m_Vector2 = new Vector2(0f, 0f);
         transform.position = Vector3.MoveTowards(transform.position, target_pos, m_OverviewSpeed * Time.deltaTime);
     }
@@ -214,6 +220,10 @@ public class PlayerController : PlayerControllerManager
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    public bool GetInvincibility() {
+        return m_Invincibility;
     }
 
     public int MoveRawHorizontal {

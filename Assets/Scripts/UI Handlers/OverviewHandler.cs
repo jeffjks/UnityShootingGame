@@ -32,18 +32,23 @@ public class OverviewHandler : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Fire1")) {
-            if (m_DisplayStage == 5) {
-                m_SystemManager.AddScore(m_FinalBonusScore);
-                m_FinalBonusScore = 0;
-                m_DisplayTimer = 0f;
-                UpdateFinalBonusScore();
-            }
-            else if (m_DisplayStage == 6) {
-                GoToNextDispalyStage();
-                GoToNextStage(); // 5일때 버튼 클릭시 다음 스테이지
-            }
-            else {
-                GoToNextDispalyStage();
+            switch(m_DisplayStage) {
+                case 4:
+                    GoToNextDispalyStage();
+                    break;
+                case 5:
+                    m_SystemManager.AddScore(m_FinalBonusScore);
+                    m_FinalBonusScore = 0;
+                    m_DisplayTimer = 0f;
+                    UpdateFinalBonusScore();
+                    break;
+                case 6:
+                    GoToNextDispalyStage();
+                    GoToNextStage(); // 6일때 버튼 클릭시 다음 스테이지
+                    break;
+                default:
+                    m_DisplayTimer = 60f;
+                    break;
             }
         }
     }
@@ -122,15 +127,15 @@ public class OverviewHandler : MonoBehaviour
 
         if (stage_miss == 0) {
             m_BonusScale = BonusScale.BONUS_0;
-            bonus_scale = "[ X 1.5 ]";
+            bonus_scale = "[ X 0.5 ]";
         }
         else if (stage_miss == 1) {
             m_BonusScale = BonusScale.BONUS_1;
-            bonus_scale = "[ X 1.3 ]";
+            bonus_scale = "[ X 0.3 ]";
         }
         else if (stage_miss == 2) {
             m_BonusScale = BonusScale.BONUS_2;
-            bonus_scale = "[ X 1.1 ]";
+            bonus_scale = "[ X 0.1 ]";
         }
         else {
             m_BonusScale = 0;

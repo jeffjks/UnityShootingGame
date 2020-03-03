@@ -49,7 +49,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     public MoveVector m_MoveVector;
     public EnemyUnit m_ParentEnemy;
     [HideInInspector] public Vector2 m_Position2D;
-    [HideInInspector] public bool m_IsAttackable;
+    [HideInInspector] public bool m_IsUnattackable;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -189,11 +189,11 @@ public abstract class Enemy : MonoBehaviour { // 총알
         }
         else {
             if (m_ParentEnemy == null) {
-                if (!m_IsAttackable) {
+                if (m_IsUnattackable) {
                     return false;
                 }
             }
-            else if (!m_ParentEnemy.m_IsAttackable) {
+            else if (m_ParentEnemy.m_IsUnattackable) {
                 return false;
             }
         }
@@ -277,10 +277,9 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         m_MoveVector.direction = - transform.rotation.eulerAngles.y;
 
         m_MaxHealth = m_Health;
-        m_IsAttackable = true;
+        m_IsUnattackable = false;
 
-        m_MaterialsAll = GetAllMetrials();
-        m_Materials = GetMaterials();
+        InitMaterials();
 
         EnemyUnit current_unit = m_ParentEnemy;
         
@@ -292,13 +291,18 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         GetCoordinates();
     }
 
+    private void InitMaterials() {
+        m_MaterialsAll = GetAllMetrials();
+        m_Materials = GetMaterials();
+    }
+
     private Material[] GetAllMetrials() { // 무적 해제, 사망 이펙트 용 (전체 Materials)
         if (m_Collider2D.Length == 0)
             return new Material[0];
 
-        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
+        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
         Material[] mat = new Material[meshRenderers.Length];
-        m_DefaultAlbedo = new Color[meshRenderers.Length];
+            m_DefaultAlbedo = new Color[meshRenderers.Length];
         for (int i = 0; i < meshRenderers.Length; i++) {
             mat[i] = meshRenderers[i].material;
             m_DefaultAlbedo[i] = meshRenderers[i].material.color;
@@ -446,31 +450,33 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     public void EnableAttackable() {
         if (m_Collider2D.Length == 0)
             return;
-        m_IsAttackable = true;
+        m_IsUnattackable = false;
         for (int i = 0; i < m_Collider2D.Length; i++)
             m_Collider2D[i].enabled = true;
     }
 
-    public void EnableInvincible(float duration) {
-        m_IsAttackable = false;
-        Invoke("DisableInvincible", duration);
-    }
-
-    public void DisableAttackable(float duration = 0f) { // duration초간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    public void EnableInvincible(float duration = -1f) { // duration초간 무적. 0이면 미적용. -1이면 무기한 무적
         if (m_Collider2D.Length == 0)
             return;
-        if (duration == 0)
+        if (duration == 0f)
             return;
-        m_IsAttackable = false;
+        m_IsUnattackable = true;
+
+        if (duration != -1f)
+            Invoke("DisableInvincible", duration);
+    }
+
+    public void DisableAttackable(float duration = -1f) { // duration초간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+        if (m_Collider2D.Length == 0)
+            return;
+        if (duration == 0f)
+            return;
+        m_IsUnattackable = true;
         for (int i = 0; i < m_Collider2D.Length; i++)
             m_Collider2D[i].enabled = false;
         
-        if (duration != -1)
+        if (duration != -1f)
             Invoke("AttackableTimer", duration);
-    }
-
-    private void DisableInvincible() {
-        m_IsAttackable = true;
     }
 
     private void AttackableTimer() {
@@ -480,12 +486,16 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         }
     }
 
+    private void DisableInvincible() {
+        m_IsUnattackable = false;
+    }
+
     private IEnumerator SetAttackableEffect() { // 무적 해제 이펙트
-        byte color = 210; // white
+        float color = 0.82f; // white
         while(color > 0f) {
-            color -= 10;
+            color -= 0.04f*Time.deltaTime*60f;
             for (int i = 0; i < m_MaterialsAll.Length; i++) {
-                m_MaterialsAll[i].SetColor("_EmissionColor", new Color32(color, color, color, 255));
+                m_MaterialsAll[i].SetColor("_EmissionColor", new Color(color, color, color, 1f));
                 m_MaterialsAll[i].EnableKeyword("_EMISSION");
             }
             yield return null;
@@ -495,12 +505,12 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
     protected override bool BulletCondition(Vector3 pos) {
         if (m_ParentEnemy == null) {
-            if (!m_IsAttackable) {
+            if (m_IsUnattackable) {
                 return false;
             }
         }
         else {
-            if (!m_ParentEnemy.m_IsAttackable) {
+            if (m_ParentEnemy.m_IsUnattackable) {
                 return false;
             }
         }
@@ -542,7 +552,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     {
         // damage_type - -1:일반공격, 0:레이저, 1:레이저(Aura), 2:폭탄
         // blend - ImageBlend 실행 여부
-        if (m_IsAttackable) {
+        if (!m_IsUnattackable) {
             if (m_ShareHealth) {
                 if (m_MaxHealth == -1)
                     m_ParentEnemy.TakeDamage(amount, damage_type, true); // 최대체력이 -1일시 본체에게 데미지 그대로 전달 및 본체 색 blend

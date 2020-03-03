@@ -162,57 +162,57 @@ public class EnemyBoss4MainTurret : EnemyUnit
         while (true) {
             pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.m_Difficulty == 0) {
-                CreateBulletsSector(3, pos, 6.79f * 1.2f, m_CurrentAngle, accel, 2, 8.13f*2);
-                CreateBulletsSector(3, pos, 6.16f * 1.2f, m_CurrentAngle, accel, 2, 17.63f*2);
-                CreateBulletsSector(3, pos, 5.48f * 1.2f, m_CurrentAngle, accel, 2, 28.53f*2);
-                CreateBulletsSector(3, pos, 4.77f * 1.2f, m_CurrentAngle, accel, 2, 40.95f*2);
-                CreateBulletsSector(3, pos, 4.16f * 1.2f, m_CurrentAngle, accel, 2, 56.77f*2);
+                CreateBulletsSector(3, pos, 6.79f * 1.2f, m_CurrentAngle, accel, 2, 8.13f*2f*1.5f);
+                CreateBulletsSector(3, pos, 6.16f * 1.2f, m_CurrentAngle, accel, 2, 17.63f*2f*1.5f);
+                CreateBulletsSector(3, pos, 5.48f * 1.2f, m_CurrentAngle, accel, 2, 28.53f*2f*1.5f);
+                CreateBulletsSector(3, pos, 4.77f * 1.2f, m_CurrentAngle, accel, 2, 40.95f*2f*1.5f);
+                CreateBulletsSector(3, pos, 4.16f * 1.2f, m_CurrentAngle, accel, 2, 56.77f*2f*1.5f);
 
-                CreateBulletsSector(5, pos, 6.79f * 1.4f, m_CurrentAngle, accel, 2, 8.13f*2 + 5f);
-                CreateBulletsSector(5, pos, 6.16f * 1.4f, m_CurrentAngle, accel, 2, 17.63f*2 + 5f);
-                CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2 + 5f);
-                yield return new WaitForSeconds(1.2f);
+                CreateBulletsSector(5, pos, 6.79f * 1.4f, m_CurrentAngle, accel, 2, 8.13f*2f*1.5f + 5f);
+                CreateBulletsSector(5, pos, 6.16f * 1.4f, m_CurrentAngle, accel, 2, 17.63f*2f*1.5f + 5f);
+                CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2f*1.5f + 5f);
+                CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2f*1.5f + 5f);
+                CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2f*1.5f + 5f);
+                yield return new WaitForSeconds(1.5f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
-                CreateBulletsSector(5, pos, 6.79f * 1f, m_CurrentAngle, accel, 2, 8.13f*2 + 5f);
-                CreateBulletsSector(5, pos, 6.16f * 1f, m_CurrentAngle, accel, 2, 17.63f*2 + 5f);
-                CreateBulletsSector(5, pos, 5.48f * 1f, m_CurrentAngle, accel, 2, 28.53f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.77f * 1f, m_CurrentAngle, accel, 2, 40.95f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.16f * 1f, m_CurrentAngle, accel, 2, 56.77f*2 + 5f);
+                CreateBulletsSector(5, pos, 6.79f * 1f, m_CurrentAngle, accel, 2, 8.13f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 6.16f * 1f, m_CurrentAngle, accel, 2, 17.63f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 5.48f * 1f, m_CurrentAngle, accel, 2, 28.53f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 4.77f * 1f, m_CurrentAngle, accel, 2, 40.95f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 4.16f * 1f, m_CurrentAngle, accel, 2, 56.77f*2f*1.2f + 5f);
 
-                CreateBulletsSector(3, pos, 6.79f * 1.2f, m_CurrentAngle, accel, 2, 8.13f*2);
-                CreateBulletsSector(3, pos, 6.16f * 1.2f, m_CurrentAngle, accel, 2, 17.63f*2);
-                CreateBulletsSector(3, pos, 5.48f * 1.2f, m_CurrentAngle, accel, 2, 28.53f*2);
-                CreateBulletsSector(3, pos, 4.77f * 1.2f, m_CurrentAngle, accel, 2, 40.95f*2);
-                CreateBulletsSector(3, pos, 4.16f * 1.2f, m_CurrentAngle, accel, 2, 56.77f*2);
+                CreateBulletsSector(3, pos, 6.79f * 1.2f, m_CurrentAngle, accel, 2, 8.13f*2f*1.2f);
+                CreateBulletsSector(3, pos, 6.16f * 1.2f, m_CurrentAngle, accel, 2, 17.63f*2f*1.2f);
+                CreateBulletsSector(3, pos, 5.48f * 1.2f, m_CurrentAngle, accel, 2, 28.53f*2f*1.2f);
+                CreateBulletsSector(3, pos, 4.77f * 1.2f, m_CurrentAngle, accel, 2, 40.95f*2f*1.2f);
+                CreateBulletsSector(3, pos, 4.16f * 1.2f, m_CurrentAngle, accel, 2, 56.77f*2f*1.2f);
 
-                CreateBulletsSector(5, pos, 6.79f * 1.4f, m_CurrentAngle, accel, 2, 8.13f*2 + 5f);
-                CreateBulletsSector(5, pos, 6.16f * 1.4f, m_CurrentAngle, accel, 2, 17.63f*2 + 5f);
-                CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2 + 5f);
-                yield return new WaitForSeconds(1f);
+                CreateBulletsSector(5, pos, 6.79f * 1.4f, m_CurrentAngle, accel, 2, 8.13f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 6.16f * 1.4f, m_CurrentAngle, accel, 2, 17.63f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2f*1.2f + 5f);
+                CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2f*1.2f + 5f);
+                yield return new WaitForSeconds(1.2f);
             }
             else {
-                CreateBulletsSector(5, pos, 6.79f * 1f, m_CurrentAngle, accel, 2, 8.13f*2 + 5f);
-                CreateBulletsSector(5, pos, 6.16f * 1f, m_CurrentAngle, accel, 2, 17.63f*2 + 5f);
-                CreateBulletsSector(5, pos, 5.48f * 1f, m_CurrentAngle, accel, 2, 28.53f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.77f * 1f, m_CurrentAngle, accel, 2, 40.95f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.16f * 1f, m_CurrentAngle, accel, 2, 56.77f*2 + 5f);
+                CreateBulletsSector(5, pos, 6.79f * 1f, m_CurrentAngle, accel, 2, 8.13f*2f + 5f);
+                CreateBulletsSector(5, pos, 6.16f * 1f, m_CurrentAngle, accel, 2, 17.63f*2f + 5f);
+                CreateBulletsSector(5, pos, 5.48f * 1f, m_CurrentAngle, accel, 2, 28.53f*2f + 5f);
+                CreateBulletsSector(5, pos, 4.77f * 1f, m_CurrentAngle, accel, 2, 40.95f*2f + 5f);
+                CreateBulletsSector(5, pos, 4.16f * 1f, m_CurrentAngle, accel, 2, 56.77f*2f + 5f);
 
-                CreateBulletsSector(3, pos, 6.79f * 1.2f, m_CurrentAngle, accel, 2, 8.13f*2);
-                CreateBulletsSector(3, pos, 6.16f * 1.2f, m_CurrentAngle, accel, 2, 17.63f*2);
-                CreateBulletsSector(3, pos, 5.48f * 1.2f, m_CurrentAngle, accel, 2, 28.53f*2);
-                CreateBulletsSector(3, pos, 4.77f * 1.2f, m_CurrentAngle, accel, 2, 40.95f*2);
-                CreateBulletsSector(3, pos, 4.16f * 1.2f, m_CurrentAngle, accel, 2, 56.77f*2);
+                CreateBulletsSector(3, pos, 6.79f * 1.2f, m_CurrentAngle, accel, 2, 8.13f*2f);
+                CreateBulletsSector(3, pos, 6.16f * 1.2f, m_CurrentAngle, accel, 2, 17.63f*2f);
+                CreateBulletsSector(3, pos, 5.48f * 1.2f, m_CurrentAngle, accel, 2, 28.53f*2f);
+                CreateBulletsSector(3, pos, 4.77f * 1.2f, m_CurrentAngle, accel, 2, 40.95f*2f);
+                CreateBulletsSector(3, pos, 4.16f * 1.2f, m_CurrentAngle, accel, 2, 56.77f*2f);
 
-                CreateBulletsSector(5, pos, 6.79f * 1.4f, m_CurrentAngle, accel, 2, 8.13f*2 + 5f);
-                CreateBulletsSector(5, pos, 6.16f * 1.4f, m_CurrentAngle, accel, 2, 17.63f*2 + 5f);
-                CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2 + 5f);
-                CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2 + 5f);
+                CreateBulletsSector(5, pos, 6.79f * 1.4f, m_CurrentAngle, accel, 2, 8.13f*2f + 5f);
+                CreateBulletsSector(5, pos, 6.16f * 1.4f, m_CurrentAngle, accel, 2, 17.63f*2f + 5f);
+                CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2f + 5f);
+                CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2f + 5f);
+                CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2f + 5f);
                 yield return new WaitForSeconds(0.9f);
             }
         }

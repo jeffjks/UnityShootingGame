@@ -8,7 +8,7 @@ using DG.Tweening;
 public static class Depth // Z Axis
 {
     // Far
-    public const sbyte ENEMY = 24 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Enemy
+    public const sbyte ENEMY = 32 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Enemy
     public const sbyte EXPLOSION = 22 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Explosion
     public const sbyte OVERVIEW = 20 + (sbyte) Size.MAIN_CAMERA_POS;
     public const sbyte ITEMS = 20 + (sbyte) Size.MAIN_CAMERA_POS;
@@ -33,10 +33,10 @@ public static class Layer // AirSmall(9), AirLarge(10), GroundSmall(11), GroundL
 public static class ItemScore // Z Axis
 {
     // Far
-    public const ushort GEM_GROUND = 500;
-    public const ushort GEM_AIR = 700;
-    public const ushort POWERUP = 1000;
-    public const ushort BOMB = 2000;
+    public const ushort GEM_GROUND = 200;
+    public const ushort GEM_AIR = 100;
+    public const ushort POWERUP = 2000;
+    public const ushort BOMB = 5000;
     // Close
 }
 
@@ -100,6 +100,7 @@ public class SystemManager : MonoBehaviour
 
     private List<ScreenEffectAnimation> m_TransitionList = new List<ScreenEffectAnimation>();
     private PlayerController m_PlayerController;
+    private Vector3 m_BackgroundCameraDefaultPos;
     private uint m_TotalScore = 0;
     private uint[] m_StageScore = new uint[5] {0, 0, 0, 0, 0};
     private uint m_GemsGround = 0, m_GemsAir = 0; // 점수가 아닌 먹은 개수
@@ -146,6 +147,7 @@ public class SystemManager : MonoBehaviour
 
         m_BackgroundCameraSize.x = m_BackgroundCamera.orthographicSize * 2 * ((float) Screen.width/(float) Screen.height); // 256/9 = 28.444..
         m_BackgroundCameraSize.y = m_BackgroundCamera.orthographicSize * 2; // 16
+        m_BackgroundCameraDefaultPos = m_BackgroundCamera.transform.position;
         
         DontDestroyOnLoad(gameObject);
 
@@ -246,12 +248,16 @@ public class SystemManager : MonoBehaviour
     }
 
     public void BossClear() {
-        m_PlayState = 2;
-        m_PlayerController.EnableInvincible(5f);
         m_StageManager.StopMusic();
+        m_PlayState = 2;
+        if (m_StageManager.GetTrueLastBossState())
+            return;
+        m_PlayerController.EnableInvincible(5f);
     }
 
     public IEnumerator StageClear() {
+        if (m_StageManager.GetTrueLastBossState())
+            yield break;
         yield return new WaitForSeconds(3f);
         m_PlayState = 3;
         m_PlayerManager.PlayerControlable = false;
@@ -276,7 +282,7 @@ public class SystemManager : MonoBehaviour
             SceneManager.LoadScene("Stage" + (m_Stage + 2));
             SceneManager.sceneLoaded += OnSceneLoaded;
             
-            m_BackgroundCamera.transform.position = new Vector3(0f, 40f, -24f);
+            m_BackgroundCamera.transform.position = m_BackgroundCameraDefaultPos;
             ScreenEffect(2); // Transition
             m_PlayState = 0;
             m_OverviewHandler.gameObject.SetActive(false);
@@ -313,7 +319,7 @@ public class SystemManager : MonoBehaviour
 
     public void AddScoreEffect(uint score) {
         AddScore(score);
-        DisplayScoreText(score);
+        DisplayScoreText(""+score);
     }
 
     public void AddScoreEffect(uint score, bool ground_gem) { // Overload
@@ -324,14 +330,14 @@ public class SystemManager : MonoBehaviour
         else {
             m_GemsAir++;
         }
-        DisplayScoreText(score);
+        DisplayScoreText(""+score);
     }
 
-    private void DisplayScoreText(uint score) {
+    public void DisplayScoreText(string score) {
         GameObject obj = m_PoolingManager.PopFromPool("ScoreText", PoolingParent.SCORE_TEXT);
         ScoreText score_text = obj.GetComponent<ScoreText>();
         Vector3 pos = m_PlayerController.transform.position;
-        score_text.m_TextMesh.text = ""+score;
+        score_text.m_TextMesh.text = score;
         if (pos.x < 0f) {
             obj.transform.position = new Vector3(pos.x + 1f, pos.y + 1f, Depth.SCORE_TEXT);
             score_text.m_TextMesh.alignment = TextAlignment.Left;

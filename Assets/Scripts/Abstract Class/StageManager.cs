@@ -7,7 +7,7 @@ public abstract class StageManager : MonoBehaviour
     [SerializeField] protected AudioSource m_AudioStage = null;
     [SerializeField] protected AudioSource m_AudioBoss = null;
     [Space(10)]
-    [SerializeField] protected GameObject m_BossUnit = null;
+    [SerializeField] protected GameObject[] m_BossUnit = null;
     [Space(10)]
     [SerializeField] protected GameObject[] m_MiddleBossUnit = null;
     [Space(10)]
@@ -22,6 +22,7 @@ public abstract class StageManager : MonoBehaviour
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
     protected BossHealthHandler m_BossHealthBar;
+    protected bool m_TrueLastBoss = false; // 일반 스테이지는 시작시 false, Hell 난이도 최종 스테이지는 시작시 true
     
     protected class MovePattern
     {
@@ -35,6 +36,7 @@ public abstract class StageManager : MonoBehaviour
         }
     }
 
+    protected abstract void Init();
     protected abstract IEnumerator MainTimeLine();
     protected abstract IEnumerator EnemyTimeLine();
     protected abstract IEnumerator BossOnlyTimeLine();
@@ -55,13 +57,14 @@ public abstract class StageManager : MonoBehaviour
         if (m_SystemManager.m_BossOnlyState) {
             StartCoroutine(BossOnlyTimeLine());
         }
-        else if (m_SystemManager.m_DebugMod) {
+        else if (m_SystemManager.m_DebugMod && !m_SystemManager.m_PracticeState) {
             StartCoroutine(TestTimeLine());
         }
         else {
             StartCoroutine(MainTimeLine());
             StartCoroutine(EnemyTimeLine());
         }
+        Init();
     }
 
     protected virtual void Update()
@@ -77,7 +80,7 @@ public abstract class StageManager : MonoBehaviour
     }
 
     private void MusicLoop() {
-        if (m_SystemManager.m_PlayState <= 1) {
+        if (m_SystemManager.m_PlayState == 0) {
             switch(m_Stage) {
                 case 2: // Stage 3
                     if (m_AudioStage.time > 215.248f) {
@@ -90,19 +93,26 @@ public abstract class StageManager : MonoBehaviour
                     }
                     break;
                 case 4: // Stage 5
-                    if (m_AudioStage.time > 182.654f) {
-                        m_AudioStage.time = 94.75f;
+                    if (m_AudioStage.time > 182.644f) {
+                        m_AudioStage.time = 94.74f;
                     }
                     break;
                 default:
                     break;
             }
         }
-        else {
+        else if (m_SystemManager.m_PlayState == 1) {
             switch(m_Stage) {
-                case 4: // Last Boss
-                    if (m_AudioBoss.time > 101.178f) {
-                        m_AudioBoss.time = 12.77f;
+                case 4:
+                    if (m_TrueLastBoss || m_SystemManager.m_Difficulty < 2) { // Last Boss
+                        if (m_AudioBoss.time > 101.168f) {
+                            m_AudioBoss.time = 12.77f;
+                        }
+                    }
+                    else { // True Last Boss
+                        if (m_AudioBoss.time > 117.694f) {
+                            m_AudioBoss.time = 9.697f;
+                        }
                     }
                     break;
                 default: // Boss
@@ -179,9 +189,9 @@ public abstract class StageManager : MonoBehaviour
         yield break;
     }
 
-    protected IEnumerator BossStart(Vector3 pos, float delay) { // delay 후 체력바 활성화
+    protected IEnumerator BossStart(Vector3 pos, float delay, byte number = 0) { // delay 후 체력바 활성화
         GameObject boss;
-        boss = CreateEnemy(m_BossUnit, pos);
+        boss = CreateEnemy(m_BossUnit[number], pos);
         m_BossHealthBar.m_EnemyUnitBoss = boss.GetComponent<EnemyUnit>();
 
         yield return new WaitForSeconds(delay);
@@ -249,34 +259,12 @@ public abstract class StageManager : MonoBehaviour
     void OnDestroy() {
         StopAllCoroutines();
     }
+
+    public bool GetTrueLastBossState() {
+        return m_TrueLastBoss;
+    }
+
+    public void SetTrueLastBossState(bool state) {
+        m_TrueLastBoss = state;
+    }
 }
-
-
-// CreateEnemyWithTarget(m_EnemyUnits[9], new Vector2(- Size.GAME_WIDTH/2 - 2f, -4f), new Vector3(-3f, -3f));
-// CreateEnemy(m_EnemyUnits[3], new Vector2(4f, 3f));
-
-// CreateEnemyWithTarget(m_EnemyUnits[9], new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -4f), 1f); // gunship
-// CreateEnemy(m_EnemyUnits[9], new Vector2(4f, 3f)); // plane medium 1
-// CreateEnemy(m_EnemyUnits[8], new Vector2(-1f, 3f)); // plane medium 2
-// CreateEnemy(m_EnemyUnits[7], new Vector2(-1f, 3f)); // plane medium 3
-// CreateEnemy(m_EnemyUnits[8], new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -1.5f)); // plane medium 4
-// CreateEnemy(m_EnemyUnits[9], new Vector2(2f, 4.5f)); // plane large 2
-// CreateEnemy(m_EnemyUnits[9], new Vector2(Size.GAME_BOUNDARY_RIGHT + 4f, -3f)); // plane large 1
-// CreateEnemy(m_EnemyUnits[9], new Vector2(1f, 3f)); // plane large 3
-
-
-
-/*
-StartCoroutine(MiddleBossStartTest(1, 0.5f)); // Middle Boss (TEST)
-    private IEnumerator MiddleBossStartTest(byte number, float delay, float attackable = 0f) // TEST
-    {
-        GameObject middle_boss;
-        Vector3 pos = new Vector3(0f, 4f, Depth.ENEMY);
-        middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos, attackable);
-        EnemyMiddleBoss5b enemy_unit = middle_boss.GetComponent<EnemyMiddleBoss5b>();
-        m_BossHealthBar.m_EnemyUnitBoss = enemy_unit;
-
-        yield return new WaitForSeconds(delay);
-        m_SystemManager.m_PlayState = 1;
-        yield break;
-    }*/

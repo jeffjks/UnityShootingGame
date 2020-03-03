@@ -48,7 +48,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
             }
         }
         
-        if (m_IsAttackable) {
+        if (!m_IsUnattackable) {
             if (m_Position2D.x >= m_TargetPosition.x + 1.6f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
             }

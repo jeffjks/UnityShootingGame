@@ -11,9 +11,10 @@ public class Stage3Manager : StageManager
 
     private const float WATER_HEIGHT = 2.32f;
 
-    void Awake()
+    protected override void Init()
     {
         m_Stage = 2;
+        m_TrueLastBoss = false;
     }
 
     protected override void Update()
@@ -141,7 +142,7 @@ public class Stage3Manager : StageManager
         // Middle Boss (56s)
         yield return new WaitForSeconds(10f);
         StartCoroutine(SpawnPlaneSmall2s_B());
-        yield return new WaitForSeconds(9.2f);
+        yield return new WaitForSeconds(29.2f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -3f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -7f), new Vector2(4f, -7f), 1f);
         yield return new WaitForSeconds(1f);

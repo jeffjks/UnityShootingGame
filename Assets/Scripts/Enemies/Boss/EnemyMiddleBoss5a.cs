@@ -129,7 +129,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
     private IEnumerator LaunchMissile() {
         for (int i = 0; i < 4; i++) {
             yield return new WaitForSeconds(2f);
-            if (m_IsAttackable) {
+            if (!m_IsUnattackable) {
                 try {
                     m_Missiles[i*2].enabled = true;
                     m_Missiles[i*2 + 1].enabled = true;

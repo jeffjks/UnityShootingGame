@@ -12,10 +12,12 @@ public class Stage4Manager : StageManager
 
     private float m_BackgroundPos;
     private bool m_LoopTerrain = false;
+    private GameObject m_TankLarge_2_Move;
 
-    void Awake()
+    protected override void Init()
     {
         m_Stage = 3;
+        m_TrueLastBoss = false;
     }
 
     protected override void Update()
@@ -32,9 +34,19 @@ public class Stage4Manager : StageManager
         Vector3 debris_pos, item_gem_ground;
         debris_pos = m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position;
         item_gem_ground = m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position;
+        
         if (debris_pos.z > -24f) {
             m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(debris_pos.x, debris_pos.y, debris_pos.z - 3.12f * Time.deltaTime);
             m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(item_gem_ground.x, item_gem_ground.y, item_gem_ground.z - 3.12f * Time.deltaTime);
+        
+            for (int i = 0; i < m_EnemyPreloaded.Length; i++) {
+                Vector3 pos = m_EnemyPreloaded[i].transform.position;
+                m_EnemyPreloaded[i].transform.position = new Vector3(pos.x, pos.y, pos.z - 3.12f * Time.deltaTime);
+            }
+            if (m_TankLarge_2_Move != null) {
+                Vector3 pos = m_TankLarge_2_Move.transform.position;
+                m_TankLarge_2_Move.transform.position = new Vector3(pos.x, pos.y, pos.z - 3.12f * Time.deltaTime);
+            }
         }
 
         if (m_BossTerrains[1].position.z < 24f) {
@@ -58,11 +70,9 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(1.2f);
 
         while(m_BackgroundPos < 270f) {
-            float c_size = 1f;
-            SetBackgroundSpeed(new Vector3(c_size*Mathf.Cos(Mathf.Deg2Rad * (180f + m_BackgroundPos)), 0f, c_size*Mathf.Sin(Mathf.Deg2Rad * (180f + m_BackgroundPos))));
+            float c_horizontal = 0.9783f, c_vertical = 1f;
+            SetBackgroundSpeed(new Vector3(c_horizontal*Mathf.Cos(Mathf.Deg2Rad * (180f + m_BackgroundPos)), 0f, c_vertical*Mathf.Sin(Mathf.Deg2Rad * (180f + m_BackgroundPos))));
             m_BackgroundPos += 4f * Time.deltaTime;
-            
-            Vector3 background_pos = m_SystemManager.m_BackgroundCamera.transform.position;
             yield return null;
         }
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
@@ -73,7 +83,7 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(1f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(BossStart(new Vector3(14.31f, 3f, 125f), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
         yield return new WaitForSeconds(0.5f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
         m_LoopTerrain = true;
@@ -89,7 +99,7 @@ public class Stage4Manager : StageManager
 
     protected override IEnumerator BossOnlyTimeLine()
     {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14.31f, 40f, 83.9f);
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14f, 40f, 83.9f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutMusic());
@@ -98,7 +108,7 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(1f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1f);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(BossStart(new Vector3(14.31f, 3f, 125f), 3f)); // Boss
+        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3f)); // Boss
         yield return new WaitForSeconds(0.5f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
         m_LoopTerrain = true;
@@ -215,10 +225,10 @@ public class Stage4Manager : StageManager
         yield return new WaitForSeconds(7f);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4.5f, -4.5f), 1.2f);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4.5f, -4.5f), 1.2f);
-        yield return new WaitForSeconds(10f);
-        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
+        yield return new WaitForSeconds(9f);
+        m_TankLarge_2_Move = CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
             new MovePattern[] {new MovePattern(1f, 8739f, 0f, 1f), new MovePattern(2f, 8739f, -0.8f, 1f), new MovePattern(6f, 8739f, 0f, 0.5f)});
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6);
         CreateEnemy(m_ItemHeli_1, new Vector2(3f, 3f)); // Item Heli 1
         yield break;
     }

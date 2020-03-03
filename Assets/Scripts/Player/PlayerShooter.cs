@@ -233,6 +233,7 @@ public class PlayerShooter : PlayerShooterManager
         if (m_ShotLevel < 4) {
             m_ShotLevel++;
             ResetLaser();
+            m_SystemManager.DisplayScoreText("POWER UP");
         }
         else {
             m_SystemManager.AddScoreEffect(ItemScore.POWERUP);
@@ -251,6 +252,7 @@ public class PlayerShooter : PlayerShooterManager
     public void AddBomb() {
         if (m_SystemManager.GetBombNumber() < m_SystemManager.GetMaxBombNumber()) {
             m_SystemManager.SetBombNumber(1);
+            m_SystemManager.DisplayScoreText("BOMB");
         }
         else {
             m_SystemManager.AddScoreEffect(ItemScore.BOMB);

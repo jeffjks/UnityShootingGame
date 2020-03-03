@@ -13,7 +13,7 @@ public class EnemyBoss2 : EnemyUnit
     [HideInInspector] public sbyte m_Phase;
     
     private Vector3 m_TargetPosition;
-    private float m_AppearanceTime = 10f;
+    private float m_AppearanceTime = 11f;
     private bool m_InPattern = false;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern;

@@ -11,9 +11,10 @@ public class Stage2Manager : StageManager
     private const float WATER_HEIGHT = 2.32f;
     private IEnumerator m_CurrentSpawn;
 
-    void Awake()
+    protected override void Init()
     {
         m_Stage = 1;
+        m_TrueLastBoss = false;
     }
 
     protected override IEnumerator MainTimeLine()
@@ -28,12 +29,12 @@ public class Stage2Manager : StageManager
         yield return new WaitForSeconds(35f);
         SetBackgroundSpeed(new Vector3(1.2f, 0f, 0.6f), 0.75f);
         
-        yield return new WaitForSeconds(13f);
+        yield return new WaitForSeconds(13.32f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 0.75f);
 
-        yield return new WaitForSeconds(27f);
-        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(26f);
+        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 116f), 10f)); // Boss
+        yield return new WaitForSeconds(4f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.WarningText();
@@ -51,9 +52,10 @@ public class Stage2Manager : StageManager
 
     protected override IEnumerator BossOnlyTimeLine()
     {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(15.61701f, 40f, 77f);
-        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 115f), 9f)); // Boss
-        yield return new WaitForSeconds(3f);
+        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(16f, 39.04f, 77f);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f));
+        StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 116f), 10f)); // Boss
+        yield return new WaitForSeconds(4f);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForSeconds(3f);
         m_SystemManager.WarningText();

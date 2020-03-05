@@ -43,8 +43,7 @@ public class ReplayMenuHandler : GameUI
                     break;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
             Back();
         else if (Input.GetButtonDown("Fire2"))
             Back();

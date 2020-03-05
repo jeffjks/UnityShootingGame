@@ -74,10 +74,8 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
             if (cost_limit >= cost_need)
                 SelectDetail(m_Attributes, cost_need);
         }
-
         else if (Input.GetKeyDown(KeyCode.Escape))
             Back();
-
         else if (Input.GetButtonDown("Fire2"))
             Back();
     }

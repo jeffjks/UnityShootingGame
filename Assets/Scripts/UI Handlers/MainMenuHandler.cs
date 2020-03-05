@@ -16,6 +16,7 @@ public class MainMenuHandler : GameUI
     void OnEnable()
     {
         m_MainMenuMusicController.PlayMainMusic();
+        m_GameManager.SetOptions();
     }
 
     void Update()

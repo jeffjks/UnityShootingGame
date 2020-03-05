@@ -27,8 +27,9 @@ public class KeyConfigMenuHandler : GameUI
                     break;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            Cancel();
+        else if (Input.GetButtonDown("Fire2"))
             Cancel();
 
         SetText();

@@ -17,7 +17,7 @@ public class Stage5Manager : StageManager
 
     protected override void Init()
     {
-        m_Stage = 4;
+        m_SystemManager.SetStage(4);
         if (m_SystemManager.m_Difficulty == Difficulty.HELL)
             m_TrueLastBoss = true;
     }
@@ -57,6 +57,8 @@ public class Stage5Manager : StageManager
 
     protected override IEnumerator TestTimeLine()
     {
+        //StartCoroutine(BossOnlyTimeLine());
+        //yield break;
         m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 389.4f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForSeconds(3f);
@@ -65,7 +67,7 @@ public class Stage5Manager : StageManager
         m_SystemManager.WarningText();
         StartCoroutine(DarkEffect());
         yield return new WaitForSeconds(6f);
-        TrueLastBoss(new Vector3(0f, 3f, Depth.ENEMY));
+        TrueLastBoss(new Vector3(0f, -10f, Depth.ENEMY));
         yield break;
     }
 
@@ -278,17 +280,18 @@ public class Stage5Manager : StageManager
         new MoveVector(2f, 0f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
         CreateEnemy(m_PlaneMedium_2, new Vector2(-1.5f, 3f));
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
+        CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(-3.5f, WATER_HEIGHT, GetBackgroundZ() + 32f),
+        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
+        CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(3.5f, WATER_HEIGHT, GetBackgroundZ() + 32f),
+        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
+        yield return new WaitForSeconds(1f);
         StartCoroutine(SpawnSmallShips());
-        CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(-3.5f, WATER_HEIGHT, GetBackgroundZ() + 31f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
-        CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(3.5f, WATER_HEIGHT, GetBackgroundZ() + 31f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(2f);
-        CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(0f, WATER_HEIGHT, GetBackgroundZ() + 31f),
+        yield return new WaitForSeconds(1f);
+        CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(0f, WATER_HEIGHT, GetBackgroundZ() + 32f),
         new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
         SetBackgroundSpeed(1.2f, 1f);
-        yield return new WaitForSeconds(8f); // Final Field (287s)
+        yield return new WaitForSeconds(9f); // Final Field (287s)
         
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
         yield return new WaitForSeconds(2f);
@@ -458,18 +461,19 @@ public class Stage5Manager : StageManager
 
     private IEnumerator SpawnPlaneMedium_3s(float time)
     {
-        float timer = 0f, period = 0.6f, rand;
+        float timer = 0f, rand;
+        float[] period = {1.1f, 0.85f, 0.75f};
         while (timer < time) {
             rand = Random.Range(0f, 0.3f);
             if (m_SystemManager.m_PlayState == 0) {
                 CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 6f), 3f));
             }
-            yield return new WaitForSeconds(period - rand);
+            yield return new WaitForSeconds(period[m_SystemManager.m_Difficulty] - rand);
             if (m_SystemManager.m_PlayState == 0) {
                 CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 6f), 3f));
             }
-            yield return new WaitForSeconds(period + rand);
-            timer += period*2f;
+            yield return new WaitForSeconds(period[m_SystemManager.m_Difficulty] + rand);
+            timer += period[m_SystemManager.m_Difficulty]*2f;
         }
         yield break;
     }

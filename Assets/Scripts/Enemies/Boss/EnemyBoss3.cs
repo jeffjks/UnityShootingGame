@@ -49,16 +49,16 @@ public class EnemyBoss3 : EnemyUnit
         }
 
         if (m_Phase > 0) {
-            if (transform.position.x >= m_TargetPosition.x + 0.7f) {
+            if (transform.position.x > m_TargetPosition.x + 0.7f) {
                 m_MoveVector.direction = Random.Range(-105f, -75f);
             }
-            else if (transform.position.x <= m_TargetPosition.x - 0.7f) {
+            if (transform.position.x < m_TargetPosition.x - 0.7f) {
                 m_MoveVector.direction = Random.Range(75f, 105f);
             }
-            else if (transform.position.y >= m_TargetPosition.y + 0.2f) {
+            if (transform.position.y > m_TargetPosition.y + 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
-            else if (transform.position.y <= m_TargetPosition.y - 0.2f) {
+            if (transform.position.y < m_TargetPosition.y - 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
         }

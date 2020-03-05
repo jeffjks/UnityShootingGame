@@ -661,7 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1601,7 +1601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -4114,7 +4114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -4639,7 +4639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6725,7 +6725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6763,7 +6763,7 @@ MonoBehaviour:
     time: 3
   m_ActivateTime: 110
   m_DeactivateTime: 140
-  m_AttackableTimer: 1
+  m_AttackableTimer: 1.5
 --- !u!1001 &1580501093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7192,7 +7192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -8759,7 +8759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -9030,7 +9030,6 @@ MonoBehaviour:
   - {fileID: 285032343}
   m_EnemySpawners: {fileID: 110971421}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
-  m_Stage: 0
   m_Test: {fileID: 0}
   m_Helicopter: {fileID: 2610135649203121185, guid: 691377558a126544bbcc4525f317a0c9,
     type: 3}
@@ -9525,7 +9524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0

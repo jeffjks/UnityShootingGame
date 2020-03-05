@@ -79,8 +79,8 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     private IEnumerator Pattern0() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos = m_FirePosition.position;
-        while (true) {
-            if (m_PlayerManager.m_Player.transform.position.y >= -5.8f) {
+        while (((EnemyBoss2) m_ParentEnemy).m_Phase == 1) {
+            if (m_PlayerPosition.y >= -5.8f) {
                 if (!m_Pattern2Rotate) {
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 8, 2.5f);

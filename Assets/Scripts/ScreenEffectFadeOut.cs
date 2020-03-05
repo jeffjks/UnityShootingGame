@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScreenEffectFadeOut : MonoBehaviour
+public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효과
 {
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;

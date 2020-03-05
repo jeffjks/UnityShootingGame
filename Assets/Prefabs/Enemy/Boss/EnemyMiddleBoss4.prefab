@@ -690,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 3600
   m_Class: 1
   m_Score: 10000
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -5643,7 +5643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 600
   m_Class: 1
   m_Score: 4000
@@ -6117,7 +6117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 600
   m_Class: 1
   m_Score: 4000
@@ -6320,7 +6320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -11237,7 +11237,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31c19242dd959024999f3322c1ba0dda, type: 2}
+  - {fileID: 2100000, guid: 82cca8901e17f4a4d9b2460cfe31e611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11632,7 +11632,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31c19242dd959024999f3322c1ba0dda, type: 2}
+  - {fileID: 2100000, guid: 82cca8901e17f4a4d9b2460cfe31e611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

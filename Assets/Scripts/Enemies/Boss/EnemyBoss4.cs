@@ -42,7 +42,7 @@ public class EnemyBoss4 : EnemyUnit
 
     protected override void Update()
     {
-        transform.position = new Vector3(transform.position.x + m_MoveSpeed, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + m_MoveSpeed*Time.deltaTime*60f, transform.position.y, transform.position.z);
         if (m_MoveVector.speed < 0f) {
             m_MoveVector.speed += Time.deltaTime*1f;
         }

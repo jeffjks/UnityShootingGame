@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
 {
     public GameObject m_Player;
     public float m_RevivePointY = -13f;
-    public float m_SafeLine = -12f;
+    public float m_SafeLine = -11f;
     public GameObject m_ItemPowerUp;
     public Attributes m_CurrentAttributes;
     public ReplayManager m_ReplayManager;

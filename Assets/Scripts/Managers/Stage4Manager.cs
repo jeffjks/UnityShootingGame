@@ -16,7 +16,7 @@ public class Stage4Manager : StageManager
 
     protected override void Init()
     {
-        m_Stage = 3;
+        m_SystemManager.SetStage(3);
         m_TrueLastBoss = false;
     }
 
@@ -147,9 +147,8 @@ public class Stage4Manager : StageManager
         CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f));
         yield return new WaitForSeconds(4f);
         StartCoroutine(SpawnPlaneSmalls2());
-        yield return new WaitForSeconds(2f);
-        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(2.61f, 3.18f, 56.17f), new MoveVector(0.7f, -32f), new MovePattern[] {new MovePattern(2f, 8739f, 0f, 0.7f)});
-        yield return new WaitForSeconds(2f);
+        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(2.61f, 3.18f, 56.17f), new MoveVector(0f, -32f), new MovePattern[] {new MovePattern(2f, 8739f, 0.7f, 0f), new MovePattern(2f, 8739f, 0f, 0.72f)});
+        yield return new WaitForSeconds(4f);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4f, -4f), 1.2f);
         yield return new WaitForSeconds(5f);
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(-4f, -1f), 3f));

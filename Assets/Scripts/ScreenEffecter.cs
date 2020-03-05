@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenEffecter : MonoBehaviour
+public class ScreenEffecter : MonoBehaviour // 흰색 점멸 이펙트
 {
     public GameObject m_WE;
     private SpriteRenderer m_WESpriteRenderer;

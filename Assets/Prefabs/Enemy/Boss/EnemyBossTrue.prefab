@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 47514129448403895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 2732208628240922835}
   m_Father: {fileID: 0}
@@ -66,10 +66,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ea657d2aeaeb2449f66bb19cb3d9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
-  m_Health: 15000
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 12500
   m_Class: 2
   m_Score: 150000
   m_Debris: 0
@@ -93,8 +93,6 @@ MonoBehaviour:
   m_IsDead: 0
   m_BombBarrier: {fileID: 4541800789654134177}
   m_Core: {fileID: 1858788142543333560}
-  m_Phase: 0
-  m_Direction: 0
 --- !u!1 &301647385973395569
 GameObject:
   m_ObjectHideFlags: 0
@@ -4886,7 +4884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4285308781953156557
 Transform:
   m_ObjectHideFlags: 0
@@ -9916,7 +9914,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.78431374, b: 0.5882353, a: 1}
+      maxColor: {r: 0.65961665, g: 0.63456744, b: 0.8679245, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.8039216, b: 0.5803922, a: 1}

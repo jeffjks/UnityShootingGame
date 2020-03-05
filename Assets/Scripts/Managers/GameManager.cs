@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         Application.targetFrameRate = 60;
+        Cursor.visible = false;
         
         m_PlayerManager = PlayerManager.instance_pm;
         m_CurrentAttributes = new Attributes(0, 0, 0, 0, 0, 0, 0);

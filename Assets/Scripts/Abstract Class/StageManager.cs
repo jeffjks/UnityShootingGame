@@ -16,7 +16,6 @@ public abstract class StageManager : MonoBehaviour
     [SerializeField] protected GameObject m_EnemySpawners = null;
 
     [HideInInspector] public Vector3 m_BackgroundVector;
-    [HideInInspector] public int m_Stage;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -52,6 +51,7 @@ public abstract class StageManager : MonoBehaviour
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(0f, 0f, 0f);
         m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(0f, 0f, 0f);
+        m_SystemManager.m_StageManager = this;
 
         SetBackgroundSpeed(0f);
         if (m_SystemManager.m_BossOnlyState) {
@@ -81,7 +81,7 @@ public abstract class StageManager : MonoBehaviour
 
     private void MusicLoop() {
         if (m_SystemManager.m_PlayState == 0) {
-            switch(m_Stage) {
+            switch(m_SystemManager.GetStage()) {
                 case 2: // Stage 3
                     if (m_AudioStage.time > 215.248f) {
                         m_AudioStage.time = 14.496f;
@@ -93,7 +93,7 @@ public abstract class StageManager : MonoBehaviour
                     }
                     break;
                 case 4: // Stage 5
-                    if (m_AudioStage.time > 182.644f) {
+                    if (m_AudioStage.time > 182.654f) {
                         m_AudioStage.time = 94.74f;
                     }
                     break;
@@ -102,7 +102,7 @@ public abstract class StageManager : MonoBehaviour
             }
         }
         else if (m_SystemManager.m_PlayState == 1) {
-            switch(m_Stage) {
+            switch(m_SystemManager.GetStage()) {
                 case 4:
                     if (m_TrueLastBoss || m_SystemManager.m_Difficulty < 2) { // Last Boss
                         if (m_AudioBoss.time > 101.168f) {

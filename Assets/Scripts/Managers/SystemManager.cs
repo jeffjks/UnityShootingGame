@@ -85,7 +85,7 @@ public class SystemManager : MonoBehaviour
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
-    [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수 화면, 4: 다음 스테이지 전환중
+    [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public float m_BulletsEraseTimer;
     [HideInInspector] public byte m_Difficulty;
@@ -101,10 +101,10 @@ public class SystemManager : MonoBehaviour
     private List<ScreenEffectAnimation> m_TransitionList = new List<ScreenEffectAnimation>();
     private PlayerController m_PlayerController;
     private Vector3 m_BackgroundCameraDefaultPos;
-    private uint m_TotalScore = 0;
+    private uint m_TotalScore;
     private uint[] m_StageScore = new uint[5] {0, 0, 0, 0, 0};
-    private uint m_GemsGround = 0, m_GemsAir = 0; // 점수가 아닌 먹은 개수
-    private int m_Stage = 0;
+    private uint m_GemsGround, m_GemsAir; // 점수가 아닌 먹은 개수
+    private int m_Stage;
     private int m_BombNumber, m_MaxBombNumber;
     private byte m_TotalMiss;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
@@ -156,7 +156,6 @@ public class SystemManager : MonoBehaviour
 
     void Start()
     {
-        SetStageManager();
         m_PoolingManager = PoolingManager.instance_op;
         UpdateBombNumber();
 
@@ -187,12 +186,8 @@ public class SystemManager : MonoBehaviour
     }
 
     private void MoveBackgroundCamera() {
-        m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
-    }
-
-    private void SetStageManager() {
-        m_StageManager = GameObject.FindGameObjectWithTag("StageManager").GetComponent<StageManager>();
-        m_Stage = m_StageManager.m_Stage;
+        if (m_StageManager != null)
+            m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
     }
 
     public void SetPlayerManager() {
@@ -224,6 +219,7 @@ public class SystemManager : MonoBehaviour
                 break;
             case 2: // TransitionEffect
                 for (int i = 0; i < m_TransitionList.Count; i++) {
+                    m_TransitionList[i].gameObject.SetActive(true);
                     m_TransitionList[i].PlayTransition();
                 }
                 break;
@@ -231,6 +227,12 @@ public class SystemManager : MonoBehaviour
                 for (int i = 0; i < m_TransitionList.Count; i++) { // Fade In (End Overview)
                     m_TransitionList[i].gameObject.SetActive(true);
                     m_TransitionList[i].PlayFadeIn();
+                }
+                break;
+            case 4: // FadeOut
+                for (int i = 0; i < m_TransitionList.Count; i++) { // Fade Out (Ending Credit)
+                    m_TransitionList[i].gameObject.SetActive(true);
+                    m_TransitionList[i].PlayFadeOut();
                 }
                 break;
             default:
@@ -279,15 +281,29 @@ public class SystemManager : MonoBehaviour
             QuitGame();
         }
         else {
-            SceneManager.LoadScene("Stage" + (m_Stage + 2));
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            
             m_BackgroundCamera.transform.position = m_BackgroundCameraDefaultPos;
-            ScreenEffect(2); // Transition
-            m_PlayState = 0;
             m_OverviewHandler.gameObject.SetActive(false);
-            m_PlayerManager.PlayerControlable = true;
-            m_PlayerController.EnableInvincible(3f);
+            Vector3 player_pos = m_PlayerController.transform.position;
+            m_PlayerController.transform.position = new Vector3(0f, player_pos.y, player_pos.z);
+            
+            if (m_Stage < 4) {
+                string scene_name = "Stage" + (m_Stage + 2);
+                m_Stage++;
+                SceneManager.LoadScene(scene_name);
+
+                m_PlayState = 0;
+                m_PlayerManager.PlayerControlable = true;
+                m_PlayerController.EnableInvincible(3f);
+                ScreenEffect(2); // Transition
+            }
+            else {
+                string scene_name = "Ending";
+                SceneManager.LoadScene(scene_name);
+
+                m_PlayState = 3;
+                yield return new WaitForSeconds(1f);
+                ScreenEffect(4); // FadeOut
+            }
         }
         yield break;
     }
@@ -299,11 +315,6 @@ public class SystemManager : MonoBehaviour
         Destroy(m_PoolingManager.gameObject);
         Destroy(gameObject);
         SceneManager.LoadScene("MainMenu");
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        SetStageManager();
     }
 
 
@@ -351,6 +362,10 @@ public class SystemManager : MonoBehaviour
         obj.SetActive(true);
     }
 
+
+    public void SetStage(int stage) {
+        m_Stage = stage;
+    }
 
     public int GetStage() {
         return m_Stage;
@@ -495,7 +510,6 @@ public class SystemManager : MonoBehaviour
 
         while (count > 0) {
             index = Random.Range(0, count);
-            //Debug.Log(index);
             if (num < 50) {
                 Vector3 pos = bullet_list[index].transform.position;
                 if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {

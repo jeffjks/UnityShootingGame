@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour {
     public float m_PauseDelay;
+    public GameObject m_CanvasPause;
+    public PauseMenuHandler m_PauseMenuHandler;
 
-    private PauseMenuHandler m_PauseMenuHandler;
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
     private bool m_CanPause = true, m_PauseKeyPress = false;
-
-    [SerializeField]
-    private GameObject m_PausePanel = null;
 
     void Start()
     {
         m_PlayerManager = PlayerManager.instance_pm;
         m_SystemManager = SystemManager.instance_sm;
-        m_PauseMenuHandler = m_PausePanel.GetComponent<PauseMenuHandler>();
-        m_PausePanel.SetActive(false);
+        m_CanvasPause.SetActive(false);
     }
 
     void Update ()
@@ -38,7 +35,7 @@ public class PauseManager : MonoBehaviour {
                 if (m_CanPause) {
                     Time.timeScale = 0;
                     AudioListener.pause = true;
-                    m_PausePanel.SetActive(true);
+                    m_CanvasPause.SetActive(true);
                     m_CanPause = false;
                 }
             }
@@ -52,7 +49,7 @@ public class PauseManager : MonoBehaviour {
         Time.timeScale = 1;
         m_PauseMenuHandler.m_InitialSelection = 0;
         AudioListener.pause = false;
-        m_PausePanel.SetActive(false);
+        m_CanvasPause.SetActive(false);
         Invoke("PauseEnabled", m_PauseDelay);
     }
 

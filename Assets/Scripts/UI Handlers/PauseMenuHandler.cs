@@ -32,6 +32,8 @@ public class PauseMenuHandler : GameUI
                     break;
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            m_PauseManager.Resume();
 
         MoveCursorVertical(moveRawVertical);
         m_Selection = EndToStart(m_Selection, m_Total);

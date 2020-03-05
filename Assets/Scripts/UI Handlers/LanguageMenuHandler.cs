@@ -41,11 +41,9 @@ public class LanguageMenuHandler : GameUI
                     break;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
             Cancel();
-
-        if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown("Fire2"))
             Cancel();
         
         if (m_LanguageOptions < 0)

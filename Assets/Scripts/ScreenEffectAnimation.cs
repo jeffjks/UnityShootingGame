@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using DG.Tweening;
  
-public class ScreenEffectAnimation : MonoBehaviour {
+public class ScreenEffectAnimation : MonoBehaviour { // 화면 전환 효과
     
     public SpriteRenderer m_SpriteRenderer;
     
@@ -13,6 +13,10 @@ public class ScreenEffectAnimation : MonoBehaviour {
     
     public void PlayFadeIn() {
         StartCoroutine(FadeIn());
+    }
+    
+    public void PlayFadeOut() {
+        StartCoroutine(FadeOut());
     }
     
 
@@ -32,10 +36,21 @@ public class ScreenEffectAnimation : MonoBehaviour {
 
     private IEnumerator FadeIn() {
         float duration = 1f;
+        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
         m_SpriteRenderer.DOFade(1f, duration); // 점점 알파값 1로
         yield return new WaitForSeconds(duration);
         DOTween.Kill(m_SpriteRenderer);
         m_SpriteRenderer.color = Color.black;
+        yield break;
+    }
+
+    private IEnumerator FadeOut() {
+        float duration = 1.5f;
+        m_SpriteRenderer.color = Color.black;
+        m_SpriteRenderer.DOFade(0f, duration); // 점점 알파값 0으로
+        yield return new WaitForSeconds(duration);
+        DOTween.Kill(m_SpriteRenderer);
+        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
         yield break;
     }
 }

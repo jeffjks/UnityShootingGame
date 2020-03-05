@@ -49,17 +49,21 @@ public class EnemyMiddleBoss3 : EnemyUnit
         }
         
         if (!m_IsUnattackable) {
-            if (m_Position2D.x >= m_TargetPosition.x + 1.6f) {
+            if (transform.position.x > m_TargetPosition.x + 1.6f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
+                transform.position = new Vector3(m_TargetPosition.x + 1.6f, transform.position.y, transform.position.z);
             }
-            else if (m_Position2D.x <= m_TargetPosition.x - 1.6f) {
+            if (transform.position.x < m_TargetPosition.x - 1.6f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.right));
+                transform.position = new Vector3(m_TargetPosition.x - 1.6f, transform.position.y, transform.position.z);
             }
-            else if (m_Position2D.y >= m_TargetPosition.y + 0.4f) {
+            if (transform.position.y > m_TargetPosition.y + 0.4f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
+                transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.4f, transform.position.z);
             }
-            else if (m_Position2D.y <= m_TargetPosition.y - 0.4f) {
+            if (transform.position.y < m_TargetPosition.y - 0.4f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
+                transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.4f, transform.position.z);
             }
         }
 

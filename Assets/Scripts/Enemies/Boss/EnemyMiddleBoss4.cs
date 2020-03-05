@@ -46,15 +46,17 @@ public class EnemyMiddleBoss4 : EnemyUnit
                 if (transform.position.x >= m_PlayerPosition.x * 0.14f + 1.2f) {
                     m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
                 }
-                else if (transform.position.x <= m_PlayerPosition.x * 0.14f - 1.2f) {
+                if (transform.position.x <= m_PlayerPosition.x * 0.14f - 1.2f) {
                     m_MoveVector = new MoveVector(new Vector2(Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
                 }
-
-                if (transform.position.y >= m_TargetPosition.y + 0.5f) {
+                
+                if (transform.position.y > m_TargetPosition.y + 0.5f) {
                     m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
+                    transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.5f, transform.position.z);
                 }
-                else if (transform.position.y <= m_TargetPosition.y - 0.5f) {
+                if (transform.position.y < m_TargetPosition.y - 0.5f) {
                     m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
+                    transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.5f, transform.position.z);
                 }
             }
         }

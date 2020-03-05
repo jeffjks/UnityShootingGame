@@ -12,7 +12,7 @@ public class Stage1Manager : StageManager
 
     protected override void Init()
     {
-        m_Stage = 0;
+        m_SystemManager.SetStage(0);
         m_TrueLastBoss = false;
     }
 
@@ -116,7 +116,10 @@ public class Stage1Manager : StageManager
         CreateEnemy(m_PlaneMedium_3, new Vector2(-3f, 3f));
         yield return new WaitForSeconds(3f);
         CreateEnemy(m_PlaneMedium_1, new Vector2(2f, 3f));
-        yield return new WaitForSeconds(10f); // Middle Boss ==========================
+        yield return new WaitForSeconds(5f);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), random_value);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-2f, 3f), new Vector2(-1f, -5f), random_value);
+        yield return new WaitForSeconds(5f); // Middle Boss ==========================
 
         for (int i = 0; i < 10; i++) {
             if (m_SystemManager.m_PlayState == 0) {

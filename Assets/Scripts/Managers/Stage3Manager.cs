@@ -13,7 +13,7 @@ public class Stage3Manager : StageManager
 
     protected override void Init()
     {
-        m_Stage = 2;
+        m_SystemManager.SetStage(2);
         m_TrueLastBoss = false;
     }
 
@@ -96,9 +96,8 @@ public class Stage3Manager : StageManager
         yield return new WaitForSeconds(1f);
         CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-6f, -3f), Random.Range(2f, 4f)));
         CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-3f, 0f), Random.Range(2f, 4f)));
-        yield return new WaitForSeconds(1f);
-        CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_LEFT - 3f, WATER_HEIGHT, 13f), new MoveVector(1.5f, 80f), new MovePattern[] {new MovePattern(4f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(5f);
+        CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_LEFT - 4f, WATER_HEIGHT, 13f), new MoveVector(1.5f, 80f), new MovePattern[] {new MovePattern(5f, 8739f, 0f, 1f)});
+        yield return new WaitForSeconds(6f);
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(1f, WATER_HEIGHT, 20f), new MoveVector(1.5f, 5f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(3.2f, WATER_HEIGHT, 22f), new MoveVector(1.5f, -2f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(6f, WATER_HEIGHT, 21f), new MoveVector(1.5f, 1f), new MovePattern[] {new MovePattern(3f, 8739f, 0f, 1f)});
@@ -130,9 +129,8 @@ public class Stage3Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-5f, -3.5f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -4f), new Vector2(-3.4f, -5f), 1f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-5.2f, -6.5f), 1f);
-        yield return new WaitForSeconds(2f);
-        CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_RIGHT + 3f, WATER_HEIGHT, 47f), new MoveVector(1.4f, -80f));
-        yield return new WaitForSeconds(5f);
+        CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(Size.GAME_BOUNDARY_RIGHT + 4f, WATER_HEIGHT, 46f), new MoveVector(1.4f, -80f));
+        yield return new WaitForSeconds(6f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-1.25f, -3f), 1.5f);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(1.25f, -3f), 1.5f);
         yield return new WaitForSeconds(1f);

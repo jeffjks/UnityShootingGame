@@ -62,6 +62,66 @@ TextureImporter:
   - first:
       213: 21300038
     second: metal_19
+  - first:
+      213: 56445091815935107
+    second: HitEffect_Rocket_0
+  - first:
+      213: 3136746174062340138
+    second: HitEffect_Rocket_1
+  - first:
+      213: -5233515054541427249
+    second: HitEffect_Rocket_2
+  - first:
+      213: -4228324989849791223
+    second: HitEffect_Rocket_3
+  - first:
+      213: 2356011639344823370
+    second: HitEffect_Rocket_4
+  - first:
+      213: -6786536173749476889
+    second: HitEffect_Rocket_5
+  - first:
+      213: 7708494756371332839
+    second: HitEffect_Rocket_6
+  - first:
+      213: -7199814845056909297
+    second: HitEffect_Rocket_7
+  - first:
+      213: -8920896575367913445
+    second: HitEffect_Rocket_8
+  - first:
+      213: 8866363924274705166
+    second: HitEffect_Rocket_9
+  - first:
+      213: -7480894391943773070
+    second: HitEffect_Rocket_10
+  - first:
+      213: 5494561816793569623
+    second: HitEffect_Rocket_11
+  - first:
+      213: -1258434717445662456
+    second: HitEffect_Rocket_12
+  - first:
+      213: 4230066297929402531
+    second: HitEffect_Rocket_13
+  - first:
+      213: -4674629004481244367
+    second: HitEffect_Rocket_14
+  - first:
+      213: -3192874008901419233
+    second: HitEffect_Rocket_15
+  - first:
+      213: 1765477330313127495
+    second: HitEffect_Rocket_16
+  - first:
+      213: -9126767536972263080
+    second: HitEffect_Rocket_17
+  - first:
+      213: 2602678137153883417
+    second: HitEffect_Rocket_18
+  - first:
+      213: -116010598278210321
+    second: HitEffect_Rocket_19
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -105,7 +165,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -120,7 +180,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -131,7 +191,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -142,7 +202,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -155,421 +215,421 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: metal_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7109fb1f6cfe45c41a88352715e8ae7e
-      internalID: 21300000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 1024
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fdb7805246efac249b725933ce4a4a03
-      internalID: 21300002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 1024
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17c0324514abd014b8168b00e73d332d
-      internalID: 21300004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 1024
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b73490e23c669e04da672e95bc0cbcfd
-      internalID: 21300006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce54061d6801fad429948028f2d615a6
-      internalID: 21300008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b53c372a86bd7a49abb01d29a0464de
-      internalID: 21300010
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_6
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f961574ff13cd848adf79f599027f69
-      internalID: 21300012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_7
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc26a9c056b353f4f8373b28929cc582
-      internalID: 21300014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69af8b1b5b92e6445997ad1f30c29c72
-      internalID: 21300016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_9
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5faa78b01a560c4428fb7a4d47ea9cf5
-      internalID: 21300018
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_10
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b6c3ee9cc3e61346bdf94d3de3ebca6
-      internalID: 21300020
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_11
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8378a24ead58ca4c8a617e8d00ed08e
-      internalID: 21300022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: metal_12
+      name: HitEffect_Rocket_0
       rect:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e222bde0f60f2743a17c48b8aae1d7c
-      internalID: 21300024
+      spriteID: 18cfee683f35fcf409bf9498403b1d56
+      internalID: 56445091815935107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_13
+      name: HitEffect_Rocket_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 534fe9ac432b3934083b00464f5df082
-      internalID: 21300026
+      spriteID: 3dea92e9243feb343b359fa4ab7c3812
+      internalID: 3136746174062340138
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_14
+      name: HitEffect_Rocket_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 128
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca59b70ed4341404882a94dd3db6ec8b
-      internalID: 21300028
+      spriteID: a61c24515fdfede4faaf33f029801e43
+      internalID: -5233515054541427249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_15
+      name: HitEffect_Rocket_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 192
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 128f6448842e2c84aa515a2e25bee011
-      internalID: 21300030
+      spriteID: 65b85a595b9618747bf8c9d60d8c06db
+      internalID: -4228324989849791223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_16
+      name: HitEffect_Rocket_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 019f5e0f61c15cd4f91c17f027d5fd00
+      internalID: 2356011639344823370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d81c9a3116203ca4ab9074466356b9ab
+      internalID: -6786536173749476889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 778f9db440c92aa4bbc49f370d4cad49
+      internalID: 7708494756371332839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05d8e2c2f0fad7f4195925bda03b5406
+      internalID: -7199814845056909297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9aa34ed0a5617b48b1d2ee80dfce55c
+      internalID: -8920896575367913445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fcaaead7988dfe4892e4736f9ba5421
+      internalID: 8866363924274705166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5632cc0ec4545cb4b85deec169e1be91
+      internalID: -7480894391943773070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07b5b75ff06c96c4b9b7d267249304d6
+      internalID: 5494561816793569623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b143f602470223c4bb597fbdb03a8c46
+      internalID: -1258434717445662456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77d72397cd034d49820a34fb2dc387f
+      internalID: 4230066297929402531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e33e66583768634185c5a7eda2e0c2d
+      internalID: -4674629004481244367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d9739632a3a5454ea3420b87963d07c
+      internalID: -3192874008901419233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Rocket_16
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 289cf85ca21e1174483738f669880c1e
-      internalID: 21300032
+      spriteID: f668267ba8773d344b19bf9fe36edd4b
+      internalID: 1765477330313127495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_17
+      name: HitEffect_Rocket_17
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 0
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b900d206fe674f14fadd237f49322273
-      internalID: 21300034
+      spriteID: 80a050ca0dcca314084b510e49a542b0
+      internalID: -9126767536972263080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_18
+      name: HitEffect_Rocket_18
       rect:
         serializedVersion: 2
-        x: 512
+        x: 128
         y: 0
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e67a55ea849e3f442aea3ca8f7d2dd2e
-      internalID: 21300036
+      spriteID: 6ca767417d308824b94bdd41cf684252
+      internalID: 2602678137153883417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: metal_19
+      name: HitEffect_Rocket_19
       rect:
         serializedVersion: 2
-        x: 768
+        x: 192
         y: 0
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32f0c9de26954c647a3fe579031ef61a
-      internalID: 21300038
+      spriteID: 31af7e7593cfed041881e929fa81c100
+      internalID: -116010598278210321
       vertices: []
       indices: 
       edges: []
@@ -577,7 +637,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4c5fabb3cf6f28b419284757acdd4987
     internalID: 0
     vertices: []
     indices: 

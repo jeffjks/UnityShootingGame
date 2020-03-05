@@ -376,14 +376,14 @@ RectTransform:
   m_GameObject: {fileID: 5824299594868540544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 960, y: 640, z: 1}
+  m_LocalScale: {x: 19.199999, y: 12.799999, z: 0.02}
   m_Children: []
-  m_Father: {fileID: 5824299596108933837}
-  m_RootOrder: 3
+  m_Father: {fileID: 5824299596226558742}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: 0.03999996}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5824299594868540559
@@ -1073,7 +1073,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PauseDelay: 2
-  m_PausePanel: {fileID: 5824299596108933836}
+  m_CanvasPause: {fileID: 5824299596226558825}
+  m_PauseMenuHandler: {fileID: 5824299596108933832}
 --- !u!114 &887243823951567483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4803,8 +4804,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5824299596071571943}
   - component: {fileID: 5824299596071571942}
-  - component: {fileID: 5824299596071571961}
-  - component: {fileID: 5824299596071571960}
+  - component: {fileID: 4962768356612765110}
   m_Layer: 5
   m_Name: Sound Panel 1
   m_TagString: Untagged
@@ -4841,7 +4841,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5824299596071571963}
   m_CullTransparentMesh: 0
---- !u!114 &5824299596071571961
+--- !u!114 &4962768356612765110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4870,21 +4870,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &5824299596071571960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824299596071571963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 4, y: -4}
-  m_UseGraphicAlpha: 1
 --- !u!1 &5824299596092681068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4997,7 +4982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5824299596108933837
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5012,7 +4997,6 @@ RectTransform:
   - {fileID: 5824299595801317753}
   - {fileID: 5824299595629908248}
   - {fileID: 5824299596954329253}
-  - {fileID: 5824299594868540545}
   m_Father: {fileID: 5824299596226558742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5600,7 +5584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5824299596226558742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5614,6 +5598,7 @@ RectTransform:
   m_Children:
   - {fileID: 5824299596108933837}
   - {fileID: 5824299596222305991}
+  - {fileID: 5824299594868540545}
   m_Father: {fileID: 5824299594861438882}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7407,8 +7392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5824299596885546690}
   - component: {fileID: 5824299596885546702}
-  - component: {fileID: 5824299596885546689}
-  - component: {fileID: 5824299596885546688}
+  - component: {fileID: 3114488635965011719}
   - component: {fileID: 5824299596885546691}
   m_Layer: 5
   m_Name: Sound Panel 2
@@ -7448,7 +7432,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5824299596885546693}
   m_CullTransparentMesh: 0
---- !u!114 &5824299596885546689
+--- !u!114 &3114488635965011719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7477,21 +7461,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &5824299596885546688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824299596885546693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 4, y: -4}
-  m_UseGraphicAlpha: 1
 --- !u!114 &5824299596885546691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7505,7 +7474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
-  m_IsEnabled: 
+  m_IsEnabled: 01010101
   m_PreviousPanel: {fileID: 5824299596108933836}
   m_SoundPanel: {fileID: 5824299596222305990}
 --- !u!1 &5824299596909560529

@@ -135,17 +135,18 @@ public class PlayerController : PlayerControllerManager
 
     private void OverviewPosition() {
         Vector3 target_pos;
-        if (m_SystemManager.m_StageManager.m_Stage < 4) {
+        if (m_SystemManager.GetStage() < 4) {
             target_pos = new Vector3(0f, m_PlayerRevivePoint.position.y, Depth.PLAYER);
             if (m_SystemManager.m_PlayState != 3) {
                 m_OverviewSpeed = Mathf.Max(Mathf.Abs(transform.position.x - target_pos.x), Mathf.Abs(transform.position.y - target_pos.y));
+                m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 3.2f);
                 return;
             }
         }
         else {
             target_pos = new Vector3(transform.position.x, 2f, Depth.PLAYER);
             if (m_SystemManager.m_PlayState != 3) {
-                m_OverviewSpeed = 15f;
+                m_OverviewSpeed = 12f;
                 return;
             }
         }
@@ -187,8 +188,13 @@ public class PlayerController : PlayerControllerManager
         if (other.gameObject.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상과 자신 파괴
             if (!m_Invincibility) {
                 if (!m_HasCollided) {
-                    EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                    enemyBullet.OnDeath();
+                    try {
+                        EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
+                        enemyBullet.OnDeath();
+                    }
+                    catch {
+                        return;
+                    }
                 }
                 OnDeath();
             }

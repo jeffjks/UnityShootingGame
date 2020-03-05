@@ -13,7 +13,7 @@ public class Stage2Manager : StageManager
 
     protected override void Init()
     {
-        m_Stage = 1;
+        m_SystemManager.SetStage(1);
         m_TrueLastBoss = false;
     }
 
@@ -24,7 +24,7 @@ public class Stage2Manager : StageManager
         SetBackgroundSpeed(0.96f);
 
         yield return new WaitForSeconds(35f);
-        StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.2f, 29f), 1f)); // Middle Boss (36s)
+        StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.23f, 29f), 1f)); // Middle Boss (36s)
 
         yield return new WaitForSeconds(35f);
         SetBackgroundSpeed(new Vector3(1.2f, 0f, 0.6f), 0.75f);
@@ -93,9 +93,7 @@ public class Stage2Manager : StageManager
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-3.5f, 3f, 15f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1f, 3f, 18f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         yield return new WaitForSeconds(2f);
-        if (m_SystemManager.m_Difficulty >= Difficulty.HELL) {
-            CreateEnemy(m_PlaneMedium_2, new Vector2(-4f, 3f));
-        }
+        CreateEnemy(m_PlaneMedium_2, new Vector2(-4f, 3f));
         yield return new WaitForSeconds(2f);
         CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(4f, 3f, 21f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(0f, 3f, 23f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
@@ -103,10 +101,23 @@ public class Stage2Manager : StageManager
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(1.5f, 3f, 23f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(6.5f, 3f, 24f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(5f, 3f, 27f), new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(7f, 8739f, 0f, 1f)});
-        yield return new WaitForSeconds(11f);
         if (m_SystemManager.m_Difficulty >= Difficulty.EXPERT) {
-            CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
+            StartCoroutine(SpawnHelicopters(true));
         }
+        yield return new WaitForSeconds(3f);
+        CreateEnemy(m_PlaneMedium_2, new Vector2(2f, 3f));
+        yield return new WaitForSeconds(3f);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -5f), Random.Range(1.2f, 1.5f));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -3f), Random.Range(1.2f, 1.5f));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -5f), Random.Range(1.2f, 1.5f));
+        yield return new WaitForSeconds(1f);
+        CreateEnemy(m_PlaneMedium_3, new Vector2(-3f, 3f));
+        yield return new WaitForSeconds(1f);
+        if (m_SystemManager.m_Difficulty >= Difficulty.HELL) {
+            CreateEnemy(m_PlaneMedium_3, new Vector2(3f, 3f));
+        }
+        yield return new WaitForSeconds(3f);
+        CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
         yield return new WaitForSeconds(1.5f);
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -1f), 3f));
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 5f), 3f));
@@ -114,10 +125,10 @@ public class Stage2Manager : StageManager
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -1f), 3f));
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 5f), 3f));
         yield return new WaitForSeconds(1f);
-        StartCoroutine(SpawnHelicopters(false));
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(SpawnHelicopters(true));
-        yield return new WaitForSeconds(12f); // Middle Boss ==========================
+        if (m_SystemManager.m_Difficulty >= Difficulty.HELL) {
+            StartCoroutine(SpawnHelicopters(false));
+        }
+        yield return new WaitForSeconds(14f); // Middle Boss ==========================
 
         sbyte side = 1;
         for (int i = 0; i < 4; i++) {

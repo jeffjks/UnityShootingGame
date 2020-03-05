@@ -2640,8 +2640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
-  m_Health: 5600
+  m_IsUnattackable: 0
+  m_Health: 6000
   m_Class: 2
   m_Score: 10000
   m_Debris: 0
@@ -2863,7 +2863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -2959,7 +2959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -3107,7 +3107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -3172,7 +3172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -3363,7 +3363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -3468,7 +3468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 10000
@@ -3599,7 +3599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -3750,7 +3750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -4007,7 +4007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -4105,7 +4105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -4204,7 +4204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: -1
   m_Class: 2
   m_Score: 10000

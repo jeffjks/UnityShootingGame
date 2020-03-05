@@ -1377,7 +1377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -3627,6 +3627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.44
@@ -4380,7 +4384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -4950,7 +4954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6643,7 +6647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -6797,7 +6801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7055,7 +7059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7099,7 +7103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7143,7 +7147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -7503,7 +7507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
   m_Health: 0
   m_Class: 0
   m_Score: 0

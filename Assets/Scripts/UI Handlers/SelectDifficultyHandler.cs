@@ -15,8 +15,7 @@ public class SelectDifficultyHandler : GameUI
         if (Input.GetButtonDown("Fire1")) {
             SelectDifficulty((byte) m_Selection);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
             Back();
         else if (Input.GetButtonDown("Fire2"))
             Back();

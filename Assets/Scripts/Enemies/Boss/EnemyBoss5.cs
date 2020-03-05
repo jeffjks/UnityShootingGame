@@ -9,9 +9,9 @@ public class EnemyBoss5 : EnemyUnit
     public MeshRenderer[] m_WingMeshRenderers = new MeshRenderer[3];
     public Transform m_FirePosition;
     public Transform[] m_FirePositionsWing = new Transform[3];
-    [HideInInspector] public sbyte m_Phase;
-    [HideInInspector] public float m_Direction;
-    
+
+    private sbyte m_Phase;
+    private float m_Direction;
     private Vector3 m_TargetPosition;
     private float m_AppearanceTime = 10f, m_WingsAngle;
     private int m_MoveDirection;

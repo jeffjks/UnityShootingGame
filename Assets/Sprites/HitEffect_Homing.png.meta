@@ -77,6 +77,81 @@ TextureImporter:
   - first:
       213: 21300048
     second: Purple_24
+  - first:
+      213: 7335842297028990785
+    second: HitEffect_Homing_0
+  - first:
+      213: 7055835127546878894
+    second: HitEffect_Homing_1
+  - first:
+      213: 8767412904177915327
+    second: HitEffect_Homing_2
+  - first:
+      213: 783808148340026233
+    second: HitEffect_Homing_3
+  - first:
+      213: -6136052270512640105
+    second: HitEffect_Homing_4
+  - first:
+      213: -286054234979916976
+    second: HitEffect_Homing_5
+  - first:
+      213: 7030684808967718540
+    second: HitEffect_Homing_6
+  - first:
+      213: -3708490921363051848
+    second: HitEffect_Homing_7
+  - first:
+      213: 3611676467561649116
+    second: HitEffect_Homing_8
+  - first:
+      213: -4562363706692243212
+    second: HitEffect_Homing_9
+  - first:
+      213: -7011281782724513898
+    second: HitEffect_Homing_10
+  - first:
+      213: 6224160918521077573
+    second: HitEffect_Homing_11
+  - first:
+      213: 1072985217966405912
+    second: HitEffect_Homing_12
+  - first:
+      213: 1267543116252611727
+    second: HitEffect_Homing_13
+  - first:
+      213: -4781129858373875775
+    second: HitEffect_Homing_14
+  - first:
+      213: 6666858523683258048
+    second: HitEffect_Homing_15
+  - first:
+      213: 1624702957663926162
+    second: HitEffect_Homing_16
+  - first:
+      213: 4905326994475124077
+    second: HitEffect_Homing_17
+  - first:
+      213: -6089853241670513935
+    second: HitEffect_Homing_18
+  - first:
+      213: -8220124204531166065
+    second: HitEffect_Homing_19
+  - first:
+      213: -3366883110011525475
+    second: HitEffect_Homing_20
+  - first:
+      213: -7298257791163117966
+    second: HitEffect_Homing_21
+  - first:
+      213: -7090042289951079769
+    second: HitEffect_Homing_22
+  - first:
+      213: 6676092779249664302
+    second: HitEffect_Homing_23
+  - first:
+      213: 6638994853814256367
+    second: HitEffect_Homing_24
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -120,7 +195,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -135,7 +210,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -146,7 +221,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -157,7 +232,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -170,13 +245,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Purple_0
+      name: HitEffect_Homing_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1536
-        width: 256
-        height: 256
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +259,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26003112401e0ea4481425958f7ccfcf
-      internalID: 21300000
+      spriteID: 54587ed2a04141c46a6b54c51bc079fb
+      internalID: 7335842297028990785
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_1
+      name: HitEffect_Homing_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 1536
-        width: 256
-        height: 256
+        x: 64
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +280,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 821eea78fa47fbe4ebe3ed3fddb15bfd
-      internalID: 21300002
+      spriteID: dea9bd105b5119a48bc269ef4a076095
+      internalID: 7055835127546878894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_2
+      name: HitEffect_Homing_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1536
-        width: 256
-        height: 256
+        x: 128
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,20 +301,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aceb504510b42cd46abe2f6b54318cb6
-      internalID: 21300004
+      spriteID: 651780eef1ed56e49b90b6aec4132d92
+      internalID: 8767412904177915327
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_3
+      name: HitEffect_Homing_3
       rect:
         serializedVersion: 2
-        x: 768
-        y: 1536
-        width: 256
-        height: 256
+        x: 192
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,104 +322,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff806ba46e289a34db6246337ffa4a65
-      internalID: 21300006
+      spriteID: 27ac976a7a94eb74a8fd28a5df1e8aa2
+      internalID: 783808148340026233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5ccfb4a2378d424f8813f1f56349724
-      internalID: 21300008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49ab9077d453875489e9998e6e875f3e
-      internalID: 21300010
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_6
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f7f9c9eed58abf43a98e58480c948a3
-      internalID: 21300012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_7
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1cb16f3943975424686ba46ca3bab2e1
-      internalID: 21300014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_8
+      name: HitEffect_Homing_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 1024
-        width: 256
-        height: 256
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -352,20 +343,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23af1c7b9a4128a41ad07764c91c8d94
-      internalID: 21300016
+      spriteID: 6491c4ef7fb1ec04f9fc4462c6493bc1
+      internalID: -6136052270512640105
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_9
+      name: HitEffect_Homing_5
       rect:
         serializedVersion: 2
-        x: 256
-        y: 1024
-        width: 256
-        height: 256
+        x: 64
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -373,20 +364,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f727d393c3609994f9a12a78773f28cf
-      internalID: 21300018
+      spriteID: 68d7990e1b7d55a4a9ec982ac52147fe
+      internalID: -286054234979916976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_10
+      name: HitEffect_Homing_6
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1024
-        width: 256
-        height: 256
+        x: 128
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -394,20 +385,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 348180733caed5f43b1d1e477ddce6e9
-      internalID: 21300020
+      spriteID: 1b05e3e6cb963a64e9d219b3479b9f07
+      internalID: 7030684808967718540
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_11
+      name: HitEffect_Homing_7
       rect:
         serializedVersion: 2
-        x: 768
-        y: 1024
-        width: 256
-        height: 256
+        x: 192
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -415,188 +406,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c317967def4d55749b08cce25a434e5e
-      internalID: 21300022
+      spriteID: 1056900bea1d87948a3dad117a43e804
+      internalID: -3708490921363051848
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7059f6b87079224439fedb3f5ac18e05
-      internalID: 21300024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_13
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51869f6e8e7c470469d3380764a0363a
-      internalID: 21300026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_14
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 044850ac7cab6354fa2266640c2d8a00
-      internalID: 21300028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_15
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40be010a5d2e07f4fabaff3069ebeed1
-      internalID: 21300030
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_16
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b4724c48998c494a8e01992b4e77cef
-      internalID: 21300032
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_17
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 828e65203087f6842928cf28558bc0f4
-      internalID: 21300034
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_18
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 37f9170e5d01db64fb065aa7b692b451
-      internalID: 21300036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_19
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 512
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49c6e8459922f124c8b07add0aa96ffe
-      internalID: 21300038
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Purple_20
+      name: HitEffect_Homing_8
       rect:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -604,20 +427,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07b1d90f03bc6264293071c726a8f296
-      internalID: 21300040
+      spriteID: a858bcc790ee0c04aab6c4a90baca81f
+      internalID: 3611676467561649116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_21
+      name: HitEffect_Homing_9
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -625,20 +448,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9fa4fe37980c5a34eb4be33ce8e6427d
-      internalID: 21300042
+      spriteID: 4915d7e9512c4384c8db5c7b9e4779d3
+      internalID: -4562363706692243212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_22
+      name: HitEffect_Homing_10
       rect:
         serializedVersion: 2
-        x: 512
+        x: 128
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -646,20 +469,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46b0fc07661aa4f4195e5a60af26194b
-      internalID: 21300044
+      spriteID: bdfb17a1803a01540a239fbf08736f37
+      internalID: -7011281782724513898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_23
+      name: HitEffect_Homing_11
       rect:
         serializedVersion: 2
-        x: 768
+        x: 192
         y: 256
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -667,20 +490,272 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 271eedde1cd024546a19f4e13bff790a
-      internalID: 21300046
+      spriteID: 6004d420fbc696843b4a997879bdd7e6
+      internalID: 6224160918521077573
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple_24
+      name: HitEffect_Homing_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0ba65ebb4c4764cbb07d490e7626b9
+      internalID: 1072985217966405912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32cf48adf6f28db4981d83f05b5b0445
+      internalID: 1267543116252611727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 497df26f1eac47142a67f29cb882043a
+      internalID: -4781129858373875775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3132ce968472ad34185e0cadd1d4f300
+      internalID: 6666858523683258048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab6bb260784fb64f9917e518ee40cb0
+      internalID: 1624702957663926162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_17
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003a668cbbaee664eb4b57c0dc392bb3
+      internalID: 4905326994475124077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb88e17d56753b4396cb1e26fb72e2c
+      internalID: -6089853241670513935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_19
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ebae07f3804d0e46847110311e00563
+      internalID: -8220124204531166065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd9fade0cd765fb4f8ed283400ed2ac5
+      internalID: -3366883110011525475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_21
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 547e0bc7f692cca4b92a7f11a6a52daf
+      internalID: -7298257791163117966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_22
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d70f31f9e13c79419768663a42e0875
+      internalID: -7090042289951079769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_23
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33cc655cf01ef7a46b7e4fe387c0c2f6
+      internalID: 6676092779249664302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitEffect_Homing_24
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -688,8 +763,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a25f63be5b531042a33a76c663c9bbb
-      internalID: 21300048
+      spriteID: 297de5f1e5437774e83d42c2736374d8
+      internalID: 6638994853814256367
       vertices: []
       indices: 
       edges: []
@@ -697,7 +772,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d5f28e0d9741aae48b7bbe87eafad4e4
     internalID: 0
     vertices: []
     indices: 

@@ -8,7 +8,7 @@
 
 * 엔진 : 유니티
 
-* 버전 : 개발 중
+* 버전 : ver 1.0.0
 
 
 ## 개발 정보
@@ -32,7 +32,6 @@
    * Low poly combat drone
    * Military Helicopter
    * Modular Space Platform Kit
-   * MSGDI
    * PBR RPG/FPS Game Assets (Industrial Set v1.0)
    * Powerup Crate
    * Rock and Boulders 2

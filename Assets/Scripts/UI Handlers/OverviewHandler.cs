@@ -47,7 +47,7 @@ public class OverviewHandler : MonoBehaviour
                     GoToNextStage(); // 6일때 버튼 클릭시 다음 스테이지
                     break;
                 default:
-                    m_DisplayTimer = 60f;
+                    m_DisplayTimer = 90f;
                     break;
             }
         }
@@ -82,6 +82,11 @@ public class OverviewHandler : MonoBehaviour
             if (m_DisplayTimer > 90f) {
                 GoToNextDispalyStage();
                 m_FinalBonus.SetActive(true);
+            }
+        }
+        else if (m_DisplayStage == 4) { // 최종 보너스가 0일 경우 합산 패스
+            if (m_FinalBonusScore == 0) {
+                GoToNextDispalyStage();
             }
         }
         else if (m_DisplayStage == 5) { // 최종 보너스 합산
@@ -127,19 +132,19 @@ public class OverviewHandler : MonoBehaviour
 
         if (stage_miss == 0) {
             m_BonusScale = BonusScale.BONUS_0;
-            bonus_scale = "[ X 0.5 ]";
+            bonus_scale = "[ X 50% ]";
         }
         else if (stage_miss == 1) {
             m_BonusScale = BonusScale.BONUS_1;
-            bonus_scale = "[ X 0.3 ]";
+            bonus_scale = "[ X 30% ]";
         }
         else if (stage_miss == 2) {
             m_BonusScale = BonusScale.BONUS_2;
-            bonus_scale = "[ X 0.1 ]";
+            bonus_scale = "[ X 10% ]";
         }
         else {
             m_BonusScale = 0;
-            bonus_scale = "[ X 0.0 ]";
+            bonus_scale = "[ X 0% ]";
         }
 
         m_FinalBonusScore = (uint) (stage_score * m_BonusScale);

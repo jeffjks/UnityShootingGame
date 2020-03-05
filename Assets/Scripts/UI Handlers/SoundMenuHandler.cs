@@ -8,13 +8,16 @@ public class SoundMenuHandler : GameUI
     public GameObject m_PreviousPanel;
     public GameObject m_SoundPanel;
 
-    private int m_MusicVolumeOptions;
-    private int m_SoundVolumeOptions;
+    private int m_MusicVolume, m_SoundVolume;
+    private int m_PreviousMusicVolume, m_PreviousSoundVolume;
 
     private int m_Delay;
 
     void OnEnable() {
-        UpdateValues();
+        m_MusicVolume = (int) m_GameManager.m_MusicVolume;
+        m_SoundVolume = (int) m_GameManager.m_SoundVolume;
+        m_PreviousMusicVolume = (int) m_GameManager.m_MusicVolume;
+        m_PreviousSoundVolume = (int) m_GameManager.m_SoundVolume;
     }
 
     void Update()
@@ -26,10 +29,13 @@ public class SoundMenuHandler : GameUI
             switch(m_Selection) {
                 case 0:
                     if (m_Delay == 0 || m_Delay >= 40)
-                        m_MusicVolumeOptions += moveRawHorizontal;
+                        m_MusicVolume += moveRawHorizontal;
+                        m_GameManager.SetMusicVolume(m_MusicVolume);
                     break;
                 case 1:
-                    m_SoundVolumeOptions += moveRawHorizontal;
+                    if (m_Delay == 0 || m_Delay >= 40)
+                        m_SoundVolume += moveRawHorizontal;
+                        m_GameManager.SetSoundVolume(m_SoundVolume);
                     break;
                 default:
                     break;
@@ -57,12 +63,13 @@ public class SoundMenuHandler : GameUI
                     break;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            Cancel();
+        else if (Input.GetButtonDown("Fire2"))
             Cancel();
 
-        m_MusicVolumeOptions = (int) Mathf.Clamp (m_MusicVolumeOptions, 0f, 100f);
-        m_SoundVolumeOptions = (int) Mathf.Clamp (m_SoundVolumeOptions, 0f, 100f);
+        m_MusicVolume = (int) Mathf.Clamp (m_MusicVolume, 0f, 100f);
+        m_SoundVolume = (int) Mathf.Clamp (m_SoundVolume, 0f, 100f);
 
         SetText();
 
@@ -72,19 +79,14 @@ public class SoundMenuHandler : GameUI
         SetColor();
 	}
 
-    private void UpdateValues() {
-        m_MusicVolumeOptions = (int) m_GameManager.m_MusicVolume;
-        m_SoundVolumeOptions = (int) m_GameManager.m_SoundVolume;
-    }
-
     private void SetText() {
-        m_Text[0].text = m_MusicVolumeOptions.ToString();
-        m_Text[1].text = m_SoundVolumeOptions.ToString();
+        m_Text[0].text = m_MusicVolume.ToString();
+        m_Text[1].text = m_SoundVolume.ToString();
     }
 
     private void Apply() {
-        m_GameManager.SetMusicVolume(m_MusicVolumeOptions);
-        m_GameManager.SetSoundVolume(m_SoundVolumeOptions);
+        m_GameManager.SetMusicVolume(m_MusicVolume);
+        m_GameManager.SetSoundVolume(m_SoundVolume);
         PlayerPrefs.Save();
 
         m_PreviousPanel.SetActive(true);
@@ -93,7 +95,8 @@ public class SoundMenuHandler : GameUI
     }
 
     private void Cancel() {
-        UpdateValues();
+        m_GameManager.SetMusicVolume(m_PreviousMusicVolume);
+        m_GameManager.SetSoundVolume(m_PreviousSoundVolume);
         SetText();
         m_PreviousPanel.SetActive(true);
         CancelSound();

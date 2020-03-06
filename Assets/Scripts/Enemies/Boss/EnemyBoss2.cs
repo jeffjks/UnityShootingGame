@@ -55,7 +55,7 @@ public class EnemyBoss2 : EnemyUnit
         }
 
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 0.65f) { // 체력 65% 이하
+            if (m_Health <= m_MaxHealth * 0.625f) { // 체력 62.5% 이하
                 for (int i = 0; i < m_Part1_Turrets.Length; i++) {
                     m_Part1_Turrets[i].OnDeath();
                 }
@@ -64,7 +64,7 @@ public class EnemyBoss2 : EnemyUnit
             }
         }
         else if (m_Phase == 2) {
-            if (m_Health <= m_MaxHealth * 0.30f) { // 체력 30% 이하
+            if (m_Health <= m_MaxHealth * 0.25f) { // 체력 25% 이하
                 for (int i = 0; i < m_Part2_Turrets.Length; i++) {
                     m_Part2_Turrets[i].OnDeath();
                 }

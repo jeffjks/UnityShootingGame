@@ -31,13 +31,13 @@ public class EnemyTankLarge3Turret : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 3, 19.5f);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.3f);
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 4, 19.5f);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.3f);
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 5, 19.5f);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.3f);
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 4, 19.5f);
             }

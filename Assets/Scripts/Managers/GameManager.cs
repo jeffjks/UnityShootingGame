@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("ResolutionHeight", 1080);
             PlayerPrefs.SetInt("FullScreen", 1);
             PlayerPrefs.SetInt("GraphicsQuality", 0);
-            PlayerPrefs.SetInt("AntiAliasing", 1);
+            PlayerPrefs.SetInt("AntiAliasing", 2);
             PlayerPrefs.SetInt("Language", 1);
             PlayerPrefs.SetInt("MusicVolume", 80);
             PlayerPrefs.SetInt("SoundVolume", 80);
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
 
         m_GraphicsQuality = PlayerPrefs.GetInt("GraphicsQuality", 0);
 
-        if (PlayerPrefs.GetInt("AntiAliasing", 1) == 1)
+        if (PlayerPrefs.GetInt("AntiAliasing", 2) == 2)
             m_AntiAliasing = true;
         else
             m_AntiAliasing = false;

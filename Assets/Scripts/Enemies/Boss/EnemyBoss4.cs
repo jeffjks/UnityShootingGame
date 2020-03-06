@@ -16,7 +16,7 @@ public class EnemyBoss4 : EnemyUnit
     [HideInInspector] public float m_Direction;
     
     private Vector3 m_TargetPosition;
-    private float m_AppearanceTime = 5f;
+    private float m_AppearanceTime = 4.5f;
     private bool m_InPattern = false;
     private int m_MoveDirection;
     private float m_MoveSpeed, m_DefaultSpeed = 0.005f;

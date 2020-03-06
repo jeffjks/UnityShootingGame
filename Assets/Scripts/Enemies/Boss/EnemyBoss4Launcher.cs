@@ -129,11 +129,11 @@ public class EnemyBoss4Launcher : EnemyUnit
         while (true) {
             pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.m_Difficulty == 0) {
-                CreateBulletsSector(2, pos, 4.25f, (m_Direction - 1.5f)*rotate, accel, 10, 36f);
-                CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 10, 36f);
-                CreateBulletsSector(2, pos, 4.75f, (m_Direction + 1.5f)*rotate, accel, 10, 36f);
+                CreateBulletsSector(2, pos, 4.3f, (m_Direction - 1.4f)*rotate, accel, 8, 45f);
+                CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 8, 45f);
+                CreateBulletsSector(2, pos, 4.7f, (m_Direction + 1.4f)*rotate, accel, 8, 45f);
                 m_Direction += 12f;
-                yield return new WaitForSeconds(0.9f + Random.Range(0f, 0.3f));
+                yield return new WaitForSeconds(1f + Random.Range(0f, 0.3f));
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(2, pos, 4.25f, (m_Direction - 1.5f)*rotate, accel, 12, 30f);

@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SettingsMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_GraphicsPanel;
-    public GameObject m_SoundPanel;
-    public GameObject m_LanguagePanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_GraphicsMenu;
+    public GameObject m_SoundMenu;
+    public GameObject m_LanguageMenu;
 
     void Update()
 	{
@@ -42,25 +42,25 @@ public class SettingsMenuHandler : GameUI
 	}
 
     private void Graphics() {
-        m_GraphicsPanel.SetActive(true);
+        m_GraphicsMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
     private void Sound() {
-        m_SoundPanel.SetActive(true);
+        m_SoundMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
     private void Language() {
-        m_LanguagePanel.SetActive(true);
+        m_LanguageMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
     private void Back() {
-        m_PreviousPanel.SetActive(true);
+        m_PreviousMenu.SetActive(true);
         CancelSound();
         gameObject.SetActive(false);
     }

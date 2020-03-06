@@ -398,9 +398,9 @@ public class EnemyMiddleBoss4 : EnemyUnit
 
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBulletsSector(2, pos, 3.6f, target_angle + random_value, accel, 5, 24f);
-                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1.5f, accel, 4, 24f);
+                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1f, accel, 4, 24f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value, accel, 4, 24f);
-                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 1.5f, accel, 4, 24f);
+                CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 1f, accel, 4, 24f);
                 yield return new WaitForSeconds(0.6f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {

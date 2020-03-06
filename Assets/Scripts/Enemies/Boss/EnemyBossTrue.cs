@@ -102,6 +102,8 @@ public class EnemyBossTrue : EnemyUnit
     }
 
     private void BombBarrier() {
+        if (m_SystemManager.m_InvincibleMod)
+            return;
         if (m_Phase > 0) {
             if (m_PlayerManager.m_PlayerController.GetInvincibility()) {
                 if (!m_IsUnattackable) {
@@ -373,7 +375,7 @@ public class EnemyBossTrue : EnemyUnit
 
 
     private IEnumerator Pattern2_A() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(1f, 1f), accel2 = new EnemyBulletAccel(8f, 0.5f);
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(1f, 1f), accel2 = new EnemyBulletAccel(9.2f, 0.5f), accel3 = new EnemyBulletAccel(0f, 0f);
         m_DirectionDelta[0] = 31f;
         m_InPattern = true;
 
@@ -381,30 +383,33 @@ public class EnemyBossTrue : EnemyUnit
         for (int i = 0; i < 3; i++) {
             CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
             0, 1f, BulletDirection.CURRENT, 30f, accel2);
-            yield return new WaitForSeconds(0.18f);
+            yield return new WaitForSeconds(0.16f);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 5; i++) {
             CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
             3, 1f, BulletDirection.CURRENT, -60f, accel2);
-            yield return new WaitForSeconds(0.18f);
+            yield return new WaitForSeconds(0.16f);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 7; i++) {
             CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
             0, 1f, BulletDirection.CURRENT, 90f, accel2);
-            yield return new WaitForSeconds(0.18f);
+            yield return new WaitForSeconds(0.16f);
         }
+        yield return new WaitForSeconds(1.4f);
 
         m_Direction[0] = Random.Range(0f, 360f);
+        float dir = 0f;
         for (int i = 0; i < 9; i++) {
-            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
-            3, 1f, BulletDirection.CURRENT, -140f, accel2);
-            yield return new WaitForSeconds(0.18f);
+            CreateBulletsSector(3, transform.position, 10f, dir + Random.Range(3.5f, 6.5f), accel3, 36, 10f);
+            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
+            //3, 1f, BulletDirection.CURRENT, -140f, accel2);
+            yield return new WaitForSeconds(0.17f);
         }
         m_InPattern = false;
     }
@@ -417,7 +422,7 @@ public class EnemyBossTrue : EnemyUnit
         m_Direction[0] = Random.Range(0f, 360f);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 109f;
-        m_DirectionDelta[1] = 61f;
+        m_DirectionDelta[1] = 73f;
         m_BulletSpeed = max_speed;
 
         m_CurrentPattern[1] = PatternFinal1_2(m_DirectionDelta[0]);
@@ -434,16 +439,16 @@ public class EnemyBossTrue : EnemyUnit
             3, 7.5f, BulletDirection.CURRENT, m_Direction[1], accel2, 2, 48f);
             CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, BulletType.ERASE_AND_CREATE, bullet_delay,
             5, 5.4f, BulletDirection.CURRENT, m_Direction[1] + 180f, accel2);
-            yield return new WaitForSeconds(0.072f);
+            yield return new WaitForSeconds(0.062f);
         }
     }
 
     private IEnumerator PatternFinal1_2(float max_rotate_speed) {
         while (true) {
             yield return new WaitForSeconds(Random.Range(8f, 10f));
-            DOTween.To(()=>m_DirectionDelta[0], x=>m_DirectionDelta[0] = x, -max_rotate_speed, 2.5f).SetEase(Ease.Linear);
+            DOTween.To(()=>m_DirectionDelta[0], x=>m_DirectionDelta[0] = x, -max_rotate_speed, 2.4f).SetEase(Ease.Linear);
             yield return new WaitForSeconds(Random.Range(8f, 10f));
-            DOTween.To(()=>m_DirectionDelta[0], x=>m_DirectionDelta[0] = x, max_rotate_speed, 2.5f).SetEase(Ease.Linear);
+            DOTween.To(()=>m_DirectionDelta[0], x=>m_DirectionDelta[0] = x, max_rotate_speed, 2.4f).SetEase(Ease.Linear);
             yield break;
         }
     }
@@ -451,9 +456,9 @@ public class EnemyBossTrue : EnemyUnit
     private IEnumerator PatternFinal1_3(float max_rotate_speed) {
         while (true) {
             yield return new WaitForSeconds(Random.Range(7f, 9f));
-            DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, -max_rotate_speed, 2f).SetEase(Ease.Linear);
+            DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, -max_rotate_speed, 1.7f).SetEase(Ease.Linear);
             yield return new WaitForSeconds(Random.Range(7f, 9f));
-            DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, max_rotate_speed, 2f).SetEase(Ease.Linear);
+            DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, max_rotate_speed, 1.7f).SetEase(Ease.Linear);
             yield break;
         }
     }

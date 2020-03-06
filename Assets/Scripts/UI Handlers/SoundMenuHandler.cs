@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SoundMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_SoundPanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_SoundMenu;
+    public GameObject m_MainLogo;
 
     private int m_MusicVolume, m_SoundVolume;
     private int m_PreviousMusicVolume, m_PreviousSoundVolume;
@@ -18,6 +19,8 @@ public class SoundMenuHandler : GameUI
         m_SoundVolume = (int) m_GameManager.m_SoundVolume;
         m_PreviousMusicVolume = (int) m_GameManager.m_MusicVolume;
         m_PreviousSoundVolume = (int) m_GameManager.m_SoundVolume;
+        if (m_MainLogo != null)
+            m_MainLogo.SetActive(false);
     }
 
     void Update()
@@ -88,18 +91,23 @@ public class SoundMenuHandler : GameUI
         m_GameManager.SetMusicVolume(m_MusicVolume);
         m_GameManager.SetSoundVolume(m_SoundVolume);
         PlayerPrefs.Save();
-
-        m_PreviousPanel.SetActive(true);
+        
         ConfirmSound();
-        m_SoundPanel.SetActive(false);
+        PreviousMenu();
     }
 
     private void Cancel() {
         m_GameManager.SetMusicVolume(m_PreviousMusicVolume);
         m_GameManager.SetSoundVolume(m_PreviousSoundVolume);
         SetText();
-        m_PreviousPanel.SetActive(true);
         CancelSound();
-        m_SoundPanel.SetActive(false);
+        PreviousMenu();
+    }
+
+    private void PreviousMenu() {
+        if (m_MainLogo != null)
+            m_MainLogo.SetActive(true);
+        m_PreviousMenu.SetActive(true);
+        m_SoundMenu.SetActive(false);
     }
 }

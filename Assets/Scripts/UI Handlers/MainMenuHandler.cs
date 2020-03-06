@@ -10,6 +10,7 @@ public class MainMenuHandler : GameUI
     public GameObject m_ReplayPanel;
     public GameObject m_SettingsPanel;
     public GameObject m_KeyConfigPanel;
+    public GameObject m_CreditPanel;
 
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
 
@@ -32,15 +33,12 @@ public class MainMenuHandler : GameUI
                     Practice();
                     break;
                 case 2:
-                    Replay();
-                    break;
-                case 3:
                     Option();
                     break;
-                case 4:
-                    KeyConfig();
+                case 3:
+                    Credit();
                     break;
-                case 5:
+                case 4:
                     ExitGame();
                     break;
                 default:
@@ -84,6 +82,12 @@ public class MainMenuHandler : GameUI
         // m_KeyConfigPanel.SetActive(true);
         // ConfirmSound();
         // gameObject.SetActive(false);
+    }
+
+    private void Credit() {
+        m_CreditPanel.SetActive(true);
+        ConfirmSound();
+        gameObject.SetActive(false);
     }
 
     private void ExitGame() {

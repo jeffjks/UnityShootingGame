@@ -29,8 +29,8 @@ public class EnemyMiddleBoss3 : EnemyUnit
     }
 
     private void OnAppearanceComplete() {
-        float[] random_direction = { 75f, 105f, -75f, -105f };
-        m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 4)]);
+        float[] random_direction = { 90f, -90f };
+        m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 2)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
@@ -50,20 +50,10 @@ public class EnemyMiddleBoss3 : EnemyUnit
         
         if (!m_IsUnattackable) {
             if (transform.position.x > m_TargetPosition.x + 1.6f) {
-                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
-                transform.position = new Vector3(m_TargetPosition.x + 1.6f, transform.position.y, transform.position.z);
+                m_MoveVector.direction = -90f;
             }
             if (transform.position.x < m_TargetPosition.x - 1.6f) {
-                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.right));
-                transform.position = new Vector3(m_TargetPosition.x - 1.6f, transform.position.y, transform.position.z);
-            }
-            if (transform.position.y > m_TargetPosition.y + 0.4f) {
-                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
-                transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.4f, transform.position.z);
-            }
-            if (transform.position.y < m_TargetPosition.y - 0.4f) {
-                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
-                transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.4f, transform.position.z);
+                m_MoveVector.direction = 90f;
             }
         }
 
@@ -201,11 +191,9 @@ public class EnemyMiddleBoss3 : EnemyUnit
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (m_SystemManager.m_Difficulty == 0) {
-                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 9, 15f);
-                CreateBulletsSector(0, pos, 5.9f, target_angle, accel1, 9, 15f);
+                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 7, 18f);
+                CreateBulletsSector(0, pos, 5.9f, target_angle, accel1, 7, 18f);
                 yield return new WaitForSeconds(1.2f);
-                CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 9, 15f);
-                CreateBulletsSector(0, pos, 5.9f, target_angle, accel1, 9, 15f);
                 break;
             }
             else if (m_SystemManager.m_Difficulty == 1) {
@@ -232,8 +220,8 @@ public class EnemyMiddleBoss3 : EnemyUnit
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (m_SystemManager.m_Difficulty == 0) {
-                CreateBullet(3, pos, 5.3f, target_angle + Random.Range(-40f, 40f), accel);
-                yield return new WaitForSeconds(0.07f);
+                CreateBullet(3, pos, 5.3f, target_angle + Random.Range(-45f, 45f), accel);
+                yield return new WaitForSeconds(0.08f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBullet(3, pos, Random.Range(5f, 5.8f), target_angle + Random.Range(-40f, 40f), accel);
@@ -283,7 +271,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
 
             if (m_SystemManager.m_Difficulty == 0) {
                 speed = 1f;
-                CreateBulletsSector(0, pos, 6.4f*speed, -m_Direction2, accel, 18, 20f);
+                CreateBulletsSector(0, pos, 6.4f*speed, -m_Direction2, accel, 6, 60f);
                 yield return new WaitForSeconds(0.33f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {

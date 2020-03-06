@@ -320,17 +320,17 @@ public class EnemyBoss4SubTurret : EnemyUnit
             CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 13, 9f);
         }
         else {
-            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 5, 7f);
-            yield return new WaitForSeconds(0.2f);
-            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 8, 7f);
-            yield return new WaitForSeconds(0.2f);
-            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 11, 7f);
-            yield return new WaitForSeconds(0.2f);
-            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 14, 7f);
-            yield return new WaitForSeconds(0.2f);
-            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 15, 7f);
-            yield return new WaitForSeconds(0.2f);
-            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 16, 7f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 5, 7.5f);
+            yield return new WaitForSeconds(0.19f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 8, 7.5f);
+            yield return new WaitForSeconds(0.19f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 11, 7.5f);
+            yield return new WaitForSeconds(0.19f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 14, 7.5f);
+            yield return new WaitForSeconds(0.19f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 15, 7.5f);
+            yield return new WaitForSeconds(0.19f);
+            CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 16, 7.5f);
         }
         yield break;
     }

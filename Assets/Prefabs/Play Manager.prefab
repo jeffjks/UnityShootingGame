@@ -4977,7 +4977,7 @@ GameObject:
   - component: {fileID: 5824299596108933833}
   - component: {fileID: 5824299596108933832}
   m_Layer: 5
-  m_Name: Pause Panel
+  m_Name: Pause Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7475,8 +7475,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
   m_IsEnabled: 01010101
-  m_PreviousPanel: {fileID: 5824299596108933836}
-  m_SoundPanel: {fileID: 5824299596222305990}
+  m_PreviousMenu: {fileID: 5824299596108933836}
+  m_SoundMenu: {fileID: 5824299596222305990}
+  m_MainLogo: {fileID: 0}
 --- !u!1 &5824299596909560529
 GameObject:
   m_ObjectHideFlags: 0

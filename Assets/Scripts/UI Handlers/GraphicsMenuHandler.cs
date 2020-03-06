@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GraphicsMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_GraphicsPanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_GraphicsMenu;
+    public GameObject m_MainLogo;
 
     private int m_ResolutionOptions;
     private bool m_FullScreenOptions;
@@ -23,6 +24,7 @@ public class GraphicsMenuHandler : GameUI
 
     void OnEnable() {
         UpdateValues();
+        m_MainLogo.SetActive(false);
     }
 
     void Update()
@@ -118,16 +120,19 @@ public class GraphicsMenuHandler : GameUI
         m_GameManager.SetAntiAliasing(m_AntiAliasing);
         PlayerPrefs.Save();
         ConfirmSound();
-
-        m_PreviousPanel.SetActive(true);
-        m_GraphicsPanel.SetActive(false);
+        PreviousMenu();
     }
 
     private void Cancel() {
         UpdateValues();
         SetText();
         CancelSound();
-        m_PreviousPanel.SetActive(true);
-        m_GraphicsPanel.SetActive(false);
+        PreviousMenu();
+    }
+
+    private void PreviousMenu() {
+        m_MainLogo.SetActive(true);
+        m_PreviousMenu.SetActive(true);
+        m_GraphicsMenu.SetActive(false);
     }
 }

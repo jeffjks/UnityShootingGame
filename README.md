@@ -45,8 +45,9 @@
    * Spaceships Fleet III Mega Pack I
    * UXR Tetrahedron (by ENEA LE FONS, Sketchfab)
 
-* 스프라이트, 텍스쳐
+* 이미지, 텍스쳐
    * 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
+   * https://www.freepik.com/
    * Sci Fi UI Pack
    * Sci-Fi Skill Icon Pack
    * Sci-Fi Texture Pack

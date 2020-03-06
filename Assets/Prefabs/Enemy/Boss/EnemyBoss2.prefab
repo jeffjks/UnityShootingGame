@@ -2638,10 +2638,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b01935af8c7d90468cce65a340cf086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
-  m_Health: 6000
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 7000
   m_Class: 2
   m_Score: 10000
   m_Debris: 0
@@ -2861,9 +2861,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea4d4a88ddb2454bb291d35980412c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -2957,9 +2957,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd416a7f63c222c4a8c8163f9850d2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -3105,9 +3105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea4d4a88ddb2454bb291d35980412c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -3170,9 +3170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e981803e57d2a42991102b894cbc1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -3361,9 +3361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8832e4d88d8a1be4095431f08c16a5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -3466,9 +3466,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369077d4c208724dac78b551c183367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 10000
@@ -3597,9 +3597,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da31be70080a77c4890d07eaf47ac6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -3748,9 +3748,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da31be70080a77c4890d07eaf47ac6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 0
@@ -4005,9 +4005,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2722609acfa1e3640935d1553cb2289d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -4103,9 +4103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2722609acfa1e3640935d1553cb2289d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: 0
   m_Class: 2
   m_Score: 0
@@ -4202,9 +4202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da5a9c63e3b2c449a1ec6fd4004f8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4034944517753554836}
   m_Health: -1
   m_Class: 2
   m_Score: 10000

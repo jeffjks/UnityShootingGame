@@ -4,7 +4,7 @@ using System.IO;
 
 public class ReplayMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
+    public GameObject m_PreviousMenu;
     public ScreenEffectFadeOut m_ScreenEffectFadeOut;
     public AudioSource m_AudioSally;
 
@@ -89,7 +89,7 @@ public class ReplayMenuHandler : GameUI
     }
 
     private void Back() {
-        m_PreviousPanel.SetActive(true);
+        m_PreviousMenu.SetActive(true);
         CancelSound();
         gameObject.SetActive(false);
     }

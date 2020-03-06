@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LanguageMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_LanguagePanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_LanguageMenu;
+    public GameObject m_MainLogo;
 
     private int m_LanguageOptions;
     private int m_MaxLanguageOptions;
@@ -14,6 +15,7 @@ public class LanguageMenuHandler : GameUI
     void OnEnable() {
         UpdateValues();
         SetText();
+        m_MainLogo.SetActive(false);
     }
 
     void Update()
@@ -72,16 +74,19 @@ public class LanguageMenuHandler : GameUI
         m_GameManager.SetLanguage(m_LanguageOptions);
         PlayerPrefs.Save();
         ConfirmSound();
-
-        m_PreviousPanel.SetActive(true);
-        m_LanguagePanel.SetActive(false);
+        PreviousMenu();
     }
 
     private void Cancel() {
         UpdateValues();
         SetText();
         CancelSound();
-        m_PreviousPanel.SetActive(true);
-        m_LanguagePanel.SetActive(false);
+        PreviousMenu();
+    }
+
+    private void PreviousMenu() {
+        m_MainLogo.SetActive(true);
+        m_PreviousMenu.SetActive(true);
+        m_LanguageMenu.SetActive(false);
     }
 }

@@ -231,11 +231,11 @@ public class EnemyBoss4MainTurret : EnemyUnit
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.CREATE, 0.2f,
-            1, 4.5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 45, 8f, new Vector2(0.2f, 0.2f));
+            1, 5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 45, 8f, new Vector2(0.17f, 0.17f));
         }
         else {
             CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.CREATE, 0.2f,
-            1, 4.5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2(0.15f, 0.15f));
+            1, 5.4f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2(0.125f, 0.125f));
         }
         yield break;
     }

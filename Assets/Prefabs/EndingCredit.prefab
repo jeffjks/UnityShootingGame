@@ -412,47 +412,48 @@ MonoBehaviour:
   m_EndingScroll:
   - {fileID: 6082484739083451323}
   - {fileID: 6082484737872741716}
+  m_AudioEnding: {fileID: 4703350099431108974}
+  m_Date: 2020/03/06
   m_EndingText:
-  - "<size=56><b>Producer</b></size>\r\n\uAC15\uB0AD\uB545\uCF69 (jeff_jks)\r\nhttps://blog.naver.com/jeff_jks\r\njeff_jks@naver.com\r\n\r\nMade
+  - "<size=56><b>Producer</b></size>\r\n\uAC15\uB0AD\uB545\uCF69 (Bean Peanut)\r\njeff_jks@naver.com\r\nhttps://blog.naver.com/jeff_jks\r\n\r\nMade
     with Unity 2019.1.8f1\r\n\r\n\r\n\r\n<size=56><b>Used Assets (Unity Asset Store)</b></size>\r\n\r\n<size=56><b>Models</b></size>\r\nBallistic
     Turret\r\nChainlink Fences\r\nEnergyShieldEffect\r\nFuturistic Aircrafts\r\nFree
     SF Fighter\r\nHyper Falcon Modular Spaceship\r\nLow poly combat drone\r\nMilitary
-    Helicopter\r\nModular Space Platform Kit\r\nMSGDI\r\nPBR RPG/FPS Game Assets (Industrial
+    Helicopter\r\nModular Space Platform Kit\r\nPBR RPG/FPS Game Assets (Industrial
     Set v1.0)\r\nPowerup Crate\r\nRock and Boulders 2\r\nRPG/FPS Game Assets for PCbile
     (Industrial Set v2.0)\r\nScifi RTS Series Mega Pack I\r\nScifi RTS Series Mega
     Pack II\r\nSimple Gems Ultimate Animated Customizable Pack\r\nSimple Sci-Fi Turret\r\nSpaceship+Fighter+Set
     of...+\r\nSpace Missiles\r\nSpaceships Fleet III Mega Pack I\r\nUXR Tetrahedron
-    (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>Sprites / Textures</b></size>\r\n50+
-    Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nSci Fi UI Pack\r\nSci-Fi Skill
-    Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
+    (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>Images / Textures</b></size>\r\n50+
+    Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nhttps://www.freepik.com/\nSci Fi
+    UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
     textures and prefabs\r\nQuality Explosion SpriteKit\r\nShockwave Effects\r\nWaf
     FX\r\n\r\n<size=56><b>Sounds / Musics</b></size>\r\nCAVE Interactive CO. LTD (Ketsui
     Arrange)\r\nFantasy Menu SFX\r\n\r\n<size=56><b>Terrains</b></size>\r\nCity Highways
     Construction Kit\r\nCity Street Props\r\nGrass And Flowers Pack 1\r\nRace Tracks\r\nSeamless
     Textures\r\nStandard Asset\r\nWindridge City\r\nWorld Space Trees (FREE)\r\n\r\n<size=56><b>Other</b></size>\r\nAsset
-    Usage Detector\r\nAuto Letterbox\r\nDOTween\r\n\r\n\r\n\r\n<size=56><b>Dead Planet
-    2</b></size>\r\nver 1.0.0\r\n2020/03/06"
-  - "<size=56><b>\uC81C\uC791</b></size>\r\n\uAC15\uB0AD\uB545\uCF69 (jeff_jks)\r\nhttps://blog.naver.com/jeff_jks\r\njeff_jks@naver.com\r\n\r\nMade
+    Usage Detector\r\nAuto Letterbox\r\nDOTween\r\n\r\n\r\n\n\n\n\n\n\r\n<size=56><b>Dead
+    Planet 2</b></size>\r"
+  - "<size=56><b>\uC81C\uC791</b></size>\r\n\uAC15\uB0AD\uB545\uCF69 (Bean Peanut)\r\njeff_jks@naver.com\r\nhttps://blog.naver.com/jeff_jks\r\n\r\nMade
     with Unity 2019.1.8f1\r\n\r\n\r\n\r\n<size=56><b>\uC0AC\uC6A9\uD55C \uC5D0\uC14B
     (\uC720\uB2C8\uD2F0 \uC5D0\uC14B \uC2A4\uD1A0\uC5B4)</b></size>\r\n\r\n<size=56><b>\uBAA8\uB378\uB9C1</b></size>\r\nBallistic
     Turret\r\nChainlink Fences\r\nEnergyShieldEffect\r\nFuturistic Aircrafts\r\nFree
     SF Fighter\r\nHyper Falcon Modular Spaceship\r\nLow poly combat drone\r\nMilitary
-    Helicopter\r\nModular Space Platform Kit\r\nMSGDI\r\nPBR RPG/FPS Game Assets (Industrial
+    Helicopter\r\nModular Space Platform Kit\r\nPBR RPG/FPS Game Assets (Industrial
     Set v1.0)\r\nPowerup Crate\r\nRock and Boulders 2\r\nRPG/FPS Game Assets for PCbile
     (Industrial Set v2.0)\r\nScifi RTS Series Mega Pack I\r\nScifi RTS Series Mega
     Pack II\r\nSimple Gems Ultimate Animated Customizable Pack\r\nSimple Sci-Fi Turret\r\nSpaceship+Fighter+Set
     of...+\r\nSpace Missiles\r\nSpaceships Fleet III Mega Pack I\r\nUXR Tetrahedron
-    (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>\uC2A4\uD504\uB77C\uC774\uD2B8
-    / \uD14D\uC2A4\uCCD0</b></size>\r\n50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nSci
-    Fi UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
+    (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>\uC774\uBBF8\uC9C0 / \uD14D\uC2A4\uCCD0</b></size>\r\n50+
+    Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nhttps://www.freepik.com/\nSci Fi
+    UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
     textures and prefabs\r\nQuality Explosion SpriteKit\r\nShockwave Effects\r\nWaf
     FX\r\n\r\n<size=56><b>\uD6A8\uACFC\uC74C / \uC74C\uC545</b></size>\r\nCAVE Interactive
     CO. LTD (Ketsui Arrange)\r\nFantasy Menu SFX\r\n\r\n<size=56><b>\uC9C0\uD615</b></size>\r\nCity
     Highways Construction Kit\r\nCity Street Props\r\nGrass And Flowers Pack 1\r\nRace
     Tracks\r\nSeamless Textures\r\nStandard Asset\r\nWindridge City\r\nWorld Space
     Trees (FREE)\r\n\r\n<size=56><b>\uAE30\uD0C0</b></size>\r\nAsset Usage Detector\r\nAuto
-    Letterbox\r\nDOTween\r\n\r\n\r\n\r\n<size=56><b>Dead Planet 2</b></size>\r\nver
-    1.0.0\r\n2020/03/06"
+    Letterbox\r\nDOTween\r\n\r\n\r\n\n\n\n\n\n\r\n<size=56><b>Dead Planet 2</b></size>\r"
 --- !u!82 &4703350099431108974
 AudioSource:
   m_ObjectHideFlags: 0

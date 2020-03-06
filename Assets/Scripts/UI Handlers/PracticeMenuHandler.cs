@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class PracticeMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_PracticePanel;
-    public GameObject m_SelectAttributesPanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_PracticeMenu;
+    public GameObject m_SelectAttributesMenu;
     public GameObject m_PlayerPreview;
+    public GameObject m_MainLogo;
     private PracticeInfo m_PracticeInfo;
 
     void OnEnable() {
         UpdateValues();
+        m_MainLogo.SetActive(false);
     }
 
     void Update()
@@ -135,16 +137,17 @@ public class PracticeMenuHandler : GameUI
         m_GameManager.m_PracticeInfo = m_PracticeInfo;
         
         m_PlayerPreview.SetActive(true);
-        m_SelectAttributesPanel.SetActive(true);
+        m_SelectAttributesMenu.SetActive(true);
         ConfirmSound();
-        m_PracticePanel.SetActive(false);
+        m_PracticeMenu.SetActive(false);
     }
 
     private void Back() {
         m_GameManager.m_PracticeInfo = m_PracticeInfo;
         SetText();
         CancelSound();
-        m_PreviousPanel.SetActive(true);
-        m_PracticePanel.SetActive(false);
+        m_MainLogo.SetActive(true);
+        m_PreviousMenu.SetActive(true);
+        m_PracticeMenu.SetActive(false);
     }
 }

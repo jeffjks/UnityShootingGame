@@ -542,6 +542,7 @@ public class EnemyBoss5 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         float interval = 350f, dir, timer = 0f;
         float[] min_interval = { 45f, 35f, 30f };
+        int[] number = { 52, 54, 55 };
         int rand;
 
         while (interval > min_interval[m_SystemManager.m_Difficulty]) {
@@ -561,7 +562,7 @@ public class EnemyBoss5 : EnemyUnit
             CreateBulletsSector(0, pos, 8f, dir, accel, 2, interval + 14f);
             CreateBulletsSector(1, pos, 8f, dir, accel, 2, interval + 21f);
             if (timer > 0.8f) {
-                for (int i = 0; i < 55; i++)
+                for (int i = 0; i < number[m_SystemManager.m_Difficulty]; i++)
                     CreateBulletsSector(0, pos, 10f, dir + 180f, accel, 2, 3f + i*6f);
                 timer -= 0.8f;
             }

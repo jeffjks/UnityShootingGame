@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class KeyConfigMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_KeyConfigPanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_KeyConfigMenu;
 
     void OnEnable() {
     }
@@ -50,8 +50,8 @@ public class KeyConfigMenuHandler : GameUI
         PlayerPrefs.Save();
         ConfirmSound();
 
-        m_PreviousPanel.SetActive(true);
-        m_KeyConfigPanel.SetActive(false);
+        m_PreviousMenu.SetActive(true);
+        m_KeyConfigMenu.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -59,8 +59,8 @@ public class KeyConfigMenuHandler : GameUI
         UpdateValues();
         SetText();
         CancelSound();
-        m_PreviousPanel.SetActive(true);
-        m_KeyConfigPanel.SetActive(false);
+        m_PreviousMenu.SetActive(true);
+        m_KeyConfigMenu.SetActive(false);
         gameObject.SetActive(false);
     }
 }

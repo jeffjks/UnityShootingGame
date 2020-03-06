@@ -7,7 +7,8 @@ public class AttributesHandler : AttributeSelectButtonUI
 {
     public AttributesSelectHandler m_SelectAttributesHandler;
     public GameObject m_PlayerPreviewCamera;
-    public GameObject m_PreviousPanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_MainLogo;
     public RectTransform m_RectTransform;
     public PlayerPreviewManager[] m_PlayerPreview = new PlayerPreviewManager[2];
 
@@ -16,6 +17,12 @@ public class AttributesHandler : AttributeSelectButtonUI
     
     private float m_TargetY;
     private float m_yVelocity;
+
+    void OnEnable() {
+        m_Enable = true;
+        SetPreviewDesign();
+        m_MainLogo.SetActive(false);
+    }
 
     void Update()
 	{
@@ -42,11 +49,6 @@ public class AttributesHandler : AttributeSelectButtonUI
         else
             SetDeselectedColor();
 	}
-
-    void OnEnable() {
-        m_Enable = true;
-        SetPreviewDesign();
-    }
 
     private void CheckInput() {
 
@@ -100,8 +102,9 @@ public class AttributesHandler : AttributeSelectButtonUI
 
     private void Back() {
         CancelSound();
-        m_PreviousPanel.SetActive(true);
         m_Enable = false;
+        m_PreviousMenu.SetActive(true);
+        m_MainLogo.SetActive(true);
         m_SelectAttributesHandler.gameObject.SetActive(false);
         m_PlayerPreviewCamera.SetActive(false);
     }

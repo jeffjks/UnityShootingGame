@@ -6,13 +6,15 @@ using DG.Tweening;
 public class EndingCredit : MonoBehaviour
 {
     public Text[] m_EndingScroll = new Text[2];
+    public AudioSource m_AudioEnding;
+    [Space(10)]
+    public string m_Date;
     [TextArea(10, 100)]
     public string[] m_EndingText = new string[2];
-    public AudioSource m_AudioEnding;
 
     private float m_ScrollSpeed, m_DefaultScrollSpeed = 0.8f;
     private int m_Language;
-    private float m_Scale = 0.008f;
+    private float m_Scale;
     private bool m_Quitting = false;
 
     private SystemManager m_SystemManager = null;
@@ -25,7 +27,7 @@ public class EndingCredit : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, Depth.CAMERA);
 
         for (int i = 0; i < m_EndingScroll.Length; i++) {
-            m_EndingScroll[i].text = m_EndingText[i];
+            m_EndingScroll[i].text = m_EndingText[i] + "\nver " + Application.version + "\n" + m_Date;
         }
 
         try {
@@ -35,6 +37,7 @@ public class EndingCredit : MonoBehaviour
             m_Language = 0;
         }
         
+        m_Scale = m_EndingScroll[m_Language].rectTransform.localScale.x;
         m_EndingScroll[m_Language].gameObject.SetActive(true);
         m_ScrollSpeed = m_DefaultScrollSpeed;
     }
@@ -46,9 +49,9 @@ public class EndingCredit : MonoBehaviour
                 StartCoroutine(QuitEnding(0f));
         }
         
-        if (transform.localPosition.y < Size.CAMERA_HEIGHT*0.5f + m_EndingScroll[m_Language].preferredHeight*m_Scale) {
+        if (m_EndingScroll[m_Language].rectTransform.anchoredPosition.y < Size.CAMERA_HEIGHT*0.5f + m_EndingScroll[m_Language].preferredHeight*m_Scale) {
             if (Input.GetButton("Fire1")) {
-                m_ScrollSpeed = m_DefaultScrollSpeed*3f;
+                m_ScrollSpeed = m_DefaultScrollSpeed*8f;
             }
             else {
                 m_ScrollSpeed = m_DefaultScrollSpeed;
@@ -60,17 +63,17 @@ public class EndingCredit : MonoBehaviour
                 StartCoroutine(QuitEnding(5f));
         }
         
-        Vector3 pos = m_EndingScroll[m_Language].transform.localPosition;
-        m_EndingScroll[m_Language].transform.localPosition = new Vector3(pos.x, pos.y + m_ScrollSpeed*Time.deltaTime, pos.z);
+        Vector3 pos = m_EndingScroll[m_Language].rectTransform.anchoredPosition;
+        m_EndingScroll[m_Language].rectTransform.anchoredPosition = new Vector3(pos.x, pos.y + m_ScrollSpeed*Time.deltaTime, pos.z);
     }
 
-    private IEnumerator QuitEnding(float duration) { // 2스테이지 부터
+    private IEnumerator QuitEnding(float duration) {
         m_Quitting = true;
-        m_AudioEnding.DOFade(0f, 2f);
-        
         yield return new WaitForSeconds(duration);
+
+        m_AudioEnding.DOFade(0f, 2f);
         m_SystemManager.ScreenEffect(3); // FadeIn
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         DOTween.Kill(m_AudioEnding);
         m_AudioEnding.Stop();
         m_SystemManager.QuitGame();
@@ -80,9 +83,9 @@ public class EndingCredit : MonoBehaviour
 
 /*
 <size=56><b>Producer</b></size>
-강낭땅콩 (jeff_jks)
-https://blog.naver.com/jeff_jks
+강낭땅콩 (Bean Peanut)
 jeff_jks@naver.com
+https://blog.naver.com/jeff_jks
 
 Made with Unity 2019.1.8f1
 
@@ -113,8 +116,9 @@ Space Missiles
 Spaceships Fleet III Mega Pack I
 UXR Tetrahedron (by ENEA LE FONS, Sketchfab)
 
-<size=56><b>Sprites / Textures</b></size>
+<size=56><b>Images / Textures</b></size>
 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
+https://www.freepik.com/
 Sci Fi UI Pack
 Sci-Fi Skill Icon Pack
 Sci-Fi Texture Pack
@@ -146,17 +150,20 @@ DOTween
 
 
 
+
+
+
+
+
 <size=56><b>Dead Planet 2</b></size>
-ver 1.0.0
-2020/03/06
 ================================================*/
 
 
 /*================================================
 <size=56><b>제작</b></size>
-강낭땅콩 (jeff_jks)
-https://blog.naver.com/jeff_jks
+강낭땅콩 (Bean Peanut)
 jeff_jks@naver.com
+https://blog.naver.com/jeff_jks
 
 Made with Unity 2019.1.8f1
 
@@ -174,7 +181,6 @@ Hyper Falcon Modular Spaceship
 Low poly combat drone
 Military Helicopter
 Modular Space Platform Kit
-MSGDI
 PBR RPG/FPS Game Assets (Industrial Set v1.0)
 Powerup Crate
 Rock and Boulders 2
@@ -188,8 +194,9 @@ Space Missiles
 Spaceships Fleet III Mega Pack I
 UXR Tetrahedron (by ENEA LE FONS, Sketchfab)
 
-<size=56><b>스프라이트 / 텍스쳐</b></size>
+<size=56><b>이미지 / 텍스쳐</b></size>
 50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
+https://www.freepik.com/
 Sci Fi UI Pack
 Sci-Fi Skill Icon Pack
 Sci-Fi Texture Pack
@@ -221,7 +228,10 @@ DOTween
 
 
 
+
+
+
+
+
 <size=56><b>Dead Planet 2</b></size>
-ver 1.0.0
-2020/03/06
 */

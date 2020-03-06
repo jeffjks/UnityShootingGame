@@ -88,11 +88,10 @@ GameObject:
   m_Component:
   - component: {fileID: 400008}
   - component: {fileID: 362323573968651400}
-  - component: {fileID: 5766523831904473403}
   - component: {fileID: 2059762339551745271}
   m_Layer: 10
   m_Name: EnemyPlaneLarge2
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,32 +132,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &5766523831904473403
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.8}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.7, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &2059762339551745271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,10 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d30c71581efe241a91dff32e465ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
-  m_Health: 450
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 400
   m_Class: 0
   m_Score: 3000
   m_Debris: 0
@@ -191,7 +164,7 @@ MonoBehaviour:
   - {fileID: 4118018873638344858}
   - {fileID: 2621970015258479841}
   m_Collider2D:
-  - {fileID: 5766523831904473403}
+  - {fileID: 7933430346178594323}
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
@@ -968,7 +941,7 @@ Transform:
   m_Children:
   - {fileID: 400006}
   m_Father: {fileID: 190383492241277695}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3306147880968615048
 GameObject:
@@ -1080,7 +1053,7 @@ Transform:
   - {fileID: 7836938523297087538}
   - {fileID: 3731852166597903648}
   m_Father: {fileID: 190383492241277695}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4346999122310768824
 Rigidbody2D:
@@ -1115,9 +1088,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbd001a5556eba4eba25ef221c23dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Health: 150
   m_Class: 0
   m_Score: 250
@@ -1197,6 +1170,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
+  - {fileID: 1170603466480996773}
   - {fileID: 7358698627203818909}
   - {fileID: 757113380600083456}
   - {fileID: 7479908580448706579}
@@ -1237,7 +1211,7 @@ Transform:
   - {fileID: 1595459639458081151}
   - {fileID: 3493947618649722688}
   m_Father: {fileID: 190383492241277695}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8672231743129868633
 Rigidbody2D:
@@ -1272,9 +1246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbd001a5556eba4eba25ef221c23dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Health: 150
   m_Class: 0
   m_Score: 250
@@ -1329,7 +1303,7 @@ Transform:
   - {fileID: 951073620162647674}
   - {fileID: 3172580334094676650}
   m_Father: {fileID: 190383492241277695}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &162871905984087221
 Rigidbody2D:
@@ -1364,9 +1338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77f5267d3452b94a9cb3948cda19b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Health: 150
   m_Class: 0
   m_Score: 250
@@ -1545,6 +1519,63 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &8156992332462838324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1170603466480996773}
+  - component: {fileID: 7933430346178594323}
+  m_Layer: 10
+  m_Name: Collider
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1170603466480996773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8156992332462838324}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 190383492241277695}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!61 &7933430346178594323
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8156992332462838324}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.6}
+  m_EdgeRadius: 0
 --- !u!1 &8204507140580544615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1608,7 @@ Transform:
   - {fileID: 899545488532519368}
   - {fileID: 4418998847145329622}
   m_Father: {fileID: 190383492241277695}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1588435329707974439
 Rigidbody2D:
@@ -1612,9 +1643,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77f5267d3452b94a9cb3948cda19b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 2059762339551745271}
   m_Health: 150
   m_Class: 0
   m_Score: 250

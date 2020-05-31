@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public PlayerController m_PlayerController;
     private Vector3 m_SpawnPoint;
     private bool m_PlayerControlable = false;
-    private float m_ReviveDelay = 2f;
+    private float m_ReviveDelay = 1.2f;
 
     public static PlayerManager instance_pm = null;
 

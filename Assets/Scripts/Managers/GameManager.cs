@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.Audio;
 using DG.Tweening;
 
-public struct PracticeInfo
+public struct TrainingInfo
 {
     public int m_Stage;
     public bool m_BossOnly;
@@ -88,8 +88,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool m_ReplayState;
     [HideInInspector] public byte m_ReplayNum;
     [HideInInspector] public string m_ReplayDirectory;
-    [HideInInspector] public bool m_PracticeState;
-    [HideInInspector] public PracticeInfo m_PracticeInfo;
+    [HideInInspector] public bool m_TrainingState;
+    [HideInInspector] public TrainingInfo m_TrainingInfo;
 
     private int[,] m_ResolutionList;
     private PlayerManager m_PlayerManager = null;

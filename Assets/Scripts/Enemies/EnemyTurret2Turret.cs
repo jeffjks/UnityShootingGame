@@ -38,8 +38,9 @@ public class EnemyTurret2Turret : EnemyUnit
 
     private void Pattern1() {
         Vector3 pos = GetScreenPosition(m_FirePosition.position);
+        float[] speed = {5.7f, 6.8f, 6.8f};
         
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        CreateBullet(2, pos, 5.2f, m_CurrentAngle, accel);
+        CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
     }
 }

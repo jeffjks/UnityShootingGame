@@ -31,8 +31,9 @@ public class EnemyTankSmall1Turret : EnemyUnit
     private void Pattern1() {
         Vector3 pos = GetScreenPosition(m_FirePosition.position);
         float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
+        float[] speed = {6.6f, 7.8f, 7.8f};
         
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        CreateBullet(2, pos, 6f, target_angle, accel);
+        CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], target_angle, accel);
     }
 }

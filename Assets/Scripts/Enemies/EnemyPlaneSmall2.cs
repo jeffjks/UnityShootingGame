@@ -59,9 +59,10 @@ public class EnemyPlaneSmall2 : EnemyUnit
 
     private void Pattern1() {
         Vector3 pos = m_FirePosition.position;
+        float[] speed = {8.2f, 9.8f, 9.8f};
         
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        CreateBullet(0, pos, 7.5f, m_CurrentAngle, accel);
-        CreateBulletsSector(2, pos, 7.5f, m_CurrentAngle, accel, 2, 28f);
+        CreateBullet(0, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
+        CreateBulletsSector(2, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel, 2, 28f);
     }
 }

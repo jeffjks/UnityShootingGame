@@ -3,14 +3,14 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PracticeMenuHandler : GameUI
+public class TrainingMenuHandler : GameUI
 {
     public GameObject m_PreviousMenu;
-    public GameObject m_PracticeMenu;
+    public GameObject m_TrainingMenu;
     public GameObject m_SelectAttributesMenu;
     public GameObject m_PlayerPreview;
     public GameObject m_MainLogo;
-    private PracticeInfo m_PracticeInfo;
+    private TrainingInfo m_TrainingInfo;
 
     void OnEnable() {
         UpdateValues();
@@ -26,15 +26,15 @@ public class PracticeMenuHandler : GameUI
             switch(m_Selection) {
                 case 0:
                     if (!m_isHorizontalAxisInUse)
-                        m_PracticeInfo.m_Stage += moveRawHorizontal;
+                        m_TrainingInfo.m_Stage += moveRawHorizontal;
                     break;
                 case 1:
                     if (!m_isHorizontalAxisInUse)
-                        m_PracticeInfo.m_Difficulty += (byte) moveRawHorizontal;
+                        m_TrainingInfo.m_Difficulty += (byte) moveRawHorizontal;
                     break;
                 case 2:
                     if (!m_isHorizontalAxisInUse)
-                        m_PracticeInfo.m_BossOnly = !m_PracticeInfo.m_BossOnly;
+                        m_TrainingInfo.m_BossOnly = !m_TrainingInfo.m_BossOnly;
                     break;
                 default:
                     break;
@@ -44,10 +44,10 @@ public class PracticeMenuHandler : GameUI
         if (Input.GetButtonDown("Fire1")) { // Fire 키
             switch(m_Selection) {
                 case 2:
-                    m_PracticeInfo.m_BossOnly = !m_PracticeInfo.m_BossOnly;
+                    m_TrainingInfo.m_BossOnly = !m_TrainingInfo.m_BossOnly;
                     break;
                 case 3:
-                    PracticeStart();
+                    TrainingStart();
                     break;
                 case 4:
                     Back();
@@ -61,15 +61,15 @@ public class PracticeMenuHandler : GameUI
         else if (Input.GetButtonDown("Fire2"))
             Back();
 
-        if (m_PracticeInfo.m_Stage < 0)
-            m_PracticeInfo.m_Stage = 4;
-        else if (m_PracticeInfo.m_Stage > 4)
-            m_PracticeInfo.m_Stage = 0;
+        if (m_TrainingInfo.m_Stage < 0)
+            m_TrainingInfo.m_Stage = 4;
+        else if (m_TrainingInfo.m_Stage > 4)
+            m_TrainingInfo.m_Stage = 0;
 
-        if (m_PracticeInfo.m_Difficulty < 0)
-            m_PracticeInfo.m_Difficulty = 2;
-        else if (m_PracticeInfo.m_Difficulty > 2)
-            m_PracticeInfo.m_Difficulty = 0;
+        if (m_TrainingInfo.m_Difficulty > 3)
+            m_TrainingInfo.m_Difficulty = 2;
+        else if (m_TrainingInfo.m_Difficulty > 2)
+            m_TrainingInfo.m_Difficulty = 0;
 
         SetText();
 
@@ -80,13 +80,13 @@ public class PracticeMenuHandler : GameUI
 	}
 
     private void UpdateValues() {
-        m_PracticeInfo = m_GameManager.m_PracticeInfo;
+        m_TrainingInfo = m_GameManager.m_TrainingInfo;
     }
 
     private void SetText() {
         if (m_GameManager.m_Language == 0) {
-            m_Text[0].text = "Stage " + (m_PracticeInfo.m_Stage + 1);
-            switch (m_PracticeInfo.m_Difficulty) {
+            m_Text[0].text = "Stage " + (m_TrainingInfo.m_Stage + 1);
+            switch (m_TrainingInfo.m_Difficulty) {
                 case 0:
                     m_Text[1].text = Difficulty.DIFFICULTY1;
                     break;
@@ -100,7 +100,7 @@ public class PracticeMenuHandler : GameUI
                     m_Text[1].text = "Unknown";
                     break;
             }
-            if (m_PracticeInfo.m_BossOnly) {
+            if (m_TrainingInfo.m_BossOnly) {
                 m_Text[2].text = "Boss";
             }
             else {
@@ -108,8 +108,8 @@ public class PracticeMenuHandler : GameUI
             }
         }
         else {
-            m_Text[0].text = "" + (m_PracticeInfo.m_Stage + 1);
-            switch (m_PracticeInfo.m_Difficulty) {
+            m_Text[0].text = "" + (m_TrainingInfo.m_Stage + 1);
+            switch (m_TrainingInfo.m_Difficulty) {
                 case 0:
                     m_Text[1].text = Difficulty.DIFFICULTY1;
                     break;
@@ -123,7 +123,7 @@ public class PracticeMenuHandler : GameUI
                     m_Text[1].text = "알 수 없음";
                     break;
             }
-            if (m_PracticeInfo.m_BossOnly) {
+            if (m_TrainingInfo.m_BossOnly) {
                 m_Text[2].text = "보스전";
             }
             else {
@@ -132,22 +132,22 @@ public class PracticeMenuHandler : GameUI
         }
     }
 
-    private void PracticeStart() {
-        m_GameManager.m_PracticeState = true;
-        m_GameManager.m_PracticeInfo = m_PracticeInfo;
+    private void TrainingStart() {
+        m_GameManager.m_TrainingState = true;
+        m_GameManager.m_TrainingInfo = m_TrainingInfo;
         
         m_PlayerPreview.SetActive(true);
         m_SelectAttributesMenu.SetActive(true);
         ConfirmSound();
-        m_PracticeMenu.SetActive(false);
+        m_TrainingMenu.SetActive(false);
     }
 
     private void Back() {
-        m_GameManager.m_PracticeInfo = m_PracticeInfo;
+        m_GameManager.m_TrainingInfo = m_TrainingInfo;
         SetText();
         CancelSound();
         m_MainLogo.SetActive(true);
         m_PreviousMenu.SetActive(true);
-        m_PracticeMenu.SetActive(false);
+        m_TrainingMenu.SetActive(false);
     }
 }

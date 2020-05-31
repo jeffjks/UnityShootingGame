@@ -7070,7 +7070,7 @@ GameObject:
   - component: {fileID: 477621637}
   - component: {fileID: 477621636}
   m_Layer: 5
-  m_Name: Practice Panel 2
+  m_Name: Training Panel 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7115,7 +7115,7 @@ MonoBehaviour:
   m_InitialSelection: 0
   m_IsEnabled: 0101010101
   m_PreviousMenu: {fileID: 1176499697}
-  m_PracticeMenu: {fileID: 1526905832}
+  m_TrainingMenu: {fileID: 1526905832}
   m_SelectAttributesMenu: {fileID: 1863808930}
   m_PlayerPreview: {fileID: 395472084}
   m_MainLogo: {fileID: 201528724}
@@ -10275,7 +10275,7 @@ GameObject:
   - component: {fileID: 894743478}
   - component: {fileID: 894743477}
   m_Layer: 5
-  m_Name: Practice Panel 1
+  m_Name: Training Panel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10874,7 +10874,7 @@ GameObject:
   - component: {fileID: 932108013}
   - component: {fileID: 932108012}
   m_Layer: 5
-  m_Name: PracticeText
+  m_Name: TrainingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10966,7 +10966,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 3
-  m_Text: PRACTICE
+  m_Text: TRAINING
 --- !u!222 &932108015
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11039,11 +11039,11 @@ MonoBehaviour:
   m_SelectAttributesHandler: {fileID: 1863808932}
   m_PlayerPreviewCamera: {fileID: 395472084}
   m_PreviousMenu: {fileID: 1176499697}
+  m_MainLogo: {fileID: 201528724}
   m_RectTransform: {fileID: 961212711}
   m_PlayerPreview:
   - {fileID: 1622906772}
   - {fileID: 734040330}
-  m_MainLogo: {fileID: 201528724}
   m_DetailsPanels:
   - {fileID: 2056403016}
   - {fileID: 1764977737}
@@ -13246,7 +13246,7 @@ MonoBehaviour:
   m_InitialSelection: 0
   m_IsEnabled: 0101010101
   m_SelectDifficulty: {fileID: 375352819}
-  m_PracticePanel: {fileID: 1526905832}
+  m_TrainingPanel: {fileID: 1526905832}
   m_ReplayPanel: {fileID: 1995047832}
   m_SettingsPanel: {fileID: 1554665460}
   m_KeyConfigPanel: {fileID: 1686281049}
@@ -17375,7 +17375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1526905833}
   m_Layer: 5
-  m_Name: Practice Menu
+  m_Name: Training Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17954,7 +17954,7 @@ GameObject:
   - component: {fileID: 1612228214}
   - component: {fileID: 1612228213}
   m_Layer: 5
-  m_Name: Practice
+  m_Name: Training
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

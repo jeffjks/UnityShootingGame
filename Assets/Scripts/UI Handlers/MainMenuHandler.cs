@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuHandler : GameUI
 {
     public GameObject m_SelectDifficulty;
-    public GameObject m_PracticePanel;
+    public GameObject m_TrainingPanel;
     public GameObject m_ReplayPanel;
     public GameObject m_SettingsPanel;
     public GameObject m_KeyConfigPanel;
@@ -30,7 +30,7 @@ public class MainMenuHandler : GameUI
                     SelectDifficulty();
                     break;
                 case 1:
-                    Practice();
+                    Training();
                     break;
                 case 2:
                     Option();
@@ -57,9 +57,9 @@ public class MainMenuHandler : GameUI
         gameObject.SetActive(false);
     }
 
-    private void Practice() {
+    private void Training() {
         //CancelSound();
-        m_PracticePanel.SetActive(true);
+        m_TrainingPanel.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }

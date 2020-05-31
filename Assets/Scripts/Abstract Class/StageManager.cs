@@ -57,7 +57,7 @@ public abstract class StageManager : MonoBehaviour
         if (m_SystemManager.m_BossOnlyState) {
             StartCoroutine(BossOnlyTimeLine());
         }
-        else if (m_SystemManager.m_DebugMod && !m_SystemManager.m_PracticeState) {
+        else if (m_SystemManager.m_DebugMod && !m_SystemManager.m_TrainingState) {
             StartCoroutine(TestTimeLine());
         }
         else {

@@ -39,15 +39,17 @@ public class EnemyTurret1Turret : EnemyUnit
         float gap = 0.18f;
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        float[] speed = {5.5f, 6.5f, 6.5f};
+        float[] delay = {0.136f, 0.115f, 0.115f};
         yield return new WaitForSeconds(Random.Range(0f, 1f));
         while(true) {
             m_Shooting = true;
             for (int i = 0; i < 4; i++) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
-                CreateBullet(5, pos1, 5f, m_CurrentAngle, accel);
-                CreateBullet(5, pos2, 5f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(0.15f);
+                CreateBullet(5, pos1, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
+                CreateBullet(5, pos2, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
+                yield return new WaitForSeconds(delay[m_SystemManager.m_Difficulty]);
             }
             m_Shooting = false;
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);

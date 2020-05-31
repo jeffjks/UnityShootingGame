@@ -163,7 +163,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.28, y: 0.56}
+  m_Size: {x: 0.2, y: 0.5}
   m_Direction: 0
 --- !u!1 &1204557763566955836
 GameObject:
@@ -434,9 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46b65a453e3dd046aa2648dc0d199f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
   m_ObjectName: EnemyBullet
   m_ImageType: 0
   m_Timer: 0
@@ -741,7 +740,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.256
+  m_Radius: 0.179
 --- !u!1 &4286295675929514085
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +787,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.178
+  m_Radius: 0.124
 --- !u!1 &4355821705637449215
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,7 +934,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.184
+  m_Radius: 0.129
 --- !u!1 &5030561912071990960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,7 +1099,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.256
+  m_Radius: 0.179
 --- !u!1 &6365463030269070405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,7 +1145,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.28, y: 0.56}
+  m_Size: {x: 0.2, y: 0.5}
   m_Direction: 0
 --- !u!1 &7131234922993130257
 GameObject:

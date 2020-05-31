@@ -26,16 +26,16 @@ public class EnemyTankSmall3Turret : EnemyUnit
 
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(4.7f, 1.4f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(5.2f, 1.4f);
         yield return new WaitForSeconds(Random.Range(0f, m_FireDelay[m_SystemManager.m_Difficulty]));
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = GetScreenPosition(m_FirePosition[2].position);
-                CreateBullet(1, pos[0], 7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                CreateBullet(1, pos[1], 7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                CreateBullet(1, pos[2], 7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
+                CreateBullet(1, pos[0], 7.7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
+                CreateBullet(1, pos[1], 7.7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
+                CreateBullet(1, pos[2], 7.7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
             }
             else {
                 for (int i = 0; i < 4; i++) {

@@ -51,9 +51,10 @@ public class EnemyHelicopter : EnemyUnit
     private void Pattern1() {
         if (!m_TimeLimitState) {
             Vector3 pos = m_FirePosition.position;
+            float[] speed = {7f, 8.3f, 8.3f};
             
             EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-            CreateBullet(1, pos, 6.4f, m_CurrentAngle, accel);
+            CreateBullet(1, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
         }
     }
 }

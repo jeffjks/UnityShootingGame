@@ -89,7 +89,7 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public float m_BulletsEraseTimer;
     [HideInInspector] public byte m_Difficulty;
-    [HideInInspector] public bool m_ReplayState, m_PracticeState, m_BossOnlyState;
+    [HideInInspector] public bool m_ReplayState, m_TrainingState, m_BossOnlyState;
     
     public bool m_DebugMod, m_InvincibleMod;
     public DebugDifficulty m_DebugDifficulty;
@@ -128,10 +128,10 @@ public class SystemManager : MonoBehaviour
         
         try {
             m_ReplayState = m_GameManager.m_ReplayState;
-            m_PracticeState = m_GameManager.m_PracticeState;
-            if (m_PracticeState) {
-                SetDifficulty(m_GameManager.m_PracticeInfo.m_Difficulty);
-                m_BossOnlyState = m_GameManager.m_PracticeInfo.m_BossOnly;
+            m_TrainingState = m_GameManager.m_TrainingState;
+            if (m_TrainingState) {
+                SetDifficulty(m_GameManager.m_TrainingInfo.m_Difficulty);
+                m_BossOnlyState = m_GameManager.m_TrainingInfo.m_BossOnly;
             }
             else {
                 SetDifficulty(m_GameManager.m_Difficulty);
@@ -141,7 +141,7 @@ public class SystemManager : MonoBehaviour
         }
         catch (System.NullReferenceException) {
             m_ReplayState = false;
-            m_PracticeState = false;
+            m_TrainingState = false;
             SetDifficulty((byte) m_DebugDifficulty);
         }
 
@@ -159,12 +159,12 @@ public class SystemManager : MonoBehaviour
         m_PoolingManager = PoolingManager.instance_op;
         UpdateBombNumber();
 
-        if (m_ReplayState || m_PracticeState) {
+        if (m_ReplayState || m_TrainingState) {
             if (m_ReplayState) {
                 m_StateText.text = "REPLAY";
             }
             else {
-                m_StateText.text = "PRACTICE";
+                m_StateText.text = "Training";
             }
             m_StateText.gameObject.SetActive(true);
             m_SequenceReplayText = DOTween.Sequence()
@@ -277,7 +277,7 @@ public class SystemManager : MonoBehaviour
         ScreenEffect(3); // FadeIn
         yield return new WaitForSeconds(2f);
 
-        if (m_PracticeState) {
+        if (m_TrainingState) {
             QuitGame();
         }
         else {

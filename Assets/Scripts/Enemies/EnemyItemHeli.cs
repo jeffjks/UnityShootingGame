@@ -70,8 +70,8 @@ public class EnemyItemHeli : EnemyUnit {
             for (int i = 0; i < 3; i++) {
                 pos1 = m_FirePosition[0].position;
                 pos2 = m_FirePosition[1].position;
-                CreateBullet(1, pos1, 5.2f, target_angle1 + random_value, accel);
-                CreateBullet(1, pos2, 5.2f, target_angle2 + random_value, accel);
+                CreateBullet(1, pos1, 5.4f, target_angle1 + random_value, accel);
+                CreateBullet(1, pos2, 5.4f, target_angle2 + random_value, accel);
                 yield return new WaitForSeconds(0.08f);
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);

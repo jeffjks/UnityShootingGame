@@ -50,7 +50,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
         Vector3[] pos = new Vector3[2];
         EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, 0f);
         EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0.5f);
-        EnemyBulletAccel accel3 = new EnemyBulletAccel(6f, 1f);
+        EnemyBulletAccel accel3 = new EnemyBulletAccel(7.4f, 0.8f);
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 m_State = 1;

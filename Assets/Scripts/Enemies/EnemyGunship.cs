@@ -52,21 +52,21 @@ public class EnemyGunship : EnemyUnit
                 Vector3 pos1 = m_FirePosition[0].position;
                 Vector3 pos2 = m_FirePosition[1].position;
                 if (m_SystemManager.m_Difficulty == 0) {
-                    CreateBullet(4, pos1, 5.8f, m_CurrentAngle + 2f, accel);
-                    CreateBullet(4, pos2, 5.8f, m_CurrentAngle - 2f, accel);
+                    CreateBullet(4, pos1, 6.7f, m_CurrentAngle + 2.5f, accel);
+                    CreateBullet(4, pos2, 6.7f, m_CurrentAngle - 2.5f, accel);
                     break;
                 }
                 else if (m_SystemManager.m_Difficulty == 1) {
-                    CreateBullet(4, pos1, 5.8f, m_CurrentAngle + 2f, accel);
-                    CreateBullet(4, pos2, 5.8f, m_CurrentAngle - 2f, accel);
+                    CreateBullet(4, pos1, 8f, m_CurrentAngle + 2.5f, accel);
+                    CreateBullet(4, pos2, 8f, m_CurrentAngle - 2.5f, accel);
                 }
                 else {
-                    CreateBullet(4, pos1, 5.8f, m_CurrentAngle + 2f, accel);
-                    CreateBullet(4, pos1, 5.8f, m_CurrentAngle + 8f, accel);
-                    CreateBullet(4, pos2, 5.8f, m_CurrentAngle - 8f, accel);
-                    CreateBullet(4, pos2, 5.8f, m_CurrentAngle - 2f, accel);
+                    CreateBullet(4, pos1, 8.5f, m_CurrentAngle + 2.5f, accel);
+                    CreateBullet(4, pos1, 8.5f, m_CurrentAngle + 9f, accel);
+                    CreateBullet(4, pos2, 8.5f, m_CurrentAngle - 9f, accel);
+                    CreateBullet(4, pos2, 8.5f, m_CurrentAngle - 2.5f, accel);
                 }
-                yield return new WaitForSeconds(0.16f);
+                yield return new WaitForSeconds(0.14f);
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
         }

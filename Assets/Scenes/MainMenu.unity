@@ -10916,7 +10916,7 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - PRACTICE
+  - TRAINING
   - "\uC5F0\uC2B5 \uBAA8\uB4DC"
 --- !u!114 &932108013
 MonoBehaviour:

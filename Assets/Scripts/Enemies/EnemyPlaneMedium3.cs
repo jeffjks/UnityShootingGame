@@ -56,22 +56,22 @@ public class EnemyPlaneMedium3 : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 3; i++) {
                     CreateBullet(2, pos, 6f, target_angle + random_value, accel);
-                    yield return new WaitForSeconds(0.047f);
+                    yield return new WaitForSeconds(0.05f);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.04f);
+                    yield return new WaitForSeconds(0.043f);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 8.5f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.033f);
+                    yield return new WaitForSeconds(0.035f);
                 }
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]*(1f + Random.Range(-0.15f, 0.15f)));
         }
         yield break;
     }

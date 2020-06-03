@@ -69,14 +69,14 @@ public class EnemyPlaneMedium2 : EnemyUnit
                     CreateBullet(4, pos[2], 6.2f, 0f, accel);
                     yield return new WaitForSeconds(0.08f);
                 }
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.8f);
                 target_angle = GetAngleToTarget(transform.position, m_PlayerManager.m_Player.transform.position);
                 pos[0] = m_FirePosition[0].position;
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(3, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
                     CreateBullet(5, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
                 }
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1.6f);
             }
 
             else {
@@ -86,7 +86,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
                     CreateBullet(4, pos[2], 6.2f, 0f, accel);
                     yield return new WaitForSeconds(0.08f);
                 }
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(0.6f);
 
                 for (int i = 0; i < 4; i++) {
                     SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
@@ -94,7 +94,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
                     CreateBullet(4, pos[4], 6.2f, 0f, accel);
                     yield return new WaitForSeconds(0.08f);
                 }
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(0.6f);
             }
         }
         yield break;
@@ -107,17 +107,17 @@ public class EnemyPlaneMedium2 : EnemyUnit
 
         yield return new WaitForSeconds(m_AppearanceTime);
         while(!m_TimeLimitState) {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(Random.Range(0f, 1.5f));
 
             if (m_SystemManager.m_Difficulty == 2) {
                 target_angle = GetAngleToTarget(transform.position, m_PlayerManager.m_Player.transform.position);
                 pos = m_FirePosition[0].position;
                 for (int i = 0; i < 5; i++) {
-                    CreateBullet(3, pos, 4.8f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);
-                    CreateBullet(5, pos, 4.8f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);
+                    CreateBullet(3, pos, 5f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);
+                    CreateBullet(5, pos, 5f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);
                 }
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.6f);
         }
         yield break;
     }

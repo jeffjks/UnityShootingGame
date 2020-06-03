@@ -933,9 +933,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31eb34c5af743b54c81d0f164cc1901e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 80
   m_Class: 0
   m_Score: 400
@@ -955,8 +955,8 @@ MonoBehaviour:
   m_IsDead: 0
   m_FireDelay:
   - 2.4
-  - 2
   - 1.8
+  - 1.2
   m_Turret:
   - {fileID: 1502714658180011400}
   - {fileID: 7482008165198680027}
@@ -1191,9 +1191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd368d7056c58e40928be3d49ae5422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 7460271519197683389}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 7460271519197683389}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1353,9 +1353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd368d7056c58e40928be3d49ae5422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 7460271519197683389}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 7460271519197683389}
   m_Health: 0
   m_Class: 0
   m_Score: 0

@@ -69,8 +69,8 @@ public class EnemyBoss3Turret : EnemyUnit
         while(true) {
             pos = m_FirePosition.position;
             if (m_SystemManager.m_Difficulty == 0) {
-                CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 8, 20.6f);
-                yield return new WaitForSeconds(0.5f);
+                CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 8, 20.6f);
+                yield return new WaitForSeconds(0.64f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 15f);

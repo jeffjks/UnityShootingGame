@@ -48,6 +48,7 @@ public class EnemyTankLarge1 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         float[] target_angle = new float[2];
         while(true) {
+            yield return new WaitForSeconds(0.5f);
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int j = 0; j < 2; j++) {
                     pos[j] = GetScreenPosition(m_FirePosition[j].position);
@@ -106,7 +107,7 @@ public class EnemyTankLarge1 : EnemyUnit
                     yield return new WaitForSeconds(0.06f);
                 }
             }
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2f);
         }
     }
 

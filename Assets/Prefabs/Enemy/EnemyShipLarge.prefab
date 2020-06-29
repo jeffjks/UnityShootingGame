@@ -1190,10 +1190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d157c6552a5d8458d5dceae081f448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
-  m_Health: 700
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 625
   m_Class: 0
   m_Score: 2000
   m_Debris: 0
@@ -1216,9 +1216,9 @@ MonoBehaviour:
   - {fileID: 4896967733034039865}
   - {fileID: 5775209713737496876}
   m_FireDelay:
-  - 1
-  - 0.5
-  - 0.4
+  - 0.9
+  - 0.36
+  - 0.24
 --- !u!1 &100046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,9 +1400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5478ca80d4829154781fb58043938835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1498,9 +1498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde96e49a962b07499c0c63b017285e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Health: 0
   m_Class: 0
   m_Score: 350
@@ -1628,9 +1628,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab342791e04270447a7a32b98be059ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Health: 0
   m_Class: 0
   m_Score: 350
@@ -1696,9 +1696,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5478ca80d4829154781fb58043938835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4199735894588476970}
   m_Health: 0
   m_Class: 0
   m_Score: 0

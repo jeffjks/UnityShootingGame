@@ -45,10 +45,10 @@ public class EnemyTankMedium2 : EnemyUnit
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 18, 20f); // 1
                 yield return new WaitForSeconds(1f);
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 24, 15f,
+                CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 10, 36f,
                 2, 0.2f, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                 yield return new WaitForSeconds(1f);
             }
@@ -56,13 +56,13 @@ public class EnemyTankMedium2 : EnemyUnit
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 5; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 30, 12f);
+                    CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 30, 12f); // 1
                     yield return new WaitForSeconds(0.38f);
                 }
                 yield return new WaitForSeconds(0.7f);
                 for (int i = 0; i < 3; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 18, 20f,
+                    CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 24, 15f,
                     2, 0.2f, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                     yield return new WaitForSeconds(0.38f);
                 }
@@ -72,7 +72,7 @@ public class EnemyTankMedium2 : EnemyUnit
             else if (m_SystemManager.m_Difficulty == 2) {
                 for (int i = 0; i < 5; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(5, pos, 7.5f, Random.Range(0f, 360f), accel, 36, 10f);
+                    CreateBulletsSector(5, pos, 7.5f, Random.Range(0f, 360f), accel, 36, 10f); // 1
                     yield return new WaitForSeconds(0.38f);
                 }
                 yield return new WaitForSeconds(0.7f);

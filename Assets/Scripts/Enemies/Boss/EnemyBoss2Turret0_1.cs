@@ -180,9 +180,9 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
             for (int i = 0; i < 36; i++) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                CreateBullet(1, pos1, 8f, m_CurrentAngle, accel1, BulletType.ERASE_AND_CREATE, 0.4f,
+                CreateBullet(1, pos1, 8f, m_CurrentAngle, accel1, BulletType.ERASE_AND_CREATE, 0.36f,
                 1, speed1, BulletDirection.CURRENT, 15f, accel2, 2, 6f);
-                CreateBullet(1, pos2, 8f, m_CurrentAngle, accel1, BulletType.ERASE_AND_CREATE, 0.4f,
+                CreateBullet(1, pos2, 8f, m_CurrentAngle, accel1, BulletType.ERASE_AND_CREATE, 0.56f,
                 1, speed1, BulletDirection.CURRENT, 15f, accel2, 2, 6f);
                 yield return new WaitForSeconds(0.01f);
             }

@@ -340,6 +340,9 @@ public class EnemyBoss3 : EnemyUnit
                 pos = m_FirePosition[0].position;
                 for (int i = 0; i <= j; i++) {
                     CreateBullet(3, pos, 7f + i*0.6f, GetAngleToTarget(pos, m_PlayerPosition), accel);
+                    if (m_SystemManager.m_Difficulty == 0) {
+                        break;
+                    }
                 }
                 yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
             }
@@ -351,7 +354,7 @@ public class EnemyBoss3 : EnemyUnit
     private IEnumerator Pattern1C1() {
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float[] fire_delay = { 0.19f, 0.12f, 0.09f };
+        float[] fire_delay = { 0.21f, 0.12f, 0.07f };
         float duration = 0f;
         
         m_Direction = Random.Range(0f, 360f);
@@ -361,8 +364,8 @@ public class EnemyBoss3 : EnemyUnit
         while (true) {
             duration += fire_delay[m_SystemManager.m_Difficulty];
             pos = m_FirePosition[0].position;
-            CreateBulletsSector(2, pos, 7.2f, m_Direction, accel, 8, 45f);
-            CreateBulletsSector(5, pos, 7.2f, -m_Direction, accel, 8, 45f);
+            CreateBulletsSector(2, pos, 7.4f, m_Direction, accel, 8, 45f);
+            CreateBulletsSector(5, pos, 7.4f, -m_Direction, accel, 8, 45f);
             yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
         }
     }
@@ -377,30 +380,30 @@ public class EnemyBoss3 : EnemyUnit
         if (m_SystemManager.m_Difficulty == 0) {
             while (true) {
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                CreateBulletsSector(0, pos, 7f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForSeconds(2.4f);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             while (true) {
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                CreateBulletsSector(0, pos, 7f, Random.Range(0f, 360f), accel, 30, 12f);
                 yield return new WaitForSeconds(0.22f);
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 36, 10f);
+                CreateBulletsSector(0, pos, 7f, Random.Range(0f, 360f), accel, 36, 10f);
                 yield return new WaitForSeconds(2f);
             }
         }
         else {
             while (true) {
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                CreateBulletsSector(0, pos, 7f, Random.Range(0f, 360f), accel, 30, 12f);
                 yield return new WaitForSeconds(0.22f);
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 36, 10f);
+                CreateBulletsSector(0, pos, 7f, Random.Range(0f, 360f), accel, 36, 10f);
                 yield return new WaitForSeconds(0.22f);
                 pos = m_FirePosition[0].position;
-                CreateBulletsSector(0, pos, 7.2f, Random.Range(0f, 360f), accel, 30, 12f);
+                CreateBulletsSector(0, pos, 7f, Random.Range(0f, 360f), accel, 30, 12f);
                 yield return new WaitForSeconds(1.5f);
             }
         }
@@ -461,12 +464,8 @@ public class EnemyBoss3 : EnemyUnit
                 while (duration < total_duration[i]) {
                     duration += fire_delay;
                     pos = m_FirePosition[0].position;
-                    CreateBulletsSector(3, pos, 8.5f, m_Direction*side, accel, 15, 24f);
-                    CreateBulletsSector(5, pos, 8.5f, m_Direction*side + 12f, accel, 15, 24f);
-                    //CreateBulletsSector(3, pos, 8.5f, m_Direction*side, accel, 20, 18f, BulletType.ERASE_AND_CREATE, timer,
-                    //3, 1f, BulletDirection.CURRENT, 0f, new_accel);
-                    //CreateBulletsSector(5, pos, 8.5f, m_Direction*side + 9f, accel, 20, 18f, BulletType.ERASE_AND_CREATE, timer,
-                    //3, 1f, BulletDirection.CURRENT, 0f, new_accel);
+                    CreateBulletsSector(3, pos, 8.5f, m_Direction*side, accel, 10, 36f);
+                    CreateBulletsSector(5, pos, 8.5f, m_Direction*side + 18f, accel, 10, 36f);
                     yield return new WaitForSeconds(fire_delay);
                 }
             }
@@ -513,8 +512,8 @@ public class EnemyBoss3 : EnemyUnit
                     pos2 = m_FirePosition[2].position;
 
                     if (m_SystemManager.m_Difficulty == 0) {
-                        CreateBulletsSector(0, pos1, 8f, m_Direction, accel, 4, 45f);
-                        CreateBulletsSector(0, pos2, 8f, m_Direction, accel, 4, 45f);
+                        CreateBulletsSector(0, pos1, 8f, m_Direction - 20f, accel, 4, 50f);
+                        CreateBulletsSector(0, pos2, 8f, m_Direction + 20f, accel, 4, 50f);
                     }
                     else if (m_SystemManager.m_Difficulty == 1) {
                         CreateBulletsSector(0, pos1, 8.3f, m_Direction, accel, 10, 20f);
@@ -561,6 +560,12 @@ public class EnemyBoss3 : EnemyUnit
             StopCoroutine(m_CurrentPhase);
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector = new MoveVector(1f, 0f);
+        ExplosionEffect(2, -1, new Vector2(0f, -0.5f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(2, -1, new Vector2(0f, 0.6f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(0.4f, 0.7f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(0.4f, 0.2f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(-0.4f, 0.7f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(-0.4f, 0.2f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
         
         yield return new WaitForSeconds(0.6f);
 

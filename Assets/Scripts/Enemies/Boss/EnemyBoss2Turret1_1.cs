@@ -47,17 +47,17 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
         if (m_SystemManager.m_Difficulty == 0) {
             for (int i = 0; i < 2; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(4, pos, 3.6f, m_CurrentAngle, accel, 15, 14f);
-                CreateBulletsSector(4, pos, 4.4f, m_CurrentAngle, accel, 10, 14f);
+                CreateBulletsSector(4, pos, 3.5f, m_CurrentAngle, accel, 11, 17f);
+                CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 6, 17f);
                 yield return new WaitForSeconds(2.4f);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             for (int i = 0; i < 3; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(4, pos, 3.3f, m_CurrentAngle, accel, 18, 10f);
-                CreateBulletsSector(4, pos, 4f, m_CurrentAngle, accel, 15, 10f);
-                CreateBulletsSector(4, pos, 4.7f, m_CurrentAngle, accel, 12, 10f);
+                CreateBulletsSector(4, pos, 3.3f, m_CurrentAngle, accel, 17, 11f);
+                CreateBulletsSector(4, pos, 4f, m_CurrentAngle, accel, 14, 11f);
+                CreateBulletsSector(4, pos, 4.7f, m_CurrentAngle, accel, 11, 11f);
                 yield return new WaitForSeconds(1.6f);
             }
         }

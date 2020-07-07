@@ -28,8 +28,6 @@ public class EnemyMiddleBoss1 : EnemyUnit
         .Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad))
         .Join(transform.DORotateQuaternion(m_TargetQuaternion, m_AppearanceTime).SetEase(Ease.InQuad));
         
-        m_CurrentPattern1 = PatternA(m_SystemManager.m_Difficulty);
-        StartCoroutine(m_CurrentPattern1);
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
         Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
@@ -71,6 +69,9 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_UpdateTransform = true;
         m_Phase = 1;
+
+        m_CurrentPattern1 = PatternA(m_SystemManager.m_Difficulty);
+        StartCoroutine(m_CurrentPattern1);
     }
 
     private void TimeLimit() {
@@ -102,7 +103,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
 
     private IEnumerator PatternA(byte difficulty) {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
         if (difficulty == 0) {
             while(true) {
                 CreateBulletsSector(5, transform.position, 5f, 0f, accel, 5, 17f);

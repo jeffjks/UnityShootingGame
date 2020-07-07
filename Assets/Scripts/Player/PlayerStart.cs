@@ -21,8 +21,13 @@ public class PlayerStart : MonoBehaviour
         m_PlayerController.DisableInvincible();
         SetAttributes();
 
-        if (m_SystemManager.GetStage() == 0 && !m_SystemManager.m_BossOnlyState) {
+        if (m_SystemManager.GetCurrentStage() == 0 && !m_SystemManager.m_BossOnlyState) {
             StartCoroutine(SpawnEvent());
+        }
+        else if (m_SystemManager.GetCurrentStage() == 5) {
+            transform.position = new Vector3(transform.position.x, 2f, Depth.PLAYER);
+            enabled = false;
+            return;
         }
         else {
             EndOpening();
@@ -47,7 +52,7 @@ public class PlayerStart : MonoBehaviour
 
     private void EndOpening() {
         m_PlayerController.EnableInvincible(m_PlayerController.m_ReviveInvincibleTime);
-        m_PlayerManager.PlayerControlable = true;
+        m_PlayerManager.m_PlayerControlable = true;
         m_Vspeed = 0f;
         enabled = false;
     }

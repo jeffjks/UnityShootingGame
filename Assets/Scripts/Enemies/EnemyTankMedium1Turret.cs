@@ -33,15 +33,15 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
             
-                CreateBulletsSector(5, pos1, 7f, m_CurrentAngle - 24f, accel, 4, 20f);
+                CreateBulletsSector(5, pos1, 7f, m_CurrentAngle, accel, 4, 20f);
                 yield return new WaitForSeconds(2f);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
-                for (int i = -1; i < 2; i++) {
-                    CreateBulletsSector(5, pos1, 7f, m_CurrentAngle + 3f*i, accel, 4, 20f);
-                }
+            
+                CreateBulletsSector(5, pos1, 6f, m_CurrentAngle, accel, 3, 20f);
+                CreateBulletsSector(5, pos1, 7.1f, m_CurrentAngle, accel, 4, 20f);
                 yield return new WaitForSeconds(0.8f);
             }
             else {
@@ -50,8 +50,8 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                 
                 for (int i = -1; i < 2; i++) {
-                    CreateBulletsSector(5, pos1, 7.2f, m_CurrentAngle + 3f*i, accel, 4, 20f);
                     CreateBulletsSector(5, pos0, 6.1f, m_CurrentAngle + 3f*i, accel, 3, 20f);
+                    CreateBulletsSector(5, pos1, 7.2f, m_CurrentAngle + 3f*i, accel, 4, 20f);
                 }
                 yield return new WaitForSeconds(0.8f);
             }

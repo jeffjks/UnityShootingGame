@@ -52,7 +52,7 @@ public class AttributesConfirmHandler : GameUI
     }
 
     private void SetColorDeselected() {
-        m_Image[1].color = m_ColorDeselectedImage;
+        m_Image[0].color = m_ColorDeselectedImage;
         m_Text[0].color = m_ColorDeselectedText;
     }
 }

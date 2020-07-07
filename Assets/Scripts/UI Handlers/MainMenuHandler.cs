@@ -8,6 +8,7 @@ public class MainMenuHandler : GameUI
     public GameObject m_SelectDifficulty;
     public GameObject m_TrainingPanel;
     public GameObject m_ReplayPanel;
+    public GameObject m_RankingPanel;
     public GameObject m_SettingsPanel;
     public GameObject m_KeyConfigPanel;
     public GameObject m_CreditPanel;
@@ -18,6 +19,8 @@ public class MainMenuHandler : GameUI
     {
         m_MainMenuMusicController.PlayMainMusic();
         m_GameManager.SetOptions();
+
+        m_IsEnabled[2] = m_GameManager.m_IsOnline;
     }
 
     void Update()
@@ -33,12 +36,15 @@ public class MainMenuHandler : GameUI
                     Training();
                     break;
                 case 2:
-                    Option();
+                    Ranking();
                     break;
                 case 3:
-                    Credit();
+                    Option();
                     break;
                 case 4:
+                    Credit();
+                    break;
+                case 5:
                     ExitGame();
                     break;
                 default:
@@ -58,10 +64,20 @@ public class MainMenuHandler : GameUI
     }
 
     private void Training() {
-        //CancelSound();
         m_TrainingPanel.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
+    }
+
+    private void Ranking() {
+        if (m_IsEnabled[2]) {
+            m_RankingPanel.SetActive(true);
+            ConfirmSound();
+            gameObject.SetActive(false);
+        }
+        else {
+            CancelSound();
+        }
     }
 
     private void Replay() {

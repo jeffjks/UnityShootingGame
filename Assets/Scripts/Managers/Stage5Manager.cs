@@ -17,7 +17,7 @@ public class Stage5Manager : StageManager
 
     protected override void Init()
     {
-        m_SystemManager.SetStage(4);
+        m_SystemManager.SetCurrentStage(4);
         if (m_SystemManager.m_Difficulty == Difficulty.HELL)
             m_TrueLastBoss = true;
     }

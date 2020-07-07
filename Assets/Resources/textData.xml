@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ErrorMessage>
+    <NetworkErrorException>
+        <Eng>Cannot connect to the server.</Eng>
+        <Kor>서버에 접속할 수 없습니다.</Kor>
+    </NetworkErrorException>
+    <DuplicatedParameterException>
+        <Eng>The ID is already exists.</Eng>
+        <Kor>이미 존재하는 아이디 입니다.</Kor>
+    </DuplicatedParameterException>
+    <BadUnauthorizedException>
+        <Eng>Incorrect ID or password.</Eng>
+        <Kor>존재하지 않는 아이디거나 잘못된 비밀번호입니다.</Kor>
+    </BadUnauthorizedException>
+    <InvalidSignUpException>
+        <Eng>The ID must be at least 4 characters&#10;and the password must be at least 6 characters.</Eng>
+        <Kor>아이디는 4글자 이상,&#10;비밀번호는 6글자 이상이어야 합니다.</Kor>
+    </InvalidSignUpException>
+    <BlockedPCException>
+        <Eng>This PC is blocked.</Eng>
+        <Kor>접속이 차단된 PC입니다.</Kor>
+    </BlockedPCException>
+    <BlockedUserException>
+        <Eng>This accout is blocked.</Eng>
+        <Kor>접속이 차단된 계정입니다.</Kor>
+    </BlockedUserException>
+    <ScoreUploadingFailedException>
+        <Eng>Failed to upload score due to a server error.</Eng>
+        <Kor>서버 오류로 인해 점수 업로드에 실패하였습니다.</Kor>
+    </ScoreUploadingFailedException>
+    <ArgumentException>
+        <Eng>Invalid argument passing error has occured.</Eng>
+        <Kor>잘못된 인수 전달 오류가 발생했습니다.</Kor>
+    </ArgumentException>
+    <OfflineException>
+        <Eng>You are offline now.</Eng>
+        <Kor>현재 로그인 상태가 아닙니다.</Kor>
+    </OfflineException>
+    <UnknownException>
+        <Eng>Unknown error has occured.</Eng>
+        <Kor>알 수 없는 오류가 발생하였습니다.</Kor>
+    </UnknownException>
+</ErrorMessage>

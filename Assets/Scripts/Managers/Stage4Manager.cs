@@ -16,7 +16,7 @@ public class Stage4Manager : StageManager
 
     protected override void Init()
     {
-        m_SystemManager.SetStage(3);
+        m_SystemManager.SetCurrentStage(3);
         m_TrueLastBoss = false;
     }
 

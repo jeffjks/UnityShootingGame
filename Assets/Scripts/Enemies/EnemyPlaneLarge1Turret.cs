@@ -22,7 +22,7 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
     }
     
     
-    private IEnumerator Pattern1() {
+    private IEnumerator PatternA() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos;
         

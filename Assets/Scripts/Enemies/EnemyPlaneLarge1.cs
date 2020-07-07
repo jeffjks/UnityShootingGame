@@ -13,15 +13,17 @@ public class EnemyPlaneLarge1 : EnemyUnit
     
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
-    private IEnumerator m_Pattern1, m_Pattern2;
+    private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     private bool m_TimeLimitState = false;
     private float m_AppearanceTime = 2.3f;
-    private byte m_Phase;
+    private sbyte m_Phase;
 
     void Start ()
     {
-        m_UpdateTransform = false;
         float time_limit = 20f;
+        DisableAttackable(m_AppearanceTime);
+
+        m_UpdateTransform = false;
         m_TargetPosition = new Vector3(0f, -5.5f, Depth.ENEMY);
         m_TargetQuaternion = Quaternion.identity;
         transform.rotation = Quaternion.Euler(0f, 30f, 0f);
@@ -29,24 +31,15 @@ public class EnemyPlaneLarge1 : EnemyUnit
         m_Sequence.Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad));
         m_Sequence.Join(transform.DORotateQuaternion(m_TargetQuaternion, m_AppearanceTime).SetEase(Ease.InQuad));
         
-        m_Pattern1 = Pattern1();
-        StartCoroutine(m_Pattern1);
         Invoke("TimeLimit", m_AppearanceTime + time_limit);
+        Invoke("OnAppearanceComplete", m_AppearanceTime);
     }
 
     protected override void Update()
     {
-        if (m_Phase == 0) {
+        if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 0.40f) { // 체력 40% 이하
-                m_Phase = 1;
-                m_Turret[0].OnDeath();
-                m_Turret[1].OnDeath();
-                Destroy(m_Part[0]);
-                Destroy(m_Part[1]);
-
-                StopCoroutine(m_Pattern1);
-                m_Pattern2 = Pattern2();
-                StartCoroutine(m_Pattern2);
+                ToNextPhase();
             }
         }
         
@@ -55,6 +48,10 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     private void OnAppearanceComplete() {
         m_UpdateTransform = true;
+        m_Phase = 1;
+        
+        m_CurrentPattern1 = PatternA();
+        StartCoroutine(m_CurrentPattern1);
     }
 
     private void TimeLimit() {
@@ -63,8 +60,20 @@ public class EnemyPlaneLarge1 : EnemyUnit
         transform.DOMoveX(-20f, 4f).SetEase(Ease.InQuad);
         transform.DORotateQuaternion(Quaternion.Euler(0f, 30f, 0f), 3f).SetEase(Ease.Linear);
     }
+
+    private void ToNextPhase() {
+        m_Phase++;
+        m_Turret[0].OnDeath();
+        m_Turret[1].OnDeath();
+        Destroy(m_Part[0]);
+        Destroy(m_Part[1]);
+
+        StopCoroutine(m_CurrentPattern1);
+        m_CurrentPattern2 = PatternB();
+        StartCoroutine(m_CurrentPattern2);
+    }
     
-    private IEnumerator Pattern1() {
+    private IEnumerator PatternA() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos;
         float target_angle, random_value;
@@ -72,7 +81,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         if (state == 0) {
             state = 1;
         }
-        yield return new WaitForSeconds(m_AppearanceTime);
+        yield return new WaitForSeconds(0.2f);
 
         while(!m_TimeLimitState) {
             if (m_SystemManager.m_Difficulty == 0) {
@@ -145,14 +154,14 @@ public class EnemyPlaneLarge1 : EnemyUnit
             }
             yield return new WaitForSeconds(0.2f);
 
-            m_Turret[0].StartCoroutine("Pattern1");
-            m_Turret[1].StartCoroutine("Pattern1");
+            m_Turret[0].StartCoroutine("PatternA");
+            m_Turret[1].StartCoroutine("PatternA");
             yield return new WaitForSeconds(m_FireDelay1[m_SystemManager.m_Difficulty]);
         }
         yield break;
     }
     
-    private IEnumerator Pattern2() {
+    private IEnumerator PatternB() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
         Vector3 pos;
         float target_angle, random_value;
@@ -192,6 +201,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         float timer = 0f, random_timer = 0f;
         Vector2 random_pos1, random_pos2, random_pos3;
         m_MoveVector = new MoveVector(1.2f, 0f);
+        m_Phase = -1;
 
         while (timer < 0.6f) {
             random_timer = Random.Range(0.1f, 0.15f);

@@ -12,7 +12,7 @@ public class Stage1Manager : StageManager
 
     protected override void Init()
     {
-        m_SystemManager.SetStage(0);
+        m_SystemManager.SetCurrentStage(0);
         m_TrueLastBoss = false;
     }
 

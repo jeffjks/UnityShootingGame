@@ -81,7 +81,7 @@ public abstract class StageManager : MonoBehaviour
 
     private void MusicLoop() {
         if (m_SystemManager.m_PlayState == 0) {
-            switch(m_SystemManager.GetStage()) {
+            switch(m_SystemManager.GetCurrentStage()) {
                 case 2: // Stage 3
                     if (m_AudioStage.time > 215.248f) {
                         m_AudioStage.time = 14.496f;
@@ -102,7 +102,7 @@ public abstract class StageManager : MonoBehaviour
             }
         }
         else if (m_SystemManager.m_PlayState == 1) {
-            switch(m_SystemManager.GetStage()) {
+            switch(m_SystemManager.GetCurrentStage()) {
                 case 4:
                     if (m_TrueLastBoss || m_SystemManager.m_Difficulty < 2) { // Last Boss
                         if (m_AudioBoss.time > 101.168f) {

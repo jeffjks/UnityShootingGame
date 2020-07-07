@@ -475,7 +475,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
     private void AttackableTimer() {
         EnableAttackable();
-        if (m_Class != EnemyClass.Zako) {
+        if (m_Class != EnemyClass.Zako || (1 << gameObject.layer & Layer.AIR) != 0) { // 지상 자코가 아닐 경우
             StartCoroutine(SetAttackableEffect());
         }
     }

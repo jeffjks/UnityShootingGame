@@ -25,6 +25,8 @@ public class EndingCredit : MonoBehaviour
         m_SystemManager = SystemManager.instance_sm;
         m_GameManager = GameManager.instance_gm;
         transform.position = new Vector3(transform.position.x, transform.position.y, Depth.CAMERA);
+        m_SystemManager.SetCurrentStage(5);
+        m_SystemManager.m_PlayState = 3;
 
         for (int i = 0; i < m_EndingScroll.Length; i++) {
             m_EndingScroll[i].text = m_EndingText[i] + "\nver " + Application.version + "\n" + m_Date;

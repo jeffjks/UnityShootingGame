@@ -262,7 +262,7 @@ public class SystemManager : MonoBehaviour
             yield break;
         yield return new WaitForSeconds(3f);
         m_PlayState = 3;
-        m_PlayerManager.PlayerControlable = false;
+        m_PlayerManager.m_PlayerControlable = false;
         m_AudioStageClear.Play();
         yield return new WaitForSeconds(2f);
         m_StageManager.SetBackgroundSpeed(0f);
@@ -292,12 +292,13 @@ public class SystemManager : MonoBehaviour
                 SceneManager.LoadScene(scene_name);
 
                 m_PlayState = 0;
-                m_PlayerManager.PlayerControlable = true;
+                m_PlayerManager.m_PlayerControlable = true;
                 m_PlayerController.EnableInvincible(3f);
                 ScreenEffect(2); // Transition
             }
             else {
                 string scene_name = "Ending";
+                m_Stage++;
                 SceneManager.LoadScene(scene_name);
 
                 m_PlayState = 3;
@@ -363,16 +364,12 @@ public class SystemManager : MonoBehaviour
     }
 
 
-    public void SetStage(int stage) {
+    public void SetCurrentStage(int stage) {
         m_Stage = stage;
     }
 
-    public int GetStage() {
+    public int GetCurrentStage() {
         return m_Stage;
-    }
-
-    public uint GetStageScore() {
-        return m_StageScore[m_Stage];
     }
 
     public void InitBombNumber() {
@@ -401,16 +398,32 @@ public class SystemManager : MonoBehaviour
         m_BombNumberText.text = m_BombNumber + " / " + m_MaxBombNumber;
     }
 
+    public uint GetTotalScore() {
+        uint total_score = 0;
+        for (int i = 0; i < m_StageScore.Length; i++) {
+            total_score += m_StageScore[i];
+        }
+        return total_score;
+    }
+
+    public uint GetCurrentStageScore() {
+        return m_StageScore[m_Stage];
+    }
+
     public void AddMiss() {
         m_TotalMiss++;
         m_StageMiss[m_Stage]++;
     }
 
-    public byte GetTotalMiss() {
-        return m_TotalMiss;
+    public uint GetTotalMiss() {
+        uint total_miss = 0;
+        for (int i = 0; i < m_StageMiss.Length; i++) {
+            total_miss += m_StageMiss[i];
+        }
+        return total_miss;
     }
 
-    public byte GetStageMiss() {
+    public byte GetCurrentStageMiss() {
         return m_StageMiss[m_Stage];
     }
 

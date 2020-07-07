@@ -77,7 +77,7 @@ public class PlayerShooter : PlayerShooterManager
     }
 
     public void PlayerShooterBehaviour() {
-        if (!m_PlayerManager.PlayerControlable) {
+        if (!m_PlayerManager.m_PlayerControlable) {
             m_PlayerController.m_SlowMode = false;
             m_NowAttacking = false;
             m_ShotKeyPress = 0;

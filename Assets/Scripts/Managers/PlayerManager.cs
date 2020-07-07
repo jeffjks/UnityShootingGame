@@ -45,8 +45,8 @@ public class PlayerManager : MonoBehaviour
 
     [HideInInspector] public PlayerShooter m_PlayerShooter;
     [HideInInspector] public PlayerController m_PlayerController;
+    [HideInInspector] public bool m_PlayerControlable = false;
     private Vector3 m_SpawnPoint;
-    private bool m_PlayerControlable = false;
     private float m_ReviveDelay = 1.2f;
 
     public static PlayerManager instance_pm = null;
@@ -80,6 +80,7 @@ public class PlayerManager : MonoBehaviour
         }
         
         m_ReplayManager.Init();
+        m_PlayerControlable = false;
 
         m_SystemManager.SetPlayerManager();
         m_SystemManager.m_BackgroundCamera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
@@ -90,7 +91,7 @@ public class PlayerManager : MonoBehaviour
         if (attributes != null)
             m_CurrentAttributes = attributes;
         m_PlayerIsAlive = true;
-        if (m_SystemManager.GetStage() == 0 && !m_SystemManager.m_BossOnlyState)
+        if (m_SystemManager.GetCurrentStage() == 0 && !m_SystemManager.m_BossOnlyState)
             m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
         else
             m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
@@ -98,7 +99,7 @@ public class PlayerManager : MonoBehaviour
         m_PlayerController = m_Player.GetComponent<PlayerController>();
 
         if (m_SystemManager.m_BossOnlyState) {
-            switch(m_SystemManager.GetStage()) {
+            switch(m_SystemManager.GetCurrentStage()) {
                 case 0:
                     m_PlayerShooter.PowerSet(2);
                     break;
@@ -108,7 +109,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
         else {
-            switch(m_SystemManager.GetStage()) {
+            switch(m_SystemManager.GetCurrentStage()) {
                 case 0:
                     break;
                 case 1:
@@ -148,10 +149,5 @@ public class PlayerManager : MonoBehaviour
         m_SystemManager.AddMiss();
         m_PlayerIsAlive = true;
         m_Player.SetActive(true);
-    }
-
-    public bool PlayerControlable {
-        get { return m_PlayerControlable; }
-        set { m_PlayerControlable = value; }
     }
 }

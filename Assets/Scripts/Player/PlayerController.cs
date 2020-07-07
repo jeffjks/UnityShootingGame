@@ -70,7 +70,7 @@ public class PlayerController : PlayerControllerManager
 
     void Update()
     {
-        if (m_PlayerManager.PlayerControlable) {
+        if (m_PlayerManager.m_PlayerControlable) {
             if (!m_SystemManager.m_ReplayState) {
                 m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
                 m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
@@ -82,7 +82,7 @@ public class PlayerController : PlayerControllerManager
             return;
         
         Vector2 movement = new Vector2(m_MoveRawHorizontal, m_MoveRawVertical);
-        if (m_PlayerManager.PlayerControlable) {
+        if (m_PlayerManager.m_PlayerControlable) {
             if (m_SlowMode)
                 m_Vector2 = movement * m_SlowSpeed;
             else
@@ -95,7 +95,7 @@ public class PlayerController : PlayerControllerManager
         MoveVector();
         OverviewPosition();
 
-        if (m_PlayerManager.PlayerControlable) {
+        if (m_PlayerManager.m_PlayerControlable) {
             transform.position = new Vector3
             (
                 Mathf.Clamp(transform.position[0], m_Boundary.xMin, m_Boundary.xMax), 
@@ -122,7 +122,7 @@ public class PlayerController : PlayerControllerManager
         m_Invincibility = true;
         m_HasCollided = false;
         m_SlowMode = false;
-        if (m_PlayerManager.PlayerControlable) { // 시작 이벤트가 아닐때만 방어막 켜기
+        if (m_PlayerManager.m_PlayerControlable) { // 시작 이벤트가 아닐때만 방어막 켜기
             if (!m_SystemManager.m_InvincibleMod) {
                 EnableInvincible(m_ReviveInvincibleTime);
             }
@@ -135,7 +135,7 @@ public class PlayerController : PlayerControllerManager
 
     private void OverviewPosition() {
         Vector3 target_pos;
-        if (m_SystemManager.GetStage() < 4) {
+        if (m_SystemManager.GetCurrentStage() < 4) {
             target_pos = new Vector3(0f, m_PlayerRevivePoint.position.y, Depth.PLAYER);
             if (m_SystemManager.m_PlayState != 3) {
                 m_OverviewSpeed = Mathf.Max(Mathf.Abs(transform.position.x - target_pos.x), Mathf.Abs(transform.position.y - target_pos.y));

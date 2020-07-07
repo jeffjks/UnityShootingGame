@@ -53,7 +53,7 @@ public class ReplayManager : MonoBehaviour
                         m_SystemManager.SetDifficulty(m_Difficulty);
                     }
                 }
-                else { // 노 리플레이 (파일 쓰기)
+                else { // 비 리플레이 (파일 쓰기)
                     m_FilePath = m_GameManager.m_ReplayDirectory + "replayTemp.rep";
                     m_PlayerManager.SpawnPlayer();
 

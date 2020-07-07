@@ -12,7 +12,7 @@ public class OverviewHandler : MonoBehaviour
     [SerializeField] private GameObject m_TotalStageScore = null;
     [SerializeField] private GameObject m_Miss = null;
     [SerializeField] private GameObject m_FinalBonus = null;
-    [SerializeField] private SpriteRenderer m_OverviewBackground = null;
+    [SerializeField] private Image m_OverviewBackground = null;
     
     private Text m_FinalBonusScoreText;
     private float m_DisplayTimer;
@@ -126,8 +126,8 @@ public class OverviewHandler : MonoBehaviour
         
         uint ground_gem_score = m_SystemManager.GemsGround * ItemScore.GEM_GROUND;
         uint air_gem_score = m_SystemManager.GemsAir * ItemScore.GEM_AIR;
-        byte stage_miss = m_SystemManager.GetStageMiss();
-        uint stage_score = m_SystemManager.GetStageScore();
+        byte stage_miss = m_SystemManager.GetCurrentStageMiss();
+        uint stage_score = m_SystemManager.GetCurrentStageScore();
         string bonus_scale;
 
         if (stage_miss == 0) {

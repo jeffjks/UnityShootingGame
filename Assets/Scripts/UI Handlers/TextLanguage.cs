@@ -9,6 +9,7 @@ public class TextLanguage : MonoBehaviour
     public Font[] m_Font;
     [TextArea(4, 6)]
     public string[] m_String;
+    
     private GameManager m_GameManager = null;
 
     void Awake()

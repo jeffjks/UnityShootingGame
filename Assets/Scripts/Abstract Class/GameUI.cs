@@ -34,9 +34,15 @@ public abstract class GameUI : MonoBehaviour {
         if (m_IsEnabled.Length == 0) {
             m_IsEnabled = new bool[transform.childCount];
         }
-        m_Image = GetComponentsInChildren<Image>();
-        m_Text = GetComponentsInChildren<Text>();
-        m_Total = m_Text.Length;
+        m_Total = transform.childCount;
+
+        //m_Image = GetComponentsInChildren<Image>();
+        m_Image = new Image[m_Total];
+        m_Text = new Text[m_Total];
+        for (int i = 0; i < m_Total; i++) {
+            m_Image[i] = transform.GetChild(i).GetComponentInChildren<Image>();
+            m_Text[i] = transform.GetChild(i).GetComponentInChildren<Text>();
+        }
         m_Selection = m_InitialSelection;
 
         FindAudioSource();
@@ -91,13 +97,13 @@ public abstract class GameUI : MonoBehaviour {
 
     protected void SetColor() {
         for (int i = 0; i < m_Total; i++) {
-            m_Image[i+1].color = m_ColorDeselectedImage;
+            m_Image[i].color = m_ColorDeselectedImage;
             m_Text[i].color = m_ColorDeselectedText;
         }
 
         for (int i = 0; i < m_Total; i++) {
             if (!m_IsEnabled[i]) {
-                m_Image[i+1].color = m_ColorDisabled_0;
+                m_Image[i].color = m_ColorDisabled_0;
                 m_Text[i].color = m_ColorDisabled_0;
             }
         }
@@ -105,11 +111,11 @@ public abstract class GameUI : MonoBehaviour {
         m_Alpha += 0.036f;
 
         if (m_IsEnabled[m_Selection]) {
-            m_Image[m_Selection+1].color = Color.Lerp(m_ColorSelectedImage_0, m_ColorSelectedImage_1, m_Alpha);
+            m_Image[m_Selection].color = Color.Lerp(m_ColorSelectedImage_0, m_ColorSelectedImage_1, m_Alpha);
             m_Text[m_Selection].color = m_ColorSelectedText;
         }
         else {
-            m_Image[m_Selection+1].color = Color.Lerp(m_ColorDisabled_0, m_ColorDisabled_1, m_Alpha);
+            m_Image[m_Selection].color = Color.Lerp(m_ColorDisabled_0, m_ColorDisabled_1, m_Alpha);
             m_Text[m_Selection].color = Color.Lerp(m_ColorDisabled_0, m_ColorDisabled_1, m_Alpha);
         }
 

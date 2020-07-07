@@ -72,6 +72,18 @@ public class Attributes {
                 return -1;
         }
     }
+
+    public int GetAttributesCode() { // Color Speed, ShotForm, Shot, Laser, Module, Bomb
+        int code = 0;
+        code += 1000000*m_Color;
+        code += 100000*m_Speed;
+        code += 10000*m_ShotForm;
+        code += 1000*m_ShotDamage;
+        code += 100*m_LaserDamage;
+        code += 10*m_Module;
+        code += 1*m_Bomb;
+        return code;
+    }
 }
 
 public class GameManager : MonoBehaviour
@@ -90,7 +102,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public string m_ReplayDirectory;
     [HideInInspector] public bool m_TrainingState;
     [HideInInspector] public TrainingInfo m_TrainingInfo;
+    [HideInInspector] public bool m_IsOnline = false;
 
+    private string m_AccountID;
     private int[,] m_ResolutionList;
     private PlayerManager m_PlayerManager = null;
 
@@ -336,5 +350,14 @@ public class GameManager : MonoBehaviour
             QualitySettings.antiAliasing = 0;
         m_AntiAliasing = state;
         PlayerPrefs.SetInt("AntiAliasing", QualitySettings.antiAliasing);
+    }
+
+    public string GetAccountID() {
+        return m_AccountID;
+    }
+
+    public void SetAccountID(string id) {
+        m_AccountID = id;
+        m_IsOnline = true;
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SelectDifficultyHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
-    public GameObject m_SelectAttributesPanel;
+    public GameObject m_PreviousMenu;
+    public GameObject m_SelectAttributesMenu;
     public GameObject m_PlayerPreview;
 
     void Update()
@@ -30,13 +30,13 @@ public class SelectDifficultyHandler : GameUI
         m_GameManager.m_TrainingState = false;
         
         m_PlayerPreview.SetActive(true);
-        m_SelectAttributesPanel.SetActive(true);
+        m_SelectAttributesMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
     private void Back() {
-        m_PreviousPanel.SetActive(true);
+        m_PreviousMenu.SetActive(true);
         CancelSound();
         gameObject.SetActive(false);
     }

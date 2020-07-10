@@ -21,6 +21,7 @@ public class PlayerPreviewDrone : PlayerDrone
         SetPreviewDrones();
     }
 
+    /*
     public void SetPreviewDrones() {
         int laser_damage;
         m_ShotForm = m_GameManager.m_CurrentAttributes.m_ShotForm;
@@ -36,5 +37,5 @@ public class PlayerPreviewDrone : PlayerDrone
 
         m_ParticleSystem[m_ShockWaveNumber].gameObject.SetActive(true);
         m_ParticleSystem[1 - m_ShockWaveNumber].gameObject.SetActive(false);
-    }
+    }*/
 }

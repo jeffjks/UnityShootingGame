@@ -27,6 +27,11 @@ public class TextUI_ErrorMessage : MonoBehaviour
     {
         string errorMessage = string.Empty;
 
+        if (errorCode == "BlockedUserException" || errorCode == "BlockedPCException") {
+            m_GameManager.SetAccountID(string.Empty);
+            m_GameManager.m_IsOnline = false;
+        }
+
         try {
             TextAsset textAsset = (TextAsset) Resources.Load(m_XML);
             XmlDocument xmlDoc = new XmlDocument();

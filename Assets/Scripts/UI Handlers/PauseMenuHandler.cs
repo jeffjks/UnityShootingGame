@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuHandler : GameUI
 {
-    public GameObject m_SoundPanel;
+    public GameObject m_SoundMenu;
 
     public PauseManager m_PauseManager;
     
@@ -49,7 +49,7 @@ public class PauseMenuHandler : GameUI
     private void Option() {
         m_InitialSelection = 1;
         // ConfirmSound();
-        m_SoundPanel.SetActive(true);
+        m_SoundMenu.SetActive(true);
         gameObject.SetActive(false);
     }
 

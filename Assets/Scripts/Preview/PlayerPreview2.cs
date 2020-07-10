@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerPreview2 : PlayerPreviewManager
 {
-    public PlayerPreviewDrone[] m_PlayerPreviewDrone = new PlayerPreviewDrone[4];
+    public PlayerDrone[] m_PlayerDrone = new PlayerDrone[4];
     public PlayerPreviewLaserShooter m_PlayerPreviewLaserShooter;
     public PlayerPreviewShooter m_PlayerPreviewShooter;
     public GameObject m_DronePart; // Shot Spawner
@@ -17,8 +17,8 @@ public class PlayerPreview2 : PlayerPreviewManager
     }
 
     private void SetPreviewWeapons() {
-        for (int i = 0; i < m_PlayerPreviewDrone.Length; i++)
-            m_PlayerPreviewDrone[i].SetPreviewDrones();
+        for (int i = 0; i < m_PlayerDrone.Length; i++)
+            m_PlayerDrone[i].SetPreviewDrones();
         m_PlayerPreviewLaserShooter.SetLaserType();
         m_PlayerPreviewShooter.SetPreviewShooter();
     }

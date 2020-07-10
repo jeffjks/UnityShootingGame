@@ -5,7 +5,6 @@ using DG.Tweening;
 public class Stage2Manager : StageManager
 {
     [Space(10)]
-    public GameObject m_Test;
     public GameObject m_TankSmall_1, m_TankSmall_2, m_ShipSmall_1, m_ShipSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeli_1, m_ItemHeli_2, m_Gunship, m_PlaneMedium_2, m_PlaneMedium_3;
 
     private const float WATER_HEIGHT = 2.32f;

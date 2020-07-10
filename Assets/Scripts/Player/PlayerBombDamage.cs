@@ -21,16 +21,7 @@ public class PlayerBombDamage : PlayerDamageUnit
     {
         if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-
-            if (enemyObject.m_Class == EnemyClass.Zako) {
-                enemyObject.TakeDamage(m_Damage, 2);
-            }
-            if (enemyObject.m_Class == EnemyClass.MiddleBoss) {
-                enemyObject.TakeDamage(m_Damage * 0.5f, 2);
-            }
-            if (enemyObject.m_Class == EnemyClass.Boss) {
-                enemyObject.TakeDamage(m_Damage * 0.33f, 2);
-            }
+            DealDamage(enemyObject, m_Damage, 2);
         }
     }
 

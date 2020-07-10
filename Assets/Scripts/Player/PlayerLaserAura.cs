@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerLaserAura : PlayerDamageUnit
 {
-    [SerializeField] private PlayerLaser m_PlayerLaser = null;
-    [SerializeField] private PlayerController m_PlayerController = null;
+    private PlayerLaserManager m_PlayerLaser = null;
+    private PlayerControllerManager m_PlayerController = null;
     private float m_MinDamage, m_MaxDamage;
 
     private float m_LaserDamage;
@@ -13,6 +13,14 @@ public class PlayerLaserAura : PlayerDamageUnit
     private int m_LaserIndex;
 
     void OnEnable() {
+        if (m_PlayerLaser != null)
+            m_LaserDamage = m_PlayerLaser.m_LaserDamage;
+    }
+
+    void Start()
+    {
+        m_PlayerLaser = GetComponentInParent<PlayerLaserManager>();
+        m_PlayerController = GetComponentInParent<PlayerControllerManager>();
         m_LaserDamage = m_PlayerLaser.m_LaserDamage;
     }
 
@@ -23,7 +31,7 @@ public class PlayerLaserAura : PlayerDamageUnit
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
                 if ((1 << other.gameObject.layer & Layer.LARGE) != 0) { // 대형이면
-                    enemyObject.TakeDamage(m_LaserDamage, 1); // 데미지 줌
+                    DealDamage(enemyObject, m_LaserDamage, 1); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
                     enemyObject.OnDeath();

@@ -8,8 +8,7 @@ public class PlayerLaser : PlayerLaserManager {
     public PlayerController m_PlayerController;
     public float[] m_MinDamage = new float[3];
     public float[] m_MaxDamage = new float[3];
-
-    [HideInInspector] public float m_LaserDamage;
+    
     private float m_ShotLevelBonus;
 
     void Start()
@@ -27,7 +26,7 @@ public class PlayerLaser : PlayerLaserManager {
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
                 if ((1 << other.gameObject.layer & Layer.LARGE) != 0) { // 대형이면
-                    enemyObject.TakeDamage(m_LaserDamage, 0); // 데미지 줌
+                    DealDamage(enemyObject, m_LaserDamage, 0); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
                     enemyObject.OnDeath();

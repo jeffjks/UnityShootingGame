@@ -9,36 +9,38 @@ public class PlayerShield : MonoBehaviour {
     public float RotateSpeed;
     public float ShieldOutShineTimeSpace;
 
-    float curTime;
-    bool isShine = false;
-    Material shieldMat;
-    float offsetY = 1;
+    private float m_EffectTimer;
+    private bool m_IsShining = false;
+    private Material m_ShieldMaterial;
+    private float m_OffsetY = 1;
+    private Quaternion m_DefaultQuaternion;
 
 	void Start ()
     {
-        shieldMat = ShieldBody.GetComponent<MeshRenderer>().material;
+        m_ShieldMaterial = ShieldBody.GetComponent<MeshRenderer>().material;
+        m_DefaultQuaternion = transform.localRotation;
     }
     
     void Update()
     {
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = m_DefaultQuaternion;
         
         Ring1.transform.Rotate(Vector3.right, Time.deltaTime * RotateSpeed);
         Ring2.transform.Rotate(Vector3.forward, Time.deltaTime * RotateSpeed);
 
-        if (isShine) {
-            offsetY += 0.025f;
-            shieldMat.SetFloat("_ScanningOffsetY", offsetY);
-            if (offsetY > 0.63) {
-                offsetY = -0.64f;
-                isShine = false;
-                curTime = 0;
+        if (m_IsShining) {
+            m_OffsetY += 0.025f;
+            m_ShieldMaterial.SetFloat("_ScanningOffsetY", m_OffsetY);
+            if (m_OffsetY > 0.63) {
+                m_OffsetY = -0.64f;
+                m_IsShining = false;
+                m_EffectTimer = 0;
             }
         }
         else {
-            curTime += Time.deltaTime;
-            if (curTime >= ShieldOutShineTimeSpace) {
-                isShine = true;
+            m_EffectTimer += Time.deltaTime;
+            if (m_EffectTimer >= ShieldOutShineTimeSpace) {
+                m_IsShining = true;
             }
         }
     }

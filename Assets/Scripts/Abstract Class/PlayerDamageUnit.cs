@@ -9,6 +9,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 {
     public string m_ObjectName;
     public float m_Damage;
+    public float[] m_DamageScale = new float[3];
     
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
@@ -27,6 +28,15 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 
     protected void MoveVector() {
         transform.Translate(m_Vector2 * Time.deltaTime, Space.World);
+    }
+
+    protected void DealDamage(EnemyUnit enemyObject, float damage, sbyte damage_type = -1) {
+        try {
+            enemyObject.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_Class], damage_type);
+        }
+        catch (System.IndexOutOfRangeException) {
+            enemyObject.TakeDamage(damage, damage_type);
+        }
     }
 }
 
@@ -77,7 +87,7 @@ public abstract class PlayerMissile : PlayerDamageUnit
                     }
                 }
                 else { // 그 이외의 경우에는
-                    enemyObject.TakeDamage(m_Damage); // 데미지 주고
+                    DealDamage(enemyObject, m_Damage); // 데미지 주고
                     m_HasDamaged = true;
                     OnDeath(); // 자신 파괴
                 }

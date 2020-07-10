@@ -9,6 +9,7 @@ public class EnemyBoss3 : EnemyUnit
     public EnemyBoss3Part m_Part;
     public Transform[] m_FirePosition = new Transform[3];
     public EnemyBoss3Barrel[] m_EnemyBoss3Barrel = new EnemyBoss3Barrel[2];
+    public GameObject[] m_PartOnDeath = new GameObject[2];
 
     [HideInInspector] public sbyte m_Phase;
     
@@ -558,6 +559,10 @@ public class EnemyBoss3 : EnemyUnit
             StopCoroutine(m_CurrentPattern3);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
+        for (int i = 0; i < m_Turret.Length; i++) {
+            if (m_Turret[i] != null)
+                m_Turret[i].OnDeath();
+        }
         m_SystemManager.BulletsToGems(2f);
         m_MoveVector = new MoveVector(1f, 0f);
         ExplosionEffect(2, -1, new Vector2(0f, -0.5f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
@@ -573,16 +578,31 @@ public class EnemyBoss3 : EnemyUnit
         StartCoroutine(DeathExplosion2(2.8f));
         StartCoroutine(DeathExplosion3(2.8f));
 
-        yield return new WaitForSeconds(3f);
-        ExplosionEffect(2, 4, new Vector2(0f, 0.64f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f))); // 최종 파괴
-        ExplosionEffect(2, -1, new Vector2(0f, -0.36f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(0.5f, 0.75f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(0.5f, 0.2f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(-0.5f, 0.75f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(-0.5f, 0.2f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(0f, -0.75f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(0, -1, new Vector2(0.2f, 0.18f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
-        ExplosionEffect(0, -1, new Vector2(-0.2f, 0.18f), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        yield return new WaitForSeconds(1f);
+        ExplosionEffect(0, 0, new Vector3(0f, -0.8f, Depth.EXPLOSION), new MoveVector(0.7f, Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(-0.25f, -0.4f, Depth.EXPLOSION), new MoveVector(0.7f, Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(0.25f, -0.4f, Depth.EXPLOSION), new MoveVector(0.7f, Random.Range(0f, 360f)));
+        m_PartOnDeath[0].SetActive(false);
+
+        yield return new WaitForSeconds(0.8f);
+        ExplosionEffect(0, 0, new Vector3(-0.45f, 0.5f, Depth.EXPLOSION), new MoveVector(1.2f, 180f + Random.Range(80f, 100f)));
+        ExplosionEffect(0, -1, new Vector3(0.45f, 0.5f, Depth.EXPLOSION), new MoveVector(1.2f, Random.Range(80f, 100f)));
+        ExplosionEffect(1, -1, new Vector3(-0.5f, 0.24f, Depth.EXPLOSION), new MoveVector(0.7f, Random.Range(-10f, 10f)));
+        ExplosionEffect(1, -1, new Vector3(0.5f, 0.24f, Depth.EXPLOSION), new MoveVector(0.7f, Random.Range(-10f, 10f)));
+        ExplosionEffect(1, -1, new Vector3(-0.4f, 0.6f, Depth.EXPLOSION));
+        ExplosionEffect(1, -1, new Vector3(0.4f, 0.6f, Depth.EXPLOSION));
+        m_PartOnDeath[1].SetActive(false);
+
+        yield return new WaitForSeconds(1.2f);
+        ExplosionEffect(2, 4, new Vector3(0f, 0.64f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f))); // 최종 파괴
+        ExplosionEffect(2, -1, new Vector3(0f, -0.36f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(0.5f, 0.75f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(0.5f, 0.2f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(-0.5f, 0.75f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(-0.5f, 0.2f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector3(0f, -0.75f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(0, -1, new Vector3(0.2f, 0.18f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
+        ExplosionEffect(0, -1, new Vector3(-0.2f, 0.18f, Depth.EXPLOSION), new MoveVector(Random.Range(0.5f, 1f), Random.Range(0f, 360f)));
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
@@ -594,9 +614,9 @@ public class EnemyBoss3 : EnemyUnit
     private IEnumerator DeathExplosion1(float timer) {
         float t = 0f, t_add = 0f;
         while (t < timer) {
-            t_add = Random.Range(0.45f, 0.6f);
-            ExplosionEffect(2, 3, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            ExplosionEffect(2, -1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
+            t_add = Random.Range(0.5f, 0.7f);
+            ExplosionEffect(2, 3, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
+            ExplosionEffect(2, -1, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }
@@ -606,9 +626,9 @@ public class EnemyBoss3 : EnemyUnit
     private IEnumerator DeathExplosion2(float timer) {
         float t = 0f, t_add = 0f;
         while (t < timer) {
-            t_add = Random.Range(0.3f, 0.45f);
-            ExplosionEffect(1, 2, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            ExplosionEffect(1, -1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
+            t_add = Random.Range(0.35f, 0.5f);
+            ExplosionEffect(1, 2, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
+            ExplosionEffect(1, -1, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
             t += t_add;
             yield return new WaitForSeconds(t_add);
         }

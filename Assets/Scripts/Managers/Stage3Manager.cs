@@ -5,7 +5,6 @@ using DG.Tweening;
 public class Stage3Manager : StageManager
 {
     [Space(10)]
-    public GameObject m_Test;
     public GameObject m_ShipSmall_1, m_ShipSmall_2, m_ShipMedium, m_ShipLarge, m_ShipCarrier_1, m_TankLarge_3,
     m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_ItemHeli_1, m_ItemHeli_2, m_PlaneMedium_5;
 

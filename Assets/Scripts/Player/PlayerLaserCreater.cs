@@ -16,9 +16,9 @@ public class PlayerLaserCreater : MonoBehaviour
     public ParticleSystem[] m_RushParticles;
     public ParticleSystem[] m_HitParticles;
 
-    [SerializeField] private BoxCollider2D m_Collider2D = null;
-    [SerializeField] private PlayerLaserShooterManager m_LaserShooter = null;
-    [SerializeField] private PlayerShooterManager m_PlayerShooter = null;
+    private BoxCollider2D m_Collider2D;
+    private PlayerLaserShooterManager m_LaserShooter;
+    private PlayerShooterManager m_PlayerShooter;
 
     [HideInInspector] public float m_MaxLength;
     
@@ -34,6 +34,10 @@ public class PlayerLaserCreater : MonoBehaviour
 
     void Awake ()
     {
+        m_Collider2D = GetComponentInParent<BoxCollider2D>();
+        m_LaserShooter = GetComponentInParent<PlayerLaserShooterManager>();
+        m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
+
         m_LineRenderer = GetComponent<LineRenderer>();
         m_HitOffset = m_LaserShooter.m_HitOffset;
         m_EndPointAlpha = m_LaserShooter.m_EndPointAlpha;

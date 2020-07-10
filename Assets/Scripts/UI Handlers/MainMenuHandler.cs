@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : GameUI
 {
-    public GameObject m_SelectDifficulty;
-    public GameObject m_TrainingPanel;
-    public GameObject m_ReplayPanel;
-    public GameObject m_RankingPanel;
-    public GameObject m_SettingsPanel;
-    public GameObject m_KeyConfigPanel;
-    public GameObject m_CreditPanel;
+    public GameObject m_SelectDifficultyMenu;
+    public GameObject m_TrainingMenu;
+    public GameObject m_ReplayMenu;
+    public GameObject m_SelectRankingDifficultyMenu;
+    public GameObject m_SettingsMenu;
+    public GameObject m_KeyConfigMenu;
+    public GameObject m_CreditMenu;
 
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
 
@@ -36,7 +36,7 @@ public class MainMenuHandler : GameUI
                     Training();
                     break;
                 case 2:
-                    Ranking();
+                    SelectRankingDifficulty();
                     break;
                 case 3:
                     Option();
@@ -58,20 +58,20 @@ public class MainMenuHandler : GameUI
 	}
 
     private void SelectDifficulty() {
-        m_SelectDifficulty.SetActive(true);
+        m_SelectDifficultyMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
     private void Training() {
-        m_TrainingPanel.SetActive(true);
+        m_TrainingMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
-    private void Ranking() {
+    private void SelectRankingDifficulty() {
         if (m_IsEnabled[2]) {
-            m_RankingPanel.SetActive(true);
+            m_SelectRankingDifficultyMenu.SetActive(true);
             ConfirmSound();
             gameObject.SetActive(false);
         }
@@ -82,26 +82,26 @@ public class MainMenuHandler : GameUI
 
     private void Replay() {
         CancelSound();
-        //m_ReplayPanel.SetActive(true);
+        //m_ReplayMenu.SetActive(true);
         //ConfirmSound();
         //gameObject.SetActive(false);
     }
 
     private void Option() {
-        m_SettingsPanel.SetActive(true);
+        m_SettingsMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }
 
     private void KeyConfig() {
         CancelSound();
-        // m_KeyConfigPanel.SetActive(true);
+        // m_KeyConfigMenu.SetActive(true);
         // ConfirmSound();
         // gameObject.SetActive(false);
     }
 
     private void Credit() {
-        m_CreditPanel.SetActive(true);
+        m_CreditMenu.SetActive(true);
         ConfirmSound();
         gameObject.SetActive(false);
     }

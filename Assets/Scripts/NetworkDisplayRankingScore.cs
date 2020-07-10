@@ -9,10 +9,11 @@ public class NetworkDisplayRankingScore : MonoBehaviour
     public RankingScoreSlot[] m_TopRankingScoreSlots = new RankingScoreSlot[5];
     public RankingScoreSlot m_MyRankingScoreSlot;
 
+    [HideInInspector] public bool m_Active = false;
+
     private string[] m_ResponseText; // 0 : succeedMessage, 1~6 : myRank, 7~maxLength-1 : topRank, 
     private const int m_MaxPage = 3;
     private int m_Page;
-    private bool m_Active = false;
 
     private GameManager m_GameManager = null;
 
@@ -23,11 +24,14 @@ public class NetworkDisplayRankingScore : MonoBehaviour
 
     void OnEnable() {
         string id = m_GameManager.GetAccountID();
-        if (id == null) {
+        m_Active = false;
+        m_Page = 0;
+
+        if (id == string.Empty) {
             TryDisplayScoreRanking("OfflineException");
         }
         else {
-            StartCoroutine(DisplayScoreRanking(Difficulty.HELL, m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
+            StartCoroutine(DisplayScoreRanking(m_GameManager.m_Difficulty, m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
         }
     }
 
@@ -62,15 +66,16 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         if (code == "ScoreRankingDisplaySucceed" && m_ResponseText.Length > 6) {
             UpdateMyRankingSlot();
             UpdateTopRankingSlot();
-            m_Active = true;
         }
         else {
             m_ErrorMessage.DisplayText(code);
         }
+        m_Active = true;
     }
 
     private void NetworkError(string errorDetails) {
         m_ErrorMessage.DisplayText("NetworkErrorException", errorDetails);
+        m_Active = true;
     }
 
     private void UpdateMyRankingSlot() {

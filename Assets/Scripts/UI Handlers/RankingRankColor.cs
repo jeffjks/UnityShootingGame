@@ -14,7 +14,7 @@ public class RankingRankColor : MonoBehaviour
             rank = int.Parse(m_DisplayTextElement.text);
         }
         catch (System.FormatException) {
-            return;
+            rank = 0;
         }
 
         switch (rank) {

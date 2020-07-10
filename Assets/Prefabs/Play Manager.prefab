@@ -5062,7 +5062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
   m_IsEnabled: 010101
-  m_SoundPanel: {fileID: 5824299596222305990}
+  m_SoundMenu: {fileID: 5824299596222305990}
   m_PauseManager: {fileID: 5824299595195028250}
 --- !u!1 &5824299596119848025
 GameObject:
@@ -5415,7 +5415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5824299596222305991}
   m_Layer: 5
-  m_Name: Sound
+  m_Name: Sound Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

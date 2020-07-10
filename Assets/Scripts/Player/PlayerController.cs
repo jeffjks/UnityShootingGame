@@ -205,7 +205,7 @@ public class PlayerController : PlayerControllerManager
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
 
                 if ((1 << other.gameObject.layer & Layer.AIR) != 0) {
-                    enemyObject.TakeDamage(m_Damage);
+                    DealDamage(enemyObject, m_Damage);
                     OnDeath();
                 }
             }
@@ -218,7 +218,7 @@ public class PlayerController : PlayerControllerManager
                 m_HasCollided = true;
                 GameObject obj = m_PoolingManager.PopFromPool(m_Explosion, PoolingParent.EXPLOSION); // 폭발 이펙트
 
-                obj.transform.position = transform.position;
+                obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
                 
                 m_PlayerManager.PlayerDead(transform.position);

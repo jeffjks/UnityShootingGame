@@ -34,6 +34,7 @@ public class PlayerHomingMissile : PlayerMissile {
                 m_Vector2 = transform.up * m_Speed;
             }
         }
+        transform.up = new Vector2(transform.up.x, transform.up.y);
         /*
         Vector2 left = new Vector2(m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f, -8f);
         Vector2 right = new Vector2(m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f, -8f);

@@ -21,16 +21,27 @@ public class PlayerDrone : MonoBehaviour
     protected int m_ShotLevel;
     protected byte m_ShockWaveNumber;
     protected float m_DefaultDepth;
+
+    private PlayerShooterManager m_PlayerShooter;
     
     private PlayerManager m_PlayerManager = null;
+    private GameManager m_GameManager = null;
+
+    void Awake()
+    {
+        m_GameManager = GameManager.instance_gm;
+        m_PlayerManager = PlayerManager.instance_pm;
+
+        m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
+        m_PlayerController = GetComponentInParent<PlayerControllerManager>();
+    }
 
     void Start()
     {
         int laser_damage;
-
-        m_PlayerController = GetComponentInParent<PlayerControllerManager>();
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotForm;
+        if (m_PlayerManager != null) {
+            m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotForm;
+        }
         m_DefaultDepth = transform.localPosition.y;
 
         if (m_PlayerManager == null)
@@ -44,6 +55,13 @@ public class PlayerDrone : MonoBehaviour
             m_ShockWaveNumber = 1;
 
         m_ParticleSystem[m_ShockWaveNumber].gameObject.SetActive(true);
+    }
+
+    public void PreviewStart()
+    {
+        ((PlayerPreviewShooter) m_PlayerShooter).InitShotLevel();
+        m_DefaultDepth = transform.localPosition.y;
+        SetPreviewDrones();
     }
 
     void Update()
@@ -77,5 +95,22 @@ public class PlayerDrone : MonoBehaviour
         m_ParticleSystem[0].transform.localPosition = new Vector3(0f, m_DefaultDepth, 2.5f + level*0.12f);
         m_ParticleSystem[1].transform.localScale = new Vector3(1f + level*coefficient, 1f + level*coefficient, 1f + level*coefficient);
         m_ParticleSystem[1].transform.localPosition = new Vector3(0f, m_DefaultDepth, 2.5f + level*0.12f);
+    }
+
+    public void SetPreviewDrones() {
+        int laser_damage;
+        m_ShotForm = m_GameManager.m_CurrentAttributes.m_ShotForm;
+
+        laser_damage = m_GameManager.m_CurrentAttributes.m_LaserDamage;
+        
+        SetShotLevel(m_PlayerShooter.m_ShotLevel);
+
+        if (laser_damage == 0)
+            m_ShockWaveNumber = 0;
+        else
+            m_ShockWaveNumber = 1;
+
+        m_ParticleSystem[m_ShockWaveNumber].gameObject.SetActive(true);
+        m_ParticleSystem[1 - m_ShockWaveNumber].gameObject.SetActive(false);
     }
 }

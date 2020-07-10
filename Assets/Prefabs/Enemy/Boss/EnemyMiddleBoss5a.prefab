@@ -319,9 +319,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -424,9 +424,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -529,9 +529,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -634,9 +634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -739,9 +739,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -844,9 +844,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -949,9 +949,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -1054,9 +1054,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879523967ecb75f4db2c9e18e723c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 150
   m_Class: 0
   m_Score: 1000
@@ -1158,9 +1158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb33f5c6e277ac4785a7303bd497197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 7068832166097506925}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 7068832166097506925}
   m_Health: 0
   m_Class: 1
   m_Score: 0
@@ -1246,9 +1246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f11766fcf1eabf4aaec3453717721b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 5000
   m_Class: 1
   m_Score: 25000
@@ -1300,7 +1300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &400048
 Transform:
   m_ObjectHideFlags: 0
@@ -1415,13 +1415,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552064749147534282}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
+  m_LocalPosition: {x: 0, y: 0, z: -0.82}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 7315138404752789924}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &278395866404296258
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -10932,9 +10932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126f2cd60ad7ff6448b80a0d308ae9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 7068832166097506925}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 7068832166097506925}
   m_Health: 0
   m_Class: 1
   m_Score: 0
@@ -10980,13 +10980,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2378610710514130012}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
+  m_LocalPosition: {x: 0, y: 0, z: -0.82}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 2308859156474059023}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &682584829175294598
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -25635,13 +25635,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5651210580512101998}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
   m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4110174184765956700}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &3634195996419197700
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -35200,9 +35200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126f2cd60ad7ff6448b80a0d308ae9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 7068832166097506925}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 7068832166097506925}
   m_Health: 0
   m_Class: 1
   m_Score: 0
@@ -35248,13 +35248,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6525869664458682481}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
   m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 2215795199871025905}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &3386784779924436601
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -40250,13 +40250,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7401197519292741744}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
+  m_LocalPosition: {x: 0, y: 0, z: -0.82}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 1607289933592711200}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &2416459320843657482
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -44984,13 +44984,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7524817519260449283}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
+  m_LocalPosition: {x: 0, y: 0, z: -0.82}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 8402865314328902377}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &1098297852059497557
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -49753,13 +49753,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8224979487976780532}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
   m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 1433835503573568786}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &5484020980220714531
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -54487,13 +54487,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8229429719054029177}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
+  m_LocalRotation: {x: 0.99144495, y: -0, z: -0, w: -0.13052607}
   m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 0.20000002, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 8750100009720944235}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 195, y: 0, z: 0}
 --- !u!198 &5182124619705324223
 ParticleSystem:
   m_ObjectHideFlags: 0

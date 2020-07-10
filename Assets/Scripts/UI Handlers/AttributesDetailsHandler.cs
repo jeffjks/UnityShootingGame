@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttributesDetailsHandler : AttributeSelectButtonUI
 {
     public AttributesSelectHandler m_SelectAttributesHandler;
-    public GameObject m_PreviousPanel;
+    public GameObject m_PreviousMenu;
     public byte m_Attributes;
     public int[] m_Cost;
     public AttributesHandler m_AttributesHandler;
@@ -86,7 +86,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
         ConfirmSound();
-        m_PreviousPanel.SetActive(true);
+        m_PreviousMenu.SetActive(true);
         gameObject.SetActive(false);
     }
 
@@ -97,7 +97,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
         m_Enable = false;
         SetPreviewDesign();
         CancelSound();
-        m_PreviousPanel.SetActive(true);
+        m_PreviousMenu.SetActive(true);
         gameObject.SetActive(false);
     }
 

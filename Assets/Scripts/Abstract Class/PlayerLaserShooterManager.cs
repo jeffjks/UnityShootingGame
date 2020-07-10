@@ -8,6 +8,7 @@ public abstract class PlayerLaserShooterManager : MonoBehaviour
 {
     public PlayerControllerManager m_PlayerController;
     public GameObject[] m_LaserObjects = new GameObject[3];
+    public PlayerLaserFireLight m_LaserFireLight;
 
     public float m_HitOffset;
     public float m_EndPointAlpha;
@@ -22,6 +23,7 @@ public abstract class PlayerLaserShooterManager : MonoBehaviour
 
     protected void UpdateLaser() {
         m_LaserInstance.SetActive(true);
+        m_LaserFireLight.gameObject.SetActive(true);
         m_PlayerLaserCreater.m_MaxLength = m_MaxLength;
         // m_PlayerLaserCreater.InitLaser();
     }

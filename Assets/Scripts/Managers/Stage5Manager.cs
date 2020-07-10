@@ -6,7 +6,6 @@ public class Stage5Manager : StageManager
 {
     public AudioSource m_AudioTrueLastBoss;
     [Space(10)]
-    public GameObject m_Test;
     public GameObject m_Helicopter, m_ItemHeli_1, m_ItemHeli_2,
     m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_TankSmall_1, m_TankSmall_2, m_TankSmall_3,
     m_PlaneMedium_1, m_PlaneMedium_2, m_PlaneMedium_3, m_PlaneMedium_4, m_PlaneMedium_5, m_TankMedium_1, m_TankMedium_2, m_TankMedium_3, m_Gunship,

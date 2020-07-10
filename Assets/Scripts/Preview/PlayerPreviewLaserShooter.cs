@@ -18,6 +18,7 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
         StopLaser();
         m_LaserIndex = m_GameManager.m_CurrentAttributes.m_LaserDamage;
         m_LaserInstance = m_LaserObjects[m_LaserIndex];
+        m_LaserFireLight.SetLightColor(m_LaserIndex);
 
         m_LaserInstance.SetActive(true);
         m_PlayerLaserCreater = m_LaserInstance.GetComponent<PlayerLaserCreater>();
@@ -34,6 +35,7 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
     public override void StopLaser() {
         if (m_PlayerLaserCreater != null) {
             m_LaserInstance.SetActive(false);
+            m_LaserFireLight.gameObject.SetActive(false);
             m_PlayerLaserCreater.DisablePrepare();
         }
         m_MaxLength = 0f;

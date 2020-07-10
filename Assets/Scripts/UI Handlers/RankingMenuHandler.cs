@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class RankingMenuHandler : GameUI
 {
-    public GameObject m_PreviousPanel;
+    public GameObject m_PreviousMenu;
     public GameObject m_RankingMenu;
     public GameObject m_MainLogo;
     public NetworkDisplayRankingScore m_NetworkDisplayRankingScore;
+    public GameObject[] m_DifficultyText = new GameObject[3];
 
     void OnEnable() {
         m_MainLogo.SetActive(false);
+        m_DifficultyText[m_GameManager.m_Difficulty].SetActive(true);
     }
 
     void Update()
@@ -43,15 +45,20 @@ public class RankingMenuHandler : GameUI
 	}
 
     private void MovePage(int move) {
-        if (m_NetworkDisplayRankingScore.TurnOverPage(move)) {
-            ConfirmSound();
+        if (m_NetworkDisplayRankingScore.m_Active) {
+            if (m_NetworkDisplayRankingScore.TurnOverPage(move)) {
+                ConfirmSound();
+            }
         }
     }
 
     private void Back() {
-        m_MainLogo.SetActive(true);
-        m_PreviousPanel.SetActive(true);
-        CancelSound();
-        m_RankingMenu.SetActive(false);
+        if (m_NetworkDisplayRankingScore.m_Active) {
+            m_MainLogo.SetActive(true);
+            m_PreviousMenu.SetActive(true);
+            m_DifficultyText[m_GameManager.m_Difficulty].SetActive(false);
+            CancelSound();
+            m_RankingMenu.SetActive(false);
+        }
     }
 }

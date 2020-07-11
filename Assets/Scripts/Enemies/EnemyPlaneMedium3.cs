@@ -50,8 +50,12 @@ public class EnemyPlaneMedium3 : EnemyUnit
             pos = transform.position;
             target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
             random_value = Random.Range(-2f, 2f);
-            m_Turret[0].StartCoroutine("Pattern1");
-            m_Turret[1].StartCoroutine("Pattern1");
+            if (m_Turret[0] != null) {
+                m_Turret[0].StartPattern();
+            }
+            if (m_Turret[1] != null) {
+                m_Turret[1].StartPattern();
+            }
 
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 3; i++) {
@@ -73,6 +77,15 @@ public class EnemyPlaneMedium3 : EnemyUnit
             }
             yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]*(1f + Random.Range(-0.15f, 0.15f)));
         }
+        yield break;
+    }
+
+    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+        m_Turret[0].OnDeath();
+        m_Turret[1].OnDeath();
+        
+        CreateItems();
+        Destroy(gameObject);
         yield break;
     }
 }

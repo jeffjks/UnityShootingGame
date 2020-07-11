@@ -3547,7 +3547,7 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
   - EXPERT
-  - "\uC804\uBB38\uAC00"
+  - "\uC5D1\uC2A4\uD37C\uD2B8"
 --- !u!114 &244458534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13847,7 +13847,7 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
   - EXPERT
-  - "\uC804\uBB38\uAC00 \uB7AD\uD0B9"
+  - "\uC5D1\uC2A4\uD37C\uD2B8 \uB7AD\uD0B9"
 --- !u!114 &1154882289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13962,7 +13962,7 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
   - EXPERT
-  - "\uC804\uBB38\uAC00"
+  - "\uC5D1\uC2A4\uD37C\uD2B8"
 --- !u!114 &1162501093
 MonoBehaviour:
   m_ObjectHideFlags: 0

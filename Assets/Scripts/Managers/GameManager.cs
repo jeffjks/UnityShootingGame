@@ -141,9 +141,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Md5Sum(m_AccountID) != m_EncryptedAccountID) {
-            m_IsOnline = false;
-            Application.Quit(); // 에디터에서는 무시됨
+        if (m_IsOnline) {
+            if (Md5Sum(m_AccountID) != m_EncryptedAccountID) {
+                m_IsOnline = false;
+                Debug.LogAssertion("ID Falsification Detected.");
+                Application.Quit(); // 에디터에서는 무시됨
+            }
         }
     }
 

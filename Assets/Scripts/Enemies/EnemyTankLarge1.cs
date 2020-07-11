@@ -112,9 +112,12 @@ public class EnemyTankLarge1 : EnemyUnit
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        ExplosionEffect(0, -1, new Vector3(0f, 0f, 2.5f));
-        ExplosionEffect(1, -1, new Vector3(-2f, 0f));
-        ExplosionEffect(1, -1, new Vector3(2f, 0f));
+        ExplosionEffect(0, -1, new Vector3(0f, 0f, -0.4f));
+        ExplosionEffect(2, -1, new Vector3(0f, 3.2f, 2.5f));
+        ExplosionEffect(1, -1, new Vector3(-2f, 0f, 1.4f));
+        ExplosionEffect(1, -1, new Vector3(2f, 0f, 1.4f));
+        ExplosionEffect(1, -1, new Vector3(-2f, 0f, -1.4f));
+        ExplosionEffect(1, -1, new Vector3(2f, 0f, -1.4f));
         
         CreateItems();
         Destroy(gameObject);

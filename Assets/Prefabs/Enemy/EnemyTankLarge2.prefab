@@ -377,9 +377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21efb2fc5ef84c84cb4d6fe9b782199d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
   m_Health: 700
   m_Class: 0
   m_Score: 2000
@@ -654,9 +654,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a90db8f31846564f8d066d463329f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 8398379833720575597}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 8398379833720575597}
   m_Health: 0
   m_Class: 0
   m_Score: 0

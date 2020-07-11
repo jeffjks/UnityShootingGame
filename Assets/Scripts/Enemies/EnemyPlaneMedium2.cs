@@ -128,4 +128,14 @@ public class EnemyPlaneMedium2 : EnemyUnit
         pos3 = m_FirePosition[3].position;
         pos4 = m_FirePosition[4].position;
     }
+
+    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+        ExplosionEffect(0, -1, new Vector2(1.4f, 0.6f));
+        ExplosionEffect(0, -1, new Vector2(-1.4f, 0.6f));
+        ExplosionEffect(0, -1, new Vector2(0f, -1.3f));
+        
+        CreateItems();
+        Destroy(gameObject);
+        yield break;
+    }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyPlaneMedium3Turret : EnemyUnit
 {
     [SerializeField] private Transform m_FirePosition = null;
+    
+    private IEnumerator m_CurrentPattern;
 
     void Start()
     {
@@ -20,6 +22,16 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
             RotateSlightly(m_PlayerPosition, 100f);
         
         base.Update();
+    }
+
+    public void StartPattern() {
+        m_CurrentPattern = Pattern1();
+        StartCoroutine(m_CurrentPattern);
+    }
+
+    public void StopPattern() {
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
     
     private IEnumerator Pattern1() {

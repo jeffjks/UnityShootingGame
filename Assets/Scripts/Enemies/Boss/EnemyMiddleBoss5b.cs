@@ -185,10 +185,10 @@ public class EnemyMiddleBoss5b : EnemyUnit
         StartCoroutine(DeathExplosion2());
         yield return new WaitForSeconds(2.1f);
 
-        ExplosionEffect(0, 2, new Vector2(0f, 0f));
-        ExplosionEffect(1, -1, new Vector2(1.3f, 0f));
-        ExplosionEffect(1, -1, new Vector2(-1.3f, 0f));
-        ExplosionEffect(1, -1, new Vector2(0f, 1.4f));
+        ExplosionEffect(0, 2, new Vector2(0f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(-1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
+        ExplosionEffect(1, -1, new Vector2(0f, 1.4f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         m_SystemManager.ScreenEffect(0);
         Destroy(gameObject);
         yield break;

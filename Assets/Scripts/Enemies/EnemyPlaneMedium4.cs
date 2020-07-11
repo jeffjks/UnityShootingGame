@@ -93,4 +93,14 @@ public class EnemyPlaneMedium4 : EnemyUnit
         }
         yield break;
     }
+
+    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+        ExplosionEffect(0, -1, new Vector2(1f, 1f));
+        ExplosionEffect(0, -1, new Vector2(-1f, 1f));
+        ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
+        
+        CreateItems();
+        Destroy(gameObject);
+        yield break;
+    }
 }

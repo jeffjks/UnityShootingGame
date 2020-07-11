@@ -96,8 +96,17 @@ public class EnemyPlaneLarge3 : EnemyUnit
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+        float random = Random.Range(0f, 360f);
         ExplosionEffect(0, -1, new Vector2(0.8f, 0.24f));
         ExplosionEffect(0, -1, new Vector2(-0.8f, 0.24f));
+        ExplosionEffect(1, -1, new Vector2(0.2f, 0.36f), new MoveVector(Random.Range(1.4f, 2f), 45f));
+        ExplosionEffect(1, -1, new Vector2(-0.2f, 0.36f), new MoveVector(Random.Range(1.4f, 2f), -45f));
+        ExplosionEffect(1, -1, new Vector2(0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random));
+        ExplosionEffect(1, -1, new Vector2(0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random + 120f));
+        ExplosionEffect(1, -1, new Vector2(0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random + 240f));
+        ExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random));
+        ExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random - 120f));
+        ExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random - 240f));
         
         CreateItems();
         Destroy(gameObject);

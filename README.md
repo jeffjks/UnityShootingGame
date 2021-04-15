@@ -13,7 +13,7 @@
 
 ## 개발 정보
 
-* 제작자 : 강낭땅콩(jeff_jks@naver.com)
+* 제작자 : jeff_jks@naver.com
 
 * 제작 시작 : May 7th, 2019 (유니티 학습 기간 포함)
 

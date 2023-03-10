@@ -12,6 +12,7 @@ public abstract class Item : MonoBehaviour
     public abstract void OnDeath();
     protected Transform m_MainCameraTransform;
     protected Vector2 m_Position2D;
+    protected Vector2Int m_Position;
 
     private Vector2 m_BackgroundCameraSize;
     
@@ -67,6 +68,15 @@ public abstract class Item : MonoBehaviour
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
             screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y);
         return modified_pos;
+    }
+
+    protected void SetPosition() {
+        transform.position = new Vector3((float) m_Position.x / 256, (float) m_Position.y / 256, transform.position.z);
+    }
+
+    public void InitPosition(Vector2Int pos) {
+        m_Position = pos;
+        SetPosition();
     }
 }
 

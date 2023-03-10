@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 
-[System.Serializable]
 public class Boundary
 {
-    public float xMin, xMax, yMin, yMax;
+    public int xMin, xMax, yMin, yMax;
 
-    public Boundary(float xMin, float xMax, float yMin, float yMax) {
+    public Boundary(int xMin, int xMax, int yMin, int yMax) {
         this.xMin = xMin;
         this.xMax = xMax;
         this.yMin = yMin;
@@ -19,19 +18,19 @@ public class Boundary
 public class PlayerController : PlayerControllerManager
 {
     [SerializeField] private float m_Tilt = 30f;
-    [SerializeField] private Boundary m_Boundary = new Boundary(-7f, 7f, -14.8f, -1f);
-    [SerializeField] private Transform m_PlayerRevivePoint = null;
+    [SerializeField] private Vector2Int m_PlayerRevivePoint;
     [SerializeField] private GameObject m_PlayerShield = null;
     [SerializeField] private string m_Explosion = string.Empty;
     public float m_ReviveInvincibleTime = 3f;
 
-    private float m_MaxPlayerCamera;
+    private Boundary m_Boundary = new Boundary(-1792, 1792, -3789, -256); // -7f, 7f, -14.8f, -1f
+    private int m_MaxPlayerCamera;
     private float m_DefaultRotation;
     private float m_TiltSpeed = 0.2f;
     private bool m_Invincibility = false;
     private float m_InvincibleTimer;
     private bool m_HasCollided = false;
-    private float m_Speed, m_SlowSpeed, m_OverviewSpeed;
+    private int m_Speed, m_SlowSpeed, m_OverviewSpeed;
     private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
     
     private SystemManager m_SystemManager = null;
@@ -45,16 +44,16 @@ public class PlayerController : PlayerControllerManager
 
         switch(m_PlayerManager.m_CurrentAttributes.m_Speed) {
             case 0:
-                m_Speed = 6f;
-                m_SlowSpeed = 4f;
+                m_Speed = 26; // 6f * 256;
+                m_SlowSpeed = 17; // 4f * 256;
                 break;
             case 1:
-                m_Speed = 6.75f;
-                m_SlowSpeed = 4.2f;
+                m_Speed = 29; // 6.75f * 256;
+                m_SlowSpeed = 18; // 4.2f * 256;
                 break;
             case 2:
-                m_Speed = 7.5f; // 8.1
-                m_SlowSpeed = 4.4f;
+                m_Speed = 32; // 7.5f; * 256 / 60
+                m_SlowSpeed = 19; // 4.4f * 256;
                 break;
             default:
                 break;
@@ -81,7 +80,7 @@ public class PlayerController : PlayerControllerManager
         if (Time.timeScale == 0)
             return;
         
-        Vector2 movement = new Vector2(m_MoveRawHorizontal, m_MoveRawVertical);
+        Vector2Int movement = new Vector2Int(m_MoveRawHorizontal, m_MoveRawVertical);
         if (m_PlayerManager.m_PlayerControlable) {
             if (m_SlowMode)
                 m_Vector2 = movement * m_SlowSpeed;
@@ -96,29 +95,31 @@ public class PlayerController : PlayerControllerManager
         OverviewPosition();
 
         if (m_PlayerManager.m_PlayerControlable) {
-            transform.position = new Vector3
+            m_Position = new Vector2Int
             (
-                Mathf.Clamp(transform.position[0], m_Boundary.xMin, m_Boundary.xMax), 
-                Mathf.Clamp(transform.position[1], m_Boundary.yMin, m_Boundary.yMax),
-                Depth.PLAYER
+                Mathf.Clamp(m_Position.x, m_Boundary.xMin, m_Boundary.xMax), 
+                Mathf.Clamp(m_Position.y, m_Boundary.yMin, m_Boundary.yMax)
             );
         }
+        SetPosition();
 
         UpdateInvincible();
         UpdateRevivePoint();
+
+        //Debug.Log(m_Position);
     }
 
     private void UpdateRevivePoint() {
-        float playerReviveX = transform.position.x;
-        m_PlayerRevivePoint.position = new Vector3(
-            Mathf.Clamp(playerReviveX, - m_MaxPlayerCamera, m_MaxPlayerCamera),
-            m_PlayerManager.m_RevivePointY,
-            Depth.PLAYER
+        int playerReviveX = m_Position.x;
+        m_PlayerRevivePoint = new Vector2Int(
+            Mathf.Clamp(playerReviveX, -m_MaxPlayerCamera, m_MaxPlayerCamera),
+            m_PlayerManager.m_RevivePointY
         );
     }
 
     void OnEnable()
     {
+        m_Position = Vector2Int.RoundToInt(transform.position*256);
         m_Invincibility = true;
         m_HasCollided = false;
         m_SlowMode = false;
@@ -130,29 +131,32 @@ public class PlayerController : PlayerControllerManager
     }
 
     private void ResetPosition() {
-        transform.position = m_PlayerRevivePoint.position;
+        m_Position = m_PlayerRevivePoint;
+        Debug.Log("ResetPosition");
+        //transform.position = m_PlayerRevivePoint.position;
     }
 
     private void OverviewPosition() {
-        Vector3 target_pos;
+        Vector2Int target_pos;
         if (m_SystemManager.GetCurrentStage() < 4) {
-            target_pos = new Vector3(0f, m_PlayerRevivePoint.position.y, Depth.PLAYER);
+            target_pos = new Vector2Int(0, m_PlayerRevivePoint.y);
             if (m_SystemManager.m_PlayState != 3) {
-                m_OverviewSpeed = Mathf.Max(Mathf.Abs(transform.position.x - target_pos.x), Mathf.Abs(transform.position.y - target_pos.y));
-                m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 3.2f);
+                m_OverviewSpeed = Mathf.Max(Mathf.Abs(m_Position.x - target_pos.x), Mathf.Abs(m_Position.y - target_pos.y));
+                m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
                 return;
             }
         }
         else {
-            target_pos = new Vector3(transform.position.x, 2f, Depth.PLAYER);
+            target_pos = new Vector2Int(m_Position.x, 512);
             if (m_SystemManager.m_PlayState != 3) {
-                m_OverviewSpeed = 12f;
+                m_OverviewSpeed = 3072;
                 return;
             }
         }
         // m_PlayState가 3일때만 이하 내용 실행
-        m_Vector2 = new Vector2(0f, 0f);
-        transform.position = Vector3.MoveTowards(transform.position, target_pos, m_OverviewSpeed * Time.deltaTime);
+        m_Vector2 = Vector2Int.zero;
+        m_Position = Vector2Int.RoundToInt(Vector2.MoveTowards(m_Position, target_pos, m_OverviewSpeed / Application.targetFrameRate));
+        //transform.position = Vector3.MoveTowards(transform.position, target_pos, m_OverviewSpeed * Time.deltaTime);
     }
 
     private void UpdateInvincible() {
@@ -221,11 +225,15 @@ public class PlayerController : PlayerControllerManager
                 obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
                 
-                m_PlayerManager.PlayerDead(transform.position);
+                m_PlayerManager.PlayerDead(m_Position);
                 ResetPosition();
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    public void SetVerticalSpeed(int vspeed) {
+        m_Vector2 = new Vector2Int(m_Vector2.x, vspeed);
     }
 
     public bool GetInvincibility() {

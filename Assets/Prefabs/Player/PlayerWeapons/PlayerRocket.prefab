@@ -74,7 +74,8 @@ MonoBehaviour:
   m_ActivatedObject: []
   m_HitEffectNumber: 2
   m_DamageLevel: 0
-  m_MaxSpeed: 25
+  m_MaxSpeed: 6400
+  m_Accel: 51
 --- !u!1 &3414835178675415102
 GameObject:
   m_ObjectHideFlags: 0

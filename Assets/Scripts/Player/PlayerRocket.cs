@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerRocket : PlayerMissile
 {
     [Space(10)]
-    [SerializeField] private float m_MaxSpeed = 25f;
-    private float m_CurrentSpeed;
+    [SerializeField] private int m_MaxSpeed = 6400;
+    [SerializeField] private int m_Accel = 51;
+    private int m_CurrentSpeed;
 
     protected override void OnStart()
     {
         m_CurrentSpeed = m_Speed;
-        m_Vector2 = transform.up * m_CurrentSpeed;
+        m_Vector2 = Vector2Int.up * m_CurrentSpeed;
     }
 
     void Update()
@@ -19,9 +20,15 @@ public class PlayerRocket : PlayerMissile
         if (Time.timeScale == 0)
             return;
         
-        m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, m_MaxSpeed, 0.2f);
-        m_Vector2 = transform.up * m_CurrentSpeed;
+        if (m_CurrentSpeed < m_MaxSpeed) {
+            m_CurrentSpeed += m_Accel;
+        }
+        else {
+            m_CurrentSpeed = m_MaxSpeed;
+        }
+        m_Vector2 = Vector2Int.up * m_CurrentSpeed;
         
         MoveVector();
+        SetPosition();
     }
 }

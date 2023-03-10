@@ -10,7 +10,7 @@ public class PlayerStart : MonoBehaviour
     public GameObject m_ModulePart;
     public GameObject m_PlayerShield;
 
-    private float m_Vspeed;
+    private int m_Vspeed;
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
 
@@ -35,14 +35,16 @@ public class PlayerStart : MonoBehaviour
     }
 
     void Update() {
-        transform.Translate(Vector3.up * m_Vspeed * Time.deltaTime, Space.World);
+        m_PlayerController.SetVerticalSpeed(m_Vspeed / Application.targetFrameRate);
+        //m_PlayerController.m_Vector2 = 
+        //transform.Translate(Vector3.up * m_Vspeed / Application.targetFrameRate, Space.World);
     }
 
     private IEnumerator SpawnEvent() {
         yield return new WaitForSeconds(2.5f);
-        m_Vspeed = 8.8f;
-        while(m_Vspeed > -4f) {
-            m_Vspeed -= 0.3f;
+        m_Vspeed = 2523;
+        while (m_Vspeed > -1024) {
+            m_Vspeed -= 77;
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.5f);
@@ -53,7 +55,7 @@ public class PlayerStart : MonoBehaviour
     private void EndOpening() {
         m_PlayerController.EnableInvincible(m_PlayerController.m_ReviveInvincibleTime);
         m_PlayerManager.m_PlayerControlable = true;
-        m_Vspeed = 0f;
+        m_Vspeed = 0;
         enabled = false;
     }
 

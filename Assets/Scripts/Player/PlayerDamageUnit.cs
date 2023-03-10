@@ -15,7 +15,8 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
     protected PoolingManager m_PoolingManager = null;
     protected float m_DefaultDamage;
 
-    protected Vector2 m_Vector2 = Vector2.zero;
+    protected Vector2Int m_Vector2 = Vector2Int.zero;
+    public Vector2Int m_Position;
 
     public abstract void OnDeath();
 
@@ -26,8 +27,14 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
         m_DefaultDamage = m_Damage;
     }
 
+    protected void SetPosition() {
+        transform.position = new Vector3((float) m_Position.x / 256, (float) m_Position.y / 256, transform.position.z);
+        //transform.position = (Vector2) m_Position / 256;
+    }
+
     protected void MoveVector() {
-        transform.Translate(m_Vector2 * Time.deltaTime, Space.World);
+        m_Position += m_Vector2;
+        //transform.Translate(m_Vector2 * Time.deltaTime, Space.World);
     }
 
     protected void DealDamage(EnemyUnit enemyObject, float damage, sbyte damage_type = -1) {
@@ -45,7 +52,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 public abstract class PlayerMissile : PlayerDamageUnit
 {
     [SerializeField] private float[] m_DamageBonus = {0f, 0f, 0f};
-    [SerializeField] protected float m_Speed = 1f;
+    [SerializeField] protected int m_Speed;
     [SerializeField] private bool m_IsPenetrate = false;
     [SerializeField] private GameObject[] m_ActivatedObject = null;
     [Header("-1 : None / 0 : Shot(fire) / 1 : Homing(purple) / 2 : Rocket(metal)")]
@@ -59,6 +66,7 @@ public abstract class PlayerMissile : PlayerDamageUnit
     
     void OnEnable()
     {
+        m_Position = Vector2Int.RoundToInt(transform.position*256);
         OnStart();
         try {
             m_Damage = m_DefaultDamage + m_DamageBonus[m_DamageLevel];

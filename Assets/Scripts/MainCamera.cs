@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainCamera : MonoBehaviour {
     
     private PlayerManager m_PlayerManager = null;
-    private Vector3 m_PlayerPosition;
+    private Vector2Int m_PlayerPosition;
     private Vector2 m_ShakePosition;
     private float m_PositionY;
     private float m_CameraMoveRate, m_CameraMargin;
@@ -14,10 +14,10 @@ public class MainCamera : MonoBehaviour {
     void Start()
     {
         m_PlayerManager = PlayerManager.instance_pm;
-        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
+        m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
 
         m_CameraMargin = m_PlayerManager.m_CameraMargin;
-        m_CameraMoveRate = m_CameraMargin / Size.CAMERA_MOVE_LIMIT;
+        m_CameraMoveRate = m_CameraMargin / ((float) Size.CAMERA_MOVE_LIMIT / 256);
 
         transform.position.Set(transform.position.x, transform.position.y, Depth.CAMERA);
         m_PositionY = transform.position.y;
@@ -25,7 +25,7 @@ public class MainCamera : MonoBehaviour {
 
     void LateUpdate()
     {
-        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
+        m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
         
         float camera_x = m_PlayerPosition.x * m_CameraMoveRate;
         try {

@@ -70,6 +70,7 @@ public class EnemyBullet : Enemy, CanDeath
 
     void OnEnable()
     {
+        //m_Position = Vector2Int.RoundToInt(transform.position*256);
         m_RotateBullet = false;
         
         for (int i = 0; i < m_BulletTypeObject.Length; i++) {

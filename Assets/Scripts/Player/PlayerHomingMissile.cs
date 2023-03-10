@@ -13,7 +13,7 @@ public class PlayerHomingMissile : PlayerMissile {
     protected override void OnStart()
     {
         m_SystemManager = SystemManager.instance_sm;
-        m_Vector2 = transform.up * m_Speed;
+        m_Vector2 = Vector2Int.up * m_Speed;
         m_Target = null;
     }
 
@@ -31,7 +31,7 @@ public class PlayerHomingMissile : PlayerMissile {
             else {
                 Vector2 vec = (m_Target.transform.position - transform.position).normalized;
                 transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
-                m_Vector2 = transform.up * m_Speed;
+                m_Vector2 = Vector2Int.up * m_Speed;
             }
         }
         transform.up = new Vector2(transform.up.x, transform.up.y);
@@ -42,6 +42,7 @@ public class PlayerHomingMissile : PlayerMissile {
         Vector2 bottom = new Vector2(0f, m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f);
         */
         MoveVector();
+        SetPosition();
     }
 
     private GameObject FindClosestEnemy()

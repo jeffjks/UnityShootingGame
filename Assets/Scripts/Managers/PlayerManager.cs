@@ -11,7 +11,7 @@ public static class Size
     public const float GAME_WIDTH = 15.11f;
     public const float GAME_HEIGHT = 16;
 
-    public const float CAMERA_MOVE_LIMIT = 4.895f; // 카메라가 움직이는 플레이어의 최대/최소 x값
+    public const int CAMERA_MOVE_LIMIT = 1253; // 4.895f; // 카메라가 움직이는 플레이어의 최대/최소 x값
 
     public const float GAME_BOUNDARY_LEFT = - GAME_WIDTH / 2;
     public const float GAME_BOUNDARY_RIGHT = GAME_WIDTH / 2;
@@ -25,8 +25,8 @@ public static class Size
 public class PlayerManager : MonoBehaviour
 {
     public GameObject m_Player;
-    public float m_RevivePointY = -13f;
-    public float m_SafeLine = -11f;
+    public int m_RevivePointY = -3328; // -13f;
+    public int m_SafeLine = -11; // -11f;
     public GameObject m_ItemPowerUp;
     public Attributes m_CurrentAttributes;
     public ReplayManager m_ReplayManager;
@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private RectTransform m_CanvasUI = null;
 
     [HideInInspector] public bool m_PlayerIsAlive;
-    [HideInInspector] public float m_CameraMargin;
+    [HideInInspector] public int m_CameraMargin;
 
     private GameManager m_GameManager = null;
     private SystemManager m_SystemManager = null;
@@ -67,8 +67,8 @@ public class PlayerManager : MonoBehaviour
         m_GameOuterBoundary.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
         m_CanvasUI.sizeDelta = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
 
-        m_SpawnPoint = new Vector3(0, -20f, Depth.PLAYER);
-        m_CameraMargin = (Size.GAME_WIDTH - Size.CAMERA_WIDTH) * 0.5f; // 1.555
+        m_SpawnPoint = new Vector3(0, -20, Depth.PLAYER);
+        m_CameraMargin = (int) ((Size.GAME_WIDTH - Size.CAMERA_WIDTH) * 256 / 2); // 1.555
         
         DontDestroyOnLoad(gameObject);
     }
@@ -91,10 +91,12 @@ public class PlayerManager : MonoBehaviour
         if (attributes != null)
             m_CurrentAttributes = attributes;
         m_PlayerIsAlive = true;
-        if (m_SystemManager.GetCurrentStage() == 0 && !m_SystemManager.m_BossOnlyState)
+        if (m_SystemManager.GetCurrentStage() == 0 && !m_SystemManager.m_BossOnlyState) {
             m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
-        else
+        }
+        else {
             m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePointY, Depth.PLAYER), Quaternion.identity);
+        }
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
         m_PlayerController = m_Player.GetComponent<PlayerController>();
 
@@ -122,11 +124,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void PlayerDead(Vector3 dead_position) {
+    public void PlayerDead(Vector2Int dead_position) {
         m_PlayerIsAlive = false;
         Invoke("PlayerRevive", m_ReviveDelay);
-        Vector3 item_pos = new Vector3(dead_position.x, dead_position.y, Depth.ITEMS);
-
+        Vector3 item_pos = new Vector3(dead_position.x / 256, dead_position.y / 256, Depth.ITEMS);
         int item_num;
 
         if (m_SystemManager.GetTotalMiss() == 0) {
@@ -140,7 +141,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         for (int i = 0; i < item_num; i++) { // item_num 만큼 파워업 아이템 드랍
-            Instantiate(m_ItemPowerUp, item_pos, Quaternion.identity);
+            GameObject item = Instantiate(m_ItemPowerUp, item_pos, Quaternion.identity);
+            Item m_Item = item.GetComponent<Item>();
+            m_Item.InitPosition(dead_position);
         }
         m_PlayerShooter.m_ShotLevel -= item_num;
     }

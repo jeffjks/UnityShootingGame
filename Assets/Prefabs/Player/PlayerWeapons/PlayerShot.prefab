@@ -711,7 +711,7 @@ MonoBehaviour:
   - 0
   - 0.6
   - 1.3
-  m_Speed: 40
+  m_Speed: 256
   m_IsPenetrate: 0
   m_ActivatedObject:
   - {fileID: 3260524993774626272}

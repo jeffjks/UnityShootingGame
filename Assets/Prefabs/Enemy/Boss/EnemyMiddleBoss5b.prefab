@@ -260,10 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bfaf843bebbf8418a8ed3cad4dbd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
-  m_Health: 1800
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 18000
   m_Class: 1
   m_Score: 10000
   m_Debris: 0
@@ -338,9 +338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665af4f0b8e8b974ea26f0d643273761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 655304664469003935}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 655304664469003935}
   m_Health: 0
   m_Class: 0
   m_Score: 0

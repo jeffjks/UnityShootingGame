@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyPlaneLarge2Turret2 : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private Transform m_FirePosition = null;
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 2500, 1900, 1400 };
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float target_angle;
 
@@ -50,7 +50,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
                 CreateBulletsSector(0, pos, 6.3f, target_angle - 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle + 12f, accel, 2, 8f);
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

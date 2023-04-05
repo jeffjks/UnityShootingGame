@@ -39,6 +39,9 @@ public class LanguageMenuHandler : GameUI
                 case 1:
                     Apply();
                     break;
+                case 2:
+                    Cancel();
+                    break;
                 default:
                     break;
             }

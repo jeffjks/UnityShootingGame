@@ -82,7 +82,7 @@ MonoBehaviour:
   - {fileID: 8456249100120801099}
   - {fileID: 1310885769364444235}
   - {fileID: 1167895299049775418}
-  m_LifeTime: 24
+  m_LifeTime: 24000
   m_Collider2D: {fileID: 7277607235241683513}
   m_DebrisSize: 0
 --- !u!1 &926051266589471383

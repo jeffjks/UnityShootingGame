@@ -60,9 +60,9 @@ public class EnemyBoss3Turret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForMillisecondFrames(1500);
         
         m_RotateState = 2;
 
@@ -70,29 +70,29 @@ public class EnemyBoss3Turret : EnemyUnit
             pos = m_FirePosition.position;
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 8, 20.6f);
-                yield return new WaitForSeconds(0.64f);
+                yield return new WaitForMillisecondFrames(640);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 15f);
-                yield return new WaitForSeconds(0.32f);
+                yield return new WaitForMillisecondFrames(320);
             }
             else {
                 CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-5f, 5f), accel, 13, 13f);
-                yield return new WaitForSeconds(0.27f);
+                yield return new WaitForMillisecondFrames(270);
             }
         }
     }
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
-        float[] fire_delay = { 2.4f, 1.8f, 1.8f };
+        int[] fire_delay = { 2400, 1800, 1800 };
         float random_value;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForMillisecondFrames(1000);
 
         if (m_RandomValue == 0)
-            yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]*0.5f);
+            yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.m_Difficulty] / 2);
 
         while(true) {
             pos = m_FirePosition.position;
@@ -100,17 +100,17 @@ public class EnemyBoss3Turret : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 4; i++)
                     CreateBullet(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel);
-                yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
+                yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.m_Difficulty]);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++)
                     CreateBullet(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel);
-                yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
+                yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.m_Difficulty]);
             }
             else {
                 for (int i = 0; i < 4; i++)
                     CreateBulletsSector(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel, 3, 18f);
-                yield return new WaitForSeconds(fire_delay[m_SystemManager.m_Difficulty]);
+                yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.m_Difficulty]);
             }
         }
     }

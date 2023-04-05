@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyTankLarge2 : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform[] m_FirePosition = new Transform[2];
+    private int[] m_FireDelay = { 1000, 400, 400 };
     private float m_Direction;
 
     void Start()
@@ -19,10 +19,10 @@ public class EnemyTankLarge2 : EnemyUnit
         RotateImmediately(m_MoveVector.direction);
 
         if (m_SystemManager.m_Difficulty == 0) {
-            m_Direction += 97f * Time.deltaTime;
+            m_Direction += 97f / Application.targetFrameRate * Time.timeScale;
         }
         else {
-            m_Direction += 123f * Time.deltaTime;
+            m_Direction += 123f / Application.targetFrameRate * Time.timeScale;
         }
 
         if (m_Direction >= 360f) {
@@ -34,7 +34,7 @@ public class EnemyTankLarge2 : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
@@ -56,7 +56,7 @@ public class EnemyTankLarge2 : EnemyUnit
                     CreateBulletsSector(3, pos[1], 6.3f + 0.5f*i, m_CurrentAngle - m_Direction, accel, 4, 90f);
                 }
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 

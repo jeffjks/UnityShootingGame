@@ -40,7 +40,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         m_InPattern = true;
 
@@ -49,7 +49,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(4, pos, 3.5f, m_CurrentAngle, accel, 11, 17f);
                 CreateBulletsSector(4, pos, 4.5f, m_CurrentAngle, accel, 6, 17f);
-                yield return new WaitForSeconds(2.4f);
+                yield return new WaitForMillisecondFrames(2400);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
@@ -58,7 +58,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
                 CreateBulletsSector(4, pos, 3.3f, m_CurrentAngle, accel, 17, 11f);
                 CreateBulletsSector(4, pos, 4f, m_CurrentAngle, accel, 14, 11f);
                 CreateBulletsSector(4, pos, 4.7f, m_CurrentAngle, accel, 11, 11f);
-                yield return new WaitForSeconds(1.6f);
+                yield return new WaitForMillisecondFrames(1600);
             }
         }
         else {
@@ -67,7 +67,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
                 CreateBulletsSector(4, pos, 3.3f, m_CurrentAngle, accel, 24, 8f);
                 CreateBulletsSector(4, pos, 4f, m_CurrentAngle, accel, 19, 8f);
                 CreateBulletsSector(4, pos, 4.7f, m_CurrentAngle, accel, 16, 8f);
-                yield return new WaitForSeconds(1.6f);
+                yield return new WaitForMillisecondFrames(1600);
             }
         }
         m_InPattern = false;

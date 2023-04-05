@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBoss2Turret2_2 : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    private int[] m_FireDelay = { 1800, 900, 600 };
     public Transform m_FirePosition;
 
     void Start()
@@ -18,7 +18,7 @@ public class EnemyBoss2Turret2_2 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos1, pos2, pos3;
         float gap = 0.32f;
 
@@ -29,7 +29,7 @@ public class EnemyBoss2Turret2_2 : EnemyUnit
             CreateBullet(5, pos1, 7.3f, m_CurrentAngle, accel);
             CreateBullet(5, pos2, 7.6f, m_CurrentAngle, accel);
             CreateBullet(5, pos3, 7.3f, m_CurrentAngle, accel);
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

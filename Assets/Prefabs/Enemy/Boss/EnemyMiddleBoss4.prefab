@@ -688,10 +688,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628ffc2bc12445a4ea6eded9ad421f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
-  m_Health: 3600
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 36000
   m_Class: 1
   m_Score: 10000
   m_Debris: 0
@@ -763,9 +763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7df22ff02a63354ebcd563823d6e345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4802451315995933633}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -5641,10 +5641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e748800eba5bb241aad6f847d8f5a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
-  m_Health: 600
+  m_ParentEnemy: {fileID: 4802451315995933633}
+  m_Health: 6000
   m_Class: 1
   m_Score: 4000
   m_Debris: 0
@@ -6115,10 +6115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e748800eba5bb241aad6f847d8f5a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
-  m_Health: 600
+  m_ParentEnemy: {fileID: 4802451315995933633}
+  m_Health: 6000
   m_Class: 1
   m_Score: 4000
   m_Debris: 0
@@ -6318,9 +6318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4717128463b884081acc9297b4f4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4802451315995933633}
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4802451315995933633}
   m_Health: 0
   m_Class: 0
   m_Score: 0

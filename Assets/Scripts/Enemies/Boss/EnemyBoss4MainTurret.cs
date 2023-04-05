@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyBoss4MainTurret : EnemyUnit
 {
-    public GameObject m_Barrel;
+    public EnemyBoss4MainTurretBarrel m_EnemyBoss4MainTurretBarrel;
     public Transform m_FirePosition;
     [HideInInspector] public byte m_RotatePattern = 10;
     
@@ -70,7 +69,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern1A()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.64f, rand;
         
@@ -83,26 +82,26 @@ public class EnemyBoss4MainTurret : EnemyUnit
                 CreateBullet(0, pos0, 5.8f, m_CurrentAngle + rand, accel);
                 CreateBulletsSector(0, pos1, 5.8f, m_CurrentAngle + rand - 30f, accel, 2, 18f);
                 CreateBulletsSector(0, pos2, 5.8f, m_CurrentAngle + rand + 30f, accel, 2, 18f);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForMillisecondFrames(1000);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(0, pos0, 5.8f, m_CurrentAngle + rand, accel, 3, 12f);
                 CreateBulletsSector(0, pos1, 5.8f, m_CurrentAngle + rand - 26f, accel, 2, 12f);
                 CreateBulletsSector(0, pos2, 5.8f, m_CurrentAngle + rand + 26f, accel, 2, 12f);
-                yield return new WaitForSeconds(0.6f);
+                yield return new WaitForMillisecondFrames(600);
             }
             else {
                 CreateBulletsSector(0, pos0, 5.8f, m_CurrentAngle + rand, accel, 3, 10f);
                 CreateBulletsSector(0, pos1, 5.8f, m_CurrentAngle + rand - 25f, accel, 3, 10f);
                 CreateBulletsSector(0, pos2, 5.8f, m_CurrentAngle + rand + 25f, accel, 3, 10f);
-                yield return new WaitForSeconds(0.45f);
+                yield return new WaitForMillisecondFrames(450);
             }
         }
     }
 
     private IEnumerator Pattern1B()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float rand;
         
@@ -111,22 +110,22 @@ public class EnemyBoss4MainTurret : EnemyUnit
             pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBulletsSector(3, pos, 4.1f, m_CurrentAngle + rand, accel, 4, 14f);
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForMillisecondFrames(1500);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(3, pos, 4.1f, m_CurrentAngle + rand, accel, 5, 10f);
-                yield return new WaitForSeconds(0.85f);
+                yield return new WaitForMillisecondFrames(850);
             }
             else {
                 CreateBulletsSector(3, pos, 4.1f, m_CurrentAngle + rand, accel, 5, 8f);
-                yield return new WaitForSeconds(0.6f);
+                yield return new WaitForMillisecondFrames(600);
             }
         }
     }
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float rand;
 
@@ -156,7 +155,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         
         while (true) {
@@ -173,7 +172,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
                 CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2f*1.5f + 5f);
                 CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2f*1.5f + 5f);
                 CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2f*1.5f + 5f);
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForMillisecondFrames(1500);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(5, pos, 6.79f * 1f, m_CurrentAngle, accel, 2, 8.13f*2f*1.2f + 5f);
@@ -193,7 +192,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
                 CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2f*1.2f + 5f);
                 CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2f*1.2f + 5f);
                 CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2f*1.2f + 5f);
-                yield return new WaitForSeconds(1.2f);
+                yield return new WaitForMillisecondFrames(1200);
             }
             else {
                 CreateBulletsSector(5, pos, 6.79f * 1f, m_CurrentAngle, accel, 2, 8.13f*2f + 5f);
@@ -213,37 +212,30 @@ public class EnemyBoss4MainTurret : EnemyUnit
                 CreateBulletsSector(5, pos, 5.48f * 1.4f, m_CurrentAngle, accel, 2, 28.53f*2f + 5f);
                 CreateBulletsSector(5, pos, 4.77f * 1.4f, m_CurrentAngle, accel, 2, 40.95f*2f + 5f);
                 CreateBulletsSector(5, pos, 4.16f * 1.4f, m_CurrentAngle, accel, 2, 56.77f*2f + 5f);
-                yield return new WaitForSeconds(0.9f);
+                yield return new WaitForMillisecondFrames(900);
             }
         }
     }
 
     private IEnumerator Pattern4()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         
         pos = GetScreenPosition(m_FirePosition.position);
-        StartCoroutine(ShootAnimation());
+        StartCoroutine(m_EnemyBoss4MainTurretBarrel.ShootAnimation());
         if (m_SystemManager.m_Difficulty == 0) {
-            CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.ERASE_AND_CREATE, 0.5f,
+            CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.ERASE_AND_CREATE, 500,
             1, 4.5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 30, 12f);
         }
         else if (m_SystemManager.m_Difficulty == 1) {
-            CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.CREATE, 0.2f,
-            1, 5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 45, 8f, new Vector2(0.17f, 0.17f));
+            CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.CREATE, 200,
+            1, 5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 45, 8f, new Vector2Int(170, 170));
         }
         else {
-            CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.CREATE, 0.2f,
-            1, 5.4f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2(0.125f, 0.125f));
+            CreateBullet(0, pos, 5.1f, m_CurrentAngle, accel, BulletType.CREATE, 200,
+            1, 5.4f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2Int(125, 125));
         }
-        yield break;
-    }
-
-    private IEnumerator ShootAnimation() {
-        m_Barrel.transform.DOLocalMoveZ(-0.32f, 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        m_Barrel.transform.DOLocalMoveZ(0f, 0.3f);
         yield break;
     }
 }

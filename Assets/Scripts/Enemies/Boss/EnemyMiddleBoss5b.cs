@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DG.Tweening;
 
 public class EnemyMiddleBoss5b : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private Transform[] m_FirePosition = new Transform[3];
-    [SerializeField] private GameObject m_Hull = null;
-    [SerializeField] private EnemyMiddleBoss5bTurret m_Turret = null;
+    public Transform[] m_FirePosition = new Transform[3];
+    public GameObject m_Hull;
+    public EnemyMiddleBoss5bTurret m_Turret;
     public Transform m_Renderer;
+
+    private int[] m_FireDelay = { 3200, 2600, 2000 };
+    private IEnumerator m_MovementPattern;
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     
     private Vector3 m_TargetPosition;
-    private float m_AppearanceTime = 2f;
-    private byte m_Phase;
+    private const int APPEARNCE_TIME = 2000;
+    private int m_Phase;
 
     void Start()
     {
-        float duration = 3f;
-        int random_value = Random.Range(-1, 1);
-        if (random_value == 0)
-            random_value = 1;
         m_TargetPosition = new Vector3(0f, -3.8f, Depth.ENEMY);
 
+        m_MovementPattern = AppearanceSequence();
+        StartCoroutine(m_MovementPattern);
+        
+        GetCoordinates();
+        RotateImmediately(m_PlayerPosition);
+        /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.OutQuad))
+        .Append(transform.DOMove(m_TargetPosition, APPEARNCE_TIME).SetEase(Ease.OutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
@@ -33,26 +36,49 @@ public class EnemyMiddleBoss5b : EnemyUnit
         .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(0f, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMoveY(10f, 3f).SetEase(Ease.InQuad));
-        
-        GetCoordinates();
-        InvokeRepeating("Pattern1", 1f, m_FireDelay[m_SystemManager.m_Difficulty]);
+        .Append(transform.DOMoveY(10f, 3f).SetEase(Ease.InQuad));*/
+    }
+
+    private IEnumerator AppearanceSequence() {
+        int duration = 3000;
+        int random_sign = Random.Range(-1, 1);
+        if (random_sign == 0)
+            random_sign = 1;
+
+        yield return MovementPattern(m_TargetPosition, EaseType.OutQuad, APPEARNCE_TIME);
         m_CurrentPattern1 = Pattern1();
         StartCoroutine(m_CurrentPattern1);
-        RotateImmediately(m_PlayerPosition);
+        
+        yield return MovementPattern(new Vector3(-3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, 2000);
+        yield return MovementPattern(new Vector3(3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
+        yield return MovementPattern(new Vector3(-3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
+        yield return MovementPattern(new Vector3(3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
+        yield return MovementPattern(new Vector3(-3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
+        yield return MovementPattern(new Vector3(3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
+        yield return MovementPattern(new Vector3(-3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
+        yield return MovementPattern(new Vector3(0f, -3.8f, Depth.ENEMY), EaseType.InOutQuad, 2000);
+        yield return MovementPattern(new Vector3(0f, 10f, Depth.ENEMY), EaseType.InQuad, 3000);
+        yield break;
+    }
+
+    private IEnumerator MovementPattern(Vector3 target_position, int position_ease, int duration) {
+        Vector3 init_position = transform.position;
+        int frame = duration * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+
+            transform.position = Vector3.Lerp(init_position, target_position, t_pos);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     protected override void Update()
     {
         if (m_Phase == 0) {
-            if (m_Health <= m_MaxHealth * 0.4f) { // 체력 40% 이하
-                m_Phase = 1;
-                if (m_CurrentPattern2 != null)
-                    StopCoroutine(m_CurrentPattern2);
-                Destroy(m_Hull);
-                ExplosionEffect(0, 0);
-                
-                m_Turret.StartPattern1();
+            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+                ToNextPhase();
             }
         }
 
@@ -64,11 +90,31 @@ public class EnemyMiddleBoss5b : EnemyUnit
         base.Update();
     }
 
+    public void ToNextPhase() {
+        m_Phase++;
+        if (m_CurrentPattern2 != null)
+            StopCoroutine(m_CurrentPattern2);
+        m_Hull.SetActive(false);
+        ExplosionEffect(0, 0);
+        
+        m_Turret.StartPattern1();
+    }
+
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3[] pos = new Vector3[2];
-        sbyte state = 1;
-        yield return new WaitForSeconds(2f);
+        int state = 1;
+        float[,] bulletInfo1 = { {5.4f, 6.6f, 7.5f, 6.6f, 5.4f}, {-56.3f, -24.3f, 0f, 24.3f, 56.3f} };
+        float[,] bulletInfo2a = { {4.1f, 4.5f, 5.1f, 5.8f, 5.8f, 5.1f, 4.5f, 4.1f}, {-63.4f, -41.4f, -23.8f, -7.4f, 7.4f, 23.8f, 41.4f, 63.4f} };
+        float[,] bulletInfo2b = {
+            {5.3f, 5.4f, 5.9f, 6.6f, 7.5f, 7.8f, 7.5f, 6.6f, 5.9f, 5.4f, 5.3f},
+            {-75.3f, -56.3f, -38.8f, -24.3f, -10.8f, 0f, 10.8f, 24.3f, 38.8f, 56.3f, 75.3f}
+        };
+        float[,] bulletInfo3a = { {4.1f, 4.5f, 5.1f, 5.8f, 5.8f, 5.1f, 4.5f, 4.1f}, {-63.4f, -41.4f, -23.8f, -7.4f, 7.4f, 23.8f, 41.4f, 63.4f} };
+        float[,] bulletInfo3b = {
+            {5.3f, 5.4f, 5.9f, 6.6f, 7.5f, 7.8f, 7.5f, 6.6f, 5.9f, 5.4f, 5.3f},
+            {-75.3f, -56.3f, -38.8f, -24.3f, -10.8f, 0f, 10.8f, 24.3f, 38.8f, 56.3f, 75.3f}
+        };
         
         while (true) {
             pos[0] = m_FirePosition[0].position;
@@ -78,69 +124,35 @@ public class EnemyMiddleBoss5b : EnemyUnit
                 StartCoroutine(m_CurrentPattern2);
             }
             else if (m_Phase == 1) {
-                m_Turret.StartCoroutine("Pattern2");
+                m_Turret.StartPattern2();
             }
             state *= -1;
             for (int i = 0; i < 2; i++) {
                 if (m_SystemManager.m_Difficulty == 0) {
-                    CreateBullet(0, pos[i], 5.4f, m_CurrentAngle - 56.3f, accel); // 108.1
-                    CreateBullet(0, pos[i], 6.6f, m_CurrentAngle - 24.3f, accel); // 131.5
-                    CreateBullet(0, pos[i], 7.5f, m_CurrentAngle, accel); // 160
-                    CreateBullet(0, pos[i], 6.6f, m_CurrentAngle + 24.3f, accel); // 131.5
-                    CreateBullet(0, pos[i], 5.4f, m_CurrentAngle + 56.3f, accel); // 108.1
+                    for (int j = 0; j < bulletInfo1.GetLength(0); ++j) {
+                        CreateBullet(0, pos[i], bulletInfo1[0,j], m_CurrentAngle + bulletInfo1[1,j], accel);
+                    }
                 }
                 else if (m_SystemManager.m_Difficulty == 1) {
-                    CreateBullet(2, pos[i], 4.1f, m_CurrentAngle - 63.4f, accel); // 82.7
-                    CreateBullet(2, pos[i], 4.5f, m_CurrentAngle - 41.4f, accel); // 89.2
-                    CreateBullet(2, pos[i], 5.1f, m_CurrentAngle - 23.8f, accel); // 101.6
-                    CreateBullet(2, pos[i], 5.8f, m_CurrentAngle - 7.4f, accel); // 116.9
-                    CreateBullet(2, pos[i], 5.8f, m_CurrentAngle + 7.4f, accel); // 116.9
-                    CreateBullet(2, pos[i], 5.1f, m_CurrentAngle + 23.8f, accel); // 101.6
-                    CreateBullet(2, pos[i], 4.5f, m_CurrentAngle + 41.4f, accel); // 89.2
-                    CreateBullet(2, pos[i], 4.1f, m_CurrentAngle + 63.4f, accel); // 82.7
-
-                    CreateBullet(0, pos[i], 5.3f, m_CurrentAngle - 75.3f, accel); // 106.4
-                    CreateBullet(0, pos[i], 5.4f, m_CurrentAngle - 56.3f, accel); // 108.1
-                    CreateBullet(0, pos[i], 5.9f, m_CurrentAngle - 38.8f, accel); // 118.1
-                    CreateBullet(0, pos[i], 6.6f, m_CurrentAngle - 24.3f, accel); // 131.5
-                    CreateBullet(0, pos[i], 7.5f, m_CurrentAngle - 10.8f, accel); // 150.6
-                    CreateBullet(0, pos[i], 7.8f, m_CurrentAngle, accel); // 160
-                    CreateBullet(0, pos[i], 7.5f, m_CurrentAngle + 10.8f, accel); // 150.6
-                    CreateBullet(0, pos[i], 6.6f, m_CurrentAngle + 24.3f, accel); // 131.5
-                    CreateBullet(0, pos[i], 5.9f, m_CurrentAngle + 38.8f, accel); // 118.1
-                    CreateBullet(0, pos[i], 5.4f, m_CurrentAngle + 56.3f, accel); // 108.1
-                    CreateBullet(0, pos[i], 5.3f, m_CurrentAngle + 75.3f, accel); // 106.4
+                    for (int j = 0; j < bulletInfo1.GetLength(0); ++j) {
+                        CreateBullet(0, pos[i], bulletInfo2a[0,j], m_CurrentAngle + bulletInfo2a[1,j], accel);
+                        CreateBullet(0, pos[i], bulletInfo2b[0,j], m_CurrentAngle + bulletInfo2b[1,j], accel);
+                    }
                 }
                 else {
-                    CreateBullet(2, pos[i], 4.1f, m_CurrentAngle - 63.4f, accel); // 82.7
-                    CreateBullet(2, pos[i], 4.5f, m_CurrentAngle - 41.4f, accel); // 89.2
-                    CreateBullet(2, pos[i], 5.1f, m_CurrentAngle - 23.8f, accel); // 101.6
-                    CreateBullet(2, pos[i], 5.8f, m_CurrentAngle - 7.4f, accel); // 116.9
-                    CreateBullet(2, pos[i], 5.8f, m_CurrentAngle + 7.4f, accel); // 116.9
-                    CreateBullet(2, pos[i], 5.1f, m_CurrentAngle + 23.8f, accel); // 101.6
-                    CreateBullet(2, pos[i], 4.5f, m_CurrentAngle + 41.4f, accel); // 89.2
-                    CreateBullet(2, pos[i], 4.1f, m_CurrentAngle + 63.4f, accel); // 82.7
-
-                    CreateBullet(0, pos[i], 5.3f, m_CurrentAngle - 75.3f, accel); // 106.4
-                    CreateBullet(0, pos[i], 5.4f, m_CurrentAngle - 56.3f, accel); // 108.1
-                    CreateBullet(0, pos[i], 5.9f, m_CurrentAngle - 38.8f, accel); // 118.1
-                    CreateBullet(0, pos[i], 6.6f, m_CurrentAngle - 24.3f, accel); // 131.5
-                    CreateBullet(0, pos[i], 7.5f, m_CurrentAngle - 10.8f, accel); // 150.6
-                    CreateBullet(0, pos[i], 7.8f, m_CurrentAngle, accel); // 160
-                    CreateBullet(0, pos[i], 7.5f, m_CurrentAngle + 10.8f, accel); // 150.6
-                    CreateBullet(0, pos[i], 6.6f, m_CurrentAngle + 24.3f, accel); // 131.5
-                    CreateBullet(0, pos[i], 5.9f, m_CurrentAngle + 38.8f, accel); // 118.1
-                    CreateBullet(0, pos[i], 5.4f, m_CurrentAngle + 56.3f, accel); // 108.1
-                    CreateBullet(0, pos[i], 5.3f, m_CurrentAngle + 75.3f, accel); // 106.4
+                    for (int j = 0; j < bulletInfo1.GetLength(0); ++j) {
+                        CreateBullet(0, pos[i], bulletInfo3a[0,j], m_CurrentAngle + bulletInfo3a[1,j], accel);
+                        CreateBullet(0, pos[i], bulletInfo3b[0,j], m_CurrentAngle + bulletInfo3b[1,j], accel);
+                    }
                 }
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 
-    private IEnumerator Pattern2(sbyte state) {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        yield return new WaitForSeconds(2f);
+    private IEnumerator Pattern2(int state) {
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        yield return new WaitForMillisecondFrames(2000);
         Vector3 pos;
         float random_value = Random.Range(-6f, 6f);
         
@@ -148,42 +160,61 @@ public class EnemyMiddleBoss5b : EnemyUnit
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 6.7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 5, 25f);
-                yield return new WaitForSeconds(0.26f);
+                yield return new WaitForMillisecondFrames(260);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             for (int i = 0; i < 5; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
-                yield return new WaitForSeconds(0.21f);
+                yield return new WaitForMillisecondFrames(210);
             }
         }
         else {
             for (int i = 0; i < 7; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForMillisecondFrames(150);
             }
         }
         yield break;
     }
 
 
+    private IEnumerator DeathPattern(Quaternion target_rotation, Vector3 target_scale, int rotation_ease, int scale_ease, int duration) {
+        Quaternion init_rotation = transform.rotation;
+        Vector3 init_scale = transform.localScale;
+        int frame = duration * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_scale = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+
+            transform.position = Vector3.Lerp(init_scale, target_scale, t_scale);
+            transform.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
+    }
+
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
         m_MoveVector = new MoveVector(1.2f, 0f);
-        m_SystemManager.BulletsToGems(3f);
+        m_SystemManager.BulletsToGems(3000);
         m_Phase = 2;
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
         m_Turret.OnDeath();
+
+        StartCoroutine(DeathPattern(new Quaternion(-0.2f, 0.9f, -0.4f, -0.2f), new Vector3(0.7f, 0.7f, 0.7f), EaseType.Linear, EaseType.Linear, 2500));
         
+        /*
         m_Sequence = DOTween.Sequence()
         .Append(m_Renderer.DORotateQuaternion(new Quaternion(-0.2f, 0.9f, -0.4f, -0.2f), 2.5f).SetEase(Ease.Linear))
-        .Join(m_Renderer.DOScale(new Vector3(0.7f, 0.7f, 0.7f), 2.5f).SetEase(Ease.Linear));
+        .Join(m_Renderer.DOScale(new Vector3(0.7f, 0.7f, 0.7f), 2.5f).SetEase(Ease.Linear));*/
 
         StartCoroutine(DeathExplosion1());
         StartCoroutine(DeathExplosion2());
-        yield return new WaitForSeconds(2.1f);
+        yield return new WaitForMillisecondFrames(2100);
 
         ExplosionEffect(0, 2, new Vector2(0f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         ExplosionEffect(1, -1, new Vector2(1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
@@ -195,25 +226,25 @@ public class EnemyMiddleBoss5b : EnemyUnit
     }
 
     private IEnumerator DeathExplosion1() {
-        float timer = 0f, random_timer = 0f;
+        int timer = 0, t_add = 0;
         Vector2 random_pos;
         while (timer < 2f) {
-            random_timer = Random.Range(0.2f, 0.3f);
+            t_add = Random.Range(200, 300);
             random_pos = (Vector2) Random.insideUnitCircle * 1.2f;
             ExplosionEffect(1, -1, random_pos);
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }
 
     private IEnumerator DeathExplosion2() {
-        float timer = 0f, random_timer = 0f;
+        int timer = 0, t_add = 0;
         Vector2 random_pos;
         while (timer < 2f) {
-            random_timer = Random.Range(0.15f, 0.25f);
+            t_add = Random.Range(150, 250);
             random_pos = (Vector2) Random.insideUnitCircle * 1.7f;
             ExplosionEffect(2, 1, random_pos);
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }

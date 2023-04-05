@@ -4,7 +4,7 @@ using System.Collections;
 public class ExplosionEffect : MonoBehaviour
 {
     public string m_ObjectName;
-    public float m_Lifetime;
+    public int m_Lifetime;
 
     [HideInInspector] public MoveVector m_MoveVector;
     
@@ -25,15 +25,11 @@ public class ExplosionEffect : MonoBehaviour
     void OnEnable()
     {
         if (m_OnEnable) {
-            Invoke("OnDeath", m_Lifetime);
+            StartCoroutine(OnDeath());
         }
-        else
+        else {
             m_OnEnable = true;
-    }
-
-    void OnDisable()
-    {
-        CancelInvoke();
+        }
     }
 
     void Update()
@@ -44,11 +40,13 @@ public class ExplosionEffect : MonoBehaviour
     private void MoveDirection(MoveVector movevector)
     {
         Vector2 vector2 = Quaternion.AngleAxis(movevector.direction, Vector3.forward) * Vector2.down;
-        transform.Translate(vector2 * movevector.speed * Time.deltaTime, Space.World);
+        transform.Translate(vector2 * movevector.speed / Application.targetFrameRate * Time.timeScale, Space.World);
     }
 
-    private void OnDeath() {
+    private IEnumerator OnDeath() {
+        yield return new WaitForMillisecondFrames(m_Lifetime);
         m_MoveVector.speed = 0f;
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EXPLOSION);
+        yield break;
     }
 }

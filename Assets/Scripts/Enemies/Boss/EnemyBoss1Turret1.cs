@@ -46,7 +46,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         int random_value = Random.Range(0, 2);
         pos = m_FirePosition.position;
@@ -87,51 +87,51 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
     private IEnumerator Pattern2(bool right)
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         int random_value = Random.Range(0, 2);
 
         if (m_SystemManager.m_Difficulty == 0) {
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.1f, m_CurrentAngle, accel, 3, 25f);
-            yield return new WaitForSeconds(0.54f);
+            yield return new WaitForMillisecondFrames(540);
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.1f, m_CurrentAngle, accel, 3, 25f);
-            yield return new WaitForSeconds(0.54f);
+            yield return new WaitForMillisecondFrames(540);
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
-            yield return new WaitForSeconds(0.27f);
+            yield return new WaitForMillisecondFrames(270);
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
-            yield return new WaitForSeconds(0.27f);
+            yield return new WaitForMillisecondFrames(270);
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
-            yield return new WaitForSeconds(0.27f);
+            yield return new WaitForMillisecondFrames(270);
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
-            yield return new WaitForSeconds(0.27f);
+            yield return new WaitForMillisecondFrames(270);
         }
         else {
             if (right) {
                 for (int i = 0; i < 2; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 4, 17f);
-                    yield return new WaitForSeconds(0.27f);
+                    yield return new WaitForMillisecondFrames(270);
                     pos = m_FirePosition.position;
                     CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 5, 17f);
-                    yield return new WaitForSeconds(0.27f);
+                    yield return new WaitForMillisecondFrames(270);
                 }
             }
             else {
                 for (int i = 0; i < 2; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 5, 17f);
-                    yield return new WaitForSeconds(0.27f);
+                    yield return new WaitForMillisecondFrames(270);
                     pos = m_FirePosition.position;
                     CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 4, 17f);
-                    yield return new WaitForSeconds(0.27f);
+                    yield return new WaitForMillisecondFrames(270);
                 }
             }
         }
@@ -140,7 +140,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
 
         for (int i = 0; i < 2; i++) {
@@ -158,7 +158,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
                 CreateBullet(2, pos, 5.8f, 0f, accel);
                 CreateBullet(2, pos, 7.0f, 0f, accel);
             }
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForMillisecondFrames(400);
         }
         yield break;
     }

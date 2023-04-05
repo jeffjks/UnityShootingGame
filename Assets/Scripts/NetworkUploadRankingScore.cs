@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.IO;
+using System;
 
 public class NetworkUploadRankingScore : MonoBehaviour
 {
@@ -24,7 +26,30 @@ public class NetworkUploadRankingScore : MonoBehaviour
         uint totalMiss = m_SystemManager.GetTotalMiss();
         string pcID = SystemInfo.deviceUniqueIdentifier;
 
-        StartCoroutine(UploadScore(difficulty, id, totalScore, shipAttributes, totalMiss, pcID));
+        if (m_GameManager.m_NetworkAvailable) {
+            StartCoroutine(UploadScore(difficulty, id, totalScore, shipAttributes, totalMiss, pcID));
+        }
+        else {
+            AddLocalRanking(difficulty, new LocalRankingData(id, (int) totalScore, shipAttributes, (int) totalMiss, DateTime.Now.Ticks));
+        }
+    }
+
+    public void AddLocalRanking(int difficulty, LocalRankingData record) {
+        string filePath = $"{m_GameManager.m_RankingDirectory}ranking_{difficulty}.bin";
+
+        FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+        try {
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(record.id);
+            bw.Write(record.score);
+            bw.Write(record.shipAttributes);
+            bw.Write(record.miss);
+            bw.Write(record.date);
+        }
+        catch (System.NullReferenceException) {
+            return;
+        }
+        fs.Close();
     }
 
     public IEnumerator UploadScore(int difficulty, string id, uint totalScore, int shipAttributes, uint totalMiss, string pcID) {

@@ -25,13 +25,16 @@ public abstract class StageManager : MonoBehaviour
     
     protected class MovePattern
     {
-        public float delay, direction, speed, time;
+        public int delay;
+        public float speed;
+        public float direction;
+        public int duration;
 
-        public MovePattern(float delay, float direction, float speed, float time) {
+        public MovePattern(int delay, float direction, float speed, int duration) {
             this.delay = delay;
             this.direction = direction;
             this.speed = speed;
-            this.time = time;
+            this.duration = duration;
         }
     }
 
@@ -132,17 +135,17 @@ public abstract class StageManager : MonoBehaviour
         return ins;
     }
 
-    protected GameObject CreateEnemy(GameObject obj, Vector3 pos, float attackable = 0f) { // attackable 후 attackable 활성화
+    protected GameObject CreateEnemy(GameObject obj, Vector3 pos) { // attackable 후 attackable 활성화
         GameObject ins = InstantiateEnemyObject(obj, pos);
-        EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
-        enemy_unit.DisableAttackable(attackable);
+        //EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
+        //enemy_unit.DisableAttackable(attackable_millisecond);
         return ins;
     }
     
-    protected GameObject CreateEnemyWithTarget(GameObject obj, Vector3 pos, Vector3 target_pos, float time) { // Only Air Unit
+    protected GameObject CreateEnemyWithTarget(GameObject obj, Vector3 pos, Vector2 target_pos, int duration) { // Only Air Unit (where T: HasTargetPosition)
         GameObject ins = InstantiateEnemyObject(obj, pos);
-        EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
-        ins.transform.DOMove(new Vector3(target_pos.x, target_pos.y, Depth.ENEMY), time).SetEase(Ease.OutQuad);
+        HasTargetPosition enemy_unit = ins.GetComponent<HasTargetPosition>();
+        enemy_unit.StartCoroutine(enemy_unit.MoveTowardsToTarget(target_pos, duration));
         return ins;
     }
     
@@ -150,51 +153,45 @@ public abstract class StageManager : MonoBehaviour
         GameObject ins = InstantiateEnemyObject(obj, pos);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = moveVector;
-        Sequence sequence = DOTween.Sequence();
-
+        
         if (movePattern == null) {
             return ins;
         }
-        else {
-            for (int i = 0; i < movePattern.Length; i++) {
-                float pattern_delay = movePattern[i].delay;
-                float pattern_direction = movePattern[i].direction;
-                float pattern_speed = movePattern[i].speed;
-                float pattern_time = movePattern[i].time;
+        for (int i = 0; i < movePattern.Length; i++) {
+            int pattern_delay = movePattern[i].delay;
+            MoveVector pattern_moveVector = new MoveVector(movePattern[i].speed, movePattern[i].direction);
+            int pattern_duration = movePattern[i].duration;
 
-                if (pattern_direction == 8739f) {
-                    pattern_direction = enemy_unit.m_MoveVector.direction;
-                }
-                if (pattern_speed == 8739f) {
-                    pattern_speed = enemy_unit.m_MoveVector.speed;
-                }
+            enemy_unit.m_TweenDataQueue.Enqueue(new TweenData(pattern_delay));
+            enemy_unit.m_TweenDataQueue.Enqueue(new TweenDataMoveVector(pattern_moveVector, pattern_duration));
 
-                sequence.AppendInterval(pattern_delay)
-                .Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, pattern_direction, pattern_time).SetEase(Ease.Linear))
-                .Join(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, pattern_speed, pattern_time).SetEase(Ease.Linear));
-            }
-            return ins;
+            //sequence.AppendInterval(pattern_delay)
+            //.Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, pattern_direction, pattern_duration).SetEase(Ease.Linear))
+            //.Join(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, pattern_speed, pattern_duration).SetEase(Ease.Linear));
         }
+        return ins;
     }
 
 
-    protected IEnumerator MiddleBossStart(Vector3 pos, float delay, byte number = 0) { // delay 후 체력바 활성화, number = 중간보스 번호
+    protected IEnumerator MiddleBossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화, number = 중간보스 번호
+        int frame = millisecond * Application.targetFrameRate / 1000;
         GameObject middle_boss;
         middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
         EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
         m_BossHealthBar.m_EnemyUnitBoss = enemy_unit;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForFrames(frame);
         m_SystemManager.m_PlayState = 1;
         yield break;
     }
 
-    protected IEnumerator BossStart(Vector3 pos, float delay, byte number = 0) { // delay 후 체력바 활성화
+    protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화
+        int frame = millisecond * Application.targetFrameRate / 1000;
         GameObject boss;
         boss = CreateEnemy(m_BossUnit[number], pos);
         m_BossHealthBar.m_EnemyUnitBoss = boss.GetComponent<EnemyUnit>();
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForFrames(frame);
         m_SystemManager.m_PlayState = 1;
         yield break;
     }
@@ -217,36 +214,52 @@ public abstract class StageManager : MonoBehaviour
         m_AudioStage.Stop();
     }
 
-    public void SetBackgroundSpeed(float target, float duration = 0f) {
-        StartCoroutine(BackgroundSpeedCoroutine(target, duration));
+    public void SetBackgroundSpeed(float target, int millisecond = 0) {
+        StartCoroutine(BackgroundSpeedCoroutine(target, millisecond));
     }
 
-    public void SetBackgroundSpeed(Vector3 target, float duration = 0f) { // Overloading
-        StartCoroutine(BackgroundSpeedCoroutine(target, duration));
+    public void SetBackgroundSpeed(Vector3 target, int millisecond = 0) { // Overloading
+        StartCoroutine(BackgroundSpeedCoroutine(target, millisecond));
     }
 
-    private IEnumerator BackgroundSpeedCoroutine(float target, float duration = 0f) {
-        if (duration == 0f) {
+    private IEnumerator BackgroundSpeedCoroutine(float target, int millisecond = 0) {
+        int frame = millisecond * Application.targetFrameRate / 1000;
+        if (frame == 0) { // 즉시 종료
             m_BackgroundVector.z = target;
             yield break;
         }
-        Vector3 target_vector = new Vector3(0f, 0f, target);
-        DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target_vector, duration).SetEase(Ease.Linear);
 
-        yield return new WaitForSeconds(duration);
-        DOTween.Kill(m_BackgroundVector.z);
+        float init_vector_z = m_BackgroundVector.z;
+        
+        for (int i = 0; i < frame; ++i) {
+            m_BackgroundVector.z = init_vector_z + (target - init_vector_z)*(i+1) / frame;
+            yield return new WaitForFrames(0);
+        }
+        //DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target_vector, frame).SetEase(Ease.Linear);
+
+        //yield return new WaitForFrames(frame);
+        //DOTween.Kill(m_BackgroundVector.z);
         yield break;
     }
 
-    private IEnumerator BackgroundSpeedCoroutine(Vector3 target, float duration = 0f) { // Overloading
-        if (duration == 0f) {
-            m_BackgroundVector = target;
+    private IEnumerator BackgroundSpeedCoroutine(Vector3 target_vector, int millisecond = 0) { // Overloading
+        int frame = millisecond * Application.targetFrameRate / 1000;
+        if (frame == 0) { // 즉시 종료
+            m_BackgroundVector = target_vector;
             yield break;
         }
-        DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target, duration).SetEase(Ease.Linear);
 
-        yield return new WaitForSeconds(duration);
-        DOTween.Kill(m_BackgroundVector);
+        Vector3 init_vector = m_BackgroundVector;
+
+        for (int i = 0; i < frame; ++i) {
+            m_BackgroundVector = init_vector + (target_vector - init_vector)*(i+1) / frame;
+            //m_BackgroundVector.z = m_BackgroundVector.z + (target - m_BackgroundVector.z)*(i+1) / frame;
+            yield return new WaitForFrames(0);
+        }
+        //DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target, frame).SetEase(Ease.Linear);
+
+        //yield return new WaitForFrames(frame);
+        //DOTween.Kill(m_BackgroundVector);
         yield break;
     }
 

@@ -1,45 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyItemHeli : EnemyUnit {
 
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-	[SerializeField] private GameObject m_FanL = null, m_FanR = null, m_FanB = null;
-	[SerializeField] private float m_FanRotationSpeed = 240f;
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
+	public GameObject m_FanL, m_FanR, m_FanB;
+	public float m_FanRotationSpeed;
+    public Transform[] m_FirePosition = new Transform[2];
+    private int[] m_FireDelay = { 4000, 2000, 1500 };
     
     private bool m_TimeLimitState = false;
-    private float m_AppearanceTime = 1.5f;
-    private float m_PositionY, m_AddPositionY;
+    private const int APPEARNCE_TIME = 1500;
+    private const int TIME_LIMIT = 9000;
+    //private float m_PositionY, m_AddPositionY;
     private float m_VSpeed = 1f;
+    private IEnumerator m_TimeLimit;
 
-    void Start ()
+    void Start()
     {
-        float time_limit = 9f;
-        m_PositionY = transform.position.y;
+        //m_PositionY = transform.position.y;
+
+        m_MoveVector.speed = 4f;
         
         StartCoroutine(Pattern1());
 
+        StartCoroutine(AppearanceSequence());
+        /*
         m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2f + m_VSpeed*m_AppearanceTime, m_AppearanceTime).SetEase(Ease.OutQuad));
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
         m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));
-
-        Invoke("TimeLimit", m_AppearanceTime + time_limit);
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
-
+    /*
     protected override void Update()
     {
         m_AddPositionY -= m_VSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
         
         base.Update();
+    }*/
+
+    private IEnumerator AppearanceSequence() {
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+
+        float init_speed = m_MoveVector.speed;
+        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, m_VSpeed, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        m_TimeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(m_TimeLimit);
+        yield break;
     }
 
-    private void TimeLimit() {
+    private IEnumerator TimeLimit(int time_limit = 0) {
+        yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
+
+        float init_speed = m_MoveVector.speed;
+        int frame = 1000 * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     void LateUpdate()
@@ -54,10 +85,10 @@ public class EnemyItemHeli : EnemyUnit {
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos1, pos2;
         float target_angle1, target_angle2;
-        yield return new WaitForSeconds(m_AppearanceTime);
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
 
         while(!m_TimeLimitState) {
             float random_value = Random.Range(-1f, 1f);
@@ -72,9 +103,9 @@ public class EnemyItemHeli : EnemyUnit {
                 pos2 = m_FirePosition[1].position;
                 CreateBullet(1, pos1, 5.4f, target_angle1 + random_value, accel);
                 CreateBullet(1, pos2, 5.4f, target_angle2 + random_value, accel);
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForMillisecondFrames(80);
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
         yield break;
     }

@@ -38,7 +38,7 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
             m_LaserFireLight.gameObject.SetActive(false);
             m_PlayerLaserCreater.DisablePrepare();
         }
-        m_MaxLength = 0f;
+        m_MaxLaserLength = 0f;
     }
 
     void Update()
@@ -47,13 +47,13 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
             return;
         
         if (m_PlayerController.m_SlowMode) {
-            m_MaxLength += 30f * Time.deltaTime;
+            m_MaxLaserLength += m_LaserSpeed / Application.targetFrameRate * Time.timeScale;
         }
         else {
-            m_MaxLength = 0f;
+            m_MaxLaserLength = 0f;
         }
-        m_MaxLength = Mathf.Clamp(m_MaxLength, 0f, 4f);
+        m_MaxLaserLength = Mathf.Clamp(m_MaxLaserLength, 0f, 4f);
         if (m_PlayerLaserCreater != null)
-            m_PlayerLaserCreater.m_MaxLength = m_MaxLength;
+            m_PlayerLaserCreater.m_MaxLaserLength = m_MaxLaserLength;
     }
 }

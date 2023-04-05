@@ -10,24 +10,27 @@ public class RankingScoreDisplay : MonoBehaviour
     public RankingScoreImageDisplay m_RankingScoreImageDisplay;
     public string m_Unit;
 
-    private StringBuilder m_RankingScoreInfo = new StringBuilder();
-
     void Start()
     {
-        Init();
+        //Init();
     }
 
     void OnDisable()
     {
-        Init();
+        //Init();
     }
 
     private void Init()
     {
-        m_RankingScoreInfo.Clear();
-        SetScoreInfo();
+        //m_RankingScoreInfo.Clear();
+        //SetScoreInfo();
     }
 
+    public void UpdateRankingText(string text) {
+        m_DisplayTextElement.text = text + m_Unit;
+    }
+
+    /*
     public void UpdateScoreInfo(string text) {
         m_RankingScoreInfo.Clear();
         if (!text.Equals(string.Empty)) {
@@ -39,9 +42,10 @@ public class RankingScoreDisplay : MonoBehaviour
     private void SetScoreInfo() {
         if (m_DisplayTextElement != null) {
             m_DisplayTextElement.text = m_RankingScoreInfo.ToString();
+            Debug.Log(m_RankingScoreInfo.ToString());
         }
         else {
             m_RankingScoreImageDisplay.DisplayImages(m_RankingScoreInfo.ToString());
         }
-    }
+    }*/
 }

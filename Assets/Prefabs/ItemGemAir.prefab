@@ -49,6 +49,7 @@ MonoBehaviour:
   m_IsAir: 1
   m_Collider2D: {fileID: 8443037383033269228}
   m_AudioClip: {fileID: 8300000, guid: e6601203e638e2d46a0decd08613bb61, type: 3}
+  m_Renderer: {fileID: 4000011148536180}
   m_ObjectName: ItemGemAir
   m_MeshRenderer: {fileID: 8147460482884559363}
   m_RotationTransform: {fileID: 6163617864463290003}

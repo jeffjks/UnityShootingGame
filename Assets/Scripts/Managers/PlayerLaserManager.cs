@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerLaserManager : PlayerDamageUnit {
 
     public PlayerLaserShooterManager m_PlayerLaserShooter;
-    [HideInInspector] public float m_LaserDamage;
+    [HideInInspector] public int m_LaserDamage;
     
     protected int m_LaserIndex;
     

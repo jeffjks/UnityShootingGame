@@ -8,7 +8,7 @@ public class PlayerShooter : PlayerShooterManager
 
     private AudioSource m_AudioSource;
     private Transform m_MainCamera;
-    private float m_ShotKeyPressTime;
+    private int m_ShotKeyPressFrame;
     private bool m_ShotKeyPrevious = false, m_BombEnable = true, m_NowShooting;
     private int m_AutoShot, m_ShotKeyPress = 0, m_BombKeyPress = 0;
     
@@ -59,7 +59,7 @@ public class PlayerShooter : PlayerShooterManager
             
         if (!m_SystemManager.m_ReplayState) {
             if (Input.GetButton("Fire1")) {
-                m_ShotKeyPress = 1; // 버튼 누를시 m_ShotKeyPressTime 증가
+                m_ShotKeyPress = 1; // 버튼 누를시 m_ShotKeyPressFrame 증가
             }
             else {
                 m_ShotKeyPress = 0;
@@ -87,7 +87,7 @@ public class PlayerShooter : PlayerShooterManager
         }
         
         if (m_ShotKeyPress == 1) {
-            m_ShotKeyPressTime += Time.deltaTime;
+            m_ShotKeyPressFrame++;
             if (!m_ShotKeyPrevious) {
                 m_ShotKeyPrevious = true;
                 if (!m_PlayerController.m_SlowMode) { // 샷 모드일 경우 AutoShot 증가
@@ -99,14 +99,14 @@ public class PlayerShooter : PlayerShooterManager
         }
         else {
             m_ShotKeyPrevious = false;
-            m_ShotKeyPressTime = 0f;
+            m_ShotKeyPressFrame = 0;
             m_PlayerController.m_SlowMode = false;
             m_PlayerLaserShooter.StopLaser();
             m_NowAttacking = false;
         }
         
         if (!m_PlayerController.m_SlowMode) {
-            if (m_ShotKeyPressTime > 0.5f) { // 0.5초간 누르면 레이저 모드
+            if (m_ShotKeyPressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
                 m_PlayerController.m_SlowMode = true;
                 m_PlayerLaserShooter.StartLaser();
                 m_NowAttacking = true;
@@ -135,15 +135,17 @@ public class PlayerShooter : PlayerShooterManager
 
     private void UseBomb() {
         Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
-        ((PlayerController) m_PlayerController).EnableInvincible(4f);
+        ((PlayerController) m_PlayerController).EnableInvincible(4000);
         m_Bomb.SetActive(true);
         m_BombEnable = false;
         m_SystemManager.SetBombNumber(-1);
-        Invoke("EnableBomb", 3f); // 폭탄 쿨타임
+        StartCoroutine(EnableBomb()); // 폭탄 쿨타임
     }
 
-    private void EnableBomb() {
+    private IEnumerator EnableBomb() {
+        yield return new WaitForMillisecondFrames(3000);
         m_BombEnable = true;
+        yield break;
     }
     
     void OnEnable()
@@ -154,7 +156,7 @@ public class PlayerShooter : PlayerShooterManager
         m_NowAttacking = false;
         m_AutoShot = 0;
         m_SystemManager.InitBombNumber();
-        m_ShotKeyPressTime = 0f;
+        m_ShotKeyPressFrame = 0;
         m_PlayerLaserShooter.StopLaser();
         if (m_PlayerManager != null) {
             StartCoroutine(ModuleShot());
@@ -175,15 +177,10 @@ public class PlayerShooter : PlayerShooterManager
             else {
                 m_ShotDamage = 0;
             }
-            for (int t = 0; t < m_FireRate / Time.deltaTime; t++) {
-                yield return null;
-            }
-            // yield return new WaitForSeconds(m_FireRate);
+            yield return new WaitForMillisecondFrames(m_FireRate);
         }
-        for (int t = 0; t < m_FireDelayWait / Time.deltaTime; t++) {
-            yield return null;
-        }
-        // yield return new WaitForSeconds(m_FireDelayWait); // m_FireDelay에서 m_FireRate가 차지하는 부분 빼기
+        yield return new WaitForMillisecondFrames(m_FireDelayWait);
+
         m_NowShooting = false;
         CheckNowShooting();
         yield break;

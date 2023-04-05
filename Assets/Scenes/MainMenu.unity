@@ -2984,7 +2984,7 @@ PrefabInstance:
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: -160
       objectReference: {fileID: 0}
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
@@ -4158,6 +4158,121 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297796155}
+  m_CullTransparentMesh: 0
+--- !u!1 &297997538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 297997539}
+  - component: {fileID: 297997543}
+  - component: {fileID: 297997542}
+  - component: {fileID: 297997541}
+  - component: {fileID: 297997540}
+  m_Layer: 5
+  m_Name: Cancel Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &297997539
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297997538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1630981503}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 476, y: 144}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &297997540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297997538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839be269850bbb64892076d6b34fc467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 297997542}
+  m_Font:
+  - {fileID: 12800000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
+  - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
+  m_String:
+  - CANCEL
+  - "\uCDE8\uC18C"
+--- !u!114 &297997541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297997538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 4, y: -4}
+  m_UseGraphicAlpha: 1
+--- !u!114 &297997542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297997538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
+  m_Color: {r: 0.3254902, g: 0.8666667, b: 0.9137255, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 50
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 3
+  m_Text: CANCEL
+--- !u!222 &297997543
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297997538}
   m_CullTransparentMesh: 0
 --- !u!1 &298649565
 GameObject:
@@ -6568,7 +6683,7 @@ PrefabInstance:
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
@@ -8154,7 +8269,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: STRONG
+  m_Text: LASER Lv.2
 --- !u!222 &582176301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8180,15 +8295,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'STRONG
+  - 'LASER Lv.2
 
     [Cost: 150]
 
 
     Fire a laser of high damage.'
-  - "\uB192\uC740 \uB808\uC774\uC800 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 150]\n\n\uD55C
-    \uCE35 \uB354 \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744
-    \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - "\uB808\uC774\uC800 Lv.2\n[\uBE44\uC6A9: 150]\n\n\uD55C \uCE35 \uB354 \uAC15\uB825\uD55C
+    \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &601097498
 GameObject:
   m_ObjectHideFlags: 0
@@ -9095,7 +9209,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: NORMAL
+  m_Text: SPEED Lv.2
 --- !u!222 &694256180
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9121,14 +9235,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'NORMAL
+  - 'SPEED Lv.2
 
     [Cost: 100]
 
 
     The aircraft moves at a normal speed.'
-  - "\uAE30\uBCF8 \uC18D\uB3C4\n[\uBE44\uC6A9: 100]\n\n\uAE30\uCCB4\uAC00 \uAE30\uBCF8
-    \uC18D\uB3C4\uB85C \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
+  - "\uC18D\uB3C4 Lv.2\n[\uBE44\uC6A9: 100]\n\n\uAE30\uCCB4\uAC00 \uAE30\uBCF8 \uC18D\uB3C4\uB85C
+    \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
 --- !u!1 &698414811
 GameObject:
   m_ObjectHideFlags: 0
@@ -9186,7 +9300,7 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
   - RANKING
-  - "\uC628\uB77C\uC778 \uB7AD\uD0B9"
+  - "\uC810\uC218 \uAE30\uB85D"
 --- !u!114 &698414814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9331,7 +9445,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: NORMAL
+  m_Text: LASER Lv.1
 --- !u!222 &710827975
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9357,14 +9471,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'NORMAL
+  - 'LASER Lv.1
 
     [Cost: 100]
 
 
     Fire a laser of normal damage.'
-  - "\uAE30\uBCF8 \uB808\uC774\uC800 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 100]\n\n\uAE30\uBCF8
-    \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - "\uB808\uC774\uC800 Lv.1\n[\uBE44\uC6A9: 100]\n\n\uAE30\uBCF8 \uB370\uBBF8\uC9C0\uC758
+    \uB808\uC774\uC800\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &711418402
 GameObject:
   m_ObjectHideFlags: 0
@@ -10692,7 +10806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &840282139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11290,6 +11404,7 @@ RectTransform:
   m_Children:
   - {fileID: 1544077719}
   - {fileID: 601097499}
+  - {fileID: 1630981503}
   m_Father: {fileID: 1562706238}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11311,7 +11426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
-  m_IsEnabled: 0101
+  m_IsEnabled: 010101
   m_PreviousMenu: {fileID: 1554665460}
   m_LanguageMenu: {fileID: 1562706237}
   m_MainLogo: {fileID: 201528724}
@@ -12734,7 +12849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1083235119
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14170,7 +14285,7 @@ MonoBehaviour:
   m_IsEnabled: 010101010101
   m_SelectDifficultyMenu: {fileID: 375352819}
   m_TrainingMenu: {fileID: 1526905832}
-  m_ReplayMenu: {fileID: 416520503}
+  m_ReplayMenu: {fileID: 1995047832}
   m_SelectRankingDifficultyMenu: {fileID: 520281554}
   m_SettingsMenu: {fileID: 1554665460}
   m_KeyConfigMenu: {fileID: 1686281049}
@@ -14834,7 +14949,7 @@ PrefabInstance:
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -160
+      value: -260
       objectReference: {fileID: 0}
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
@@ -16471,7 +16586,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: NORMAL
+  m_Text: SHOT RANGE Lv.2
 --- !u!222 &1389120821
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16497,14 +16612,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'NORMAL
+  - 'SHOT RANGE Lv.2
 
     [Cost: 100]
 
 
-    The shot is fired in a normal form.'
-  - "\uAE30\uBCF8 \uC0F7\n[\uBE44\uC6A9: 100]\n\n\uC0F7\uC774 \uAE30\uBCF8 \uD615\uD0DC\uB85C
-    \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
+    The spread shot is fired in a normal form.'
+  - "\uC2A4\uD504\uB808\uB4DC\uC0F7 \uBC94\uC704 Lv.2\n[\uBE44\uC6A9: 100]\n\n\uC2A4\uD504\uB808\uB4DC\uC0F7\uC774
+    \uAE30\uBCF8 \uD615\uD0DC\uB85C \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1391158610
 GameObject:
   m_ObjectHideFlags: 0
@@ -17355,7 +17470,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: NORMAL
+  m_Text: SPREAD SHOT Lv.1
 --- !u!222 &1426053740
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17381,13 +17496,13 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'NORMAL
+  - 'SPREAD SHOT Lv.1
 
     [Cost: 0]
 
 
     Fire a shot of normal damage.'
-  - "\uAE30\uBCF8 \uC0F7 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 0]\n\n\uAE30\uBCF8 \uB370\uBBF8\uC9C0\uC758
+  - "\uC2A4\uD504\uB808\uB4DC\uC0F7 Lv.1\n[\uBE44\uC6A9: 0]\n\n\uAE30\uBCF8 \uB370\uBBF8\uC9C0\uC758
     \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1428638835
 GameObject:
@@ -17918,7 +18033,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: NARROW
+  m_Text: SHOT RANGE Lv.1
 --- !u!222 &1461687305
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17944,14 +18059,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'NARROW
+  - 'SHOT RANGE Lv.1
 
     [Cost: 0]
 
 
-    The shot is fired in a narrow form.'
-  - "\uC881\uC740 \uC0F7\n[\uBE44\uC6A9: 0]\n\n\uC0F7\uC774 \uC881\uC740 \uD615\uD0DC\uB85C
-    \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
+    The spread shot is fired in a narrow form.'
+  - "\uC2A4\uD504\uB808\uB4DC\uC0F7 \uBC94\uC704 Lv.1\n[\uBE44\uC6A9: 0]\n\n\uC2A4\uD504\uB808\uB4DC\uC0F7\uC774
+    \uC881\uC740 \uD615\uD0DC\uB85C \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1495569092
 GameObject:
   m_ObjectHideFlags: 0
@@ -19072,7 +19187,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 3
-  m_Text: (offline)
+  m_Text: 
 --- !u!222 &1561663089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19476,7 +19591,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: VERY STRONG
+  m_Text: LASER Lv.3
 --- !u!222 &1616689050
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19502,15 +19617,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'VERY STRONG
+  - 'LASER Lv.3
 
     [Cost: 300]
 
 
     Fire a laser of very high damage.'
-  - "\uB9E4\uC6B0 \uB192\uC740 \uB808\uC774\uC800 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9:
-    300]\n\n\uAC00\uC7A5 \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744
-    \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - "\uB808\uC774\uC800 Lv.3\n[\uBE44\uC6A9: 300]\n\n\uAC00\uC7A5 \uAC15\uB825\uD55C
+    \uB370\uBBF8\uC9C0\uC758 \uB808\uC774\uC800\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1622476208
 GameObject:
   m_ObjectHideFlags: 0
@@ -19666,6 +19780,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d836b4f9ceaded409b36b0720b96c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1630981502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630981503}
+  - component: {fileID: 1630981506}
+  - component: {fileID: 1630981505}
+  - component: {fileID: 1630981504}
+  m_Layer: 5
+  m_Name: Cancel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1630981503
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630981502}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 1}
+  m_Children:
+  - {fileID: 297997539}
+  m_Father: {fileID: 923208389}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -130, y: -150}
+  m_SizeDelta: {x: 476, y: 144}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1630981504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630981502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 4, y: -4}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1630981505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630981502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 6bd48fa278154ce4cac8bb0ef148a200, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &1630981506
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630981502}
+  m_CullTransparentMesh: 0
 --- !u!1 &1637817391
 GameObject:
   m_ObjectHideFlags: 0
@@ -20048,7 +20253,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: FAST
+  m_Text: SPEED Lv.3
 --- !u!222 &1643934932
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20074,14 +20279,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'FAST
+  - 'SPEED Lv.3
 
     [Cost: 200]
 
 
     The aircraft moves at a fast speed.'
-  - "\uBE60\uB978 \uC18D\uB3C4\n[\uBE44\uC6A9: 200]\n\n\uAE30\uCCB4\uAC00 \uBE60\uB978
-    \uC18D\uB3C4\uB85C \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
+  - "\uC18D\uB3C4 Lv.3\n[\uBE44\uC6A9: 200]\n\n\uAE30\uCCB4\uAC00 \uBE60\uB978 \uC18D\uB3C4\uB85C
+    \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
 --- !u!1 &1657329940
 GameObject:
   m_ObjectHideFlags: 0
@@ -21056,7 +21261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: SLOW
+  m_Text: SPEED Lv.1
 --- !u!222 &1744972066
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21082,14 +21287,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'SLOW
+  - 'SPEED Lv.1
 
     [Cost: 0]
 
 
     The aircraft moves at a slow speed.'
-  - "\uB290\uB9B0 \uC18D\uB3C4\n[\uBE44\uC6A9: 0]\n\n\uAE30\uCCB4\uAC00 \uB290\uB9B0
-    \uC18D\uB3C4\uB85C \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
+  - "\uC18D\uB3C4 Lv.1\n[\uBE44\uC6A9: 0]\n\n\uAE30\uCCB4\uAC00 \uB290\uB9B0 \uC18D\uB3C4\uB85C
+    \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
 --- !u!1 &1754079567
 GameObject:
   m_ObjectHideFlags: 0
@@ -22243,7 +22448,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: WIDE
+  m_Text: SHOT RANGE Lv.3
 --- !u!222 &1822010123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22269,14 +22474,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'WIDE
+  - 'SHOT RANGE Lv.3
 
     [Cost: 200]
 
 
-    The shot is fired in a wide form.'
-  - "\uB113\uC740 \uC0F7\n[\uBE44\uC6A9: 200]\n\n\uC0F7\uC774 \uB113\uC740 \uD615\uD0DC\uB85C
-    \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
+    The spread shot is fired in a wide form.'
+  - "\uC2A4\uD504\uB808\uB4DC\uC0F7 \uBC94\uC704 Lv.3\n[\uBE44\uC6A9: 200]\n\n\uC2A4\uD504\uB808\uB4DC\uC0F7\uC774
+    \uB113\uC740 \uD615\uD0DC\uB85C \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
 --- !u!1 &1823974900
 GameObject:
   m_ObjectHideFlags: 0
@@ -24049,7 +24254,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: VERY STRONG
+  m_Text: SPREAD SHOT Lv.3
 --- !u!222 &1958321449
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24075,14 +24280,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'STRONG
+  - 'SPREAD SHOT Lv.3
 
     [Cost: 200]
 
 
     Fire a shot of very high damage.'
-  - "\uB9E4\uC6B0 \uB192\uC740 \uC0F7 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 200]\n\n\uAC00\uC7A5
-    \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uC758 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - "\uC2A4\uD504\uB808\uB4DC\uC0F7 Lv.3\n[\uBE44\uC6A9: 200]\n\n\uAC00\uC7A5 \uAC15\uB825\uD55C
+    \uB370\uBBF8\uC9C0\uC758 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1 &1966025001
 GameObject:
   m_ObjectHideFlags: 0
@@ -25213,7 +25418,7 @@ PrefabInstance:
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 80
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3118561169902143040, guid: 79e2caacaaa0b1148b15fc4ed169ed55,
         type: 3}
@@ -26445,7 +26650,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: STRONG
+  m_Text: SPREAD SHOT Lv.2
 --- !u!222 &2143757380
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26471,14 +26676,14 @@ MonoBehaviour:
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   - {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
   m_String:
-  - 'STRONG
+  - 'SPREAD SHOT Lv.2
 
     [Cost: 100]
 
 
     Fire a shot of high damage.'
-  - "\uB192\uC740 \uC0F7 \uB370\uBBF8\uC9C0\n[\uBE44\uC6A9: 100]\n\n\uD55C \uCE35
-    \uB354 \uAC15\uB825\uD55C \uB192\uC740 \uB370\uBBF8\uC9C0\uC758 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - "\uC2A4\uD504\uB808\uB4DC\uC0F7 Lv.2\n[\uBE44\uC6A9: 100]\n\n\uD55C \uCE35 \uB354
+    \uAC15\uB825\uD55C \uB192\uC740 \uB370\uBBF8\uC9C0\uC758 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
 --- !u!1001 &3118561168527065455
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyPlaneMedium3Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
+    public Transform m_FirePosition;
     
     private IEnumerator m_CurrentPattern;
 
@@ -35,7 +35,7 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float target_angle, random_value;
         pos = m_FirePosition.position;
@@ -46,21 +46,21 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
             for (int i = 0; i < 3; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(4, pos, 6f, target_angle + random_value, accel);
-                yield return new WaitForSeconds(0.047f);
+                yield return new WaitForMillisecondFrames(47);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(4, pos, 7f, target_angle + random_value, accel);
-                yield return new WaitForSeconds(0.04f);
+                yield return new WaitForMillisecondFrames(40);
             }
         }
         else {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition.position;
                 CreateBulletsSector(4, pos, 8f, target_angle + random_value, accel, 3, 12f);
-                yield return new WaitForSeconds(0.035f);
+                yield return new WaitForMillisecondFrames(35);
             }
         }
         yield break;

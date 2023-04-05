@@ -39,7 +39,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
 
     private IEnumerator Pattern0() {
         yield break;
-        //EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        //EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         //Vector3 pos = m_FirePosition.position;
         /*
         while (true) {
@@ -49,17 +49,17 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
                     CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 12, 2.5f);
                 }
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForMillisecondFrames(500);
         }*/
     }
 
     private IEnumerator Pattern1(bool side)
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(5f, 0.5f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(5f, 500);
         Vector3 pos = m_FirePosition.position;
         
         if (side)
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForMillisecondFrames(1500);
         if (m_SystemManager.m_Difficulty == 0) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle, accel, 3, 32f);
@@ -71,7 +71,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 20f, accel, 8, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 40f, accel, 8, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 40f, accel, 8, 0.8f);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 10f, accel, 8, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 10f, accel, 8, 0.8f);
@@ -87,7 +87,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 20f, accel, 10, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 40f, accel, 10, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 40f, accel, 10, 0.8f);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 10f, accel, 8, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 10f, accel, 8, 0.8f);

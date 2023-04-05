@@ -62,19 +62,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerHomingMissile
-  m_Damage: 2
-  m_DamageScale:
-  - 1
-  - 0.75
-  - 0.5
-  m_DamageBonus:
-  - 0
-  m_Speed: 20
+  m_Damage: 20
+  m_DamageScale: 640000004b00000032000000
+  m_Position: {x: 0, y: 0}
+  m_DamageBonus: 00000000
+  m_Speed: 85
   m_IsPenetrate: 0
   m_ActivatedObject: []
   m_HitEffectNumber: 1
   m_DamageLevel: 0
-  m_RotationSpeed: 0.09
 --- !u!1 &4885376814758653173
 GameObject:
   m_ObjectHideFlags: 0

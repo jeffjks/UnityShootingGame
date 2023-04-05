@@ -1,22 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 
 public class EnemyBoss3Barrel : MonoBehaviour
 {
-    private float m_DefaultZ;
-    private Sequence m_Sequence;
+    private float m_Pos_Z1;
+    private float m_Pos_Z2 = 0.1f;
 
     void Start()
     {
-        m_DefaultZ = transform.localPosition.z;
+        m_Pos_Z1 = transform.localPosition.z;
     }
 
-    public void BarrelShotAnimation(float target_z) {
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOLocalMoveZ(target_z, 0.1f))
-        .Append(transform.DOLocalMoveZ(m_DefaultZ, 0.5f));
+    public IEnumerator ShootAnimation() {
+        int frame;
+
+        frame = 100 * Application.targetFrameRate / 1000;
+        for (int i = 0; i < frame; ++i) {
+            float t_posz = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float localPosition_z = Mathf.Lerp(m_Pos_Z1, m_Pos_Z2, t_posz);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, localPosition_z);
+            yield return new WaitForMillisecondFrames(0);
+        }
+
+        frame = 500 * Application.targetFrameRate / 1000;
+        for (int i = 0; i < frame; ++i) {
+            float t_posz = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float localPosition_z = Mathf.Lerp(m_Pos_Z2, m_Pos_Z1, t_posz);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, localPosition_z);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 }

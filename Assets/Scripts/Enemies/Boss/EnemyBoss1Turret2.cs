@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyBoss1Turret2 : EnemyUnit
 {
-    public float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition;
     
+    private int[] m_FireDelay = { 2250, 1500, 1000 };
     private IEnumerator m_CurrentPattern;
 
     void Start()
@@ -42,9 +42,9 @@ public class EnemyBoss1Turret2 : EnemyUnit
     {
         EnemyBulletAccel accel;
         if (m_SystemManager.m_Difficulty <= 0)
-            accel = new EnemyBulletAccel(0f, 0f);
+            accel = new EnemyBulletAccel(0f, 0);
         else
-            accel = new EnemyBulletAccel(8.8f, 1f);
+            accel = new EnemyBulletAccel(8.8f, 1000);
         Vector3 pos;
         
         while(true) {
@@ -60,13 +60,13 @@ public class EnemyBoss1Turret2 : EnemyUnit
                 pos = m_FirePosition.position;
                 CreateBulletsSector(1, pos, 3f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 3, 18f);
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         Vector3 pos = m_FirePosition.position;
         if (m_SystemManager.m_Difficulty == 0) {

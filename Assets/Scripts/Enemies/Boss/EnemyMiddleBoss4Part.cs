@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-
 
 public class EnemyMiddleBoss4Part : EnemyUnit
 {
@@ -17,7 +15,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
 
     protected override void Update()
     {
-        m_Direction -= 20f * Time.deltaTime;
+        m_Direction -= 20f / Application.targetFrameRate * Time.timeScale;
         if (m_Direction < 0f)
             m_Direction += 360f;
 
@@ -39,7 +37,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
 
         if (m_SystemManager.m_Difficulty == 0) {
@@ -52,7 +50,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
                 pos = m_FirePosition.position;
                 CreateBulletsSector(3, pos, 4.8f, m_Direction, accel, 4, 90f);
                 CreateBulletsSector(5, pos, 5.2f, m_Direction, accel, 4, 90f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForMillisecondFrames(100);
             }
         }
         yield break;
@@ -60,17 +58,17 @@ public class EnemyMiddleBoss4Part : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        float timer = 0.3f;
+        int timer = 300;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, timer);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
-        float[] period = {0.3f, 0.2f, 0.1f};
+        int[] period = { 300, 200, 100 };
 
         while (true) {
             pos = m_FirePosition.position;
             CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, 2, timer,
             4, 8f, 0, 0f, accel2);
-            yield return new WaitForSeconds(period[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(period[m_SystemManager.m_Difficulty]);
         }
     }
 

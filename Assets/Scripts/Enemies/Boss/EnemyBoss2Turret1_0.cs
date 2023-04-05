@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyBoss2Turret1_0 : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition;
 
     [HideInInspector] public bool m_InPattern = false;
@@ -40,9 +39,9 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        float duration = 0.8f;
+        int duration = 800;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, duration);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(7.6f, 0.6f);
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(7.6f, 600);
         Vector3 pos;
         m_InPattern = true;
 
@@ -55,9 +54,9 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                         CreateBullet(0, pos, 13.7f, m_CurrentAngle - 18f*3.5f + j*18f, accel1, BulletType.ERASE_AND_CREATE, duration,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-6f, 6f), accel2);
                     }
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForMillisecondFrames(300);
                 }
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForMillisecondFrames(1500);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
@@ -69,9 +68,9 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                         CreateBullet(0, pos, 13.7f, m_CurrentAngle - 12f*6.5f + j*12f, accel1, BulletType.ERASE_AND_CREATE, duration,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-7f, 7f), accel2);
                     }
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForMillisecondFrames(200);
                 }
-                yield return new WaitForSeconds(1.2f);
+                yield return new WaitForMillisecondFrames(1200);
             }
         }
         else {
@@ -80,12 +79,12 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                 for (int i = 0; i < num[k]; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 15; j++) {
-                        CreateBullet(0, pos, 13.7f, m_CurrentAngle - 10f*7.5f + j*10f, accel1, BulletType.ERASE_AND_CREATE, 1f,
+                        CreateBullet(0, pos, 13.7f, m_CurrentAngle - 10f*7.5f + j*10f, accel1, BulletType.ERASE_AND_CREATE, 1000,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-8f, 8f), accel2);
                     }
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForMillisecondFrames(200);
                 }
-                yield return new WaitForSeconds(0.9f);
+                yield return new WaitForMillisecondFrames(900);
             }
         }
         m_InPattern = false;

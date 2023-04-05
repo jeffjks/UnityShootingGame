@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyTurret1 : EnemyUnit
 {
-    [SerializeField] private GameObject m_Collider = null;
-    [SerializeField] private GameObject m_Turret = null;
+    public GameObject m_Collider;
+    public GameObject m_Turret;
     
     protected override void Update()
     {

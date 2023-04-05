@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyShipMedium1 : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[7];
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform[] m_FirePosition = new Transform[7];
+    private int[] m_FireDelay = { 2200, 2000, 1500 };
     
     void Start()
     {
@@ -22,7 +22,7 @@ public class EnemyShipMedium1 : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[5];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float[] target_angle = new float[5];
 
         for (int i = 0; i < 5; i++) {
@@ -35,15 +35,15 @@ public class EnemyShipMedium1 : EnemyUnit
                     pos[j] = GetScreenPosition(m_FirePosition[j].position);
                     CreateBullet(1, pos[j], 4.3f, m_CurrentAngle - target_angle[j], accel);
                 }
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForMillisecondFrames(100);
             }
-            yield return new WaitForSeconds(1.6f);
+            yield return new WaitForMillisecondFrames(1600);
         }
     }
     
     private IEnumerator Pattern2() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(6f, 0.8f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(6f, 800);
 
         while(true) {
             for (int i = 0; i < 2; i++) {
@@ -55,7 +55,7 @@ public class EnemyShipMedium1 : EnemyUnit
                 else
                     CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 30, 12f);
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 

@@ -42,22 +42,22 @@ public class EnemyBoss4SmallTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
 
         while(true) {
             pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForMillisecondFrames(3000);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForMillisecondFrames(2000);
             }
             else {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForMillisecondFrames(1000);
             }
         }
     }

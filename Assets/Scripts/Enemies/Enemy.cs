@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public static class BulletDirection
 {
@@ -31,6 +30,58 @@ public struct MoveVector
     }
 }
 
+public class EaseType
+{
+    public const int Linear = 0;
+    public const int OutQuad = 1;
+    public const int InQuad = 2;
+    public const int InOutQuad = 3;
+}
+
+/*
+public class TweenData<T, TResult> {
+    public Func<T> getter;
+    public Action<TResult> setter;
+
+    TweenData(Func<T> getter, Action<TResult> setter) {
+        this.getter = getter;
+        this.setter = setter;
+    }
+}*/
+
+public class TweenData
+{
+    public int duration; // duration동안 대기(TweenData) 혹은 duration에 걸쳐서 변화(TweenDataMovement)
+
+    public TweenData(int duration) {
+        this.duration = duration;
+    }
+}
+
+public class TweenDataMoveVector : TweenData
+{
+    public MoveVector moveVector;
+    public int easeType = EaseType.Linear;
+
+    public TweenDataMoveVector(MoveVector moveVector, int duration = 0, int easeType = EaseType.Linear) : base(duration) {
+        this.moveVector = moveVector;
+        this.duration = duration;
+        this.easeType = easeType;
+    }
+}
+
+public class TweenDataPosition : TweenData
+{
+    public Vector3 position;
+    public int easeType = EaseType.Linear;
+
+    public TweenDataPosition(Vector3 position, int duration = 0, int easeType = EaseType.Linear) : base(duration) {
+        this.position = position;
+        this.duration = duration;
+        this.easeType = easeType;
+    }
+}
+
 public enum EnemyClass
 {
     Zako,
@@ -54,6 +105,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
     protected Vector2 m_PlayerPosition, m_BackgroundCameraSize;
+    protected const float NO_CHANGE = 8739f;
 
     private float m_SafeLine;
 
@@ -88,7 +140,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
     {
         /* 총알용 MoveDirection */
         Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
-        transform.Translate(vector2 * speed * Time.deltaTime * 60f, Space.World);
+        transform.Translate(vector2 * speed / Application.targetFrameRate * Time.timeScale, Space.World);
     }
 
 
@@ -105,8 +157,8 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
     // Type (0), 1, 2 총알
     protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval,
-    byte type, float timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
-    int new_num = 0, float new_interval = 0f, Vector2 second_timer = new Vector2()) {
+    byte type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
+    int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int()) {
         GameObject[] objs = new GameObject[num];
         if (BulletCondition(pos)) {
             for (int i = 0; i < num; i++) {
@@ -142,8 +194,8 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
     // Type (0), 1, 2 총알
     protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel,
-    byte type, float timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
-    int new_num = 0, float new_interval = 0f, Vector2 second_timer = new Vector2())
+    byte type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
+    int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int())
     {
         GameObject obj = null;
         if (BulletCondition(pos)) {
@@ -223,7 +275,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
     [Space(10)]
     public EnemyUnit m_ParentEnemy;
-    public float m_Health;
+    public int m_Health;
     public EnemyClass m_Class;
     public uint m_Score;
     [Space(10)]
@@ -241,21 +293,21 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     public bool m_ShareHealth;
     public EnemyUnit[] m_ChildEnemies;
     public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
+    public Queue<TweenData> m_TweenDataQueue = new Queue<TweenData>();
 
     protected Material[] m_Materials;
     protected Material[] m_MaterialsAll;
     protected Color[] m_DefaultAlbedo;
-    protected Sequence m_Sequence;
     protected bool m_UpdateTransform = true;
-    private bool[] m_TakeDamageType = { false, false, false };
     
     [HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
     [Tooltip("-1일 경우 무적이며 데미지를 parent 오브젝트에게 전달")]
-    [HideInInspector] public float m_MaxHealth;
+    [HideInInspector] public int m_MaxHealth;
     [HideInInspector] public bool m_IsDead = false;
 
-    private float m_TakingDamageTimer;
-    private float m_LowHealthBlinkTimer;
+    private int m_TakingDamageTimer;
+    private int m_LowHealthBlinkTimer;
+    private bool[] m_TakeDamageType = { false, false, false };
     private Color m_DamagingAlbedo = new Color(0.64f, 0.64f, 1f, 1f); // blue
 
     private readonly Vector3 m_AirEnemyAxis = new Vector3(0f, -0.4f, 1f);
@@ -283,6 +335,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         }
         
         GetCoordinates();
+        StartCoroutine(PlayTweenData());
     }
 
     private void InitMaterials() {
@@ -397,7 +450,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             return;
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
+        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
         UpdateTransform();
     }
 
@@ -405,7 +458,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         if (CheckDeadState()) {
             return;
         }
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed * Time.deltaTime);
+        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
         UpdateTransform();
     }
 
@@ -442,57 +495,66 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
 
     public void EnableAttackable() {
+        if (!m_IsUnattackable)
+            return;
         if (m_Collider2D.Length == 0)
             return;
         m_IsUnattackable = false;
         for (int i = 0; i < m_Collider2D.Length; i++)
             m_Collider2D[i].enabled = true;
+        StartCoroutine(AttackableTimer());
     }
 
-    public void EnableInvincible(float duration = -1f) { // duration초간 무적. 0이면 미적용. -1이면 무기한 무적
-        if (m_Collider2D.Length == 0)
+    public void EnableInvincible(int millisecond = -1) { // millisecond간 무적. 0이면 미적용. -1이면 무기한 무적
+        if (millisecond == 0)
             return;
-        if (duration == 0f)
+        if (m_Collider2D.Length == 0)
             return;
         m_IsUnattackable = true;
 
-        if (duration != -1f)
-            Invoke("DisableInvincible", duration);
+        if (millisecond != -1)
+            StartCoroutine(DisableInvincible(millisecond));
+    }
+    
+    private IEnumerator DisableInvincible(int millisecond) {
+        yield return new WaitForMillisecondFrames(millisecond);
+        m_IsUnattackable = false;
+        yield break;
     }
 
-    public void DisableAttackable(float duration = -1f) { // duration초간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    public void DisableAttackable(int millisecond = -1) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
         if (m_Collider2D.Length == 0)
             return;
-        if (duration == 0f)
+        if (millisecond == 0)
             return;
         m_IsUnattackable = true;
         for (int i = 0; i < m_Collider2D.Length; i++)
             m_Collider2D[i].enabled = false;
         
-        if (duration != -1f)
-            Invoke("AttackableTimer", duration);
+        if (millisecond != -1)
+            StartCoroutine(AttackableTimer(millisecond));
     }
 
-    private void AttackableTimer() {
+    private IEnumerator AttackableTimer(int millisecond = -1) {
+        if (millisecond != -1) {
+            yield return new WaitForMillisecondFrames(millisecond);
+        }
         EnableAttackable();
         if (m_Class != EnemyClass.Zako || (1 << gameObject.layer & Layer.AIR) != 0) { // 지상 자코가 아닐 경우
             StartCoroutine(SetAttackableEffect());
         }
-    }
-
-    private void DisableInvincible() {
-        m_IsUnattackable = false;
+        yield break;
     }
 
     private IEnumerator SetAttackableEffect() { // 무적 해제 이펙트
         float color = 0.82f; // white
-        while(color > 0f) {
+        while (color > 0f) {
             color -= 0.04f*Time.deltaTime*60f;
             for (int i = 0; i < m_MaterialsAll.Length; i++) {
                 m_MaterialsAll[i].SetColor("_EmissionColor", new Color(color, color, color, 1f));
                 m_MaterialsAll[i].EnableKeyword("_EMISSION");
             }
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         yield break;
     }
@@ -515,17 +577,61 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     }
 
 
-    protected override void MoveDirection(float speed, float direction) { // speed 속도로 direction 방향으로 이동.
-        if ((1 << gameObject.layer & Layer.AIR) != 0) {
+    protected override void MoveDirection(float speed, float direction) { // speed 속도로 direction 방향으로 이동. 0도는 아래, 90도는 오른쪽
+        if ((1 << gameObject.layer & Layer.AIR) != 0) { // Air
             Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
-            transform.Translate(vector2 * speed * Time.deltaTime, Space.World);
+            transform.Translate(vector2 * speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
-        else {
+        else { // Ground
             Vector3 vector3 = Quaternion.AngleAxis(direction, Vector3.down) * Vector3.back;
-            transform.Translate(vector3 * speed * Time.deltaTime, Space.World);
+            transform.Translate(vector3 * speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
 
         UpdateTransform();
+    }
+
+    private IEnumerator PlayTweenData() { // 프레임 기반
+        while (true) {
+            if (m_TweenDataQueue.Count > 0) {
+                TweenData td = m_TweenDataQueue.Dequeue();
+                if (td is TweenDataMoveVector) { // duration동안 속도와 방향 변화
+                    TweenDataMoveVector tdm = (TweenDataMoveVector) td;
+                    int frame = tdm.duration * Application.targetFrameRate / 1000;
+                    float init_speed = m_MoveVector.speed;
+                    float init_direction = m_MoveVector.direction;
+                    //Debug.Log($"{init_direction}, {tdm.direction}");
+
+                    if (tdm.moveVector.speed == NO_CHANGE) {
+                        tdm.moveVector.speed = init_speed;
+                    }
+                    if (tdm.moveVector.direction == NO_CHANGE) {
+                        tdm.moveVector.direction = init_direction;
+                    }
+
+                    if (frame == 0) { // 즉시 적용
+                        m_MoveVector = new MoveVector(tdm.moveVector.speed, tdm.moveVector.direction);
+                    }
+                    else {
+                        for (int i = 0; i < frame; ++i) {
+                            //m_MoveVector.speed = init_speed + (tdm.speed - init_speed)*(i+1) / frame;
+                            float t = AC_Ease.ac_ease[tdm.easeType].Evaluate((float) (i+1)/frame);
+
+                            m_MoveVector.speed = Mathf.Lerp(init_speed, tdm.moveVector.speed, (float) (i+1)/frame);
+                            m_MoveVector.direction = Mathf.LerpAngle(init_direction, tdm.moveVector.direction, (float) (i+1)/frame);
+                            //m_MoveVector.direction = init_direction + (tdm.direction - init_direction)*(i+1) / frame;
+                            //Debug.Log(m_MoveVector.direction);
+                            yield return new WaitForFrames(0);
+                        }
+                    }
+                }
+                else { // duration동안 대기
+                    yield return new WaitForMillisecondFrames(td.duration);
+                }
+            }
+            else { // Idle
+                yield return new WaitForFrames(0);
+            }
+        }
     }
 
     public void GetCoordinates() { // m_PlayerPosition와 m_Position2D 변수의 좌표를 계산
@@ -542,7 +648,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
     }
 
-    public void TakeDamage(float amount, sbyte damage_type = -1, bool blend = true)
+    public void TakeDamage(int amount, sbyte damage_type = -1, bool blend = true)
     {
         // damage_type - -1:일반공격, 0:레이저, 1:레이저(Aura), 2:폭탄
         // blend - ImageBlend 실행 여부
@@ -562,13 +668,13 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
 
             if (!m_IsDead) {
                 if (blend) {
-                    m_TakingDamageTimer = 4f;
+                    m_TakingDamageTimer = 67;
                 }
 
                 if (m_MaxHealth >= 0f) {
                     m_Health -= amount;
 
-                    if (m_Health <= 0f) {
+                    if (m_Health <= 0) {
                         m_IsDead = true;
                         KilledByPlayer();
                         OnDeath();
@@ -593,13 +699,10 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
                 m_SystemManager.MiddleBossClear();
             }
         }
-        DOTween.Kill(transform);
+        //DOTween.Kill(transform);
         ImageBlend(Color.red);
-        if (m_Sequence != null) {
-            m_Sequence.Kill();
-        }
         StartCoroutine(AdditionalOnDeath());
-        DisableAttackable(-1f);
+        DisableAttackable();
     }
 
     protected virtual void KilledByPlayer() { // 플레이어가 죽인 경우
@@ -613,7 +716,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     }
 
     void OnDestroy() { // 최종 파괴 (자연사도 작동)
-        DOTween.Kill(transform);
+        //DOTween.Kill(transform);
         if (m_SystemManager == null)
             return;
         else if (m_ParentEnemy != null)
@@ -665,24 +768,24 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             return;
 
         if (m_MaxHealth < 0f) {
-            if (m_ParentEnemy.m_MaxHealth < 1000f) { // 본체의 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
+            if (m_ParentEnemy.m_MaxHealth < 10000) { // 본체의 최대 체력이 10000 미만이면 체력 30% 이하시 붉은색 점멸
                 if (m_ParentEnemy.m_Health < m_ParentEnemy.m_MaxHealth * 0.3f) {
                     red_blink = LowHealthImageBlend();
                 }
             }
-            else { // 본체의 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
-                if (m_ParentEnemy.m_Health < 300f) {
+            else { // 본체의 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
+                if (m_ParentEnemy.m_Health < 3000) {
                     red_blink = LowHealthImageBlend();
                 }
             }
         }
-        else if (m_MaxHealth < 1000f) { // 최대 체력이 1000 미만이면 체력 30% 이하시 붉은색 점멸
-            if (m_Health < m_MaxHealth * 0.3f) {
+        else if (m_MaxHealth < 10000) { // 최대 체력이 10000 미만이면 체력 30% 이하시 붉은색 점멸
+            if (m_Health < m_MaxHealth * 3 / 10) {
                 red_blink = LowHealthImageBlend();
             }
         }
-        else { // 최대 체력이 1000 이상이면 체력 300 미만시 붉은색 점멸
-            if (m_Health < 300f) {
+        else { // 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
+            if (m_Health < 3000) {
                 red_blink = LowHealthImageBlend();
             }
         }
@@ -690,8 +793,8 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         if (red_blink)
             return;
 
-        if (m_TakingDamageTimer > 0f) {
-            m_TakingDamageTimer -= 60f * Time.deltaTime;
+        if (m_TakingDamageTimer > 0) {
+            m_TakingDamageTimer -= (int) (1000 / Application.targetFrameRate * Time.timeScale);
             ImageBlend(m_DamagingAlbedo);
         }
         else {
@@ -700,14 +803,14 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     }
 
     private bool LowHealthImageBlend() { // true이면 빨간색
-        if (m_LowHealthBlinkTimer > 0f) {
-            m_LowHealthBlinkTimer -= 60f * Time.deltaTime;
-            if (m_LowHealthBlinkTimer > 23f) {
+        if (m_LowHealthBlinkTimer > 0) {
+            m_LowHealthBlinkTimer -= (int) (1000 / Application.targetFrameRate * Time.timeScale);
+            if (m_LowHealthBlinkTimer > 383) {
                 return true;
             }
         }
         else {
-            m_LowHealthBlinkTimer = 30f;
+            m_LowHealthBlinkTimer = 500;
             ImageBlend(Color.red);
             return true;
         }
@@ -824,5 +927,21 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
                 }
                 break;
         }
+    }
+}
+
+public class HasTargetPosition : EnemyUnit {
+    public IEnumerator MoveTowardsToTarget(Vector2 target_vec2, int duration) {
+        Vector3 init_position = transform.position;
+        Vector3 target_position = new Vector3(target_vec2.x, target_vec2.y, Depth.ENEMY);
+        int frame = duration * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            
+            transform.position = Vector3.Lerp(init_position, target_position, t_pos);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 }

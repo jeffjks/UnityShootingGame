@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHomingMissile : PlayerMissile {
     
     [Space(10)]
-    [SerializeField] private float m_RotationSpeed = 0.09f;
+    private float m_RotationSpeed = 0.09f;
     private GameObject m_Target;
     private Vector2 m_MainCameraPosition;
     private SystemManager m_SystemManager = null;
@@ -13,7 +13,7 @@ public class PlayerHomingMissile : PlayerMissile {
     protected override void OnStart()
     {
         m_SystemManager = SystemManager.instance_sm;
-        m_Vector2 = Vector2Int.up * m_Speed;
+        m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
         m_Target = null;
     }
 
@@ -31,7 +31,7 @@ public class PlayerHomingMissile : PlayerMissile {
             else {
                 Vector2 vec = (m_Target.transform.position - transform.position).normalized;
                 transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
-                m_Vector2 = Vector2Int.up * m_Speed;
+                m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
             }
         }
         transform.up = new Vector2(transform.up.x, transform.up.y);

@@ -61,37 +61,37 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         if (m_SystemManager.m_Difficulty == 0) {
             while(true) {
                 CreateBullet(4, m_FirePosition[0].position, 2f, m_CurrentAngle, accel);
                 CreateBullet(4, m_FirePosition[1].position, 2f, m_CurrentAngle + 180f, accel);
-                yield return new WaitForSeconds(0.12f);
+                yield return new WaitForMillisecondFrames(120);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             while(true) {
                 CreateBulletsSector(4, m_FirePosition[0].position, 2f, m_CurrentAngle, accel, 2, 9f);
                 CreateBulletsSector(4, m_FirePosition[1].position, 2f, m_CurrentAngle + 180f, accel, 2, 9f);
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForMillisecondFrames(50);
             }
         }
         else {
             while(true) {
                 CreateBulletsSector(4, m_FirePosition[0].position, 2f, m_CurrentAngle, accel, 2, 6f);
                 CreateBulletsSector(4, m_FirePosition[1].position, 2f, m_CurrentAngle + 180f, accel, 2, 6f);
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForMillisecondFrames(30);
             }
         }
     }
 
     private IEnumerator Pattern2(int rand)
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float[] delay = {3f, 1.5f, 1f};
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        int[] delay = {3000, 1500, 1000};
         if (rand == 1) {
-            yield return new WaitForSeconds(delay[m_SystemManager.m_Difficulty] * 0.5f);
+            yield return new WaitForMillisecondFrames(delay[m_SystemManager.m_Difficulty] / 2);
         }
 
         while (true) {
@@ -99,35 +99,35 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(4, m_FirePosition[0].position, 5.5f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.04f);
+                    yield return new WaitForMillisecondFrames(40);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(4, m_FirePosition[0].position, 5.5f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.04f);
+                    yield return new WaitForMillisecondFrames(40);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(4, m_FirePosition[0].position, 5.5f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.04f);
+                    yield return new WaitForMillisecondFrames(40);
                 }
             }
             m_RotatePattern = 10;
-            yield return new WaitForSeconds(delay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(delay[m_SystemManager.m_Difficulty]);
         }
     }
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         if (m_SystemManager.m_Difficulty == 0) {
             while(true) {
                 CreateBullet(0, m_FirePosition[0].position, 5f, m_CurrentAngle, accel);
                 CreateBullet(0, m_FirePosition[0].position, 6.4f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForMillisecondFrames(100);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
@@ -135,7 +135,7 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
                 CreateBullet(0, m_FirePosition[0].position, 5f, m_CurrentAngle, accel);
                 CreateBullet(0, m_FirePosition[0].position, 6.4f, m_CurrentAngle, accel);
                 CreateBullet(2, m_FirePosition[1].position, 6f, m_CurrentAngle + 180f, accel);
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForMillisecondFrames(60);
             }
         }
         else {
@@ -144,7 +144,7 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
                 CreateBulletsSector(0, m_FirePosition[0].position, 6.4f, m_CurrentAngle, accel, 2, 8f);
                 CreateBullet(2, m_FirePosition[1].position, 5f, m_CurrentAngle + 180f, accel);
                 CreateBullet(2, m_FirePosition[1].position, 6.4f, m_CurrentAngle + 180f, accel);
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForMillisecondFrames(60);
             }
         }
     }

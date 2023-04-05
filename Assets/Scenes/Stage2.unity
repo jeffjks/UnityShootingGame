@@ -233,15 +233,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 2
   m_Direction: 45
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 25
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 25000
   m_MovePattern:
-  - delay: 2.7
+  - delay: 2700
     direction: 90
     speed: 8739
     time: 16
-  m_ActivateTime: 50
-  m_DeactivateTime: 90
+    duration: 16000
+  m_ActivateTime: 50000
+  m_DeactivateTime: 90000
   m_AttackableTimer: 0
 --- !u!1 &84663665
 GameObject:
@@ -1066,15 +1067,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 2
   m_Direction: 270
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 0
     direction: 225
     speed: 8739
     time: 13.5
-  m_ActivateTime: 55
-  m_DeactivateTime: 95
+    duration: 13500
+  m_ActivateTime: 55000
+  m_DeactivateTime: 95000
   m_AttackableTimer: 0
 --- !u!1 &845341422
 GameObject:
@@ -1145,15 +1147,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 2
   m_Direction: 270
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 16
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 0
     direction: 225
     speed: 8739
     time: 12.5
-  m_ActivateTime: 55
-  m_DeactivateTime: 95
+    duration: 12500
+  m_ActivateTime: 55000
+  m_DeactivateTime: 95000
   m_AttackableTimer: 0
 --- !u!1 &882221969
 GameObject:
@@ -1588,15 +1591,16 @@ MonoBehaviour:
   m_Hell: 0
   m_Speed: 2
   m_Direction: 270
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 16
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 0
     direction: 225
     speed: 8739
     time: 12.5
-  m_ActivateTime: 55
-  m_DeactivateTime: 95
+    duration: 12500
+  m_ActivateTime: 55000
+  m_DeactivateTime: 95000
   m_AttackableTimer: 0
 --- !u!1 &1150961309
 GameObject:
@@ -2651,15 +2655,16 @@ MonoBehaviour:
   m_Hell: 0
   m_Speed: 2
   m_Direction: 270
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 16
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 0
     direction: 225
     speed: 8739
     time: 12.5
-  m_ActivateTime: 55
-  m_DeactivateTime: 95
+    duration: 12500
+  m_ActivateTime: 55000
+  m_DeactivateTime: 95000
   m_AttackableTimer: 0
 --- !u!1001 &1934945172
 PrefabInstance:
@@ -2963,13 +2968,14 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 2
   m_Direction: 45
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 25
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 25000
   m_MovePattern:
-  - delay: 2.7
+  - delay: 2700
     direction: 90
     speed: 8739
     time: 17
-  m_ActivateTime: 50
-  m_DeactivateTime: 90
+    duration: 17000
+  m_ActivateTime: 50000
+  m_DeactivateTime: 90000
   m_AttackableTimer: 0

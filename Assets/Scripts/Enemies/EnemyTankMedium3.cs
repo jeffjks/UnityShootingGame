@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyTankMedium3 : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform[] m_FirePosition = new Transform[2];
+    private int[] m_FireDelay = { 400, 200, 150 };
     private float m_Direction;
 
     void Start()
@@ -23,20 +23,20 @@ public class EnemyTankMedium3 : EnemyUnit
         if (m_Direction >= 360f) {
             m_Direction -= 360f;
         }
-        m_Direction += 90f * Time.deltaTime;
+        m_Direction += 90f / Application.targetFrameRate * Time.timeScale;
         
         base.Update();
     }
 
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
             pos[0] = GetScreenPosition(m_FirePosition[0].position);
             pos[1] = GetScreenPosition(m_FirePosition[1].position);
             CreateBullet(4, pos[0], 5.2f, m_Direction, accel);
             CreateBullet(4, pos[1], 5.2f, m_Direction + 180f, accel);
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

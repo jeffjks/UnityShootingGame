@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerBombDamage : PlayerDamageUnit
 {
+    public int m_BombDuration;
     [SerializeField] private BoxCollider2D m_BoxCollider2D = null;
-    [SerializeField] private float m_BombDuration = 0f;
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class PlayerBombDamage : PlayerDamageUnit
 
     void OnEnable()
     {
-        Invoke("BombDamageEnd", m_BombDuration);
+        StartCoroutine(BombDamageEnd());
     }
 
     void OnTriggerStay2D(Collider2D other) // 충돌 감지
@@ -25,8 +25,10 @@ public class PlayerBombDamage : PlayerDamageUnit
         }
     }
 
-    private void BombDamageEnd() {
+    private IEnumerator BombDamageEnd() {
+        yield return new WaitForMillisecondFrames(m_BombDuration);
         OnDeath();
+        yield break;
     }
 
     public override void OnDeath() {

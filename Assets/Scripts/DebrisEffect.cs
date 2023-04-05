@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+
 
 public class DebrisEffect : MonoBehaviour
 {
     public string m_ObjectName;
     public GameObject[] m_DebrisObject;
-    public byte m_LifeTime;
+    public int m_LifeTime;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
 
     private Vector2 m_Position2D;
@@ -21,6 +21,7 @@ public class DebrisEffect : MonoBehaviour
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
     private PoolingManager m_PoolingManager = null;
+    private IEnumerator m_FadeOutAnimation;
 
     void Awake()
     {
@@ -82,19 +83,37 @@ public class DebrisEffect : MonoBehaviour
                 return;
         }
         m_DebrisObject[m_DebrisType].SetActive(true);
-        m_Materials[m_DebrisType].DOFade(0f, "_Color", m_LifeTime);
         
-        Invoke("OnDeath", m_LifeTime);
+        m_FadeOutAnimation = FadeOutAnimation();
+        StartCoroutine(m_FadeOutAnimation);
+    }
+
+    private IEnumerator FadeOutAnimation() {
+        float init_alpha = m_Materials[m_DebrisType].color.a;
+        int frame = m_LifeTime * Application.targetFrameRate / 1000;
+        for (int i = 0; i < frame; ++i) {
+            float t_fade = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            
+            float alpha = Mathf.Lerp(init_alpha, 0f, t_fade);
+            Color color_tmp = m_Materials[m_DebrisType].color;
+            m_Materials[m_DebrisType].color = new Color(color_tmp.r, color_tmp.g, color_tmp.b, alpha);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        
+        OnDeath();
+        yield break;
     }
 
     public void OnDeath() {
-        DOTween.Kill(m_Materials[m_DebrisType]);
         m_Materials[m_DebrisType].SetColor("_Color", Color.white);
-        CancelInvoke("OnDeath");
+        
+        if (m_FadeOutAnimation != null) {
+            StopCoroutine(m_FadeOutAnimation);
+        }
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.DEBRIS);
     }
 
-    void DeactivateAllChildren() {
+    private void DeactivateAllChildren() {
         for (int i = 0; i < m_DebrisObject.Length; i++) {
             m_DebrisObject[i].SetActive(false);
         }

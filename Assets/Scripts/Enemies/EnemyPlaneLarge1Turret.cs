@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyPlaneLarge1Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
+    public Transform m_FirePosition;
 
     void Start()
     {
@@ -23,14 +23,14 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
     
     
     private IEnumerator PatternA() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         
         if (m_SystemManager.m_Difficulty == 0) {
             for (int i = 0; i < 6; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(3, pos, 7.5f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForMillisecondFrames(80);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
@@ -38,7 +38,7 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
                 pos = m_FirePosition.position;
                 CreateBullet(3, pos, 8.5f, m_CurrentAngle, accel);
                 CreateBulletsSector(4, pos, 8.5f, m_CurrentAngle, accel, 2, 28f);
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForMillisecondFrames(80);
             }
         }
         else {
@@ -46,7 +46,7 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
                 pos = m_FirePosition.position;
                 CreateBullet(3, pos, 8.5f, m_CurrentAngle, accel);
                 CreateBulletsSector(4, pos, 8.5f, m_CurrentAngle, accel, 2, 28f);
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForMillisecondFrames(80);
             }
         }
         yield break;

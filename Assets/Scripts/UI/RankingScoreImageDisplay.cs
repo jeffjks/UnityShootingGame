@@ -14,9 +14,8 @@ public class RankingScoreImageDisplay : MonoBehaviour
 
     private List<Image[]> m_Attributes = new List<Image[]>();
     private GameObject[] m_AttributeSlots = new GameObject[5];
-    
-    void Start()
-    {
+
+    RankingScoreImageDisplay() {
         m_Attributes.Add(m_AttributeSpeed);
         m_Attributes.Add(m_AttributeShotForm);
         m_Attributes.Add(m_AttributeShot);

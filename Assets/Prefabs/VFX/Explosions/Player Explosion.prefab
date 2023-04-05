@@ -4827,7 +4827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerExplosion
-  m_Lifetime: 2
+  m_Lifetime: 2000
 --- !u!82 &509646514986831738
 AudioSource:
   m_ObjectHideFlags: 0

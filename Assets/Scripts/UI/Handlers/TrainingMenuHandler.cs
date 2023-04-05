@@ -44,7 +44,7 @@ public class TrainingMenuHandler : GameUI
         if (Input.GetButtonDown("Fire1")) { // Fire 키
             switch(m_Selection) {
                 case 2:
-                    m_TrainingInfo.m_BossOnly = !m_TrainingInfo.m_BossOnly;
+                    //m_TrainingInfo.m_BossOnly = !m_TrainingInfo.m_BossOnly;
                     break;
                 case 3:
                     TrainingStart();

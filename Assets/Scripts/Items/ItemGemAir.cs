@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemGemAir : ItemGem
 {
-    [SerializeField] private Transform m_RotationTransform = null;
     [SerializeField] private float m_RandomScale = 0f;
 
     private float m_VerticalSpeed, m_HorizontalSpeed;
@@ -13,7 +12,7 @@ public class ItemGemAir : ItemGem
 
     void OnEnable()
     {
-        m_RotationTransform.rotation = Random.rotation;
+        m_Renderer.rotation = Random.rotation;
         m_RandomAxis = Random.insideUnitCircle.normalized;
         m_VerticalSpeed = 0f;
         m_HorizontalSpeed = Random.Range(-0.8f, 0.8f);
@@ -23,7 +22,7 @@ public class ItemGemAir : ItemGem
     }
 
     private void RotateSelf() {
-        transform.rotation = Quaternion.AngleAxis(m_Angle, m_RandomAxis);
+        m_Renderer.rotation = Quaternion.AngleAxis(m_Angle, m_RandomAxis);
         m_Angle += 300f * Time.deltaTime;
     }
     
@@ -33,7 +32,7 @@ public class ItemGemAir : ItemGem
 
         RotateSelf();
 
-        transform.Translate(m_HorizontalSpeed * Time.deltaTime, m_VerticalSpeed * Time.deltaTime, 0f, Space.World);
+        transform.Translate(m_HorizontalSpeed / Application.targetFrameRate * Time.timeScale, m_VerticalSpeed / Application.targetFrameRate * Time.timeScale, 0f, Space.World);
 
         if (m_VerticalSpeed > -7f)
             m_VerticalSpeed -= 0.1f;

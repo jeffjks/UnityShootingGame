@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyTurret2Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 1250, 500, 250 };
     
-    private bool m_Active = false;
+    private bool m_Active = false; // 총알 생성 없이 총알 쏘는 모션 등 방지용
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class EnemyTurret2Turret : EnemyUnit
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {
-                InvokeRepeating("Pattern1", Random.Range(0f, m_FireDelay[m_SystemManager.m_Difficulty]), m_FireDelay[m_SystemManager.m_Difficulty]);
+                StartCoroutine(Pattern1());
                 m_Active = true;
             }
         }
@@ -36,11 +36,15 @@ public class EnemyTurret2Turret : EnemyUnit
         base.Update();
     }
 
-    private void Pattern1() {
-        Vector3 pos = GetScreenPosition(m_FirePosition.position);
+    private IEnumerator Pattern1() {
+        Vector3 pos;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float[] speed = {5.7f, 6.8f, 6.8f};
-        
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
+        yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[m_SystemManager.m_Difficulty]));
+        while(true) {
+            pos = GetScreenPosition(m_FirePosition.position);
+            CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+        }
     }
 }

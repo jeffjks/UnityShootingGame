@@ -18,17 +18,17 @@ public class Boundary
 public class PlayerController : PlayerControllerManager
 {
     [SerializeField] private float m_Tilt = 30f;
-    [SerializeField] private Vector2Int m_PlayerRevivePoint;
     [SerializeField] private GameObject m_PlayerShield = null;
     [SerializeField] private string m_Explosion = string.Empty;
-    public float m_ReviveInvincibleTime = 3f;
+
+    public int m_ReviveInvincibleTime;
 
     private Boundary m_Boundary = new Boundary(-1792, 1792, -3789, -256); // -7f, 7f, -14.8f, -1f
     private int m_MaxPlayerCamera;
     private float m_DefaultRotation;
     private float m_TiltSpeed = 0.2f;
     private bool m_Invincibility = false;
-    private float m_InvincibleTimer;
+    private int m_InvincibleTimer;
     private bool m_HasCollided = false;
     private int m_Speed, m_SlowSpeed, m_OverviewSpeed;
     private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
@@ -37,7 +37,7 @@ public class PlayerController : PlayerControllerManager
 
     void Start()
     {
-        m_MaxPlayerCamera = Size.CAMERA_MOVE_LIMIT;
+        m_MaxPlayerCamera = (int) (Size.CAMERA_MOVE_LIMIT * 256);
         m_DefaultRotation = transform.eulerAngles[0];
 
         m_SystemManager = SystemManager.instance_sm;
@@ -104,22 +104,14 @@ public class PlayerController : PlayerControllerManager
         SetPosition();
 
         UpdateInvincible();
-        UpdateRevivePoint();
 
         //Debug.Log(m_Position);
     }
 
-    private void UpdateRevivePoint() {
-        int playerReviveX = m_Position.x;
-        m_PlayerRevivePoint = new Vector2Int(
-            Mathf.Clamp(playerReviveX, -m_MaxPlayerCamera, m_MaxPlayerCamera),
-            m_PlayerManager.m_RevivePointY
-        );
-    }
-
     void OnEnable()
     {
-        m_Position = Vector2Int.RoundToInt(transform.position*256);
+        SetPosition();
+
         m_Invincibility = true;
         m_HasCollided = false;
         m_SlowMode = false;
@@ -131,15 +123,17 @@ public class PlayerController : PlayerControllerManager
     }
 
     private void ResetPosition() {
-        m_Position = m_PlayerRevivePoint;
-        Debug.Log("ResetPosition");
-        //transform.position = m_PlayerRevivePoint.position;
+        int playerReviveX = Mathf.Clamp(m_Position.x, -m_MaxPlayerCamera, m_MaxPlayerCamera);
+        int playerReviveY = m_PlayerManager.m_RevivePositionY;
+
+        m_Position = new Vector2Int(playerReviveX, playerReviveY);
+        SetPosition();
     }
 
     private void OverviewPosition() {
         Vector2Int target_pos;
         if (m_SystemManager.GetCurrentStage() < 4) {
-            target_pos = new Vector2Int(0, m_PlayerRevivePoint.y);
+            target_pos = new Vector2Int(0, m_PlayerManager.m_RevivePositionY);
             if (m_SystemManager.m_PlayState != 3) {
                 m_OverviewSpeed = Mathf.Max(Mathf.Abs(m_Position.x - target_pos.x), Mathf.Abs(m_Position.y - target_pos.y));
                 m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
@@ -147,41 +141,41 @@ public class PlayerController : PlayerControllerManager
             }
         }
         else {
-            target_pos = new Vector2Int(m_Position.x, 512);
+            target_pos = new Vector2Int(m_Position.x, 2*256);
             if (m_SystemManager.m_PlayState != 3) {
-                m_OverviewSpeed = 3072;
+                m_OverviewSpeed = 12*256;
                 return;
             }
         }
         // m_PlayState가 3일때만 이하 내용 실행
         m_Vector2 = Vector2Int.zero;
-        m_Position = Vector2Int.RoundToInt(Vector2.MoveTowards(m_Position, target_pos, m_OverviewSpeed / Application.targetFrameRate));
-        //transform.position = Vector3.MoveTowards(transform.position, target_pos, m_OverviewSpeed * Time.deltaTime);
+        m_Position = Vector2Int.RoundToInt(Vector2.MoveTowards(m_Position, target_pos, m_OverviewSpeed / Application.targetFrameRate * Time.timeScale));
     }
 
     private void UpdateInvincible() {
-        if (m_InvincibleTimer > 0f) {
-            m_InvincibleTimer -= Time.deltaTime;
+        if (m_InvincibleTimer > 0) {
+            m_InvincibleTimer--;
         }
         else {
             DisableInvincible();
         }
     }
 
-    public void EnableInvincible(float duration) {
+    public void EnableInvincible(int millisecond) {
+        int frame = millisecond * Application.targetFrameRate / 1000;
         if (m_SystemManager.m_InvincibleMod)
             return;
-        if (m_InvincibleTimer < duration) {
+        if (m_InvincibleTimer < frame) {
             m_PlayerShield.SetActive(true);
             m_Invincibility = true;
-            m_InvincibleTimer = duration;
+            m_InvincibleTimer = frame;
         }
     }
 
     public void DisableInvincible() {
         if (m_SystemManager.m_InvincibleMod)
             return;
-        m_InvincibleTimer = 0f;
+        m_InvincibleTimer = 0;
         m_PlayerShield.gameObject.SetActive(false);
         m_Invincibility = false;
     }

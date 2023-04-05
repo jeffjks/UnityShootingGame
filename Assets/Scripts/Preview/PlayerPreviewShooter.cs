@@ -41,9 +41,9 @@ public class PlayerPreviewShooter : PlayerShooterManager
                 else {
                     m_ShotDamage = 0;
                 }
-                yield return new WaitForSeconds(m_FireRate);
+                yield return new WaitForMillisecondFrames(m_FireRate);
             }
-            yield return new WaitForSeconds(m_FireDelayWait); // m_FireDelay에서 m_FireRate가 차지하는 부분 빼기
+            yield return new WaitForMillisecondFrames(m_FireDelayWait);
         }
         yield break;
     }
@@ -60,9 +60,9 @@ public class PlayerPreviewShooter : PlayerShooterManager
     private IEnumerator PreviewSlowMode() {
         while(true) {
             DisableSlowMode();
-            yield return new WaitForSeconds(Random.Range(1f, 3f));
+            yield return new WaitForMillisecondFrames(Random.Range(1000, 3000));
             EnableSlowMode();
-            yield return new WaitForSeconds(Random.Range(1f, 3f));
+            yield return new WaitForMillisecondFrames(Random.Range(1000, 3000));
         }
     }
 

@@ -39,23 +39,23 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        yield return new WaitForSeconds(1.5f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        yield return new WaitForMillisecondFrames(1500);
 
         if (m_SystemManager.m_Difficulty == 0) {
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 4f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(2f + Random.Range(0f, 1f));
+                yield return new WaitForMillisecondFrames(2000 + Random.Range(0, 1000));
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             while(true) {
-                yield return new WaitForSeconds(1.2f + Random.Range(0f, 0.5f));
+                yield return new WaitForMillisecondFrames(1200 + Random.Range(0, 500));
             }
         }
         else {
             while(true) {
-                yield return new WaitForSeconds(1f + Random.Range(0f, 0.4f));
+                yield return new WaitForMillisecondFrames(1000 + Random.Range(0, 400));
             }
         }
     }
@@ -63,20 +63,20 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
     private IEnumerator Pattern2()
     {
         if (m_SystemManager.m_Difficulty == 0) {
-            EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1f);
+            EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 2f, m_CurrentAngle, accel);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForMillisecondFrames(200);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
             while(true) {
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForMillisecondFrames(50);
             }
         }
         else {
             while(true) {
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForMillisecondFrames(50);
             }
         }
     }

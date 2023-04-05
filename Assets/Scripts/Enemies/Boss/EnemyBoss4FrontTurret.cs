@@ -52,7 +52,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         if (m_SystemManager.m_Difficulty == 0) {
             pos = GetScreenPosition(m_FirePosition.position);
@@ -72,7 +72,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f;
         
@@ -93,7 +93,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
                     CreateBullet(1, pos0, 5f+i*0.8f, m_CurrentAngle, accel);
                     CreateBullet(1, pos1, 5f+i*0.8f, m_CurrentAngle, accel);
                     CreateBullet(1, pos2, 5f+i*0.8f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForMillisecondFrames(50);
                 }
                 else {
                     pos0 = GetScreenPosition(m_FirePosition.position);
@@ -102,7 +102,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
                     CreateBullet(1, pos0, 5f+i*0.8f, m_CurrentAngle, accel);
                     CreateBullet(1, pos1, 5f+i*0.8f, m_CurrentAngle, accel);
                     CreateBullet(1, pos2, 5f+i*0.8f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.02f);
+                    yield return new WaitForMillisecondFrames(20);
                 }
             }
         }
@@ -111,7 +111,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         if (m_SystemManager.m_Difficulty == 0) {
             pos = GetScreenPosition(m_FirePosition.position);

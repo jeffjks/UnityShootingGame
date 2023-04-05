@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class EnemyMiddleBoss5bTurret : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private Transform m_FirePosition = null;
-    private IEnumerator m_Pattern1;
+    public Transform m_FirePosition;
+
+    private int[] m_FireDelay = { 1800, 1400, 1200 };
+    private IEnumerator m_Pattern1, m_Pattern2;
 
     void Start()
     {
         GetCoordinates();
         m_Pattern1 = Pattern1();
+        m_Pattern2 = Pattern2();
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -28,10 +30,24 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
     public void StartPattern1() {
         StartCoroutine(m_Pattern1);
     }
+
+    public void StartPattern2() {
+        StartCoroutine(m_Pattern2);
+    }
+
+    public void StopPattern1() {
+        if (m_Pattern1 != null)
+            StopCoroutine(m_Pattern1);
+    }
+
+    public void StopPattern2() {
+        if (m_Pattern2 != null)
+            StopCoroutine(m_Pattern2);
+    }
     
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(7.4f, 0.9f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(7.4f, 900);
         Vector3 pos;
         
         while(true) {
@@ -45,13 +61,13 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
             else {
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 12f);
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
     
     
     private IEnumerator Pattern2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         
         if (m_SystemManager.m_Difficulty == 0) {

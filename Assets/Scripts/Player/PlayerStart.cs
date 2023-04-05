@@ -35,19 +35,19 @@ public class PlayerStart : MonoBehaviour
     }
 
     void Update() {
-        m_PlayerController.SetVerticalSpeed(m_Vspeed / Application.targetFrameRate);
+        m_PlayerController.SetVerticalSpeed((int) (m_Vspeed / Application.targetFrameRate * Time.timeScale));
         //m_PlayerController.m_Vector2 = 
         //transform.Translate(Vector3.up * m_Vspeed / Application.targetFrameRate, Space.World);
     }
 
     private IEnumerator SpawnEvent() {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForMillisecondFrames(2500);
         m_Vspeed = 2523;
         while (m_Vspeed > -1024) {
             m_Vspeed -= 77;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForMillisecondFrames(100);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForMillisecondFrames(500);
         EndOpening();
         yield break;
     }

@@ -687,20 +687,22 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 2
   m_Direction: 336
-  m_SpawnPeriod: 1.4
-  m_RemoveTimer: 16
+  m_SpawnPeriod: 1400
+  m_RemoveTimer: 16000
   m_MovePattern:
-  - delay: 2
+  - delay: 2000
     direction: 316
     speed: 8739
     time: 3
-  - delay: 3
+    duration: 3000
+  - delay: 3000
     direction: 297
     speed: 8739
     time: 3
-  m_ActivateTime: 42
-  m_DeactivateTime: 170
-  m_AttackableTimer: 0.8
+    duration: 3000
+  m_ActivateTime: 42000
+  m_DeactivateTime: 170000
+  m_AttackableTimer: 800
 --- !u!1001 &129614740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1074,7 +1076,7 @@ PrefabInstance:
     - target: {fileID: 6400522805703092343, guid: 9d0d924f68d00bc49a8cea7db1aa6796,
         type: 3}
       propertyPath: m_Timer
-      value: 40
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d0d924f68d00bc49a8cea7db1aa6796, type: 3}
@@ -1626,16 +1628,17 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 3.8
   m_Direction: 36
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 2
+  - delay: 2000
     direction: 8739
     speed: 0
     time: 0.8
-  m_ActivateTime: 14
-  m_DeactivateTime: 20
-  m_AttackableTimer: 0.4
+    duration: 800
+  m_ActivateTime: 14000
+  m_DeactivateTime: 20000
+  m_AttackableTimer: 400
 --- !u!1001 &380056501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1820,7 +1823,7 @@ PrefabInstance:
     - target: {fileID: 6400522805703092343, guid: 9d0d924f68d00bc49a8cea7db1aa6796,
         type: 3}
       propertyPath: m_Timer
-      value: 38
+      value: 3800
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d0d924f68d00bc49a8cea7db1aa6796, type: 3}
@@ -4139,16 +4142,17 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 3.8
   m_Direction: 36
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 0.4
+  - delay: 400
     direction: 8739
     speed: 0
     time: 0.8
-  m_ActivateTime: 15.6
-  m_DeactivateTime: 20
-  m_AttackableTimer: 0.4
+    duration: 800
+  m_ActivateTime: 15600
+  m_DeactivateTime: 20000
+  m_AttackableTimer: 400
 --- !u!1001 &1046108116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4270,7 +4274,7 @@ PrefabInstance:
     - target: {fileID: 6400522805703092343, guid: 9d0d924f68d00bc49a8cea7db1aa6796,
         type: 3}
       propertyPath: m_Timer
-      value: 15
+      value: 1500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d0d924f68d00bc49a8cea7db1aa6796, type: 3}
@@ -4664,16 +4668,17 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 3.8
   m_Direction: -45
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 2
+  - delay: 2000
     direction: 8739
     speed: 0
     time: 0.8
-  m_ActivateTime: 37
-  m_DeactivateTime: 42
-  m_AttackableTimer: 0.4
+    duration: 800
+  m_ActivateTime: 37000
+  m_DeactivateTime: 42000
+  m_AttackableTimer: 400
 --- !u!1001 &1137472253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6751,20 +6756,22 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 2
   m_Direction: 230
-  m_SpawnPeriod: 1.4
-  m_RemoveTimer: 8
+  m_SpawnPeriod: 1400
+  m_RemoveTimer: 8000
   m_MovePattern:
-  - delay: 0.7
+  - delay: 700
     direction: 245
     speed: 8739
     time: 1
-  - delay: 1.5
+    duration: 1000
+  - delay: 1500
     direction: 275
     speed: 8739
     time: 3
-  m_ActivateTime: 110
-  m_DeactivateTime: 140
-  m_AttackableTimer: 1.5
+    duration: 3000
+  m_ActivateTime: 110000
+  m_DeactivateTime: 140000
+  m_AttackableTimer: 1500
 --- !u!1001 &1580501093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7012,7 +7019,7 @@ PrefabInstance:
     - target: {fileID: 6400522805703092343, guid: 9d0d924f68d00bc49a8cea7db1aa6796,
         type: 3}
       propertyPath: m_Timer
-      value: 100
+      value: 10000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d0d924f68d00bc49a8cea7db1aa6796, type: 3}
@@ -7217,16 +7224,17 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 3.8
   m_Direction: -45
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 0.4
+  - delay: 400
     direction: 8739
     speed: 0
     time: 0.8
-  m_ActivateTime: 38.6
-  m_DeactivateTime: 42
-  m_AttackableTimer: 0.4
+    duration: 800
+  m_ActivateTime: 38600
+  m_DeactivateTime: 42000
+  m_AttackableTimer: 400
 --- !u!1001 &1686153613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8784,16 +8792,17 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 3.8
   m_Direction: 36
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 1.2
+  - delay: 1200
     direction: 8739
     speed: 0
     time: 0.8
-  m_ActivateTime: 14.8
-  m_DeactivateTime: 20
-  m_AttackableTimer: 0.4
+    duration: 800
+  m_ActivateTime: 14800
+  m_DeactivateTime: 20000
+  m_AttackableTimer: 400
 --- !u!1 &2073007109
 GameObject:
   m_ObjectHideFlags: 0
@@ -9031,7 +9040,6 @@ MonoBehaviour:
   - {fileID: 285032343}
   m_EnemySpawners: {fileID: 110971421}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
-  m_Test: {fileID: 0}
   m_Helicopter: {fileID: 2610135649203121185, guid: 691377558a126544bbcc4525f317a0c9,
     type: 3}
   m_TankLarge_2: {fileID: 100018, guid: fee8a48d14e5e3a40ae478a182c83325, type: 3}
@@ -9549,16 +9557,17 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 3.8
   m_Direction: -45
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 1.2
+  - delay: 1200
     direction: 8739
     speed: 0
     time: 0.8
-  m_ActivateTime: 37.8
-  m_DeactivateTime: 42
-  m_AttackableTimer: 0.4
+    duration: 800
+  m_ActivateTime: 37800
+  m_DeactivateTime: 42000
+  m_AttackableTimer: 400
 --- !u!1001 &2138171624
 PrefabInstance:
   m_ObjectHideFlags: 0

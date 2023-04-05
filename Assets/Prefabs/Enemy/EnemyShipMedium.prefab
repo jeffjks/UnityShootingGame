@@ -1427,10 +1427,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707b1dffbc7df0d48ad5ab6ed14f6383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
-  m_Health: 300
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 3000
   m_Class: 0
   m_Score: 500
   m_Debris: 0

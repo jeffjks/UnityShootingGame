@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class PlayerBomb : MonoBehaviour
 {
@@ -13,6 +12,9 @@ public class PlayerBomb : MonoBehaviour
 
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
+
+    private const int TARGET_TIMER = 400;
+    private const int REMOVE_TIMER = 2600; // TARGET_TIMER 이후
 
     void Awake()
     {
@@ -28,20 +30,14 @@ public class PlayerBomb : MonoBehaviour
         m_Bomb.SetActive(true);
         m_Bomb.transform.position = m_PlayerManager.m_Player.transform.position;
 
-        float target_timer = 0.4f;
-        float remove_timer = 3f;
-
         float target_x = Mathf.Clamp(transform.position.x, -3f, 3f);
         float target_y = - Size.GAME_HEIGHT/2 - 1f;
         m_Target = new Vector3(target_x, target_y, Depth.PLAYER_MISSILE);
         Vector3 relativePos = m_Target - m_Bomb.transform.position;
-        
-        m_Explosion.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
-        m_Bomb.transform.DOMove(m_Target, target_timer).SetEase(Ease.OutQuad);
+
         m_Bomb.transform.rotation = Quaternion.LookRotation(relativePos);
         
-        Invoke("BombExplosion", target_timer);
-        Invoke("BombEnd", remove_timer);
+        StartCoroutine(BombExplosion());
     }
 
     void Update()
@@ -50,19 +46,27 @@ public class PlayerBomb : MonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    private void BombExplosion() {
-        m_SystemManager.EraseBullets(2f);
+    private IEnumerator BombExplosion() {
+        Vector3 init_position = transform.position;
+        int frame = TARGET_TIMER * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            
+            transform.position = Vector3.Lerp(init_position, m_Target, t_pos);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        
+        m_SystemManager.EraseBullets(2000);
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(true);
         m_BombDamage.SetActive(true);
-    }
 
-    private void BombEnd() {
-        transform.DOKill();
-        CancelInvoke();
+        yield return new WaitForMillisecondFrames(REMOVE_TIMER);
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(false);
         m_BombDamage.SetActive(false);
         gameObject.SetActive(false);
+        yield break;
     }
 }

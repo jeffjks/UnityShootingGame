@@ -20,7 +20,9 @@ public class MainMenuHandler : GameUI
         m_MainMenuMusicController.PlayMainMusic();
         m_GameManager.SetOptions();
 
-        m_IsEnabled[2] = m_GameManager.m_IsOnline;
+        if (m_GameManager.m_NetworkAvailable) {
+            m_IsEnabled[2] = m_GameManager.m_IsOnline;
+        }
     }
 
     void Update()

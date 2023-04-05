@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyTankSmall1Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 2400, 1200, 600 };
 
     void Start()
     {
         GetCoordinates();
-        InvokeRepeating("Pattern1", Random.Range(0f, 0.5f), m_FireDelay[m_SystemManager.m_Difficulty]);
+        StartCoroutine(Pattern1(Random.Range(0, 500)));
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -28,12 +28,18 @@ public class EnemyTankSmall1Turret : EnemyUnit
         base.Update();
     }
 
-    private void Pattern1() {
-        Vector3 pos = GetScreenPosition(m_FirePosition.position);
-        float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
+    private IEnumerator Pattern1(int millisecond) {
+        Vector2 pos;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float[] speed = {6.6f, 7.8f, 7.8f};
+        yield return new WaitForMillisecondFrames(millisecond);
         
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], target_angle, accel);
+        while (true) {
+            pos = GetScreenPosition(m_FirePosition.position);
+            float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
+        
+            CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], target_angle, accel);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+        }
     }
 }

@@ -63,7 +63,7 @@ public class BossHealthHandler : MonoBehaviour
         m_TopUI.localPosition = TopUIVector3;
 
         try {
-            m_HealthRate = m_EnemyUnitBoss.m_Health / m_EnemyUnitBoss.m_MaxHealth;
+            m_HealthRate = (float) m_EnemyUnitBoss.m_Health / m_EnemyUnitBoss.m_MaxHealth;
         }
         catch(System.NullReferenceException) {
             m_HealthRate = 1f;

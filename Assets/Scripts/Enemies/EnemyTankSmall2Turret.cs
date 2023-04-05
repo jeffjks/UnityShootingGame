@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemyTankSmall2Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 2400, 1200, 600 };
 
     private bool m_Shooting = false;
 
     void Start()
     {
         GetCoordinates();
-        StartCoroutine(Pattern1());
+        StartCoroutine(Pattern1(Random.Range(0, 500)));
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -32,25 +32,25 @@ public class EnemyTankSmall2Turret : EnemyUnit
         base.Update();
     }
 
-    private IEnumerator Pattern1() {
+    private IEnumerator Pattern1(int millisecond) {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        float[] speed = {6.6f, 7.8f, 7.8f};
+        yield return new WaitForMillisecondFrames(millisecond);
         while(true) {
             float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
-            float[] speed = {6.6f, 7.8f, 7.8f};
 
             m_Shooting = true;
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, speed[m_SystemManager.m_Difficulty], target_angle, accel);
-            yield return new WaitForSeconds(0.13f);
+            yield return new WaitForMillisecondFrames(130);
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, speed[m_SystemManager.m_Difficulty], target_angle, accel);
-            yield return new WaitForSeconds(0.13f);
+            yield return new WaitForMillisecondFrames(130);
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, speed[m_SystemManager.m_Difficulty], target_angle, accel);
             m_Shooting = false;
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

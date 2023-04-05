@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyTankLarge3 : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform[] m_FirePosition = new Transform[2];
+    private int[] m_FireDelay = { 1000, 550, 250 };
     
     void Start()
     {
@@ -21,7 +21,7 @@ public class EnemyTankLarge3 : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float[] target_angle = new float[2];
 
         while(true) {
@@ -31,9 +31,9 @@ public class EnemyTankLarge3 : EnemyUnit
                 for (int j = 0; j < 5; j++) {
                     pos[i] = GetScreenPosition(m_FirePosition[i].position);
                     CreateBullet(4, pos[i], 8f, target_angle[i], accel);
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+                yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
             }
         }
     }

@@ -57,12 +57,6 @@ public class GraphicsMenuHandler : GameUI
 
         if (Input.GetButtonDown("Fire1")) { // Fire 키
             switch(m_Selection) {
-                case 1:
-                    m_FullScreenOptions = !m_FullScreenOptions;
-                    break;
-                case 3:
-                    m_AntiAliasing = !m_AntiAliasing;
-                    break;
                 case 4:
                     Apply();
                     break;

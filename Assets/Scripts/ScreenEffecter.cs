@@ -35,7 +35,7 @@ public class ScreenEffecter : MonoBehaviour // 흰색 점멸 이펙트
         while (alpha > 0f) {
             SetAlpha(alpha);
             alpha -= 0.03f;
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         alpha = 0f;
         SetAlpha(alpha);
@@ -50,12 +50,12 @@ public class ScreenEffecter : MonoBehaviour // 흰색 점멸 이펙트
         SetAlpha(alpha);
         while (m_WETransform.localScale.x < m_MaxSize.x) {
             SetXscale(Mathf.Lerp(0f, m_MaxSize.x, xscale += 0.08f));
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         while (alpha > 0f) {
             SetAlpha(alpha);
             alpha -= 0.03f;
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         alpha = 0f;
         SetAlpha(alpha);

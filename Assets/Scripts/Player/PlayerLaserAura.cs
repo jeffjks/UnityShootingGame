@@ -6,10 +6,10 @@ public class PlayerLaserAura : PlayerDamageUnit
 {
     private PlayerLaserManager m_PlayerLaser = null;
     private PlayerControllerManager m_PlayerController = null;
-    private float m_MinDamage, m_MaxDamage;
+    private int m_MinDamage, m_MaxDamage;
 
-    private float m_LaserDamage;
-    private float m_ShotLevelBonus;
+    private int m_LaserDamage;
+    private int m_ShotLevelBonus;
     private int m_LaserIndex;
 
     void OnEnable() {

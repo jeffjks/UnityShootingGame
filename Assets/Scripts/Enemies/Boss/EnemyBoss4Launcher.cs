@@ -41,11 +41,12 @@ public class EnemyBoss4Launcher : EnemyUnit
             }
         }
 
+        float dir = m_MoveDirection*3f / Application.targetFrameRate * Time.timeScale;
         if (m_Moving) {
-            transform.localPosition = new Vector3(transform.localPosition.x + Time.deltaTime*m_MoveDirection*3f , transform.localPosition.y, transform.localPosition.z);
+            transform.localPosition = new Vector3(transform.localPosition.x + dir , transform.localPosition.y, transform.localPosition.z);
         }
         else if (transform.localPosition.x != 5f*m_Position) {
-            transform.localPosition = new Vector3(transform.localPosition.x + Time.deltaTime*m_MoveDirection*3f , transform.localPosition.y, transform.localPosition.z);
+            transform.localPosition = new Vector3(transform.localPosition.x + dir , transform.localPosition.y, transform.localPosition.z);
         }
 
         if (m_Direction > 360f)
@@ -82,27 +83,27 @@ public class EnemyBoss4Launcher : EnemyUnit
 
     private IEnumerator Pattern1() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while (true) {
             pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBulletsSector(4, pos, 6.1f, ((EnemyBoss4) m_ParentEnemy).m_Direction, accel, 4, 90f);
-                yield return new WaitForSeconds(0.12f);
+                yield return new WaitForMillisecondFrames(120);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(4, pos, 6.4f, ((EnemyBoss4) m_ParentEnemy).m_Direction, accel, 5, 72f);
-                yield return new WaitForSeconds(0.09f);
+                yield return new WaitForMillisecondFrames(90);
             }
             else {
                 CreateBulletsSector(4, pos, 6.8f, ((EnemyBoss4) m_ParentEnemy).m_Direction, accel, 6, 60f);
-                yield return new WaitForSeconds(0.07f);
+                yield return new WaitForMillisecondFrames(70);
             }
         }
     }
 
     private IEnumerator Pattern2() {
         Vector3 pos = GetScreenPosition(m_FirePosition.position);
-        EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 0.5f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 500);
         
         if (m_SystemManager.m_Difficulty == 0) {
             CreateBulletsSector(2, pos, 7f, Random.Range(0f, 360f), accel, 24, 15f);
@@ -118,7 +119,7 @@ public class EnemyBoss4Launcher : EnemyUnit
 
     private IEnumerator Pattern3(int dir) {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         int rotate;
         m_Direction = Random.Range(0f, 360f);
         if (dir == 0)
@@ -133,14 +134,14 @@ public class EnemyBoss4Launcher : EnemyUnit
                 CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 8, 45f);
                 CreateBulletsSector(2, pos, 4.7f, (m_Direction + 1.4f)*rotate, accel, 8, 45f);
                 m_Direction += 12f;
-                yield return new WaitForSeconds(1f + Random.Range(0f, 0.3f));
+                yield return new WaitForMillisecondFrames(1000 + Random.Range(0, 300));
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 CreateBulletsSector(2, pos, 4.25f, (m_Direction - 1.5f)*rotate, accel, 12, 30f);
                 CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 12, 30f);
                 CreateBulletsSector(2, pos, 4.75f, (m_Direction + 1.5f)*rotate, accel, 12, 30f);
                 m_Direction += 10f;
-                yield return new WaitForSeconds(0.6f + Random.Range(0f, 0.2f));
+                yield return new WaitForMillisecondFrames(600 + Random.Range(0, 200));
             }
             else {
                 CreateBulletsSector(2, pos, 4.25f, (m_Direction - 2.25f)*rotate, accel, 12, 30f);
@@ -148,7 +149,7 @@ public class EnemyBoss4Launcher : EnemyUnit
                 CreateBulletsSector(2, pos, 4.75f, (m_Direction + 0.75f)*rotate, accel, 12, 30f);
                 CreateBulletsSector(2, pos, 5f, (m_Direction + 2.25f)*rotate, accel, 12, 30f);
                 m_Direction += 10f;
-                yield return new WaitForSeconds(0.4f + Random.Range(0f, 0.2f));
+                yield return new WaitForMillisecondFrames(400 + Random.Range(0, 200));
             }
         }
     }

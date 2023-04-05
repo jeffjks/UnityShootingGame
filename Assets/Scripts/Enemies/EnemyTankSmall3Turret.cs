@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyTankSmall3Turret : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[3];
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform[] m_FirePosition = new Transform[3];
+    private int[] m_FireDelay = { 3000, 2000, 1500 };
 
     void Start()
     {
         GetCoordinates();
-        StartCoroutine(Pattern1());
+        StartCoroutine(Pattern1(Random.Range(0, m_FireDelay[m_SystemManager.m_Difficulty])));
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -24,10 +24,10 @@ public class EnemyTankSmall3Turret : EnemyUnit
         base.Update();
     }
 
-    private IEnumerator Pattern1() {
+    private IEnumerator Pattern1(int millisecond) {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(5.2f, 1.4f);
-        yield return new WaitForSeconds(Random.Range(0f, m_FireDelay[m_SystemManager.m_Difficulty]));
+        EnemyBulletAccel accel = new EnemyBulletAccel(5.2f, 1400);
+        yield return new WaitForMillisecondFrames(millisecond);
         while(true) {
             if (m_SystemManager.m_Difficulty == 0) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
@@ -45,10 +45,10 @@ public class EnemyTankSmall3Turret : EnemyUnit
                     CreateBullet(1, pos[0], 10f + Random.Range(-1f, 1f), m_CurrentAngle + Random.Range(-1f, 1f), accel);
                     CreateBullet(1, pos[1], 10f + Random.Range(-1f, 1f), m_CurrentAngle + Random.Range(-1f, 1f), accel);
                     CreateBullet(1, pos[2], 10f + Random.Range(-1f, 1f), m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForMillisecondFrames(100);
                 }
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

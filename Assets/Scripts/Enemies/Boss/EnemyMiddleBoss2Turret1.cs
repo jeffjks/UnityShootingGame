@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyMiddleBoss2Turret1 : EnemyUnit
 {
-    public float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private Transform m_FirePosition = null;
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 2000, 1500, 1250 };
     
     private IEnumerator m_CurrentPattern;
     private uint m_KillScore;
@@ -33,9 +33,9 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     private IEnumerator Pattern1()
     {
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float gap = 0.25f;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForMillisecondFrames(2500);
 
         while (true) {
             if (m_SystemManager.m_Difficulty == 0) {
@@ -50,7 +50,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
                     pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                     CreateBullet(1, pos1, 5f + i*0.9f, m_CurrentAngle, accel);
                     CreateBullet(1, pos2, 5f + i*0.9f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
             }
             else {
@@ -59,11 +59,11 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
                     pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                     CreateBullet(1, pos1, 5f + i*0.8f, m_CurrentAngle, accel);
                     CreateBullet(1, pos2, 5f + i*0.8f, m_CurrentAngle, accel);
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForMillisecondFrames(50);
                 }
             }
             
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 

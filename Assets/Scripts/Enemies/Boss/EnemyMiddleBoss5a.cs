@@ -1,32 +1,30 @@
 ﻿using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyMiddleBoss5a : EnemyUnit
 {
     public EnemyMiddleBoss5aMainTurret m_MainTurret;
     public EnemyMiddleBoss5aTurret[] m_Turret = new EnemyMiddleBoss5aTurret[2];
     public EnemyMissile[] m_Missiles = new EnemyMissile[8];
-    [HideInInspector] public sbyte m_Phase;
+    [HideInInspector] public int m_Phase;
     
     private Vector3 m_TargetPosition;
     private bool m_TimeLimitState = false;
-    private float m_AppearanceTime = 2.5f;
+    private const int APPEARNCE_TIME = 2500;
+    private const int TIME_LIMIT = 38000;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
     private bool m_Pattern1B;
 
     void Start()
     {
-        float time_limit = 38f;
-        
         m_TargetPosition = new Vector3(0f, -4f, Depth.ENEMY);
+
+        StartCoroutine(AppearanceSequence());
         
+        /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(m_TargetPosition.y, m_AppearanceTime).SetEase(Ease.OutQuad));
-        
-        Invoke("TimeLimit", m_AppearanceTime + time_limit);
-        Invoke("OnAppearanceComplete", m_AppearanceTime);
+        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARNCE_TIME).SetEase(Ease.OutQuad));*/
     }
 
     protected override void Update()
@@ -51,57 +49,77 @@ public class EnemyMiddleBoss5a : EnemyUnit
         base.Update();
     }
 
+    private IEnumerator AppearanceSequence() {
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        OnAppearanceComplete();
+        yield break;
+    }
+
     private void OnAppearanceComplete() {
         float random_direction = Random.Range(80f, 100f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.4f, random_direction);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
+
+        StartCoroutine(TimeLimit(TIME_LIMIT));
     }
 
-    private void TimeLimit() {
+    private IEnumerator TimeLimit(int time_limit = 0) {
+        yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        transform.DOMoveY(Size.GAME_BOUNDARY_BOTTOM - 8f, 5f).SetEase(Ease.InQuad);
+
+        int frame = 5000 * Application.targetFrameRate / 1000;
+        float init_position_y = transform.position.z;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos_y = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            
+            float position_y = Mathf.Lerp(init_position_y, Size.GAME_BOUNDARY_BOTTOM - 8f, t_pos_y);
+            transform.position = new Vector3(transform.position.x, transform.position.y, position_y);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         int rand;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForMillisecondFrames(1000);
         while (m_Phase == 1) {
             m_MainTurret.StartPattern(1);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             m_Turret[0].m_RotatePattern = 21;
             m_Turret[1].m_RotatePattern = 22;
             m_Turret[0].StartPattern(1);
             m_Turret[1].StartPattern(1);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StopPattern();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
             m_Turret[0].m_RotatePattern = 10;
             m_Turret[1].m_RotatePattern = 10;
-            yield return new WaitForSeconds(2.2f);
+            yield return new WaitForMillisecondFrames(2200);
             m_MainTurret.StartPattern(4);
             m_MainTurret.m_RotatePattern = 21;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForMillisecondFrames(500);
             m_MainTurret.StopPattern();
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForMillisecondFrames(500);
             StartCoroutine(LaunchMissile());
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForMillisecondFrames(1000);
             m_MainTurret.StartPattern(2);
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForMillisecondFrames(6000);
             m_MainTurret.StopPattern();
             m_MainTurret.m_RotatePattern = 10;
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForMillisecondFrames(4000);
             
             m_MainTurret.StartPattern(1);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForMillisecondFrames(1000);
             rand = Random.Range(0, 2);
             m_Turret[0].StartPattern(2, rand);
             m_Turret[1].StartPattern(2, 1-rand);
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForMillisecondFrames(6000);
             m_MainTurret.StopPattern();
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
@@ -109,14 +127,14 @@ public class EnemyMiddleBoss5a : EnemyUnit
             rand = Random.Range(0, 2);
             m_Turret[0].m_RotatePattern = (byte) (31 + rand);
             m_Turret[1].m_RotatePattern = (byte) (32 - rand);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             m_Turret[0].m_RotatePattern = 22;
             m_Turret[1].m_RotatePattern = 21;
             m_Turret[0].StartPattern(3);
             m_Turret[1].StartPattern(3);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StartPattern(3);
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForMillisecondFrames(6000);
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
             m_MainTurret.StopPattern();
@@ -128,7 +146,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
 
     private IEnumerator LaunchMissile() {
         for (int i = 0; i < 4; i++) {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             if (!m_IsUnattackable) {
                 try {
                     m_Missiles[i*2].enabled = true;
@@ -142,15 +160,15 @@ public class EnemyMiddleBoss5a : EnemyUnit
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        m_SystemManager.BulletsToGems(2.5f);
+        m_SystemManager.BulletsToGems(2500);
         m_MoveVector = new MoveVector(1.5f, 0f);
         
         m_Phase = -1;
 
-        StartCoroutine(DeathExplosion1(2f));
-        StartCoroutine(DeathExplosion2(2f));
+        StartCoroutine(DeathExplosion1(2000));
+        StartCoroutine(DeathExplosion2(2000));
 
-        yield return new WaitForSeconds(2.1f);
+        yield return new WaitForMillisecondFrames(2100);
         ExplosionEffect(2, 2); // 최종 파괴
         ExplosionEffect(0, -1, new Vector2(-2f, -1.6f));
         ExplosionEffect(0, -1, new Vector2(2f, -1.6f));
@@ -163,28 +181,28 @@ public class EnemyMiddleBoss5a : EnemyUnit
         yield break;
     }
 
-    private IEnumerator DeathExplosion1(float timer) {
-        float t = 0f, t_add = 0f;
+    private IEnumerator DeathExplosion1(int duration) {
+        int timer = 0, t_add = 0;
         Vector2 random_pos;
-        while (t < timer) {
-            t_add = Random.Range(0.2f, 0.35f);
+        while (timer < duration) {
+            t_add = Random.Range(200, 350);
             random_pos = new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(-2.5f, 1.5f));
             ExplosionEffect(0, 0, random_pos, new MoveVector(Random.Range(2f, 3f), Random.Range(0f, 360f)));
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+            timer += t_add;
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }
 
-    private IEnumerator DeathExplosion2(float timer) {
-        float t = 0f, t_add = 0f;
+    private IEnumerator DeathExplosion2(int duration) {
+        int timer = 0, t_add = 0;
         Vector2 random_pos;
-        while (t < timer) {
-            t_add = Random.Range(0.4f, 0.7f);
+        while (timer < duration) {
+            t_add = Random.Range(400, 700);
             random_pos = new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(-2.5f, 1.5f));
             ExplosionEffect(1, 1, random_pos, new MoveVector(Random.Range(3f, 4f), Random.Range(0f, 360f)));
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+            timer += t_add;
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }

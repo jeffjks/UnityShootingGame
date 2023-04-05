@@ -102,7 +102,7 @@ MonoBehaviour:
   m_LaserFireLight: {fileID: 5472192721673782711}
   m_HitOffset: 0.01
   m_EndPointAlpha: 0.2
-  m_MaxLength: 0
+  m_MaxLaserLength: 0
   m_LaserIndex: 0
 --- !u!114 &4531574403320341663
 MonoBehaviour:
@@ -118,10 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObjectName: LaserBeam
   m_Damage: 0
-  m_DamageScale:
-  - 1
-  - 1
-  - 1
+  m_DamageScale: 000000000000000000000000
+  m_Position: {x: 0, y: 0}
   m_PlayerLaserShooter: {fileID: 32744075735279891}
   m_LaserDamage: 0
 --- !u!1 &4476741379894299300
@@ -175,10 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerPreview2
   m_Damage: 0
-  m_DamageScale:
-  - 1
-  - 1
-  - 1
+  m_DamageScale: 000000000000000000000000
+  m_Position: {x: 0, y: 0}
   m_SlowMode: 0
   m_PlayerBody: {fileID: 1431413074011714893}
 --- !u!114 &7764462487831255088
@@ -255,14 +251,17 @@ MonoBehaviour:
   - {fileID: 3338175742595404481}
   m_PlayerLaserShooter: {fileID: 32744075735279891}
   m_PlayerController: {fileID: 989022632222629200}
-  m_FireRate: 0.05
-  m_FireDelay: 0.32
-  m_HomingMissileMaxDelay: 0.4
-  m_HomingMissileMinDelay: 0.3
-  m_RocketMaxDelay: 1.2
-  m_RocketMinDelay: 0.6
-  m_AddShotMaxDelay: 0.2
-  m_AddShotMinDelay: 0.2
+  m_FireRate: 50
+  m_FireDelay: 320
+  m_HomingMissileDelay:
+    max_delay: 400
+    min_delay: 300
+  m_RocketDelay:
+    max_delay: 1000
+    min_delay: 1000
+  m_AddShotDelay:
+    max_delay: 200
+    min_delay: 100
   m_ShotLevel: 0
   m_PreviewPoolingManager: {fileID: 4447586408490073371}
 --- !u!1 &6242057215520945645

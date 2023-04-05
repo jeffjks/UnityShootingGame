@@ -8,15 +8,16 @@ using UnityEngine;
 public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 {
     public string m_ObjectName;
-    public float m_Damage;
-    public float[] m_DamageScale = new float[3];
+    public int m_Damage;
+    [Header("단위: %")]
+    public int[] m_DamageScale = new int[3];
     
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
-    protected float m_DefaultDamage;
+    protected int m_DefaultDamage;
 
     protected Vector2Int m_Vector2 = Vector2Int.zero;
-    public Vector2Int m_Position;
+    public Vector2Int m_Position; // INTEGER 기반 위치
 
     public abstract void OnDeath();
 
@@ -25,6 +26,8 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
         m_DefaultDamage = m_Damage;
+
+        m_Position = Vector2Int.RoundToInt(transform.position*256);
     }
 
     protected void SetPosition() {
@@ -33,13 +36,15 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
     }
 
     protected void MoveVector() {
+        if (Time.timeScale == 0) {
+            return;
+        }
         m_Position += m_Vector2;
-        //transform.Translate(m_Vector2 * Time.deltaTime, Space.World);
     }
 
-    protected void DealDamage(EnemyUnit enemyObject, float damage, sbyte damage_type = -1) {
+    protected void DealDamage(EnemyUnit enemyObject, int damage, sbyte damage_type = -1) {
         try {
-            enemyObject.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_Class], damage_type);
+            enemyObject.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_Class] / 100, damage_type);
         }
         catch (System.IndexOutOfRangeException) {
             enemyObject.TakeDamage(damage, damage_type);
@@ -51,8 +56,8 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 
 public abstract class PlayerMissile : PlayerDamageUnit
 {
-    [SerializeField] private float[] m_DamageBonus = {0f, 0f, 0f};
-    [SerializeField] protected int m_Speed;
+    [SerializeField] private int[] m_DamageBonus = {0, 0, 0};
+    [SerializeField] protected int m_Speed = 0;
     [SerializeField] private bool m_IsPenetrate = false;
     [SerializeField] private GameObject[] m_ActivatedObject = null;
     [Header("-1 : None / 0 : Shot(fire) / 1 : Homing(purple) / 2 : Rocket(metal)")]

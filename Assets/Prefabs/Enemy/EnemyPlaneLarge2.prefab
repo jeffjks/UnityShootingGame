@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 400
+  m_Health: 4000
   m_Class: 0
   m_Score: 3000
   m_Debris: 0

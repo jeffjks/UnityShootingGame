@@ -5,8 +5,9 @@ using UnityEngine;
 public abstract class Item : MonoBehaviour
 {
     public bool m_IsAir;
-    [SerializeField] private Collider2D m_Collider2D = null; // 지상 아이템 콜라이더 보정 및 충돌 체크
+    public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
     public AudioClip m_AudioClip;
+    public Transform m_Renderer;
 
     protected abstract void ItemEffect(Collider2D other);
     public abstract void OnDeath();
@@ -84,7 +85,7 @@ public abstract class Item : MonoBehaviour
 
 public abstract class ItemBox : Item
 {
-    [SerializeField] private float m_DisappearTime = 0f;
+    public int m_DisappearTime;
     protected MoveVector m_MoveVector;
     
     private float m_MinX, m_MaxX, m_MinY, m_MaxY;
@@ -110,7 +111,7 @@ public abstract class ItemBox : Item
                     Mathf.Clamp(transform.position.y, m_MinY, m_MaxY),
                     Depth.ITEMS
                 );
-            Invoke("Disappear", m_DisappearTime);
+            StartCoroutine(Disappear());
         }
     }
 
@@ -144,16 +145,18 @@ public abstract class ItemBox : Item
     private void MoveDirection(MoveVector moveVector) {
         if (m_IsAir) {
             Vector2 vector2 = Quaternion.AngleAxis(moveVector.direction, Vector3.forward) * Vector2.down;
-            transform.Translate(vector2 * moveVector.speed * Time.deltaTime, Space.World);
+            transform.Translate(vector2 * moveVector.speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
     }
 
-    private void Disappear() {
+    private IEnumerator Disappear() {
+        yield return new WaitForMillisecondFrames(m_DisappearTime);
         m_Disappear = true;
+        yield break;
     }
 
     private void RotateBox() {
-        transform.Rotate(Vector3.up * Time.deltaTime * 100f, Space.Self);
+        m_Renderer.Rotate(Vector3.up * Time.deltaTime * 100f, Space.Self);
     }
 
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지

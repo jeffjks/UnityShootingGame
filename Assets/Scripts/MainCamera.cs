@@ -14,10 +14,10 @@ public class MainCamera : MonoBehaviour {
     void Start()
     {
         m_PlayerManager = PlayerManager.instance_pm;
-        m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
+        //m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
 
         m_CameraMargin = m_PlayerManager.m_CameraMargin;
-        m_CameraMoveRate = m_CameraMargin / ((float) Size.CAMERA_MOVE_LIMIT / 256);
+        m_CameraMoveRate = m_CameraMargin / Size.CAMERA_MOVE_LIMIT;
 
         transform.position.Set(transform.position.x, transform.position.y, Depth.CAMERA);
         m_PositionY = transform.position.y;
@@ -27,9 +27,9 @@ public class MainCamera : MonoBehaviour {
     {
         m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
         
-        float camera_x = m_PlayerPosition.x * m_CameraMoveRate;
+        float camera_x;
         try {
-            camera_x = m_PlayerPosition.x * m_CameraMoveRate;
+            camera_x = ((float) m_PlayerPosition.x) / 256  * m_CameraMoveRate;
         }
         catch {
             camera_x = transform.position.x;

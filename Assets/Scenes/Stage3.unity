@@ -359,7 +359,6 @@ MonoBehaviour:
   - {fileID: 1520055328}
   m_EnemySpawners: {fileID: 201440850}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
-  m_Test: {fileID: 0}
   m_ShipSmall_1: {fileID: 100016, guid: fde099b61cee14345a24c27a878ea83a, type: 3}
   m_ShipSmall_2: {fileID: 100048, guid: a6416b0ddb7a93e45b2dc48b34f355d1, type: 3}
   m_ShipMedium: {fileID: 100052, guid: 27f1241ee78b41e438b446db2c8ba5bf, type: 3}
@@ -785,11 +784,11 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1
   m_Direction: 72
-  m_SpawnPeriod: 6
-  m_RemoveTimer: 25
+  m_SpawnPeriod: 6000
+  m_RemoveTimer: 25000
   m_MovePattern: []
-  m_ActivateTime: 26
-  m_DeactivateTime: 48
+  m_ActivateTime: 26000
+  m_DeactivateTime: 48000
   m_AttackableTimer: 0
 --- !u!1001 &388905875
 PrefabInstance:
@@ -1781,11 +1780,11 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1
   m_Direction: -5
-  m_SpawnPeriod: 5
-  m_RemoveTimer: 30
+  m_SpawnPeriod: 5000
+  m_RemoveTimer: 30000
   m_MovePattern: []
-  m_ActivateTime: 65
-  m_DeactivateTime: 90
+  m_ActivateTime: 65000
+  m_DeactivateTime: 90000
   m_AttackableTimer: 0
 --- !u!1001 &1174652684
 PrefabInstance:
@@ -3382,11 +3381,11 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 0.8
   m_Direction: -60
-  m_SpawnPeriod: 12
-  m_RemoveTimer: 35
+  m_SpawnPeriod: 12000
+  m_RemoveTimer: 35000
   m_MovePattern: []
   m_ActivateTime: 0
-  m_DeactivateTime: 40
+  m_DeactivateTime: 40000
   m_AttackableTimer: 0
 --- !u!1 &781271977011726088
 GameObject:

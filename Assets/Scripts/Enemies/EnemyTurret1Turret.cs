@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyTurret1Turret : EnemyUnit
 {
-    [SerializeField] private Transform m_FirePosition = null;
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 1600, 800, 400 };
 
     private bool m_Shooting = false;
-    private bool m_Active = false;
+    private bool m_Active = false; // 총알 생성 없이 총알 쏘는 모션 등 방지용
 
     void Start()
     {
@@ -38,10 +38,10 @@ public class EnemyTurret1Turret : EnemyUnit
     private IEnumerator Pattern1() {
         float gap = 0.18f;
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float[] speed = {5.5f, 6.5f, 6.5f};
-        float[] delay = {0.136f, 0.115f, 0.115f};
-        yield return new WaitForSeconds(Random.Range(0f, 1f));
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        float[] speed = { 5.5f, 6.5f, 6.5f };
+        int[] delay = { 136, 115, 115 };
+        yield return new WaitForMillisecondFrames(Random.Range(0, 1000));
         while(true) {
             m_Shooting = true;
             for (int i = 0; i < 4; i++) {
@@ -49,10 +49,10 @@ public class EnemyTurret1Turret : EnemyUnit
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                 CreateBullet(5, pos1, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
                 CreateBullet(5, pos2, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
-                yield return new WaitForSeconds(delay[m_SystemManager.m_Difficulty]);
+                yield return new WaitForMillisecondFrames(delay[m_SystemManager.m_Difficulty]);
             }
             m_Shooting = false;
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

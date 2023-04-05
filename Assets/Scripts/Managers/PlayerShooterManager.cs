@@ -1,6 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+[Serializable]
+public struct ModuleDelay {
+    public int max_delay;
+    public int min_delay;
+
+    public ModuleDelay(int max_delay, int min_delay) {
+        this.max_delay = max_delay;
+        this.min_delay = min_delay;
+    }
+}
 
 public abstract class PlayerShooterManager : MonoBehaviour
 {
@@ -10,22 +22,26 @@ public abstract class PlayerShooterManager : MonoBehaviour
     public PlayerLaserShooterManager m_PlayerLaserShooter;
     public PlayerControllerManager m_PlayerController;
 
-    [Header("ShotNumber회 m_FireRate초 간격으로 실행. 실행 주기는 m_FireDelay")]
-    [SerializeField] protected float m_FireRate, m_FireDelay; // 0.05f, 0.32f
-    [SerializeField] protected float m_HomingMissileMaxDelay, m_HomingMissileMinDelay; // 0.4f, 0.3f
-    [SerializeField] protected float m_RocketMaxDelay, m_RocketMinDelay; // 2f, 1f
-    [SerializeField] protected float m_AddShotMaxDelay, m_AddShotMinDelay; // 0.2f, 0.2f
+    [Header("ShotNumber회 m_FireRate초 간격으로 실행. 실행 주기는 m_FireDelay (ms)")]
+    [SerializeField] protected int m_FireRate; // 50
+    [SerializeField] protected int m_FireDelay; // 320
+    [SerializeField] protected ModuleDelay m_HomingMissileDelay; // 400, 300
+    [SerializeField] protected ModuleDelay m_RocketDelay; // 1000, 1000
+    [SerializeField] protected ModuleDelay m_AddShotDelay; // 200, 100
     
-    [HideInInspector] public int m_ShotLevel;
+    [HideInInspector] public int m_ShotLevel; // 0 ~ 4
     protected string[] m_PlayerMissileName = new string[4];
-    protected float m_FireDelayWait;
+    protected int m_FireDelayWait; // m_FireDelay에서 m_FireRate가 차지하는 부분 뺀 딜레이
     protected int m_ShotNumber, m_ShotDamage, m_Module;
     protected bool m_NowAttacking;
-    protected float m_CurrentModuleDelay, m_ModuleDelay, m_ModuleMinDelay, m_ModuleMaxDelay;
+    protected int m_CurrentModuleDelay, m_ModuleDelayGap;
+    protected ModuleDelay m_ModuleDelay;
     protected sbyte m_PlayerShotZ;
     protected abstract IEnumerator Shot();
     protected abstract void CreatePlayerAttacks(string name, Vector3 pos, Quaternion rot, byte type = 0);
     public abstract void SetPreviewShooter();
+
+    private int[] m_ShotLevelToType = { 0, 0, 1, 1, 2 };
 
     protected IEnumerator ModuleShot() {
         while(true) {
@@ -37,11 +53,11 @@ public abstract class PlayerShooterManager : MonoBehaviour
                     CreateRocket();
                 }
                 else if (m_Module == 3) {
-                    CreateAddShot(m_ShotLevel);
+                    CreateAddShot();
                 }
-                yield return new WaitForSeconds(m_CurrentModuleDelay);
+                yield return new WaitForMillisecondFrames(m_CurrentModuleDelay);
             }
-            yield return null;
+            yield return new WaitForFrames(0);
         }
     }
 
@@ -146,29 +162,21 @@ public abstract class PlayerShooterManager : MonoBehaviour
 
     protected void CreateRocket() {
         Vector3[] shotPosition = new Vector3[2];
+        byte damage_level = (byte) m_ShotLevelToType[m_ShotLevel];
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
-        CreatePlayerAttacks(m_PlayerMissileName[2], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 0f));
-        CreatePlayerAttacks(m_PlayerMissileName[2], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 0f));
+        CreatePlayerAttacks(m_PlayerMissileName[2], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 0f), damage_level);
+        CreatePlayerAttacks(m_PlayerMissileName[2], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, 0f), damage_level);
     }
 
-    protected void CreateAddShot(int level) {
+    protected void CreateAddShot() {
         Vector3[] shotPosition = new Vector3[2];
+        byte damage_level = (byte) m_ShotLevelToType[m_ShotLevel];
         float rot = m_PlayerController.m_PlayerBody.eulerAngles[1];
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
-        if (level <= 1) {
-            CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 0);
-            CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 0);
-        }
-        else if (level <= 3) {
-            CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 1);
-            CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 1);
-        }
-        else {
-            CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 2);
-            CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), 2);
-        }
+        CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), damage_level);
+        CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), damage_level);
     }
 
     protected void UpdateShotNumber() {
@@ -202,23 +210,20 @@ public abstract class PlayerShooterManager : MonoBehaviour
 
     protected void SetModule() {
         if (m_Module == 1) {
-            m_ModuleMinDelay = m_HomingMissileMinDelay;
-            m_ModuleMaxDelay = m_HomingMissileMaxDelay;
+            m_ModuleDelay = m_HomingMissileDelay;
         }
         else if (m_Module == 2) {
-            m_ModuleMinDelay = m_RocketMinDelay;
-            m_ModuleMaxDelay = m_RocketMaxDelay;
+            m_ModuleDelay = m_RocketDelay;
         }
         else if (m_Module == 3) {
-            m_ModuleMinDelay = m_AddShotMinDelay;
-            m_ModuleMaxDelay = m_AddShotMaxDelay;
+            m_ModuleDelay = m_AddShotDelay;
         }
-        m_ModuleDelay = (m_ModuleMaxDelay - m_ModuleMinDelay) * 0.25f;
+        m_ModuleDelayGap = (m_ModuleDelay.max_delay - m_ModuleDelay.min_delay) / 4;
         SetModuleDelay();
     }
 
     private void SetModuleDelay() {
-        m_CurrentModuleDelay = m_ModuleMaxDelay - m_ModuleDelay*m_ShotLevel;
+        m_CurrentModuleDelay = m_ModuleDelay.max_delay - m_ModuleDelayGap*m_ShotLevel;
     }
 
     protected void ResetLaser() {

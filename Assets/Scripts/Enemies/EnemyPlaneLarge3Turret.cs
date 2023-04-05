@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class EnemyPlaneLarge3Turret : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private Transform m_FirePosition = null;
+    public Transform m_FirePosition;
+    private int[] m_FireDelay = { 600, 600, 500 };
+    private IEnumerator m_CurrentPattern;
 
     void Start()
     {
         GetCoordinates();
         RotateImmediately(m_PlayerPosition);
-        StartCoroutine(Pattern1());
+        m_CurrentPattern = Pattern1();
+        StartCoroutine(m_CurrentPattern);
+    }
+
+    public void StopPattern1() {
+        if (m_CurrentPattern != null)
+            StopCoroutine(m_CurrentPattern);
     }
 
     protected override void Update()
@@ -25,31 +32,31 @@ public class EnemyPlaneLarge3Turret : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 0.8f);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 800);
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForMillisecondFrames(2300);
 
         while(true) {
             for (int i = 0; i < 3; i++) {
                 if (m_SystemManager.m_Difficulty == 0) {
                     pos = m_FirePosition.position;
-                    CreateBullet(3, pos, 8.3f, m_CurrentAngle, accel1, 2, 0.6f,
+                    CreateBullet(3, pos, 8.3f, m_CurrentAngle, accel1, 2, 600,
                     5, 4.3f, BulletDirection.PLAYER, 0f, accel2);
                 }
                 else if (m_SystemManager.m_Difficulty == 1) {
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(3, pos, 8.3f, m_CurrentAngle, accel1, 2, 100f, 2, 0.6f,
+                    CreateBulletsSector(3, pos, 8.3f, m_CurrentAngle, accel1, 2, 100f, 2, 600,
                     5, 4.3f, BulletDirection.PLAYER, 0f, accel2, 3, 16f);
                 }
                 else {
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(3, pos, 8.3f, m_CurrentAngle, accel1, 2, 100f, 2, 0.6f,
+                    CreateBulletsSector(3, pos, 8.3f, m_CurrentAngle, accel1, 2, 100f, 2, 600,
                     5, 4.3f, BulletDirection.PLAYER, 0f, accel2, 3, 16f);
                 }
-                yield return new WaitForSeconds(0.28f);
+                yield return new WaitForMillisecondFrames(280);
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 }

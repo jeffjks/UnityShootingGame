@@ -20,7 +20,7 @@ public class PlayerLaserCreater : MonoBehaviour
     private PlayerLaserShooterManager m_LaserShooter;
     private PlayerShooterManager m_PlayerShooter;
 
-    [HideInInspector] public float m_MaxLength;
+    [HideInInspector] public float m_MaxLaserLength;
     
     private LineRenderer m_LineRenderer;
     private Vector3 m_LaserHitBoxWidth;
@@ -80,15 +80,15 @@ public class PlayerLaserCreater : MonoBehaviour
             m_LineRenderer.SetPosition(0, transform.position);
             //Debug.DrawRay(transform.position + width, transform.forward, Color.red, 0.1f);
 
-            RaycastHit2D hit1 = Physics2D.Raycast(transform.position - m_LaserHitBoxWidth, transform.up, m_MaxLength, m_LayerMask);
-            RaycastHit2D hit2 = Physics2D.Raycast(transform.position, transform.up, m_MaxLength, m_LayerMask);
-            RaycastHit2D hit3 = Physics2D.Raycast(transform.position + m_LaserHitBoxWidth, transform.up, m_MaxLength, m_LayerMask);
+            RaycastHit2D hit1 = Physics2D.Raycast(transform.position - m_LaserHitBoxWidth, transform.up, m_MaxLaserLength, m_LayerMask);
+            RaycastHit2D hit2 = Physics2D.Raycast(transform.position, transform.up, m_MaxLaserLength, m_LayerMask);
+            RaycastHit2D hit3 = Physics2D.Raycast(transform.position + m_LaserHitBoxWidth, transform.up, m_MaxLaserLength, m_LayerMask);
 
             if ((hit1.collider != null) || (hit2.collider != null) || (hit3.collider != null)) { // 하나라도 충돌하면
 
                 float min_y = Mathf.Min(hit1.point.y, hit2.point.y, hit3.point.y);
                 Vector3 end_point = new Vector3(transform.position.x, min_y, Depth.PLAYER); // 가장 작은 y좌표를 endpoint로
-                m_LaserShooter.m_MaxLength = Mathf.Max(min_y - m_LaserShooter.transform.position.y + m_EndPointAlpha, 0.1f);
+                m_LaserShooter.m_MaxLaserLength = Mathf.Max(min_y - m_LaserShooter.transform.position.y + m_EndPointAlpha, 0.1f);
                 
                 m_LineRenderer.SetPosition(1, end_point);
                 m_HitEffect.transform.position = end_point + Vector3.up * m_HitOffset;
@@ -100,7 +100,7 @@ public class PlayerLaserCreater : MonoBehaviour
                 PlayParticles(m_RushParticles);
             }
             else { // 아무 충돌이 없으면
-                var end_point = transform.position + transform.up * m_MaxLength;
+                var end_point = transform.position + transform.up * m_MaxLaserLength;
                 m_LineRenderer.SetPosition(1, end_point);
                 m_HitEffect.transform.position = end_point;
                 m_RushEffect.transform.position = end_point;
@@ -117,10 +117,10 @@ public class PlayerLaserCreater : MonoBehaviour
             }
 
             if (m_StormParticles.Length > 0)
-                m_ParticleMainModule.startLifetime = - m_LaserShooter.m_MaxLength / m_StormSpeed * 0.6f;
+                m_ParticleMainModule.startLifetime = - m_LaserShooter.m_MaxLaserLength / m_StormSpeed * 0.6f;
 
-            m_Collider2D.offset = new Vector2(m_Collider2D.offset.x, m_LaserShooter.m_MaxLength*0.5f);
-            m_Collider2D.size = new Vector2(m_Collider2D.size.x, m_LaserShooter.m_MaxLength);
+            m_Collider2D.offset = new Vector2(m_Collider2D.offset.x, m_LaserShooter.m_MaxLaserLength*0.5f);
+            m_Collider2D.size = new Vector2(m_Collider2D.size.x, m_LaserShooter.m_MaxLaserLength);
 
             //Insurance against the appearance of a laser in the center of coordinates!
             if (!m_LineRenderer.enabled && !LaserSaver)

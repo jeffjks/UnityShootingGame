@@ -2,6 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.IO;
+using System;
+
+public struct LocalRankingData {
+    public string id;
+    public int score;
+    public int shipAttributes;
+    public int miss;
+    public long date;
+
+    public LocalRankingData(string id, int score, int shipAttributes, int miss, long date) {
+        this.id = id;
+        this.score = score;
+        this.shipAttributes = shipAttributes;
+        this.miss = miss;
+        this.date = date;
+    }
+
+    public void Print() {
+        Debug.Log($"{id}, {score}, {shipAttributes}, {miss}, {date}");
+    }
+}
 
 public class NetworkDisplayRankingScore : MonoBehaviour
 {
@@ -14,6 +36,7 @@ public class NetworkDisplayRankingScore : MonoBehaviour
     private string[] m_ResponseText; // 0 : succeedMessage, 1~6 : myRank, 7~maxLength-1 : topRank, 
     private const int m_MaxPage = 3;
     private int m_Page;
+    private List<LocalRankingData> m_LocalRankingDataList = new List<LocalRankingData>();
 
     private GameManager m_GameManager = null;
 
@@ -27,19 +50,68 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         m_Active = false;
         m_Page = 0;
 
-        if (id == string.Empty) {
-            TryDisplayScoreRanking("OfflineException");
+        if (m_GameManager.m_NetworkAvailable) {
+            if (id == string.Empty) {
+                //TryDisplayScoreRanking("OfflineException");
+            }
+            else {
+                StartCoroutine(DisplayScoreRanking(m_GameManager.m_Difficulty, m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
+            }
         }
         else {
-            StartCoroutine(DisplayScoreRanking(m_GameManager.m_Difficulty, m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
+            DisplayLocalRanking(m_GameManager.m_Difficulty);
         }
+    }
+
+    public void DisplayLocalRanking(int difficulty) {
+        if (m_LocalRankingDataList.Count == 0) {
+            string filePath = $"{m_GameManager.m_RankingDirectory}ranking{difficulty}.bin";
+
+            BinaryReader br = new BinaryReader(File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Read));
+            while (true){
+                try {
+                    string id = br.ReadString();
+                    int score = br.ReadInt32();
+                    int shipAttributes = br.ReadInt32();
+                    int miss = br.ReadInt32();
+                    long date = br.ReadInt64();
+
+                    LocalRankingData record = new LocalRankingData(id, score, shipAttributes, miss, date);
+                    m_LocalRankingDataList.Add(record);
+                    //Console.WriteLine("{0} {1}", var1, var2);
+                }
+                catch (EndOfStreamException) { // 파일 끝에 도달한 예외 처리
+                    br.Close();
+                    break;
+                }
+            }
+
+            m_LocalRankingDataList.Sort(new Comparison<LocalRankingData>((n1, n2) => CompareListElement(n1, n2)));
+        }
+
+        TryDisplayScoreRanking();
+    }
+
+    private int CompareListElement(LocalRankingData n1, LocalRankingData n2) {
+        if (n1.score == n2.score) {
+            if (n1.date < n2.date) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        }
+        if (n1.score > n2.score) {
+            return 1;
+        }
+        return -1;
     }
 
     public IEnumerator DisplayScoreRanking(int difficulty, string id, string pcID) {
         string url = "http://jeffjks.cafe24.com/DeadPlanet2php/getRankingScore.php";
 
         if (difficulty < Difficulty.NORMAL || Difficulty.HELL < difficulty) {
-            TryDisplayScoreRanking("ArgumentException");
+            //TryDisplayScoreRanking("ArgumentException");
             yield break;
         }
 
@@ -54,12 +126,13 @@ public class NetworkDisplayRankingScore : MonoBehaviour
             NetworkError(www.error);
         }
         else {
-            TryDisplayScoreRanking(www.downloadHandler.text);
+            //TryDisplayScoreRanking(www.downloadHandler.text);
         }
         yield return null;
     }
 
-    private void TryDisplayScoreRanking(string response) {
+    private void TryDisplayScoreRanking() {
+        /*
         m_ResponseText = response.Split(',');
         string code = m_ResponseText[0];
         
@@ -70,31 +143,16 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         else {
             m_ErrorMessage.DisplayText(code);
         }
+        */
         m_Active = true;
+        for (int i = 0; i < m_LocalRankingDataList.Count; ++i) {
+            m_TopRankingScoreSlots[i].UpdateScoreInfo(i + 1, m_LocalRankingDataList[i]);
+        }
     }
 
     private void NetworkError(string errorDetails) {
         m_ErrorMessage.DisplayText("NetworkErrorException", errorDetails);
         m_Active = true;
-    }
-
-    private void UpdateMyRankingSlot() {
-        for (int i = 0; i < 6; i++) {
-            m_MyRankingScoreSlot.m_RankingScoreDisplays[i].UpdateScoreInfo(m_ResponseText[i+1]);
-        }
-    }
-
-    private void UpdateTopRankingSlot() {
-        for (int j = 0; j < 5; j++) {
-            for (int i = 0; i < 6; i++) {
-                try {
-                    m_TopRankingScoreSlots[j].m_RankingScoreDisplays[i].UpdateScoreInfo(m_ResponseText[m_Page*30 + (i+1) + (j+1)*6]);
-                }
-                catch (System.IndexOutOfRangeException) {
-                    m_TopRankingScoreSlots[j].m_RankingScoreDisplays[i].UpdateScoreInfo(string.Empty);
-                }
-            }
-        }
     }
 
     public bool TurnOverPage(int move) {
@@ -107,7 +165,7 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         if (m_Page > m_MaxPage) {
             m_Page = 0;
         }
-        UpdateTopRankingSlot();
+        //UpdateTopRankingSlot();
         return m_Active;
     }
 }

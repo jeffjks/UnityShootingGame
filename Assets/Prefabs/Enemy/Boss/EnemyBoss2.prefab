@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 7000
+  m_Health: 70000
   m_Class: 2
   m_Score: 10000
   m_Debris: 0
@@ -2675,7 +2675,7 @@ MonoBehaviour:
   - {fileID: 8780047693038037609}
   - {fileID: 6518978689234915253}
   - {fileID: 5280752894283785234}
-  m_NextPhaseDelay: 4
+  m_NextPhaseDelay: 4000
   m_Phase: 0
 --- !u!1 &100148
 GameObject:

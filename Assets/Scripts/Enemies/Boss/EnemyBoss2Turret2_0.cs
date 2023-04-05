@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyBoss2Turret2_0 : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
     public Transform m_FirePosition;
 
     [HideInInspector] public bool m_InPattern = false;
@@ -19,7 +18,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
 
     protected override void Update()
     {
-        m_Direction += 80f * Time.deltaTime;
+        m_Direction += 80f / Application.targetFrameRate * Time.timeScale;
         if (m_Direction > 360f) {
             m_Direction -= 360f;
         }
@@ -42,10 +41,10 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        float duration = 0.6f;
+        int duration = 600;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, duration);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(6.1f, 0.5f); // Normal
-        EnemyBulletAccel accel3 = new EnemyBulletAccel(7f, 0.5f); // Expert, Hell
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(6.1f, 500); // Normal
+        EnemyBulletAccel accel3 = new EnemyBulletAccel(7f, 500); // Expert, Hell
         Vector3 pos;
         int side = Random.Range(0, 2);
         m_InPattern = true;
@@ -59,7 +58,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 10, 36f, BulletType.ERASE_AND_CREATE, duration,
                     1, 3f, BulletDirection.CURRENT, 30f*side, accel2);
-                    yield return new WaitForSeconds(0.6f);
+                    yield return new WaitForMillisecondFrames(600);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
@@ -67,7 +66,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 20, 18f, BulletType.ERASE_AND_CREATE, duration,
                     1, 3f, BulletDirection.CURRENT, 30f*side, accel3);
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForMillisecondFrames(300);
                 }
             }
             else {
@@ -75,7 +74,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 24, 15f, BulletType.ERASE_AND_CREATE, duration,
                     1, 3f, BulletDirection.CURRENT, 30f*side, accel3);
-                    yield return new WaitForSeconds(0.22f);
+                    yield return new WaitForMillisecondFrames(220);
                 }
             }
             side *= -1;
@@ -84,9 +83,9 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        float duration = 0.6f;
+        int duration = 600;
         EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, duration);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(6.7f, 0.5f);
+        EnemyBulletAccel accel2 = new EnemyBulletAccel(6.7f, 500);
         Vector3 pos;
         int side = Random.Range(0, 2);
         m_InPattern = true;
@@ -100,7 +99,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 12, 30f, BulletType.ERASE_AND_CREATE, duration,
                     4, 3f, BulletDirection.CURRENT, 30f*side, accel2);
-                    yield return new WaitForSeconds(0.48f);
+                    yield return new WaitForMillisecondFrames(480);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
@@ -108,7 +107,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 24, 15f, BulletType.ERASE_AND_CREATE, duration,
                     4, 3f, BulletDirection.CURRENT, 30f*side, accel2);
-                    yield return new WaitForSeconds(0.24f);
+                    yield return new WaitForMillisecondFrames(240);
                 }
             }
             else {
@@ -116,7 +115,7 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 30, 12f, BulletType.ERASE_AND_CREATE, duration,
                     4, 3f, BulletDirection.CURRENT, 30f*side, accel2);
-                    yield return new WaitForSeconds(0.18f);
+                    yield return new WaitForMillisecondFrames(180);
                 }
             }
             side *= -1;

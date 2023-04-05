@@ -428,20 +428,20 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.8
   m_Direction: -10
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 1.3
-    direction: 0
+  - delay: 1300
     speed: 8739
-    time: 0.8
-  - delay: 0
     direction: 0
+    duration: 800
+  - delay: 0
     speed: 0
-    time: 0.5
-  m_ActivateTime: 149
-  m_DeactivateTime: 155
-  m_AttackableTimer: 1.8
+    direction: 0
+    duration: 500
+  m_ActivateTime: 149000
+  m_DeactivateTime: 155000
+  m_AttackableTimer: 1800
 --- !u!1 &59980951
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,12 +782,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.4
   m_Direction: 30
-  m_SpawnPeriod: 2.4
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 2400
+  m_RemoveTimer: 20000
   m_MovePattern: []
-  m_ActivateTime: 45
-  m_DeactivateTime: 80
-  m_AttackableTimer: 4
+  m_ActivateTime: 45000
+  m_DeactivateTime: 80000
+  m_AttackableTimer: 4000
 --- !u!1 &91101472
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,12 +857,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1
   m_Direction: 30
-  m_SpawnPeriod: 5.4
-  m_RemoveTimer: 25
+  m_SpawnPeriod: 2400
+  m_RemoveTimer: 20000
   m_MovePattern: []
-  m_ActivateTime: 45
-  m_DeactivateTime: 80
-  m_AttackableTimer: 5.8
+  m_ActivateTime: 45000
+  m_DeactivateTime: 80000
+  m_AttackableTimer: 5800
 --- !u!1001 &92057058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2494,7 +2494,7 @@ PrefabInstance:
     - target: {fileID: 608578228011152253, guid: 89098235d5eb67b43919b3408c6f887b,
         type: 3}
       propertyPath: m_Timer
-      value: 55
+      value: 5500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89098235d5eb67b43919b3408c6f887b, type: 3}
@@ -4636,16 +4636,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.2
   m_Direction: 0
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 6
-    direction: -90
+  - delay: 6000
     speed: 8739
-    time: 2.5
-  m_ActivateTime: 18
-  m_DeactivateTime: 47
-  m_AttackableTimer: 2.5
+    direction: -90
+    duration: 2500
+  m_ActivateTime: 18000
+  m_DeactivateTime: 47000
+  m_AttackableTimer: 2500
 --- !u!1001 &479670264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6725,20 +6725,20 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.8
   m_Direction: -10
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 1.45
-    direction: 10
+  - delay: 1450
     speed: 8739
-    time: 0.8
-  - delay: 0
     direction: 10
+    duration: 800
+  - delay: 0
     speed: 0
-    time: 0.5
-  m_ActivateTime: 149
-  m_DeactivateTime: 155
-  m_AttackableTimer: 1.8
+    direction: 10
+    duration: 500
+  m_ActivateTime: 149000
+  m_DeactivateTime: 155000
+  m_AttackableTimer: 1800
 --- !u!1001 &770473397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7030,12 +7030,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.4
   m_Direction: 30
-  m_SpawnPeriod: 2.4
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 2400
+  m_RemoveTimer: 20000
   m_MovePattern: []
-  m_ActivateTime: 45
-  m_DeactivateTime: 80
-  m_AttackableTimer: 4
+  m_ActivateTime: 45000
+  m_DeactivateTime: 80000
+  m_AttackableTimer: 4000
 --- !u!1001 &803229236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9711,12 +9711,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 0.8
   m_Direction: 0
-  m_SpawnPeriod: 4
-  m_RemoveTimer: 45
+  m_SpawnPeriod: 4000
+  m_RemoveTimer: 45000
   m_MovePattern: []
-  m_ActivateTime: 281
-  m_DeactivateTime: 310
-  m_AttackableTimer: 2
+  m_ActivateTime: 281000
+  m_DeactivateTime: 310000
+  m_AttackableTimer: 2000
 --- !u!1001 &1064501658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10368,12 +10368,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.3
   m_Direction: -90
-  m_SpawnPeriod: 2.4
-  m_RemoveTimer: 10
+  m_SpawnPeriod: 2400
+  m_RemoveTimer: 10000
   m_MovePattern: []
-  m_ActivateTime: 300
-  m_DeactivateTime: 320
-  m_AttackableTimer: 1.5
+  m_ActivateTime: 300000
+  m_DeactivateTime: 320000
+  m_AttackableTimer: 1500
 --- !u!1 &1157565170
 GameObject:
   m_ObjectHideFlags: 0
@@ -10474,12 +10474,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 0.8
   m_Direction: 0
-  m_SpawnPeriod: 4
-  m_RemoveTimer: 45
+  m_SpawnPeriod: 4000
+  m_RemoveTimer: 45000
   m_MovePattern: []
-  m_ActivateTime: 283
-  m_DeactivateTime: 310
-  m_AttackableTimer: 2
+  m_ActivateTime: 283000
+  m_DeactivateTime: 310000
+  m_AttackableTimer: 2000
 --- !u!1001 &1177126033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12735,20 +12735,20 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.8
   m_Direction: -10
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 1.6
-    direction: 20
+  - delay: 1600
     speed: 8739
-    time: 0.8
-  - delay: 0
     direction: 20
+    duration: 800
+  - delay: 0
     speed: 0
-    time: 0.5
-  m_ActivateTime: 149
-  m_DeactivateTime: 155
-  m_AttackableTimer: 1.8
+    direction: 20
+    duration: 500
+  m_ActivateTime: 149000
+  m_DeactivateTime: 155000
+  m_AttackableTimer: 1800
 --- !u!1001 &1450807461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14110,12 +14110,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 0.8
   m_Direction: 180
-  m_SpawnPeriod: 4
-  m_RemoveTimer: 45
+  m_SpawnPeriod: 4000
+  m_RemoveTimer: 45000
   m_MovePattern: []
-  m_ActivateTime: 279
-  m_DeactivateTime: 305
-  m_AttackableTimer: 4
+  m_ActivateTime: 279000
+  m_DeactivateTime: 305000
+  m_AttackableTimer: 4000
 --- !u!1001 &1617132512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15172,12 +15172,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 0.8
   m_Direction: 180
-  m_SpawnPeriod: 4
-  m_RemoveTimer: 45
+  m_SpawnPeriod: 4000
+  m_RemoveTimer: 45000
   m_MovePattern: []
-  m_ActivateTime: 279
-  m_DeactivateTime: 305
-  m_AttackableTimer: 4
+  m_ActivateTime: 279000
+  m_DeactivateTime: 305000
+  m_AttackableTimer: 4000
 --- !u!1001 &1764556248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16075,11 +16075,11 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1
   m_Direction: -100
-  m_SpawnPeriod: 5
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 5000
+  m_RemoveTimer: 20000
   m_MovePattern: []
-  m_ActivateTime: 130
-  m_DeactivateTime: 160
+  m_ActivateTime: 130000
+  m_DeactivateTime: 160000
   m_AttackableTimer: 0
 --- !u!1 &1881068389
 GameObject:
@@ -16151,16 +16151,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.5
   m_Direction: 0
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 6
-    direction: 8739
+  - delay: 6000
     speed: 0
-    time: 1
-  m_ActivateTime: 52
-  m_DeactivateTime: 60
-  m_AttackableTimer: 1.5
+    direction: 8739
+    duration: 1000
+  m_ActivateTime: 52000
+  m_DeactivateTime: 60000
+  m_AttackableTimer: 1500
 --- !u!114 &1881068392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16199,16 +16199,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.5
   m_Direction: 0
-  m_SpawnPeriod: 10
-  m_RemoveTimer: 20
+  m_SpawnPeriod: 10000
+  m_RemoveTimer: 20000
   m_MovePattern:
-  - delay: 3
-    direction: 8739
+  - delay: 3000
     speed: 0
-    time: 1
-  m_ActivateTime: 55
-  m_DeactivateTime: 60
-  m_AttackableTimer: 1.5
+    direction: 8739
+    duration: 1000
+  m_ActivateTime: 55000
+  m_DeactivateTime: 60000
+  m_AttackableTimer: 1500
 --- !u!1001 &1891800253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16858,16 +16858,16 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.2
   m_Direction: 0
-  m_SpawnPeriod: 2
-  m_RemoveTimer: 15
+  m_SpawnPeriod: 2000
+  m_RemoveTimer: 15000
   m_MovePattern:
-  - delay: 4.5
-    direction: 90
+  - delay: 4500
     speed: 8739
-    time: 2.5
-  m_ActivateTime: 18
-  m_DeactivateTime: 47
-  m_AttackableTimer: 2.5
+    direction: 90
+    duration: 2500
+  m_ActivateTime: 18000
+  m_DeactivateTime: 47000
+  m_AttackableTimer: 2500
 --- !u!1001 &1972688707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17133,12 +17133,12 @@ MonoBehaviour:
   m_Hell: 1
   m_Speed: 1.3
   m_Direction: -90
-  m_SpawnPeriod: 2.4
-  m_RemoveTimer: 10
+  m_SpawnPeriod: 2400
+  m_RemoveTimer: 10000
   m_MovePattern: []
-  m_ActivateTime: 300
-  m_DeactivateTime: 320
-  m_AttackableTimer: 1.5
+  m_ActivateTime: 300000
+  m_DeactivateTime: 320000
+  m_AttackableTimer: 1500
 --- !u!1001 &2000454284
 PrefabInstance:
   m_ObjectHideFlags: 0

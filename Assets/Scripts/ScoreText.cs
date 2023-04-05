@@ -48,7 +48,7 @@ public class ScoreText : MonoBehaviour, CanDeath
         while (alpha > 0f) {
             m_TextMesh.color = new Color(m_TextMesh.color.r, m_TextMesh.color.g, m_TextMesh.color.b, alpha);
             alpha -= 3f*Time.deltaTime;
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         OnDeath();
         yield break;

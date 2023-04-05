@@ -4837,10 +4837,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObjectName: LaserAura1
   m_Damage: 0
-  m_DamageScale:
-  - 1
-  - 1
-  - 1
+  m_DamageScale: 640000006400000064000000
+  m_Position: {x: 0, y: 0}
 --- !u!1 &981825907757047528
 GameObject:
   m_ObjectHideFlags: 0
@@ -28845,7 +28843,7 @@ MonoBehaviour:
   - {fileID: 1110025524807309126}
   - {fileID: 1109017400710763040}
   - {fileID: 1109329674423566046}
-  m_MaxLength: 0
+  m_MaxLaserLength: 0
 --- !u!1 &983537955752054328
 GameObject:
   m_ObjectHideFlags: 0
@@ -33683,10 +33681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObjectName: LaserAura2
   m_Damage: 0
-  m_DamageScale:
-  - 1
-  - 1
-  - 1
+  m_DamageScale: 640000006400000064000000
+  m_Position: {x: 0, y: 0}
 --- !u!1 &1964891235581730787
 GameObject:
   m_ObjectHideFlags: 0
@@ -53030,7 +53026,7 @@ MonoBehaviour:
   - {fileID: 4040091484864079895}
   - {fileID: 4066288905570593769}
   - {fileID: 4040093649192672851}
-  m_MaxLength: 0
+  m_MaxLaserLength: 0
 --- !u!1 &4228122654830201813
 GameObject:
   m_ObjectHideFlags: 0
@@ -62717,10 +62713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObjectName: LaserAura3
   m_Damage: 0
-  m_DamageScale:
-  - 1
-  - 1
-  - 1
+  m_DamageScale: 640000006400000064000000
+  m_Position: {x: 0, y: 0}
 --- !u!1 &5233819593561072367
 GameObject:
   m_ObjectHideFlags: 0
@@ -87003,7 +86997,7 @@ MonoBehaviour:
   - {fileID: 6915265719036036985}
   - {fileID: 6884280291067967791}
   - {fileID: 6884502355530852701}
-  m_MaxLength: 0
+  m_MaxLaserLength: 0
 --- !u!1 &6723588177343692929
 GameObject:
   m_ObjectHideFlags: 0

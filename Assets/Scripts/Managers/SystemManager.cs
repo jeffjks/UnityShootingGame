@@ -87,7 +87,7 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
     [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
     [HideInInspector] public int BulletsSortingLayer;
-    [HideInInspector] public float m_BulletsEraseTimer;
+    [HideInInspector] public int m_BulletsEraseTimer;
     [HideInInspector] public byte m_Difficulty;
     [HideInInspector] public bool m_ReplayState, m_TrainingState, m_BossOnlyState;
     
@@ -150,8 +150,6 @@ public class SystemManager : MonoBehaviour
         m_BackgroundCameraDefaultPos = m_BackgroundCamera.transform.position;
         
         DontDestroyOnLoad(gameObject);
-
-        DOTween.SetTweensCapacity(1024, 64);
     }
 
     void Start()
@@ -186,8 +184,31 @@ public class SystemManager : MonoBehaviour
     }
 
     private void MoveBackgroundCamera() {
-        if (m_StageManager != null)
-            m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector*Time.deltaTime;
+        if (m_StageManager != null) {
+            m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector / Application.targetFrameRate * Time.timeScale;
+        }
+    }
+
+    public IEnumerator MoveBackgroundCameraDuration(bool relative, float position_z, int duration) {
+        int frame = duration * Application.targetFrameRate / 1000;
+        float init_position_z = m_BackgroundCamera.transform.position.z;
+        float target_position_z;
+
+        if (relative) {
+            target_position_z = init_position_z + position_z;
+        }
+        else {
+            target_position_z = position_z;
+        }
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos_z = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+            
+            position_z = Mathf.Lerp(init_position_z, target_position_z, t_pos_z);
+            m_BackgroundCamera.transform.position = new Vector3(m_BackgroundCamera.transform.position.x, m_BackgroundCamera.transform.position.y, position_z);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     public void SetPlayerManager() {
@@ -254,17 +275,17 @@ public class SystemManager : MonoBehaviour
         m_PlayState = 2;
         if (m_StageManager.GetTrueLastBossState())
             return;
-        m_PlayerController.EnableInvincible(5f);
+        m_PlayerController.EnableInvincible(5000);
     }
 
     public IEnumerator StageClear() {
         if (m_StageManager.GetTrueLastBossState())
             yield break;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForMillisecondFrames(3000);
         m_PlayState = 3;
         m_PlayerManager.m_PlayerControlable = false;
         m_AudioStageClear.Play();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForMillisecondFrames(2000);
         m_StageManager.SetBackgroundSpeed(0f);
         m_StageManager.StopCoroutine("MainTimeLine");
         m_OverviewHandler.gameObject.SetActive(true);
@@ -275,7 +296,7 @@ public class SystemManager : MonoBehaviour
     private IEnumerator NextStage() { // 2스테이지 부터
         m_PlayState = 4;
         ScreenEffect(3); // FadeIn
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForMillisecondFrames(2000);
 
         if (m_TrainingState) {
             QuitGame();
@@ -293,7 +314,7 @@ public class SystemManager : MonoBehaviour
 
                 m_PlayState = 0;
                 m_PlayerManager.m_PlayerControlable = true;
-                m_PlayerController.EnableInvincible(3f);
+                m_PlayerController.EnableInvincible(3000);
                 ScreenEffect(2); // Transition
             }
             else {
@@ -302,7 +323,7 @@ public class SystemManager : MonoBehaviour
                 SceneManager.LoadScene(scene_name);
 
                 m_PlayState = 3;
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForMillisecondFrames(1000);
                 ScreenEffect(4); // FadeOut
             }
         }
@@ -469,7 +490,7 @@ public class SystemManager : MonoBehaviour
             m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, value, m_WarningUI.transform.localScale.z);
             value += Time.deltaTime * 4f;
             value = Mathf.Clamp01(value);
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         value = 0f;
 
@@ -477,7 +498,7 @@ public class SystemManager : MonoBehaviour
             m_WarningUI.m_WarningPanelWhite.color = new Color(1f, 1f, 1f, 1f - value);
             value += Time.deltaTime * 3f;
             value = Mathf.Clamp01(value);
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         value = 0f;
 
@@ -488,10 +509,10 @@ public class SystemManager : MonoBehaviour
                 value += Time.deltaTime * 4f;
                 value = Mathf.Clamp01(value);
                 time += Time.deltaTime;
-                yield return null;
+                yield return new WaitForFrames(0);
             }
             value = 0f;
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         value = 0f;
 
@@ -499,7 +520,7 @@ public class SystemManager : MonoBehaviour
             m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, 1f - value, m_WarningUI.transform.localScale.z);
             value += Time.deltaTime * 4f;
             value = Mathf.Clamp01(value);
-            yield return null;
+            yield return new WaitForFrames(0);
         }
         value = 0f;
 
@@ -509,14 +530,14 @@ public class SystemManager : MonoBehaviour
 
     private void BulletEraseTimer() {
         if (m_BulletsEraseTimer > 0) {
-            m_BulletsEraseTimer -= Time.deltaTime;
+            m_BulletsEraseTimer--;
         }
         else {
-            m_BulletsEraseTimer = 0f;
+            m_BulletsEraseTimer = 0;
         }
     }
 
-    public void BulletsToGems(float timer) {
+    public void BulletsToGems(int millisecond) {
         List<GameObject> bullet_list = new List<GameObject>();
         bullet_list.AddRange(GameObject.FindGameObjectsWithTag("EnemyBulletParent"));
         int index, num = 0, count = bullet_list.Count;
@@ -540,12 +561,13 @@ public class SystemManager : MonoBehaviour
 
             count--;
         }
-        EraseBullets(timer);
+        EraseBullets(millisecond);
     }
 
-    public void EraseBullets(float timer) {
-        if (m_BulletsEraseTimer < timer) {
-            m_BulletsEraseTimer = timer;
+    public void EraseBullets(int millisecond) {
+        int frame = millisecond * Application.targetFrameRate / 1000;
+        if (m_BulletsEraseTimer < frame) {
+            m_BulletsEraseTimer = frame;
         }
     }
 

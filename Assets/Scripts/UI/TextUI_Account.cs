@@ -19,6 +19,9 @@ public class TextUI_Account : MonoBehaviour
     }
 
     private void SetAccountText() {
+        if (!m_GameManager.m_NetworkAvailable) {
+            return;
+        }
         if (m_GameManager.m_IsOnline) {
             m_Text.text = m_GameManager.GetAccountID();
         }

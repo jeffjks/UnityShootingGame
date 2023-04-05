@@ -1,61 +1,85 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DG.Tweening;
 
 public class EnemyPlaneMedium1 : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[3];
+    public Transform[] m_FirePosition = new Transform[3];
     
     private bool m_TimeLimitState = false;
-    private float m_AppearanceTime = 1.6f;
-    private float m_PositionY, m_AddPositionY;
+    private const int APPEARNCE_TIME = 1600;
+    private const int TIME_LIMIT = 10000;
+    //private float m_PositionY, m_AddPositionY;
     private float m_VSpeed = 0.2f;
+    private IEnumerator m_TimeLimit;
 
     void Start ()
     {
-        float time_limit = 10f;
-        m_PositionY = transform.position.y;
-
+        m_MoveVector.speed = 4.3f;
+        
         StartCoroutine(Pattern1());
 
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.2f + m_VSpeed*m_AppearanceTime, m_AppearanceTime).SetEase(Ease.OutQuad));
-        m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));
+        StartCoroutine(AppearanceSequence());
 
-        Invoke("TimeLimit", m_AppearanceTime + time_limit);
+        /*
+        m_Sequence = DOTween.Sequence();
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.2f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.AppendInterval(time_limit);
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
+    }
+
+    private IEnumerator AppearanceSequence() {
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+
+        float init_speed = m_MoveVector.speed;
+        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, m_VSpeed, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        m_TimeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(m_TimeLimit);
+        yield break;
+    }
+
+    private IEnumerator TimeLimit(int time_limit = 0) {
+        yield return new WaitForMillisecondFrames(time_limit);
+        m_TimeLimitState = true;
+
+        float init_speed = m_MoveVector.speed;
+        int frame = 1000 * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     protected override void Update()
     {
-        m_AddPositionY -= m_VSpeed * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
-
         if (!m_TimeLimitState) { // Retreat when boss or middle boss state
             if (m_SystemManager.m_PlayState > 0) {
-                CancelInvoke("TimeLimit");
-                TimeLimit();
-                m_Sequence.Kill();
-                if (transform.position.x > 0f)
-                    m_Sequence = DOTween.Sequence()
-                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_RIGHT + 4f, 3f).SetEase(Ease.InQuad));
-                else
-                    m_Sequence = DOTween.Sequence()
-                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_LEFT - 4f, 3f).SetEase(Ease.InQuad));
+                if (m_TimeLimit != null)
+                    StopCoroutine(m_TimeLimit);
+                m_TimeLimit = TimeLimit();
+                StartCoroutine(m_TimeLimit);
+                m_TimeLimitState = true;
             }
         }
         
         base.Update();
     }
 
-    private void TimeLimit() {
-        m_TimeLimitState = true;
-    }
-
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(7.2f, 1f);
-        yield return new WaitForSeconds(m_AppearanceTime);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(7.2f, 1000);
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+
         while(!m_TimeLimitState) {
             Vector3 pos0 = m_FirePosition[0].position;
             Vector3 pos1 = m_FirePosition[1].position;
@@ -64,54 +88,54 @@ public class EnemyPlaneMedium1 : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 CreateBulletsSector(3, pos0, 6.4f, target_angle, accel, 6, 12);
                 CreateBulletsSector(5, pos0, 5.2f, target_angle, accel, 5, 12);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForMillisecondFrames(1000);
                 for (int i = 0; i < 4; i++) {
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBullet(1, pos1, 6.0f, 0f, accel);
                     CreateBullet(1, pos2, 6.0f, 0f, accel);
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForMillisecondFrames(1500);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 3; i++) {
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBulletsSector(3, pos0, 6.4f, target_angle + Random.Range(-3f, 3f), accel, 9, 10f);
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForMillisecondFrames(200);
                 }
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForMillisecondFrames(1000);
                 for (int i = 0; i < 4; i++) {
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBullet(1, pos1, 4.2f, 0f, accel1);
                     CreateBullet(1, pos2, 4.2f, 0f, accel1);
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForSeconds(1.2f);
+                yield return new WaitForMillisecondFrames(1200);
             }
             else {
                 CreateBulletsSector(3, pos0, 6.4f, target_angle - 1.5f, accel, 10, 9f);
                 CreateBulletsSector(3, pos0, 6.4f, target_angle + 1.5f, accel, 10, 9f);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForMillisecondFrames(200);
                 for (int i = 0; i < 4; i++) {
                     float random_value = Random.Range(-3f, 3f);
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBulletsSector(3, pos0, 6.4f, target_angle + random_value, accel, 9, 10f);
                     
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForMillisecondFrames(200);
                 }
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForMillisecondFrames(100);
                 SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                 CreateBulletsSector(5, pos0, 6.4f, target_angle, accel, 13, 8f);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForMillisecondFrames(1000);
                 for (int i = 0; i < 4; i++) {
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBullet(1, pos1, 4.2f, -40f, accel1);
                     CreateBullet(1, pos1, 4.2f, 0f, accel1);
                     CreateBullet(1, pos2, 4.2f, 0f, accel1);
                     CreateBullet(1, pos2, 4.2f, 40f, accel1);
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForSeconds(1.2f);
+                yield return new WaitForMillisecondFrames(1200);
             }
         }
         yield break;

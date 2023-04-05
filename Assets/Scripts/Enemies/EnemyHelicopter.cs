@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DG.Tweening;
 
-public class EnemyHelicopter : EnemyUnit
+public class EnemyHelicopter : HasTargetPosition
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private Transform m_FirePosition = null;
-	[SerializeField] private GameObject m_FanU = null, m_FanB = null;
-	[SerializeField] private float m_FanRotationSpeed = 240f;
-    
+    public Transform m_FirePosition;
+	public GameObject m_FanU, m_FanB;
+	public float m_FanRotationSpeed;
+
+    private int[] m_FireDelay = { 2000, 1000, 500 };
     private bool m_TimeLimitState = false;
+    private const int TIME_LIMIT = 4000;
 
     void Start()
     {
-        float time_limit = 4f;
-
         GetCoordinates();
-        InvokeRepeating("Pattern1", 1f, m_FireDelay[m_SystemManager.m_Difficulty]);
+        StartCoroutine(Pattern1());
         RotateImmediately(m_PlayerPosition);
 
-        Invoke("TimeLimit", time_limit);
+        StartCoroutine(TimeLimit(TIME_LIMIT));
     }
 
     protected override void Update()
@@ -42,19 +40,32 @@ public class EnemyHelicopter : EnemyUnit
 		m_FanB.transform.Rotate(-m_FanRotationSpeed * Time.deltaTime, 0 , 0);
 	}
 
-    private void TimeLimit() {
+    private IEnumerator TimeLimit(int time_limit = 0) {
+        yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
         m_MoveVector.direction = GetAngleToTarget(m_Position2D, m_PlayerPosition);
-        DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 7.2f, 0.8f).SetEase(Ease.OutQuad);
+        
+        float init_speed = m_MoveVector.speed;
+        int frame = 800 * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, 7.2f, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
-    private void Pattern1() {
-        if (!m_TimeLimitState) {
+    private IEnumerator Pattern1() {
+        while (!m_TimeLimitState) {
             Vector3 pos = m_FirePosition.position;
             float[] speed = {7f, 8.3f, 8.3f};
             
-            EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+            EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
             CreateBullet(1, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
+        yield break;
     }
 }

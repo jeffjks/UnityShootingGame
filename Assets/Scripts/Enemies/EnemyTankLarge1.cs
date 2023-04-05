@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyTankLarge1 : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    [SerializeField] private Transform m_LauncherRotation = null;
+    public Transform[] m_FirePosition = new Transform[2];
+    public Transform m_LauncherRotation;
 
-    [HideInInspector] public sbyte m_Phase;
+    [HideInInspector] public int m_Phase;
     private Quaternion m_LauncherRotationTarget;
     private float m_Rotation = -240f;
 
@@ -30,7 +30,7 @@ public class EnemyTankLarge1 : EnemyUnit
         if (3 * m_Health <= m_MaxHealth) {
             if (m_Phase <= 1) {
                 if (m_LauncherRotation.localRotation != m_LauncherRotationTarget) {
-                    m_Rotation = Mathf.MoveTowards(m_Rotation, 0f, 400f*Time.deltaTime);
+                    m_Rotation = Mathf.MoveTowards(m_Rotation, 0f, 400f / Application.targetFrameRate * Time.timeScale);
                     m_LauncherRotation.localEulerAngles = new Vector3(m_Rotation, 0f, 0f);
                 }
                 else {
@@ -45,10 +45,10 @@ public class EnemyTankLarge1 : EnemyUnit
     
     private IEnumerator Pattern2() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float[] target_angle = new float[2];
         while(true) {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForMillisecondFrames(500);
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int j = 0; j < 2; j++) {
                     pos[j] = GetScreenPosition(m_FirePosition[j].position);
@@ -83,7 +83,7 @@ public class EnemyTankLarge1 : EnemyUnit
                         //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
                         CreateBulletsSector(0, pos[j], 6f + i*0.8f, target_angle[j], accel, 3, 22f);
                     }
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
             }
             else {
@@ -104,10 +104,10 @@ public class EnemyTankLarge1 : EnemyUnit
                         CreateBulletsSector(2, pos[j], 6f + i*0.8f, target_angle[j], accel, 2, 22f);
                         CreateBulletsSector(0, pos[j], 6f + i*0.8f, target_angle[j], accel, 3, 22f);
                     }
-                    yield return new WaitForSeconds(0.06f);
+                    yield return new WaitForMillisecondFrames(60);
                 }
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
         }
     }
 

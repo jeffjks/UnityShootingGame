@@ -8,7 +8,6 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
 {
     public AudioSource m_AudioLaser = null;
     public PlayerLaser m_PlayerLaser;
-    public float m_LaserSpeed;
 
     private PlayerManager m_PlayerManager = null;
 
@@ -38,7 +37,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
             m_LaserFireLight.gameObject.SetActive(false);
             m_PlayerLaserCreater.DisablePrepare();
         }
-        m_MaxLength = 0f;
+        m_MaxLaserLength = 0f;
         m_AudioLaser.Stop();
     }
 
@@ -48,13 +47,13 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
             return;
         
         if (m_PlayerController.m_SlowMode) {
-            m_MaxLength += m_LaserSpeed * Time.deltaTime;
+            m_MaxLaserLength += m_LaserSpeed / Application.targetFrameRate * Time.timeScale;
         }
         else {
-            m_MaxLength = 0f;
+            m_MaxLaserLength = 0f;
         }
-        m_MaxLength = Mathf.Clamp(m_MaxLength, 0f, -transform.position.y);
+        m_MaxLaserLength = Mathf.Clamp(m_MaxLaserLength, 0f, -transform.position.y);
         if (m_PlayerLaserCreater != null)
-            m_PlayerLaserCreater.m_MaxLength = m_MaxLength;
+            m_PlayerLaserCreater.m_MaxLaserLength = m_MaxLaserLength;
     }
 }

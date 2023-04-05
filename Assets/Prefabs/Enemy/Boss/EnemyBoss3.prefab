@@ -488,11 +488,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.49154508, y: -0.10704942, z: 0.020758525}
-  m_LocalScale: {x: 0.50000054, y: 0.50000024, z: 0.50000024}
+  m_LocalPosition: {x: -0.5, y: -0.125, z: 0.021}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 7306561971951939663}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3300014
 MeshFilter:
@@ -565,11 +565,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49154508, y: -0.10704942, z: 0.020758525}
-  m_LocalScale: {x: 0.50000054, y: 0.50000024, z: 0.50000024}
+  m_LocalPosition: {x: 0.5, y: -0.125, z: 0.021}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 7306561971951939663}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3300016
 MeshFilter:
@@ -643,8 +643,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49000025, y: 0, z: 0.021000005}
-  m_LocalScale: {x: 0.50000054, y: 0.50000024, z: 0.50000024}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.021}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1260405448530375821}
   m_Father: {fileID: 7306561971951939663}
@@ -734,8 +734,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.49000025, y: 0, z: 0.021000005}
-  m_LocalScale: {x: 0.50000054, y: 0.50000024, z: 0.50000024}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0.021}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 9197943203969601947}
   m_Father: {fileID: 7306561971951939663}
@@ -1563,7 +1563,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 8200
+  m_Health: 82000
   m_Class: 2
   m_Score: 35000
   m_Debris: 0
@@ -16053,8 +16053,8 @@ Transform:
   - {fileID: 400036}
   - {fileID: 400020}
   - {fileID: 400018}
-  - {fileID: 400016}
   - {fileID: 400014}
+  - {fileID: 400016}
   - {fileID: 400000}
   - {fileID: 400004}
   - {fileID: 400008}

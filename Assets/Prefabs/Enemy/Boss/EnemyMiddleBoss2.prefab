@@ -277,10 +277,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e870367d9e8c64287a2dd83c16e641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
-  m_Health: 1600
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 16000
   m_Class: 1
   m_Score: 6000
   m_Debris: 3
@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 400022}
   - component: {fileID: 3300018}
   - component: {fileID: 2300018}
+  - component: {fileID: 8132453542206253034}
   m_Layer: 12
   m_Name: HeavyTankLvl3BarrelAnimated
   m_TagString: Untagged
@@ -469,6 +470,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8132453542206253034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7411ca54ab2dc7347b4100c77b8ba419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &76743553689815188
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,10 +744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4355bcff684979c47878304ab288262f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4334012117464872134}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
-  m_Health: 800
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4334012117464872134}
+  m_Health: 8000
   m_Class: 1
   m_Score: 2000
   m_Debris: 0
@@ -751,11 +764,7 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_Barrel: {fileID: 100022}
-  m_FireDelay:
-  - 3
-  - 2.4
-  - 1.8
+  m_EnemyMiddleBoss2Barrel: {fileID: 8132453542206253034}
   m_FirePosition:
   - {fileID: 5967848668563099295}
   - {fileID: 53923730664795701}
@@ -869,10 +878,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb5ba5a63d8ff4438d76a4c006ade0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4334012117464872134}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
-  m_Health: 300
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4334012117464872134}
+  m_Health: 3000
   m_Class: 1
   m_Score: 1000
   m_Debris: 0
@@ -889,10 +898,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_FireDelay:
-  - 2
-  - 1.5
-  - 1.25
   m_FirePosition: {fileID: 8887693637085473274}
 --- !u!1 &3832976421403862440
 GameObject:
@@ -1730,10 +1735,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb5ba5a63d8ff4438d76a4c006ade0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4334012117464872134}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
-  m_Health: 300
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4334012117464872134}
+  m_Health: 3000
   m_Class: 1
   m_Score: 1000
   m_Debris: 0
@@ -1750,10 +1755,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_FireDelay:
-  - 2
-  - 1.5
-  - 1.25
   m_FirePosition: {fileID: 6342520265946974100}
 --- !u!1 &8999116357584057117
 GameObject:

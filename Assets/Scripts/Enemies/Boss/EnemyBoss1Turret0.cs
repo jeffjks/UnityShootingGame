@@ -39,7 +39,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos = m_FirePosition.position;
         CreateBulletsSector(0, pos, 7f, m_CurrentAngle + Random.Range(-2f, 2f), accel, 7, 14f);
         yield break;
@@ -47,7 +47,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float gap = 0.03f;
         pos = m_FirePosition.position;
@@ -56,7 +56,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
             for (int i = 0; i < 6; i++) {
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 3f, accel);
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForMillisecondFrames(60);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
@@ -65,7 +65,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 3f, accel);
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 14f, accel);
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForMillisecondFrames(60);
             }
         }
         else {
@@ -86,7 +86,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
                         CreateBullet(3, pos, 6.3f, m_CurrentAngle - 52f*j, accel);
                     }
                 }
-            yield return new WaitForSeconds(0.06f);
+            yield return new WaitForMillisecondFrames(60);
             }
         }
         yield break;

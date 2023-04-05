@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyPlaneMedium4Turret : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
+    public Transform[] m_FirePosition = new Transform[2];
     private IEnumerator m_CurrentPattern;
 
     void Start()
@@ -15,7 +15,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
 
     protected override void Update()
     {
-        m_CurrentAngle += 180f * Time.deltaTime * transform.localScale.x;
+        m_CurrentAngle += 180f / Application.targetFrameRate * transform.localScale.x * Time.timeScale;
         
         base.Update();
     }
@@ -30,7 +30,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3[] pos = new Vector3[2];
         float factor;
 
@@ -41,7 +41,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
                 pos[1] = m_FirePosition[1].position;
                 CreateBullet(1, pos[0], 6f * factor, m_CurrentAngle, accel);
                 CreateBullet(1, pos[1], 6f * factor, m_CurrentAngle - 180f, accel);
-                yield return new WaitForSeconds(0.16f);
+                yield return new WaitForMillisecondFrames(160);
             }
         }
         else if (m_SystemManager.m_Difficulty == 1) {
@@ -51,7 +51,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
                 pos[1] = m_FirePosition[1].position;
                 CreateBulletsSector(1, pos[0], 6f * factor, m_CurrentAngle, accel, 2, 1f);
                 CreateBulletsSector(1, pos[1], 6f * factor, m_CurrentAngle - 180f, accel, 2, 1f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForMillisecondFrames(100);
             }
         }
         else {
@@ -61,7 +61,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
                 pos[1] = m_FirePosition[1].position;
                 CreateBulletsSector(1, pos[0], 6f * factor, m_CurrentAngle, accel, 2, 2f);
                 CreateBulletsSector(1, pos[1], 6f * factor, m_CurrentAngle - 180f, accel, 2, 2f);
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForMillisecondFrames(80);
             }
         }
     }

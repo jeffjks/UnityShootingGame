@@ -10,8 +10,57 @@ public struct TrainingInfo
     public byte m_Difficulty;
 }
 
+public class WaitForFrames : CustomYieldInstruction
+{
+    private int _targetFrameCount;
+
+    public WaitForFrames(int numberOfFrames)
+    {
+        _targetFrameCount = Time.frameCount + numberOfFrames;
+    }
+
+    public override bool keepWaiting
+    {
+        get
+        {
+            if (Time.timeScale == 0) {
+                _targetFrameCount++;
+            }
+            return Time.frameCount < _targetFrameCount;
+        }
+    }
+}
+
+public class WaitForMillisecondFrames : CustomYieldInstruction
+{
+    private int _targetFrameCount;
+
+    public WaitForMillisecondFrames(int millisecond)
+    {
+        int numberOfFrames = millisecond * Application.targetFrameRate / 1000;
+        _targetFrameCount = Time.frameCount + numberOfFrames;
+    }
+
+    public override bool keepWaiting
+    {
+        get
+        {
+            if (Time.timeScale == 0) {
+                _targetFrameCount++;
+            }
+            return Time.frameCount < _targetFrameCount;
+        }
+    }
+}
+
+public class AC_Ease
+{
+    public static AnimationCurve[] ac_ease = new AnimationCurve[4];
+}
+
 [System.Serializable]
-public class Attributes {
+public class Attributes
+{
     public int m_Color, m_Speed, m_ShotForm, m_ShotDamage, m_LaserDamage, m_Module, m_Bomb;
     
     public Attributes(int color, int speed, int shot_form, int shot_damage, int laser_damage, int module, int bomb) {
@@ -100,15 +149,20 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool m_ReplayState;
     [HideInInspector] public byte m_ReplayNum;
     [HideInInspector] public string m_ReplayDirectory;
+    [HideInInspector] public string m_RankingDirectory;
     [HideInInspector] public bool m_TrainingState;
     [HideInInspector] public TrainingInfo m_TrainingInfo;
     [HideInInspector] public bool m_IsOnline = false;
+
+    public bool m_NetworkAvailable;
 
     private string m_AccountID = string.Empty, m_EncryptedAccountID;
     private int[,] m_ResolutionList;
     private PlayerManager m_PlayerManager = null;
 
     [SerializeField] private AudioMixer m_AudioMixer = null;
+
+    public AnimationCurve[] m_AnimationCurve = new AnimationCurve[3];
 
     public static GameManager instance_gm = null;
 
@@ -128,11 +182,16 @@ public class GameManager : MonoBehaviour
         m_PlayerManager = PlayerManager.instance_pm;
         m_CurrentAttributes = new Attributes(0, 0, 0, 0, 0, 0, 0);
 
-        m_ResolutionList = new int[,] {{600, 900}, {1600, 900}, {720, 960}, {1280, 960}, {768, 1024}, {1280, 1024}, {810, 1080}, {1920, 1080}};
+        m_ResolutionList = new int[,] {{680, 900}, {1600, 900}, {720, 960}, {1280, 960}, {768, 1024}, {1280, 1024}, {810, 1080}, {1920, 1080}};
         m_MaxResolutionNumber = m_ResolutionList.GetLength(0);
         m_MaxGraphicsQuality = 6;
         m_MaxLanguageOptions = 2;
         m_ReplayDirectory = "";
+        m_RankingDirectory = "";
+
+        for (int i = 0; i < m_AnimationCurve.Length; ++i) {
+            AC_Ease.ac_ease[i] = m_AnimationCurve[i];
+        }
 
         DOTween.SetTweensCapacity(512, 64);
 
@@ -141,6 +200,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (!m_NetworkAvailable) {
+            return;
+        }
         if (m_IsOnline) {
             if (Md5Sum(m_AccountID) != m_EncryptedAccountID) {
                 m_IsOnline = false;

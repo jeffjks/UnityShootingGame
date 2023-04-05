@@ -29,8 +29,6 @@ public class HitEffect : MonoBehaviour
         if (m_ActivatedObject.Length > 0) {
             m_ActivatedObject[m_HitEffectType].SetActive(true);
         }
-
-        //Invoke("OnDeath", m_Lifetime);
     }
 
     void Update()
@@ -38,11 +36,6 @@ public class HitEffect : MonoBehaviour
         if (m_Animator[m_HitEffectType].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) {
             OnDeath();
         }
-    }
-
-    void OnDisable()
-    {
-        CancelInvoke();
     }
 
     private void OnDeath() {

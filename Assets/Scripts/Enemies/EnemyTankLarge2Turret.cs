@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyTankLarge2Turret : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
+    public Transform[] m_FirePosition = new Transform[2];
     private bool m_Shooting = false;
 
     void Start()
@@ -28,7 +28,7 @@ public class EnemyTankLarge2Turret : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         int[] number1 = {1, 1, 1, 1, 1};
         int[] number2 = {3, 3, 5, 5, 5, 3, 3};
         int[] number3 = {5, 5, 7, 7, 7, 5, 5};
@@ -40,10 +40,10 @@ public class EnemyTankLarge2Turret : EnemyUnit
                     pos[1] = GetScreenPosition(m_FirePosition[1].position);
                     CreateBulletsSector(1, pos[0], 6.8f, m_CurrentAngle + 12f - i*8f, accel, number1[i], 12f);
                     CreateBulletsSector(1, pos[1], 6.8f, m_CurrentAngle - 12f + i*8f, accel, number1[i], 12f);
-                    yield return new WaitForSeconds(0.21f);
+                    yield return new WaitForMillisecondFrames(210);
                 }
                 m_Shooting = false;
-                yield return new WaitForSeconds(2.2f);
+                yield return new WaitForMillisecondFrames(2200);
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 m_Shooting = true;
@@ -52,10 +52,10 @@ public class EnemyTankLarge2Turret : EnemyUnit
                     pos[1] = GetScreenPosition(m_FirePosition[1].position);
                     CreateBulletsSector(1, pos[0], 6.8f, m_CurrentAngle + 16f - i*8f, accel, number2[i], 8f);
                     CreateBulletsSector(1, pos[1], 6.8f, m_CurrentAngle - 16f + i*8f, accel, number2[i], 8f);
-                    yield return new WaitForSeconds(0.14f);
+                    yield return new WaitForMillisecondFrames(140);
                 }
                 m_Shooting = false;
-                yield return new WaitForSeconds(1.8f);
+                yield return new WaitForMillisecondFrames(1800);
             }
             else {
                 m_Shooting = true;
@@ -64,10 +64,10 @@ public class EnemyTankLarge2Turret : EnemyUnit
                     pos[1] = GetScreenPosition(m_FirePosition[1].position);
                     CreateBulletsSector(1, pos[0], 6.8f, m_CurrentAngle + 6f - i*6f, accel, number3[i], 6f);
                     CreateBulletsSector(1, pos[1], 6.8f, m_CurrentAngle - 6f + i*6f, accel, number3[i], 6f);
-                    yield return new WaitForSeconds(0.14f);
+                    yield return new WaitForMillisecondFrames(140);
                 }
                 m_Shooting = false;
-                yield return new WaitForSeconds(1.8f);
+                yield return new WaitForMillisecondFrames(1800);
             }
         }
     }

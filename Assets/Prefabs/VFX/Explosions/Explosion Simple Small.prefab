@@ -37991,7 +37991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: ExplosionSimple_1
-  m_Lifetime: 2
+  m_Lifetime: 2000
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 0

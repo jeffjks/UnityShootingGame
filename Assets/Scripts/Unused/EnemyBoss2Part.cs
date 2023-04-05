@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyBoss2Part : EnemyUnit
 {
     public EnemyUnit[] m_Turret;
-    public float m_NextPhaseDelay;
+    public int m_NextPhaseDelay;
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        m_SystemManager.EraseBullets(2f);
+        m_SystemManager.EraseBullets(2000);
         for (int i = 0; i < m_Turret.Length; i++)
             m_Turret[i].OnDeath(); // 이펙트용
         

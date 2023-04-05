@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_Barrel: {fileID: 100154}
+  m_EnemyBoss4MainTurretBarrel: {fileID: 4737815172762983701}
   m_FirePosition: {fileID: 6059859442607796135}
   m_RotatePattern: 10
 --- !u!1 &100148
@@ -1734,6 +1734,7 @@ GameObject:
   - component: {fileID: 400154}
   - component: {fileID: 3300124}
   - component: {fileID: 2300124}
+  - component: {fileID: 4737815172762983701}
   m_Layer: 12
   m_Name: LandFortressHeavyTurretBarrelAnimated
   m_TagString: Untagged
@@ -1801,6 +1802,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4737815172762983701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e49cc5ed4f4e894fa08435811d11fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &100156
 GameObject:
   m_ObjectHideFlags: 0
@@ -3399,7 +3412,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 10000
+  m_Health: 100000
   m_Class: 2
   m_Score: 50000
   m_Debris: 0

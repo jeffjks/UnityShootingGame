@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyBossTrue : EnemyUnit
 {
     public GameObject m_BombBarrier;
     public Transform m_Core;
 
-    private sbyte m_Phase;
+    private int m_Phase;
     private float[] m_Direction = new float[2], m_DirectionDelta = new float[2];
     private int m_DirectionSide = 1;
     private float m_BulletSpeed;
     private Vector3 m_TargetPosition;
-    private float m_AppearanceTime = 1.6f;
+    private const int APPEARNCE_TIME = 1600;
     private bool m_InPattern = false;
 
     private IEnumerator m_CurrentPhase;
@@ -24,21 +23,48 @@ public class EnemyBossTrue : EnemyUnit
 
     void Start()
     {
-        DisableAttackable(m_AppearanceTime);
         m_TargetPosition = new Vector3(0f, -3.8f, Depth.ENEMY);
         //m_RotateAxisSide = 2*Random.Range(0, 2) - 1;
         
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMove(m_TargetPosition, m_AppearanceTime).SetEase(Ease.InOutQuad))
-        .Join(transform.DOScale(new Vector3(1f, 1f, 1f), m_AppearanceTime).SetEase(Ease.InQuad));
+        DisableAttackable();
 
-        Invoke("OnAppearanceComplete", m_AppearanceTime);
+        StartCoroutine(AppearanceSequence());
+    }
+
+    private IEnumerator AppearanceSequence() {
+        Vector3 init_position = transform.position;
+        Vector3 init_scale = transform.localScale;
+        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+            float t_scale = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            
+            transform.position = Vector3.Lerp(init_position, m_TargetPosition, t_pos);
+            transform.localScale = Vector3.Lerp(init_scale, new Vector3(1f, 1f, 1f), t_pos);
+            yield return new WaitForMillisecondFrames(0);
+        }
+
+        OnAppearanceComplete();
+        yield break;
+    }
+
+    private void OnAppearanceComplete() {
+        float[] random_direction = { 70f, 110f, -70f, -110f };
+        m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
+
+        m_Phase = 1;
+        m_CurrentPhase = Phase1();
+        StartCoroutine(m_CurrentPhase);
+        m_SystemManager.m_StageManager.SetTrueLastBossState(false);
+
+        EnableAttackable();
     }
 
     protected override void Update()
     {
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 0.50f) { // 체력 50% 이하
+            if (m_Health <= m_MaxHealth / 2) { // 체력 50% 이하
                 ToNextPhase();
             }
         }
@@ -66,7 +92,7 @@ public class EnemyBossTrue : EnemyUnit
         BombBarrier();
 
         for (int i = 0; i < m_Direction.Length; i++) {
-            m_Direction[i] += m_DirectionDelta[i]*Time.deltaTime;
+            m_Direction[i] += m_DirectionDelta[i] / Application.targetFrameRate * Time.timeScale;
             if (m_Direction[i] > 360f)
                 m_Direction[i] -= 360f;
             else if (m_Direction[i] < 0f)
@@ -78,13 +104,13 @@ public class EnemyBossTrue : EnemyUnit
 
     private void Rotate() {
         Vector3 temp_rotate_axis;
-        m_RotateAngle += 180f*Time.deltaTime;
+        m_RotateAngle += 180f / Application.targetFrameRate * Time.timeScale;
         temp_rotate_axis = Quaternion.AngleAxis(m_RotateAngle, Vector3.up) * m_RotateAxis;
         m_RotateAxis = new Vector2(Mathf.Cos(Mathf.Deg2Rad*m_RotateAxisAngle), Mathf.Sin(Mathf.Deg2Rad*m_RotateAxisAngle));
 
-        //m_RotateAxisAngle += 25f*Time.deltaTime;
+        //m_RotateAxisAngle += 25f / Application.targetFrameRate * Time.timeScale;
         /*
-        m_RotateAxisAngle += 25f*Time.deltaTime*m_RotateAxisSide;
+        m_RotateAxisAngle += 25f / Application.targetFrameRate * Time.timeScale * m_RotateAxisSide;
 
         if (m_RotateAxisAngle > 70) {
             m_RotateAxisSide = -1;
@@ -93,7 +119,7 @@ public class EnemyBossTrue : EnemyUnit
             m_RotateAxisSide = 1;
         }*/
 
-        m_Core.RotateAround(transform.position, temp_rotate_axis, -240f*Time.deltaTime);
+        m_Core.RotateAround(transform.position, temp_rotate_axis, -240f / Application.targetFrameRate * Time.timeScale);
 
         if (m_RotateAngle > 360f)
             m_RotateAngle -= 360f;
@@ -118,20 +144,10 @@ public class EnemyBossTrue : EnemyUnit
         }
     }
 
-    private void OnAppearanceComplete() {
-        float[] random_direction = { 70f, 110f, -70f, -110f };
-        m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
-
-        m_Phase = 1;
-        m_CurrentPhase = Phase1();
-        StartCoroutine(m_CurrentPhase);
-        m_SystemManager.m_StageManager.SetTrueLastBossState(false);
-    }
-
     public void ToNextPhase() {
         m_Phase++;
         StopAllPatterns();
-        m_SystemManager.EraseBullets(2f);
+        m_SystemManager.EraseBullets(2000);
 
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
@@ -141,55 +157,55 @@ public class EnemyBossTrue : EnemyUnit
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForMillisecondFrames(3000);
         m_CurrentPattern[0] = Pattern1_A1();
         StartCoroutine(m_CurrentPattern[0]);
         m_CurrentPattern[1] = Pattern1_A2();
         StartCoroutine(m_CurrentPattern[1]);
 
         while(m_InPattern) {
-            yield return null;
+            yield return new WaitForMillisecondFrames(0);
         }
         StopAllPatterns();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForMillisecondFrames(3000);
 
         while (m_Phase == 1) {
             m_CurrentPattern[0] = Pattern1_B1();
             StartCoroutine(m_CurrentPattern[0]);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
             m_CurrentPattern[1] = Pattern1_B2();
             StartCoroutine(m_CurrentPattern[1]);
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForMillisecondFrames(4000);
             m_CurrentPattern[1] = Pattern1_B2();
             StartCoroutine(m_CurrentPattern[1]);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForMillisecondFrames(1500);
             StopAllPatterns();
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
             
             m_CurrentPattern[0] = Pattern1_C1();
             StartCoroutine(m_CurrentPattern[0]);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForMillisecondFrames(2000);
             m_CurrentPattern[1] = Pattern1_C2();
             StartCoroutine(m_CurrentPattern[1]);
-            yield return new WaitForSeconds(8f);
+            yield return new WaitForMillisecondFrames(8000);
             StopAllPatterns();
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
 
             m_CurrentPattern[0] = Pattern1_D1();
             StartCoroutine(m_CurrentPattern[0]);
             m_CurrentPattern[1] = Pattern1_D2();
             StartCoroutine(m_CurrentPattern[1]);
-            yield return new WaitForSeconds(14f);
+            yield return new WaitForMillisecondFrames(14000);
             StopAllPatterns();
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
 
             m_CurrentPattern[0] = Pattern1_E1();
             StartCoroutine(m_CurrentPattern[0]);
             m_CurrentPattern[1] = Pattern1_E2();
             StartCoroutine(m_CurrentPattern[1]);
-            yield return new WaitForSeconds(8f);
+            yield return new WaitForMillisecondFrames(8000);
             StopAllPatterns();
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForMillisecondFrames(3000);
 
             m_DirectionSide *= -1;
         }
@@ -197,79 +213,81 @@ public class EnemyBossTrue : EnemyUnit
     }
 
     private IEnumerator Pattern1_A1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-        float t, t_add = 0.11f;
-        m_Direction[0] = GetAngleToTarget(transform.position, m_PlayerPosition);
+        float dir;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+
+        while (true) {
+            dir = GetAngleToTarget(transform.position, m_PlayerPosition);
+            CreateBulletsSector(2, transform.position, 5.4f, dir - 40f, accel, 6, 6f);
+            CreateBulletsSector(2, transform.position, 4.8f, dir, accel, 6, 6f);
+            CreateBulletsSector(2, transform.position, 5.4f, dir + 40f, accel, 6, 6f);
+
+            CreateBulletsSector(0, transform.position, 4f, dir, accel, 6, 4f);
+            yield return new WaitForMillisecondFrames(800);
+        }
+    }
+
+    private IEnumerator Pattern1_A2() {
+        float dir = Random.Range(0f, 360f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        int timer, t_add = 110;
+        float random_distribution = 1f;
+
         m_InPattern = true;
 
-        t = 0f;
-        while (t < 2f) {
-            CreateBulletsSector(1, transform.position, 8.8f, m_Direction[0], accel, 4, 90f);
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+        timer = 0;
+        while (timer < 4000) {
+            CreateBulletsSector(3, transform.position, 6.5f, dir, accel, 32, 11.25f);
+            dir += Random.Range(5.625f - random_distribution, 5.625f + random_distribution);
+            yield return new WaitForMillisecondFrames(t_add);
+            CreateBulletsSector(3, transform.position, 6.5f, dir, accel, 32, 11.25f);
+            dir += Random.Range(5.625f - random_distribution, 5.625f + random_distribution);
+            yield return new WaitForMillisecondFrames(t_add);
+            timer += t_add * 2;
         }
 
-        t = 0f;
-        while (t < 3f) {
-            CreateBulletsSector(1, transform.position, 8.8f, m_Direction[0], accel, 8, 45f);
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
-        }
+        yield return new WaitForMillisecondFrames(500);
+        dir = Random.Range(0f, 360f);
 
-        t = 0f;
-        while (t < 4f) {
-            CreateBulletsSector(1, transform.position, 8.8f, m_Direction[0], accel, 8, 45f);
-            CreateBulletsSector(4, transform.position, 8.8f, m_Direction[0] + 22.5f, accel, 8, 45f);
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
-        }
-
-        t = 0f;
-        while (t < 5f) {
-            CreateBulletsSector(1, transform.position, 8.8f, m_Direction[0], accel, 16, 22.5f);
-            CreateBulletsSector(4, transform.position, 8.8f, m_Direction[0] + 11.25f, accel, 16, 22.5f);
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+        timer = 0;
+        while (timer < 3500) {
+            CreateBulletsSector(5, transform.position, 7.2f, dir, accel, 36, 10f);
+            dir += Random.Range(5f - random_distribution, 5f + random_distribution);
+            yield return new WaitForMillisecondFrames(t_add);
+            CreateBulletsSector(5, transform.position, 7.2f, dir, accel, 36, 10f);
+            dir += Random.Range(5f - random_distribution, 5f + random_distribution);
+            yield return new WaitForMillisecondFrames(t_add);
+            timer += t_add * 2;
         }
 
         m_InPattern = false;
         yield break;
     }
 
-    private IEnumerator Pattern1_A2() {
-        float delay;
-
-        while (true) {
-            m_DirectionDelta[0] = -Random.Range(10f, 50f) * Mathf.Sign(m_DirectionDelta[0]);
-            delay = Random.Range(2f, 5f);
-            yield return new WaitForSeconds(delay);
-        }
-    }
-
 
 
     private IEnumerator Pattern1_B1() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, 1f), accel2 = new EnemyBulletAccel(6f, 0.4f);
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, 1000), accel2 = new EnemyBulletAccel(6f, 400);
         float dir;
 
         while (true) {
             dir = GetAngleToTarget(transform.position, m_PlayerPosition);
             for (int i = 0; i < 3; i++) {
-                CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, BulletType.CREATE, 0.6f,
+                CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, BulletType.CREATE, 600,
                 5, 3f, BulletDirection.CURRENT, 0f, accel2);
             }
-            yield return new WaitForSeconds(0.08f);
+            yield return new WaitForMillisecondFrames(80);
         }
     }
 
     private IEnumerator Pattern1_B2() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 1f), accel2;
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 1000), accel2;
 
         for (int i = 0; i < 10; i++) {
-            accel2 = new EnemyBulletAccel(7f+i*0.86f, 0.4f);
-            CreateBulletsSector(0, transform.position, 10f, 0f, accel1, 4, 90f, BulletType.ERASE_AND_CREATE, 0.5f,
+            accel2 = new EnemyBulletAccel(7f+i*0.86f, 400);
+            CreateBulletsSector(0, transform.position, 10f, 0f, accel1, 4, 90f, BulletType.ERASE_AND_CREATE, 500,
             0, 0.1f, BulletDirection.PLAYER, 0f, accel2);
-            yield return new WaitForSeconds(0.06f);
+            yield return new WaitForMillisecondFrames(60);
         }
         yield break;
     }
@@ -277,7 +295,7 @@ public class EnemyBossTrue : EnemyUnit
 
 
     private IEnumerator Pattern1_C1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 29f;
 
@@ -285,69 +303,95 @@ public class EnemyBossTrue : EnemyUnit
             float dir = m_Direction[0]*m_DirectionSide;
             CreateBulletsSector(3, transform.position, 7.2f, dir, accel, 10, 36f);
             CreateBulletsSector(3, transform.position, 7.2f, dir - 11f, accel, 10, 36f);
-            yield return new WaitForSeconds(0.14f);
+            yield return new WaitForMillisecondFrames(140);
         }
     }
 
     private IEnumerator Pattern1_C2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[1] = 67f;
 
         while (true) {
             float dir = m_Direction[1]*m_DirectionSide;
             CreateBulletsSector(0, transform.position, 9f, dir, accel, 9, 40f);
-            yield return new WaitForSeconds(0.11f);
+            yield return new WaitForMillisecondFrames(110);
         }
     }
 
 
 
     private IEnumerator Pattern1_D1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 23f*m_DirectionSide;
         m_DirectionDelta[1] = 43f;
 
         while (true) {
-            CreateBulletsSector(3, transform.position, 5.3f, m_Direction[0], accel, 4, 90f, BulletType.ERASE_AND_CREATE, 0.6f,
+            CreateBulletsSector(3, transform.position, 5.3f, m_Direction[0], accel, 4, 90f, BulletType.ERASE_AND_CREATE, 600,
             4, 6.4f, BulletDirection.FIXED, m_Direction[1], accel, 6, 60f);
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForMillisecondFrames(150);
         }
     }
 
     private IEnumerator Pattern1_D2() {
-        yield return new WaitForSeconds(5f);
+        /*
+        yield return new WaitForMillisecondFrames(5000);
         DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, -43f, 2.7f).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(4f);
-        DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, 43f, 2.7f).SetEase(Ease.Linear);
+        yield return new WaitForMillisecondFrames(4000);
+        DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, 43f, 2.7f).SetEase(Ease.Linear);*/
+
+        float init_direction;
+        int frame;
+        yield return new WaitForMillisecondFrames(5000);
+
+        init_direction = m_DirectionDelta[1];
+        frame = 2700 * Application.targetFrameRate / 1000;
+        for (int i = 0; i < frame; ++i) {
+            float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            
+            m_DirectionDelta[1] = Mathf.Lerp(init_direction, -43f, t_dir);
+            yield return new WaitForMillisecondFrames(0);
+        }
+
+        yield return new WaitForMillisecondFrames(1300);
+
+        init_direction = m_DirectionDelta[1];
+        frame = 2700 * Application.targetFrameRate / 1000;
+        for (int i = 0; i < frame; ++i) {
+            float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            
+            m_DirectionDelta[1] = Mathf.Lerp(init_direction, 43f, t_dir);
+            yield return new WaitForMillisecondFrames(0);
+        }
+
         yield break;
     }
 
 
 
     private IEnumerator Pattern1_E1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = -79f*m_DirectionSide;
 
         while (true) {
             for (int i = 0; i < 6; i++)
                 CreateBulletsSector(1, transform.position, 4f+i*0.9f, m_Direction[0], accel, 4, 90f);
-            yield return new WaitForSeconds(0.12f);
+            yield return new WaitForMillisecondFrames(120);
         }
     }
 
     private IEnumerator Pattern1_E2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float dir;
 
         while (true) {
             dir = GetAngleToTarget(transform.position, m_PlayerPosition);
-            CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, BulletType.ERASE_AND_CREATE, 0.7f,
+            CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, BulletType.ERASE_AND_CREATE, 700,
             4, 6.4f, BulletDirection.PLAYER, 0f, accel);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForMillisecondFrames(1000);
         }
     }
 
@@ -355,18 +399,18 @@ public class EnemyBossTrue : EnemyUnit
     
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForMillisecondFrames(2000);
         m_CurrentPattern[0] = Pattern2_A();
         StartCoroutine(m_CurrentPattern[0]);
 
         while(m_InPattern) {
-            yield return null;
+            yield return new WaitForMillisecondFrames(0);
         }
         StopAllPatterns();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForMillisecondFrames(5000);
         m_CurrentPattern[0] = PatternFinal1_1();
         StartCoroutine(m_CurrentPattern[0]);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForMillisecondFrames(4000);
         m_CurrentPattern[4] = PatternFinal2();
         StartCoroutine(m_CurrentPattern[4]);
         yield break;
@@ -375,41 +419,41 @@ public class EnemyBossTrue : EnemyUnit
 
 
     private IEnumerator Pattern2_A() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(1f, 1f), accel2 = new EnemyBulletAccel(9.2f, 0.5f), accel3 = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(1f, 1000), accel2 = new EnemyBulletAccel(9.2f, 500), accel3 = new EnemyBulletAccel(0f, 0);
         m_DirectionDelta[0] = 31f;
         m_InPattern = true;
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 3; i++) {
-            CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
+            CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
             0, 1f, BulletDirection.CURRENT, 30f, accel2);
-            yield return new WaitForSeconds(0.16f);
+            yield return new WaitForMillisecondFrames(160);
         }
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForMillisecondFrames(400);
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 5; i++) {
-            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
+            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
             3, 1f, BulletDirection.CURRENT, -60f, accel2);
-            yield return new WaitForSeconds(0.16f);
+            yield return new WaitForMillisecondFrames(160);
         }
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForMillisecondFrames(400);
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 7; i++) {
-            CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
+            CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
             0, 1f, BulletDirection.CURRENT, 90f, accel2);
-            yield return new WaitForSeconds(0.16f);
+            yield return new WaitForMillisecondFrames(160);
         }
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForMillisecondFrames(1400);
 
         m_Direction[0] = Random.Range(0f, 360f);
         float dir = 0f;
         for (int i = 0; i < 9; i++) {
             CreateBulletsSector(3, transform.position, 10f, dir + Random.Range(3.5f, 6.5f), accel3, 36, 10f);
-            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1f,
+            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
             //3, 1f, BulletDirection.CURRENT, -140f, accel2);
-            yield return new WaitForSeconds(0.17f);
+            yield return new WaitForMillisecondFrames(170);
         }
         m_InPattern = false;
     }
@@ -417,8 +461,9 @@ public class EnemyBossTrue : EnemyUnit
 
 
     private IEnumerator PatternFinal1_1() {
-        float bullet_delay = 1.1f, max_speed = 10f, min_speed = 5.6f;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, bullet_delay), accel2 = new EnemyBulletAccel(0f, 0f);
+        int bullet_delay = 1100;
+        float max_speed = 10f, min_speed = 5.6f;
+        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, bullet_delay), accel2 = new EnemyBulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 109f;
@@ -439,46 +484,100 @@ public class EnemyBossTrue : EnemyUnit
             3, 7.5f, BulletDirection.CURRENT, m_Direction[1], accel2, 2, 48f);
             CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, BulletType.ERASE_AND_CREATE, bullet_delay,
             5, 5.4f, BulletDirection.CURRENT, m_Direction[1] + 180f, accel2);
-            yield return new WaitForSeconds(0.062f);
+            yield return new WaitForMillisecondFrames(62);
         }
     }
 
     private IEnumerator PatternFinal1_2(float max_rotate_speed) {
+        yield return new WaitForMillisecondFrames(2400);
         while (true) {
-            yield return new WaitForSeconds(Random.Range(8f, 10f));
-            DOTween.To(()=>m_DirectionDelta[0], x=>m_DirectionDelta[0] = x, -max_rotate_speed, 2.4f).SetEase(Ease.Linear);
-            yield return new WaitForSeconds(Random.Range(8f, 10f));
-            DOTween.To(()=>m_DirectionDelta[0], x=>m_DirectionDelta[0] = x, max_rotate_speed, 2.4f).SetEase(Ease.Linear);
-            yield break;
+            float init_direction;
+            int frame;
+            yield return new WaitForMillisecondFrames(Random.Range(8000, 10000) - 2400);
+
+            init_direction = m_DirectionDelta[0];
+            frame = 2400 * Application.targetFrameRate / 1000;
+            for (int i = 0; i < frame; ++i) {
+                float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+                
+                m_DirectionDelta[0] = Mathf.Lerp(init_direction, -max_rotate_speed, t_dir);
+                yield return new WaitForMillisecondFrames(0);
+            }
+            yield return new WaitForMillisecondFrames(Random.Range(8000, 10000) - 2400);
+
+            init_direction = m_DirectionDelta[0];
+            frame = 2400 * Application.targetFrameRate / 1000;
+            for (int i = 0; i < frame; ++i) {
+                float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+                
+                m_DirectionDelta[0] = Mathf.Lerp(init_direction, max_rotate_speed, t_dir);
+                yield return new WaitForMillisecondFrames(0);
+            }
         }
     }
 
     private IEnumerator PatternFinal1_3(float max_rotate_speed) {
+        yield return new WaitForMillisecondFrames(1700);
         while (true) {
-            yield return new WaitForSeconds(Random.Range(7f, 9f));
-            DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, -max_rotate_speed, 1.7f).SetEase(Ease.Linear);
-            yield return new WaitForSeconds(Random.Range(7f, 9f));
-            DOTween.To(()=>m_DirectionDelta[1], x=>m_DirectionDelta[1] = x, max_rotate_speed, 1.7f).SetEase(Ease.Linear);
-            yield break;
+            float init_direction;
+            int frame;
+            yield return new WaitForMillisecondFrames(Random.Range(7000, 9000) - 1700);
+
+            init_direction = m_DirectionDelta[1];
+            frame = 1700 * Application.targetFrameRate / 1000;
+            for (int i = 0; i < frame; ++i) {
+                float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+                
+                m_DirectionDelta[1] = Mathf.Lerp(init_direction, -max_rotate_speed, t_dir);
+                yield return new WaitForMillisecondFrames(0);
+            }
+            yield return new WaitForMillisecondFrames(Random.Range(7000, 9000) - 1700);
+
+            init_direction = m_DirectionDelta[1];
+            frame = 1700 * Application.targetFrameRate / 1000;
+            for (int i = 0; i < frame; ++i) {
+                float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+                
+                m_DirectionDelta[1] = Mathf.Lerp(init_direction, max_rotate_speed, t_dir);
+                yield return new WaitForMillisecondFrames(0);
+            }
         }
     }
 
     private IEnumerator PatternFinal1_4(float min_speed, float max_speed) {
+        yield return new WaitForMillisecondFrames(2000);
         while (true) {
-            yield return new WaitForSeconds(Random.Range(5f, 8f));
-            DOTween.To(()=>m_BulletSpeed, x=>m_BulletSpeed = x, min_speed, 2f).SetEase(Ease.InOutQuad);
-            yield return new WaitForSeconds(Random.Range(5f, 8f));
-            DOTween.To(()=>m_BulletSpeed, x=>m_BulletSpeed = x, max_speed, 2f).SetEase(Ease.InOutQuad);
-            yield break;
+            float init_speed;
+            int frame;
+            yield return new WaitForMillisecondFrames(Random.Range(5000, 8000) - 2000);
+
+            init_speed = m_BulletSpeed;
+            frame = 2000 * Application.targetFrameRate / 1000;
+            for (int i = 0; i < frame; ++i) {
+                float t_spd = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+                
+                m_BulletSpeed = Mathf.Lerp(init_speed, min_speed, t_spd);
+                yield return new WaitForMillisecondFrames(0);
+            }
+            yield return new WaitForMillisecondFrames(Random.Range(5000, 8000) - 2000);
+
+            init_speed = m_BulletSpeed;
+            frame = 2000 * Application.targetFrameRate / 1000;
+            for (int i = 0; i < frame; ++i) {
+                float t_spd = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+                
+                m_BulletSpeed = Mathf.Lerp(init_speed, max_speed, t_spd);
+                yield return new WaitForMillisecondFrames(0);
+            }
         }
     }
 
     private IEnumerator PatternFinal2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float dir = GetAngleToTarget(transform.position, m_PlayerPosition);
         while (true) {
             CreateBulletsSector(1, transform.position, 5f, dir + Random.Range(-2f, 2f), accel, 26, 13.8461f);
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForMillisecondFrames(400);
         }
     }
 
@@ -499,17 +598,17 @@ public class EnemyBossTrue : EnemyUnit
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         ExplosionEffect(2, -1);
-        m_SystemManager.BulletsToGems(2f);
+        m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.7f, 0f);
 
         StartCoroutine(DeathExplosion1());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForMillisecondFrames(500);
 
-        StartCoroutine(DeathExplosion2(3.6f));
-        StartCoroutine(DeathExplosion3(3.6f));
-        StartCoroutine(DeathExplosion4(3.6f));
+        StartCoroutine(DeathExplosion2(3600));
+        StartCoroutine(DeathExplosion3(3600));
+        StartCoroutine(DeathExplosion4(3600));
         
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForMillisecondFrames(4000);
         
         ExplosionEffect(2, 3); // 최종 파괴
         ExplosionEffect(2, -1, new Vector2(-4f, 3f), new MoveVector(2f, 126.87f));
@@ -530,41 +629,41 @@ public class EnemyBossTrue : EnemyUnit
     private IEnumerator DeathExplosion1() {
         while (true) {
             ExplosionEffect(1, -1, Random.insideUnitCircle, new MoveVector(5f, Random.Range(160f, 200f)));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForMillisecondFrames(200);
         }
     }
 
-    private IEnumerator DeathExplosion2(float timer) {
-        float t = 0f, t_add = 0f;
-        while (t < timer) {
-            t_add = Random.Range(0.2f, 0.35f);
+    private IEnumerator DeathExplosion2(int duration) {
+        int timer = 0, t_add = 0;
+        while (timer < duration) {
+            t_add = Random.Range(200, 350);
             ExplosionEffect(0, 0, Random.insideUnitCircle * 2f, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
             ExplosionEffect(1, -1, Random.insideUnitCircle * 5f, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+            timer += t_add;
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }
 
-    private IEnumerator DeathExplosion3(float timer) {
-        float t = 0f, t_add = 0f;
-        while (t < timer) {
-            t_add = Random.Range(0.2f, 0.4f);
+    private IEnumerator DeathExplosion3(int duration) {
+        int timer = 0, t_add = 0;
+        while (timer < duration) {
+            t_add = Random.Range(200, 400);
             ExplosionEffect(2, 1, Random.insideUnitCircle * 2f, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
             ExplosionEffect(2, -1, Random.insideUnitCircle * 5f, new MoveVector(Random.Range(0f, 1f), Random.Range(0f, 360f)));
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+            timer += t_add;
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }
 
-    private IEnumerator DeathExplosion4(float timer) {
-        float t = 0f, t_add = 0f;
-        while (t < timer) {
-            t_add = Random.Range(0.1f, 0.5f);
+    private IEnumerator DeathExplosion4(int duration) {
+        int timer = 0, t_add = 0;
+        while (timer < duration) {
+            t_add = Random.Range(100, 500);
             ExplosionEffect(1, 2, Random.insideUnitCircle * 4f, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
-            t += t_add;
-            yield return new WaitForSeconds(t_add);
+            timer += t_add;
+            yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
     }

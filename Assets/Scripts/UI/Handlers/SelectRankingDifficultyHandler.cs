@@ -9,9 +9,11 @@ public class SelectRankingDifficultyHandler : GameUI
 
     void OnEnable()
     {
-        m_IsEnabled[0] = m_GameManager.m_IsOnline;
-        m_IsEnabled[1] = m_GameManager.m_IsOnline;
-        m_IsEnabled[2] = m_GameManager.m_IsOnline;
+        if (m_GameManager.m_NetworkAvailable) {
+            m_IsEnabled[0] = m_GameManager.m_IsOnline;
+            m_IsEnabled[1] = m_GameManager.m_IsOnline;
+            m_IsEnabled[2] = m_GameManager.m_IsOnline;
+        }
     }
 
     void Update()

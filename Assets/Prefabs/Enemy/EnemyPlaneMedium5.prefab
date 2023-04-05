@@ -921,10 +921,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144559a35836dac41a9b5adf58117d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
-  m_Health: 300
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 3000
   m_Class: 0
   m_Score: 1000
   m_Debris: 0
@@ -941,7 +941,8 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_State: 0
+  m_Turret0: {fileID: 9163191660377469726}
+  m_Turret1: {fileID: 1670523873913343859}
 --- !u!1 &100034
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,7 +987,7 @@ GameObject:
   - component: {fileID: 400036}
   - component: {fileID: 9163191660377469726}
   m_Layer: 10
-  m_Name: Turret1
+  m_Name: Turret0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,9 +1020,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736265d33fb2252438ac1aba56f1c8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4972793159689678571}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4972793159689678571}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1192,7 +1193,7 @@ GameObject:
   - component: {fileID: 7799878940682791851}
   - component: {fileID: 1670523873913343859}
   m_Layer: 10
-  m_Name: Turret2
+  m_Name: Turret1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1225,9 +1226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8899b1cb598c30f40b79fda66cfc007f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 4972793159689678571}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 0
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 4972793159689678571}
   m_Health: 0
   m_Class: 0
   m_Score: 0
@@ -1244,10 +1245,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_FireDelay:
-  - 2.4
-  - 2.3
-  - 2.2
   m_FirePosition: {fileID: 1945519398881697172}
 --- !u!1 &5946650884121357249
 GameObject:

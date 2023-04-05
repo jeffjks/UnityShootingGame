@@ -71,7 +71,7 @@ Material:
     - _ReflectiveColor_ST: {r: 1, g: 1, b: 0, a: 0}
     - _RefrColor: {r: 0.9372549, g: 0.9372549, b: 0.9372549, a: 1}
     - _RefractionTex_ST: {r: 1, g: 1, b: 0, a: 0}
-    - _WaveOffset: {r: 8591.84, g: 10299.441, b: -2887.6707, a: 1665.7528}
+    - _WaveOffset: {r: 9293.863, g: 12419.563, b: -3082.952, a: 2423.0237}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

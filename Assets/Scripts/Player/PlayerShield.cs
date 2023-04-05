@@ -29,7 +29,7 @@ public class PlayerShield : MonoBehaviour {
         Ring2.transform.Rotate(Vector3.forward, Time.deltaTime * RotateSpeed);
 
         if (m_IsShining) {
-            m_OffsetY += 0.025f;
+            m_OffsetY += 0.025f * Time.timeScale;
             m_ShieldMaterial.SetFloat("_ScanningOffsetY", m_OffsetY);
             if (m_OffsetY > 0.63) {
                 m_OffsetY = -0.64f;
@@ -38,7 +38,7 @@ public class PlayerShield : MonoBehaviour {
             }
         }
         else {
-            m_EffectTimer += Time.deltaTime;
+            m_EffectTimer += Time.deltaTime * Time.timeScale;
             if (m_EffectTimer >= ShieldOutShineTimeSpace) {
                 m_IsShining = true;
             }

@@ -1,50 +1,86 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyPlaneMedium3 : EnemyUnit
 {
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
-    [SerializeField] private EnemyPlaneMedium3Turret[] m_Turret = new EnemyPlaneMedium3Turret[2];
+    public EnemyPlaneMedium3Turret[] m_Turret = new EnemyPlaneMedium3Turret[2];
+    private int[] m_FireDelay = { 2400, 1800, 1200 };
     
     private bool m_TimeLimitState = false;
-    private float m_AppearanceTime = 1.2f;
-    private float m_PositionY, m_AddPositionY;
+    private const int APPEARNCE_TIME = 1200;
+    private const int TIME_LIMIT = 7800;
     private float m_VSpeed = 1.2f;
+    private IEnumerator m_TimeLimit;
 
     void Start ()
     {
-        float time_limit = 7.8f;
-        m_PositionY = transform.position.y;
-        
+        m_MoveVector.speed = 5.4f;
+
         StartCoroutine(Pattern1());
 
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*m_AppearanceTime, m_AppearanceTime).SetEase(Ease.OutQuad));
-        m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));
+        StartCoroutine(AppearanceSequence());
 
-        Invoke("TimeLimit", m_AppearanceTime + time_limit);
+        /*
+        m_Sequence = DOTween.Sequence();
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.AppendInterval(time_limit);
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
+    }
+
+    private IEnumerator AppearanceSequence() {
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+
+        float init_speed = m_MoveVector.speed;
+        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, m_VSpeed, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        m_TimeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(m_TimeLimit);
+        yield break;
+    }
+
+    private IEnumerator TimeLimit(int time_limit = 0) {
+        yield return new WaitForMillisecondFrames(time_limit);
+        m_TimeLimitState = true;
+
+        float init_speed = m_MoveVector.speed;
+        int frame = 1000 * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     protected override void Update()
     {
-        m_AddPositionY -= m_VSpeed * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
+        if (!m_TimeLimitState) { // Retreat when boss or middle boss state
+            if (m_SystemManager.m_PlayState > 0) {
+                if (m_TimeLimit != null)
+                    StopCoroutine(m_TimeLimit);
+                m_TimeLimit = TimeLimit();
+                StartCoroutine(m_TimeLimit);
+                m_TimeLimitState = true;
+            }
+        }
         
         base.Update();
     }
-
-    private void TimeLimit() {
-        m_TimeLimitState = true;
-    }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float target_angle, random_value;
-        yield return new WaitForSeconds(m_AppearanceTime + Random.Range(-0.5f, 0.5f));
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME + Random.Range(-500, 500));
 
         while(!m_TimeLimitState) {
             pos = transform.position;
@@ -60,22 +96,22 @@ public class EnemyPlaneMedium3 : EnemyUnit
             if (m_SystemManager.m_Difficulty == 0) {
                 for (int i = 0; i < 3; i++) {
                     CreateBullet(2, pos, 6f, target_angle + random_value, accel);
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForMillisecondFrames(50);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.043f);
+                    yield return new WaitForMillisecondFrames(43);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 8.5f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForSeconds(0.035f);
+                    yield return new WaitForMillisecondFrames(35);
                 }
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]*(1f + Random.Range(-0.15f, 0.15f)));
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty] * Random.Range(85, 115) / 100);
         }
         yield break;
     }

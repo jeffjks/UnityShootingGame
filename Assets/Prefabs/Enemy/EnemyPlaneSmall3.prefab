@@ -490,7 +490,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.1}
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 1, y: 1.25}
   m_Direction: 0
 --- !u!114 &8822356553103738460
 MonoBehaviour:
@@ -504,10 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ab818f284e17d4dbdc2a50d8e0739a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentEnemy: {fileID: 0}
   m_Position2D: {x: 0, y: 0}
-  m_IsAttackable: 1
-  m_Health: 50
+  m_IsUnattackable: 0
+  m_ParentEnemy: {fileID: 0}
+  m_Health: 500
   m_Class: 0
   m_Score: 150
   m_Debris: 0
@@ -524,10 +524,6 @@ MonoBehaviour:
   m_CurrentAngle: 0
   m_MaxHealth: 0
   m_IsDead: 0
-  m_FireDelay:
-  - 4
-  - 2
-  - 2
   m_FirePosition: {fileID: 4826254775800139235}
   m_Rotator: {fileID: 3312976831173502154}
 --- !u!1 &274053919950357696

@@ -1,66 +1,90 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class EnemyPlaneLarge3 : EnemyUnit
 {
-    [SerializeField] private EnemyPlaneLarge3Turret m_Turret = null;
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public EnemyPlaneLarge3Turret m_Turret;
+    public Transform[] m_FirePosition = new Transform[2];
+    private int[] m_FireDelay = { 1900, 1400, 1100 };
     
     private bool m_TimeLimitState = false;
-    private float m_AppearanceTime = 1.5f;
-    private float m_PositionY, m_AddPositionY;
+    private const int APPEARNCE_TIME = 1500;
+    private const int TIME_LIMIT = 14000;
+    //private float m_PositionY, m_AddPositionY;
     private float m_VSpeed = 0.3f;
+    private IEnumerator m_TimeLimit;
 
     void Start ()
     {
-        float time_limit = 14f;
-        m_PositionY = transform.position.y;
+        m_MoveVector.speed = 4f;
         
         StartCoroutine(Pattern1());
 
+        StartCoroutine(AppearanceSequence());
+
+        /*
         m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*m_AppearanceTime, m_AppearanceTime).SetEase(Ease.OutQuad));
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
         m_Sequence.AppendInterval(time_limit);
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));
+        */
+    }
 
-        Invoke("TimeLimit", m_AppearanceTime + time_limit);
+    private IEnumerator AppearanceSequence() {
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+
+        float init_speed = m_MoveVector.speed;
+        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, m_VSpeed, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        m_TimeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(m_TimeLimit);
+        yield break;
+    }
+
+    private IEnumerator TimeLimit(int time_limit = 0) {
+        yield return new WaitForMillisecondFrames(time_limit);
+        m_TimeLimitState = true;
+        m_Turret.StopPattern1();
+
+        float init_speed = m_MoveVector.speed;
+        int frame = 1000 * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
     }
 
     protected override void Update()
     {
-        m_AddPositionY -= m_VSpeed * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
-
         if (!m_TimeLimitState) { // Retreat when boss or middle boss state
             if (m_SystemManager.m_PlayState > 0) {
-                CancelInvoke("TimeLimit");
-                TimeLimit();
-                m_Sequence.Kill();
-                if (transform.position.x > 0f)
-                    m_Sequence = DOTween.Sequence()
-                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_RIGHT + 4f, 3f).SetEase(Ease.InQuad));
-                else
-                    m_Sequence = DOTween.Sequence()
-                    .Append(transform.DOMoveX(Size.GAME_BOUNDARY_LEFT - 4f, 3f).SetEase(Ease.InQuad));
+                if (m_TimeLimit != null)
+                    StopCoroutine(m_TimeLimit);
+                m_TimeLimit = TimeLimit();
+                StartCoroutine(m_TimeLimit);
+                m_TimeLimitState = true;
             }
         }
         
         base.Update();
     }
 
-    private void TimeLimit() {
-        m_TimeLimitState = true;
-        m_Turret.StopCoroutine("Pattern1");
-    }
-
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3[] pos = new Vector3[2];
-        yield return new WaitForSeconds(m_AppearanceTime);
+        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
 
         while(!m_TimeLimitState) {
             if (m_SystemManager.m_Difficulty == 0) {
@@ -69,7 +93,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
                     pos[1] = m_FirePosition[1].position;
                     CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 3, 29f);
                     CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 3, 29f);
-                    yield return new WaitForSeconds(0.4f);
+                    yield return new WaitForMillisecondFrames(400);
                 }
             }
             else if (m_SystemManager.m_Difficulty == 1) {
@@ -78,7 +102,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
                     pos[1] = m_FirePosition[1].position;
                     CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 5, 21f);
                     CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 5, 21f);
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForMillisecondFrames(300);
                 }
             }
             else {
@@ -87,10 +111,10 @@ public class EnemyPlaneLarge3 : EnemyUnit
                     pos[1] = m_FirePosition[1].position;
                     CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 5, 21f);
                     CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 5, 21f);
-                    yield return new WaitForSeconds(0.24f);
+                    yield return new WaitForMillisecondFrames(240);
                 }
             }
-            yield return new WaitForSeconds(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
         yield break;
     }

@@ -151,4 +151,5 @@ MonoBehaviour:
   m_IsAir: 1
   m_Collider2D: {fileID: 1608746193201346141}
   m_AudioClip: {fileID: 8300000, guid: bcbcaf76aa102ac4dae7406601900a79, type: 3}
+  m_Renderer: {fileID: 400000}
   m_DisappearTime: 0

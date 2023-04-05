@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyShipCarrier : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[3];
-    [SerializeField] private EnemyUnit[] m_EnemyUnits = null;
+    public Transform[] m_FirePosition = new Transform[3];
+    public EnemyUnit[] m_EnemyUnits;
 
     private float m_Direction1, m_Direction2;
     private int m_Pattern1Direction = 1;
@@ -24,8 +24,8 @@ public class EnemyShipCarrier : EnemyUnit
     
     protected override void Update()
     {
-        m_Direction1 += 120f * Time.deltaTime;
-        m_Direction2 += 180f * Time.deltaTime;
+        m_Direction1 += 120f / Application.targetFrameRate * Time.timeScale;
+        m_Direction2 += 180f / Application.targetFrameRate * Time.timeScale;
 
         if (m_Direction1 > 360f) {
             m_Direction1 -= m_Pattern1Direction*360f;
@@ -42,13 +42,13 @@ public class EnemyShipCarrier : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         
         if (m_SystemManager.m_Difficulty == 0) {
             while(true) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 2, 180f);
-                yield return new WaitForSeconds(0.16f);
+                yield return new WaitForMillisecondFrames(160);
             }
 
         }
@@ -56,7 +56,7 @@ public class EnemyShipCarrier : EnemyUnit
             while(true) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 3, 120f);
-                yield return new WaitForSeconds(0.11f);
+                yield return new WaitForMillisecondFrames(110);
             }
 
         }
@@ -64,14 +64,14 @@ public class EnemyShipCarrier : EnemyUnit
             while(true) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 4, 90f);
-                yield return new WaitForSeconds(0.07f);
+                yield return new WaitForMillisecondFrames(70);
             }
         }
     }
     
     private IEnumerator Pattern2() {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         
         if (m_SystemManager.m_Difficulty == 0) {
             while(true) {
@@ -79,7 +79,7 @@ public class EnemyShipCarrier : EnemyUnit
                 pos[2] = GetScreenPosition(m_FirePosition[2].position);
                 CreateBullet(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle, accel);
                 CreateBullet(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle, accel);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForMillisecondFrames(200);
             }
 
         }
@@ -89,7 +89,7 @@ public class EnemyShipCarrier : EnemyUnit
                 pos[2] = GetScreenPosition(m_FirePosition[2].position);
                 CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle, accel, 2, 180f);
                 CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle, accel, 2, 180f);
-                yield return new WaitForSeconds(0.12f);
+                yield return new WaitForMillisecondFrames(120);
             }
 
         }
@@ -101,16 +101,16 @@ public class EnemyShipCarrier : EnemyUnit
                 CreateBullet(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle + 180f, accel);
                 CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle, accel, 2, 30f);
                 CreateBullet(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle + 180f, accel);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForMillisecondFrames(100);
             }
         }
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
-        float timer = 0f, random_timer = 0f;
+        int timer = 0, random_timer = 0;
         float explosion_height = 3f;
         Vector3 random_pos1, random_pos2;
-        m_SystemManager.EraseBullets(2f);
+        m_SystemManager.EraseBullets(2000);
 
         for (int i = 0; i < m_EnemyUnits.Length; i++) {
             if (m_EnemyUnits[i] != null)
@@ -120,16 +120,16 @@ public class EnemyShipCarrier : EnemyUnit
         StartCoroutine(DeathExplosion1(2f));
         StartCoroutine(DeathExplosion2(2f));
 
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.1f, 0.25f);
+        while (timer < 1500) {
+            random_timer = Random.Range(100, 250);
             random_pos1 = Random.insideUnitCircle * 3f;
             random_pos2 = Random.insideUnitCircle * 3f;
             ExplosionEffect(0, -1, new Vector3(random_pos1.x, explosion_height, random_pos1.z), new MoveVector(3f, Random.Range(0f, 360f)));
             ExplosionEffect(2, -1, new Vector3(random_pos2.x, explosion_height, random_pos2.z), new MoveVector(3f, Random.Range(0f, 360f)));
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForMillisecondFrames(random_timer);
             timer += random_timer;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForMillisecondFrames(200);
         ExplosionEffect(0, -1, new Vector3(2f, 2f, 2f));
         ExplosionEffect(0, -1, new Vector3(-2f, 2f, 2f));
         ExplosionEffect(0, -1, new Vector3(2f, 2f, 4f));
@@ -146,26 +146,26 @@ public class EnemyShipCarrier : EnemyUnit
     }
 
     private IEnumerator DeathExplosion1(float explosion_height) {
-        float timer = 0f, random_timer = 0f;
+        int timer = 0, random_timer = 0;
         Vector3 random_pos;
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.1f, 0.25f);
+        while (timer < 1500) {
+            random_timer = Random.Range(100, 250);
             random_pos = Random.insideUnitCircle * 4f;
             ExplosionEffect(0, 0, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, 3.8f));
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForMillisecondFrames(random_timer);
             timer += random_timer;
         }
         yield break;
     }
 
     private IEnumerator DeathExplosion2(float explosion_height) {
-        float timer = 0f, random_timer = 0f;
+        int timer = 0, random_timer = 0;
         Vector3 random_pos;
-        while (timer < 1.5f) {
-            random_timer = Random.Range(0.1f, 0.25f);
+        while (timer < 1500) {
+            random_timer = Random.Range(100, 250);
             random_pos = Random.insideUnitCircle * 4f;
             ExplosionEffect(0, 1, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, -3.8f));
-            yield return new WaitForSeconds(random_timer);
+            yield return new WaitForMillisecondFrames(random_timer);
             timer += random_timer;
         }
         yield break;

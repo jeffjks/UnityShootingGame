@@ -1193,7 +1193,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 625
+  m_Health: 6250
   m_Class: 0
   m_Score: 2000
   m_Debris: 0
@@ -1215,10 +1215,6 @@ MonoBehaviour:
   m_FirePosition:
   - {fileID: 4896967733034039865}
   - {fileID: 5775209713737496876}
-  m_FireDelay:
-  - 0.9
-  - 0.36
-  - 0.24
 --- !u!1 &100046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1363,7 @@ GameObject:
   - component: {fileID: 7344757722336362013}
   - component: {fileID: 5963838994357833145}
   m_Layer: 12
-  m_Name: Turret3
+  m_Name: Turret2L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1420,10 +1416,6 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 5530724199593374523}
-  m_FireDelay:
-  - 2
-  - 1
-  - 0.5
 --- !u!1 &954369152632626793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,10 +1510,6 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 4281982178429585972}
-  m_FireDelay:
-  - 2.2
-  - 1.8
-  - 1.5
 --- !u!1 &3624996956566855126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,10 +1636,6 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 2618184953867825372}
-  m_FireDelay:
-  - 2
-  - 2
-  - 1.4
 --- !u!1 &5053273708556171676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1647,7 @@ GameObject:
   - component: {fileID: 9178693818332648076}
   - component: {fileID: 5264362272220936715}
   m_Layer: 12
-  m_Name: Turret2
+  m_Name: Turret2R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1716,10 +1700,6 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_IsDead: 0
   m_FirePosition: {fileID: 5592693876326988424}
-  m_FireDelay:
-  - 2
-  - 1
-  - 0.5
 --- !u!1 &5172246311175908121
 GameObject:
   m_ObjectHideFlags: 0

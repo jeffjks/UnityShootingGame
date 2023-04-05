@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class NetworkAccount : MonoBehaviour
 {
     public GameObject[] m_ServerMenus;
     public GameObject[] m_LoginMenus;
 
+    private GameManager m_GameManager = null;
+
     void Start()
     {
         InitServer();
+
+        m_GameManager = GameManager.instance_gm;
+        
+        if (!m_GameManager.m_NetworkAvailable) {
+            SceneManager.LoadScene("MainMenu");
+            return;
+        }
+
         for (int i = 0; i < m_LoginMenus.Length; i++) {
             m_LoginMenus[i].SetActive(true);
         }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyTurret3Turret : EnemyUnit
 {
-    [SerializeField] private Transform[] m_FirePosition = new Transform[2];
-    [SerializeField] private Transform m_TurretAnimation = null;
-    [SerializeField] private float[] m_FireDelay = new float[Difficulty.DIFFICULTY_SIZE];
+    public Transform[] m_FirePosition = new Transform[2];
+    public Transform m_TurretAnimation;
+    private int[] m_FireDelay = { 2000, 2000, 1800 };
 
     private float m_InitaialTurretPosition, m_CurrentTurretPosition, m_TargetTurretPosition = -1f;
-    private bool m_Active = false;
+    private bool m_Active = false; // 총알 생성 없이 총알 쏘는 모션 등 방지용
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class EnemyTurret3Turret : EnemyUnit
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {
-                InvokeRepeating("Pattern1", Random.Range(0f, m_FireDelay[m_SystemManager.m_Difficulty]), m_FireDelay[m_SystemManager.m_Difficulty]);
+                StartCoroutine(Pattern1());
                 m_Active = true;
             }
         }
@@ -38,27 +38,32 @@ public class EnemyTurret3Turret : EnemyUnit
         base.Update();
     }
 
-    private void Pattern1() {
-        Vector3 pos1 = GetScreenPosition(m_FirePosition[0].position);
-        Vector3 pos2 = GetScreenPosition(m_FirePosition[1].position);
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0f);
-
-        if (BulletCondition((pos1 + pos2)*0.5f)) {
-            if (m_SystemManager.m_Difficulty == 0) {
-                for (int i = 0; i < 4; i++) {
-                    CreateBullet(4, pos1, 4.8f + i*0.3f, m_CurrentAngle, accel);
-                    CreateBullet(4, pos2, 4.8f + i*0.3f, m_CurrentAngle, accel);
+    private IEnumerator Pattern1() {
+        Vector3 pos1, pos2;
+        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[m_SystemManager.m_Difficulty]));
+        while(true) {
+            pos1 = GetScreenPosition(m_FirePosition[0].position);
+            pos2 = GetScreenPosition(m_FirePosition[1].position);
+            
+            if (BulletCondition((pos1 + pos2)/2)) {
+                if (m_SystemManager.m_Difficulty == 0) {
+                    for (int i = 0; i < 4; i++) {
+                        CreateBullet(4, pos1, 4.8f + i*0.3f, m_CurrentAngle, accel);
+                        CreateBullet(4, pos2, 4.8f + i*0.3f, m_CurrentAngle, accel);
+                    }
                 }
-            }
-            else {
-                for (int i = 0; i < 4; i++) {
-                    CreateBullet(4, pos1, 4.6f + i*0.3f, m_CurrentAngle + 2f, accel);
-                    CreateBullet(4, pos2, 4.6f + i*0.3f, m_CurrentAngle - 2f, accel);
-                    CreateBullet(4, pos1, 5f + i*0.3f, m_CurrentAngle - 1.5f, accel);
-                    CreateBullet(4, pos2, 5f + i*0.3f, m_CurrentAngle + 1.5f, accel);
+                else {
+                    for (int i = 0; i < 4; i++) {
+                        CreateBullet(4, pos1, 4.6f + i*0.3f, m_CurrentAngle + 2f, accel);
+                        CreateBullet(4, pos2, 4.6f + i*0.3f, m_CurrentAngle - 2f, accel);
+                        CreateBullet(4, pos1, 5f + i*0.3f, m_CurrentAngle - 1.5f, accel);
+                        CreateBullet(4, pos2, 5f + i*0.3f, m_CurrentAngle + 1.5f, accel);
+                    }
                 }
+                PlayFireAnimation();
             }
-            PlayFireAnimation();
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
         }
     }
 

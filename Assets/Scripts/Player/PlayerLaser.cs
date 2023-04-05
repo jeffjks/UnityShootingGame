@@ -6,10 +6,10 @@ public class PlayerLaser : PlayerLaserManager {
     
     public PlayerShooter m_PlayerShooter;
     public PlayerController m_PlayerController;
-    public float[] m_MinDamage = new float[3];
-    public float[] m_MaxDamage = new float[3];
+    public int[] m_MinDamage = new int[3];
+    public int[] m_MaxDamage = new int[3];
     
-    private float m_ShotLevelBonus;
+    private int m_ShotLevelBonus;
 
     void Start()
     {

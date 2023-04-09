@@ -30,7 +30,7 @@ public class TrainingMenuHandler : GameUI
                     break;
                 case 1:
                     if (!m_isHorizontalAxisInUse)
-                        m_TrainingInfo.m_Difficulty += (byte) moveRawHorizontal;
+                        m_TrainingInfo.m_Difficulty += moveRawHorizontal;
                     break;
                 case 2:
                     if (!m_isHorizontalAxisInUse)
@@ -66,9 +66,9 @@ public class TrainingMenuHandler : GameUI
         else if (m_TrainingInfo.m_Stage > 4)
             m_TrainingInfo.m_Stage = 0;
 
-        if (m_TrainingInfo.m_Difficulty > 3)
-            m_TrainingInfo.m_Difficulty = 2;
-        else if (m_TrainingInfo.m_Difficulty > 2)
+        if (m_TrainingInfo.m_Difficulty > Difficulty.HELL)
+            m_TrainingInfo.m_Difficulty = Difficulty.HELL;
+        else if (m_TrainingInfo.m_Difficulty < 0)
             m_TrainingInfo.m_Difficulty = 0;
 
         SetText();
@@ -80,7 +80,7 @@ public class TrainingMenuHandler : GameUI
 	}
 
     private void UpdateValues() {
-        m_TrainingInfo = m_GameManager.m_TrainingInfo;
+        m_TrainingInfo = m_SystemManager.m_TrainingInfo;
     }
 
     private void SetText() {
@@ -133,8 +133,9 @@ public class TrainingMenuHandler : GameUI
     }
 
     private void TrainingStart() {
-        m_GameManager.m_TrainingState = true;
-        m_GameManager.m_TrainingInfo = m_TrainingInfo;
+        m_SystemManager.m_GameType = GameType.GAMETYPE_TRAINING;
+        m_SystemManager.m_TrainingInfo = m_TrainingInfo;
+        m_SystemManager.SetDifficulty(m_TrainingInfo.m_Difficulty);
         
         m_PlayerPreview.SetActive(true);
         m_SelectAttributesMenu.SetActive(true);
@@ -143,7 +144,7 @@ public class TrainingMenuHandler : GameUI
     }
 
     private void Back() {
-        m_GameManager.m_TrainingInfo = m_TrainingInfo;
+        m_SystemManager.m_TrainingInfo = m_TrainingInfo;
         SetText();
         CancelSound();
         m_MainLogo.SetActive(true);

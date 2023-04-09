@@ -9,7 +9,6 @@ public class PauseMenuHandler : GameUI
 
     public PauseManager m_PauseManager;
     
-    private SystemManager m_SystemManager = null;
     private PoolingManager m_PoolingManager = null;
     private int m_TempSelection;
 
@@ -20,7 +19,7 @@ public class PauseMenuHandler : GameUI
         if (Input.GetButtonDown("Fire1")) {
             switch(m_Selection) {
                 case 0:
-                    m_PauseManager.Resume();
+                    Resume();
                     break;
                 case 1:
                     Option();
@@ -46,6 +45,11 @@ public class PauseMenuHandler : GameUI
         m_Selection = m_InitialSelection;
     }
 
+
+    private void Resume() {
+        m_PauseManager.Resume();
+    }
+
     private void Option() {
         m_InitialSelection = 1;
         // ConfirmSound();
@@ -54,6 +58,6 @@ public class PauseMenuHandler : GameUI
     }
 
     private void QuitGame() {
-        m_SystemManager.QuitGame();
+        m_PauseManager.QuitGame();
     }
 }

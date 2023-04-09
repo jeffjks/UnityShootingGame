@@ -27,13 +27,13 @@ public class EnemyTankLarge3 : EnemyUnit
         while(true) {
             for (int i = 0; i < 2; i++) {
                 pos[i] = GetScreenPosition(m_FirePosition[i].position);
-                target_angle[i] = GetAngleToTarget(pos[i], m_PlayerManager.m_Player.transform.position);
+                target_angle[i] = GetAngleToTarget(pos[i], m_PlayerManager.GetPlayerPosition());
                 for (int j = 0; j < 5; j++) {
                     pos[i] = GetScreenPosition(m_FirePosition[i].position);
                     CreateBullet(4, pos[i], 8f, target_angle[i], accel);
                     yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+                yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
             }
         }
     }

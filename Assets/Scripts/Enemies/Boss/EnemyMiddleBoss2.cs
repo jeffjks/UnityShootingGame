@@ -47,19 +47,19 @@ public class EnemyMiddleBoss2 : EnemyUnit
     private IEnumerator AppearanceSequence() {
         //MoveVector init_moveVector;
         yield return new WaitForMillisecondFrames(4000);
-        yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.Linear, 1000); // stop
+        yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop
         yield return new WaitForMillisecondFrames(2000);
-        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.Linear, 1000); // speed to 2f
+        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1000); // speed to 2f
         yield return new WaitForMillisecondFrames(1000);
-        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 220f), EaseType.Linear, EaseType.Linear, 3500); // direction to 220f
-        yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.Linear, 1000); // stop
+        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 220f), EaseType.Linear, EaseType.InOutQuad, 3500); // direction to 220f
+        yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop
         yield return new WaitForMillisecondFrames(500);
-        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.Linear, 1000); // speed to 2f
-        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 170f), EaseType.Linear, EaseType.Linear, 2500); // direction to 170f
-        yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.Linear, 1000); // stop
+        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1000); // speed to 2f
+        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 170f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 170f
+        yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop
         yield return new WaitForMillisecondFrames(1000);
-        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.Linear, 1500); // speed to 2f
-        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 240f), EaseType.Linear, EaseType.Linear, 2500); // direction to 240f
+        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1500); // speed to 2f
+        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 240f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 240f
         yield return new WaitForMillisecondFrames(6500);
         Destroy(gameObject);
         yield break;
@@ -135,7 +135,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(2500);
         while(true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(500);
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
@@ -145,7 +145,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(2500);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(500);
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
@@ -179,12 +179,12 @@ public class EnemyMiddleBoss2 : EnemyUnit
     private IEnumerator Pattern2A() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 CreateBullet(3, GetScreenPosition(m_FirePosition2[0].position), 6.4f, m_Direction, accel);
                 CreateBullet(3, GetScreenPosition(m_FirePosition2[1].position), 6.4f, -m_Direction, accel);
                 yield return new WaitForMillisecondFrames(110);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[0].position), 6.6f, m_Direction, accel, 2, 180f);
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[1].position), 6.6f, -m_Direction, accel, 2, 180f);
                 yield return new WaitForMillisecondFrames(70);
@@ -203,18 +203,18 @@ public class EnemyMiddleBoss2 : EnemyUnit
         float random_value, target_angle;
         yield return new WaitForMillisecondFrames(1000);
         while(true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 random_value = Random.Range(0f, 360f);
                 pos = GetScreenPosition(m_FirePosition0.position);
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(4, pos, 6f, random_value + target_angle, accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(1800);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
                     pos = GetScreenPosition(m_FirePosition0.position);
-                    target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                    target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 24, 15f);
                     yield return new WaitForMillisecondFrames(80);
                 }
@@ -224,7 +224,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
                     pos = GetScreenPosition(m_FirePosition0.position);
-                    target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                    target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 30, 12f);
                     yield return new WaitForMillisecondFrames(80);
                 }

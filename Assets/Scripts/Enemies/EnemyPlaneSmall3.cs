@@ -70,7 +70,7 @@ public class EnemyPlaneSmall3 : HasTargetPosition
         
         while (true) {
             if (!m_TimeLimitState) {
-                if (m_SystemManager.m_Difficulty <= 1) {
+                if (m_SystemManager.GetDifficulty() <= 1) {
                     Vector3 pos1 = m_FirePosition.TransformPoint(Vector3.right * gap);
                     Vector3 pos2 = m_FirePosition.TransformPoint(Vector3.left * gap);
 
@@ -93,7 +93,7 @@ public class EnemyPlaneSmall3 : HasTargetPosition
                     CreateBullet(3, pos2, 7f, m_CurrentAngle, accel);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 }

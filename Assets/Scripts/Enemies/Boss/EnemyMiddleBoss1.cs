@@ -92,7 +92,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_UpdateTransform = true;
         m_Phase = 1;
 
-        m_CurrentPattern1 = PatternA(m_SystemManager.m_Difficulty);
+        m_CurrentPattern1 = PatternA(m_SystemManager.GetDifficulty());
         StartCoroutine(m_CurrentPattern1);
         
         EnableAttackable();
@@ -138,7 +138,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
             StopCoroutine(m_CurrentPattern1);
         
         m_CurrentPattern2 = PatternB();
-        if (m_SystemManager.m_Difficulty == 2)
+        if (m_SystemManager.GetDifficulty() == 2)
             StartCoroutine(m_CurrentPattern2);
 
         m_Turret[0].StopPattern();
@@ -151,7 +151,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         ExplosionEffect(2, 1, new Vector2(-2f, 0f));
     }
 
-    private IEnumerator PatternA(byte difficulty) {
+    private IEnumerator PatternA(int difficulty) {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(600);
         if (difficulty == 0) {
@@ -236,7 +236,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1800);
         while(true) {
-            float target_angle = GetAngleToTarget(transform.position, m_PlayerManager.m_Player.transform.position);
+            float target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
             CreateBulletsSector(0, transform.position, 7f, target_angle, accel, 8, 13f);
             yield return new WaitForMillisecondFrames(2000);
         }

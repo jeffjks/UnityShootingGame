@@ -7,7 +7,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
     public EnemyPlaneMedium5Turret0 m_Turret0;
     public EnemyPlaneMedium5Turret1 m_Turret1;
     //private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 3000;
+    private const int APPEARNCE_TIME = 1500;
     private const int TIME_LIMIT = 8500;
     private IEnumerator m_TimeLimit;
     private int m_Side;
@@ -18,18 +18,16 @@ public class EnemyPlaneMedium5 : EnemyUnit
             m_Side = -1;
         else
             m_Side = 1;
-        m_MoveVector = new MoveVector(7f, -72f * m_Side);
+        m_MoveVector = new MoveVector(5.25f, -72f * m_Side); // 원래 7f에 1000ms 대기 없었음
 
         StartCoroutine(AppearanceSequence());
 
         /*
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.AppendInterval(2.2f);
         DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, APPEARNCE_TIME).SetEase(Ease.OutQuad);*/
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(2200);
+        yield return new WaitForMillisecondFrames(750);
 
         float init_speed = m_MoveVector.speed;
         int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
@@ -56,7 +54,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
-            float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_dir = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_moveVector.speed, 6.4f, t_spd);
             m_MoveVector.direction = Mathf.Lerp(init_moveVector.direction, 96f * m_Side, t_dir);

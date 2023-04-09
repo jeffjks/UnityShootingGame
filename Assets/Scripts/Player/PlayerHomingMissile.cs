@@ -10,8 +10,8 @@ public class PlayerHomingMissile : PlayerMissile {
     private Vector2 m_MainCameraPosition;
     private SystemManager m_SystemManager = null;
     
-    protected override void OnStart()
-    {
+    public override void OnStart() {
+        base.OnStart();
         m_SystemManager = SystemManager.instance_sm;
         m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
         m_Target = null;

@@ -64,10 +64,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerAddShot
-  m_Damage: 7
+  m_Damage: 3
   m_DamageScale: 640000006400000064000000
   m_Position: {x: 0, y: 0}
-  m_DamageBonus: 000000000300000006000000
+  m_DamageBonus: 000000000100000002000000
   m_Speed: 137
   m_IsPenetrate: 0
   m_ActivatedObject:

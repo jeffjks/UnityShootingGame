@@ -84,8 +84,8 @@ public class EnemyPlaneMedium1 : EnemyUnit
             Vector3 pos0 = m_FirePosition[0].position;
             Vector3 pos1 = m_FirePosition[1].position;
             Vector3 pos2 = m_FirePosition[2].position;
-            float target_angle = GetAngleToTarget(transform.position, m_PlayerManager.m_Player.transform.position);
-            if (m_SystemManager.m_Difficulty == 0) {
+            float target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
+            if (m_SystemManager.GetDifficulty() == 0) {
                 CreateBulletsSector(3, pos0, 6.4f, target_angle, accel, 6, 12);
                 CreateBulletsSector(5, pos0, 5.2f, target_angle, accel, 5, 12);
                 yield return new WaitForMillisecondFrames(1000);
@@ -97,7 +97,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
                 }
                 yield return new WaitForMillisecondFrames(1500);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 for (int i = 0; i < 3; i++) {
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBulletsSector(3, pos0, 6.4f, target_angle + Random.Range(-3f, 3f), accel, 9, 10f);
@@ -145,7 +145,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
         pos0 = m_FirePosition[0].position;
         pos1 = m_FirePosition[1].position;
         pos2 = m_FirePosition[2].position;
-        target_angle = GetAngleToTarget(transform.position, m_PlayerManager.m_Player.transform.position);
+        target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
     }
 
     protected override IEnumerator AdditionalOnDeath() { // 파괴 과정

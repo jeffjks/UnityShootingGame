@@ -128,25 +128,29 @@ public class EnemyMiddleBoss5b : EnemyUnit
             }
             state *= -1;
             for (int i = 0; i < 2; i++) {
-                if (m_SystemManager.m_Difficulty == 0) {
-                    for (int j = 0; j < bulletInfo1.GetLength(0); ++j) {
+                if (m_SystemManager.GetDifficulty() == 0) {
+                    for (int j = 0; j < bulletInfo1.GetLength(1); ++j) {
                         CreateBullet(0, pos[i], bulletInfo1[0,j], m_CurrentAngle + bulletInfo1[1,j], accel);
                     }
                 }
-                else if (m_SystemManager.m_Difficulty == 1) {
-                    for (int j = 0; j < bulletInfo1.GetLength(0); ++j) {
-                        CreateBullet(0, pos[i], bulletInfo2a[0,j], m_CurrentAngle + bulletInfo2a[1,j], accel);
+                else if (m_SystemManager.GetDifficulty() == 1) {
+                    for (int j = 0; j < bulletInfo2a.GetLength(1); ++j) {
+                        CreateBullet(2, pos[i], bulletInfo2a[0,j], m_CurrentAngle + bulletInfo2a[1,j], accel);
+                    }
+                    for (int j = 0; j < bulletInfo2b.GetLength(1); ++j) {
                         CreateBullet(0, pos[i], bulletInfo2b[0,j], m_CurrentAngle + bulletInfo2b[1,j], accel);
                     }
                 }
                 else {
-                    for (int j = 0; j < bulletInfo1.GetLength(0); ++j) {
-                        CreateBullet(0, pos[i], bulletInfo3a[0,j], m_CurrentAngle + bulletInfo3a[1,j], accel);
+                    for (int j = 0; j < bulletInfo3a.GetLength(1); ++j) {
+                        CreateBullet(2, pos[i], bulletInfo3a[0,j], m_CurrentAngle + bulletInfo3a[1,j], accel);
+                    }
+                    for (int j = 0; j < bulletInfo3b.GetLength(1); ++j) {
                         CreateBullet(0, pos[i], bulletInfo3b[0,j], m_CurrentAngle + bulletInfo3b[1,j], accel);
                     }
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 
@@ -156,14 +160,14 @@ public class EnemyMiddleBoss5b : EnemyUnit
         Vector3 pos;
         float random_value = Random.Range(-6f, 6f);
         
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 6.7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 5, 25f);
                 yield return new WaitForMillisecondFrames(260);
             }
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             for (int i = 0; i < 5; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
@@ -183,14 +187,14 @@ public class EnemyMiddleBoss5b : EnemyUnit
 
     private IEnumerator DeathPattern(Quaternion target_rotation, Vector3 target_scale, int rotation_ease, int scale_ease, int duration) {
         Quaternion init_rotation = transform.rotation;
-        Vector3 init_scale = transform.localScale;
+        Vector3 init_scale = m_Renderer.transform.localScale;
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_scale = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
-            transform.position = Vector3.Lerp(init_scale, target_scale, t_scale);
+            m_Renderer.transform.localScale = Vector3.Lerp(init_scale, target_scale, t_scale);
             transform.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
@@ -204,6 +208,10 @@ public class EnemyMiddleBoss5b : EnemyUnit
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
         m_Turret.OnDeath();
+
+        if (m_MovementPattern != null) {
+            StopCoroutine(m_MovementPattern);
+        }
 
         StartCoroutine(DeathPattern(new Quaternion(-0.2f, 0.9f, -0.4f, -0.2f), new Vector3(0.7f, 0.7f, 0.7f), EaseType.Linear, EaseType.Linear, 2500));
         

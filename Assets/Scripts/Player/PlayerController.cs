@@ -35,12 +35,16 @@ public class PlayerController : PlayerControllerManager
     
     private SystemManager m_SystemManager = null;
 
+    protected override void Awake()
+    {
+        m_SystemManager = SystemManager.instance_sm;
+        base.Awake();
+    }
+
     void Start()
     {
         m_MaxPlayerCamera = (int) (Size.CAMERA_MOVE_LIMIT * 256);
         m_DefaultRotation = transform.eulerAngles[0];
-
-        m_SystemManager = SystemManager.instance_sm;
 
         switch(m_PlayerManager.m_CurrentAttributes.m_Speed) {
             case 0:
@@ -70,7 +74,7 @@ public class PlayerController : PlayerControllerManager
     void Update()
     {
         if (m_PlayerManager.m_PlayerControlable) {
-            if (!m_SystemManager.m_ReplayState) {
+            if (m_SystemManager.m_GameType != GameType.GAMETYPE_REPLAY) {
                 m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
                 m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
             }
@@ -116,7 +120,7 @@ public class PlayerController : PlayerControllerManager
         m_HasCollided = false;
         m_SlowMode = false;
         if (m_PlayerManager.m_PlayerControlable) { // 시작 이벤트가 아닐때만 방어막 켜기
-            if (!m_SystemManager.m_InvincibleMod) {
+            if (!m_SystemManager.GetInvincibleMod()) {
                 EnableInvincible(m_ReviveInvincibleTime);
             }
         }
@@ -163,7 +167,7 @@ public class PlayerController : PlayerControllerManager
 
     public void EnableInvincible(int millisecond) {
         int frame = millisecond * Application.targetFrameRate / 1000;
-        if (m_SystemManager.m_InvincibleMod)
+        if (m_SystemManager.GetInvincibleMod())
             return;
         if (m_InvincibleTimer < frame) {
             m_PlayerShield.SetActive(true);
@@ -173,7 +177,7 @@ public class PlayerController : PlayerControllerManager
     }
 
     public void DisableInvincible() {
-        if (m_SystemManager.m_InvincibleMod)
+        if (m_SystemManager.GetInvincibleMod())
             return;
         m_InvincibleTimer = 0;
         m_PlayerShield.gameObject.SetActive(false);
@@ -188,7 +192,7 @@ public class PlayerController : PlayerControllerManager
                 if (!m_HasCollided) {
                     try {
                         EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                        enemyBullet.OnDeath();
+                        enemyBullet.PlayEraseAnimation();
                     }
                     catch {
                         return;
@@ -210,14 +214,16 @@ public class PlayerController : PlayerControllerManager
         }
     }
     
-    public override void OnDeath() { // Override
+    private void OnDeath() { // Override
         if (!m_Invincibility) {
             if (!m_HasCollided) {
                 m_HasCollided = true;
                 GameObject obj = m_PoolingManager.PopFromPool(m_Explosion, PoolingParent.EXPLOSION); // 폭발 이펙트
+                ExplosionEffect explosionEffect = obj.GetComponent<ExplosionEffect>();
 
                 obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
+                explosionEffect.OnStart();
                 
                 m_PlayerManager.PlayerDead(m_Position);
                 ResetPosition();

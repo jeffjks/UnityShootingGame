@@ -11,8 +11,8 @@ public class ReplayManager : MonoBehaviour
 
     private int m_RandomSeed;
     private string m_Version;
-    private Attributes m_Attributes;
-    private byte m_Difficulty;
+    private ShipAttributes m_Attributes;
+    private int m_Difficulty;
 
     private string m_FilePath = string.Empty;
     private FileStream m_FileStream;
@@ -30,11 +30,12 @@ public class ReplayManager : MonoBehaviour
         m_GameManager = GameManager.instance_gm;
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
+
         m_RandomSeed = System.Environment.TickCount; // Generate Random Seed
 
         if (m_Activate) {
             try {
-                if (m_SystemManager.m_ReplayState) { // 리플레이 (파일 읽기)
+                if (m_SystemManager.m_GameType == GameType.GAMETYPE_REPLAY) { // 리플레이 (파일 읽기)
                     m_FilePath = m_GameManager.m_ReplayDirectory + "replay" + m_GameManager.m_ReplayNum + ".rep";
 
                     if (System.IO.File.Exists(m_FilePath)) {
@@ -42,7 +43,7 @@ public class ReplayManager : MonoBehaviour
                         m_RandomSeed = BinaryDeserializeInt(); // 시드 읽기
                         m_Version = BinaryDeserializeString(); // 버전 읽기
                         m_Attributes = BinaryDeserializeAttributes(); // 기체 스펙 읽기
-                        m_Difficulty = (byte) BinaryDeserializeInt(); // 난이도 읽기
+                        m_Difficulty = BinaryDeserializeInt(); // 난이도 읽기
 
                         if (m_Version.Equals(Application.version)) {
                             m_PlayerManager.SpawnPlayer(m_Attributes);
@@ -59,7 +60,7 @@ public class ReplayManager : MonoBehaviour
 
                     m_FileStream = new FileStream(m_FilePath, FileMode.Create);
                     m_Attributes = m_PlayerManager.m_CurrentAttributes;
-                    m_Difficulty = m_SystemManager.m_Difficulty;
+                    m_Difficulty = m_SystemManager.GetDifficulty();
                     BinarySerialize(m_RandomSeed); // 시드 쓰기
                     BinarySerialize(Application.version); // 버전 쓰기
                     BinarySerialize(m_Attributes); // 기체 스펙 쓰기
@@ -92,7 +93,7 @@ public class ReplayManager : MonoBehaviour
         
         
         if (m_PlayerShooter.gameObject.activeInHierarchy) {
-            if (m_SystemManager.m_ReplayState) { // 리플레이
+            if (m_SystemManager.m_GameType == GameType.GAMETYPE_REPLAY) { // 리플레이
                 ReadUserInput();
                 m_PlayerShooter.PlayerShooterBehaviour();
             }
@@ -186,7 +187,7 @@ public class ReplayManager : MonoBehaviour
         }
     }
 
-    private void BinarySerialize(Attributes attributes) { // Overload
+    private void BinarySerialize(ShipAttributes attributes) { // Overload
         try {
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(m_FileStream, attributes);
@@ -220,11 +221,11 @@ public class ReplayManager : MonoBehaviour
         return context;
     }
 
-    private Attributes BinaryDeserializeAttributes() {
-        Attributes context = null;
+    private ShipAttributes BinaryDeserializeAttributes() {
+        ShipAttributes context = null;
         try {
             BinaryFormatter formatter = new BinaryFormatter();
-            context = (Attributes) formatter.Deserialize(m_FileStream);
+            context = (ShipAttributes) formatter.Deserialize(m_FileStream);
         }
         catch {
             Debug.LogAssertion("File Error Has Occured");

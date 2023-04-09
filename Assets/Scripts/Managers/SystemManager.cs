@@ -3,22 +3,23 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using DG.Tweening;
+using System;
 
 public static class Depth // Z Axis
 {
     // Far
-    public const sbyte ENEMY = 32 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Enemy
-    public const sbyte EXPLOSION = 22 + (sbyte) Size.MAIN_CAMERA_POS; // Only Air Explosion
-    public const sbyte OVERVIEW = 20 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte ITEMS = 20 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte TRANSITION = 19 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte PLAYER = 18 + (sbyte) Size.MAIN_CAMERA_POS; // Player, Laser
-    public const sbyte PLAYER_MISSILE = 17 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte WHITE_EFFECT = 16 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte SCORE_TEXT = 15 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte ENEMY_BULLET = 14 + (sbyte) Size.MAIN_CAMERA_POS;
-    public const sbyte CAMERA = 0 + (sbyte) Size.MAIN_CAMERA_POS;
+    public const int ENEMY = 32 + (int) Size.MAIN_CAMERA_POS; // Only Air Enemy
+    public const int EXPLOSION = 23 + (int) Size.MAIN_CAMERA_POS; // Only Air Explosion
+    public const int OVERVIEW = 22 + (int) Size.MAIN_CAMERA_POS;
+    public const int ITEMS = 21 + (int) Size.MAIN_CAMERA_POS;
+    public const int TRANSITION = 20 + (int) Size.MAIN_CAMERA_POS;
+    public const int PLAYER = 19 + (int) Size.MAIN_CAMERA_POS; // Player, Laser
+    public const int PLAYER_MISSILE = 18 + (int) Size.MAIN_CAMERA_POS;
+    public const int HIT_EFFECT = 17 + (int) Size.MAIN_CAMERA_POS;
+    public const int WHITE_EFFECT = 16 + (int) Size.MAIN_CAMERA_POS;
+    public const int SCORE_TEXT = 15 + (int) Size.MAIN_CAMERA_POS;
+    public const int ENEMY_BULLET = 14 + (int) Size.MAIN_CAMERA_POS;
+    public const int CAMERA = 0 + (int) Size.MAIN_CAMERA_POS;
     // Close
 }
 
@@ -49,13 +50,20 @@ public static class BonusScale // Overview
 
 public static class Difficulty
 {
-    public const byte DIFFICULTY_SIZE = 3;
+    public const int DIFFICULTY_SIZE = 3;
     public const string DIFFICULTY1 = "Normal";
     public const string DIFFICULTY2 = "Expert";
     public const string DIFFICULTY3 = "Hell";
-    public const byte NORMAL = 0;
-    public const byte EXPERT = 1;
-    public const byte HELL = 2;
+    public const int NORMAL = 0;
+    public const int EXPERT = 1;
+    public const int HELL = 2;
+}
+
+public enum GameType
+{
+    GAMETYPE_NORMAL = 0,
+    GAMETYPE_TRAINING = 1,
+    GAMETYPE_REPLAY = 2
 }
 
 public class SystemManager : MonoBehaviour
@@ -73,10 +81,11 @@ public class SystemManager : MonoBehaviour
     public MainCamera m_MainCamera;
     public BossHealthHandler m_BossHealthBar;
     public OverviewHandler m_OverviewHandler;
+    public TextUI_GameType m_TextUI_GameType;
+    public PlayerManager m_PlayerManager;
 
     [SerializeField] private Text m_ScoreNuberText = null;
     [SerializeField] private Text m_DifficultyText = null;
-    [SerializeField] private Text m_StateText = null;
     [SerializeField] private Text m_BombNumberText = null;
     [SerializeField] private WarningUI m_WarningUI = null;
     [SerializeField] private GameObject m_Transition = null;
@@ -85,102 +94,107 @@ public class SystemManager : MonoBehaviour
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
-    [HideInInspector] public byte m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public int m_BulletsEraseTimer;
-    [HideInInspector] public byte m_Difficulty;
-    [HideInInspector] public bool m_ReplayState, m_TrainingState, m_BossOnlyState;
+
+    [HideInInspector] public int m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
+    [HideInInspector] public GameType m_GameType;
+    [HideInInspector] public int m_UsedCost;
+    [HideInInspector] public TrainingInfo m_TrainingInfo;
     
-    public bool m_DebugMod, m_InvincibleMod;
+    public bool m_DebugMod;
     public DebugDifficulty m_DebugDifficulty;
     
     private GameManager m_GameManager = null;
-    private PlayerManager m_PlayerManager = null;
     private PoolingManager m_PoolingManager = null;
 
     private List<ScreenEffectAnimation> m_TransitionList = new List<ScreenEffectAnimation>();
     private PlayerController m_PlayerController;
-    private Vector3 m_BackgroundCameraDefaultPos;
-    private uint m_TotalScore;
-    private uint[] m_StageScore = new uint[5] {0, 0, 0, 0, 0};
-    private uint m_GemsGround, m_GemsAir; // 점수가 아닌 먹은 개수
+    private Vector3 m_BackgroundCameraDefaultLocalPos;
+    private long m_TotalScore;
+    private long[] m_StageScore = new long[5] {0, 0, 0, 0, 0};
+    private int m_GemsGround, m_GemsAir; // 점수가 아닌 먹은 개수
     private int m_Stage;
     private int m_BombNumber, m_MaxBombNumber;
     private byte m_TotalMiss;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
-    private uint m_BulletNumber;
-
-    private Sequence m_SequenceReplayText;
+    private int m_BulletNumber;
+    private int m_Difficulty;
+    private long m_ClearedTime;
 
     public static SystemManager instance_sm = null;
 
     void Awake()
     {
-        m_GameManager = GameManager.instance_gm;
-
-        Application.targetFrameRate = 60;
-
         if (instance_sm != null) {
             Destroy(this.gameObject);
             return;
         }
         instance_sm = this;
-        
-        try {
-            m_ReplayState = m_GameManager.m_ReplayState;
-            m_TrainingState = m_GameManager.m_TrainingState;
-            if (m_TrainingState) {
-                SetDifficulty(m_GameManager.m_TrainingInfo.m_Difficulty);
-                m_BossOnlyState = m_GameManager.m_TrainingInfo.m_BossOnly;
-            }
-            else {
-                SetDifficulty(m_GameManager.m_Difficulty);
-            }
-            AudioListener audioListener = gameObject.GetComponent<AudioListener>();
-            audioListener.enabled = false;
-        }
-        catch (System.NullReferenceException) {
-            m_ReplayState = false;
-            m_TrainingState = false;
-            SetDifficulty((byte) m_DebugDifficulty);
-        }
+
+        m_GameManager = GameManager.instance_gm;
+        //m_PlayerManager = PlayerManager.instance_pm;
+        m_PoolingManager = PoolingManager.instance_op;
 
         m_BackgroundCameraSize.x = m_BackgroundCamera.orthographicSize * 2 * ((float) Screen.width/(float) Screen.height); // 256/9 = 28.444..
         m_BackgroundCameraSize.y = m_BackgroundCamera.orthographicSize * 2; // 16
-        m_BackgroundCameraDefaultPos = m_BackgroundCamera.transform.position;
+        m_BackgroundCameraDefaultLocalPos = m_BackgroundCamera.transform.localPosition;
         
         DontDestroyOnLoad(gameObject);
+        CreateTransition();
+
+        m_TextUI_GameType.FadeEffect();
+        
+        m_PlayerManager.Init();
+
+        gameObject.SetActive(false);
     }
 
     void Start()
     {
         m_PoolingManager = PoolingManager.instance_op;
+    }
+
+    void OnEnable() { // Start였음
+        InitCamera();
+        Init();
+        
         UpdateBombNumber();
-
-        if (m_ReplayState || m_TrainingState) {
-            if (m_ReplayState) {
-                m_StateText.text = "REPLAY";
-            }
-            else {
-                m_StateText.text = "Training";
-            }
-            m_StateText.gameObject.SetActive(true);
-            m_SequenceReplayText = DOTween.Sequence()
-            .Append(m_StateText.DOFade(0f, 0.2f))
-            .Append(m_StateText.DOFade(1f, 0.6f))
-            .SetEase(Ease.Linear)
-            .SetLoops(-1);
-        }
-
-        CreateTransition();
-        ScreenEffect(2);
+        m_TextUI_GameType.UpdateGameTypeText(m_GameType);
+        
         UpdateScore();
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     void Update()
     {
         MoveBackgroundCamera();
         BulletEraseTimer();
+    }
+
+    private void Init()
+    {
+        m_TotalScore = 0;
+        m_StageScore = new long[5] {0, 0, 0, 0, 0};
+        m_GemsGround = 0; // 점수가 아닌 먹은 개수
+        m_GemsAir = 0; // 점수가 아닌 먹은 개수
+        m_TotalMiss = 0;
+        m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
+        m_BulletNumber = 0;
+        
+        m_PlayState = 0;
+        InitBossHealthBar();
+
+        m_OverviewHandler.gameObject.SetActive(false);
+        m_WarningUI.gameObject.SetActive(false);
+    }
+
+    private void InitBossHealthBar() {
+        m_BossHealthBar.InitPosition();
     }
 
     private void MoveBackgroundCamera() {
@@ -211,9 +225,13 @@ public class SystemManager : MonoBehaviour
         yield break;
     }
 
-    public void SetPlayerManager() {
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_PlayerController = m_PlayerManager.m_Player.GetComponent<PlayerController>();
+    private void InitCamera() {
+        m_MainCamera.InitMainCamera();
+        m_BackgroundCamera.transform.localPosition = m_BackgroundCameraDefaultLocalPos;
+    }
+    
+    public void SetPlayerController(PlayerController playerController) {
+        m_PlayerController = playerController;
     }
 
     private void CreateTransition() {
@@ -233,10 +251,10 @@ public class SystemManager : MonoBehaviour
     public void ScreenEffect(byte num) {
         switch (num) {
             case 0:
-                m_ScreenEffecter.StartCoroutine("WhiteEffectSmall");
+                m_ScreenEffecter.PlayWhiteEffect(false); // small
                 break;
             case 1:
-                m_ScreenEffecter.StartCoroutine("WhiteEffectBig");
+                m_ScreenEffecter.PlayWhiteEffect(true); // large
                 break;
             case 2: // TransitionEffect
                 for (int i = 0; i < m_TransitionList.Count; i++) {
@@ -278,7 +296,7 @@ public class SystemManager : MonoBehaviour
         m_PlayerController.EnableInvincible(5000);
     }
 
-    public IEnumerator StageClear() {
+    private IEnumerator StageClear() {
         if (m_StageManager.GetTrueLastBossState())
             yield break;
         yield return new WaitForMillisecondFrames(3000);
@@ -287,10 +305,18 @@ public class SystemManager : MonoBehaviour
         m_AudioStageClear.Play();
         yield return new WaitForMillisecondFrames(2000);
         m_StageManager.SetBackgroundSpeed(0f);
-        m_StageManager.StopCoroutine("MainTimeLine");
+        m_StageManager.StopCoroutine("MainTimeline");
         m_OverviewHandler.gameObject.SetActive(true);
         m_OverviewHandler.DisplayOverview();
         yield break;
+    }
+
+    public void StartStageClearCoroutine() {
+        StartCoroutine(StageClear());
+    }
+
+    public void StartNextStageCoroutine() {
+        StartCoroutine(NextStage());
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터
@@ -298,14 +324,14 @@ public class SystemManager : MonoBehaviour
         ScreenEffect(3); // FadeIn
         yield return new WaitForMillisecondFrames(2000);
 
-        if (m_TrainingState) {
+        if (m_GameType == GameType.GAMETYPE_TRAINING && !m_GameManager.m_InvincibleMod) {
             QuitGame();
         }
         else {
-            m_BackgroundCamera.transform.position = m_BackgroundCameraDefaultPos;
             m_OverviewHandler.gameObject.SetActive(false);
             Vector3 player_pos = m_PlayerController.transform.position;
             m_PlayerController.transform.position = new Vector3(0f, player_pos.y, player_pos.z);
+            InitCamera();
             
             if (m_Stage < 4) {
                 string scene_name = "Stage" + (m_Stage + 2);
@@ -320,6 +346,9 @@ public class SystemManager : MonoBehaviour
             else {
                 string scene_name = "Ending";
                 m_Stage++;
+
+                m_PlayerManager.DestroyPlayer();
+                gameObject.SetActive(false);
                 SceneManager.LoadScene(scene_name);
 
                 m_PlayState = 3;
@@ -331,11 +360,12 @@ public class SystemManager : MonoBehaviour
     }
 
     public void QuitGame() {
-        Time.timeScale = 1;
-        AudioListener.pause = false;
-        Destroy(m_PlayerManager.m_Player);
-        Destroy(m_PoolingManager.gameObject);
-        Destroy(gameObject);
+        //Time.timeScale = 1;
+        //AudioListener.pause = false;
+        m_PlayerManager.DestroyPlayer();
+        //Destroy(m_PoolingManager.gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -344,18 +374,18 @@ public class SystemManager : MonoBehaviour
         m_ScoreNuberText.text = "" + m_TotalScore;
     }
 
-    public void AddScore(uint score) {
+    public void AddScore(long score) {
         m_TotalScore += score;
         m_StageScore[m_Stage] += score;
         UpdateScore();
     }
 
-    public void AddScoreEffect(uint score) {
+    public void AddScoreEffect(long score) {
         AddScore(score);
         DisplayScoreText(""+score);
     }
 
-    public void AddScoreEffect(uint score, bool ground_gem) { // Overload
+    public void AddScoreEffect(long score, bool ground_gem) { // Overload
         AddScore(score);
         if (ground_gem) {
             m_GemsGround++;
@@ -382,6 +412,7 @@ public class SystemManager : MonoBehaviour
             score_text.m_TextMesh.anchor = TextAnchor.LowerRight;
         }
         obj.SetActive(true);
+        score_text.OnStart();
     }
 
 
@@ -419,15 +450,15 @@ public class SystemManager : MonoBehaviour
         m_BombNumberText.text = m_BombNumber + " / " + m_MaxBombNumber;
     }
 
-    public uint GetTotalScore() {
-        uint total_score = 0;
+    public long GetTotalScore() {
+        long total_score = 0;
         for (int i = 0; i < m_StageScore.Length; i++) {
             total_score += m_StageScore[i];
         }
         return total_score;
     }
 
-    public uint GetCurrentStageScore() {
+    public long GetCurrentStageScore() {
         return m_StageScore[m_Stage];
     }
 
@@ -436,8 +467,8 @@ public class SystemManager : MonoBehaviour
         m_StageMiss[m_Stage]++;
     }
 
-    public uint GetTotalMiss() {
-        uint total_miss = 0;
+    public int GetTotalMiss() {
+        int total_miss = 0;
         for (int i = 0; i < m_StageMiss.Length; i++) {
             total_miss += m_StageMiss[i];
         }
@@ -449,7 +480,11 @@ public class SystemManager : MonoBehaviour
     }
 
 
-    public void SetDifficulty(byte difficulty)
+    public int GetDifficulty() {
+        return m_Difficulty;
+    }
+
+    public void SetDifficulty(int difficulty)
     {
         m_Difficulty = difficulty;
         SetDifficultyText();
@@ -467,8 +502,6 @@ public class SystemManager : MonoBehaviour
                 m_DifficultyText.text = Difficulty.DIFFICULTY3;
                 break;
             default:
-                m_Difficulty = 1;
-                SetDifficultyText();
                 break;
         }
     }
@@ -543,7 +576,7 @@ public class SystemManager : MonoBehaviour
         int index, num = 0, count = bullet_list.Count;
 
         while (count > 0) {
-            index = Random.Range(0, count);
+            index = UnityEngine.Random.Range(0, count);
             if (num < 50) {
                 Vector3 pos = bullet_list[index].transform.position;
                 if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {
@@ -556,7 +589,7 @@ public class SystemManager : MonoBehaviour
                 }
             }
             EnemyBullet enemy_bullet = bullet_list[index].GetComponent<EnemyBullet>();
-            enemy_bullet.Erase();
+            enemy_bullet.ReturnToPool();
             bullet_list.RemoveAt(index);
 
             count--;
@@ -582,13 +615,40 @@ public class SystemManager : MonoBehaviour
         //Debug.Log("Bullet: "+m_BulletNumber);
     }
 
-    public uint GemsGround {
+    public int GemsGround {
         get { return m_GemsGround; }
         set { m_GemsGround = value; }
     }
 
-    public uint GemsAir {
+    public int GemsAir {
         get { return m_GemsAir; }
         set { m_GemsAir = value; }
+    }
+
+    public bool GetInvincibleMod() {
+        return m_GameManager.m_InvincibleMod;
+    }
+
+    public void SaveClearedTime() {
+        m_ClearedTime = DateTime.Now.Ticks;
+    }
+
+    public long GetClearedTime() {
+        return m_ClearedTime;
+    }
+
+    public bool SpawnAtSpawnPointCondition() {
+        if (GetCurrentStage() == 0) {
+            if (m_GameType == GameType.GAMETYPE_TRAINING) {
+                if (m_TrainingInfo.m_BossOnly) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

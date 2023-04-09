@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerHomingMissile
-  m_Damage: 20
+  m_Damage: 10
   m_DamageScale: 640000004b00000032000000
   m_Position: {x: 0, y: 0}
   m_DamageBonus: 00000000

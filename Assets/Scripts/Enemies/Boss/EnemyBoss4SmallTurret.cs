@@ -7,7 +7,7 @@ public class EnemyBoss4SmallTurret : EnemyUnit
     public Transform m_FirePosition;
     
     private IEnumerator m_CurrentPattern;
-    private uint m_KillScore;
+    private int m_KillScore;
 
     void Start()
     {
@@ -47,11 +47,11 @@ public class EnemyBoss4SmallTurret : EnemyUnit
 
         while(true) {
             pos = GetScreenPosition(m_FirePosition.position);
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(3000);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(2000);
             }

@@ -14,7 +14,6 @@ public class GroundEnemySpawner : EnemyUnit
     }
 
     public GameObject[] m_Enemy;
-    public bool m_Normal, m_Expert, m_Hell;
     public float m_Speed, m_Direction;
     [Space(10)]
     public int m_SpawnPeriod;
@@ -67,12 +66,7 @@ public class GroundEnemySpawner : EnemyUnit
         yield return new WaitForMillisecondFrames(m_ActivateTime + 1000);
         while (true) {
             for (int i = 0; i < m_Enemy.Length; i++) {
-                if (m_SystemManager.m_Difficulty == 0 && m_Normal)
-                    SpawnEnemy(m_Enemy[i]);
-                else if (m_SystemManager.m_Difficulty == 1 && m_Expert)
-                    SpawnEnemy(m_Enemy[i]);
-                else if (m_SystemManager.m_Difficulty == 2 && m_Hell)
-                    SpawnEnemy(m_Enemy[i]);
+                SpawnEnemy(m_Enemy[i]);
                 yield return new WaitForMillisecondFrames(m_SpawnPeriod);
             }
         }
@@ -90,5 +84,9 @@ public class GroundEnemySpawner : EnemyUnit
         yield return new WaitForMillisecondFrames(m_RemoveTimer);
         Destroy(gameObject);
         yield break;
+    }
+
+    public void SetSpawnPeriodTime(int millisecond) {
+        m_SpawnPeriod = millisecond;
     }
 }

@@ -50,7 +50,16 @@ public class EnemyMiddleBoss5a : EnemyUnit
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        float init_position_y = transform.position.y;
+        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos_y = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            
+            float position_y = Mathf.Lerp(init_position_y, m_TargetPosition.y, t_pos_y);
+            transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
+            yield return new WaitForMillisecondFrames(0);
+        }
         OnAppearanceComplete();
         yield break;
     }
@@ -70,13 +79,13 @@ public class EnemyMiddleBoss5a : EnemyUnit
         m_TimeLimitState = true;
 
         int frame = 5000 * Application.targetFrameRate / 1000;
-        float init_position_y = transform.position.z;
+        float init_position_y = transform.position.y;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos_y = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
             float position_y = Mathf.Lerp(init_position_y, Size.GAME_BOUNDARY_BOTTOM - 8f, t_pos_y);
-            transform.position = new Vector3(transform.position.x, transform.position.y, position_y);
+            transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
             yield return new WaitForMillisecondFrames(0);
         }
         yield break;

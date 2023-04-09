@@ -173,7 +173,7 @@ public abstract class ItemBox : Item
 }
 
 
-public abstract class ItemGem : Item
+public abstract class ItemGem : Item, UseObjectPool
 {
     public string m_ObjectName;
     public MeshRenderer m_MeshRenderer;
@@ -182,6 +182,8 @@ public abstract class ItemGem : Item
 
     private byte m_Shiness;
     private bool m_ShinessState;
+
+    public abstract void ReturnToPool();
 
     protected override void Awake()
     {
@@ -198,7 +200,7 @@ public abstract class ItemGem : Item
     {
         base.Update();
         if (m_SystemManager.m_PlayState == 4) {
-            OnDeath();
+            ReturnToPool();
         }
 
         SetShiness();
@@ -224,7 +226,7 @@ public abstract class ItemGem : Item
     {
         if (other.gameObject.CompareTag("PlayerBody")) { // 대상이 플레이어 바디면 자신 파괴
             ItemEffect(other);
-            OnDeath();
+            ReturnToPool();
         }
     }
 }

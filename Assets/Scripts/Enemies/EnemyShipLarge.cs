@@ -39,7 +39,7 @@ public class EnemyShipLarge : EnemyUnit
                 CreateBullet(0, pos[i], 3.6f, Random.Range(0f, 360f), accel1, 2, 600,
                 4, 8f, BulletDirection.PLAYER, Random.Range(-18f, 18f), accel2);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 

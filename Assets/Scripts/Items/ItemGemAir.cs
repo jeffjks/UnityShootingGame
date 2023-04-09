@@ -46,6 +46,10 @@ public class ItemGemAir : ItemGem
     }
 
     public override void OnDeath() {
+        ReturnToPool();
+    }
+
+    public override void ReturnToPool() {
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM_AIR);
     }
 }

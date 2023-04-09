@@ -20,8 +20,24 @@ public abstract class StageManager : MonoBehaviour
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
-    protected BossHealthHandler m_BossHealthBar;
-    protected bool m_TrueLastBoss = false; // 일반 스테이지는 시작시 false, Hell 난이도 최종 스테이지는 시작시 true
+
+    private BossHealthHandler m_BossHealthBar;
+    private Vector3[] m_BossOnlyBackgroundLocalPositions = {
+        new Vector3(0.00000000f, 50.00000000f, 284.35050000f + 64f),
+        new Vector3(15.98016000f, 50.00000000f, 76.13345000f + 64f),
+        new Vector3(-24.95980000f, 50.00000000f, 29.27469000f + 64f),
+        new Vector3(14.00522000f, 50.00000000f, 83.86731000f + 64f),
+        new Vector3(0.00000000f, 50.00000000f, 387.63410000f + 64f)
+    };
+    private Vector3[] m_BossOnlyBackgroundMoveVectors = {
+        new Vector3(0f, 0f, 2.7f),
+        new Vector3(0f, 0f, 0.96f),
+        new Vector3(0f, 0f, 0.96f),
+        new Vector3(0f, 0f, 1f),
+        new Vector3(0f, 0f, 1f)
+    };
+
+    private bool m_TrueLastBoss = false; // 일반 스테이지는 시작시 false, Hell 난이도 최종 스테이지는 시작시 true
     
     protected class MovePattern
     {
@@ -39,40 +55,54 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected abstract void Init();
-    protected abstract IEnumerator MainTimeLine();
-    protected abstract IEnumerator EnemyTimeLine();
-    protected abstract IEnumerator BossOnlyTimeLine();
-    protected abstract IEnumerator TestTimeLine();
+    protected abstract IEnumerator MainTimeline();
+    protected abstract IEnumerator EnemyTimeline();
+    protected abstract IEnumerator BossTimeline();
+    protected abstract IEnumerator TestTimeline();
 
-    void Start ()
+    void Awake()
     {
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
-        
+
+        Init();
+
+        m_PlayerManager.gameObject.SetActive(true);
+        m_PoolingManager.PushToPoolAll();
+    }
+
+    void Start ()
+    {
         m_BossHealthBar = m_SystemManager.m_BossHealthBar;
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(0f, 0f, 0f);
         m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(0f, 0f, 0f);
         m_SystemManager.m_StageManager = this;
+        m_SystemManager.ScreenEffect(2);
 
         SetBackgroundSpeed(0f);
-        if (m_SystemManager.m_BossOnlyState) {
-            StartCoroutine(BossOnlyTimeLine());
-        }
-        else if (m_SystemManager.m_DebugMod && !m_SystemManager.m_TrainingState) {
-            StartCoroutine(TestTimeLine());
+        if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING && m_SystemManager.m_TrainingInfo.m_BossOnly) {
+            StartBossTimeline();
         }
         else {
-            StartCoroutine(MainTimeLine());
-            StartCoroutine(EnemyTimeLine());
+            StartCoroutine(MainTimeline());
+            StartCoroutine(EnemyTimeline());
         }
-        Init();
     }
 
     protected virtual void Update()
     {
         MusicLoop();
+    }
+
+    protected void StartBossTimeline() {
+        if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING && m_SystemManager.m_TrainingInfo.m_BossOnly) {
+            int stage = m_SystemManager.GetCurrentStage();
+            m_SystemManager.m_BackgroundCamera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
+            SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
+        }
+        StartCoroutine(BossTimeline());
     }
 
     protected void BackgroundLoop(float z, float subtract) {
@@ -107,7 +137,7 @@ public abstract class StageManager : MonoBehaviour
         else if (m_SystemManager.m_PlayState == 1) {
             switch(m_SystemManager.GetCurrentStage()) {
                 case 4:
-                    if (m_TrueLastBoss || m_SystemManager.m_Difficulty < 2) { // Last Boss
+                    if (m_TrueLastBoss || m_SystemManager.GetDifficulty() < 2) { // Last Boss
                         if (m_AudioBoss.time > 101.168f) {
                             m_AudioBoss.time = 12.77f;
                         }
@@ -172,7 +202,6 @@ public abstract class StageManager : MonoBehaviour
         return ins;
     }
 
-
     protected IEnumerator MiddleBossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화, number = 중간보스 번호
         int frame = millisecond * Application.targetFrameRate / 1000;
         GameObject middle_boss;
@@ -235,10 +264,6 @@ public abstract class StageManager : MonoBehaviour
             m_BackgroundVector.z = init_vector_z + (target - init_vector_z)*(i+1) / frame;
             yield return new WaitForFrames(0);
         }
-        //DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target_vector, frame).SetEase(Ease.Linear);
-
-        //yield return new WaitForFrames(frame);
-        //DOTween.Kill(m_BackgroundVector.z);
         yield break;
     }
 
@@ -253,13 +278,8 @@ public abstract class StageManager : MonoBehaviour
 
         for (int i = 0; i < frame; ++i) {
             m_BackgroundVector = init_vector + (target_vector - init_vector)*(i+1) / frame;
-            //m_BackgroundVector.z = m_BackgroundVector.z + (target - m_BackgroundVector.z)*(i+1) / frame;
             yield return new WaitForFrames(0);
         }
-        //DOTween.To(()=>m_BackgroundVector, x=>m_BackgroundVector = x, target, frame).SetEase(Ease.Linear);
-
-        //yield return new WaitForFrames(frame);
-        //DOTween.Kill(m_BackgroundVector);
         yield break;
     }
 

@@ -87,7 +87,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
         yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
 
         while(!m_TimeLimitState) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 for (int i = 0; i < 3; i++) {
                     pos[0] = m_FirePosition[0].position;
                     pos[1] = m_FirePosition[1].position;
@@ -96,7 +96,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
                     yield return new WaitForMillisecondFrames(400);
                 }
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 for (int i = 0; i < 4; i++) {
                     pos[0] = m_FirePosition[0].position;
                     pos[1] = m_FirePosition[1].position;
@@ -114,7 +114,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
                     yield return new WaitForMillisecondFrames(240);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
         yield break;
     }

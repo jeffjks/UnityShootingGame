@@ -172,7 +172,7 @@ public abstract class PlayerShooterManager : MonoBehaviour
     protected void CreateAddShot() {
         Vector3[] shotPosition = new Vector3[2];
         byte damage_level = (byte) m_ShotLevelToType[m_ShotLevel];
-        float rot = m_PlayerController.m_PlayerBody.eulerAngles[1];
+        float rot = m_PlayerController.m_PlayerBody.eulerAngles.y;
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
         CreatePlayerAttacks(m_PlayerMissileName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), Quaternion.Euler(0f, 0f, rot), damage_level);

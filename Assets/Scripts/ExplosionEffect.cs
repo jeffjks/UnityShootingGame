@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExplosionEffect : MonoBehaviour
+public class ExplosionEffect : MonoBehaviour, UseObjectPool
 {
     public string m_ObjectName;
     public int m_Lifetime;
 
     [HideInInspector] public MoveVector m_MoveVector;
     
-    private bool m_OnEnable = false;
+    private IEnumerator m_ExplosionTimer;
 
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
@@ -22,14 +22,9 @@ public class ExplosionEffect : MonoBehaviour
         m_SystemManager = SystemManager.instance_sm;
     }
 
-    void OnEnable()
-    {
-        if (m_OnEnable) {
-            StartCoroutine(OnDeath());
-        }
-        else {
-            m_OnEnable = true;
-        }
+    public void OnStart() {
+        m_ExplosionTimer = ExplosionTimer();
+        StartCoroutine(m_ExplosionTimer);
     }
 
     void Update()
@@ -43,10 +38,17 @@ public class ExplosionEffect : MonoBehaviour
         transform.Translate(vector2 * movevector.speed / Application.targetFrameRate * Time.timeScale, Space.World);
     }
 
-    private IEnumerator OnDeath() {
+    private IEnumerator ExplosionTimer() {
         yield return new WaitForMillisecondFrames(m_Lifetime);
         m_MoveVector.speed = 0f;
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EXPLOSION);
+        ReturnToPool();
         yield break;
+    }
+
+    public void ReturnToPool() {
+        if (m_ExplosionTimer != null) {
+            StopCoroutine(m_ExplosionTimer);
+        }
+        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EXPLOSION);
     }
 }

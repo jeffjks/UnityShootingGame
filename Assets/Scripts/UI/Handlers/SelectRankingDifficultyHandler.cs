@@ -46,8 +46,8 @@ public class SelectRankingDifficultyHandler : GameUI
         SetColor();
 	}
 
-    private void SelectDifficulty(byte difficulty) {
-        m_GameManager.m_Difficulty = difficulty;
+    private void SelectDifficulty(int difficulty) {
+        m_SystemManager.SetDifficulty(difficulty);
         
         m_RankingMenu.SetActive(true);
         ConfirmSound();

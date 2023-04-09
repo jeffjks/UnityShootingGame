@@ -33,9 +33,8 @@ public class GameOuterBoundary : MonoBehaviour
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             if (enemyObject.m_ParentEnemy == null) {
                 if (!enemyObject.m_IsDead) {
-                    if (enemyObject.m_Class != EnemyClass.Boss)
-                        Destroy(enemyObject.gameObject);
-                    }
+                    enemyObject.OutOfBound();
+                }
             }
         }
 
@@ -59,7 +58,7 @@ public class GameOuterBoundary : MonoBehaviour
                 DebrisEffect debris = other.gameObject.GetComponentInParent<DebrisEffect>();
                 if (debris == null)
                     return;
-                debris.OnDeath();
+                debris.ReturnToPool();
             }
         }
     }

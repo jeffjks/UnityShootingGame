@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreText : MonoBehaviour, CanDeath
+public class ScoreText : MonoBehaviour, UseObjectPool
 {
     public TextMesh m_TextMesh;
     
@@ -15,8 +15,7 @@ public class ScoreText : MonoBehaviour, CanDeath
         m_PoolingManager = PoolingManager.instance_op;
     }
 
-    void OnEnable()
-    {
+    public void OnStart() {
         m_Hspeed = 0.6f;
         m_TextMesh.color = new Color(0.3254902f, 0.8666667f, 0.9137255f, 1f);
 
@@ -50,11 +49,11 @@ public class ScoreText : MonoBehaviour, CanDeath
             alpha -= 3f*Time.deltaTime;
             yield return new WaitForFrames(0);
         }
-        OnDeath();
+        ReturnToPool();
         yield break;
     }
 
-    public void OnDeath() {
+    public void ReturnToPool() {
         if (m_BlinkEffect != null)
             StopCoroutine(m_BlinkEffect);
         if (m_FadeOutEffect != null)

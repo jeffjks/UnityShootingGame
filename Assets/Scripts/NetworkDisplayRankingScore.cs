@@ -7,12 +7,12 @@ using System;
 
 public struct LocalRankingData {
     public string id;
-    public int score;
-    public int shipAttributes;
+    public long score;
+    public ShipAttributes shipAttributes;
     public int miss;
     public long date;
 
-    public LocalRankingData(string id, int score, int shipAttributes, int miss, long date) {
+    public LocalRankingData(string id, long score, ShipAttributes shipAttributes, int miss, long date) {
         this.id = id;
         this.score = score;
         this.shipAttributes = shipAttributes;
@@ -20,8 +20,28 @@ public struct LocalRankingData {
         this.date = date;
     }
 
+    public bool isBetter(LocalRankingData localRankingData) {
+        if (id != localRankingData.id) {
+            return false;
+        }
+        if (score > localRankingData.score) {
+            return false;
+        }
+        if (shipAttributes != localRankingData.shipAttributes) {
+            return false;
+        }
+        if (miss < localRankingData.miss) {
+            return false;
+        }
+        if (date < localRankingData.date) {
+            return false;
+        }
+        return true;
+    }
+
     public void Print() {
-        Debug.Log($"{id}, {score}, {shipAttributes}, {miss}, {date}");
+        int attributesCode = shipAttributes.GetAttributesCode();
+        Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
     }
 }
 
@@ -39,10 +59,12 @@ public class NetworkDisplayRankingScore : MonoBehaviour
     private List<LocalRankingData> m_LocalRankingDataList = new List<LocalRankingData>();
 
     private GameManager m_GameManager = null;
+    private SystemManager m_SystemManager = null;
 
     void Awake()
     {
         m_GameManager = GameManager.instance_gm;
+        m_SystemManager = SystemManager.instance_sm;
     }
 
     void OnEnable() {
@@ -55,11 +77,11 @@ public class NetworkDisplayRankingScore : MonoBehaviour
                 //TryDisplayScoreRanking("OfflineException");
             }
             else {
-                StartCoroutine(DisplayScoreRanking(m_GameManager.m_Difficulty, m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
+                StartCoroutine(DisplayScoreRanking(m_SystemManager.GetDifficulty(), m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
             }
         }
         else {
-            DisplayLocalRanking(m_GameManager.m_Difficulty);
+            DisplayLocalRanking(m_SystemManager.GetDifficulty());
         }
     }
 
@@ -71,10 +93,14 @@ public class NetworkDisplayRankingScore : MonoBehaviour
             while (true){
                 try {
                     string id = br.ReadString();
-                    int score = br.ReadInt32();
-                    int shipAttributes = br.ReadInt32();
+                    long score = br.ReadInt64();
+                    ShipAttributes shipAttributes = new ShipAttributes(br.ReadInt32());
                     int miss = br.ReadInt32();
                     long date = br.ReadInt64();
+
+                    int attributesCode = shipAttributes.GetAttributesCode();
+
+                    //Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
 
                     LocalRankingData record = new LocalRankingData(id, score, shipAttributes, miss, date);
                     m_LocalRankingDataList.Add(record);

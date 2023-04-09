@@ -53,7 +53,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1500);
 
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             while(true) {
                 m_Shooting = true;
                 CreateBullet(4, m_FirePosition.position, 4f, m_CurrentAngle, accel);
@@ -61,7 +61,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
                 yield return new WaitForMillisecondFrames(2000 + Random.Range(0, 1000));
             }
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             while(true) {
                 m_Shooting = true;
                 CreateBullet(4, m_FirePosition.position, 4.2f, m_CurrentAngle, accel);
@@ -93,14 +93,14 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 2f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(200);
             }
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 2f, m_CurrentAngle, accel);

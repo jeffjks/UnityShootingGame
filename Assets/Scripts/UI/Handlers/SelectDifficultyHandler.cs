@@ -25,9 +25,9 @@ public class SelectDifficultyHandler : GameUI
         SetColor();
 	}
 
-    private void SelectDifficulty(byte difficulty) {
-        m_GameManager.m_Difficulty = difficulty;
-        m_GameManager.m_TrainingState = false;
+    private void SelectDifficulty(int difficulty) {
+        m_SystemManager.SetDifficulty(difficulty);
+        m_SystemManager.m_GameType = GameType.GAMETYPE_NORMAL;
         
         m_PlayerPreview.SetActive(true);
         m_SelectAttributesMenu.SetActive(true);

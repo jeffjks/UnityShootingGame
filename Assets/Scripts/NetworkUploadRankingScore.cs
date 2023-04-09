@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.IO;
-using System;
 
 public class NetworkUploadRankingScore : MonoBehaviour
 {
@@ -19,40 +17,19 @@ public class NetworkUploadRankingScore : MonoBehaviour
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
 
-        int difficulty = m_SystemManager.m_Difficulty;
+        int difficulty = m_SystemManager.GetDifficulty();
         string id = m_GameManager.GetAccountID();
-        uint totalScore = m_SystemManager.GetTotalScore();
-        int shipAttributes = m_PlayerManager.m_CurrentAttributes.GetAttributesCode();
-        uint totalMiss = m_SystemManager.GetTotalMiss();
+        long totalScore = m_SystemManager.GetTotalScore();
+        ShipAttributes shipAttributes = m_PlayerManager.m_CurrentAttributes;
+        int totalMiss = m_SystemManager.GetTotalMiss();
         string pcID = SystemInfo.deviceUniqueIdentifier;
 
         if (m_GameManager.m_NetworkAvailable) {
             StartCoroutine(UploadScore(difficulty, id, totalScore, shipAttributes, totalMiss, pcID));
         }
-        else {
-            AddLocalRanking(difficulty, new LocalRankingData(id, (int) totalScore, shipAttributes, (int) totalMiss, DateTime.Now.Ticks));
-        }
     }
 
-    public void AddLocalRanking(int difficulty, LocalRankingData record) {
-        string filePath = $"{m_GameManager.m_RankingDirectory}ranking_{difficulty}.bin";
-
-        FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
-        try {
-            BinaryWriter bw = new BinaryWriter(fs);
-            bw.Write(record.id);
-            bw.Write(record.score);
-            bw.Write(record.shipAttributes);
-            bw.Write(record.miss);
-            bw.Write(record.date);
-        }
-        catch (System.NullReferenceException) {
-            return;
-        }
-        fs.Close();
-    }
-
-    public IEnumerator UploadScore(int difficulty, string id, uint totalScore, int shipAttributes, uint totalMiss, string pcID) {
+    public IEnumerator UploadScore(int difficulty, string id, long totalScore, ShipAttributes shipAttributes, int totalMiss, string pcID) {
         string url = "http://jeffjks.cafe24.com/DeadPlanet2php/uploadRankingScore.php";
 
         if (difficulty < Difficulty.NORMAL || Difficulty.HELL < difficulty) {
@@ -66,12 +43,13 @@ public class NetworkUploadRankingScore : MonoBehaviour
         }
 
         WWWForm form = new WWWForm();
+        /*
         form.AddField("difficulty", difficulty);
         form.AddField("userID", id);
         form.AddField("totalScore", (int) totalScore);
         form.AddField("shipAttributes", shipAttributes);
         form.AddField("totalMiss", (int) totalMiss);
-        form.AddField("deviceUniqueIdentifier", pcID);
+        form.AddField("deviceUniqueIdentifier", pcID);*/
 
         UnityWebRequest www = UnityWebRequest.Post(url, form);
         yield return www.SendWebRequest();
@@ -94,7 +72,7 @@ public class NetworkUploadRankingScore : MonoBehaviour
     }
 
     public void NetworkError(string errorDetails) {
-        Debug.Log(errorDetails);
+        Debug.LogAssertion(errorDetails);
         m_ErrorMessage.DisplayText("NetworkErrorException", errorDetails);
     }
 }

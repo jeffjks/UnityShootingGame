@@ -18,7 +18,7 @@ public class OverviewHandler : MonoBehaviour
     private float m_DisplayTimer;
     private byte m_DisplayStage;
     private float m_BonusScale;
-    private uint m_FinalBonusScore;
+    private long m_FinalBonusScore;
 
     private SystemManager m_SystemManager = null;
 
@@ -27,6 +27,20 @@ public class OverviewHandler : MonoBehaviour
         m_SystemManager = SystemManager.instance_sm;
         m_FinalBonusScoreText = m_FinalBonus.GetComponentsInChildren<Text>()[1];
         transform.position = new Vector3(transform.position.x, transform.position.y, Depth.OVERVIEW);
+    }
+
+    public void Init() {
+        m_GroundGem.SetActive(false);
+        m_AirGem.SetActive(false);
+        m_RemainsScore.SetActive(false);
+        m_TotalStageScore.SetActive(false);
+        m_Miss.SetActive(false);
+        m_FinalBonus.SetActive(false);
+        m_DisplayTimer = 0f;
+        m_DisplayStage = 0;
+        m_BonusScale = 0;
+        m_FinalBonusScore = 0;
+        m_OverviewBackground.color = new Color(1f, 1f, 1f, 0f);
     }
 
     void Update()
@@ -91,7 +105,7 @@ public class OverviewHandler : MonoBehaviour
         }
         else if (m_DisplayStage == 5) { // 최종 보너스 합산
             for (sbyte i = 10; i >= 0; i--) {
-                uint target_score = (uint) Mathf.Pow(7f, i);
+                long target_score = (long) Mathf.Pow(7f, i);
                 if (m_FinalBonusScore >= target_score) {
                     m_FinalBonusScore -= target_score;
                     m_SystemManager.AddScore(target_score);
@@ -113,10 +127,19 @@ public class OverviewHandler : MonoBehaviour
     private void GoToNextStage() {
         DOTween.Kill(m_OverviewBackground);
         m_OverviewBackground.color = Color.white;
-        m_SystemManager.StartCoroutine("NextStage");
+        m_SystemManager.StartNextStageCoroutine();
     }
 
-    private void Init() {
+    private void UpdateFinalBonusScore() {
+        m_FinalBonusScoreText.text = "" + m_FinalBonusScore;
+    }
+
+    public void DisplayOverview() {
+        Init();
+        DisplayOverviewText();
+    }
+
+    private void DisplayOverviewText() {
         Text[] ground_gem = m_GroundGem.GetComponentsInChildren<Text>();
         Text[] air_gem = m_AirGem.GetComponentsInChildren<Text>();
         Text[] remains_score = m_RemainsScore.GetComponentsInChildren<Text>();
@@ -124,27 +147,27 @@ public class OverviewHandler : MonoBehaviour
         Text[] miss = m_Miss.GetComponentsInChildren<Text>();
         m_OverviewBackground.DOFade(1f, 1f);
         
-        uint ground_gem_score = m_SystemManager.GemsGround * ItemScore.GEM_GROUND;
-        uint air_gem_score = m_SystemManager.GemsAir * ItemScore.GEM_AIR;
+        long ground_gem_score = m_SystemManager.GemsGround * ItemScore.GEM_GROUND;
+        long air_gem_score = m_SystemManager.GemsAir * ItemScore.GEM_AIR;
         byte stage_miss = m_SystemManager.GetCurrentStageMiss();
-        uint stage_score = m_SystemManager.GetCurrentStageScore();
+        long stage_score = m_SystemManager.GetCurrentStageScore();
         string bonus_scale;
 
         if (stage_miss == 0) {
             m_BonusScale = BonusScale.BONUS_0;
-            bonus_scale = "[ X 50% ]";
+            bonus_scale = "[ + 50% ]";
         }
         else if (stage_miss == 1) {
             m_BonusScale = BonusScale.BONUS_1;
-            bonus_scale = "[ X 30% ]";
+            bonus_scale = "[ + 30% ]";
         }
         else if (stage_miss == 2) {
             m_BonusScale = BonusScale.BONUS_2;
-            bonus_scale = "[ X 10% ]";
+            bonus_scale = "[ + 10% ]";
         }
         else {
             m_BonusScale = 0;
-            bonus_scale = "[ X 0% ]";
+            bonus_scale = "[ + 0% ]";
         }
 
         m_FinalBonusScore = (uint) (stage_score * m_BonusScale);
@@ -158,24 +181,5 @@ public class OverviewHandler : MonoBehaviour
         miss[0].text = stage_miss + " Miss";
         miss[1].text = bonus_scale;
         UpdateFinalBonusScore();
-    }
-
-    private void UpdateFinalBonusScore() {
-        m_FinalBonusScoreText.text = "" + m_FinalBonusScore;
-    }
-
-    public void DisplayOverview() {
-        m_GroundGem.SetActive(false);
-        m_AirGem.SetActive(false);
-        m_RemainsScore.SetActive(false);
-        m_TotalStageScore.SetActive(false);
-        m_Miss.SetActive(false);
-        m_FinalBonus.SetActive(false);
-        m_DisplayTimer = 0f;
-        m_DisplayStage = 0;
-        m_BonusScale = 0;
-        m_FinalBonusScore = 0;
-        m_OverviewBackground.color = new Color(1f, 1f, 1f, 0f);
-        Init();
     }
 }

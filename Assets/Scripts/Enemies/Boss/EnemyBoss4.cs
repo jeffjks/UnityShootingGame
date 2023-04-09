@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss4 : EnemyUnit
+public class EnemyBoss4 : EnemyBoss
 {
     public EnemyBoss4SmallTurret[] m_SmallTurrets = new EnemyBoss4SmallTurret[4];
     public EnemyBoss4FrontTurret[] m_FrontTurrets = new EnemyBoss4FrontTurret[2];
@@ -15,20 +15,19 @@ public class EnemyBoss4 : EnemyUnit
     [HideInInspector] public float m_Direction;
     
     private Vector3 m_TargetPosition;
-    private const int APPEARNCE_TIME = 4500;
+    private const int APPEARNCE_TIME = 8000;
     private bool m_InPattern = false;
-    private int m_MoveDirection;
-    private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
+    //private int m_MoveDirection;
+    //private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
     private float m_TrackPos;
+    private bool m_FollowingBackground = false;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
 
     void Start()
     {
         m_TargetPosition = transform.position;
-        m_MoveVector = new MoveVector(-4.5f, 180f);
-
-        StartCoroutine(AppearanceSequence());
+        m_MoveVector = new MoveVector(0f, 180f); // new MoveVector(-4.5f, 180f);
         
         DisableAttackable();
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
@@ -43,17 +42,31 @@ public class EnemyBoss4 : EnemyUnit
 
     private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+
+        float init_speed = m_MoveVector.speed;
+        float target_speed = m_SystemManager.m_StageManager.m_BackgroundVector.z;
+        int frame = 1000 * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+
+            m_MoveVector.speed = Mathf.Lerp(init_speed, target_speed, t_spd);
+            yield return new WaitForMillisecondFrames(0);
+        }
+
         OnAppearanceComplete();
         yield break;
     }
 
     private void OnAppearanceComplete() {
         int random_speed = Random.Range(0, 2);
-        m_MoveDirection = random_speed*2 - 1;
-        m_MoveSpeed = m_DefaultSpeed*m_MoveDirection;
+        //m_MoveDirection = random_speed*2 - 1;
+        //m_MoveSpeed = m_DefaultSpeed*m_MoveDirection;
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
+
+        m_FollowingBackground = true;
         
         EnableAttackable();
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
@@ -64,8 +77,26 @@ public class EnemyBoss4 : EnemyUnit
         }
     }
 
+    private void ControlSpeed() {
+        if (m_Phase == -1) { // OnDeath
+            if (m_MoveVector.speed > 0f) {
+                m_MoveVector.speed -= 0.5f / Application.targetFrameRate * Time.timeScale;
+            }
+            else {
+                m_MoveVector.speed = 0f;
+            }
+            return;
+        }
+        if (m_FollowingBackground) {
+            m_MoveVector.speed = m_SystemManager.m_StageManager.m_BackgroundVector.z; // 배경 속도에 맞추기
+        }
+    }
+
     protected override void Update()
     {
+        ControlSpeed();
+
+        /*
         transform.position = new Vector3(transform.position.x + m_MoveSpeed / Application.targetFrameRate * Time.timeScale * 60f, transform.position.y, transform.position.z);
         if (m_MoveVector.speed < 0f) {
             m_MoveVector.speed += 1f / Application.targetFrameRate * Time.timeScale;
@@ -73,7 +104,7 @@ public class EnemyBoss4 : EnemyUnit
         else {
             m_MoveVector.speed = 0f;
         }
-
+        
         if (m_Phase > 0) {
             if (transform.position.x >= m_TargetPosition.x + 0.7f) {
                 m_MoveDirection = -1;
@@ -91,7 +122,7 @@ public class EnemyBoss4 : EnemyUnit
                     m_MoveSpeed += m_MoveDirection*0.01f / Application.targetFrameRate * Time.timeScale;
                 }
             }
-        }
+        }*/
 
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 65 / 100) { // 체력 65% 이하
@@ -134,7 +165,7 @@ public class EnemyBoss4 : EnemyUnit
     private void RunTracks() {
         Material material = m_Track.material;
         material.SetTextureOffset("_MainTex", new Vector2(m_TrackPos, 0f));
-        m_TrackPos += 4f / Application.targetFrameRate * Time.timeScale;
+        m_TrackPos += m_MoveVector.speed / Application.targetFrameRate * Time.timeScale;
         if (m_TrackPos > 1f)
             m_TrackPos--;
     }
@@ -246,13 +277,13 @@ public class EnemyBoss4 : EnemyUnit
     private IEnumerator Pattern1A1() {
         int r = Random.Range(0, 2);
         int[] n = {6, 12, 12};
-        for (int i = 0; i < n[m_SystemManager.m_Difficulty]; i++) {
+        for (int i = 0; i < n[m_SystemManager.GetDifficulty()]; i++) {
             m_SubTurrets[r].StartPattern(1);
             
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 yield return new WaitForMillisecondFrames(1000);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 yield return new WaitForMillisecondFrames(500);
             }
             else {
@@ -279,7 +310,7 @@ public class EnemyBoss4 : EnemyUnit
                 yield break;
             }
             
-            if (m_SystemManager.m_Difficulty <= 1) {
+            if (m_SystemManager.GetDifficulty() <= 1) {
                 yield return new WaitForMillisecondFrames(3000);
             }
             else {
@@ -302,7 +333,7 @@ public class EnemyBoss4 : EnemyUnit
                     m_FrontTurrets[j].StartPattern(2);
             }
             
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 yield return new WaitForMillisecondFrames(3000);
             }
             else {
@@ -317,14 +348,14 @@ public class EnemyBoss4 : EnemyUnit
         while (true) {
             m_Direction = Random.Range(0f, 360f);
             m_Launchers[rand1].StartPattern(1);
-            rand2 = Random.Range(0, 2);
-            for (int i = 0; i < 40; i++) {
-                m_Direction += (20f + m_SystemManager.m_Difficulty*5f) * (2*rand2 - 1) / Application.targetFrameRate * Time.timeScale;
+            rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
+            for (int i = 0; i < 32; i++) {
+                m_Direction += (20f + m_SystemManager.GetDifficulty()*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
                 yield return new WaitForMillisecondFrames(0);
             }
-            rand2 = Random.Range(0, 2);
-            for (int i = 0; i < 40; i++) {
-                m_Direction -= (20f + m_SystemManager.m_Difficulty*5f) * (2*rand2 - 1) / Application.targetFrameRate * Time.timeScale;
+            rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
+            for (int i = 0; i < 32; i++) {
+                m_Direction -= (20f + m_SystemManager.GetDifficulty()*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
                 yield return new WaitForMillisecondFrames(0);
             }
             m_Launchers[rand1].StopPattern();
@@ -339,10 +370,10 @@ public class EnemyBoss4 : EnemyUnit
         while (true) {
             int rand = Random.Range(0, 2);
             m_Launchers[rand].StartPattern(2);
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 yield return new WaitForMillisecondFrames(1800);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 yield return new WaitForMillisecondFrames(1200);
             }
             else {
@@ -366,7 +397,7 @@ public class EnemyBoss4 : EnemyUnit
                 yield break;
             }
             
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 yield return new WaitForMillisecondFrames(3000);
             }
             else {
@@ -379,13 +410,13 @@ public class EnemyBoss4 : EnemyUnit
     private IEnumerator Pattern1D() {
         int r = Random.Range(0, 2);
         int[] n = {6, 12, 12};
-        for (int i = 0; i < n[m_SystemManager.m_Difficulty]; i++) {
+        for (int i = 0; i < n[m_SystemManager.GetDifficulty()]; i++) {
             m_SubTurrets[r].StartPattern(4);
             
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 yield return new WaitForMillisecondFrames(800);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 yield return new WaitForMillisecondFrames(400);
             }
             else {
@@ -464,7 +495,7 @@ public class EnemyBoss4 : EnemyUnit
 
     private IEnumerator Pattern2A() {
         Vector3[] pos = new Vector3[2];
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             for (int i = 0; i < 1; i++) {
                 m_MainTurret.StartPattern(2);
                 yield return new WaitForMillisecondFrames(500);
@@ -490,7 +521,7 @@ public class EnemyBoss4 : EnemyUnit
                 yield return new WaitForMillisecondFrames(500);
             }
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             for (int i = 0; i < 1; i++) {
                 m_MainTurret.StartPattern(2);
                 yield return new WaitForMillisecondFrames(400);
@@ -586,7 +617,6 @@ public class EnemyBoss4 : EnemyUnit
                 m_SmallTurrets[i].OnDeath();
         }
         m_SystemManager.BulletsToGems(2000);
-        m_MoveVector = new MoveVector(0.5f, 0f);
 
         StartCoroutine(DeathExplosion1(3200));
         StartCoroutine(DeathExplosion2(3200));
@@ -621,7 +651,7 @@ public class EnemyBoss4 : EnemyUnit
         m_SystemManager.ShakeCamera(1f);
         
         CreateItems();
-        Destroy(gameObject);
+        BossDestroyed();
         yield break;
     }
 

@@ -62,10 +62,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectName: PlayerRocket
-  m_Damage: 25
+  m_Damage: 40
   m_DamageScale: 640000006400000064000000
   m_Position: {x: 0, y: 0}
-  m_DamageBonus: 000000000c00000019000000
+  m_DamageBonus: 000000001400000028000000
   m_Speed: 21
   m_IsPenetrate: 0
   m_ActivatedObject: []

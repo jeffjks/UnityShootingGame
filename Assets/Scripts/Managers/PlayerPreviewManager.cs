@@ -6,13 +6,15 @@ public abstract class PlayerPreviewManager : MonoBehaviour
 {
     public GameObject[] m_SpeedPart = new GameObject[3];
     public GameObject m_ModulePart;
-
-    protected GameManager m_GameManager = null;
+    
+    protected PlayerManager m_PlayerManager = null;
+    protected PoolingManager m_PoolingManager = null;
     protected abstract void SetPlayerPreviewColors();
     
     void Awake()
     {
-        m_GameManager = GameManager.instance_gm;
+        m_PlayerManager = PlayerManager.instance_pm;
+        m_PoolingManager = PoolingManager.instance_op;
         SpeedPart();
     }
 
@@ -24,13 +26,13 @@ public abstract class PlayerPreviewManager : MonoBehaviour
 
         SpeedPart();
         
-        if (m_GameManager.m_CurrentAttributes.m_Module != 0) // Module
+        if (m_PlayerManager.m_CurrentAttributes.m_Module != 0) // Module
             m_ModulePart.SetActive(true);
         
         SetPlayerPreviewColors();
     }
 
     private void SpeedPart() {
-        m_SpeedPart[m_GameManager.m_CurrentAttributes.m_Speed].SetActive(true); // Speed
+        m_SpeedPart[m_PlayerManager.m_CurrentAttributes.m_Speed].SetActive(true); // Speed
     }
 }

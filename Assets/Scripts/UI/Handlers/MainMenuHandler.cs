@@ -15,6 +15,12 @@ public class MainMenuHandler : GameUI
 
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
 
+    void Start()
+    {
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+    }
+
     void OnEnable()
     {
         m_MainMenuMusicController.PlayMainMusic();

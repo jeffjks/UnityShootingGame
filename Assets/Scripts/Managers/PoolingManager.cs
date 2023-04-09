@@ -20,11 +20,11 @@ public static class PoolingParent
 
 public class PoolingManager : MonoBehaviour
 {
-    protected Dictionary<string, PooledObject> m_ObjectPoolDictionary = new Dictionary<string, PooledObject>();
+    protected Dictionary<string, PooledObject> m_ObjectPoolDictionary = new Dictionary<string, PooledObject>(); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
     [SerializeField] protected GameObject[] m_PooledPrefabs;
 
-    private PlayerManager m_PlayerManager = null;
-    private int m_Module;
+    private GameManager m_GameManager = null;
+    //private int m_Module;
 
     public static PoolingManager instance_op = null;
 
@@ -35,21 +35,24 @@ public class PoolingManager : MonoBehaviour
             return;
         }
         instance_op = this;
-        
-        // DontDestroyOnLoad(gameObject);
+
+        m_GameManager = GameManager.instance_gm;
+
+        DontDestroyOnLoad(gameObject);
     }
     
 
     void Start()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
-
-        m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
-
-        Dictionary<string, PooledObject> pooledObject = new Dictionary<string, PooledObject>();
+        //m_Module = m_GameManager.m_CurrentAttributes.m_Module; // 모듈 종류
 
         m_ObjectPoolDictionary.Add("PlayerShot", new PooledObject(m_PooledPrefabs[0], 30, transform.GetChild(PoolingParent.PLAYER_MISSILE)));
 
+        m_ObjectPoolDictionary.Add("PlayerHomingMissile", new PooledObject(m_PooledPrefabs[1], 8, transform.GetChild(PoolingParent.PLAYER_MISSILE)));
+        m_ObjectPoolDictionary.Add("PlayerRocket", new PooledObject(m_PooledPrefabs[2], 6, transform.GetChild(PoolingParent.PLAYER_MISSILE)));
+        m_ObjectPoolDictionary.Add("PlayerAddShot", new PooledObject(m_PooledPrefabs[3], 8, transform.GetChild(PoolingParent.PLAYER_MISSILE)));
+
+        /*
         switch(m_Module) {
             case 1: // Homing
                 m_ObjectPoolDictionary.Add("PlayerHomingMissile", new PooledObject(m_PooledPrefabs[1], 6, transform.GetChild(PoolingParent.PLAYER_MISSILE)));
@@ -62,7 +65,7 @@ public class PoolingManager : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
 
         m_ObjectPoolDictionary.Add("EnemyBullet", new PooledObject(m_PooledPrefabs[4], 1024, transform.GetChild(PoolingParent.ENEMY_BULLET)));
 
@@ -77,15 +80,15 @@ public class PoolingManager : MonoBehaviour
         m_ObjectPoolDictionary.Add("ExplosionStar", new PooledObject(m_PooledPrefabs[13], 15, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("ExplosionMine", new PooledObject(m_PooledPrefabs[14], 15, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("PlayerExplosion", new PooledObject(m_PooledPrefabs[15], 1, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("PlayerHitEffect", new PooledObject(m_PooledPrefabs[16], 20, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("PlayerHitEffect", new PooledObject(m_PooledPrefabs[16], 40, transform.GetChild(PoolingParent.EXPLOSION)));
         
         m_ObjectPoolDictionary.Add("ItemGemAir", new PooledObject(m_PooledPrefabs[17], 60, transform.GetChild(PoolingParent.ITEM_GEM_AIR)));
         
         m_ObjectPoolDictionary.Add("ItemGemGround", new PooledObject(m_PooledPrefabs[18], 20, transform.GetChild(PoolingParent.ITEM_GEM_GROUND)));
 
-        m_ObjectPoolDictionary.Add("Debris", new PooledObject(m_PooledPrefabs[19], 20, transform.GetChild(PoolingParent.DEBRIS)));
+        m_ObjectPoolDictionary.Add("Debris", new PooledObject(m_PooledPrefabs[19], 30, transform.GetChild(PoolingParent.DEBRIS)));
 
-        m_ObjectPoolDictionary.Add("ScoreText", new PooledObject(m_PooledPrefabs[20], 20, transform.GetChild(PoolingParent.SCORE_TEXT)));
+        m_ObjectPoolDictionary.Add("ScoreText", new PooledObject(m_PooledPrefabs[20], 10, transform.GetChild(PoolingParent.SCORE_TEXT)));
     }
 
     public bool PushToPool(string itemName, GameObject item, sbyte parent = -1) // = -1
@@ -128,6 +131,18 @@ public class PoolingManager : MonoBehaviour
 
         Debug.LogWarning("There's no matched pool list.");
         return null;
+    }
+
+    public void PushToPoolAll() // 풀에 활성화 상태로 남아있는 모든 오브젝트 비활성화 후 풀로 되돌리기 (이전 판에 남아있던 영향 제거)
+    {
+        foreach (Transform childObject in transform) { // 모든 직계 자식 오브젝트 순회
+            foreach (Transform item in childObject) { // 모든 직계 자식(손자) 오브젝트 순회
+                if (item.gameObject.activeSelf) {
+                    UseObjectPool script = item.GetComponentInChildren<UseObjectPool>();
+                    script.ReturnToPool();
+                }
+            }
+        }
     }
 }
 

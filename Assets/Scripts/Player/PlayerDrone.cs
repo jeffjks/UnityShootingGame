@@ -25,11 +25,9 @@ public class PlayerDrone : MonoBehaviour
     private PlayerShooterManager m_PlayerShooter;
     
     private PlayerManager m_PlayerManager = null;
-    private GameManager m_GameManager = null;
 
     void Awake()
     {
-        m_GameManager = GameManager.instance_gm;
         m_PlayerManager = PlayerManager.instance_pm;
 
         m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
@@ -40,7 +38,7 @@ public class PlayerDrone : MonoBehaviour
     {
         int laser_damage;
         if (m_PlayerManager != null) {
-            m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotForm;
+            m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotDamage;
         }
         m_DefaultDepth = transform.localPosition.y;
 
@@ -99,9 +97,9 @@ public class PlayerDrone : MonoBehaviour
 
     public void SetPreviewDrones() {
         int laser_damage;
-        m_ShotForm = m_GameManager.m_CurrentAttributes.m_ShotForm;
+        m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotDamage;
 
-        laser_damage = m_GameManager.m_CurrentAttributes.m_LaserDamage;
+        laser_damage = m_PlayerManager.m_CurrentAttributes.m_LaserDamage;
         
         SetShotLevel(m_PlayerShooter.m_ShotLevel);
 

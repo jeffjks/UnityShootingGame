@@ -33,7 +33,7 @@ public class EnemyTankLarge2Turret : EnemyUnit
         int[] number2 = {3, 3, 5, 5, 5, 3, 3};
         int[] number3 = {5, 5, 7, 7, 7, 5, 5};
         while(true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 m_Shooting = true;
                 for (int i = 0; i < 5; i++) {
                     pos[0] = GetScreenPosition(m_FirePosition[0].position);
@@ -45,7 +45,7 @@ public class EnemyTankLarge2Turret : EnemyUnit
                 m_Shooting = false;
                 yield return new WaitForMillisecondFrames(2200);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 m_Shooting = true;
                 for (int i = 0; i < 7; i++) {
                     pos[0] = GetScreenPosition(m_FirePosition[0].position);

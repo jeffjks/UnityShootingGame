@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlayerPreviewShooter : PlayerShooterManager
 {
-    public PreviewPoolingManager m_PreviewPoolingManager;
-    
-    private GameManager m_GameManager = null;
-    private const int m_DefaultShotLevel = 4;
+    private PlayerManager m_PlayerManager = null;
+    private PoolingManager m_PoolingManager = null;
+
+    private const int DEFAULT_SHOT_LEVEL = 4;
 
     void Awake()
     {
         m_NowAttacking = true;
-        m_GameManager = GameManager.instance_gm;
+        m_PlayerManager = PlayerManager.instance_pm;
+        m_PoolingManager = PoolingManager.instance_op;
         InitShotLevel();
 
         for (int i = 0; i < PlayerMissile.Length; i++) {
@@ -49,12 +50,13 @@ public class PlayerPreviewShooter : PlayerShooterManager
     }
 
     protected override void CreatePlayerAttacks(string name, Vector3 pos, Quaternion rot, byte type = 0) {
-        GameObject obj = m_PreviewPoolingManager.PopFromPool(name);
+        GameObject obj = m_PoolingManager.PopFromPool(name, PoolingParent.PLAYER_MISSILE);
         PlayerMissile playerMissile = obj.GetComponent<PlayerMissile>();
         obj.transform.position = pos;
         obj.transform.rotation = rot;
         playerMissile.m_DamageLevel = type;
         obj.SetActive(true);
+        playerMissile.OnStart();
     }
 
     private IEnumerator PreviewSlowMode() {
@@ -78,13 +80,13 @@ public class PlayerPreviewShooter : PlayerShooterManager
     }
 
     public void InitShotLevel() {
-        m_ShotLevel = m_DefaultShotLevel;
+        m_ShotLevel = DEFAULT_SHOT_LEVEL;
     }
 
 
     public override void SetPreviewShooter() {
-        m_ShotDamage = m_GameManager.m_CurrentAttributes.m_ShotDamage; // 샷 데미지
-        m_Module = m_GameManager.m_CurrentAttributes.m_Module; // 모듈 종류
+        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.m_ShotDamage; // 샷 데미지
+        m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
         SetModule();
     }
 }

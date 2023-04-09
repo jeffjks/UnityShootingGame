@@ -408,7 +408,7 @@ Transform:
   - {fileID: 1524034459}
   - {fileID: 2079988604}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &88539038
 PrefabInstance:
@@ -627,6 +627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 119958757}
   - component: {fileID: 119958758}
+  - component: {fileID: 119958759}
   m_Layer: 12
   m_Name: GroundEnemySpawner
   m_TagString: Untagged
@@ -691,18 +692,34 @@ MonoBehaviour:
   m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 2000
-    direction: 316
     speed: 8739
-    time: 3
+    direction: 316
     duration: 3000
   - delay: 3000
-    direction: 297
     speed: 8739
-    time: 3
+    direction: 297
     duration: 3000
   m_ActivateTime: 42000
   m_DeactivateTime: 170000
   m_AttackableTimer: 800
+--- !u!114 &119958759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119958756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 119958758}
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
+  m_SpawnPeriod_Normal: 2400
+  m_SpawnPeriod_Expert: 1700
 --- !u!1001 &129614740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1632,9 +1649,8 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 2000
-    direction: 8739
     speed: 0
-    time: 0.8
+    direction: 8739
     duration: 800
   m_ActivateTime: 14000
   m_DeactivateTime: 20000
@@ -3485,90 +3501,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2b1ccdb1c586f1449a89396c9b1c27b, type: 3}
---- !u!1001 &895090159
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5824299595195028254, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_Name
-      value: Play Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_CurrentAttributes.m_ShotForm
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_CurrentAttributes.m_ShotDamage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_CurrentAttributes.m_LaserDamage
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 55eee244c70d8de4ea8bc30e93c1f075, type: 3}
 --- !u!1001 &932065293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4146,9 +4078,8 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 400
-    direction: 8739
     speed: 0
-    time: 0.8
+    direction: 8739
     duration: 800
   m_ActivateTime: 15600
   m_DeactivateTime: 20000
@@ -4672,9 +4603,8 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 2000
-    direction: 8739
     speed: 0
-    time: 0.8
+    direction: 8739
     duration: 800
   m_ActivateTime: 37000
   m_DeactivateTime: 42000
@@ -5020,7 +4950,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 65.995, y: -34.708, z: -15.435}
 --- !u!1001 &1183571109
 PrefabInstance:
@@ -6696,6 +6626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1575252554}
   - component: {fileID: 1575252555}
+  - component: {fileID: 1575252556}
   m_Layer: 12
   m_Name: GroundEnemySpawner
   m_TagString: Untagged
@@ -6760,18 +6691,34 @@ MonoBehaviour:
   m_RemoveTimer: 8000
   m_MovePattern:
   - delay: 700
-    direction: 245
     speed: 8739
-    time: 1
+    direction: 245
     duration: 1000
   - delay: 1500
-    direction: 275
     speed: 8739
-    time: 3
+    direction: 275
     duration: 3000
   m_ActivateTime: 110000
   m_DeactivateTime: 140000
   m_AttackableTimer: 1500
+--- !u!114 &1575252556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575252553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 1575252555}
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
+  m_SpawnPeriod_Normal: 2400
+  m_SpawnPeriod_Expert: 1700
 --- !u!1001 &1580501093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7228,9 +7175,8 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 400
-    direction: 8739
     speed: 0
-    time: 0.8
+    direction: 8739
     duration: 800
   m_ActivateTime: 38600
   m_DeactivateTime: 42000
@@ -8796,9 +8742,8 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1200
-    direction: 8739
     speed: 0
-    time: 0.8
+    direction: 8739
     duration: 800
   m_ActivateTime: 14800
   m_DeactivateTime: 20000
@@ -9561,9 +9506,8 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1200
-    direction: 8739
     speed: 0
-    time: 0.8
+    direction: 8739
     duration: 800
   m_ActivateTime: 37800
   m_DeactivateTime: 42000

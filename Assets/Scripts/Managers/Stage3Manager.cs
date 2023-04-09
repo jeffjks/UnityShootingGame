@@ -12,7 +12,6 @@ public class Stage3Manager : StageManager
     protected override void Init()
     {
         m_SystemManager.SetCurrentStage(2);
-        m_TrueLastBoss = false;
     }
 
     protected override void Update()
@@ -22,9 +21,8 @@ public class Stage3Manager : StageManager
         BackgroundLoop(98f, 24f);
     }
 
-    protected override IEnumerator MainTimeLine()
+    protected override IEnumerator MainTimeline()
     {
-        yield return new WaitForMillisecondFrames(1000);
         InitEnemies();
         SetBackgroundSpeed(0.96f);
 
@@ -38,7 +36,18 @@ public class Stage3Manager : StageManager
         yield return new WaitForMillisecondFrames(13000);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
 
-        yield return new WaitForMillisecondFrames(38000);
+        yield return new WaitForMillisecondFrames(35000);
+        StartBossTimeline();
+    }
+
+    protected override IEnumerator TestTimeline()
+    {
+        yield break;
+    }
+
+    protected override IEnumerator BossTimeline()
+    {
+        yield return new WaitForMillisecondFrames(2000);
         StartCoroutine(FadeOutMusic());
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
@@ -50,28 +59,7 @@ public class Stage3Manager : StageManager
         yield break;
     }
 
-    protected override IEnumerator TestTimeLine()
-    {
-        yield break;
-    }
-
-    protected override IEnumerator BossOnlyTimeLine()
-    {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(-24.97961f, 40f, 29.3f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
-        yield return new WaitForMillisecondFrames(3000);
-        StartCoroutine(FadeOutMusic());
-        yield return new WaitForMillisecondFrames(3000);
-        m_SystemManager.WarningText();
-        yield return new WaitForMillisecondFrames(1000);
-        StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3000)); // Boss
-        yield return new WaitForMillisecondFrames(2000);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1000);
-        PlayBossMusic();
-        yield break;
-    }
-
-    protected override IEnumerator EnemyTimeLine()
+    protected override IEnumerator EnemyTimeline()
     {
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -2f), Random.Range(2f, 4f)));
@@ -149,11 +137,11 @@ public class Stage3Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(2f, -4f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -6f), new Vector2(5f, -6f), 1000);
         yield return new WaitForMillisecondFrames(2000);
-        if (m_SystemManager.m_Difficulty == Difficulty.HELL)
+        if (m_SystemManager.GetDifficulty() == Difficulty.HELL)
             StartCoroutine(SpawnPlaneSmalls_B(5000, 600));
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(-36.5f, 3f, 26f), new MoveVector(4f, 85f), new MovePattern[] {new MovePattern(1200, 8739f, 0f, 1000)});
-        if (m_SystemManager.m_Difficulty == Difficulty.NORMAL) {
+        if (m_SystemManager.GetDifficulty() == Difficulty.NORMAL) {
             yield return new WaitForMillisecondFrames(10000);
             CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
             yield return new WaitForMillisecondFrames(12000);
@@ -184,18 +172,18 @@ public class Stage3Manager : StageManager
         int[] period = { 2200, 1400, 1000 };
         while (timer < duration) {
             CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-2f, 0f), 2f));
-            if (m_SystemManager.m_Difficulty > 0) {
+            if (m_SystemManager.GetDifficulty() > 0) {
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(1f, 3f), 4.8f));
             }
             CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(4f, 6f), 2f));
             
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-2f, 0f), 2f));
-            if (m_SystemManager.m_Difficulty > 0) {
+            if (m_SystemManager.GetDifficulty() > 0) {
                 CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 3f), 4.8f));
             }
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(4f, 6f), 2f));
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.m_Difficulty]);
-            timer += period[m_SystemManager.m_Difficulty];
+            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
+            timer += period[m_SystemManager.GetDifficulty()];
         }
         yield break;
     }
@@ -224,8 +212,8 @@ public class Stage3Manager : StageManager
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-7f, -4f), Random.Range(2f, 4f)));
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 4f)));
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(4f, 7f), Random.Range(2f, 4f)));
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.m_Difficulty]);
-            timer += period[m_SystemManager.m_Difficulty];
+            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
+            timer += period[m_SystemManager.GetDifficulty()];
         }
         yield break;
     }
@@ -241,8 +229,8 @@ public class Stage3Manager : StageManager
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2.5f, 5f), Random.Range(2f, 3f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(6f, 8f), Random.Range(2f, 3f)));
             }
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.m_Difficulty]);
-            timer += period[m_SystemManager.m_Difficulty];
+            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
+            timer += period[m_SystemManager.GetDifficulty()];
         }
         yield break;
     }

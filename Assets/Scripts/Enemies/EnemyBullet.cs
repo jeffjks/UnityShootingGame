@@ -20,7 +20,7 @@ public static class BulletType
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
 }
 
-public class EnemyBullet : Enemy, CanDeath
+public class EnemyBullet : Enemy, UseObjectPool
 {
     public string m_ObjectName;
 
@@ -68,8 +68,7 @@ public class EnemyBullet : Enemy, CanDeath
         m_IsUnattackable = true;
     }
 
-    void OnEnable()
-    {
+    public void OnStart() {
         //m_Position = Vector2Int.RoundToInt(transform.position*256);
         m_RotateBullet = false;
         
@@ -112,7 +111,7 @@ public class EnemyBullet : Enemy, CanDeath
         }
 
         if (m_SystemManager.m_BulletsEraseTimer > 0) {
-            OnDeath();
+            PlayEraseAnimation();
         }
 
         float targetSpeed = m_EnemyBulletAccel.targetSpeed;
@@ -128,7 +127,7 @@ public class EnemyBullet : Enemy, CanDeath
         CheckDeath();
         CheckOutside();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
+        //m_PlayerPosition = m_PlayerManager.GetPlayerPosition();
     }
     
     void LateUpdate()
@@ -174,7 +173,7 @@ public class EnemyBullet : Enemy, CanDeath
                     m_NewMoveVector.direction = 0f;
                     break;
                 case BulletDirection.PLAYER:
-                    m_NewMoveVector.direction = GetAngleToTarget(transform.position, m_PlayerPosition);
+                    m_NewMoveVector.direction = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
                     break;
                 case BulletDirection.CURRENT:
                     m_NewMoveVector.direction = m_MoveVector.direction;
@@ -205,11 +204,11 @@ public class EnemyBullet : Enemy, CanDeath
         }
         //m_Tween.Kill();
         m_MoveVector.speed = 0f;
-        OnDeath();
+        PlayEraseAnimation();
         yield break;
     }
 
-    public void OnDeath() {
+    public void PlayEraseAnimation() {
         StopAllCoroutines();
         m_BulletTypeObject[m_ImageType].SetActive(false);
 
@@ -222,13 +221,13 @@ public class EnemyBullet : Enemy, CanDeath
         }
         m_BulletEraseObject[erase_type].SetActive(true);
         m_EraseAnimator[erase_type].Play("Erase", -1, 0f);
-        StartCoroutine(EraseDelayed(1000));
+        StartCoroutine(ReturnToPoolDelayed(1000));
     }
 
     private void CheckDeath() { // 탄 소거시 Bullet 파괴
         if (m_SystemManager.m_BulletsEraseTimer > 0) {
             if (m_BulletTypeObject[m_ImageType].activeSelf) {
-                OnDeath();
+                PlayEraseAnimation();
             }
         }
     }
@@ -237,24 +236,23 @@ public class EnemyBullet : Enemy, CanDeath
         float gap = 0.5f;
         Vector3 pos = transform.position;
         if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + gap) {
-            Erase();
+            ReturnToPool();
         }
         else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + gap) {
-            Erase();
+            ReturnToPool();
         }
     }
 
-    private IEnumerator EraseDelayed(int millisecond) {
+    private IEnumerator ReturnToPoolDelayed(int millisecond) {
         if (millisecond != 0) {
             yield return new WaitForMillisecondFrames(millisecond);
         }
-        Erase();
+        ReturnToPool();
         yield break;
     }
 
-    public void Erase() {
+    public void ReturnToPool() {
         StopAllCoroutines();
-        //m_Tween.Kill();
         m_SystemManager.SubtractBullet();
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ENEMY_BULLET);
     }

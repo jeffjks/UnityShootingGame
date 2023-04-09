@@ -8,8 +8,4 @@ public class PlayerLaserManager : PlayerDamageUnit {
     [HideInInspector] public int m_LaserDamage;
     
     protected int m_LaserIndex;
-    
-    public override void OnDeath() {
-        Destroy(gameObject);
-    }
 }

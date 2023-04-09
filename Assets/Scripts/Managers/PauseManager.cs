@@ -46,14 +46,29 @@ public class PauseManager : MonoBehaviour {
     }
 
     public void Resume() {
-        Time.timeScale = 1;
-        m_PauseMenuHandler.m_InitialSelection = 0;
-        AudioListener.pause = false;
-        m_CanvasPause.SetActive(false);
+        EscapePause();
         Invoke("PauseEnabled", m_PauseDelay);
     }
 
     private void PauseEnabled() {
         m_CanPause = true;
+    }
+
+    public void QuitGame() {
+        //EscapePause();
+        m_CanPause = true;
+        m_PauseMenuHandler.m_InitialSelection = 0;
+        m_CanvasPause.SetActive(false);
+
+        m_SystemManager.QuitGame();
+    }
+
+    private void EscapePause() {
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+        
+        m_CanPause = true;
+        m_PauseMenuHandler.m_InitialSelection = 0;
+        m_CanvasPause.SetActive(false);
     }
 }

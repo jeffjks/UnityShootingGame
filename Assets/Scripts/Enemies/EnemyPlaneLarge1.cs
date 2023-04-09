@@ -15,12 +15,14 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private bool m_TimeLimitState = false;
     private const int APPEARNCE_TIME = 2800;
     private const int TIME_LIMIT = 20000;
+    private Vector3 m_TargetPosition;
     private int m_Phase;
 
     void Start ()
     {
         m_UpdateTransform = false;
         transform.rotation = Quaternion.Euler(0f, 30f, 0f);
+        m_TargetPosition = new Vector3(0f, -5.2f, Depth.ENEMY);
 
         DisableAttackable();
 
@@ -35,7 +37,6 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
         Quaternion init_rotation = transform.rotation;
-        Vector3 target_position = new Vector3(0f, -5.5f, Depth.ENEMY);
         Quaternion target_rotation = Quaternion.identity;
 
         int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
@@ -44,7 +45,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
-            transform.position = Vector3.Lerp(init_position, target_position, t_pos);
+            transform.position = Vector3.Lerp(init_position, m_TargetPosition, t_pos);
             transform.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
@@ -123,10 +124,10 @@ public class EnemyPlaneLarge1 : EnemyUnit
         yield return new WaitForMillisecondFrames(200);
 
         while(!m_TimeLimitState) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 4; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(3, pos, 5.6f + i*0.32f, target_angle + (random_value + i*2f)*state, accel, 5, 20f);
@@ -134,10 +135,10 @@ public class EnemyPlaneLarge1 : EnemyUnit
                 }
                 yield return new WaitForMillisecondFrames(280);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 6; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(3, pos, 6f + i*0.4f, target_angle + (random_value + i*2f)*state, accel, 5, 20f);
@@ -148,18 +149,18 @@ public class EnemyPlaneLarge1 : EnemyUnit
             else {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 8; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(3, pos, 5.6f + i*0.4f, target_angle + (random_value + i*2f)*state, accel, 5, 20f);
                     yield return new WaitForMillisecondFrames(70);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay1[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay1[m_SystemManager.GetDifficulty()]);
             state *= -1;
 
 
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 6; i++) {
                     pos = m_FirePosition.position;
@@ -167,7 +168,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
                     yield return new WaitForMillisecondFrames(150);
                 }
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 6; i++) {
                     pos = m_FirePosition.position;
@@ -193,9 +194,9 @@ public class EnemyPlaneLarge1 : EnemyUnit
             }
             yield return new WaitForMillisecondFrames(200);
 
-            m_Turret[0].StartCoroutine("PatternA");
-            m_Turret[1].StartCoroutine("PatternA");
-            yield return new WaitForMillisecondFrames(m_FireDelay1[m_SystemManager.m_Difficulty]);
+            m_Turret[0].StartPattern();
+            m_Turret[1].StartPattern();
+            yield return new WaitForMillisecondFrames(m_FireDelay1[m_SystemManager.GetDifficulty()]);
         }
         yield break;
     }
@@ -210,15 +211,15 @@ public class EnemyPlaneLarge1 : EnemyUnit
         while(!m_TimeLimitState) {
             random_value = Random.Range(-3f, 3f);
 
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 6, 16f);
                 CreateBulletsSector(5, pos, 6.4f, target_angle + random_value, accel, 6, 16f);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 6, 12f);
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 12, 6f);
                 CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 6, 12f);
@@ -226,13 +227,13 @@ public class EnemyPlaneLarge1 : EnemyUnit
             }
             else {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 8, 12f);
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 14, 6f);
                 CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 8, 12f);
                 CreateBulletsSector(5, pos, 7.1f, target_angle + random_value, accel, 8, 12f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay2[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay2[m_SystemManager.GetDifficulty()]);
         }
     }
 

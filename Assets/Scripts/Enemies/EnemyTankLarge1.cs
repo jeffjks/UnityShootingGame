@@ -49,10 +49,10 @@ public class EnemyTankLarge1 : EnemyUnit
         float[] target_angle = new float[2];
         while(true) {
             yield return new WaitForMillisecondFrames(500);
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 for (int j = 0; j < 2; j++) {
                     pos[j] = GetScreenPosition(m_FirePosition[j].position);
-                    target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.m_Player.transform.position);
+                    target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
 
                     float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
                     if (delta_angle < -45f) {
@@ -66,11 +66,11 @@ public class EnemyTankLarge1 : EnemyUnit
                     CreateBulletsSector(0, pos[j], 7f, target_angle[j], accel, 3, 22f);
                 }
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 2; j++) {
                         pos[j] = GetScreenPosition(m_FirePosition[j].position);
-                        target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.m_Player.transform.position);
+                        target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
 
                         float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
                         if (delta_angle < -45f) {
@@ -90,7 +90,7 @@ public class EnemyTankLarge1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 2; j++) {
                         pos[j] = GetScreenPosition(m_FirePosition[j].position);
-                        target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.m_Player.transform.position);
+                        target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
 
                         float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
                         if (delta_angle < -45f) {

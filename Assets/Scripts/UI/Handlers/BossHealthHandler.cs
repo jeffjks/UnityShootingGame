@@ -28,6 +28,8 @@ public class BossHealthHandler : MonoBehaviour
     private float m_PositionY;
     private float m_HealthRate = 1f;
     private SystemManager m_SystemManager = null;
+    private const float POSITION_Y_HIDE = 0f;
+    private const float POSITION_Y_BOSS = 1f;
 
     void Start()
     {
@@ -50,10 +52,10 @@ public class BossHealthHandler : MonoBehaviour
             m_BossHealthBar.gameObject.SetActive(true);
 
         if (m_SystemManager.m_PlayState == 1) {
-            m_PositionY = Mathf.MoveTowards(m_PositionY, 1f, 1f * Time.deltaTime);
+            m_PositionY = Mathf.MoveTowards(m_PositionY, POSITION_Y_BOSS, 1f * Time.deltaTime);
         }
         else {
-            m_PositionY = Mathf.MoveTowards(m_PositionY, 0f, 1f * Time.deltaTime);
+            m_PositionY = Mathf.MoveTowards(m_PositionY, POSITION_Y_HIDE, 1f * Time.deltaTime);
         }
 
         HPVector3.Set(HPVector3.x, Mathf.Lerp(m_TopUIPosition.m_hpTopY, m_TopUIPosition.m_hpBottomY, m_PositionY), HPVector3.z);
@@ -76,5 +78,9 @@ public class BossHealthHandler : MonoBehaviour
         else {
             m_HealthBar.sprite = m_HealthBarRed;
         }
+    }
+
+    public void InitPosition() {
+        m_PositionY = POSITION_Y_HIDE;
     }
 }

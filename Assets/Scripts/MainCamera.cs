@@ -7,7 +7,7 @@ public class MainCamera : MonoBehaviour {
     private PlayerManager m_PlayerManager = null;
     private Vector2Int m_PlayerPosition;
     private Vector2 m_ShakePosition;
-    private float m_PositionY;
+    private const float POSITION_Y = -8f;
     private float m_CameraMoveRate, m_CameraMargin;
     private IEnumerator m_ShakeCamera;
 
@@ -18,9 +18,8 @@ public class MainCamera : MonoBehaviour {
 
         m_CameraMargin = m_PlayerManager.m_CameraMargin;
         m_CameraMoveRate = m_CameraMargin / Size.CAMERA_MOVE_LIMIT;
-
-        transform.position.Set(transform.position.x, transform.position.y, Depth.CAMERA);
-        m_PositionY = transform.position.y;
+        
+        InitMainCamera();
     }
 
     void LateUpdate()
@@ -37,7 +36,11 @@ public class MainCamera : MonoBehaviour {
 
         camera_x = Mathf.Clamp(camera_x, - m_CameraMargin, m_CameraMargin);
         
-        transform.position = new Vector3(camera_x, m_PositionY, Depth.CAMERA) + (Vector3) m_ShakePosition;
+        transform.position = new Vector3(camera_x, POSITION_Y, Depth.CAMERA) + (Vector3) m_ShakePosition;
+    }
+
+    public void InitMainCamera() {
+        transform.position = new Vector3(0f, POSITION_Y, Depth.CAMERA);
     }
 
     public void ShakeCamera(float duration) {

@@ -17,16 +17,18 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     void Awake()
     {
         m_TotalAttributes = transform.childCount;
+        m_PlayerManager = PlayerManager.instance_pm;
+        m_SystemManager = SystemManager.instance_sm;
         m_GameManager = GameManager.instance_gm;
-        m_Selection = m_GameManager.m_CurrentAttributes.GetAttributes(m_Attributes);
-        m_OriginalSelection = m_Selection;
+        m_Selection = m_PlayerManager.m_CurrentAttributes.GetAttributes(m_Attributes);
 
         FindAudioSource();
     }
 
     void OnEnable()
     {
-        m_PreviousSelction = m_GameManager.m_CurrentAttributes.GetAttributes(m_Attributes);
+        m_PreviousSelction = m_PlayerManager.m_CurrentAttributes.GetAttributes(m_Attributes);
+        m_OriginalSelection = m_Selection;
     }
 
     void Update()
@@ -47,7 +49,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 
                 if (has_changed) {
                     m_Selection = EndAndStart(m_Selection, m_TotalAttributes);
-                    m_GameManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_Selection);
+                    m_PlayerManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_Selection);
                     SetPreviewDesign();
                 }
             }
@@ -68,7 +70,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 
     private void CheckInput() {
         if (Input.GetButtonDown("Fire1")) {
-            int cost_limit = m_SelectAttributesHandler.m_AvailableCost - m_GameManager.m_UsedCost;
+            int cost_limit = m_SelectAttributesHandler.m_AvailableCost - m_SystemManager.m_UsedCost;
             int cost_need = m_Cost[m_Selection] - m_Cost[m_PreviousSelction];
 
             if (cost_limit >= cost_need)
@@ -81,8 +83,8 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
     }
 
     private void SelectDetail(byte attribute, int cost_need) {
-        m_GameManager.m_CurrentAttributes.SetAttributes(attribute, m_Selection);
-        m_GameManager.m_UsedCost += cost_need;
+        m_PlayerManager.m_CurrentAttributes.SetAttributes(attribute, m_Selection);
+        m_SystemManager.m_UsedCost += cost_need;
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
         ConfirmSound();
@@ -92,7 +94,8 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
 
     private void Back() {
         m_Selection = m_OriginalSelection;
-        m_GameManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_OriginalSelection);
+        m_PlayerManager.m_CurrentAttributes.SetAttributes(m_Attributes, m_OriginalSelection);
+        //Debug.Log(m_PlayerManager.m_CurrentAttributes.GetAttributesCode());
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
         SetPreviewDesign();

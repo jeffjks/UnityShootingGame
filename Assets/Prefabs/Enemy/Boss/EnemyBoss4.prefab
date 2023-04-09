@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 2827427694812776932}
-  m_Health: 360
+  m_Health: 3600
   m_Class: 2
   m_Score: 2500
   m_Debris: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 2827427694812776932}
-  m_Health: 360
+  m_Health: 3600
   m_Class: 2
   m_Score: 2500
   m_Debris: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 2827427694812776932}
-  m_Health: 360
+  m_Health: 3600
   m_Class: 2
   m_Score: 2500
   m_Debris: 0
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 2827427694812776932}
-  m_Health: 360
+  m_Health: 3600
   m_Class: 2
   m_Score: 2500
   m_Debris: 0
@@ -2694,7 +2694,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 2827427694812776932}
-  m_Health: 1000
+  m_Health: 10000
   m_Class: 2
   m_Score: 5000
   m_Debris: 0
@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 2827427694812776932}
-  m_Health: 1000
+  m_Health: 10000
   m_Class: 2
   m_Score: 5000
   m_Debris: 0

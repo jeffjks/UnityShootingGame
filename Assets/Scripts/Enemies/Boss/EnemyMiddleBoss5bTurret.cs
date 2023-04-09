@@ -52,16 +52,16 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         
         while(true) {
             pos = m_FirePosition.position;
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 16f);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 12f);
             }
             else {
                 CreateBulletsSector(3, pos, 2.4f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 5, 12f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
     
@@ -70,20 +70,22 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             yield break;
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
-            for (int i = 0; i < 3; i++) {
-                pos = m_FirePosition.position;
-                CreateBulletsSector(5, pos, 5.5f + i*0.9f, m_CurrentAngle, accel, 11, 7f);
-            }
+        else if (m_SystemManager.GetDifficulty() == 1) {
+            pos = m_FirePosition.position;
+            CreateBulletsSector(5, pos, 5.5f, m_CurrentAngle, accel, 11, 8f);
+            CreateBulletsSector(5, pos, 6.2f, m_CurrentAngle, accel, 11, 8f);
+            CreateBulletsSector(5, pos, 7.3f, m_CurrentAngle, accel, 11, 8f);
         }
         else {
-            for (int i = 0; i < 4; i++) {
-                pos = m_FirePosition.position;
-                CreateBulletsSector(5, pos, 5.1f + i*0.9f, m_CurrentAngle, accel, 15, 7f);
-            }
+            pos = m_FirePosition.position; // 5.1 ~ 7.8
+            CreateBulletsSector(5, pos, 5.0f, m_CurrentAngle, accel, 15, 7f);
+            CreateBulletsSector(5, pos, 5.4f, m_CurrentAngle, accel, 15, 7f);
+            CreateBulletsSector(5, pos, 6.0f, m_CurrentAngle, accel, 15, 7f);
+            CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 15, 7f);
+            CreateBulletsSector(5, pos, 7.8f, m_CurrentAngle, accel, 15, 7f);
         }
         yield break;
     }

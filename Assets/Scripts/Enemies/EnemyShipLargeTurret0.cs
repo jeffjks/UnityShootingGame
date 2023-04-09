@@ -34,7 +34,7 @@ public class EnemyShipLargeTurret0 : EnemyUnit
         float gap = 0.32f;
 
         while(true) {
-            if (m_SystemManager.m_Difficulty <= 1) {
+            if (m_SystemManager.GetDifficulty() <= 1) {
                 pos[0] = GetScreenPosition(m_FirePosition.position);
                 pos[1] = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos[2] = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
@@ -50,7 +50,7 @@ public class EnemyShipLargeTurret0 : EnemyUnit
                 CreateBulletsSector(0, pos[1], 5.6f, m_CurrentAngle - 3f, accel, 2, 2f);
                 CreateBulletsSector(0, pos[2], 5.6f, m_CurrentAngle + 3f, accel, 2, 2f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 }

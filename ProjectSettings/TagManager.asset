@@ -59,6 +59,9 @@ TagManager:
   - name: Engines
     uniqueID: 2809474781
     locked: 0
+  - name: PlayerLaser
+    uniqueID: 2997507123
+    locked: 0
   - name: PlayerWeapons
     uniqueID: 1722506597
     locked: 0

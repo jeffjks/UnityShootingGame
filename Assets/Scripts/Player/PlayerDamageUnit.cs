@@ -5,7 +5,7 @@ using UnityEngine;
 
 // ================ 적에게 데미지를 주는 개체 ================ //
 
-public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
+public abstract class PlayerDamageUnit : MonoBehaviour
 {
     public string m_ObjectName;
     public int m_Damage;
@@ -19,9 +19,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
     protected Vector2Int m_Vector2 = Vector2Int.zero;
     public Vector2Int m_Position; // INTEGER 기반 위치
 
-    public abstract void OnDeath();
-
-    void Awake()
+    protected virtual void Awake()
     {
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
@@ -54,7 +52,7 @@ public abstract class PlayerDamageUnit : MonoBehaviour, CanDeath
 
 
 
-public abstract class PlayerMissile : PlayerDamageUnit
+public abstract class PlayerMissile : PlayerDamageUnit, UseObjectPool
 {
     [SerializeField] private int[] m_DamageBonus = {0, 0, 0};
     [SerializeField] protected int m_Speed = 0;
@@ -66,13 +64,9 @@ public abstract class PlayerMissile : PlayerDamageUnit
     [HideInInspector] public int m_DamageLevel;
     
     protected bool m_HasDamaged = false;
-
-    protected abstract void OnStart();
     
-    void OnEnable()
-    {
+    public virtual void OnStart() {
         m_Position = Vector2Int.RoundToInt(transform.position*256);
-        OnStart();
         try {
             m_Damage = m_DefaultDamage + m_DamageBonus[m_DamageLevel];
         }
@@ -102,20 +96,25 @@ public abstract class PlayerMissile : PlayerDamageUnit
                 else { // 그 이외의 경우에는
                     DealDamage(enemyObject, m_Damage); // 데미지 주고
                     m_HasDamaged = true;
-                    OnDeath(); // 자신 파괴
+                    PlayHitAnimation(); // 자신 파괴
                 }
             }
         }
     }
 
-    public override void OnDeath() {
+    private void PlayHitAnimation() {
         if (m_HitEffectNumber != -1) {
             GameObject obj = m_PoolingManager.PopFromPool("PlayerHitEffect", PoolingParent.EXPLOSION); // 히트 이펙트
             HitEffect hitEffect = obj.GetComponent<HitEffect>();
             hitEffect.m_HitEffectType = m_HitEffectNumber;
-            hitEffect.transform.position = transform.position;
+            hitEffect.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.HIT_EFFECT);
             obj.SetActive(true);
+            hitEffect.OnStart();
         }
+        ReturnToPool();
+    }
+
+    public void ReturnToPool() {
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.PLAYER_MISSILE);
     }
 }

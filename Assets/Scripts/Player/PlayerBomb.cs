@@ -6,29 +6,33 @@ public class PlayerBomb : MonoBehaviour
 {
     public GameObject m_Bomb, m_Explosion, m_BombDamage;
     public ParticleSystem m_ParticleSystem;
+    public AudioSource m_AudioSource;
 
     private Vector3 m_Target;
-    private Vector3 m_FixedPosition;
+    //private Vector3 m_FixedPosition;
 
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
 
     private const int TARGET_TIMER = 400;
     private const int REMOVE_TIMER = 2600; // TARGET_TIMER 이후
+    private bool m_Enable = true;
 
-    void Awake()
+    void Start()
     {
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
 
-        m_FixedPosition = new Vector3(0f, -Size.GAME_HEIGHT/2, Depth.PLAYER_MISSILE);
-        transform.position = m_FixedPosition;
+        //m_FixedPosition = new Vector3(0f, -Size.GAME_HEIGHT/2, Depth.PLAYER_MISSILE);
+        //transform.position = m_FixedPosition;
     }
 
-    void OnEnable()
+    public void UseBomb()
     {
+        m_Enable = false;
         m_Bomb.SetActive(true);
-        m_Bomb.transform.position = m_PlayerManager.m_Player.transform.position;
+
+        m_Bomb.transform.position = m_PlayerManager.GetPlayerPosition();
 
         float target_x = Mathf.Clamp(transform.position.x, -3f, 3f);
         float target_y = - Size.GAME_HEIGHT/2 - 1f;
@@ -40,20 +44,22 @@ public class PlayerBomb : MonoBehaviour
         StartCoroutine(BombExplosion());
     }
 
+    /*
     void Update()
     {
         transform.position = m_FixedPosition;
         transform.rotation = Quaternion.identity;
-    }
+    }*/
 
     private IEnumerator BombExplosion() {
         Vector3 init_position = transform.position;
         int frame = TARGET_TIMER * Application.targetFrameRate / 1000;
+        m_AudioSource.Play();
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
-            transform.position = Vector3.Lerp(init_position, m_Target, t_pos);
+            m_Bomb.transform.position = Vector3.Lerp(init_position, m_Target, t_pos);
             yield return new WaitForMillisecondFrames(0);
         }
         
@@ -66,7 +72,11 @@ public class PlayerBomb : MonoBehaviour
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(false);
         m_BombDamage.SetActive(false);
-        gameObject.SetActive(false);
+        m_Enable = true;
         yield break;
+    }
+
+    public bool GetEnableState() {
+        return m_Enable;
     }
 }

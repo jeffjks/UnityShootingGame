@@ -16,7 +16,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
 
     protected override void Update()
     {
-        float target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.m_Player.transform.position); // Special (Parent 기준)
+        float target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition()); // Special (Parent 기준)
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(target_angle, 50f);
         else
@@ -31,26 +31,26 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
         float target_angle;
 
         while(true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.9f, target_angle, accel, 2, 13f);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.4f, target_angle, accel, 2, 12f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle, accel, 2, 12f);
             }
             else {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.m_Player.transform.position);
+                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.4f, target_angle - 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 5.4f, target_angle + 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle - 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle + 12f, accel, 2, 8f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 }

@@ -40,11 +40,11 @@ public class EnemyTurret2Turret : EnemyUnit
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         float[] speed = {5.7f, 6.8f, 6.8f};
-        yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[m_SystemManager.m_Difficulty]));
+        yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[m_SystemManager.GetDifficulty()]));
         while(true) {
             pos = GetScreenPosition(m_FirePosition.position);
-            CreateBullet(2, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            CreateBullet(2, pos, speed[m_SystemManager.GetDifficulty()], m_CurrentAngle, accel);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 }

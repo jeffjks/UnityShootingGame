@@ -82,7 +82,7 @@ public class ReplayMenuHandler : GameUI
             return;
         }
         m_State = false;
-        m_GameManager.m_ReplayState = true;
+        m_SystemManager.m_GameType = GameType.GAMETYPE_REPLAY;
         m_GameManager.m_ReplayNum = (byte) num;
         m_ScreenEffectFadeOut.gameObject.SetActive(true);
         m_AudioSally.Play();

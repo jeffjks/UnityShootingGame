@@ -44,7 +44,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
         Vector3 pos;
         m_InPattern = true;
 
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             for (int i = 0; i < 2; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(4, pos, 3.5f, m_CurrentAngle, accel, 11, 17f);
@@ -52,7 +52,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
                 yield return new WaitForMillisecondFrames(2400);
             }
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             for (int i = 0; i < 3; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(4, pos, 3.3f, m_CurrentAngle, accel, 17, 11f);

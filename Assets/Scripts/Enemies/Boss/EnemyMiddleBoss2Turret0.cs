@@ -34,7 +34,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
         yield return new WaitForMillisecondFrames(2500);
 
         while (true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 6.4f - i*0.5f, m_CurrentAngle - 64 + i*8f, accel);
                     CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 6.4f - i*0.5f, m_CurrentAngle + 64 - i*8f, accel);
@@ -47,7 +47,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
                     CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 4.4f + i*1.1f, m_CurrentAngle - random_value, accel);
                 }
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 for (int i = 0; i < 7; i++) {
                     CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 6.4f - i*0.3f, m_CurrentAngle - 64 + i*8f, accel);
                     CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 6.4f - i*0.3f, m_CurrentAngle + 64 - i*8f, accel);
@@ -75,7 +75,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
                     CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 4f + i*0.8f, m_CurrentAngle - random_value, accel);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 

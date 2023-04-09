@@ -89,8 +89,8 @@ public enum EnemyClass
     Boss,
 }
 
-public interface CanDeath {
-    void OnDeath();
+public interface UseObjectPool {
+    void ReturnToPool();
 }
 
 // ================ 적 ================ //
@@ -115,7 +115,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
 
-        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
+        m_PlayerPosition = m_PlayerManager.GetPlayerPosition();
         m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
         m_SafeLine = m_PlayerManager.m_SafeLine;
     }
@@ -188,6 +188,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
             m_SystemManager.AddBullet();
             obj.SetActive(true);
+            enemyBullet.OnStart();
         }
         return obj;
     }
@@ -223,6 +224,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
             m_SystemManager.AddBullet();
             obj.SetActive(true);
+            enemyBullet.OnStart();
         }
         return obj;
     }
@@ -248,7 +250,7 @@ public abstract class Enemy : MonoBehaviour { // 총알
 
 // ============================================================================================ //
 
-public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총알 제외)
+public abstract class EnemyUnit : Enemy // 적 개체, 포탑 (적 총알 제외)
 {
     private enum Debris
     {
@@ -277,7 +279,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     public EnemyUnit m_ParentEnemy;
     public int m_Health;
     public EnemyClass m_Class;
-    public uint m_Score;
+    public int m_Score;
     [Space(10)]
     [Tooltip("사망 상태 돌입시 폭발 이펙트")]
     [SerializeField] private Debris m_Debris = 0;
@@ -635,7 +637,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     }
 
     public void GetCoordinates() { // m_PlayerPosition와 m_Position2D 변수의 좌표를 계산
-        m_PlayerPosition = m_PlayerManager.m_Player.transform.position;
+        m_PlayerPosition = m_PlayerManager.GetPlayerPosition();
         if ((1 << gameObject.layer & Layer.AIR) != 0)
             m_Position2D = transform.position;
         else {
@@ -715,18 +717,12 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         yield break;
     }
 
-    void OnDestroy() { // 최종 파괴 (자연사도 작동)
-        //DOTween.Kill(transform);
-        if (m_SystemManager == null)
-            return;
-        else if (m_ParentEnemy != null)
-            return;
-
-        if (m_Class == EnemyClass.Boss) {
-            m_SystemManager.StartCoroutine("StageClear");
-        }
-        else if (m_Class == EnemyClass.MiddleBoss) {
-            m_SystemManager.MiddleBossClear();
+    public void OutOfBound() { // 경계 바깥 파괴
+        if (m_Class != EnemyClass.Boss) {
+            Destroy(gameObject);
+            if (m_Class == EnemyClass.MiddleBoss) {
+                m_SystemManager.MiddleBossClear();
+            }
         }
     }
 
@@ -838,19 +834,19 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
         GameObject obj = m_PoolingManager.PopFromPool("Debris", PoolingParent.DEBRIS);
         DebrisEffect debris = obj.GetComponent<DebrisEffect>();
         obj.transform.position = transform.position;
-        debris.m_DebrisSize = (int) m_Debris;
         obj.SetActive(true);
+        debris.OnStart((int) m_Debris);
     }
 
     private GameObject DefatulExplosionEffect() {
         GameObject obj = null;
         if (m_DefaultExplosion != 0) {
             obj = m_PoolingManager.PopFromPool(m_DefaultExplosion.ToString(), PoolingParent.EXPLOSION);
+            ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
 
             Vector3 explosion_pos;
 
             if ((1 << gameObject.layer & Layer.AIR) != 0) {
-                ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
                 explosion_effect.m_MoveVector = m_MoveVector;
                 explosion_pos = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
             }
@@ -860,6 +856,7 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             obj.transform.position = explosion_pos;
 
             obj.SetActive(true);
+            explosion_effect.OnStart();
         }
         m_SystemManager.m_SoundManager.PlayAudio(m_DefaultAudioClip);
         return obj;
@@ -868,8 +865,8 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
     protected GameObject ExplosionEffect(int explosion, int audio, Vector3? pos = null, MoveVector? moveVector = null) {
         try {
             GameObject obj = m_PoolingManager.PopFromPool(m_Explosion[explosion].ToString(), PoolingParent.EXPLOSION);
-            
             ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
+
             explosion_effect.m_MoveVector = moveVector ?? new MoveVector(0f, 0f);
             
             Vector3 explosion_pos = transform.TransformPoint(pos ?? Vector3.zero);
@@ -880,6 +877,8 @@ public abstract class EnemyUnit : Enemy, CanDeath // 적 개체, 포탑 (적 총
             obj.transform.position = explosion_pos;
             
             obj.SetActive(true);
+            explosion_effect.OnStart();
+            
             if (audio < 0)
                 return obj;
             else {
@@ -943,5 +942,12 @@ public class HasTargetPosition : EnemyUnit {
             yield return new WaitForMillisecondFrames(0);
         }
         yield break;
+    }
+}
+
+public class EnemyBoss : EnemyUnit {
+    protected void BossDestroyed() {
+        m_SystemManager.StartStageClearCoroutine();
+        Destroy(gameObject);
     }
 }

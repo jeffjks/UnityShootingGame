@@ -9,23 +9,24 @@ public class Stage4Manager : StageManager
     public Transform[] m_BossTerrains = new Transform[3];
 
     private float m_BackgroundPos;
-    private bool m_LoopTerrain = false;
     private GameObject m_TankLarge_2_Move;
-    private float m_BossBackgroundSpeed = 3.12f / Application.targetFrameRate * Time.timeScale;
+    private float m_BossBackgroundSpeed;
 
     protected override void Init()
     {
         m_SystemManager.SetCurrentStage(3);
-        m_TrueLastBoss = false;
+        m_BossBackgroundSpeed = 3.12f / Application.targetFrameRate * Time.timeScale;
     }
 
     protected override void Update()
     {
         base.Update();
+        /*
         if (m_LoopTerrain)
-            LoopTerrain();
+            LoopTerrain();*/
     }
 
+    /*
     private void LoopTerrain() {
         for (int i = 0; i < m_BossTerrains.Length; i++) {
             m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z - m_BossBackgroundSpeed);
@@ -53,11 +54,10 @@ public class Stage4Manager : StageManager
                 m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z + 60f);
             }
         }
-    }
+    }*/
 
-    protected override IEnumerator MainTimeLine()
+    protected override IEnumerator MainTimeline()
     {
-        yield return new WaitForMillisecondFrames(1000);
         InitEnemies();
         SetBackgroundSpeed(1.12f);
 
@@ -75,48 +75,32 @@ public class Stage4Manager : StageManager
             yield return new WaitForFrames(0);
         }
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
-        yield return new WaitForMillisecondFrames(17000);
-        StartCoroutine(FadeOutMusic());
-        yield return new WaitForMillisecondFrames(3000);
-        m_SystemManager.WarningText();
-        yield return new WaitForMillisecondFrames(1000);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1000);
-        yield return new WaitForMillisecondFrames(500);
-        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3000)); // Boss
-        yield return new WaitForMillisecondFrames(500);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
-        m_LoopTerrain = true;
-        yield return new WaitForMillisecondFrames(1500);
-        PlayBossMusic();
+        yield return new WaitForMillisecondFrames(14000);
+        StartBossTimeline();
         yield break;
     }
 
-    protected override IEnumerator TestTimeLine()
+    protected override IEnumerator TestTimeline()
     {
         yield break;
     }
 
-    protected override IEnumerator BossOnlyTimeLine()
+    protected override IEnumerator BossTimeline()
     {
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(14f, 40f, 83.9f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
-        yield return new WaitForMillisecondFrames(3000);
+        yield return new WaitForMillisecondFrames(2000);
         StartCoroutine(FadeOutMusic());
+        StartCoroutine(BossStart(new Vector3(14f, 3f, 121.5f), 7500)); // Boss
+        SetBackgroundSpeed(new Vector3(0f, 0f, 1.5f), 1000);
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
-        yield return new WaitForMillisecondFrames(1000);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 3.12f), 1000);
-        yield return new WaitForMillisecondFrames(500);
-        StartCoroutine(BossStart(new Vector3(14f, 3f, 125f), 3000)); // Boss
-        yield return new WaitForMillisecondFrames(500);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0f));
-        m_LoopTerrain = true;
-        yield return new WaitForMillisecondFrames(1500);
+        yield return new WaitForMillisecondFrames(4000);
         PlayBossMusic();
+        yield return new WaitForMillisecondFrames(64000);
+        SetBackgroundSpeed(new Vector3(0f, 0f, 0f), 2000);
         yield break;
     }
 
-    protected override IEnumerator EnemyTimeLine()
+    protected override IEnumerator EnemyTimeline()
     {
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_ItemHeli_1, new Vector2(0f, 3f)); // Item Heli 1
@@ -155,8 +139,11 @@ public class Stage4Manager : StageManager
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 4f), 3f));
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemy(m_PlaneMedium_4, new Vector2(-4.5f, 3f));
-        CreateEnemy(m_PlaneMedium_4, new Vector2(4.5f, 3f));
+        int rand = 1 - 2*Random.Range(0, 2); // -1 or 1
+        if (m_SystemManager.GetDifficulty() != Difficulty.NORMAL) {
+            CreateEnemy(m_PlaneMedium_4, new Vector2(4.5f * rand, 3f));
+        }
+        CreateEnemy(m_PlaneMedium_4, new Vector2(-4.5f * rand, 3f));
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(SpawnHelicopters2());
         yield return new WaitForMillisecondFrames(9000);

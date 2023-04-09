@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitEffect : MonoBehaviour
+public class HitEffect : MonoBehaviour, UseObjectPool
 {
     public string m_ObjectName;
 
@@ -21,8 +21,7 @@ public class HitEffect : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
+    public void OnStart() {
         for(int i = 0; i < m_ActivatedObject.Length; i++) {
             m_ActivatedObject[i].SetActive(false);
         }
@@ -34,11 +33,11 @@ public class HitEffect : MonoBehaviour
     void Update()
     {
         if (m_Animator[m_HitEffectType].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) {
-            OnDeath();
+            ReturnToPool();
         }
     }
 
-    private void OnDeath() {
+    public void ReturnToPool() {
         m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EXPLOSION);
     }
 }

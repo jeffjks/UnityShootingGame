@@ -12,7 +12,7 @@ public class RankingScoreSlot : MonoBehaviour
         m_RankingScoreDisplays[0].UpdateRankingText(rank.ToString());
         m_RankingScoreDisplays[1].UpdateRankingText(localRankingData.id);
         m_RankingScoreDisplays[2].UpdateRankingText(localRankingData.score.ToString());
-        m_RankingScoreDisplays[3].m_RankingScoreImageDisplay.DisplayImages(localRankingData.shipAttributes.ToString());
+        m_RankingScoreDisplays[3].m_RankingScoreImageDisplay.DisplayImages(localRankingData.shipAttributes.GetAttributesCode());
         m_RankingScoreDisplays[4].UpdateRankingText(localRankingData.miss.ToString());
         m_RankingScoreDisplays[5].UpdateRankingText(new DateTime(localRankingData.date).ToString("yyyy-MM-dd"));
     }

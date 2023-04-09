@@ -40,7 +40,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
 
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             pos = m_FirePosition.position;
             CreateBulletsSector(3, pos, 4.8f, m_Direction, accel, 1, 90f);
             CreateBulletsSector(5, pos, 5.2f, m_Direction, accel, 1, 90f);
@@ -68,7 +68,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
             pos = m_FirePosition.position;
             CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, 2, timer,
             4, 8f, 0, 0f, accel2);
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
         }
     }
 

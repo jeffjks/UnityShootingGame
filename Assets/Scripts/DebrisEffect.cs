@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DebrisEffect : MonoBehaviour
+public class DebrisEffect : MonoBehaviour, UseObjectPool
 {
     public string m_ObjectName;
     public GameObject[] m_DebrisObject;
@@ -13,10 +13,7 @@ public class DebrisEffect : MonoBehaviour
     private Vector2 m_Position2D;
     private Vector2 m_BackgroundCameraSize;
     private Material[] m_Materials;
-    private int m_DebrisType;
-    private bool m_OnEnable = false;
-
-    [HideInInspector] public int m_DebrisSize;
+    private int m_DebrisType = -1;
 
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
@@ -58,16 +55,11 @@ public class DebrisEffect : MonoBehaviour
         return modified_pos;
     }
     
-    void OnEnable()
+    public void OnStart(int debrisSize)
     {
-        if (!m_OnEnable) {
-            m_OnEnable = true;
-            return;
-        }
-        
         DeactivateAllChildren();
 
-        switch(m_DebrisSize) {
+        switch(debrisSize) {
             case 1: // Small
                 m_DebrisType = System.Environment.TickCount % 3; // 0, 1, 2
                 break;
@@ -79,10 +71,11 @@ public class DebrisEffect : MonoBehaviour
                 break;
             default:
                 m_DebrisType = -1;
-                OnDeath();
+                ReturnToPool();
                 return;
         }
         m_DebrisObject[m_DebrisType].SetActive(true);
+        m_Materials[m_DebrisType].color = Color.white;
         
         m_FadeOutAnimation = FadeOutAnimation();
         StartCoroutine(m_FadeOutAnimation);
@@ -100,13 +93,11 @@ public class DebrisEffect : MonoBehaviour
             yield return new WaitForMillisecondFrames(0);
         }
         
-        OnDeath();
+        ReturnToPool();
         yield break;
     }
 
-    public void OnDeath() {
-        m_Materials[m_DebrisType].SetColor("_Color", Color.white);
-        
+    public void ReturnToPool() {
         if (m_FadeOutAnimation != null) {
             StopCoroutine(m_FadeOutAnimation);
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss2 : EnemyUnit
+public class EnemyBoss2 : EnemyBoss
 {
     public EnemyUnit[] m_Part1_Turrets = new EnemyUnit[3];
     public EnemyUnit[] m_Part2_Turrets = new EnemyUnit[4];
@@ -217,7 +217,7 @@ public class EnemyBoss2 : EnemyUnit
     private IEnumerator Pattern2A() {
         m_InPattern = true;
         ((EnemyBoss2Turret1_1) m_Part2_Turrets[1]).StartPattern(1);
-        if (m_PlayerManager.m_Player.transform.position.x < 0f) {
+        if (m_PlayerManager.GetPlayerPosition().x < 0f) {
             ((EnemyBoss2Turret1_2) m_Part2_Turrets[2]).StartPattern(1, true);
            ((EnemyBoss2Turret1_2) m_Part2_Turrets[3]).StartPattern(1, false);
         }
@@ -289,7 +289,7 @@ public class EnemyBoss2 : EnemyUnit
         m_SystemManager.ShakeCamera(1f);
         
         CreateItems();
-        Destroy(gameObject);
+        BossDestroyed();
         yield break;
     }
 

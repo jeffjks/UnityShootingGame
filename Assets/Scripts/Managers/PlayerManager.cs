@@ -24,9 +24,8 @@ public static class Size
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject m_Player;
+    public GameObject m_PlayerPrefab;
     public GameObject m_ItemPowerUp;
-    public Attributes m_CurrentAttributes;
     public ReplayManager m_ReplayManager;
 
     [SerializeField] private BoxCollider2D m_CameraBoundary = null;
@@ -40,9 +39,11 @@ public class PlayerManager : MonoBehaviour
 
     private GameManager m_GameManager = null;
     private SystemManager m_SystemManager = null;
+    private GameObject m_Player = null;
 
     [HideInInspector] public PlayerShooter m_PlayerShooter;
     [HideInInspector] public PlayerController m_PlayerController;
+    [HideInInspector] public ShipAttributes m_CurrentAttributes = new ShipAttributes(0, 0, 0, 0, 0, 0, 0);
     [HideInInspector] public bool m_PlayerControlable = false;
     [HideInInspector] public int m_RevivePositionY = -13*256; // -3328;
     [HideInInspector] public int m_SafeLine = -11*256; // -2816;
@@ -51,18 +52,22 @@ public class PlayerManager : MonoBehaviour
     private const int REVIVE_DELAY = 1200;
 
     public static PlayerManager instance_pm = null;
+/*
+    PlayerManager() {
+        instance_pm = this;
+    }*/
 
-    void Awake()
+    public void Init()
     {
         if (instance_pm != null) {
             Destroy(this.gameObject);
             return;
         }
         instance_pm = this;
-
+        
         m_GameManager = GameManager.instance_gm;
         m_SystemManager = SystemManager.instance_sm;
-
+        
         m_CameraBoundary.size = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
         m_CameraOuterBoundary.size = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
         m_GameOuterBoundary.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
@@ -70,58 +75,64 @@ public class PlayerManager : MonoBehaviour
 
         m_SpawnPoint = new Vector3(0, -20, Depth.PLAYER);
         m_CameraMargin = (Size.GAME_WIDTH - Size.CAMERA_WIDTH) / 2; // 1.555
-        
-        DontDestroyOnLoad(gameObject);
+
+        m_CanvasUI.gameObject.SetActive(true);
     }
 
-    void Start()
+    void OnEnable() // Start였음
     {
-        if (m_GameManager != null) {
-            m_CurrentAttributes = m_GameManager.m_CurrentAttributes;
-        }
+        //if (m_GameManager != null) {
+        //    m_CurrentAttributes = m_GameManager.m_CurrentAttributes;
+        //}
         
         m_ReplayManager.Init();
         m_PlayerControlable = false;
 
-        m_SystemManager.SetPlayerManager();
+        m_SystemManager.SetPlayerController(m_PlayerController);
         m_SystemManager.m_BackgroundCamera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
 
-    public void SpawnPlayer(Attributes attributes = null)
+    public void SpawnPlayer() {
+        SpawnPlayer(m_CurrentAttributes);
+    }
+
+    public void SpawnPlayer(ShipAttributes attributes)
     {
-        if (attributes != null)
-            m_CurrentAttributes = attributes;
+        m_CurrentAttributes = attributes;
         m_PlayerIsAlive = true;
-        if (m_SystemManager.GetCurrentStage() == 0 && !m_SystemManager.m_BossOnlyState) {
-            m_Player = Instantiate(m_Player, m_SpawnPoint, Quaternion.identity);
+        if (m_SystemManager.SpawnAtSpawnPointCondition()) {
+            m_Player = Instantiate(m_PlayerPrefab, m_SpawnPoint, Quaternion.identity);
         }
         else {
-            m_Player = Instantiate(m_Player, new Vector3(0f, m_RevivePositionY/256, Depth.PLAYER), Quaternion.identity);
+            m_Player = Instantiate(m_PlayerPrefab, new Vector3(0f, m_RevivePositionY/256, Depth.PLAYER), Quaternion.identity);
         }
         m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
         m_PlayerController = m_Player.GetComponent<PlayerController>();
 
-        if (m_SystemManager.m_BossOnlyState) {
+        if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING) {
+            int power;
             switch(m_SystemManager.GetCurrentStage()) {
                 case 0:
-                    m_PlayerShooter.PowerSet(2);
-                    break;
-                default:
-                    m_PlayerShooter.PowerSet(4);
-                    break;
-            }
-        }
-        else {
-            switch(m_SystemManager.GetCurrentStage()) {
-                case 0:
+                    if (m_SystemManager.m_TrainingInfo.m_BossOnly) {
+                        power = 2;
+                    }
+                    else {
+                        power = 0;
+                    }
                     break;
                 case 1:
-                    m_PlayerShooter.PowerSet(2);
+                    if (m_SystemManager.m_TrainingInfo.m_BossOnly) {
+                        power = 4;
+                    }
+                    else {
+                        power = 2;
+                    }
                     break;
                 default:
-                    m_PlayerShooter.PowerSet(4);
+                    power = 4;
                     break;
             }
+            m_PlayerShooter.PowerSet(power);
         }
     }
 
@@ -148,7 +159,6 @@ public class PlayerManager : MonoBehaviour
         }
         m_PlayerShooter.m_ShotLevel -= item_num;
     }
-
     
     private IEnumerator RevivePlayer() {
         yield return new WaitForMillisecondFrames(REVIVE_DELAY);
@@ -156,5 +166,16 @@ public class PlayerManager : MonoBehaviour
         m_PlayerIsAlive = true;
         m_Player.SetActive(true);
         yield break;
+    }
+
+    public Vector3 GetPlayerPosition() {
+        if (m_Player == null) {
+            return new Vector3(0f, m_RevivePositionY, Depth.PLAYER);
+        }
+        return m_Player.transform.position;
+    }
+
+    public void DestroyPlayer() {
+        Destroy(m_Player);
     }
 }

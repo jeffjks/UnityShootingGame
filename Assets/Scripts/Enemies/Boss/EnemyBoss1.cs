@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // 파괴 후 Quaternion.identity 상태로 돌아가는 용도
 
-public class EnemyBoss1 : EnemyUnit
+public class EnemyBoss1 : EnemyBoss
 {
     public EnemyBoss1Turret0 m_Turret0;
     public EnemyBoss1Turret1[] m_Turret1 = new EnemyBoss1Turret1[2];
@@ -257,7 +257,7 @@ public class EnemyBoss1 : EnemyUnit
         m_Turret2[1].StopPattern();
         yield return new WaitForMillisecondFrames(1700);
         m_Turret0.StartPattern(1);
-        if (m_SystemManager.m_Difficulty <= 1)
+        if (m_SystemManager.GetDifficulty() <= 1)
             yield return new WaitForMillisecondFrames(3000);
 
         m_InPattern = false;
@@ -275,11 +275,11 @@ public class EnemyBoss1 : EnemyUnit
         pos = m_FirePosition[random_value].position;
         for (int i = 0; i < 2; i++) {
             random_dir = Random.Range(0f, 360f);
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 15, 24f);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 20, 18f);
                 CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
@@ -311,16 +311,16 @@ public class EnemyBoss1 : EnemyUnit
         m_InPattern = true;
         yield return new WaitForMillisecondFrames(1000);
         
-        for (int i = 0; i < fire_number[m_SystemManager.m_Difficulty]; i++) {
+        for (int i = 0; i < fire_number[m_SystemManager.GetDifficulty()]; i++) {
             pos1 = m_FirePosition[2].position;
             pos2 = m_FirePosition[3].position;
-            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.m_Player.transform.position);
-            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.m_Player.transform.position);
+            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.GetPlayerPosition());
+            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.GetPlayerPosition());
             
             CreateBullet(4, pos1, 4.8f, target_angle1 + Random.Range(-52f, 52f), accel);
             CreateBullet(4, pos2, 4.8f, target_angle2 + Random.Range(-52f, 52f), accel);
                 
-            yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.GetDifficulty()]);
         }
         yield return new WaitForMillisecondFrames(500);
 
@@ -333,7 +333,7 @@ public class EnemyBoss1 : EnemyUnit
         int random_value;
         m_InPattern = true;
         int difficulty_timer = 0;
-        if (m_SystemManager.m_Difficulty == 0)
+        if (m_SystemManager.GetDifficulty() == 0)
             difficulty_timer = 400;
         
         m_Turret0.StartPattern(2);
@@ -398,7 +398,7 @@ public class EnemyBoss1 : EnemyUnit
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
-        Destroy(gameObject);
+        BossDestroyed();
         yield break;
     }
 

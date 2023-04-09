@@ -48,14 +48,14 @@ public class EnemyShipMedium1 : EnemyUnit
         while(true) {
             for (int i = 0; i < 2; i++) {
                 pos[i] = GetScreenPosition(m_FirePosition[i+5].position);
-                if (m_SystemManager.m_Difficulty == 0)
+                if (m_SystemManager.GetDifficulty() == 0)
                     CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 12, 30f);
-                else if (m_SystemManager.m_Difficulty == 1)
+                else if (m_SystemManager.GetDifficulty() == 1)
                     CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 24, 15f);
                 else
                     CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 30, 12f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 

@@ -36,7 +36,7 @@ public class EnemyTankMedium3 : EnemyUnit
             pos[1] = GetScreenPosition(m_FirePosition[1].position);
             CreateBullet(4, pos[0], 5.2f, m_Direction, accel);
             CreateBullet(4, pos[1], 5.2f, m_Direction + 180f, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 }

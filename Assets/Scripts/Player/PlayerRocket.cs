@@ -9,8 +9,8 @@ public class PlayerRocket : PlayerMissile
     public float m_Accel;
     private float m_CurrentSpeed;
 
-    protected override void OnStart()
-    {
+    public override void OnStart() {
+        base.OnStart();
         m_CurrentSpeed = m_Speed;
         m_Vector2 = Vector2Int.up * (int) m_CurrentSpeed;
     }

@@ -8,12 +8,12 @@ public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효�
     [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;
 
-    private GameManager m_GameManager = null;
+    private SystemManager m_SystemManager = null;
 
     private float m_Delta;
 
     void Start() {
-        m_GameManager = GameManager.instance_gm;
+        m_SystemManager = SystemManager.instance_sm;
     }
     
     void Update()
@@ -25,8 +25,8 @@ public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효�
         }
         else {
             m_MainMenuMusicController.StopAllMusic();
-            if (m_GameManager.m_TrainingState) {
-                SceneManager.LoadScene("Stage" + (m_GameManager.m_TrainingInfo.m_Stage + 1));
+            if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING) {
+                SceneManager.LoadScene("Stage" + (m_SystemManager.m_TrainingInfo.m_Stage + 1));
             }
             else {
                 SceneManager.LoadScene("Stage1");

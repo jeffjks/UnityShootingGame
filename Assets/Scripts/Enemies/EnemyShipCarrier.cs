@@ -44,7 +44,7 @@ public class EnemyShipCarrier : EnemyUnit
         Vector3[] pos = new Vector3[3];
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             while(true) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 2, 180f);
@@ -52,7 +52,7 @@ public class EnemyShipCarrier : EnemyUnit
             }
 
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             while(true) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 3, 120f);
@@ -73,7 +73,7 @@ public class EnemyShipCarrier : EnemyUnit
         Vector3[] pos = new Vector3[3];
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             while(true) {
                 pos[1] = GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = GetScreenPosition(m_FirePosition[2].position);
@@ -83,7 +83,7 @@ public class EnemyShipCarrier : EnemyUnit
             }
 
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             while(true) {
                 pos[1] = GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = GetScreenPosition(m_FirePosition[2].position);

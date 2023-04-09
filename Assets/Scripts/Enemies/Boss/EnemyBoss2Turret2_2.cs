@@ -29,7 +29,7 @@ public class EnemyBoss2Turret2_2 : EnemyUnit
             CreateBullet(5, pos1, 7.3f, m_CurrentAngle, accel);
             CreateBullet(5, pos2, 7.6f, m_CurrentAngle, accel);
             CreateBullet(5, pos3, 7.3f, m_CurrentAngle, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 }

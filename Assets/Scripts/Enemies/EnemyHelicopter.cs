@@ -63,8 +63,8 @@ public class EnemyHelicopter : HasTargetPosition
             float[] speed = {7f, 8.3f, 8.3f};
             
             EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-            CreateBullet(1, pos, speed[m_SystemManager.m_Difficulty], m_CurrentAngle, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            CreateBullet(1, pos, speed[m_SystemManager.GetDifficulty()], m_CurrentAngle, accel);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
         yield break;
     }

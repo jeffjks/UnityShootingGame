@@ -51,10 +51,10 @@ public class EnemyBoss1Turret1 : EnemyUnit
         int random_value = Random.Range(0, 2);
         pos = m_FirePosition.position;
 
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 5, 16f);
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             if (random_value == 0) {
                 CreateBulletsSector(3, pos, 6.6f, m_CurrentAngle - 1.2f, accel, 7, 12f);
                 CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 7, 12f);
@@ -91,7 +91,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
         Vector3 pos;
         int random_value = Random.Range(0, 2);
 
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.1f, m_CurrentAngle, accel, 3, 25f);
             yield return new WaitForMillisecondFrames(540);
@@ -99,7 +99,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
             CreateBulletsSector(1, pos, 6.1f, m_CurrentAngle, accel, 3, 25f);
             yield return new WaitForMillisecondFrames(540);
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
             yield return new WaitForMillisecondFrames(270);
@@ -144,11 +144,11 @@ public class EnemyBoss1Turret1 : EnemyUnit
         Vector3 pos;
 
         for (int i = 0; i < 2; i++) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 pos = m_FirePosition.position;
                 CreateBullet(2, pos, 6f, 0f, accel);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 pos = m_FirePosition.position;
                 CreateBullet(2, pos, 5.5f, 0f, accel);
                 CreateBullet(2, pos, 6.6f, 0f, accel);

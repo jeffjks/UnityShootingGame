@@ -53,7 +53,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
         EnemyBulletAccel accel3 = new EnemyBulletAccel(7.4f, 800);
 
         while(true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 m_State = 1;
                 for (int i = 0; i < 7; i++) {
                     pos[0] = GetScreenPosition(m_FirePosition[0].position);
@@ -86,7 +86,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 yield return new WaitForMillisecondFrames(900);
             }
 
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 m_State = 1;
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 5; j++) {

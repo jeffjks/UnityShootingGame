@@ -26,8 +26,9 @@ public abstract class GameUI : MonoBehaviour {
     protected Text[] m_Text;
     protected AudioSource[] m_AudioSource = new AudioSource[2];
 
-    protected PlayerManager m_PlayerManager = null;
     protected GameManager m_GameManager = null;
+    protected PlayerManager m_PlayerManager = null;
+    protected SystemManager m_SystemManager = null;
 
     void Awake()
     {
@@ -49,6 +50,7 @@ public abstract class GameUI : MonoBehaviour {
 
         m_GameManager = GameManager.instance_gm;
         m_PlayerManager = PlayerManager.instance_pm;
+        m_SystemManager = SystemManager.instance_sm;
     }
 
     protected void FindAudioSource() {
@@ -57,7 +59,7 @@ public abstract class GameUI : MonoBehaviour {
         m_AudioSource[1] = obj.GetComponents<AudioSource>()[1];
     }
 
-    protected void MoveCursorVertical(int move) {
+    protected virtual void MoveCursorVertical(int move) {
         if (move != 0) {
             if (!m_isVerticalAxisInUse) {
                 m_Selection -= move;

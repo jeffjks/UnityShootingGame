@@ -40,7 +40,7 @@ public class PlayerLaserAura : PlayerDamageUnit
         }
     }
 
-    public override void OnDeath() {
+    private void OnDeath() {
         Destroy(gameObject);
     }
 }

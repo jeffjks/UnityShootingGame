@@ -10,8 +10,8 @@ public class PlayerShot : PlayerMissile
         SetPosition();
     }
 
-    protected override void OnStart()
-    {
+    public override void OnStart() {
+        base.OnStart();
         m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
     }
 }

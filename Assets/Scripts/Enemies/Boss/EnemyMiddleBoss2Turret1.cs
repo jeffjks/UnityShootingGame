@@ -8,7 +8,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     private int[] m_FireDelay = { 2000, 1500, 1250 };
     
     private IEnumerator m_CurrentPattern;
-    private uint m_KillScore;
+    private int m_KillScore;
 
     void Start()
     {
@@ -38,13 +38,13 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
         yield return new WaitForMillisecondFrames(2500);
 
         while (true) {
-            if (m_SystemManager.m_Difficulty == 0) {
+            if (m_SystemManager.GetDifficulty() == 0) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                 CreateBullet(1, pos1, 5.5f, m_CurrentAngle, accel);
                 CreateBullet(1, pos2, 5.5f, m_CurrentAngle, accel);
             }
-            else if (m_SystemManager.m_Difficulty == 1) {
+            else if (m_SystemManager.GetDifficulty() == 1) {
                 for (int i = 0; i < 4; i++) {
                     pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                     pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
@@ -63,7 +63,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
                 }
             }
             
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
 

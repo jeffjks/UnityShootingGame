@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class EndingCredit : MonoBehaviour
 {
+    public GameObject m_RegisterRecordMenu;
+    public SpriteRenderer m_SpriteRenderer;
     public Text[] m_EndingScroll = new Text[2];
     public AudioSource m_AudioEnding;
     [Space(10)]
@@ -16,17 +18,16 @@ public class EndingCredit : MonoBehaviour
     private int m_Language;
     private float m_Scale;
     private bool m_Quitting = false;
-
-    private SystemManager m_SystemManager = null;
+    
     private GameManager m_GameManager = null;
 
     void Start()
     {
-        m_SystemManager = SystemManager.instance_sm;
+        //m_SystemManager = SystemManager.instance_sm;
         m_GameManager = GameManager.instance_gm;
-        transform.position = new Vector3(transform.position.x, transform.position.y, Depth.CAMERA);
-        m_SystemManager.SetCurrentStage(5);
-        m_SystemManager.m_PlayState = 3;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, Depth.CAMERA);
+        //m_SystemManager.SetCurrentStage(5);
+        //m_SystemManager.m_PlayState = 3;
 
         for (int i = 0; i < m_EndingScroll.Length; i++) {
             m_EndingScroll[i].text = m_EndingText[i] + "\nver " + Application.version + "\n" + m_Date;
@@ -48,7 +49,7 @@ public class EndingCredit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (!m_Quitting)
-                StartCoroutine(QuitEnding(0f));
+                StartCoroutine(QuitEnding());
         }
         
         if (m_EndingScroll[m_Language].rectTransform.anchoredPosition.y < Size.CAMERA_HEIGHT*0.5f + m_EndingScroll[m_Language].preferredHeight*m_Scale) {
@@ -62,23 +63,35 @@ public class EndingCredit : MonoBehaviour
         else {
             m_ScrollSpeed = 0f;
             if (!m_Quitting)
-                StartCoroutine(QuitEnding(5f));
+                StartCoroutine(QuitEnding());
         }
         
         Vector3 pos = m_EndingScroll[m_Language].rectTransform.anchoredPosition;
         m_EndingScroll[m_Language].rectTransform.anchoredPosition = new Vector3(pos.x, pos.y + m_ScrollSpeed*Time.deltaTime, pos.z);
     }
 
-    private IEnumerator QuitEnding(float duration) {
+    private IEnumerator QuitEnding() {
         m_Quitting = true;
-        yield return new WaitForSeconds(duration);
+        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
+        Debug.Log("Quitting");
 
+        m_SpriteRenderer.DOFade(1f, 2f);
         m_AudioEnding.DOFade(0f, 2f);
-        m_SystemManager.ScreenEffect(3); // FadeIn
-        yield return new WaitForSeconds(2.5f);
-        DOTween.Kill(m_AudioEnding);
+        yield return new WaitForSeconds(3f);
+        
+        /*
+        float alpha = 0f;
+        while (alpha < 1f) {
+            alpha += 0.3f * Time.deltaTime;
+            m_SpriteRenderer.color = new Color(0f, 0f, 0f, alpha);
+            m_AudioEnding.volume = alpha;
+            yield return null;
+        }*/
+        
+        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
         m_AudioEnding.Stop();
-        m_SystemManager.QuitGame();
+        m_RegisterRecordMenu.SetActive(true);
+        gameObject.SetActive(false);
         yield break;
     }
 }

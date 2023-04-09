@@ -95,8 +95,8 @@ public class EnemyItemHeli : EnemyUnit {
 
             pos1 = m_FirePosition[0].position;
             pos2 = m_FirePosition[1].position;
-            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.m_Player.transform.position);
-            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.m_Player.transform.position);
+            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.GetPlayerPosition());
+            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.GetPlayerPosition());
 
             for (int i = 0; i < 3; i++) {
                 pos1 = m_FirePosition[0].position;
@@ -105,7 +105,7 @@ public class EnemyItemHeli : EnemyUnit {
                 CreateBullet(1, pos2, 5.4f, target_angle2 + random_value, accel);
                 yield return new WaitForMillisecondFrames(80);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.m_Difficulty]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
         yield break;
     }

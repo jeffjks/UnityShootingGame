@@ -21,7 +21,7 @@ public class PlayerStart : MonoBehaviour
         m_PlayerController.DisableInvincible();
         SetAttributes();
 
-        if (m_SystemManager.GetCurrentStage() == 0 && !m_SystemManager.m_BossOnlyState) {
+        if (m_SystemManager.SpawnAtSpawnPointCondition()) {
             StartCoroutine(SpawnEvent());
         }
         else if (m_SystemManager.GetCurrentStage() == 5) {

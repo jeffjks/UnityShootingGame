@@ -12,7 +12,7 @@ public class RankingMenuHandler : GameUI
 
     void OnEnable() {
         m_MainLogo.SetActive(false);
-        m_DifficultyText[m_GameManager.m_Difficulty].SetActive(true);
+        m_DifficultyText[m_SystemManager.GetDifficulty()].SetActive(true);
     }
 
     void Update()
@@ -56,7 +56,7 @@ public class RankingMenuHandler : GameUI
         if (m_NetworkDisplayRankingScore.m_Active) {
             m_MainLogo.SetActive(true);
             m_PreviousMenu.SetActive(true);
-            m_DifficultyText[m_GameManager.m_Difficulty].SetActive(false);
+            m_DifficultyText[m_SystemManager.GetDifficulty()].SetActive(false);
             CancelSound();
             m_RankingMenu.SetActive(false);
         }

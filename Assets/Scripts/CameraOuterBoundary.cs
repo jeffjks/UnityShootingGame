@@ -18,8 +18,6 @@ public class CameraOuterBoundary : MonoBehaviour
         }
     #endif
 
-    public PoolingManager m_PreviewPoolingManager;
-
     private PoolingManager m_PoolingManager = null;
 
     void Start()
@@ -32,10 +30,7 @@ public class CameraOuterBoundary : MonoBehaviour
         if (other.CompareTag("PlayerMissile")) {
             if (other.gameObject.activeSelf) {
                 PlayerMissile playerMissile = other.gameObject.GetComponent<PlayerMissile>();
-                if (m_PreviewPoolingManager == null) // 일반
-                    m_PoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
-                else // 프리뷰일때
-                    m_PreviewPoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject);
+                m_PoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
             }
         }
     }

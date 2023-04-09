@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4083546532811268107}
   - component: {fileID: 8454467576277908228}
   m_Layer: 10
-  m_Name: EnemyBossTrue
+  m_Name: EnemyBossFinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_IsUnattackable: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 12500
+  m_Health: 125000
   m_Class: 2
   m_Score: 150000
   m_Debris: 0

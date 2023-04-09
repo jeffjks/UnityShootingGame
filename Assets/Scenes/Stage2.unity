@@ -174,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 63751299}
   - component: {fileID: 63751300}
+  - component: {fileID: 63751301}
   m_Layer: 12
   m_Name: GroundEnemySpawner (2)
   m_TagString: Untagged
@@ -237,13 +238,30 @@ MonoBehaviour:
   m_RemoveTimer: 25000
   m_MovePattern:
   - delay: 2700
-    direction: 90
     speed: 8739
-    time: 16
+    direction: 90
     duration: 16000
   m_ActivateTime: 50000
   m_DeactivateTime: 90000
   m_AttackableTimer: 0
+--- !u!114 &63751301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63751298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 63751300}
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
+  m_SpawnPeriod_Normal: 3000
+  m_SpawnPeriod_Expert: 2500
 --- !u!1 &84663665
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +293,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &84663667
 AudioSource:
@@ -1007,6 +1025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 840666687}
   - component: {fileID: 840666688}
+  - component: {fileID: 840666689}
   m_Layer: 12
   m_Name: GroundEnemySpawner (3)
   m_TagString: Untagged
@@ -1071,13 +1090,30 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 0
-    direction: 225
     speed: 8739
-    time: 13.5
+    direction: 225
     duration: 13500
   m_ActivateTime: 55000
   m_DeactivateTime: 95000
   m_AttackableTimer: 0
+--- !u!114 &840666689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840666686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 840666688}
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
+  m_SpawnPeriod_Normal: 3000
+  m_SpawnPeriod_Expert: 2500
 --- !u!1 &845341422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,6 +1124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 845341423}
   - component: {fileID: 845341424}
+  - component: {fileID: 845341425}
   m_Layer: 12
   m_Name: GroundEnemySpawner (4) H
   m_TagString: Untagged
@@ -1151,13 +1188,30 @@ MonoBehaviour:
   m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 0
-    direction: 225
     speed: 8739
-    time: 12.5
+    direction: 225
     duration: 12500
   m_ActivateTime: 55000
   m_DeactivateTime: 95000
   m_AttackableTimer: 0
+--- !u!114 &845341425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845341422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 845341424}
+  m_Normal: 0
+  m_Expert: 0
+  m_Hell: 1
+  m_SpawnPeriod_Normal: 0
+  m_SpawnPeriod_Expert: 0
 --- !u!1 &882221969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,87 +1463,8 @@ Transform:
   - {fileID: 56318472}
   - {fileID: 1051499666}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1048260163
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5824299595195028254, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_Name
-      value: Play Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_CurrentAttributes.m_ShotDamage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5824299595195028251, guid: 55eee244c70d8de4ea8bc30e93c1f075,
-        type: 3}
-      propertyPath: m_CurrentAttributes.m_LaserDamage
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 55eee244c70d8de4ea8bc30e93c1f075, type: 3}
 --- !u!1 &1051499665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +1506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1114189362}
   - component: {fileID: 1114189363}
+  - component: {fileID: 1114189364}
   m_Layer: 12
   m_Name: GroundEnemySpawner (4) E
   m_TagString: Untagged
@@ -1595,13 +1571,30 @@ MonoBehaviour:
   m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 0
-    direction: 225
     speed: 8739
-    time: 12.5
+    direction: 225
     duration: 12500
   m_ActivateTime: 55000
   m_DeactivateTime: 95000
   m_AttackableTimer: 0
+--- !u!114 &1114189364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114189361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 1114189363}
+  m_Normal: 0
+  m_Expert: 1
+  m_Hell: 0
+  m_SpawnPeriod_Normal: 0
+  m_SpawnPeriod_Expert: 2500
 --- !u!1 &1150961309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,7 +2329,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 65.995, y: -34.708, z: -15.435}
 --- !u!1 &1752659206
 GameObject:
@@ -2596,6 +2589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1915044467}
   - component: {fileID: 1915044468}
+  - component: {fileID: 1915044469}
   m_Layer: 12
   m_Name: GroundEnemySpawner (4) N
   m_TagString: Untagged
@@ -2659,13 +2653,30 @@ MonoBehaviour:
   m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 0
-    direction: 225
     speed: 8739
-    time: 12.5
+    direction: 225
     duration: 12500
   m_ActivateTime: 55000
   m_DeactivateTime: 95000
   m_AttackableTimer: 0
+--- !u!114 &1915044469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915044466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 1915044468}
+  m_Normal: 1
+  m_Expert: 0
+  m_Hell: 0
+  m_SpawnPeriod_Normal: 3000
+  m_SpawnPeriod_Expert: 0
 --- !u!1001 &1934945172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2923,6 +2934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6345367217902060088}
   - component: {fileID: 7766424090260131985}
+  - component: {fileID: 6964040497571365834}
   m_Layer: 12
   m_Name: GroundEnemySpawner (1)
   m_TagString: Untagged
@@ -2930,6 +2942,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6964040497571365834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964040497571365833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroundEnemySpawner: {fileID: 7766424090260131985}
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
+  m_SpawnPeriod_Normal: 3000
+  m_SpawnPeriod_Expert: 2500
 --- !u!114 &7766424090260131985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2972,9 +3002,8 @@ MonoBehaviour:
   m_RemoveTimer: 25000
   m_MovePattern:
   - delay: 2700
-    direction: 90
     speed: 8739
-    time: 17
+    direction: 90
     duration: 17000
   m_ActivateTime: 50000
   m_DeactivateTime: 90000

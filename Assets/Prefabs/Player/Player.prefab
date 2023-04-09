@@ -224,7 +224,7 @@ MonoBehaviour:
     max_delay: 200
     min_delay: 100
   m_ShotLevel: 0
-  m_Bomb: {fileID: 326518355052496239}
+  m_PlayerBomb: {fileID: 6111885098663511829}
 --- !u!114 &8307539106445049873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,14 +271,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1954595202432290312}
   - component: {fileID: 6111885098663511829}
-  - component: {fileID: 7963353228002576583}
+  - component: {fileID: 7368603228215988084}
   m_Layer: 17
   m_Name: PlayerBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1954595202432290312
 Transform:
   m_ObjectHideFlags: 0
@@ -312,7 +312,8 @@ MonoBehaviour:
   m_Explosion: {fileID: 5821700732624137276}
   m_BombDamage: {fileID: 2499528662172049001}
   m_ParticleSystem: {fileID: 1345537461174604244}
---- !u!82 &7963353228002576583
+  m_AudioSource: {fileID: 7368603228215988084}
+--- !u!82 &7368603228215988084
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,7 +325,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7980947931491538441, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: fd30842501f9bb649909b37cc853e37f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -15396,7 +15397,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -896229471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: 4491126537898163779, guid: 62c81c833afca4e4286c0a3179db6754,
     type: 3}
@@ -15629,7 +15630,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.3137255}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.3764706}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.92156863, b: 0.827451, a: 1}
@@ -25414,10 +25415,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6035333292195156775, guid: 066192e0fb677da4b99442b4d00352db,
+    - target: {fileID: 4267497874232376159, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
-      propertyPath: m_Name
-      value: LaserFireLightProbe
+      propertyPath: m_Collider2D
+      value: 
+      objectReference: {fileID: 974334678537095994}
+    - target: {fileID: 4267497874232376159, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_LaserShooter
+      value: 
+      objectReference: {fileID: 7821621456662169798}
+    - target: {fileID: 4267497874232376159, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_PlayerShooter
+      value: 
+      objectReference: {fileID: 2578485289581655077}
+    - target: {fileID: 4251991824945596987, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1297460173
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251991824945596987, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 879215585171122210, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_Collider2D
+      value: 
+      objectReference: {fileID: 974334678537095994}
+    - target: {fileID: 879215585171122210, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_LaserShooter
+      value: 
+      objectReference: {fileID: 7821621456662169798}
+    - target: {fileID: 879215585171122210, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_PlayerShooter
+      value: 
+      objectReference: {fileID: 2578485289581655077}
+    - target: {fileID: 867097285783480230, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1297460173
+      objectReference: {fileID: 0}
+    - target: {fileID: 867097285783480230, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693229303636649497, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1297460173
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693229303636649497, guid: 066192e0fb677da4b99442b4d00352db,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6691510677851082871, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
@@ -25434,42 +25490,17 @@ PrefabInstance:
       propertyPath: m_PlayerShooter
       value: 
       objectReference: {fileID: 2578485289581655077}
-    - target: {fileID: 4267497874232376159, guid: 066192e0fb677da4b99442b4d00352db,
+    - target: {fileID: 6035333292195156775, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
-      propertyPath: m_Collider2D
-      value: 
-      objectReference: {fileID: 974334678537095994}
-    - target: {fileID: 4267497874232376159, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LaserShooter
-      value: 
-      objectReference: {fileID: 7821621456662169798}
-    - target: {fileID: 4267497874232376159, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_PlayerShooter
-      value: 
-      objectReference: {fileID: 2578485289581655077}
-    - target: {fileID: 879215585171122210, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_Collider2D
-      value: 
-      objectReference: {fileID: 974334678537095994}
-    - target: {fileID: 879215585171122210, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LaserShooter
-      value: 
-      objectReference: {fileID: 7821621456662169798}
-    - target: {fileID: 879215585171122210, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_PlayerShooter
-      value: 
-      objectReference: {fileID: 2578485289581655077}
-    - target: {fileID: 7876806086751633021, guid: 066192e0fb677da4b99442b4d00352db,
+      propertyPath: m_Name
+      value: LaserFireLightProbe
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387938694964648131, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerLaser
       value: 
       objectReference: {fileID: 4001119468438000080}
-    - target: {fileID: 7876806086751633021, guid: 066192e0fb677da4b99442b4d00352db,
+    - target: {fileID: 4387938694964648131, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerController
       value: 
@@ -25484,12 +25515,12 @@ PrefabInstance:
       propertyPath: m_PlayerController
       value: 
       objectReference: {fileID: 8957610443518793960}
-    - target: {fileID: 4387938694964648131, guid: 066192e0fb677da4b99442b4d00352db,
+    - target: {fileID: 7876806086751633021, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerLaser
       value: 
       objectReference: {fileID: 4001119468438000080}
-    - target: {fileID: 4387938694964648131, guid: 066192e0fb677da4b99442b4d00352db,
+    - target: {fileID: 7876806086751633021, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerController
       value: 

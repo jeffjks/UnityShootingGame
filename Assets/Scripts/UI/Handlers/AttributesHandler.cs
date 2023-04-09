@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.UI;
 
-
 public class AttributesHandler : AttributeSelectButtonUI
 {
     public AttributesSelectHandler m_SelectAttributesHandler;
@@ -22,6 +21,9 @@ public class AttributesHandler : AttributeSelectButtonUI
         m_Enable = true;
         SetPreviewDesign();
         m_MainLogo.SetActive(false);
+
+        m_TargetY = m_Selection*60+m_DefaultY;
+        m_RectTransform.localPosition = new Vector2(m_RectTransform.localPosition[0], m_TargetY);
     }
 
     void Update()
@@ -53,10 +55,10 @@ public class AttributesHandler : AttributeSelectButtonUI
     private void CheckInput() {
 
         if (Input.GetButtonDown("Fire1")) {
-            if (m_Selection < 7) {
+            if (m_Selection < m_DetailsPanels.Length) {
                 SelectDetails(m_Selection);
             }
-            else if (m_Selection == 7) {
+            else if (m_Selection == m_DetailsPanels.Length) {
                 Complete();
             }
         }
@@ -68,10 +70,11 @@ public class AttributesHandler : AttributeSelectButtonUI
             Back();
     }
 
-    private void SetPosition() {
+    private void SetPosition() { // m_RectTransform.localPosition.y를 m_TargetY 값으로
         m_TargetY = m_Selection*60+m_DefaultY;
-        float y_value = Mathf.SmoothDamp(m_RectTransform.localPosition[1], m_TargetY, ref m_yVelocity, 0.1f);
-        m_RectTransform.localPosition = new Vector2(m_RectTransform.localPosition[0], y_value);
+        float y_value = Mathf.SmoothDamp(m_RectTransform.localPosition.y, m_TargetY, ref m_yVelocity, 0.1f);
+        //m_RectTransform.transform.DOLocalMoveY(m_TargetY, 0.1f).SetEase(Ease.InOutQuad);
+        m_RectTransform.localPosition = new Vector3(m_RectTransform.localPosition.x, y_value, m_RectTransform.localPosition.z);
     }
 
     private void SelectDetails(int num) {
@@ -81,7 +84,7 @@ public class AttributesHandler : AttributeSelectButtonUI
             m_SelectAttributesHandler.m_State = 2;
             m_Enable = false;
             m_RectTransform.localPosition = new Vector2(m_RectTransform.localPosition[0], m_TargetY);
-            m_yVelocity = 0f;
+            //m_yVelocity = 0f;
             gameObject.SetActive(false);
         } catch {
             return;

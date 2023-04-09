@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerShooter : PlayerShooterManager
 {
-    public GameObject m_Bomb = null;
+    public PlayerBomb m_PlayerBomb;
 
     private AudioSource m_AudioSource;
     private Transform m_MainCamera;
     private int m_ShotKeyPressFrame;
-    private bool m_ShotKeyPrevious = false, m_BombEnable = true, m_NowShooting;
+    private bool m_ShotKeyPrevious = false, m_NowShooting;
     private int m_AutoShot, m_ShotKeyPress = 0, m_BombKeyPress = 0;
     
     private PlayerManager m_PlayerManager = null;
@@ -57,7 +57,7 @@ public class PlayerShooter : PlayerShooterManager
         if (Time.timeScale == 0)
             return;
             
-        if (!m_SystemManager.m_ReplayState) {
+        if (m_SystemManager.m_GameType != GameType.GAMETYPE_REPLAY) {
             if (Input.GetButton("Fire1")) {
                 m_ShotKeyPress = 1; // 버튼 누를시 m_ShotKeyPressFrame 증가
             }
@@ -123,29 +123,24 @@ public class PlayerShooter : PlayerShooterManager
         }
 
         if (m_BombKeyPress == 1) {
-            if (m_SystemManager.GetBombNumber() > 0) {
-                if (m_BombEnable) {
-                    if (!m_Bomb.activeSelf) {
-                        UseBomb();
-                    }
-                }
-            }
+            BombKeyPressed();
         }
     }
 
-    private void UseBomb() {
+    private void BombKeyPressed() {
+        if (m_SystemManager.GetBombNumber() <= 0) {
+            return;
+        }
+        if (!m_PlayerBomb.GetEnableState()) {
+            return;
+        }
+        if (m_SystemManager.m_PlayState >= 2) {
+            return;
+        }
         Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
         ((PlayerController) m_PlayerController).EnableInvincible(4000);
-        m_Bomb.SetActive(true);
-        m_BombEnable = false;
+        m_PlayerBomb.UseBomb();
         m_SystemManager.SetBombNumber(-1);
-        StartCoroutine(EnableBomb()); // 폭탄 쿨타임
-    }
-
-    private IEnumerator EnableBomb() {
-        yield return new WaitForMillisecondFrames(3000);
-        m_BombEnable = true;
-        yield break;
     }
     
     void OnEnable()
@@ -201,6 +196,7 @@ public class PlayerShooter : PlayerShooterManager
             obj.transform.rotation = rot;
             playerMissile.m_DamageLevel = type;
             obj.SetActive(true);
+            playerMissile.OnStart();
         }
     }
 

@@ -31,7 +31,7 @@ public class PlayerBombDamage : PlayerDamageUnit
         yield break;
     }
 
-    public override void OnDeath() {
+    private void OnDeath() {
         gameObject.SetActive(false);
     }
 }

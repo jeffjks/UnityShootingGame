@@ -34,7 +34,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
         Vector3[] pos = new Vector3[2];
         float factor;
 
-        if (m_SystemManager.m_Difficulty == 0) {
+        if (m_SystemManager.GetDifficulty() == 0) {
             while(true) {
                 factor = SpeedOval(m_CurrentAngle);
                 pos[0] = m_FirePosition[0].position;
@@ -44,7 +44,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
                 yield return new WaitForMillisecondFrames(160);
             }
         }
-        else if (m_SystemManager.m_Difficulty == 1) {
+        else if (m_SystemManager.GetDifficulty() == 1) {
             while(true) {
                 factor = SpeedOval(m_CurrentAngle);
                 pos[0] = m_FirePosition[0].position;

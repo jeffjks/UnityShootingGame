@@ -15,9 +15,9 @@ public class EnemyBoss1 : EnemyBoss
     [HideInInspector] public int m_Phase;
 
     private Vector3[] m_TargetPosition = new Vector3[2];
-    private Quaternion[] m_TargetQuaternion = new Quaternion[2];
-    private Quaternion m_QuaternionTurnRight, m_QuaternionTurnLeft;
-    private const int APPEARNCE_TIME = 2000;
+    private const int APPEARANCE_TIME = 2000;
+    private const float APPEARANCE_TILT_MAX = 20f;
+    private const float TILT_MAX = 15f;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern, m_CurrentMovement;
     private bool m_InPattern = false;
@@ -29,11 +29,6 @@ public class EnemyBoss1 : EnemyBoss
         m_TargetPosition[1] = new Vector3(0f, -5f, Depth.ENEMY);
 
         transform.rotation = Quaternion.Euler(0f, -35f, 0f);
-        m_TargetQuaternion[0] = Quaternion.Euler(0f, 20f, 0f);
-        m_TargetQuaternion[1] = Quaternion.identity;
-
-        m_QuaternionTurnRight = Quaternion.Euler(0f, -15f, 0f);
-        m_QuaternionTurnLeft = Quaternion.Euler(0f, 15f, 0f);
 
         DisableAttackable();
         m_Part.DisableAttackable();
@@ -80,12 +75,12 @@ public class EnemyBoss1 : EnemyBoss
         float appearance_time_2 = 1f - 0.55f;
         
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveX(3f, APPEARNCE_TIME*appearance_time_1).SetEase(Ease.OutQuad))
-        .Join(transform.DOMoveY(-2f, APPEARNCE_TIME*appearance_time_1).SetEase(Ease.Linear))
-        .Join(transform.DORotateQuaternion(m_TargetQuaternion[0], APPEARNCE_TIME*appearance_time_1).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMoveX(0f, APPEARNCE_TIME*appearance_time_2).SetEase(Ease.InOutQuad))
-        .Join(transform.DOMoveY(-4.5f, APPEARNCE_TIME*appearance_time_2).SetEase(Ease.OutQuad))
-        .Join(transform.DORotateQuaternion(m_TargetQuaternion[1], APPEARNCE_TIME*appearance_time_2).SetEase(Ease.InQuad));*/
+        .Append(transform.DOMoveX(3f, APPEARANCE_TIME*appearance_time_1).SetEase(Ease.OutQuad))
+        .Join(transform.DOMoveY(-2f, APPEARANCE_TIME*appearance_time_1).SetEase(Ease.Linear))
+        .Join(transform.DORotateQuaternion(m_TargetQuaternion[0], APPEARANCE_TIME*appearance_time_1).SetEase(Ease.InOutQuad))
+        .Append(transform.DOMoveX(0f, APPEARANCE_TIME*appearance_time_2).SetEase(Ease.InOutQuad))
+        .Join(transform.DOMoveY(-4.5f, APPEARANCE_TIME*appearance_time_2).SetEase(Ease.OutQuad))
+        .Join(transform.DORotateQuaternion(Quaternion.identity, APPEARANCE_TIME*appearance_time_2).SetEase(Ease.InQuad));*/
 
         
         int frame1 = 1100 * Application.targetFrameRate / 1000;
@@ -93,6 +88,7 @@ public class EnemyBoss1 : EnemyBoss
 
         Vector3 init_vector = transform.position;
         Quaternion init_quarternion = transform.rotation;
+        Quaternion quaternion_appearanceTiltMax = Quaternion.Euler(0f, -APPEARANCE_TILT_MAX, 0f);
 
         for (int i = 0; i < frame1; ++i) {
             float t_posx = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame1);
@@ -102,7 +98,7 @@ public class EnemyBoss1 : EnemyBoss
             float position_x = Mathf.Lerp(init_vector.x, 3f, t_posx);
             float position_y = Mathf.Lerp(init_vector.y, -2f, t_posy);
             transform.position = new Vector3(position_x, position_y, transform.position.z);
-            transform.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion[0], t_rot);
+            transform.rotation = Quaternion.Lerp(init_quarternion, quaternion_appearanceTiltMax, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
 
@@ -117,7 +113,7 @@ public class EnemyBoss1 : EnemyBoss
             float position_x = Mathf.Lerp(init_vector.x, 0f, t_posx);
             float position_y = Mathf.Lerp(init_vector.y, -4.5f, t_posy);
             transform.position = new Vector3(position_x, position_y, transform.position.z);
-            transform.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion[1], t_rot);
+            transform.rotation = Quaternion.Lerp(init_quarternion, Quaternion.identity, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
         
@@ -162,6 +158,8 @@ public class EnemyBoss1 : EnemyBoss
         Vector3 init_vector;
         Vector3 target_vector;
         Quaternion init_quarternion;
+        Quaternion quaternion_rightTurn = Quaternion.Euler(0f, -TILT_MAX, 0f);
+        Quaternion quaternion_leftTurn = Quaternion.Euler(0f, TILT_MAX, 0f);
 
         yield return new WaitForMillisecondFrames(700);
 
@@ -176,7 +174,7 @@ public class EnemyBoss1 : EnemyBoss
                     float t_rot = m_AnimationCurve_Turn.Evaluate((float) (i+1) / frame);
                     
                     transform.position = Vector3.Lerp(init_vector, target_vector, t_pos);
-                    transform.rotation = Quaternion.Lerp(init_quarternion, m_QuaternionTurnRight, t_rot);
+                    transform.rotation = Quaternion.Lerp(init_quarternion, quaternion_rightTurn, t_rot);
                     //transform.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion[0], t_rot);
                     yield return new WaitForMillisecondFrames(0);
                 }
@@ -191,7 +189,7 @@ public class EnemyBoss1 : EnemyBoss
                     float t_rot = m_AnimationCurve_Turn.Evaluate((float) (i+1) / frame);
                     
                     transform.position = Vector3.Lerp(init_vector, target_vector, t_pos);
-                    transform.rotation = Quaternion.Lerp(init_quarternion, m_QuaternionTurnLeft, t_rot);
+                    transform.rotation = Quaternion.Lerp(init_quarternion, quaternion_leftTurn, t_rot);
                     //transform.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion[0], t_rot);
                     yield return new WaitForMillisecondFrames(0);
                 }

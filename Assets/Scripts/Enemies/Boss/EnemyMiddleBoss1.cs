@@ -9,7 +9,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
     private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 2000;
+    private const int APPEARANCE_TIME = 2000;
     private const int TIME_LIMIT = 17000;
 
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
@@ -65,7 +65,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
     }
 
     private IEnumerator AppearanceSequence() {
-        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         Vector3 init_vector = transform.position;
         Quaternion init_quarternion = transform.rotation;
@@ -81,8 +81,8 @@ public class EnemyMiddleBoss1 : EnemyUnit
         OnAppearanceComplete();
         
         //m_Sequence = DOTween.Sequence()
-        //.Append(transform.DOMove(m_TargetPosition, APPEARNCE_TIME).SetEase(Ease.OutQuad))
-        //.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARNCE_TIME).SetEase(Ease.InQuad));
+        //.Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad))
+        //.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARANCE_TIME).SetEase(Ease.InQuad));
         yield break;
     }
 
@@ -101,7 +101,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME + time_limit);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME + time_limit);
         m_TimeLimitState = true;
         m_UpdateTransform = false;
 

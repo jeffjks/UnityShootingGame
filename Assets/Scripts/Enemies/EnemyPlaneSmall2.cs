@@ -5,13 +5,10 @@ using UnityEngine;
 public class EnemyPlaneSmall2 : EnemyUnit
 {
     public Transform m_FirePosition;
-    public Transform m_Rotator;
     private int[] m_FireDelay = { 5000, 2100, 1200 };
 
     private bool m_TargetPlayer = true;
     private float m_Speed = 7.2f;
-    private float m_MaxTilt = 30f;
-    private float m_CurrentTilt;
 
     void Start()
     {
@@ -24,9 +21,6 @@ public class EnemyPlaneSmall2 : EnemyUnit
 
     protected override void Update()
     {
-        Vector2 previous_vector = m_MoveVector.GetVector();
-        float target_tilt;
-
         if (m_TargetPlayer) {
             float player_distance = ((Vector2) transform.position - m_PlayerPosition).magnitude;
             m_MoveVector.direction = GetAngleToTarget(m_Position2D, m_PlayerPosition);
@@ -39,22 +33,8 @@ public class EnemyPlaneSmall2 : EnemyUnit
             RotateImmediately(m_MoveVector.direction);
         else
             RotateSlightly(m_MoveVector.direction, 100f);
-
-        Vector2 after_vector = m_MoveVector.GetVector();
-        
-        if (previous_vector == after_vector)
-            target_tilt = 0;
-        else
-            target_tilt = Mathf.Sign(Vector2.SignedAngle(previous_vector, after_vector)) * m_MaxTilt;
-        m_CurrentTilt = Mathf.MoveTowards(m_CurrentTilt, target_tilt, 72f / Application.targetFrameRate * Time.timeScale);
-        
-        Turn(m_CurrentTilt);
         
         base.Update();
-    }
-
-    private void Turn(float angle) {
-        m_Rotator.localRotation = Quaternion.AngleAxis(angle, Vector3.down);
     }
 
     private IEnumerator Pattern1(int millisecond) {

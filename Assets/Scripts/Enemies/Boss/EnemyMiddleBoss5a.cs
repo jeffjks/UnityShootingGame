@@ -10,7 +10,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
     
     private Vector3 m_TargetPosition;
     private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 2500;
+    private const int APPEARANCE_TIME = 2500;
     private const int TIME_LIMIT = 38000;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
@@ -24,7 +24,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
         
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARNCE_TIME).SetEase(Ease.OutQuad));*/
+        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARANCE_TIME).SetEase(Ease.OutQuad));*/
     }
 
     protected override void Update()
@@ -51,7 +51,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
 
     private IEnumerator AppearanceSequence() {
         float init_position_y = transform.position.y;
-        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos_y = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);

@@ -95,10 +95,8 @@ public interface UseObjectPool {
 
 // ================ 적 ================ //
 
-public abstract class Enemy : MonoBehaviour { // 총알
+public abstract class Enemy : Entity { // 총알
 
-    public MoveVector m_MoveVector;
-    [HideInInspector] public Vector2 m_Position2D;
     [HideInInspector] public bool m_IsUnattackable;
 
     protected SystemManager m_SystemManager = null;

@@ -7,7 +7,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
     public EnemyPlaneMedium5Turret0 m_Turret0;
     public EnemyPlaneMedium5Turret1 m_Turret1;
     //private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 1500;
+    private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 8500;
     private IEnumerator m_TimeLimit;
     private int m_Side;
@@ -23,14 +23,14 @@ public class EnemyPlaneMedium5 : EnemyUnit
         StartCoroutine(AppearanceSequence());
 
         /*
-        DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, APPEARNCE_TIME).SetEase(Ease.OutQuad);*/
+        DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, APPEARANCE_TIME).SetEase(Ease.OutQuad);*/
     }
 
     private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(750);
 
         float init_speed = m_MoveVector.speed;
-        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);

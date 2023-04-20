@@ -5,7 +5,7 @@ using UnityEngine;
 
 // ================ 적에게 데미지를 주는 개체 ================ //
 
-public abstract class PlayerDamageUnit : MonoBehaviour
+public abstract class PlayerDamageUnit : Entity
 {
     public string m_ObjectName;
     public int m_Damage;

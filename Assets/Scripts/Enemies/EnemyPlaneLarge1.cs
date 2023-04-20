@@ -13,7 +13,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     private IEnumerator m_TimeLimit;
     private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 2800;
+    private const int APPEARANCE_TIME = 2800;
     private const int TIME_LIMIT = 20000;
     private Vector3 m_TargetPosition;
     private int m_Phase;
@@ -29,8 +29,8 @@ public class EnemyPlaneLarge1 : EnemyUnit
         StartCoroutine(AppearanceSequence());
         
         /*
-        m_Sequence.Append(transform.DOMove(m_TargetPosition, APPEARNCE_TIME).SetEase(Ease.OutQuad));
-        m_Sequence.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARNCE_TIME).SetEase(Ease.InQuad));
+        m_Sequence.Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARANCE_TIME).SetEase(Ease.InQuad));
         */
     }
 
@@ -39,7 +39,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         Quaternion init_rotation = transform.rotation;
         Quaternion target_rotation = Quaternion.identity;
 
-        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);

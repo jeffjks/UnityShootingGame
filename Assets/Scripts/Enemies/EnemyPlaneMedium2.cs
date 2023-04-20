@@ -7,7 +7,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
     public Transform[] m_FirePosition = new Transform[5];
 
     private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 1600;
+    private const int APPEARANCE_TIME = 1600;
     private const int TIME_LIMIT = 8000;
     private float m_VSpeed = 1.1f;
     private IEnumerator m_TimeLimit;
@@ -23,16 +23,16 @@ public class EnemyPlaneMedium2 : EnemyUnit
 
         /*
         m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.5f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.5f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
         m_Sequence.AppendInterval(time_limit);
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
-        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+        int frame = (APPEARANCE_TIME / 2) * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
@@ -78,7 +78,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
 
     private IEnumerator Pattern1() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
         while(!m_TimeLimitState) {
             Vector3[] pos = new Vector3[m_FirePosition.Length];
             float target_angle;
@@ -141,7 +141,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
         Vector3 pos;
         float target_angle;
 
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
         while(!m_TimeLimitState) {
             yield return new WaitForMillisecondFrames(Random.Range(0, 1500));
 

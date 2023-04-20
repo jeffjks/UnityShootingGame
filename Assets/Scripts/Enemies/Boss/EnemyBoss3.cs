@@ -14,7 +14,7 @@ public class EnemyBoss3 : EnemyBoss
     
     private Vector3 m_TargetPosition;
     private Vector3 m_DefaultScale;
-    private const int APPEARNCE_TIME = 1200;
+    private const int APPEARANCE_TIME = 1200;
     private byte m_DirectionState;
     private float m_Direction;
     private int m_RotateDirection;
@@ -107,7 +107,7 @@ public class EnemyBoss3 : EnemyBoss
         RotateImmediately(m_MoveVector.direction);
 
         float init_position_y = transform.position.y;
-        frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_posy = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);

@@ -12,7 +12,7 @@ public class EnemyBossFinal : EnemyBoss
     private int m_DirectionSide = 1;
     private float m_BulletSpeed;
     private Vector3 m_TargetPosition;
-    private const int APPEARNCE_TIME = 1600;
+    private const int APPEARANCE_TIME = 1600;
     private bool m_InPattern = false;
 
     private IEnumerator m_CurrentPhase;
@@ -35,7 +35,7 @@ public class EnemyBossFinal : EnemyBoss
     private IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
         Vector3 init_scale = transform.localScale;
-        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);

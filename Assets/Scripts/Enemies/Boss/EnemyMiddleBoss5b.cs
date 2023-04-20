@@ -13,7 +13,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     
     private Vector3 m_TargetPosition;
-    private const int APPEARNCE_TIME = 2000;
+    private const int APPEARANCE_TIME = 2000;
     private int m_Phase;
 
     void Start()
@@ -27,7 +27,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         RotateImmediately(m_PlayerPosition);
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMove(m_TargetPosition, APPEARNCE_TIME).SetEase(Ease.OutQuad))
+        .Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
@@ -45,7 +45,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         if (random_sign == 0)
             random_sign = 1;
 
-        yield return MovementPattern(m_TargetPosition, EaseType.OutQuad, APPEARNCE_TIME);
+        yield return MovementPattern(m_TargetPosition, EaseType.OutQuad, APPEARANCE_TIME);
         m_CurrentPattern1 = Pattern1();
         StartCoroutine(m_CurrentPattern1);
         

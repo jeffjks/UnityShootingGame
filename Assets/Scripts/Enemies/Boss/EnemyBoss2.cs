@@ -12,7 +12,7 @@ public class EnemyBoss2 : EnemyBoss
     [HideInInspector] public int m_Phase;
     
     private Vector3 m_TargetPosition;
-    private const int APPEARNCE_TIME = 11000;
+    private const int APPEARANCE_TIME = 11000;
     private bool m_InPattern = false;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern;
@@ -74,7 +74,7 @@ public class EnemyBoss2 : EnemyBoss
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
         OnAppearanceComplete();
         yield break;
     }

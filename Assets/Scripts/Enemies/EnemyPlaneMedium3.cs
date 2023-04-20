@@ -8,7 +8,7 @@ public class EnemyPlaneMedium3 : EnemyUnit
     private int[] m_FireDelay = { 2400, 1800, 1200 };
     
     private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 1200;
+    private const int APPEARANCE_TIME = 1200;
     private const int TIME_LIMIT = 7800;
     private float m_VSpeed = 1.2f;
     private IEnumerator m_TimeLimit;
@@ -23,16 +23,16 @@ public class EnemyPlaneMedium3 : EnemyUnit
 
         /*
         m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
         m_Sequence.AppendInterval(time_limit);
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
-        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+        int frame = (APPEARANCE_TIME / 2) * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
@@ -80,7 +80,7 @@ public class EnemyPlaneMedium3 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         float target_angle, random_value;
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME + Random.Range(-500, 500));
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME + Random.Range(-500, 500));
 
         while(!m_TimeLimitState) {
             pos = transform.position;

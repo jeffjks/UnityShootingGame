@@ -6,7 +6,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
     public Transform[] m_FirePosition = new Transform[3];
     
     private bool m_TimeLimitState = false;
-    private const int APPEARNCE_TIME = 1600;
+    private const int APPEARANCE_TIME = 1600;
     private const int TIME_LIMIT = 10000;
     //private float m_PositionY, m_AddPositionY;
     private float m_VSpeed = 0.2f;
@@ -22,16 +22,16 @@ public class EnemyPlaneMedium1 : EnemyUnit
 
         /*
         m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.2f + m_VSpeed*APPEARNCE_TIME, APPEARNCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.2f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
         m_Sequence.AppendInterval(time_limit);
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME / 2);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
-        int frame = (APPEARNCE_TIME / 2) * Application.targetFrameRate / 1000;
+        int frame = (APPEARANCE_TIME / 2) * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
@@ -78,7 +78,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
     private IEnumerator Pattern1() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         EnemyBulletAccel accel1 = new EnemyBulletAccel(7.2f, 1000);
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         while(!m_TimeLimitState) {
             Vector3 pos0 = m_FirePosition[0].position;

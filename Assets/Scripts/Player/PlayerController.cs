@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 
-public class Boundary
-{
-    public int xMin, xMax, yMin, yMax;
-
-    public Boundary(int xMin, int xMax, int yMin, int yMax) {
-        this.xMin = xMin;
-        this.xMax = xMax;
-        this.yMin = yMin;
-        this.yMax = yMax;
-    }
-}
-
 public class PlayerController : PlayerControllerManager
 {
     [SerializeField] private float m_Tilt = 30f;
@@ -23,7 +11,6 @@ public class PlayerController : PlayerControllerManager
 
     public int m_ReviveInvincibleTime;
 
-    private Boundary m_Boundary = new Boundary(-1792, 1792, -3789, -256); // -7f, 7f, -14.8f, -1f
     private int m_MaxPlayerCamera;
     private float m_DefaultRotation;
     private float m_TiltSpeed = 0.2f;
@@ -32,6 +19,11 @@ public class PlayerController : PlayerControllerManager
     private bool m_HasCollided = false;
     private int m_Speed, m_SlowSpeed, m_OverviewSpeed;
     private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
+
+    private const int BOUNDARY_X_MIN = -1792; // -7f
+    private const int BOUNDARY_X_MAX = 1792; // 7f
+    private const int BOUNDARY_Y_MIN = -3789; // -14.8f
+    private const int BOUNDARY_Y_MAX = -256; // -1f
     
     private SystemManager m_SystemManager = null;
 
@@ -101,8 +93,8 @@ public class PlayerController : PlayerControllerManager
         if (m_PlayerManager.m_PlayerControlable) {
             m_Position = new Vector2Int
             (
-                Mathf.Clamp(m_Position.x, m_Boundary.xMin, m_Boundary.xMax), 
-                Mathf.Clamp(m_Position.y, m_Boundary.yMin, m_Boundary.yMax)
+                Mathf.Clamp(m_Position.x, BOUNDARY_X_MIN, BOUNDARY_X_MAX), 
+                Mathf.Clamp(m_Position.y, BOUNDARY_Y_MIN, BOUNDARY_Y_MAX)
             );
         }
         SetPosition();

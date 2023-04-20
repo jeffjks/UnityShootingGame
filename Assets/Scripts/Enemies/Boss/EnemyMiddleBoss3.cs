@@ -12,7 +12,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
     private int m_Phase;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
-    private const int APPEARNCE_TIME = 3500;
+    private const int APPEARANCE_TIME = 3500;
 
     void Start()
     {
@@ -26,14 +26,14 @@ public class EnemyMiddleBoss3 : EnemyUnit
         /*
         m_Sequence = DOTween.Sequence()
         .AppendInterval(delay)
-        .Append(transform.DOMoveY(2.4f, APPEARNCE_TIME - delay));*/
+        .Append(transform.DOMoveY(2.4f, APPEARANCE_TIME - delay));*/
     }
 
     private IEnumerator AppearanceSequence(int delay) {
         yield return new WaitForMillisecondFrames(delay);
 
         float init_position_y = transform.position.y;
-        int frame = (APPEARNCE_TIME - delay) * Application.targetFrameRate / 1000;
+        int frame = (APPEARANCE_TIME - delay) * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos_y = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);

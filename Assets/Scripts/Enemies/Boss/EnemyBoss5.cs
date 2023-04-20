@@ -12,7 +12,7 @@ public class EnemyBoss5 : EnemyBoss
     private int m_Phase;
     private float m_Direction;
     private Vector3 m_TargetPosition;
-    private const int APPEARNCE_TIME = 10000;
+    private const int APPEARANCE_TIME = 10000;
     private float m_WingsAngle;
     private int m_MoveDirection;
     private float m_MoveSpeed, m_DefaultSpeed = 0.2f;
@@ -37,14 +37,14 @@ public class EnemyBoss5 : EnemyBoss
         
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARNCE_TIME).SetEase(Ease.Linear));*/
+        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARANCE_TIME).SetEase(Ease.Linear));*/
 
         StartCoroutine(AppearanceSequence());
     }
 
     private IEnumerator AppearanceSequence() {
         float init_position_y = transform.position.y;
-        int frame = APPEARNCE_TIME * Application.targetFrameRate / 1000;
+        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_posy = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);

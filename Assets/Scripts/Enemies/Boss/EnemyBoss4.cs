@@ -15,7 +15,7 @@ public class EnemyBoss4 : EnemyBoss
     [HideInInspector] public float m_Direction;
     
     private Vector3 m_TargetPosition;
-    private const int APPEARNCE_TIME = 8000;
+    private const int APPEARANCE_TIME = 8000;
     private bool m_InPattern = false;
     //private int m_MoveDirection;
     //private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
@@ -41,7 +41,7 @@ public class EnemyBoss4 : EnemyBoss
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARNCE_TIME);
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         float init_speed = m_MoveVector.speed;
         float target_speed = m_SystemManager.m_StageManager.m_BackgroundVector.z;

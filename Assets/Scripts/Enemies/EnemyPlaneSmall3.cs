@@ -4,7 +4,6 @@ using System.Collections;
 public class EnemyPlaneSmall3 : HasTargetPosition
 {
     public Transform m_FirePosition;
-    public Transform m_Rotator;
     private int[] m_FireDelay = { 4000, 2000, 1700 };
     
     private bool m_TimeLimitState = false;
@@ -22,28 +21,14 @@ public class EnemyPlaneSmall3 : HasTargetPosition
 
     protected override void Update()
     {
-        Vector2 previous_vector = m_MoveVector.GetVector();
-
         if (!m_TimeLimitState) {
             if (m_PlayerManager.m_PlayerIsAlive)
                 RotateImmediately(m_PlayerPosition);
             else
                 RotateSlightly(m_PlayerPosition, 100f);
         }
-
-        Vector2 after_vector = m_MoveVector.GetVector();
-        float max_tilt = 30f;
-        float max_rotation = 0.6f; // -0.5 -> 0, 0.5 -> 1
-        float tilt_lerp = Vector2.SignedAngle(previous_vector, after_vector) / (max_rotation * 2) + max_rotation / 2;
-
-        float tilt = Mathf.Lerp(-max_tilt, max_tilt, tilt_lerp);
-        Turn(tilt);
         
         base.Update();
-    }
-
-    private void Turn(float angle) {
-        m_Rotator.localRotation = Quaternion.AngleAxis(angle, Vector3.down);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {

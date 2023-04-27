@@ -9,15 +9,14 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         m_CurrentPattern = Pattern1();
     }
 
     protected override void Update()
     {
-        m_CurrentAngle += 180f / Application.targetFrameRate * transform.localScale.x * Time.timeScale;
-        
         base.Update();
+        
+        m_CurrentAngle += 180f / Application.targetFrameRate * transform.localScale.x * Time.timeScale;
     }
 
     public void StartPattern() {

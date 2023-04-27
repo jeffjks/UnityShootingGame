@@ -14,14 +14,14 @@ public class EnemyPlaneLarge2 : EnemyUnit
     
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 0) {
             if (m_Position2D.y < - 1f) {
                 StartCoroutine(Pattern1());
                 m_Phase = 1;
             }
         }
-
-        base.Update();
     }
     
     private IEnumerator Pattern1() {
@@ -58,10 +58,10 @@ public class EnemyPlaneLarge2 : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         for (int i = 0; i < m_Turret.Length; i++) {
             if (m_Turret[i] != null)
-                m_Turret[i].OnDeath();
+                m_Turret[i].m_EnemyHealth.OnDeath();
         }
         m_SystemManager.EraseBullets(1000);
 

@@ -28,8 +28,8 @@ public class PlayerShooter : PlayerShooterManager
         m_AudioSource = GetComponent<AudioSource>();
         m_MainCamera = m_SystemManager.m_MainCamera.transform;
 
-        for (int i = 0; i < PlayerMissile.Length; i++) {
-            m_PlayerMissileName[i] = PlayerMissile[i].GetComponent<PlayerMissile>().m_ObjectName;
+        for (int i = 0; i < PlayerWeapon.Length; i++) {
+            m_PlayerWeaponName[i] = PlayerWeapon[i].GetComponent<PlayerWeapon>().m_ObjectName;
         }
         
         SetPreviewShooter();
@@ -78,7 +78,7 @@ public class PlayerShooter : PlayerShooterManager
 
     public void PlayerShooterBehaviour() {
         if (!m_PlayerManager.m_PlayerControlable) {
-            m_PlayerController.m_SlowMode = false;
+            m_PlayerUnit.m_SlowMode = false;
             m_NowAttacking = false;
             m_ShotKeyPress = 0;
             m_AutoShot = 0;
@@ -90,7 +90,7 @@ public class PlayerShooter : PlayerShooterManager
             m_ShotKeyPressFrame++;
             if (!m_ShotKeyPrevious) {
                 m_ShotKeyPrevious = true;
-                if (!m_PlayerController.m_SlowMode) { // 샷 모드일 경우 AutoShot 증가
+                if (!m_PlayerUnit.m_SlowMode) { // 샷 모드일 경우 AutoShot 증가
                     if (m_AutoShot <= 1) {
                         m_AutoShot++;
                     }
@@ -100,14 +100,14 @@ public class PlayerShooter : PlayerShooterManager
         else {
             m_ShotKeyPrevious = false;
             m_ShotKeyPressFrame = 0;
-            m_PlayerController.m_SlowMode = false;
+            m_PlayerUnit.m_SlowMode = false;
             m_PlayerLaserShooter.StopLaser();
             m_NowAttacking = false;
         }
         
-        if (!m_PlayerController.m_SlowMode) {
+        if (!m_PlayerUnit.m_SlowMode) {
             if (m_ShotKeyPressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
-                m_PlayerController.m_SlowMode = true;
+                m_PlayerUnit.m_SlowMode = true;
                 m_PlayerLaserShooter.StartLaser();
                 m_NowAttacking = true;
                 m_AutoShot = 0;
@@ -138,7 +138,7 @@ public class PlayerShooter : PlayerShooterManager
             return;
         }
         Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
-        ((PlayerController) m_PlayerController).EnableInvincible(4000);
+        ((PlayerController) m_PlayerUnit).DisableInvincibility(4000);
         m_PlayerBomb.UseBomb();
         m_SystemManager.SetBombNumber(-1);
     }
@@ -146,7 +146,7 @@ public class PlayerShooter : PlayerShooterManager
     void OnEnable()
     {
         ResetKeyPress();
-        m_PlayerController.m_SlowMode = false;
+        m_PlayerUnit.m_SlowMode = false;
         m_NowShooting = false;
         m_NowAttacking = false;
         m_AutoShot = 0;
@@ -183,20 +183,20 @@ public class PlayerShooter : PlayerShooterManager
 
     private void CheckNowShooting() { // Now Attacking : 현재 공격 중 (모듈 공격을 위한 변수)
         if (m_AutoShot == 0) { // Now Shooting : 현재 샷 중 (샷 딜레이를 위한 변수)
-            if (!m_PlayerController.m_SlowMode && !m_NowShooting)
+            if (!m_PlayerUnit.m_SlowMode && !m_NowShooting)
                 m_NowAttacking = false;
         }
     }
 
-    protected override void CreatePlayerAttacks(string name, Vector3 pos, Quaternion rot, byte type = 0) {
+    protected override void CreatePlayerAttacks(string name, Vector3 pos, float dir, byte type = 0) {
         if (!IsOutside(pos)) {
             GameObject obj = m_PoolingManager.PopFromPool(name, PoolingParent.PLAYER_MISSILE);
-            PlayerMissile playerMissile = obj.GetComponent<PlayerMissile>();
+            PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
             obj.transform.position = pos;
-            obj.transform.rotation = rot;
-            playerMissile.m_DamageLevel = type;
+            playerWeapon.m_MoveVector.direction = dir;
+            playerWeapon.m_DamageLevel = type;
             obj.SetActive(true);
-            playerMissile.OnStart();
+            playerWeapon.OnStart();
         }
     }
 

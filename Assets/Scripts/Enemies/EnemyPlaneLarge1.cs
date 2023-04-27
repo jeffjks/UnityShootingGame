@@ -12,7 +12,6 @@ public class EnemyPlaneLarge1 : EnemyUnit
     
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     private IEnumerator m_TimeLimit;
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 2800;
     private const int TIME_LIMIT = 20000;
     private Vector3 m_TargetPosition;
@@ -24,7 +23,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         transform.rotation = Quaternion.Euler(0f, 30f, 0f);
         m_TargetPosition = new Vector3(0f, -5.2f, Depth.ENEMY);
 
-        DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
 
         StartCoroutine(AppearanceSequence());
         
@@ -61,7 +60,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         m_CurrentPattern1 = PatternA();
         StartCoroutine(m_CurrentPattern1);
 
-        EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
 
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
@@ -92,19 +91,19 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
-        
-        base.Update();
     }
 
     private void ToNextPhase() {
         m_Phase++;
-        m_Turret[0].OnDeath();
-        m_Turret[1].OnDeath();
+        m_Turret[0].m_EnemyHealth.OnDeath();
+        m_Turret[1].m_EnemyHealth.OnDeath();
         Destroy(m_Part[0]);
         Destroy(m_Part[1]);
 
@@ -237,7 +236,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         int timer = 0, random_timer = 0;
         Vector2 random_pos1, random_pos2, random_pos3;
         m_MoveVector = new MoveVector(1.2f, 0f);

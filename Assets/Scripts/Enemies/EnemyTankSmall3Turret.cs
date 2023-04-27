@@ -9,19 +9,18 @@ public class EnemyTankSmall3Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1(Random.Range(0, m_FireDelay[m_SystemManager.GetDifficulty()])));
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1(int millisecond) {

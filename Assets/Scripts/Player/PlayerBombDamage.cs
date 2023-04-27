@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBombDamage : PlayerDamageUnit
+public class PlayerBombDamage : PlayerObject
 {
     public int m_BombDuration;
     [SerializeField] private BoxCollider2D m_BoxCollider2D = null;
@@ -27,11 +27,11 @@ public class PlayerBombDamage : PlayerDamageUnit
 
     private IEnumerator BombDamageEnd() {
         yield return new WaitForMillisecondFrames(m_BombDuration);
-        OnDeath();
+        OnBombRemoved();
         yield break;
     }
 
-    private void OnDeath() {
+    private void OnBombRemoved() {
         gameObject.SetActive(false);
     }
 }

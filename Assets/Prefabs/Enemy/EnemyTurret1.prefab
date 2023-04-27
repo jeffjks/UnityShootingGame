@@ -67,27 +67,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 300
-  m_Class: 0
-  m_Score: 125
+  m_Health: 0
+  m_EnemyType: 0
+  m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 10
   m_DefaultAudioClip: {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
-  m_GemNumber: 1
+  m_GemNumber: 0
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D:
-  - {fileID: 7982224316380596494}
-  m_CurrentAngle: 0
+  m_Collider2D: []
   m_MaxHealth: 0
-  m_IsDead: 0
-  m_Collider: {fileID: 4723675950717047004}
-  m_Turret: {fileID: 921240784453399512}
 --- !u!1 &100006
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +172,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3458653298441334549}
   - component: {fileID: 2848602546128725394}
+  - component: {fileID: 3621631335853086481}
+  - component: {fileID: 7309084848230242258}
   m_Layer: 12
   m_Name: Turret
   m_TagString: Untagged
@@ -210,29 +209,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 5280077643445492577}
-  m_Health: 0
-  m_Class: 0
-  m_Score: 0
+  m_Health: 300
+  m_EnemyType: 0
+  m_Score: 125
   m_Debris: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
+  m_DefaultExplosion: 10
+  m_DefaultAudioClip: {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   m_Explosion: 
   m_AudioClip: []
   m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
+  m_GemNumber: 1
   m_ShareHealth: 0
   m_ChildEnemies: []
-  m_Collider2D: []
-  m_CurrentAngle: 0
+  m_Collider2D:
+  - {fileID: 7982224316380596494}
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 655516768711985845}
-  m_FireDelay:
-  - 1.6
-  - 0.8
-  - 0.4
+--- !u!114 &3621631335853086481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921240784453399512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 2848602546128725394}
+--- !u!114 &7309084848230242258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921240784453399512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 300
 --- !u!1 &4723675950717047004
 GameObject:
   m_ObjectHideFlags: 0

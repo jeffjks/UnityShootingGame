@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // 파괴 후 Quaternion.identity 상태로 돌아가는 용도
 
-public class EnemyBoss1 : EnemyBoss
+public class EnemyBoss1 : EnemyUnit, IHasAppearance
 {
     public EnemyBoss1Turret0 m_Turret0;
     public EnemyBoss1Turret1[] m_Turret1 = new EnemyBoss1Turret1[2];
@@ -30,23 +30,23 @@ public class EnemyBoss1 : EnemyBoss
 
         transform.rotation = Quaternion.Euler(0f, -35f, 0f);
 
-        DisableAttackable();
-        m_Part.DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
+        m_Part.m_EnemyHealth.DisableInteractable();
 
         StartCoroutine(AppearanceSequence());
     }
 
     protected override void Update()
     {
+        base.Update();
+
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 3 / 10) { // 체력 30% 이하
-                m_ChildEnemies[0].OnDeath();
+                m_ChildEnemies[0].m_EnemyHealth.OnDeath();
             }
         }
 
         OnPhase1();
-
-        base.Update();
     }
 
     public void ToNextPhase() {
@@ -69,7 +69,7 @@ public class EnemyBoss1 : EnemyBoss
     }
 
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         /*
         float appearance_time_1 = 0.55f;
         float appearance_time_2 = 1f - 0.55f;
@@ -121,7 +121,7 @@ public class EnemyBoss1 : EnemyBoss
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
@@ -129,8 +129,8 @@ public class EnemyBoss1 : EnemyBoss
         int rand = Random.Range(0, 2);
         m_MoveVector = new MoveVector(1f, 90f + 180f*rand);
 
-        EnableAttackable();
-        m_Part.EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
+        m_Part.m_EnemyHealth.EnableInteractable();
         /*
         m_Sequence.Kill();
         m_Sequence = DOTween.Sequence()
@@ -365,7 +365,7 @@ public class EnemyBoss1 : EnemyBoss
 
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected new IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         if (m_CurrentMovement != null)
             StopCoroutine(m_CurrentMovement);
@@ -375,7 +375,7 @@ public class EnemyBoss1 : EnemyBoss
             StopCoroutine(m_CurrentPhase);
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.6f, 0f);
-        m_Turret0.OnDeath();
+        m_Turret0.m_EnemyHealth.OnDying();
 
         transform.DORotateQuaternion(Quaternion.identity, 1f).SetEase(Ease.Linear);
 
@@ -396,7 +396,8 @@ public class EnemyBoss1 : EnemyBoss
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
-        BossDestroyed();
+        m_SystemManager.StartStageClearCoroutine();
+        m_EnemyHealth.OnDeath();
         yield break;
     }
 

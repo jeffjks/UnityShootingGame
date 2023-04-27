@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 54542919415713113}
   - component: {fileID: 4987848309060957489}
+  - component: {fileID: 7924027591515508201}
+  - component: {fileID: 5801427616005951070}
   m_Layer: 12
   m_Name: EnemyTankMedium1
   m_TagString: Untagged
@@ -67,10 +69,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 1800
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 350
   m_Debris: 2
   m_DefaultExplosion: 2
@@ -83,9 +87,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 9214580811006826016}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &7924027591515508201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 4987848309060957489}
+--- !u!114 &5801427616005951070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 1800
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,10 +580,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 4987848309060957489}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -566,9 +597,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 2795246010226298155}
 --- !u!1 &6763888391552758240
 GameObject:

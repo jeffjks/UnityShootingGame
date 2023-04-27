@@ -13,13 +13,14 @@ public class EnemyTurret3Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         m_InitaialTurretPosition = m_TurretAnimation.localPosition.z;
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
@@ -34,8 +35,6 @@ public class EnemyTurret3Turret : EnemyUnit
 
         m_CurrentTurretPosition = Mathf.MoveTowards(m_CurrentTurretPosition, m_InitaialTurretPosition, 0.02f);
         m_TurretAnimation.localPosition = new Vector3(m_TurretAnimation.localPosition.x, m_TurretAnimation.localPosition.y, m_CurrentTurretPosition);
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1() {

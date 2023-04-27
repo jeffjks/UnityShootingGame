@@ -393,6 +393,8 @@ GameObject:
   - component: {fileID: 4470644446689558997}
   - component: {fileID: 3165403450301940311}
   - component: {fileID: 3070432210736135170}
+  - component: {fileID: 8989448250438833964}
+  - component: {fileID: 579445898691065725}
   m_Layer: 10
   m_Name: EnemyBoss5
   m_TagString: Untagged
@@ -449,10 +451,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 140000
-  m_Class: 2
+  m_EnemyType: 2
   m_Score: 100000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -469,9 +473,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 7122233041792260751}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Core: {fileID: 1161593236161121628}
   m_Wings: {fileID: 8024313439898444883}
   m_WingsForAppearance: {fileID: 6161929909053796587}
@@ -484,6 +486,33 @@ MonoBehaviour:
   - {fileID: 3476680720526473216}
   - {fileID: 8746116740752515704}
   - {fileID: 8808925658807472578}
+--- !u!114 &8989448250438833964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626877864803362105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 0}
+--- !u!114 &579445898691065725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626877864803362105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 140000
 --- !u!1 &3344154920020013677
 GameObject:
   m_ObjectHideFlags: 0

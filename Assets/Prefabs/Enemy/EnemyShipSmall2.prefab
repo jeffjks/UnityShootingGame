@@ -279,10 +279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 3214695909034335811}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -294,14 +296,8 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 8436531691388401257}
-  m_FireDelay:
-  - 2.4
-  - 1.2
-  - 0.6
 --- !u!1 &100048
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +309,8 @@ GameObject:
   - component: {fileID: 400048}
   - component: {fileID: 8967707106189290519}
   - component: {fileID: 3214695909034335811}
+  - component: {fileID: 2897899064020239187}
+  - component: {fileID: 3483399909445711568}
   m_Layer: 11
   m_Name: EnemyShipSmall2
   m_TagString: Untagged
@@ -369,10 +367,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 60
-  m_Class: 0
+  m_Health: 70
+  m_EnemyType: 0
   m_Score: 160
   m_Debris: 0
   m_DefaultExplosion: 1
@@ -385,9 +385,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5249143261987186977}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &2897899064020239187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 3214695909034335811}
+--- !u!114 &3483399909445711568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 70
 --- !u!1 &100050
 GameObject:
   m_ObjectHideFlags: 0

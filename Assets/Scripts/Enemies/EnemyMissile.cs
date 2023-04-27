@@ -44,7 +44,7 @@ public class EnemyMissile : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         Vector3 pos = transform.position;
         
         if (m_SystemManager.GetDifficulty() == 0) {

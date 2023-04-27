@@ -9,7 +9,6 @@ public class EnemyMiddleBoss4 : EnemyUnit
     [HideInInspector] public int m_Phase;
     
     private Vector3 m_TargetPosition;
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 40000;
 
@@ -21,9 +20,9 @@ public class EnemyMiddleBoss4 : EnemyUnit
         m_UpdateTransform = false;
         m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);
 
-        DisableAttackable();
-        m_ChildEnemies[0].DisableAttackable();
-        m_ChildEnemies[1].DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
+        m_ChildEnemies[0].m_EnemyHealth.DisableInteractable();
+        m_ChildEnemies[1].m_EnemyHealth.DisableInteractable();
 
         StartCoroutine(AppearanceSequence());
         
@@ -34,33 +33,32 @@ public class EnemyMiddleBoss4 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth / 3) { // 체력 33% 이하
                 ToNextPhase();
             }
         }
         
-        if (!m_TimeLimitState) {
-            if (!m_IsUnattackable) {
-                if (transform.position.x >= m_PlayerPosition.x * 0.14f + 1.2f) {
-                    m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
-                }
-                if (transform.position.x <= m_PlayerPosition.x * 0.14f - 1.2f) {
-                    m_MoveVector = new MoveVector(new Vector2(Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
-                }
-                
-                if (transform.position.y > m_TargetPosition.y + 0.5f) {
-                    m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
-                    transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.5f, transform.position.z);
-                }
-                if (transform.position.y < m_TargetPosition.y - 0.5f) {
-                    m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
-                    transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.5f, transform.position.z);
-                }
+        
+        if (!m_TimeLimitState && m_Phase > 0) {
+            if (transform.position.x >= m_PlayerPosition.x * 0.14f + 1.2f) {
+                m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
+            }
+            if (transform.position.x <= m_PlayerPosition.x * 0.14f - 1.2f) {
+                m_MoveVector = new MoveVector(new Vector2(Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
+            }
+            
+            if (transform.position.y > m_TargetPosition.y + 0.5f) {
+                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
+                transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.5f, transform.position.z);
+            }
+            if (transform.position.y < m_TargetPosition.y - 0.5f) {
+                m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
+                transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.5f, transform.position.z);
             }
         }
-
-        base.Update();
     }
 
     private IEnumerator AppearanceSequence() {
@@ -89,9 +87,9 @@ public class EnemyMiddleBoss4 : EnemyUnit
         m_SubPattern = SubPattern();
         StartCoroutine(m_SubPattern);
 
-        EnableAttackable();
-        m_ChildEnemies[0].EnableAttackable();
-        m_ChildEnemies[1].EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
+        m_ChildEnemies[0].m_EnemyHealth.EnableInteractable();
+        m_ChildEnemies[1].m_EnemyHealth.EnableInteractable();
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -491,10 +489,10 @@ public class EnemyMiddleBoss4 : EnemyUnit
 
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         for (int i = 0; i < m_ChildEnemies.Length; i++) {
             if (m_ChildEnemies[i] != null) {
-                m_ChildEnemies[i].OnDeath();
+                m_ChildEnemies[i].m_EnemyHealth.OnDeath();
             }
         }
 

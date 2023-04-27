@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLaserAura : PlayerDamageUnit
+public class PlayerLaserAura : PlayerObject
 {
     private PlayerLaserManager m_PlayerLaser = null;
-    private PlayerControllerManager m_PlayerController = null;
+    private PlayerUnit m_PlayerController = null;
     private int m_MinDamage, m_MaxDamage;
 
     private int m_LaserDamage;
@@ -20,7 +20,7 @@ public class PlayerLaserAura : PlayerDamageUnit
     void Start()
     {
         m_PlayerLaser = GetComponentInParent<PlayerLaserManager>();
-        m_PlayerController = GetComponentInParent<PlayerControllerManager>();
+        m_PlayerController = GetComponentInParent<PlayerUnit>();
         m_LaserDamage = m_PlayerLaser.m_LaserDamage;
     }
 
@@ -34,7 +34,7 @@ public class PlayerLaserAura : PlayerDamageUnit
                     DealDamage(enemyObject, m_LaserDamage, 1); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
-                    enemyObject.OnDeath();
+                    enemyObject.m_EnemyHealth.OnDeath();
                 }
             }
         }

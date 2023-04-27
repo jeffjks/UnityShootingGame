@@ -18,7 +18,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
     {
         m_TargetPosition = new Vector2(0f, -4.3f);
 
-        DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
 
         int delay = 2000;
         StartCoroutine(AppearanceSequence(delay));
@@ -54,11 +54,13 @@ public class EnemyMiddleBoss3 : EnemyUnit
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
-        EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         Vector3 pos = transform.position;
         transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동
 
@@ -68,7 +70,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
             }
         }
         
-        if (!m_IsUnattackable) {
+        if (!m_TimeLimitState && m_Phase > 0) {
             if (transform.position.x > m_TargetPosition.x + 1.6f) {
                 m_MoveVector.direction = -90f;
             }
@@ -84,8 +86,6 @@ public class EnemyMiddleBoss3 : EnemyUnit
         m_Direction2 += 79f / Application.targetFrameRate * Time.timeScale;
         if (m_Direction2 >= 360f)
             m_Direction2 -= 360f;
-
-        base.Update();
     }
 
     public void ToNextPhase() {
@@ -315,7 +315,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
 
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector.speed = 0f;
         m_Phase = -1;

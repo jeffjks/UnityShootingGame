@@ -12,7 +12,6 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
         m_KillScore = m_Score;
         m_Score = 0;
@@ -20,6 +19,8 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_RotatePattern == 10) {
             if (m_PlayerManager.m_PlayerIsAlive)
                 RotateSlightly(m_PlayerPosition, 180f);
@@ -29,8 +30,6 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         else if (m_RotatePattern == 20) {
             RotateSlightly(0f, 150f);
         }
-        
-        base.Update();
     }
 
     public void StartPattern(byte num) {

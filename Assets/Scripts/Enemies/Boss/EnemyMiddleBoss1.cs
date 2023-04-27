@@ -8,7 +8,6 @@ public class EnemyMiddleBoss1 : EnemyUnit
     
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 2000;
     private const int TIME_LIMIT = 17000;
 
@@ -21,13 +20,15 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_TargetQuaternion = Quaternion.identity;
         transform.rotation = Quaternion.Euler(0f, 36f, 20f);
 
-        DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
         
         StartCoroutine(AppearanceSequence());
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
                 ToNextPhase();
@@ -35,15 +36,13 @@ public class EnemyMiddleBoss1 : EnemyUnit
         }
 
         MovePattern();
-
-        base.Update();
     }
 
     private void MovePattern() {
         if (m_TimeLimitState) {
             return;
         }
-        if (m_IsUnattackable) {
+        if (m_Phase != 1) {
             return;
         }
         if (transform.position.x > m_TargetPosition.x + 2f) {
@@ -95,7 +94,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_CurrentPattern1 = PatternA(m_SystemManager.GetDifficulty());
         StartCoroutine(m_CurrentPattern1);
         
-        EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -242,7 +241,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
         m_Phase = -1;

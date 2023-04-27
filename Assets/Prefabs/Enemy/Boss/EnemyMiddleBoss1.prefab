@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5905988060540284095}
   - component: {fileID: 249530915590688650}
   - component: {fileID: 5087952380757828139}
+  - component: {fileID: 390901051984682322}
+  - component: {fileID: 446226577195883311}
   m_Layer: 10
   m_Name: EnemyMiddleBoss1
   m_TagString: Enemy
@@ -104,10 +106,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
-  m_Health: 10000
-  m_Class: 1
+  m_Health: 11000
+  m_EnemyType: 1
   m_Score: 7000
   m_Debris: 0
   m_DefaultExplosion: 6
@@ -123,61 +127,38 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 249530915590688650}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Turret:
   - {fileID: 1456182595892666218}
   - {fileID: 5089846689053469985}
   m_Phase: 0
-  m_AC_outquad:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_AC_inquad:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+--- !u!114 &390901051984682322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140337607093124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 5087952380757828139}
+--- !u!114 &446226577195883311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140337607093124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 11000
 --- !u!1 &1278176519813856
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,10 +497,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 5087952380757828139}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 1
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -531,9 +514,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 3043764151725470927}
 --- !u!1 &4383482041012532249
 GameObject:
@@ -769,10 +750,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 5087952380757828139}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 1
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -784,9 +767,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 6114288136030032698}
 --- !u!1 &7759709950132047256
 GameObject:

@@ -6,13 +6,11 @@ public class EnemyPlaneSmall3 : HasTargetPosition
     public Transform m_FirePosition;
     private int[] m_FireDelay = { 4000, 2000, 1700 };
     
-    private bool m_TimeLimitState = false;
     private IEnumerator m_TimeLimit;
     private const int TIME_LIMIT = 5000;
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1(1000));
         RotateImmediately(m_PlayerPosition);
         m_TimeLimit = TimeLimit(TIME_LIMIT);
@@ -21,14 +19,14 @@ public class EnemyPlaneSmall3 : HasTargetPosition
 
     protected override void Update()
     {
+        base.Update();
+        
         if (!m_TimeLimitState) {
             if (m_PlayerManager.m_PlayerIsAlive)
                 RotateImmediately(m_PlayerPosition);
             else
                 RotateSlightly(m_PlayerPosition, 100f);
         }
-        
-        base.Update();
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {

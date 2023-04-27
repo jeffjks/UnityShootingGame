@@ -1372,6 +1372,8 @@ GameObject:
   - component: {fileID: 400052}
   - component: {fileID: -2252459381075718800}
   - component: {fileID: 6257076432406510264}
+  - component: {fileID: 8620984854170658003}
+  - component: {fileID: 6839415859766660001}
   m_Layer: 12
   m_Name: EnemyShipMedium
   m_TagString: Untagged
@@ -1428,10 +1430,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 3000
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 500
   m_Debris: 0
   m_DefaultExplosion: 2
@@ -1444,9 +1448,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 689643523573826911}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition:
   - {fileID: 6921252410329860803}
   - {fileID: 7085795059355424091}
@@ -1455,10 +1457,33 @@ MonoBehaviour:
   - {fileID: 3339365416896817707}
   - {fileID: 400004}
   - {fileID: 400002}
-  m_FireDelay:
-  - 2.2
-  - 2
-  - 1.5
+--- !u!114 &8620984854170658003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 6257076432406510264}
+--- !u!114 &6839415859766660001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 3000
 --- !u!1 &100054
 GameObject:
   m_ObjectHideFlags: 0

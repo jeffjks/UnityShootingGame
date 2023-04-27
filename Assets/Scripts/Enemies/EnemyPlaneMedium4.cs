@@ -7,7 +7,6 @@ public class EnemyPlaneMedium4 : EnemyUnit
     public EnemyPlaneMedium4Turret[] m_Turret = new EnemyPlaneMedium4Turret[2];
     private int[] m_FireDelay = { 1600, 1600, 1000 };
     
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 12500;
     private float m_VSpeed = 0.4f;
@@ -63,6 +62,8 @@ public class EnemyPlaneMedium4 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (!m_TimeLimitState) { // Retreat when boss or middle boss state
             if (m_SystemManager.m_PlayState > 0) {
                 if (m_TimeLimit != null)
@@ -72,7 +73,6 @@ public class EnemyPlaneMedium4 : EnemyUnit
                 m_TimeLimitState = true;
             }
         }
-        base.Update();
     }
     
     private IEnumerator Pattern1() {
@@ -115,7 +115,7 @@ public class EnemyPlaneMedium4 : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector2(1f, 1f));
         ExplosionEffect(0, -1, new Vector2(-1f, 1f));
         ExplosionEffect(0, -1, new Vector2(0f, -1.5f));

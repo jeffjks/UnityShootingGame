@@ -11,19 +11,14 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
     private IEnumerator m_CurrentPattern;
     private float m_Direction;
 
-    void Start()
-    {
-        GetCoordinates();
-    }
-
     protected override void Update()
     {
+        base.Update();
+        
         m_Direction += 80f / Application.targetFrameRate * Time.timeScale;
         if (m_Direction > 360f) {
             m_Direction -= 360f;
         }
-
-        base.Update();
     }
 
     public void StartPattern(byte num) {

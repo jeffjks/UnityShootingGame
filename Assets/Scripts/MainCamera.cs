@@ -24,7 +24,7 @@ public class MainCamera : MonoBehaviour {
 
     void LateUpdate()
     {
-        m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
+        m_PlayerPosition = m_PlayerManager.m_PlayerController.m_PositionInt2D;
         
         float camera_x;
         try {

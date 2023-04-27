@@ -13,13 +13,13 @@ public class EnemyTankLarge1 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
-
         m_LauncherRotationTarget = Quaternion.identity;
     }
     
     protected override void Update()
     {
+        base.Update();
+        
         RotateImmediately(m_MoveVector.direction);
 
         if (m_Phase == 0) {
@@ -39,8 +39,6 @@ public class EnemyTankLarge1 : EnemyUnit
                 }
             }
         }
-        
-        base.Update();
     }
     
     private IEnumerator Pattern2() {
@@ -111,7 +109,7 @@ public class EnemyTankLarge1 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector3(0f, 0f, -0.4f));
         ExplosionEffect(2, -1, new Vector3(0f, 3.2f, 2.5f));
         ExplosionEffect(1, -1, new Vector3(-2f, 0f, 1.4f));

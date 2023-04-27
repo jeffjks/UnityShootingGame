@@ -12,14 +12,14 @@ public class EnemyTankMedium2 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
-
         m_ArmorPositionTarget[0] = new Vector3(0.365f, m_ArmorPosition[0].localPosition.y, m_ArmorPosition[0].localPosition.z);
         m_ArmorPositionTarget[1] = new Vector3(-0.365f, m_ArmorPosition[1].localPosition.y, m_ArmorPosition[1].localPosition.z);
     }
     
     protected override void Update()
     {
+        base.Update();
+        
         RotateImmediately(m_MoveVector.direction);
 
         if (!m_ShootState) {
@@ -35,8 +35,6 @@ public class EnemyTankMedium2 : EnemyUnit
                 }
             }
         }
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1() {

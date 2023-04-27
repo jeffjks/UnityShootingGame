@@ -12,7 +12,7 @@ public class PlayerDrone : MonoBehaviour
     public Vector3 m_TargetLocalP; // 레이저 모드 위치
     public float m_TargetLocalR; // 레이저 모드 회전
 
-    protected PlayerControllerManager m_PlayerController;
+    protected PlayerUnit m_PlayerController;
     protected Vector3 m_CurrentTargetLocalP; // 현재 위치 타겟
     protected Vector3 m_CurrentLocalP; // 현재 위치
     protected float m_CurrentTargetLocalR; // 현재 회전 타겟
@@ -31,7 +31,7 @@ public class PlayerDrone : MonoBehaviour
         m_PlayerManager = PlayerManager.instance_pm;
 
         m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
-        m_PlayerController = GetComponentInParent<PlayerControllerManager>();
+        m_PlayerController = GetComponentInParent<PlayerUnit>();
     }
 
     void Start()
@@ -65,8 +65,8 @@ public class PlayerDrone : MonoBehaviour
     void Update()
     {
         DisplayParticles();
-        m_CurrentLocalP = Vector3.MoveTowards(m_CurrentLocalP, m_CurrentTargetLocalP, 12f * Time.deltaTime);
-        m_CurrentLocalR = Mathf.MoveTowards(m_CurrentLocalR, m_CurrentTargetLocalR, 12f * Time.deltaTime);
+        m_CurrentLocalP = Vector3.MoveTowards(m_CurrentLocalP, m_CurrentTargetLocalP, 12f / Application.targetFrameRate * Time.timeScale);
+        m_CurrentLocalR = Mathf.MoveTowards(m_CurrentLocalR, m_CurrentTargetLocalR, 12f / Application.targetFrameRate * Time.timeScale);
         transform.localPosition = m_CurrentLocalP;
         transform.localRotation = Quaternion.Euler(0f, m_CurrentLocalR, 0f);
     }
@@ -110,5 +110,9 @@ public class PlayerDrone : MonoBehaviour
 
         m_ParticleSystem[m_ShockWaveNumber].gameObject.SetActive(true);
         m_ParticleSystem[1 - m_ShockWaveNumber].gameObject.SetActive(false);
+    }
+
+    public float GetCurrentLocalRotation() {
+        return m_CurrentLocalR;
     }
 }

@@ -10,18 +10,17 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
         else
             RotateSlightly(m_PlayerPosition + new Vector2(0f, 1.5f), 100f);
-        
-        base.Update();
     }
 
     public void StartPattern(byte num) {

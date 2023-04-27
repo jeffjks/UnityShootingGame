@@ -15,11 +15,12 @@ public class EnemyBoss4Launcher : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         m_MoveDirection = m_Position;
     }
 
     protected override void Update() {
+        base.Update();
+        
         if (m_Position == 1) {
             if (transform.localPosition.x > 9f) {
                 m_MoveDirection *= -1;
@@ -53,8 +54,6 @@ public class EnemyBoss4Launcher : EnemyUnit
             m_Direction -= 360f;
         else if (m_Direction < 0f)
             m_Direction += 360f;
-        
-        base.Update();
     }
 
     public void SetMoving(bool boolean) {

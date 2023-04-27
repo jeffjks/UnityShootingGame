@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: 5774063208189514127}
   - component: {fileID: 1079206839345538828}
   - component: {fileID: 9129939766051218310}
+  - component: {fileID: 5456297668359916977}
+  - component: {fileID: 7155928028687228905}
   m_Layer: 9
   m_Name: EnemyPlaneSmall2
   m_TagString: Enemy
@@ -127,10 +129,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 50
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 125
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -143,11 +147,8 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5774063208189514127}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 267048858858320899}
-  m_Rotator: {fileID: 2995431143843993479}
 --- !u!114 &9129939766051218310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,10 +161,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b9e9aa8afaa6441bd2cfea3d5209ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RollingObject: {fileID: 1079206839345538828}
+  m_UnitObject: {fileID: 1079206839345538828}
   m_Rotator: {fileID: 2995431143843993479}
   m_MaxRoll: 30
   m_RollSpeed: 72
+  m_RelativeToCurrentAngle: 0
+--- !u!114 &5456297668359916977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 1079206839345538828}
+--- !u!114 &7155928028687228905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 50
 --- !u!1 &57708704395966367
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,6 @@ public class EnemyMiddleBoss5b : EnemyUnit
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
         
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
         /*
         m_Sequence = DOTween.Sequence()
@@ -76,6 +75,8 @@ public class EnemyMiddleBoss5b : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 0) {
             if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
                 ToNextPhase();
@@ -86,8 +87,6 @@ public class EnemyMiddleBoss5b : EnemyUnit
             RotateSlightly(m_PlayerPosition, 40f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     public void ToNextPhase() {
@@ -201,13 +200,13 @@ public class EnemyMiddleBoss5b : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_MoveVector = new MoveVector(1.2f, 0f);
         m_SystemManager.BulletsToGems(3000);
         m_Phase = 2;
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
-        m_Turret.OnDeath();
+        m_Turret.m_EnemyHealth.OnDeath();
 
         if (m_MovementPattern != null) {
             StopCoroutine(m_MovementPattern);

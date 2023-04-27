@@ -1504,6 +1504,8 @@ GameObject:
   - component: {fileID: 400040}
   - component: {fileID: 2170226055928647260}
   - component: {fileID: 4634525837565633629}
+  - component: {fileID: 1533351013444666824}
+  - component: {fileID: 5782325304934608074}
   m_Layer: 10
   m_Name: EnemyBoss3
   m_TagString: Untagged
@@ -1523,7 +1525,6 @@ Transform:
   m_LocalScale: {x: 3.6, y: 3.6, z: 3.6}
   m_Children:
   - {fileID: 400046}
-  - {fileID: 1763454564171044014}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1561,10 +1562,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 82000
-  m_Class: 2
+  m_EnemyType: 2
   m_Score: 35000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -1582,9 +1585,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5522644990783414182}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Turret:
   - {fileID: 4825628901128920826}
   - {fileID: 830100542010700538}
@@ -1600,6 +1601,33 @@ MonoBehaviour:
   - {fileID: 4553579827368825369}
   - {fileID: 1781527331031492148}
   m_Phase: 0
+--- !u!114 &1533351013444666824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 4634525837565633629}
+--- !u!114 &5782325304934608074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 82000
 --- !u!1 &100046
 GameObject:
   m_ObjectHideFlags: 0
@@ -16066,36 +16094,6 @@ Transform:
   m_Father: {fileID: 1045208313282847164}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2292625408984523507
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1763454564171044014}
-  m_Layer: 10
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1763454564171044014
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2292625408984523507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.18, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 400040}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2467252491195604226
 GameObject:
   m_ObjectHideFlags: 0
@@ -16106,6 +16104,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1445733444668970407}
   - component: {fileID: 879531077460462987}
+  - component: {fileID: 842011555084163259}
+  - component: {fileID: 6486641039175564450}
   m_Layer: 10
   m_Name: Part
   m_TagString: Untagged
@@ -16142,10 +16142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 4634525837565633629}
   m_Health: -1
-  m_Class: 2
+  m_EnemyType: 2
   m_Score: 15000
   m_Debris: 0
   m_DefaultExplosion: 6
@@ -16159,9 +16161,34 @@ MonoBehaviour:
   m_Collider2D:
   - {fileID: 3794133456954439533}
   - {fileID: 7288680743365988699}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &842011555084163259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467252491195604226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 879531077460462987}
+--- !u!114 &6486641039175564450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467252491195604226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 2
+  m_DefaultHealth: 0
 --- !u!1 &3387398102656478092
 GameObject:
   m_ObjectHideFlags: 0
@@ -16753,10 +16780,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 4634525837565633629}
   m_Health: 0
-  m_Class: 2
+  m_EnemyType: 2
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 5
@@ -16768,9 +16797,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 3865005802238110697}
 --- !u!1 &5396234563182318847
 GameObject:
@@ -17015,10 +17042,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 4634525837565633629}
   m_Health: 0
-  m_Class: 2
+  m_EnemyType: 2
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 5
@@ -17030,9 +17059,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 1090455745477923947}
 --- !u!1 &8350747666638129915
 GameObject:

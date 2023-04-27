@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 3119006708911008031}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -60,14 +62,8 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 3891070898566310485}
-  m_FireDelay:
-  - 2.4
-  - 1.2
-  - 0.6
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +309,8 @@ GameObject:
   - component: {fileID: 400016}
   - component: {fileID: 2543426013271539056}
   - component: {fileID: 3119006708911008031}
+  - component: {fileID: 8658448493426141965}
+  - component: {fileID: 1590131941867071201}
   m_Layer: 11
   m_Name: EnemyShipSmall1
   m_TagString: Untagged
@@ -369,10 +367,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 40
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 120
   m_Debris: 0
   m_DefaultExplosion: 1
@@ -385,9 +385,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 8920584163489584900}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &8658448493426141965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 3119006708911008031}
+--- !u!114 &1590131941867071201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 40
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0

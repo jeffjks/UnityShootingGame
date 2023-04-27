@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8934028297427312044}
   - component: {fileID: 8111200923180903494}
   - component: {fileID: 2734892192389342171}
+  - component: {fileID: 4111274719287269652}
+  - component: {fileID: 3520126471309386946}
   m_Layer: 10
   m_Name: EnemyGunship
   m_TagString: Enemy
@@ -100,10 +102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 2000
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 500
   m_Debris: 0
   m_DefaultExplosion: 5
@@ -116,16 +120,37 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 8111200923180903494}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
-  m_FireDelay:
-  - 2
-  - 1.5
-  - 1
   m_FirePosition:
   - {fileID: 4387495230332487639}
   - {fileID: 2918483274064422037}
+--- !u!114 &4111274719287269652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 2734892192389342171}
+--- !u!114 &3520126471309386946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 2000
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ public class EnemyShipCarrier : EnemyUnit
     
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_MoveVector.direction);
         m_Direction1 = Random.Range(0f, 360f);
         if (m_CurrentAngle >= 180f) {
@@ -24,6 +23,8 @@ public class EnemyShipCarrier : EnemyUnit
     
     protected override void Update()
     {
+        base.Update();
+        
         m_Direction1 += 120f / Application.targetFrameRate * Time.timeScale;
         m_Direction2 += 180f / Application.targetFrameRate * Time.timeScale;
 
@@ -35,8 +36,6 @@ public class EnemyShipCarrier : EnemyUnit
         }
 
         RotateImmediately(m_MoveVector.direction);
-        
-        base.Update();
     }
 
     
@@ -106,7 +105,7 @@ public class EnemyShipCarrier : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         int timer = 0, random_timer = 0;
         float explosion_height = 3f;
         Vector3 random_pos1, random_pos2;
@@ -114,7 +113,7 @@ public class EnemyShipCarrier : EnemyUnit
 
         for (int i = 0; i < m_EnemyUnits.Length; i++) {
             if (m_EnemyUnits[i] != null)
-                m_EnemyUnits[i].OnDeath();
+                m_EnemyUnits[i].m_EnemyHealth.OnDeath();
         }
 
         StartCoroutine(DeathExplosion1(2f));

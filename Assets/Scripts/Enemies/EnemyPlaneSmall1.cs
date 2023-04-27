@@ -12,7 +12,6 @@ public class EnemyPlaneSmall1 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1(800));
         RotateImmediately(m_PlayerPosition);
         float target_angle = GetAngleToTarget(m_Position2D, m_PlayerPosition);
@@ -21,6 +20,8 @@ public class EnemyPlaneSmall1 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         RotateImmediately(m_MoveVector.direction);
 
         if (m_TargetPlayer) {
@@ -31,8 +32,6 @@ public class EnemyPlaneSmall1 : EnemyUnit
                 m_TargetPlayer = false;
             }
         }
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1(int millisecond) {

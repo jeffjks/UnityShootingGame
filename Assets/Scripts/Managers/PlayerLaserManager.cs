@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLaserManager : PlayerDamageUnit {
+public class PlayerLaserManager : PlayerObject {
 
     public PlayerLaserShooterManager m_PlayerLaserShooter;
     [HideInInspector] public int m_LaserDamage;

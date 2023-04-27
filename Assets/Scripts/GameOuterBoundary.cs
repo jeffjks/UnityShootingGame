@@ -44,7 +44,7 @@ public class GameOuterBoundary : MonoBehaviour
                 ItemGem item_gem = other.gameObject.GetComponentInParent<ItemGem>();
                 if (item_gem == null)
                     return;
-                item_gem.OnDeath();
+                item_gem.m_EnemyHealth.OnDeath();
             }
         }
 
@@ -71,7 +71,7 @@ public class GameOuterBoundary : MonoBehaviour
                 if (other.gameObject.activeSelf) {
                     if (other.transform.parent.gameObject.activeSelf) {
                         EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                        enemyBullet.OnDeath();
+                        enemyBullet.m_EnemyHealth.OnDeath();
                     }
                 }
             }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 15490047117841309}
   - component: {fileID: 4083546532811268107}
   - component: {fileID: 8454467576277908228}
+  - component: {fileID: 4703285390574417192}
+  - component: {fileID: 8497858591161711081}
   m_Layer: 10
   m_Name: EnemyBossFinal
   m_TagString: Untagged
@@ -67,10 +69,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 125000
-  m_Class: 2
+  m_EnemyType: 0
   m_Score: 150000
   m_Debris: 0
   m_DefaultExplosion: 6
@@ -88,11 +92,36 @@ MonoBehaviour:
   m_Collider2D:
   - {fileID: 9131807691566928912}
   - {fileID: 6811842977221960041}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_BombBarrier: {fileID: 4541800789654134177}
   m_Core: {fileID: 1858788142543333560}
+--- !u!114 &4703285390574417192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47514129448403895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 0}
+--- !u!114 &8497858591161711081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47514129448403895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 125000
 --- !u!1 &301647385973395569
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,10 @@ public class EnemyHelicopter : HasTargetPosition
 	public float m_FanRotationSpeed;
 
     private int[] m_FireDelay = { 2000, 1000, 500 };
-    private bool m_TimeLimitState = false;
     private const int TIME_LIMIT = 4000;
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
         RotateImmediately(m_PlayerPosition);
 
@@ -22,12 +20,12 @@ public class EnemyHelicopter : HasTargetPosition
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     void LateUpdate()

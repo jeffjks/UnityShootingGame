@@ -6,7 +6,8 @@ public class EnemyTankSmall : EnemyUnit
 {
     protected override void Update()
     {
-        RotateImmediately(m_MoveVector.direction);
         base.Update();
+        
+        RotateImmediately(m_MoveVector.direction);
     }
 }

@@ -13,7 +13,6 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
         RotateImmediately(m_PlayerPosition);
@@ -21,8 +20,10 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_ParentEnemy.m_Health <= 0) {
-            OnDeath();
+            m_EnemyHealth.OnDeath();
         }
 
         if (m_RotateState == 0) {
@@ -33,8 +34,6 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
         else if (m_RotateState == 1) {
             RotateImmediately(m_CurrentAngle + 300f*transform.localScale.x / Application.targetFrameRate * Time.timeScale);
         }
-        
-        base.Update();
     }
 
     public void StartPattern() {

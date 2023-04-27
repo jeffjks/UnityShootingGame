@@ -6,7 +6,6 @@ public class EnemyPlaneMedium2 : EnemyUnit
 {
     public Transform[] m_FirePosition = new Transform[5];
 
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 1600;
     private const int TIME_LIMIT = 8000;
     private float m_VSpeed = 1.1f;
@@ -63,6 +62,8 @@ public class EnemyPlaneMedium2 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (!m_TimeLimitState) { // Retreat when boss or middle boss state
             if (m_SystemManager.m_PlayState > 0) {
                 if (m_TimeLimit != null)
@@ -72,8 +73,6 @@ public class EnemyPlaneMedium2 : EnemyUnit
                 m_TimeLimitState = true;
             }
         }
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1() {
@@ -165,7 +164,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
         pos4 = m_FirePosition[4].position;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector2(1.4f, 0.6f));
         ExplosionEffect(0, -1, new Vector2(-1.4f, 0.6f));
         ExplosionEffect(0, -1, new Vector2(0f, -1.3f));

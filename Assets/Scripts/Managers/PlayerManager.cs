@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +47,6 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public ShipAttributes m_CurrentAttributes = new ShipAttributes(0, 0, 0, 0, 0, 0, 0);
     [HideInInspector] public bool m_PlayerControlable = false;
     [HideInInspector] public int m_RevivePositionY = -13*256; // -3328;
-    [HideInInspector] public int m_SafeLine = -11*256; // -2816;
     private Vector3 m_SpawnPoint;
     
     private const int REVIVE_DELAY = 1200;
@@ -111,7 +111,7 @@ public class PlayerManager : MonoBehaviour
 
         if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING) {
             int power;
-            switch(m_SystemManager.GetCurrentStage()) {
+            switch (m_SystemManager.GetCurrentStage()) {
                 case 0:
                     if (m_SystemManager.m_TrainingInfo.m_BossOnly) {
                         power = 2;

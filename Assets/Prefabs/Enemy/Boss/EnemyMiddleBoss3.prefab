@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 6902129753158886344}
   - component: {fileID: 8674409897457576518}
+  - component: {fileID: 696288135215100546}
+  - component: {fileID: 4824996300273409103}
   m_Layer: 12
   m_Name: EnemyMiddleBoss3
   m_TagString: Untagged
@@ -67,10 +69,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 30000
-  m_Class: 1
+  m_EnemyType: 1
   m_Score: 12500
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -87,17 +91,38 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 2454776734911714938}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition:
   - {fileID: 6370598594428764208}
   - {fileID: 6733764848227821035}
   - {fileID: 5559496410657840515}
-  m_FireDelay:
-  - 1.15
-  - 0.5
-  - 0.3
+--- !u!114 &696288135215100546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 8674409897457576518}
+--- !u!114 &4824996300273409103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 30000
 --- !u!1 &1036572634550386068
 GameObject:
   m_ObjectHideFlags: 0

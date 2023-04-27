@@ -4835,10 +4835,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c198b8a94fb965a4d82a544edffc804b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ObjectName: LaserAura1
   m_Damage: 0
   m_DamageScale: 640000006400000064000000
-  m_Position: {x: 0, y: 0}
 --- !u!1 &981825907757047528
 GameObject:
   m_ObjectHideFlags: 0
@@ -33679,10 +33682,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c198b8a94fb965a4d82a544edffc804b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ObjectName: LaserAura2
   m_Damage: 0
   m_DamageScale: 640000006400000064000000
-  m_Position: {x: 0, y: 0}
 --- !u!1 &1964891235581730787
 GameObject:
   m_ObjectHideFlags: 0
@@ -62711,10 +62717,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c198b8a94fb965a4d82a544edffc804b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ObjectName: LaserAura3
   m_Damage: 0
   m_DamageScale: 640000006400000064000000
-  m_Position: {x: 0, y: 0}
 --- !u!1 &5233819593561072367
 GameObject:
   m_ObjectHideFlags: 0

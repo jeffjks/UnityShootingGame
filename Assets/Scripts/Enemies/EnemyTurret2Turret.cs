@@ -11,19 +11,20 @@ public class EnemyTurret2Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 90f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
 
         if (2 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
-            OnDeath();
+            m_EnemyHealth.OnDeath();
         }
         
         if (!m_Active) {
@@ -32,8 +33,6 @@ public class EnemyTurret2Turret : EnemyUnit
                 m_Active = true;
             }
         }
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1() {

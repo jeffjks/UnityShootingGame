@@ -11,18 +11,17 @@ public class EnemyBoss1Turret2 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     public void StartPattern(byte num) {

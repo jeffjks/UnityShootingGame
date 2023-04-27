@@ -9,14 +9,14 @@ public class EnemyTankLarge3 : EnemyUnit
     
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
     }
     
     protected override void Update()
     {
-        RotateImmediately(m_MoveVector.direction);
         base.Update();
+        
+        RotateImmediately(m_MoveVector.direction);
     }
     
     private IEnumerator Pattern1() {
@@ -38,7 +38,7 @@ public class EnemyTankLarge3 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.4f));
         ExplosionEffect(0, -1, new Vector3(1.4f, 0f, -1.4f));
         ExplosionEffect(0, -1, new Vector3(-1.4f, 0f, 1.4f));

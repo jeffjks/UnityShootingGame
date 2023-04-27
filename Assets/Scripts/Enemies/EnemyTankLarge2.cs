@@ -10,12 +10,13 @@ public class EnemyTankLarge2 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
     }
     
     protected override void Update()
     {
+        base.Update();
+        
         RotateImmediately(m_MoveVector.direction);
 
         if (m_SystemManager.GetDifficulty() == 0) {
@@ -28,8 +29,6 @@ public class EnemyTankLarge2 : EnemyUnit
         if (m_Direction >= 360f) {
             m_Direction -= 360f;
         }
-        
-        base.Update();
     }
     
     private IEnumerator Pattern1() {
@@ -60,7 +59,7 @@ public class EnemyTankLarge2 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector3(-1.5f, 0f, 1f));
         ExplosionEffect(0, -1, new Vector3(1.5f, 0f, 1f));
         ExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.1f));

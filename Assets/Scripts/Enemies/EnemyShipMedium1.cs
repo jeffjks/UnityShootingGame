@@ -9,15 +9,15 @@ public class EnemyShipMedium1 : EnemyUnit
     
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
         StartCoroutine(Pattern2());
     }
     
     protected override void Update()
     {
-        RotateImmediately(m_MoveVector.direction);
         base.Update();
+        
+        RotateImmediately(m_MoveVector.direction);
     }
     
     private IEnumerator Pattern1() {
@@ -59,7 +59,7 @@ public class EnemyShipMedium1 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector3(0f, 0f, -1.8f));
         
         CreateItems();

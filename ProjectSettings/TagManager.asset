@@ -8,7 +8,7 @@ TagManager:
   - StageManager
   - BackgroundCamera
   - PlayerBody
-  - PlayerMissile
+  - PlayerWeapon
   - EnemySpawner
   - EnemyBullet
   - FxTemporaire

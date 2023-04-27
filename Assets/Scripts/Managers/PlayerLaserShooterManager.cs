@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class PlayerLaserShooterManager : MonoBehaviour
 {
-    public PlayerControllerManager m_PlayerController;
+    public PlayerUnit m_PlayerController;
     public GameObject[] m_LaserObjects = new GameObject[3];
     public PlayerLaserFireLight m_LaserFireLight;
     

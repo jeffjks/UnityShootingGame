@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShot : PlayerMissile
+public class PlayerShot : PlayerWeapon
 {
-    void Update()
+    public override void OnStart()
     {
-        MoveVector();
-        SetPosition();
+        base.OnStart();
+        
+        RotateImmediately(m_MoveVector.direction);
+        m_MoveVector.speed = m_Speed;
+        
+        UpdateTransform();
     }
 
-    public override void OnStart() {
-        base.OnStart();
-        m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
+    private void Update()
+    {
+        MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
     }
 }

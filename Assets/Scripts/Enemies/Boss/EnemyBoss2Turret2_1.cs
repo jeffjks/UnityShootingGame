@@ -10,13 +10,10 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
     private bool m_Activate = false;
     private bool m_Shooting = false;
 
-    void Start()
-    {
-        GetCoordinates();
-    }
-
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Activate) {
             if (m_PlayerManager.m_PlayerIsAlive) {
                 if (m_Shooting)
@@ -25,8 +22,6 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
             else
                 RotateSlightly(m_PlayerPosition, 100f);
         }
-        
-        base.Update();
     }
 
     public void StartPattern() {

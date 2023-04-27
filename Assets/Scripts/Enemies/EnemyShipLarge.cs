@@ -10,12 +10,13 @@ public class EnemyShipLarge : EnemyUnit
     
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_MoveVector.direction);
     }
     
     protected override void Update()
     {
+        base.Update();
+        
         RotateImmediately(m_MoveVector.direction);
 
         if (m_Phase == 0) {
@@ -24,8 +25,6 @@ public class EnemyShipLarge : EnemyUnit
                 StartCoroutine(Pattern1());
             }
         }
-        
-        base.Update();
     }
     
     private IEnumerator Pattern1() {
@@ -43,7 +42,7 @@ public class EnemyShipLarge : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         int timer = 0, random_timer = 0;
         float explosion_height = 2f;
         Vector3 random_pos1, random_pos2;

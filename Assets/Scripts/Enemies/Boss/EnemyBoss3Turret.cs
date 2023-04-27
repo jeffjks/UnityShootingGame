@@ -12,12 +12,13 @@ public class EnemyBoss3Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (80f < m_CurrentAngle && m_CurrentAngle < 180f) {
             m_RandomValue = 1;
         }
@@ -36,8 +37,6 @@ public class EnemyBoss3Turret : EnemyUnit
                 RotateSlightly(m_CurrentAngle - 10f*m_RandomValue, 100f);
                 break;
         }
-        
-        base.Update();
     }
 
     public void StartPattern(byte num, int random_value = 1) {

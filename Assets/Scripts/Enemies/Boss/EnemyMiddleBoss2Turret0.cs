@@ -12,7 +12,6 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
         RotateImmediately(m_PlayerPosition);
@@ -20,12 +19,12 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 45f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1()
@@ -79,7 +78,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
         }
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ((EnemyMiddleBoss2) m_ParentEnemy).ToNextPhase();
         
         CreateItems();

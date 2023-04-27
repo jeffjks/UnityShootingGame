@@ -9,7 +9,6 @@ public class EnemyItemHeli : EnemyUnit {
     public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 4000, 2000, 1500 };
     
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 9000;
     //private float m_PositionY, m_AddPositionY;

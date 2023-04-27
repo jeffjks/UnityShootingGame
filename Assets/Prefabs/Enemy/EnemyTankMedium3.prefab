@@ -243,6 +243,8 @@ GameObject:
   - component: {fileID: 400014}
   - component: {fileID: 5204912769195033671}
   - component: {fileID: 4641978124879329762}
+  - component: {fileID: 5543879121379405872}
+  - component: {fileID: 5962672780895046278}
   m_Layer: 12
   m_Name: EnemyTankMedium3
   m_TagString: Untagged
@@ -299,10 +301,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 2400
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 400
   m_Debris: 2
   m_DefaultExplosion: 2
@@ -315,16 +319,37 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5915268304025218368}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition:
   - {fileID: 1125923927610817067}
   - {fileID: 4818967407035481534}
-  m_FireDelay:
-  - 0.4
-  - 0.2
-  - 0.15
+--- !u!114 &5543879121379405872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 4641978124879329762}
+--- !u!114 &5962672780895046278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 2400
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,8 +31,8 @@ public class EnemyBoss3 : EnemyBoss
         m_MoveVector = new MoveVector(1f, -125f);
         RotateImmediately(m_MoveVector.direction);
 
-        DisableAttackable();
-        m_Part.DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
+        m_Part.m_EnemyHealth.DisableInteractable();
         /*
         m_Sequence = DOTween.Sequence()
         .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 15f, 2f).SetEase(Ease.InQuad));*/
@@ -42,6 +42,8 @@ public class EnemyBoss3 : EnemyBoss
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
                 ToNextPhase();
@@ -82,8 +84,6 @@ public class EnemyBoss3 : EnemyBoss
             m_Direction -= 360f;
         else if (m_Direction < 0f)
             m_Direction += 360f;
-
-        base.Update();
     }
 
     private IEnumerator AppearanceSequence() {
@@ -128,8 +128,8 @@ public class EnemyBoss3 : EnemyBoss
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
-        EnableAttackable();
-        m_Part.EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
+        m_Part.m_EnemyHealth.EnableInteractable();
     }
 
     private int RandomValue() {
@@ -159,8 +159,8 @@ public class EnemyBoss3 : EnemyBoss
             if (m_Phase == 2) {
                 m_CurrentPhase = Phase2();
                 StartCoroutine(m_CurrentPhase);
-                m_Part.OnDeath();
-                EnableInvincible(duration);
+                m_Part.m_EnemyHealth.OnDeath();
+                DisableInvincibility(duration);
                 NextPhaseExplosion(duration);
             }
         }
@@ -557,7 +557,7 @@ public class EnemyBoss3 : EnemyBoss
 
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
@@ -569,7 +569,7 @@ public class EnemyBoss3 : EnemyBoss
             StopCoroutine(m_CurrentPhase);
         for (int i = 0; i < m_Turret.Length; i++) {
             if (m_Turret[i] != null)
-                m_Turret[i].OnDeath();
+                m_Turret[i].m_EnemyHealth.OnDeath();
         }
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);

@@ -27,7 +27,7 @@ public class EnemyBossFinal : EnemyBoss
         m_TargetPosition = new Vector3(0f, -3.8f, Depth.ENEMY);
         //m_RotateAxisSide = 2*Random.Range(0, 2) - 1;
         
-        DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
 
         StartCoroutine(AppearanceSequence());
     }
@@ -59,11 +59,13 @@ public class EnemyBossFinal : EnemyBoss
         StartCoroutine(m_CurrentPhase);
         m_SystemManager.m_StageManager.SetTrueLastBossState(false);
 
-        EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth / 2) { // 체력 50% 이하
                 ToNextPhase();
@@ -99,8 +101,6 @@ public class EnemyBossFinal : EnemyBoss
             else if (m_Direction[i] < 0f)
                 m_Direction[i] += 360f;
         }
-            
-        base.Update();
     }
 
     private void Rotate() {
@@ -133,14 +133,8 @@ public class EnemyBossFinal : EnemyBoss
             return;
         if (m_Phase > 0) {
             if (m_PlayerManager.m_PlayerController.GetInvincibility()) {
-                if (!m_IsUnattackable) {
-                    EnableInvincible();
-                    m_BombBarrier.SetActive(true);
-                }
-            }
-            else if (m_IsUnattackable) {
-                m_IsUnattackable = false;
-                m_BombBarrier.SetActive(false);
+                DisableInvincibility();
+                m_BombBarrier.SetActive(true);
             }
         }
     }
@@ -598,7 +592,7 @@ public class EnemyBossFinal : EnemyBoss
     }
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         StopAllPatterns();
         if (m_CurrentPhase != null)

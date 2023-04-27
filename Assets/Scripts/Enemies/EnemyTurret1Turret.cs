@@ -12,12 +12,13 @@ public class EnemyTurret1Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive) {
             if (!m_Shooting)
                 RotateSlightly(m_PlayerPosition, 90f);
@@ -31,8 +32,6 @@ public class EnemyTurret1Turret : EnemyUnit
                 m_Active = true;
             }
         }
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1() {

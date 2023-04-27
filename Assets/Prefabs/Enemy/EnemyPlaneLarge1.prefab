@@ -246,6 +246,8 @@ GameObject:
   - component: {fileID: 4886184077356878761}
   - component: {fileID: 7719896075264092071}
   - component: {fileID: 7903204131874078517}
+  - component: {fileID: 6914176658240159056}
+  - component: {fileID: 6766749690001554221}
   m_Layer: 10
   m_Name: EnemyPlaneLarge1
   m_TagString: Enemy
@@ -335,10 +337,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 15000
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 6000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -353,9 +357,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 7719896075264092071}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Part:
   - {fileID: 100056}
   - {fileID: 100058}
@@ -363,6 +365,33 @@ MonoBehaviour:
   - {fileID: 6238359599992607867}
   - {fileID: 2648873804081044708}
   m_FirePosition: {fileID: 1504743510185496889}
+--- !u!114 &6914176658240159056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 7903204131874078517}
+--- !u!114 &6766749690001554221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 15000
 --- !u!1 &72843222400860641
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,10 +545,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7903204131874078517}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 9
@@ -531,9 +562,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 7124454433497280003}
 --- !u!1 &2730360984219131813
 GameObject:
@@ -610,10 +639,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7903204131874078517}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 9
@@ -625,9 +656,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 3773888749601695656}
 --- !u!1 &2957202784257788419
 GameObject:

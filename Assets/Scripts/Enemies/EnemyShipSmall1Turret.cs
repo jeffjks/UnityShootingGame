@@ -9,18 +9,18 @@ public class EnemyShipSmall1Turret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 60f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        base.Update();
     }
 
     private IEnumerator Pattern1() {

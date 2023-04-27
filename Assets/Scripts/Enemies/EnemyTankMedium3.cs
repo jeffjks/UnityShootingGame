@@ -10,7 +10,6 @@ public class EnemyTankMedium3 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
         m_Direction = Random.Range(0f, 360f);
     }
@@ -18,14 +17,14 @@ public class EnemyTankMedium3 : EnemyUnit
     
     protected override void Update()
     {
+        base.Update();
+        
         RotateImmediately(m_MoveVector.direction);
 
         if (m_Direction >= 360f) {
             m_Direction -= 360f;
         }
         m_Direction += 90f / Application.targetFrameRate * Time.timeScale;
-        
-        base.Update();
     }
 
     private IEnumerator Pattern1() {

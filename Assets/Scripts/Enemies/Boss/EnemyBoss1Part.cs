@@ -14,8 +14,8 @@ public class EnemyBoss1Part : EnemyUnit
 
     protected override void Update()
     {
-        StateAnimation();
         base.Update();
+        StateAnimation();
     }
 
     public void SetOpenState(bool state) {
@@ -48,7 +48,7 @@ public class EnemyBoss1Part : EnemyUnit
         m_SystemManager.BulletsToGems(0);
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_SystemManager.EraseBullets(500);
         ((EnemyBoss1) m_ParentEnemy).ToNextPhase();
 

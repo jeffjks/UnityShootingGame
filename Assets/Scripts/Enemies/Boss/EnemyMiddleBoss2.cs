@@ -92,6 +92,8 @@ public class EnemyMiddleBoss2 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 375 / 1000) { // 체력 37.5% 이하
                 ToNextPhase();
@@ -103,8 +105,6 @@ public class EnemyMiddleBoss2 : EnemyUnit
             m_Direction -= 360f;
 
         RotateImmediately(m_MoveVector.direction);
-
-        base.Update();
     }
 
     public void ToNextPhase() {
@@ -120,11 +120,11 @@ public class EnemyMiddleBoss2 : EnemyUnit
         StartCoroutine(m_CurrentPattern2);
 
         if (m_Turret0 != null)
-            m_Turret0.OnDeath();
+            m_Turret0.m_EnemyHealth.OnDeath();
         if (m_Turret1[0] != null)
-            m_Turret1[0].OnDeath();
+            m_Turret1[0].m_EnemyHealth.OnDeath();
         if (m_Turret1[1] != null)
-            m_Turret1[1].OnDeath();
+            m_Turret1[1].m_EnemyHealth.OnDeath();
         
         m_Collider2D[0].gameObject.SetActive(true);
         m_SystemManager.EraseBullets(500);
@@ -234,7 +234,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
     }
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector.speed = 0f;
         m_Phase = -1;

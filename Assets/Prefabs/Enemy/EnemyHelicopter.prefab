@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 9199919511285995317}
   - component: {fileID: 6965917009482392081}
   - component: {fileID: 4809145071204106495}
+  - component: {fileID: 4959648612643879189}
+  - component: {fileID: 4673612501034204714}
   m_Layer: 9
   m_Name: EnemyHelicopter
   m_TagString: Enemy
@@ -118,10 +120,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 30
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -134,17 +138,38 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6965917009482392081}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
-  m_FireDelay:
-  - 2
-  - 1
-  - 0.5
   m_FirePosition: {fileID: 4041665380838663998}
   m_FanU: {fileID: 2610135649203121189}
   m_FanB: {fileID: 2610135649203121187}
   m_FanRotationSpeed: 1200
+--- !u!114 &4959648612643879189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610135649203121185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 4809145071204106495}
+--- !u!114 &4673612501034204714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610135649203121185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 30
 --- !u!1 &2610135649203121187
 GameObject:
   m_ObjectHideFlags: 0

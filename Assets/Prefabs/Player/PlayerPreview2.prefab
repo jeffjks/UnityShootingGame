@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234791357494220365}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2000002, z: 0}
+  m_LocalPosition: {x: 0, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1850749557749383939}
@@ -116,10 +116,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27e533420d03cb45a3935855c4831a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ObjectName: LaserBeam
   m_Damage: 0
   m_DamageScale: 000000000000000000000000
-  m_Position: {x: 0, y: 0}
   m_PlayerLaserShooter: {fileID: 32744075735279891}
   m_LaserDamage: 0
 --- !u!1 &4476741379894299300
@@ -170,10 +173,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc348cd0e159f841b730a14c7b28fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ObjectName: PlayerPreview2
   m_Damage: 0
   m_DamageScale: 000000000000000000000000
-  m_Position: {x: 0, y: 0}
   m_SlowMode: 0
   m_PlayerBody: {fileID: 1431413074011714893}
 --- !u!114 &7764462487831255088
@@ -217,7 +223,6 @@ MonoBehaviour:
   m_PlayerPreviewLaserShooter: {fileID: 32744075735279891}
   m_PlayerPreviewShooter: {fileID: 2552188761067657113}
   m_DronePart: {fileID: 9012602562047716220}
-  m_PreviewPoolingManager: {fileID: 0}
 --- !u!114 &2552188761067657113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bdfdddfdeba0f14a9c3a3f3a43cf51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerMissile:
+  PlayerWeapon:
   - {fileID: 7308936934683739909, guid: 30b392808faeedc4c9c0bcd3bc220249, type: 3}
   - {fileID: 1505355089897114, guid: 6bb61dcf10331eb42bcaff10ba470e8f, type: 3}
   - {fileID: 1255836958617472, guid: 94ad4902bc99afe49a95a6e9a1521a6b, type: 3}
@@ -249,7 +254,7 @@ MonoBehaviour:
   - {fileID: 4489272018456228762}
   - {fileID: 3338175742595404481}
   m_PlayerLaserShooter: {fileID: 32744075735279891}
-  m_PlayerController: {fileID: 989022632222629200}
+  m_PlayerUnit: {fileID: 989022632222629200}
   m_FireRate: 50
   m_FireDelay: 320
   m_HomingMissileDelay:
@@ -262,7 +267,6 @@ MonoBehaviour:
     max_delay: 200
     min_delay: 100
   m_ShotLevel: 0
-  m_PreviewPoolingManager: {fileID: 0}
 --- !u!1001 &604798092995543312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -274,41 +278,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerMainObjects
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4737561724023521598, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
         type: 3}
@@ -475,41 +444,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerLaserBeam
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7887652211098970725, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}

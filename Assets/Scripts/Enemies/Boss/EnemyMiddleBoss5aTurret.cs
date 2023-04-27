@@ -12,12 +12,13 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         switch (m_RotatePattern) {
             case 10:
                 if (m_PlayerManager.m_PlayerIsAlive) {
@@ -40,8 +41,6 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
                 RotateSlightly(180f, 120f);
                 break;
         }
-        
-        base.Update();
     }
 
     public void StartPattern(byte num, int rand = 0) {

@@ -10,7 +10,7 @@ public abstract class Item : MonoBehaviour
     public Transform m_Renderer;
 
     protected abstract void ItemEffect(Collider2D other);
-    public abstract void OnDeath();
+    public abstract void OnItemRemoved();
     protected Transform m_MainCameraTransform;
     protected Vector2 m_Position2D;
     protected Vector2Int m_Position;
@@ -55,10 +55,10 @@ public abstract class Item : MonoBehaviour
             pos = m_Position2D;
         }
         if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + gap) {
-            OnDeath();
+            OnItemRemoved();
         }
         else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + gap) {
-            OnDeath();
+            OnItemRemoved();
         }
     }
 
@@ -163,11 +163,11 @@ public abstract class ItemBox : Item
     {
         if (other.gameObject.CompareTag("PlayerBody")) { // 대상이 플레이어 바디면 자신 파괴
             ItemEffect(other);
-            OnDeath();
+            OnItemRemoved();
         }
     }
 
-    public override void OnDeath() {
+    public override void OnItemRemoved() {
         Destroy(gameObject);
     }
 }

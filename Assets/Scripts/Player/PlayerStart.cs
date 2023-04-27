@@ -30,14 +30,14 @@ public class PlayerStart : MonoBehaviour
             return;
         }
         else {
-            EndOpening();
+            EndSpawnEvent();
         }
     }
 
     void Update() {
-        m_PlayerController.SetVerticalSpeed((int) (m_Vspeed / Application.targetFrameRate * Time.timeScale));
-        //m_PlayerController.m_Vector2 = 
-        //transform.Translate(Vector3.up * m_Vspeed / Application.targetFrameRate, Space.World);
+        //m_PlayerController.m_MoveVector = new MoveVector(m_Vspeed / Application.targetFrameRate * Time.timeScale, 180f);
+        Vector2Int posInt2D = m_PlayerController.m_PositionInt2D;
+        m_PlayerController.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (m_Vspeed / Application.targetFrameRate * Time.timeScale));
     }
 
     private IEnumerator SpawnEvent() {
@@ -48,12 +48,12 @@ public class PlayerStart : MonoBehaviour
             yield return new WaitForMillisecondFrames(100);
         }
         yield return new WaitForMillisecondFrames(500);
-        EndOpening();
+        EndSpawnEvent();
         yield break;
     }
 
-    private void EndOpening() {
-        m_PlayerController.EnableInvincible(m_PlayerController.m_ReviveInvincibleTime);
+    private void EndSpawnEvent() {
+        m_PlayerController.DisableInvincibility(m_PlayerController.m_ReviveInvincibleTime);
         m_PlayerManager.m_PlayerControlable = true;
         m_Vspeed = 0;
         enabled = false;

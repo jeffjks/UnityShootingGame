@@ -45,7 +45,7 @@ public class ItemGemAir : ItemGem
         m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
     }
 
-    public override void OnDeath() {
+    public override void OnItemRemoved() {
         ReturnToPool();
     }
 

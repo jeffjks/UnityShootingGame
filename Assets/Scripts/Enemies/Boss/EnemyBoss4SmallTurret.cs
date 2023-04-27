@@ -11,7 +11,6 @@ public class EnemyBoss4SmallTurret : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
         m_KillScore = m_Score;
         m_Score = 0;
@@ -19,12 +18,12 @@ public class EnemyBoss4SmallTurret : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     public void StartPattern(byte num) {

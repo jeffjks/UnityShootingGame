@@ -16,8 +16,8 @@ public class PlayerPreviewShooter : PlayerShooterManager
         m_PoolingManager = PoolingManager.instance_op;
         InitShotLevel();
 
-        for (int i = 0; i < PlayerMissile.Length; i++) {
-            m_PlayerMissileName[i] = PlayerMissile[i].GetComponent<PlayerMissile>().m_ObjectName;
+        for (int i = 0; i < PlayerWeapon.Length; i++) {
+            m_PlayerWeaponName[i] = PlayerWeapon[i].GetComponent<PlayerWeapon>().m_ObjectName;
         }
         
         SetPreviewShooter();
@@ -31,7 +31,7 @@ public class PlayerPreviewShooter : PlayerShooterManager
     }
 
     protected override IEnumerator Shot() {
-        while (!m_PlayerController.m_SlowMode) {
+        while (!m_PlayerUnit.m_SlowMode) {
             for (int i = 0; i < m_ShotNumber; i++) { // m_FireRate초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
                 if (m_ShotDamage == 0)
                     CreateShotNormal(m_ShotLevel);
@@ -49,14 +49,14 @@ public class PlayerPreviewShooter : PlayerShooterManager
         yield break;
     }
 
-    protected override void CreatePlayerAttacks(string name, Vector3 pos, Quaternion rot, byte type = 0) {
+    protected override void CreatePlayerAttacks(string name, Vector3 pos, float dir, byte type = 0) {
         GameObject obj = m_PoolingManager.PopFromPool(name, PoolingParent.PLAYER_MISSILE);
-        PlayerMissile playerMissile = obj.GetComponent<PlayerMissile>();
+        PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
         obj.transform.position = pos;
-        obj.transform.rotation = rot;
-        playerMissile.m_DamageLevel = type;
+        playerWeapon.m_MoveVector.direction = dir;
+        playerWeapon.m_DamageLevel = type;
         obj.SetActive(true);
-        playerMissile.OnStart();
+        playerWeapon.OnStart();
     }
 
     private IEnumerator PreviewSlowMode() {
@@ -69,12 +69,12 @@ public class PlayerPreviewShooter : PlayerShooterManager
     }
 
     private void EnableSlowMode() {
-        m_PlayerController.m_SlowMode = true;
+        m_PlayerUnit.m_SlowMode = true;
         m_PlayerLaserShooter.StartLaser();
     }
 
     private void DisableSlowMode() {
-        m_PlayerController.m_SlowMode = false;
+        m_PlayerUnit.m_SlowMode = false;
         m_PlayerLaserShooter.StopLaser();
         StartCoroutine(Shot());
     }

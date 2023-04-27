@@ -10,7 +10,6 @@ public class EnemyPlaneMedium5Turret1 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
@@ -18,12 +17,12 @@ public class EnemyPlaneMedium5Turret1 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     public void StopPattern() {

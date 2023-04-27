@@ -6,12 +6,10 @@ public class EnemyGunship : HasTargetPosition
     public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 2000, 1500, 1000 };
     
-    private bool m_TimeLimitState = false;
     private const int TIME_LIMIT = 8000;
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
         RotateImmediately(m_PlayerPosition);
 
@@ -20,12 +18,12 @@ public class EnemyGunship : HasTargetPosition
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {

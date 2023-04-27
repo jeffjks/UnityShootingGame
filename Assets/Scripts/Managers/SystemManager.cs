@@ -293,7 +293,7 @@ public class SystemManager : MonoBehaviour
         m_PlayState = 2;
         if (m_StageManager.GetTrueLastBossState())
             return;
-        m_PlayerController.EnableInvincible(5000);
+        m_PlayerController.DisableInvincibility(5000);
     }
 
     private IEnumerator StageClear() {
@@ -340,7 +340,7 @@ public class SystemManager : MonoBehaviour
 
                 m_PlayState = 0;
                 m_PlayerManager.m_PlayerControlable = true;
-                m_PlayerController.EnableInvincible(3000);
+                m_PlayerController.DisableInvincibility(3000);
                 ScreenEffect(2); // Transition
             }
             else {

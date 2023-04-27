@@ -7,11 +7,6 @@ public class EnemyBoss2Turret2_2 : EnemyUnit
     private int[] m_FireDelay = { 1800, 900, 600 };
     public Transform m_FirePosition;
 
-    void Start()
-    {
-        GetCoordinates();
-    }
-
     public void StartPattern() {
         StartCoroutine(Pattern1());
     }

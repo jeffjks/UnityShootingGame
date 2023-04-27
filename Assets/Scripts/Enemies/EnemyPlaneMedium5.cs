@@ -6,7 +6,6 @@ public class EnemyPlaneMedium5 : EnemyUnit
 {
     public EnemyPlaneMedium5Turret0 m_Turret0;
     public EnemyPlaneMedium5Turret1 m_Turret1;
-    //private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 8500;
     private IEnumerator m_TimeLimit;
@@ -65,12 +64,12 @@ public class EnemyPlaneMedium5 : EnemyUnit
 
     protected override void Update()
     {
-        RotateImmediately(m_MoveVector.direction);
-        
         base.Update();
+        
+        RotateImmediately(m_MoveVector.direction);
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector2(0f, 1.5f));
         ExplosionEffect(0, -1, new Vector2(0f, -2f));
         

@@ -168,14 +168,14 @@ public abstract class StageManager : MonoBehaviour
     protected GameObject CreateEnemy(GameObject obj, Vector3 pos) { // attackable 후 attackable 활성화
         GameObject ins = InstantiateEnemyObject(obj, pos);
         //EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
-        //enemy_unit.DisableAttackable(attackable_millisecond);
+        //enemy_unit.DisableInteractable(attackable_millisecond);
         return ins;
     }
     
     protected GameObject CreateEnemyWithTarget(GameObject obj, Vector3 pos, Vector2 target_pos, int duration) { // Only Air Unit (where T: HasTargetPosition)
         GameObject ins = InstantiateEnemyObject(obj, pos);
-        HasTargetPosition enemy_unit = ins.GetComponent<HasTargetPosition>();
-        enemy_unit.StartCoroutine(enemy_unit.MoveTowardsToTarget(target_pos, duration));
+        ITargetPosition enemy_unit = ins.GetComponent<ITargetPosition>();
+        enemy_unit.MoveTowardsToTarget(target_pos, duration);
         return ins;
     }
     

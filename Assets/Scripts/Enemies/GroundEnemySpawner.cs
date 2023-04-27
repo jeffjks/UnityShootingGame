@@ -40,7 +40,7 @@ public class GroundEnemySpawner : EnemyUnit
         enemy_unit.m_MoveVector = new MoveVector(m_Speed, m_Direction);
         
         if (m_AttackableTimer != 0) {
-            enemy_unit.DisableAttackable(m_AttackableTimer);
+            enemy_unit.m_EnemyHealth?.DisableInteractable(m_AttackableTimer);
         }
         
         for (int i = 0; i < m_MovePattern.Length; i++) {

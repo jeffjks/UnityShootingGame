@@ -11,7 +11,6 @@ public class EnemyShipLargeTurret2 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
 
         if (transform.localPosition.x > 0f)
@@ -24,12 +23,12 @@ public class EnemyShipLargeTurret2 : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
     
     private IEnumerator Pattern1() {

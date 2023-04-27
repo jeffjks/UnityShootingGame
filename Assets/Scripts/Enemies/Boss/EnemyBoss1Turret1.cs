@@ -10,12 +10,13 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+
         if (((EnemyBoss1) m_ParentEnemy).m_Phase == 1) {
             if (m_PlayerManager.m_PlayerIsAlive)
                 RotateImmediately(m_PlayerPosition);
@@ -25,8 +26,6 @@ public class EnemyBoss1Turret1 : EnemyUnit
         else {
             RotateSlightly(0f, 100f);
         }
-        
-        base.Update();
     }
 
     public void StartPattern(byte num, bool right = true) {

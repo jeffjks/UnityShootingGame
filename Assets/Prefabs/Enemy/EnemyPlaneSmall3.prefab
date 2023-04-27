@@ -433,6 +433,8 @@ GameObject:
   - component: {fileID: 3287350177743488085}
   - component: {fileID: 8822356553103738460}
   - component: {fileID: 2210618569345546713}
+  - component: {fileID: 2764763023815922668}
+  - component: {fileID: 4798451151947804807}
   m_Layer: 9
   m_Name: EnemyPlaneSmall3
   m_TagString: Enemy
@@ -506,10 +508,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 500
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 150
   m_Debris: 0
   m_DefaultExplosion: 8
@@ -522,9 +526,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 3287350177743488085}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 4826254775800139235}
 --- !u!114 &2210618569345546713
 MonoBehaviour:
@@ -538,10 +540,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b9e9aa8afaa6441bd2cfea3d5209ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RollingObject: {fileID: 8822356553103738460}
+  m_UnitObject: {fileID: 8822356553103738460}
   m_Rotator: {fileID: 3312976831173502154}
   m_MaxRoll: 30
   m_RollSpeed: 48
+  m_RelativeToCurrentAngle: 0
+--- !u!114 &2764763023815922668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 8822356553103738460}
+--- !u!114 &4798451151947804807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 500
 --- !u!1 &274053919950357696
 GameObject:
   m_ObjectHideFlags: 0

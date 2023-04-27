@@ -248,6 +248,8 @@ GameObject:
   - component: {fileID: 2899568583163207032}
   - component: {fileID: 8417897096735470365}
   - component: {fileID: 1725498716193962102}
+  - component: {fileID: 130941298310000170}
+  - component: {fileID: 3475776166298948259}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKII
   m_TagString: Enemy
@@ -320,10 +322,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -336,11 +340,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 8417897096735470365}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 1433835503573568786}
   m_Engine: {fileID: 8224979487976780532}
+--- !u!114 &130941298310000170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 1725498716193962102}
+--- !u!114 &3475776166298948259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +382,8 @@ GameObject:
   - component: {fileID: 8003892762298124374}
   - component: {fileID: 6485578164333232411}
   - component: {fileID: 6017941470493005436}
+  - component: {fileID: 2180559297393885647}
+  - component: {fileID: 1847464190364878771}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKIII
   m_TagString: Enemy
@@ -425,10 +456,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -441,11 +474,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6485578164333232411}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 7315138404752789924}
   m_Engine: {fileID: 552064749147534282}
+--- !u!114 &2180559297393885647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 6017941470493005436}
+--- !u!114 &1847464190364878771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100014
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +516,8 @@ GameObject:
   - component: {fileID: 5418970059310407688}
   - component: {fileID: 1351382190013489434}
   - component: {fileID: 7128904614764597024}
+  - component: {fileID: 2905015291714125477}
+  - component: {fileID: 5448708646223412686}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKII
   m_TagString: Enemy
@@ -530,10 +590,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -546,11 +608,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 1351382190013489434}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 4110174184765956700}
   m_Engine: {fileID: 5651210580512101998}
+--- !u!114 &2905015291714125477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 7128904614764597024}
+--- !u!114 &5448708646223412686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +650,8 @@ GameObject:
   - component: {fileID: 6756955320794329657}
   - component: {fileID: 1266834556991815419}
   - component: {fileID: 672333855764410418}
+  - component: {fileID: 8714089075472327789}
+  - component: {fileID: 7713770940712636449}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKII
   m_TagString: Enemy
@@ -635,10 +724,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -651,11 +742,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 1266834556991815419}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 8750100009720944235}
   m_Engine: {fileID: 8229429719054029177}
+--- !u!114 &8714089075472327789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 672333855764410418}
+--- !u!114 &7713770940712636449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +784,8 @@ GameObject:
   - component: {fileID: 1160400037693022020}
   - component: {fileID: 6116868255486706482}
   - component: {fileID: 8507881909131019944}
+  - component: {fileID: 1200425879223489663}
+  - component: {fileID: 5193734547908033505}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKII
   m_TagString: Enemy
@@ -740,10 +858,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -756,11 +876,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6116868255486706482}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 2215795199871025905}
   m_Engine: {fileID: 6525869664458682481}
+--- !u!114 &1200425879223489663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 8507881909131019944}
+--- !u!114 &5193734547908033505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +918,8 @@ GameObject:
   - component: {fileID: 6739127573780947233}
   - component: {fileID: 2746127168013012546}
   - component: {fileID: 2676140483196789985}
+  - component: {fileID: 5084699909150798975}
+  - component: {fileID: 5883636535505093969}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKIII
   m_TagString: Enemy
@@ -845,10 +992,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -861,11 +1010,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 2746127168013012546}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 8402865314328902377}
   m_Engine: {fileID: 7524817519260449283}
+--- !u!114 &5084699909150798975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 2676140483196789985}
+--- !u!114 &5883636535505093969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,6 +1052,8 @@ GameObject:
   - component: {fileID: 8787994602953020785}
   - component: {fileID: 4568803759589665376}
   - component: {fileID: 3654037396170657469}
+  - component: {fileID: 8783451381051133850}
+  - component: {fileID: 8427864732366939121}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKIII
   m_TagString: Enemy
@@ -950,10 +1126,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -966,11 +1144,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 4568803759589665376}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 2308859156474059023}
   m_Engine: {fileID: 2378610710514130012}
+--- !u!114 &8783451381051133850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 3654037396170657469}
+--- !u!114 &8427864732366939121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100024
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,6 +1186,8 @@ GameObject:
   - component: {fileID: 2783292939145730452}
   - component: {fileID: 4875191083314851074}
   - component: {fileID: 1289837217313929323}
+  - component: {fileID: 2193017007457302404}
+  - component: {fileID: 660550213377324083}
   m_Layer: 10
   m_Name: AntiCapitalTorpedoMKIII
   m_TagString: Enemy
@@ -1055,10 +1260,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 150
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 1000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -1071,11 +1278,36 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 4875191083314851074}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_Renderer: {fileID: 1607289933592711200}
   m_Engine: {fileID: 7401197519292741744}
+--- !u!114 &2193017007457302404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 1289837217313929323}
+--- !u!114 &660550213377324083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 150
 --- !u!1 &100042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,10 +1391,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7068832166097506925}
   m_Health: 0
-  m_Class: 1
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -1174,9 +1408,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 1444788518534740730}
   m_RotatePattern: 10
 --- !u!1 &100046
@@ -1190,6 +1422,8 @@ GameObject:
   - component: {fileID: 400046}
   - component: {fileID: 1824795489223679813}
   - component: {fileID: 7068832166097506925}
+  - component: {fileID: 963543929464101144}
+  - component: {fileID: 7927978532329084971}
   m_Layer: 10
   m_Name: EnemyMiddleBoss5a
   m_TagString: Untagged
@@ -1209,7 +1443,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 702167157285079517}
-  - {fileID: 8688047712612548450}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1247,10 +1480,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 46000
-  m_Class: 1
+  m_EnemyType: 1
   m_Score: 25000
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -1266,9 +1501,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6378092441801283617}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_MainTurret: {fileID: 8899105967141548953}
   m_Turret:
   - {fileID: 7566465114371849519}
@@ -1283,6 +1516,33 @@ MonoBehaviour:
   - {fileID: 3654037396170657469}
   - {fileID: 1289837217313929323}
   m_Phase: 0
+--- !u!114 &963543929464101144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 7068832166097506925}
+--- !u!114 &7927978532329084971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 46000
 --- !u!1 &100048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,36 +1620,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &188211909219142541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8688047712612548450}
-  m_Layer: 10
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8688047712612548450
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188211909219142541}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 400046}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &552064749147534282
 GameObject:
   m_ObjectHideFlags: 0
@@ -10933,10 +11163,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7068832166097506925}
   m_Health: 0
-  m_Class: 1
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -10948,9 +11180,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition:
   - {fileID: 6626880381667716888}
   - {fileID: 4628748407013359911}
@@ -35201,10 +35431,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7068832166097506925}
   m_Health: 0
-  m_Class: 1
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 0
@@ -35216,9 +35448,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition:
   - {fileID: 3017209431804007154}
   - {fileID: 1246601882547752241}

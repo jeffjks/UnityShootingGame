@@ -29,12 +29,12 @@ public class EnemyBoss4 : EnemyBoss
         m_TargetPosition = transform.position;
         m_MoveVector = new MoveVector(0f, 180f); // new MoveVector(-4.5f, 180f);
         
-        DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
-            m_SmallTurrets[i].DisableAttackable();
+            m_SmallTurrets[i].m_EnemyHealth.DisableInteractable();
         }
         for (int i = 0; i < m_FrontTurrets.Length; i++) {
-            m_FrontTurrets[i].DisableAttackable();
+            m_FrontTurrets[i].m_EnemyHealth.DisableInteractable();
         }
 
         StartCoroutine(AppearanceSequence());
@@ -68,12 +68,12 @@ public class EnemyBoss4 : EnemyBoss
 
         m_FollowingBackground = true;
         
-        EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
-            m_SmallTurrets[i].EnableAttackable();
+            m_SmallTurrets[i].m_EnemyHealth.EnableInteractable();
         }
         for (int i = 0; i < m_FrontTurrets.Length; i++) {
-            m_FrontTurrets[i].EnableAttackable();
+            m_FrontTurrets[i].m_EnemyHealth.EnableInteractable();
         }
     }
 
@@ -94,6 +94,8 @@ public class EnemyBoss4 : EnemyBoss
 
     protected override void Update()
     {
+        base.Update();
+        
         ControlSpeed();
 
         /*
@@ -128,7 +130,7 @@ public class EnemyBoss4 : EnemyBoss
             if (m_Health <= m_MaxHealth * 65 / 100) { // 체력 65% 이하
                 for (int i = 0; i < m_FrontTurrets.Length; i++) {
                     if (m_FrontTurrets[i] != null)
-                        m_FrontTurrets[i].OnDeath();
+                        m_FrontTurrets[i].m_EnemyHealth.OnDeath();
                 }
                 m_SystemManager.EraseBullets(2000);
                 StartCoroutine(NextPhaseExplosion1(2000));
@@ -159,7 +161,6 @@ public class EnemyBoss4 : EnemyBoss
             m_Direction += 360f;
 
         RunTracks();
-        base.Update();
     }
 
     private void RunTracks() {
@@ -607,14 +608,14 @@ public class EnemyBoss4 : EnemyBoss
     }
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         StopAllPatterns();
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
             if (m_SmallTurrets[i] != null)
-                m_SmallTurrets[i].OnDeath();
+                m_SmallTurrets[i].m_EnemyHealth.OnDeath();
         }
         m_SystemManager.BulletsToGems(2000);
 

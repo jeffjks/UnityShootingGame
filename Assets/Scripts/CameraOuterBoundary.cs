@@ -27,10 +27,10 @@ public class CameraOuterBoundary : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerMissile")) {
+        if (other.CompareTag("PlayerWeapon")) {
             if (other.gameObject.activeSelf) {
-                PlayerMissile playerMissile = other.gameObject.GetComponent<PlayerMissile>();
-                m_PoolingManager.PushToPool(playerMissile.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
+                PlayerWeapon playerWeapon = other.gameObject.GetComponent<PlayerWeapon>();
+                m_PoolingManager.PushToPool(playerWeapon.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
             }
         }
     }

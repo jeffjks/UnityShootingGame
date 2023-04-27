@@ -33,7 +33,7 @@ public class EnemyBoss5 : EnemyBoss
             m_WingMeshRenderers[i].gameObject.SetActive(false);
         }
 
-        DisableAttackable();
+        m_EnemyHealth.DisableInteractable();
         
         /*
         m_Sequence = DOTween.Sequence()
@@ -65,11 +65,13 @@ public class EnemyBoss5 : EnemyBoss
         ToNextPhase();
         StartCoroutine(InitMaterial());
 
-        EnableAttackable();
+        m_EnemyHealth.EnableInteractable();
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
                 ToNextPhase();
@@ -114,7 +116,6 @@ public class EnemyBoss5 : EnemyBoss
             m_Direction += 360f;
         
         RotateWings();
-        base.Update();
     }
 
     private void RotateWings() {
@@ -683,7 +684,7 @@ public class EnemyBoss5 : EnemyBoss
     }
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         StopAllPatterns();
         if (m_CurrentPhase != null)

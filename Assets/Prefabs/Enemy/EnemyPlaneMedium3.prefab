@@ -848,6 +848,8 @@ GameObject:
   - component: {fileID: 1039612640574664314}
   - component: {fileID: 6279746386467987376}
   - component: {fileID: 7460271519197683389}
+  - component: {fileID: 2682565771216066849}
+  - component: {fileID: 7846070463781950641}
   m_Layer: 10
   m_Name: EnemyPlaneMedium3
   m_TagString: Enemy
@@ -934,10 +936,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 800
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 400
   m_Debris: 0
   m_DefaultExplosion: 5
@@ -950,16 +954,37 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 6279746386467987376}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
-  m_FireDelay:
-  - 2.4
-  - 1.8
-  - 1.2
   m_Turret:
   - {fileID: 1502714658180011400}
   - {fileID: 7482008165198680027}
+--- !u!114 &2682565771216066849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 7460271519197683389}
+--- !u!114 &7846070463781950641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 800
 --- !u!1 &100048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,10 +1217,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7460271519197683389}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 8
@@ -1207,9 +1234,7 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 198542346308787666}
 --- !u!1 &4761450931395308020
 GameObject:
@@ -1354,10 +1379,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 7460271519197683389}
   m_Health: 0
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 0
   m_Debris: 0
   m_DefaultExplosion: 8
@@ -1369,7 +1396,5 @@ MonoBehaviour:
   m_ShareHealth: 0
   m_ChildEnemies: []
   m_Collider2D: []
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition: {fileID: 3283773156848308564}

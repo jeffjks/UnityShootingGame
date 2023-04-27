@@ -9,7 +9,6 @@ public class EnemyPlaneLarge2Turret0 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         StartCoroutine(Pattern1());
     }
     

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHomingMissile : PlayerMissile {
+public class PlayerHomingMissile : PlayerWeapon {
     
     [Space(10)]
-    private float m_RotationSpeed = 0.09f;
+    private float m_RotationSpeed = 324f;
     private GameObject m_Target;
     private Vector2 m_MainCameraPosition;
     private SystemManager m_SystemManager = null;
@@ -13,11 +13,15 @@ public class PlayerHomingMissile : PlayerMissile {
     public override void OnStart() {
         base.OnStart();
         m_SystemManager = SystemManager.instance_sm;
-        m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
         m_Target = null;
+        
+        RotateImmediately(m_MoveVector.direction);
+        m_MoveVector.speed = m_Speed;
+        
+        UpdateTransform();
     }
 
-    void Update()
+    private void Update()
     {
         if (Time.timeScale == 0)
             return;
@@ -29,20 +33,18 @@ public class PlayerHomingMissile : PlayerMissile {
                 m_Target = FindClosestEnemy();
             }
             else {
-                Vector2 vec = (m_Target.transform.position - transform.position).normalized;
-                transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
-                m_Vector2 = Vector2Int.FloorToInt(transform.up * m_Speed);
+                RotateSlightly(m_Target.transform.position, m_RotationSpeed);
+                //Vector2 vec = (m_Target.transform.position - transform.position).normalized;
+                //transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
             }
         }
-        transform.up = new Vector2(transform.up.x, transform.up.y);
-        /*
-        Vector2 left = new Vector2(m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f, -8f);
-        Vector2 right = new Vector2(m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f, -8f);
-        Vector2 top = new Vector2(0f, m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f);
-        Vector2 bottom = new Vector2(0f, m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f);
-        */
-        MoveVector();
-        SetPosition();
+        //transform.up = new Vector2(transform.up.x, transform.up.y);
+        //m_MoveVector = new MoveVector(transform.up);
+
+        MoveDirection(m_Speed, m_CurrentAngle);
+        
+        //RotateImmediately(m_MoveVector.direction);
+        UpdateTransform();
     }
 
     private GameObject FindClosestEnemy()
@@ -64,8 +66,8 @@ public class PlayerHomingMissile : PlayerMissile {
             else if (target_temp.transform.position.y > m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f) // 0
                 continue;
 
-            if (!enemy.m_IsUnattackable) {
-                Vector2 diff = target_temp.transform.position - transform.position;
+            if (enemy.m_EnemyHealth.IsInteractable()) {
+                Vector2 diff = enemy.m_Position2D - m_Position2D;
                 float curDistance = diff.sqrMagnitude;
                 if (curDistance < distance) {
                     target = target_temp;

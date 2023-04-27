@@ -20,7 +20,7 @@ public static class BulletType
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
 }
 
-public class EnemyBullet : Enemy, UseObjectPool
+public class EnemyBullet : EnemyObject, UseObjectPool
 {
     public string m_ObjectName;
 
@@ -65,7 +65,6 @@ public class EnemyBullet : Enemy, UseObjectPool
     {
         base.Awake();
         m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
-        m_IsUnattackable = true;
     }
 
     public void OnStart() {

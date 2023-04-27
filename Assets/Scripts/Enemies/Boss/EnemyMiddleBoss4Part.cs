@@ -7,19 +7,14 @@ public class EnemyMiddleBoss4Part : EnemyUnit
     public Transform m_FirePosition;
     private IEnumerator m_CurrentPattern;
     private float m_Direction;
-
-    void Start()
-    {
-        GetCoordinates();
-    }
-
+    
     protected override void Update()
     {
+        base.Update();
+        
         m_Direction -= 20f / Application.targetFrameRate * Time.timeScale;
         if (m_Direction < 0f)
             m_Direction += 360f;
-
-        base.Update();
     }
 
     public void StartPattern(byte num) {
@@ -76,7 +71,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
         m_GemNumber = 12;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         CreateItems();
         ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, 1.6f));
         ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, 0.6f));

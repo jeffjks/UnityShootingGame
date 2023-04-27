@@ -9,7 +9,6 @@ public class EnemyMiddleBoss5a : EnemyUnit
     [HideInInspector] public int m_Phase;
     
     private Vector3 m_TargetPosition;
-    private bool m_TimeLimitState = false;
     private const int APPEARANCE_TIME = 2500;
     private const int TIME_LIMIT = 38000;
 
@@ -29,24 +28,22 @@ public class EnemyMiddleBoss5a : EnemyUnit
 
     protected override void Update()
     {
-        if (!m_TimeLimitState) {
-            if (m_Phase > 0) {
-                if (transform.position.x >= m_TargetPosition.x + 0.6f) {
-                    m_MoveVector.direction = Random.Range(-100f, -80f);
-                }
-                else if (transform.position.x <= m_TargetPosition.x - 0.6f) {
-                    m_MoveVector.direction = Random.Range(80f, 100f);
-                }
-                else if (transform.position.y >= m_TargetPosition.y + 0.3f) {
-                    m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
-                }
-                else if (transform.position.y <= m_TargetPosition.y - 0.3f) {
-                    m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
-                }
+        base.Update();
+        
+        if (!m_TimeLimitState && m_Phase > 0) {
+            if (transform.position.x >= m_TargetPosition.x + 0.6f) {
+                m_MoveVector.direction = Random.Range(-100f, -80f);
+            }
+            else if (transform.position.x <= m_TargetPosition.x - 0.6f) {
+                m_MoveVector.direction = Random.Range(80f, 100f);
+            }
+            else if (transform.position.y >= m_TargetPosition.y + 0.3f) {
+                m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
+            }
+            else if (transform.position.y <= m_TargetPosition.y - 0.3f) {
+                m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
         }
-
-        base.Update();
     }
 
     private IEnumerator AppearanceSequence() {
@@ -156,7 +153,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
     private IEnumerator LaunchMissile() {
         for (int i = 0; i < 4; i++) {
             yield return new WaitForMillisecondFrames(2000);
-            if (!m_IsUnattackable) {
+            if (m_Phase > 0) {
                 try {
                     m_Missiles[i*2].enabled = true;
                     m_Missiles[i*2 + 1].enabled = true;
@@ -168,7 +165,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_SystemManager.BulletsToGems(2500);
         m_MoveVector = new MoveVector(1.5f, 0f);
         

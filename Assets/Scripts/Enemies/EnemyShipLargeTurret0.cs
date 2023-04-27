@@ -9,23 +9,22 @@ public class EnemyShipLargeTurret0 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
         StartCoroutine(Pattern1());
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 50f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
 
         if (3 * m_ParentEnemy.m_Health < m_ParentEnemy.m_MaxHealth) {
-            OnDeath();
+            m_EnemyHealth.OnDeath();
         }
-        
-        base.Update();
     }
     
     private IEnumerator Pattern1() {

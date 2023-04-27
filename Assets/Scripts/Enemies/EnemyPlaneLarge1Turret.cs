@@ -7,11 +7,6 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
     public Transform m_FirePosition;
     private IEnumerator m_CurrentPattern;
 
-    void Start()
-    {
-        GetCoordinates();
-    }
-
     public void StartPattern() {
         m_CurrentPattern = PatternA();
         StartCoroutine(m_CurrentPattern);
@@ -25,12 +20,12 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(m_PlayerPosition, 24f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-        
-        base.Update();
     }
     
     
@@ -64,7 +59,7 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         ExplosionEffect(0, -1, new Vector2(0f, 2f));
         
         CreateItems();

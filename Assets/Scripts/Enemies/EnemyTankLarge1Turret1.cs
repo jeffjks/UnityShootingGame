@@ -10,14 +10,15 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
 
     void Start()
     {
-        GetCoordinates();
         RotateImmediately(m_PlayerPosition);
     }
 
     protected override void Update()
     {
+        base.Update();
+        
         if (3 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
-            OnDeath();
+            m_EnemyHealth.OnDeath();
         }
 
         if (((EnemyTankLarge1) m_ParentEnemy).m_Phase == 1) {
@@ -41,8 +42,6 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
         else {
             RotateSlightly(m_PlayerPosition, 100f, -48f);
         }
-        
-        base.Update();
     }
 
     

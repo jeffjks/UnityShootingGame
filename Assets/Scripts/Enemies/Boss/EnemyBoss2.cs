@@ -22,13 +22,13 @@ public class EnemyBoss2 : EnemyBoss
         m_TargetPosition = transform.position;
         
         for (int i = 0; i < m_Part1_Turrets.Length; i++) {
-            m_Part1_Turrets[i].DisableAttackable();
+            m_Part1_Turrets[i].m_EnemyHealth.DisableInteractable();
         }
         for (int i = 0; i < m_Part2_Turrets.Length; i++) {
-            m_Part2_Turrets[i].DisableAttackable();
+            m_Part2_Turrets[i].m_EnemyHealth.DisableInteractable();
         }
         for (int i = 0; i < m_Part3_Turrets.Length; i++) {
-            m_Part3_Turrets[i].DisableAttackable();
+            m_Part3_Turrets[i].m_EnemyHealth.DisableInteractable();
         }
 
         StartCoroutine(AppearanceSequence());
@@ -36,6 +36,8 @@ public class EnemyBoss2 : EnemyBoss
 
     protected override void Update()
     {
+        base.Update();
+        
         if (m_Phase > 0) {
             if (transform.position.x >= m_TargetPosition.x + 1f) {
                 m_MoveVector.direction = Random.Range(-110f, -70f);
@@ -54,7 +56,7 @@ public class EnemyBoss2 : EnemyBoss
         if (m_Phase == 1) {
             if (m_Health <= m_MaxHealth * 625 / 1000) { // 체력 62.5% 이하
                 for (int i = 0; i < m_Part1_Turrets.Length; i++) {
-                    m_Part1_Turrets[i].OnDeath();
+                    m_Part1_Turrets[i].m_EnemyHealth.OnDeath();
                 }
                 m_SystemManager.EraseBullets(2000);
                 ToNextPhase(m_NextPhaseDelay);
@@ -63,14 +65,12 @@ public class EnemyBoss2 : EnemyBoss
         else if (m_Phase == 2) {
             if (m_Health <= m_MaxHealth / 4) { // 체력 25% 이하
                 for (int i = 0; i < m_Part2_Turrets.Length; i++) {
-                    m_Part2_Turrets[i].OnDeath();
+                    m_Part2_Turrets[i].m_EnemyHealth.OnDeath();
                 }
                 m_SystemManager.EraseBullets(2000);
                 ToNextPhase(m_NextPhaseDelay);
             }
         }
-
-        base.Update();
     }
 
     private IEnumerator AppearanceSequence() {
@@ -87,7 +87,7 @@ public class EnemyBoss2 : EnemyBoss
         StartCoroutine(m_CurrentPhase);
 
         for (int i = 0; i < m_Part1_Turrets.Length; i++) {
-            m_Part1_Turrets[i].EnableAttackable();
+            m_Part1_Turrets[i].m_EnemyHealth.EnableInteractable();
         }
     }
 
@@ -103,7 +103,7 @@ public class EnemyBoss2 : EnemyBoss
         
         if (m_Phase == 2) { // Phase 1 to 2
             for (int i = 0; i < m_Part2_Turrets.Length; i++) {
-                m_Part2_Turrets[i].DisableAttackable(duration);
+                m_Part2_Turrets[i].DisableInteractable(duration);
             }
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
@@ -111,8 +111,8 @@ public class EnemyBoss2 : EnemyBoss
         }
         else if (m_Phase == 3) { // Phase 2 to 3
             m_Collider2D[0].gameObject.SetActive(true);
-            //DisableAttackable();
-            DisableAttackable(duration);
+            //m_EnemyHealth.DisableInteractable();
+            DisableInteractable(duration);
 
             m_CurrentPhase = Phase3();
             StartCoroutine(m_CurrentPhase);
@@ -258,7 +258,7 @@ public class EnemyBoss2 : EnemyBoss
 
 
 
-    protected override IEnumerator AdditionalOnDeath() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         if (m_CurrentPattern != null)
             StopCoroutine(m_CurrentPattern);
@@ -268,7 +268,7 @@ public class EnemyBoss2 : EnemyBoss
         m_MoveVector = new MoveVector(0f, 0f);
 
         for (int i = 0; i < m_Part3_Turrets.Length; i++) {
-            m_Part3_Turrets[i].OnDeath();
+            m_Part3_Turrets[i].m_EnemyHealth.OnDeath();
         }
         
         yield return new WaitForMillisecondFrames(1500);

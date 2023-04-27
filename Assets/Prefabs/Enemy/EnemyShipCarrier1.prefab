@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 400006}
   - component: {fileID: 5352910151716473333}
   - component: {fileID: 258503854877788582}
+  - component: {fileID: 1386633708750019361}
+  - component: {fileID: 3851520786745407258}
   m_Layer: 12
   m_Name: EnemyShipCarrier1
   m_TagString: Untagged
@@ -67,10 +69,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 0}
   m_Health: 6000
-  m_Class: 0
+  m_EnemyType: 0
   m_Score: 5000
   m_Debris: 0
   m_DefaultExplosion: 8
@@ -86,9 +90,7 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 7530292145792047302}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
   m_FirePosition:
   - {fileID: 8600843656446972908}
   - {fileID: 1627735005470464450}
@@ -102,6 +104,33 @@ MonoBehaviour:
   - {fileID: 2636786278707071432}
   - {fileID: 5555783447556062529}
   - {fileID: 3178794499237216943}
+--- !u!114 &1386633708750019361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 258503854877788582}
+--- !u!114 &3851520786745407258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 0
+  m_DefaultHealth: 6000
 --- !u!1 &304753266443773739
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,6 +211,8 @@ GameObject:
   - component: {fileID: 4039405051213252330}
   - component: {fileID: 9128393722998696628}
   - component: {fileID: 4842996069959975582}
+  - component: {fileID: 4906176201639230784}
+  - component: {fileID: 927479205129542794}
   m_Layer: 11
   m_Name: EnemyHelicopter (1)
   m_TagString: Untagged
@@ -238,10 +269,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -254,9 +287,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5433659531096476103}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &4906176201639230784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585318179780114316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 4842996069959975582}
+--- !u!114 &927479205129542794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585318179780114316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &682094867577990052
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +450,8 @@ GameObject:
   - component: {fileID: 8619305688952723066}
   - component: {fileID: 271755610623862615}
   - component: {fileID: 2636786278707071432}
+  - component: {fileID: 3000987598553287627}
+  - component: {fileID: 6099878226317609060}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (2)
   m_TagString: Untagged
@@ -448,10 +508,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -464,9 +526,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 5072523587418273590}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &3000987598553287627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953851255267076599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 2636786278707071432}
+--- !u!114 &6099878226317609060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953851255267076599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &958070308450450945
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +659,8 @@ GameObject:
   - component: {fileID: 6466260156128645708}
   - component: {fileID: 7582294023850919573}
   - component: {fileID: 5555783447556062529}
+  - component: {fileID: 3486761492386827219}
+  - component: {fileID: 2834725098111628195}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (3)
   m_TagString: Untagged
@@ -628,10 +717,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -644,9 +735,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 1385021496966112610}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &3486761492386827219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228048143187233325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 5555783447556062529}
+--- !u!114 &2834725098111628195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228048143187233325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &1378899526354185720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1631,8 @@ GameObject:
   - component: {fileID: 3325382406784588845}
   - component: {fileID: 249107984508994376}
   - component: {fileID: 3407362620275197465}
+  - component: {fileID: 3976192573836631297}
+  - component: {fileID: 922554202290435559}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (1)
   m_TagString: Untagged
@@ -1571,10 +1689,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -1587,9 +1707,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 1650716858753972313}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &3976192573836631297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3325382406784745485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 3407362620275197465}
+--- !u!114 &922554202290435559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3325382406784745485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &4085729612522455767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,6 +1934,8 @@ GameObject:
   - component: {fileID: 4252228983244353659}
   - component: {fileID: 6005844692971690934}
   - component: {fileID: 2345740649203660659}
+  - component: {fileID: 2426935661023589049}
+  - component: {fileID: 746669952599841113}
   m_Layer: 11
   m_Name: EnemyHelicopter (3)
   m_TagString: Untagged
@@ -1845,10 +1992,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -1861,9 +2010,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 349424761819422866}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &2426935661023589049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4456860041893159554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 2345740649203660659}
+--- !u!114 &746669952599841113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4456860041893159554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &4759009957738583957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,6 +2844,8 @@ GameObject:
   - component: {fileID: 6803255173253154219}
   - component: {fileID: 3060189434809149007}
   - component: {fileID: 4752411846241770093}
+  - component: {fileID: 8379272075456722300}
+  - component: {fileID: 6820479241615387138}
   m_Layer: 11
   m_Name: EnemyHelicopter (2)
   m_TagString: Untagged
@@ -2726,10 +2902,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -2742,9 +2920,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 7969953563956996022}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &8379272075456722300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886961490967193770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 4752411846241770093}
+--- !u!114 &6820479241615387138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886961490967193770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &7122131320952026749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2910,6 +3113,8 @@ GameObject:
   - component: {fileID: 7435944911110940691}
   - component: {fileID: 49660822627046649}
   - component: {fileID: 2516139764285624118}
+  - component: {fileID: 3935044799663393213}
+  - component: {fileID: 4786918868752477252}
   m_Layer: 11
   m_Name: EnemyHelicopter (4)
   m_TagString: Untagged
@@ -2966,10 +3171,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -2982,9 +3189,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 4572607875431434519}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &3935044799663393213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360655073418398111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 2516139764285624118}
+--- !u!114 &4786918868752477252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360655073418398111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &7511557456684220912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3167,6 +3399,8 @@ GameObject:
   - component: {fileID: 1217446754448987086}
   - component: {fileID: 9197133244480065790}
   - component: {fileID: 3178794499237216943}
+  - component: {fileID: 4143152549629123310}
+  - component: {fileID: 4280481942603985029}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (4)
   m_TagString: Untagged
@@ -3223,10 +3457,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
-  m_IsUnattackable: 0
+  m_CurrentAngle: 0
+  m_IsDead: 0
+  m_Invincibility: 0
   m_ParentEnemy: {fileID: 258503854877788582}
-  m_Health: 5
-  m_Class: 0
+  m_Health: 30
+  m_EnemyType: 0
   m_Score: 100
   m_Debris: 0
   m_DefaultExplosion: 7
@@ -3239,9 +3475,34 @@ MonoBehaviour:
   m_ChildEnemies: []
   m_Collider2D:
   - {fileID: 8300688331063428057}
-  m_CurrentAngle: 0
   m_MaxHealth: 0
-  m_IsDead: 0
+--- !u!114 &4143152549629123310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655237631323507668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyUnit: {fileID: 3178794499237216943}
+--- !u!114 &4280481942603985029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655237631323507668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810b768a220d1304c93096c5d905562b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthType: 1
+  m_DefaultHealth: 30
 --- !u!1 &8000015583859297947
 GameObject:
   m_ObjectHideFlags: 0

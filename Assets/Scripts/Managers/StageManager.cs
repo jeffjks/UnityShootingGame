@@ -21,7 +21,7 @@ public abstract class StageManager : MonoBehaviour
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
 
-    private BossHealthHandler m_BossHealthBar;
+    private BossHealthBarHandler m_BossHealthBar;
     private Vector3[] m_BossOnlyBackgroundLocalPositions = {
         new Vector3(0.00000000f, 50.00000000f, 284.35050000f + 64f),
         new Vector3(15.98016000f, 50.00000000f, 76.13345000f + 64f),
@@ -207,7 +207,7 @@ public abstract class StageManager : MonoBehaviour
         GameObject middle_boss;
         middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
         EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
-        m_BossHealthBar.m_EnemyUnitBoss = enemy_unit;
+        m_BossHealthBar.StartHealthListener(enemy_unit);
 
         yield return new WaitForFrames(frame);
         m_SystemManager.m_PlayState = 1;
@@ -218,7 +218,8 @@ public abstract class StageManager : MonoBehaviour
         int frame = millisecond * Application.targetFrameRate / 1000;
         GameObject boss;
         boss = CreateEnemy(m_BossUnit[number], pos);
-        m_BossHealthBar.m_EnemyUnitBoss = boss.GetComponent<EnemyUnit>();
+        EnemyUnit enemy_unit = boss.GetComponent<EnemyUnit>();
+        m_BossHealthBar.StartHealthListener(enemy_unit);
 
         yield return new WaitForFrames(frame);
         m_SystemManager.m_PlayState = 1;

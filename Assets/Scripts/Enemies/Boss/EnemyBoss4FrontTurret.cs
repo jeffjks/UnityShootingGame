@@ -8,13 +8,15 @@ public class EnemyBoss4FrontTurret : EnemyUnit
     
     private IEnumerator m_CurrentPattern;
     [HideInInspector] public byte m_RotatePattern = 10;
-    private int m_KillScore;
+    private int m_KillScore = 0;
 
     void Start()
     {
         RotateImmediately(m_PlayerPosition);
         m_KillScore = m_Score;
         m_Score = 0;
+        
+        m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
     }
 
     protected override void Update()
@@ -130,7 +132,9 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         yield break;
     }
 
-    protected override void KilledByPlayer() {
-        m_Score = m_KillScore;
+    private void DestroyBonus() {
+        if (m_EnemyHealth.CurrentHealth == 0) {
+            m_Score = m_KillScore;
+        }
     }
 }

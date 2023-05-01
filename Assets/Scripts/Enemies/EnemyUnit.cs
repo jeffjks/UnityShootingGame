@@ -3,19 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public interface UseObjectPool {
-    void ReturnToPool();
-}
-
 // ============================================================================================ //
 
+[RequireComponent(typeof(EnemyDeath))]
 public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 (적 총알 제외)
 {
     [Space(10)]
-    public EnemyUnit m_ParentEnemy;
-    public EnemyHealth m_EnemyHealth;
+    [HideInInspector] public EnemyHealth m_EnemyHealth; // Can bu null
+    [HideInInspector] public EnemyDeath m_EnemyDeath;
+
     public EnemyType m_EnemyType;
     public int m_Score;
     [Space(10)]
@@ -26,47 +22,38 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     [SerializeField] private Explosion[] m_Explosion = new Explosion[0];
     [SerializeField] protected AudioClip[] m_AudioClip = new AudioClip[0];
     [Space(10)]
-    [SerializeField] private GameObject m_ItemBox = null;
-    [SerializeField] protected byte m_GemNumber = 0;
-    [Space(10)]
-    public EnemyUnit[] m_ChildEnemies;
-    public Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
     public Queue<TweenData> m_TweenDataQueue = new Queue<TweenData>();
     
     protected bool m_UpdateTransform = true;
     protected bool m_TimeLimitState = false;
 
     private readonly Vector3 m_AirEnemyAxis = new Vector3(0f, -0.4f, 1f);
-    private Quaternion m_DefaultQuaternion;
-    private Vector3 m_DefaultAxis;
-    private List<EnemyUnit> m_ParentList = new List<EnemyUnit>();
-    private bool m_LowHealthState = false;
+    private Quaternion m_DefaultRotation;
+    private bool m_Interactable = true;
+    
+    public event Action Action_StartInteractable;
 
     protected override void Awake()
     {
         base.Awake();
-        m_DefaultAxis = - transform.transform.up;
-        m_DefaultQuaternion = transform.localRotation;
+        m_DefaultRotation = transform.rotation;
         m_MoveVector.direction = - transform.rotation.eulerAngles.y;
-
-        if (m_EnemyHealth == null) {
-            Debug.LogError("NullReferenceException: " + this);
-        }
-
-        //m_MaxHealth = m_Health;
-
-        EnemyUnit current_unit = m_ParentEnemy;
         
-        while (current_unit != null) {
-            m_ParentList.Add(current_unit);
-            current_unit = current_unit.m_ParentEnemy;
-        }
+        m_EnemyDeath = GetComponent<EnemyDeath>();
         
-        m_EnemyHealth.Action_OnDying += HandleOnDying;
+        m_EnemyDeath.Action_OnDying += HandleOnDying;
+        m_EnemyDeath.Action_OnDying += DisableInteractable;
+        if (m_EnemyType != EnemyType.Zako || (1 << gameObject.layer & Layer.AIR) != 0) { // 지상 자코가 아닐 경우
+            if (TryGetComponent<EnemyColorBlender>(out EnemyColorBlender enemyColorBlender)) {
+                Action_StartInteractable += enemyColorBlender.StartInteractableEffect;
+            }
+        }
+        if (TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) {
+            m_EnemyHealth = enemyHealth;
+        }
         
         SetPosition2D();
         GetPlayerPosition2D();
-        StartCoroutine(PlayTweenData());
     }
 
     protected virtual void Update()
@@ -77,78 +64,118 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         SetPosition2D();
     }
 
-    private void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
+    public void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
         m_PlayerPosition = m_PlayerManager.GetPlayerPosition();
         if ((1 << gameObject.layer & Layer.AIR) != 0)
             m_Position2D = transform.position;
         else {
             m_Position2D = GetScreenPosition(transform.position);
-            for (int i = 0; i < m_Collider2D.Length; i++) {
-                m_Collider2D[i].transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
-                m_Collider2D[i].transform.position = GetScreenPosition(transform.position);
-            }
+            Quaternion screenRotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+            m_EnemyHealth?.SetColliderPosition2D(m_Position2D, screenRotation);
         }
     }
     
 
     
 
-    public bool CheckDeadState() { // true이면 죽은 상태
-        if (m_ParentEnemy == null) {
-            if (m_IsDead) {
-                return true;
-            }
+
+    public void DisableInteractable() {
+        DisableInteractable(-1);
+    }
+
+    public void DisableInteractable(int millisecond) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+        if (millisecond == 0)
+            return;
+        m_Interactable = false;
+        m_EnemyHealth?.SetActiveColliders(false);
+        
+        if (millisecond != -1)
+            StartCoroutine(InteractableTimer(millisecond));
+    }
+
+    public void DisableInteractableAll(int millisecond = -1) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+        if (millisecond == 0)
+            return;
+        
+        EnemyUnit[] enemyUnits = GetComponentsInChildren<EnemyUnit>();
+        for (int i = 0; i < enemyUnits.Length; ++i) {
+            enemyUnits[i].DisableInteractable(millisecond);
         }
-        else {
-            if (m_ParentEnemy.m_IsDead) {
-                return m_ParentEnemy.CheckDeadState();
-            }
+    }
+
+    public void EnableInteractable() {
+        if (m_Interactable)
+            return;
+        m_Interactable = true;
+        m_EnemyHealth?.SetActiveColliders(true);
+        StartCoroutine(InteractableTimer());
+        Action_StartInteractable?.Invoke();
+    }
+
+    public void EnableInteractableAll() {
+        EnemyUnit[] enemyUnits = GetComponentsInChildren<EnemyUnit>();
+        for (int i = 0; i < enemyUnits.Length; ++i) {
+            enemyUnits[i].EnableInteractable();
         }
-        return false;
+    }
+
+    public bool IsInteractable() {
+        return m_Interactable;
+    }
+
+    private IEnumerator InteractableTimer(int millisecond = -1) {
+        if (millisecond != -1) {
+            yield return new WaitForMillisecondFrames(millisecond);
+        }
+        EnableInteractable();
+        yield break;
     }
 
     internal void HandleOnDying() {
-        m_IsDead = true;
+        m_EnemyDeath.m_IsDead = true;
         m_SystemManager.AddScore(m_Score);
         
-        // -------------------
+        // ------------------- TODO : 보스쪽에 델리게이트로 구현 필요
         DefatulExplosionEffect();
-        
-        if (m_ParentEnemy == null) { // PlayState, 음악 정지, 무적 시간 등
-            if (m_EnemyType == EnemyType.Boss) {
-                m_SystemManager.BossClear();
-            }
-            else if (m_EnemyType == EnemyType.MiddleBoss) {
-                m_SystemManager.MiddleBossClear();
-            }
-        }
         // ---------------------
         //DOTween.Kill(transform);
         //ImageBlend(Color.red);
         StartCoroutine(DyingEffect());
     }
 
-    protected abstract IEnumerator DyingEffect(); // 폭발 이펙트 등 (기본값은 없음), m_EnemyHealth.OnDeath(); 반드시 포함
-    // CreateItems
-    // CreateDebris
+    protected virtual IEnumerator DyingEffect() {
+        m_EnemyDeath.OnDeath();
+        yield break;
+    }
+    // 폭발 이펙트 등 구현
+    // 추가 구현시 OnDeath(); 반드시 포함 (인터페이스 사용?)
+    // CreateItems, CreateDebris 는 Action_OnDeath에 등록
 
 
 
     protected override bool BulletCondition(Vector3 pos) {
+        /*
         if (m_EnemyType != EnemyType.Boss) {
             if (m_ParentEnemy == null) {
-                if (!m_EnemyHealth.IsInteractable()) {
+                if (!IsInteractable()) {
                     return false;
                 }
             }
-            else if (!m_ParentEnemy.m_EnemyHealth.IsInteractable()) {
+            else if (!m_ParentEnemy.IsInteractable()) {
                 return false;
             }
+        }*/
+        if (!IsInteractable()) {
+            return false;
         }
         if (!base.BulletCondition(pos))
             return false;
-        else
-            return true;
+        
+        return true;
+    }
+
+    public void StartPlayTweenData() {
+        StartCoroutine(PlayTweenData());
     }
 
     private IEnumerator PlayTweenData() { // 프레임 기반
@@ -195,6 +222,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
     }
 
+    /*
     public void TakeDamage(int amount, sbyte damage_type = -1, bool blend = true)
     {
         if (m_EnemyHealth.m_HealthType == HealthType.Share) { // 본체에게 데미지 및 본체 색 blend
@@ -207,46 +235,14 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             m_ParentEnemy?.TakeDamage(amount, damage_type, false);
             m_EnemyHealth.TakeDamage(amount, damage_type, blend);
         }
-    }
+    }*/
 
     public void OutOfBound() { // 경계 바깥 파괴
-        if (m_EnemyType != EnemyType.Boss) {
-            Destroy(gameObject);
-            if (m_EnemyType == EnemyType.MiddleBoss) {
-                m_SystemManager.MiddleBossClear();
-            }
+        if (m_EnemyType == EnemyType.Boss) {
+            return;
         }
-    }
 
-    protected void CreateItems() {
-        if (m_ItemBox != null) { // 아이템 드랍
-            Vector3 item_pos;
-            if ((1 << gameObject.layer & Layer.AIR) != 0) {
-                item_pos = new Vector3(m_Position2D.x, m_Position2D.y, Depth.ITEMS);
-            }
-            else {
-                item_pos = transform.position;
-            }
-            Instantiate(m_ItemBox, item_pos, Quaternion.identity);
-        }
-        if ((1 << gameObject.layer & Layer.AIR) != 0) {
-            for (int i = 0; i < m_GemNumber; i++) {
-                GameObject obj = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM_AIR);
-                Vector3 pos = transform.position + (Vector3) UnityEngine.Random.insideUnitCircle * 0.8f;
-                obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
-                obj.SetActive(true);
-            }
-        }
-        else {
-            GameObject[] obj = new GameObject[m_GemNumber];
-            for (int i = 0; i < m_GemNumber; i++) {
-                obj[i] = m_PoolingManager.PopFromPool("ItemGemGround", 3);
-            }
-            CreateGems(obj);
-            for (int i = 0; i < m_GemNumber; i++) {
-                obj[i].SetActive(true);
-            }
-        }
+        m_EnemyDeath.OnRemoved();
     }
 
 
@@ -314,47 +310,11 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
     }
 
-    private void CreateGems(GameObject[] obj) {
-        switch(m_GemNumber) {
-            case 1:
-                obj[0].transform.position = transform.position;
-                break;
-            case 2:
-                obj[0].transform.position = transform.position + new Vector3(0f, 0f, 0.25f);
-                obj[1].transform.position = transform.position + new Vector3(0f, 0f, -0.25f);
-                break;
-            case 3:
-                obj[0].transform.position = transform.position + new Vector3(0f, 0f, 0.25f);
-                obj[1].transform.position = transform.position + new Vector3(-0.29f, 0f, -0.25f);
-                obj[2].transform.position = transform.position + new Vector3(0.29f, 0f, -0.25f);
-                break;
-            case 4:
-                obj[0].transform.position = transform.position + new Vector3(-0.25f, 0f, 0.25f);
-                obj[1].transform.position = transform.position + new Vector3(-0.25f, 0f, -0.25f);
-                obj[2].transform.position = transform.position + new Vector3(0.25f, 0f, 0.25f);
-                obj[3].transform.position = transform.position + new Vector3(0.25f, 0f, -0.25f);
-                break;
-            case 5:
-                obj[0].transform.position = transform.position + new Vector3(-0.3f, 0f, 0.3f);
-                obj[1].transform.position = transform.position + new Vector3(-0.3f, 0f, -0.3f);
-                obj[2].transform.position = transform.position;
-                obj[3].transform.position = transform.position + new Vector3(0.3f, 0f, 0.3f);
-                obj[4].transform.position = transform.position + new Vector3(0.3f, 0f, -0.3f);
-                break;
-            default:
-                for (int i = 0; i < m_GemNumber; i++) {
-                    Vector3 vec = UnityEngine.Random.insideUnitSphere * Mathf.Sqrt(m_GemNumber) * 0.5f;
-                    obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.z);
-                }
-                break;
-        }
-    }
-
 
     // IRotatable Methods ----------------------------------
 
     public void RotateSlightly(Vector2 target, float speed, float rot = 0f) {
-        if (CheckDeadState()) {
+        if (m_EnemyDeath.m_IsDead) {
             return;
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
@@ -363,7 +323,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     }
 
     public void RotateSlightly(float target_angle, float speed, float rot = 0f) {
-        if (CheckDeadState()) {
+        if (m_EnemyDeath.m_IsDead) {
             return;
         }
         m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
@@ -371,7 +331,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     }
 
     public void RotateImmediately(Vector2 target, float rot = 0f) {
-        if (CheckDeadState()) {
+        if (m_EnemyDeath.m_IsDead) {
             return;
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
@@ -380,7 +340,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     }
 
     public void RotateImmediately(float target_angle, float rot = 0f) {
-        if (CheckDeadState()) {
+        if (m_EnemyDeath.m_IsDead) {
             return;
         }
         m_CurrentAngle = target_angle + rot;
@@ -395,40 +355,23 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         else if (m_CurrentAngle < 0f) {
             m_CurrentAngle += 360f;
         }
-        
-        Quaternion target_rotation;
-        
-        if (m_UpdateTransform) {
-            float real_current_angle;
-            Vector3 real_air_axis;
 
-            if (m_ParentEnemy == null) { // 본체일 경우
-                real_current_angle = m_CurrentAngle;
-                real_air_axis = m_AirEnemyAxis;
-            }
-            else {
-                real_current_angle = m_CurrentAngle;
-                for (int i = 0; i < m_ParentList.Count; i++) {
-                    real_current_angle -= m_ParentList[i].m_CurrentAngle;
-                }
-                //real_current_angle = m_CurrentAngle - m_ParentEnemy.m_CurrentAngle;
-                real_air_axis = m_DefaultAxis;
-            }
-
-            if ((1 << gameObject.layer & Layer.AIR) != 0) { // 공중
-                target_rotation = Quaternion.AngleAxis(real_current_angle, real_air_axis); // Vector3.forward
-            }
-            else { // 지상
-                target_rotation = Quaternion.AngleAxis(real_current_angle, -transform.up); // Vector3.down
-            }
-
-            if (m_ParentEnemy == null) { // 본체일 경우
-                transform.rotation = target_rotation;
-            }
-            else {
-                transform.rotation = target_rotation * m_ParentEnemy.transform.rotation * transform.parent.localRotation * m_DefaultQuaternion;
-            }
+        if (!m_UpdateTransform) {
+            return;
         }
+        
+        Quaternion target_rotation = Quaternion.identity;
+        
+        float modelRotationAngle = m_CurrentAngle;
+
+        if ((1 << gameObject.layer & Layer.AIR) != 0) { // 공중
+            target_rotation = Quaternion.AngleAxis(modelRotationAngle, (transform == this.transform.root) ? m_AirEnemyAxis : Vector3.down);
+        }
+        else { // 지상
+            target_rotation = Quaternion.AngleAxis(modelRotationAngle, Vector3.down);
+        }
+        transform.rotation = m_DefaultRotation * target_rotation;
+        return;
     }
 }
 
@@ -439,6 +382,15 @@ interface ITargetPosition {
 interface IHasAppearance {
     public IEnumerator AppearanceSequence();
     public void OnAppearanceComplete();
+}
+
+interface IEnemyBossMain {
+    public void OnBossDying();
+    public void OnBossDeath();
+}
+
+interface IEnemyMiddleBossMain {
+    public void OnMiddleBossDying();
 }
 
 /*

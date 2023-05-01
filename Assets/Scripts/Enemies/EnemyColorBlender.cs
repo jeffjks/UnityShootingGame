@@ -2,95 +2,94 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum ColorChannelLevel {
+    LowHealthState,
+    DamagingState
+}
+
 [RequireComponent(typeof(EnemyHealth))]
 public class EnemyColorBlender : MonoBehaviour
 {
-    //public EnemyUnit m_EnemyUnit;
-    public EnemyHealth m_EnemyHealth;
+    private EnemyHealth m_EnemyHealth;
+    private EnemyDeath m_EnemyDeath;
 
     private Material[] m_Materials;
     private Material[] m_MaterialsAll;
-    private int m_TakingDamageTimer;
-    private int m_LowHealthBlinkTimer;
+    private int m_DamagingBlendTimer;
     private Color[] m_DefaultAlbedo;
-    private Color m_DamagingAlbedo = new Color(0.64f, 0.64f, 1f, 1f); // blue
-    private bool m_IsDamaging = false;
+    private readonly Color m_DamagingAlbedo = new Color(0.64f, 0.64f, 1f, 1f); // blue
+    private readonly Color m_LowHealthAlbedo = Color.red;
     private IEnumerator m_LowHealthBlendEffect;
-    private IEnumerator m_DamagingBlendEffect;
+    private BitArray m_ColorBitArray = new BitArray(2);
 
-    private const int DAMAGING_BLEND_TIMER = 67;
+    private const int DAMAGING_BLEND_FRAME = 3;
 
-/*
+
     private void Awake()
     {
-        m_MaterialsAll = GetAllMetrials();
-        m_Materials = GetMaterials();
+        m_EnemyHealth = GetComponent<EnemyHealth>();
+        m_EnemyDeath = GetComponent<EnemyDeath>();
+        InitMaterials();
+    }
+
+    private void Update()
+    {
+        if (m_DamagingBlendTimer > 0) {
+            m_DamagingBlendTimer--;
+        }
+        else {
+            SetColorChannel(ColorChannelLevel.DamagingState, false);
+        }
     }
 
     private void OnEnable()
     {
-        if (m_EnemyUnit.m_EnemyType != EnemyType.Zako || (1 << gameObject.layer & Layer.AIR) != 0) { // 지상 자코가 아닐 경우
-            m_EnemyHealth.Action_StartInteractable += StartInteractableEffect;
-        }
         m_EnemyHealth.Action_LowHealthState += StartLowHealthBlendEffect;
-        m_EnemyHealth.Action_DamagingBlend += StartDamagingBlendEffect;
-        m_EnemyHealth.Action_OnDying += DyingImageBlend;
+        m_EnemyHealth.Action_DamagingBlend += SetDamagingBlendEffectTimer;
+        m_EnemyDeath.Action_OnDying += DyingImageBlend;
     }
 
     private void OnDisable()
     {
-        if (m_EnemyUnit.m_EnemyType != EnemyType.Zako || (1 << gameObject.layer & Layer.AIR) != 0) { // 지상 자코가 아닐 경우
-            m_EnemyHealth.Action_StartInteractable -= StartInteractableEffect;
-        }
         m_EnemyHealth.Action_LowHealthState -= StartLowHealthBlendEffect;
-        m_EnemyHealth.Action_DamagingBlend -= StartDamagingBlendEffect;
-        m_EnemyHealth.Action_OnDying -= DyingImageBlend;
+        m_EnemyHealth.Action_DamagingBlend -= SetDamagingBlendEffectTimer;
+        m_EnemyDeath.Action_OnDying -= DyingImageBlend;
 
         StopAllCoroutines();
     }
 
-    private Material[] GetAllMetrials() { // 무적 해제, 사망 이펙트 용 (전체 Materials)
-        if (m_EnemyUnit.m_Collider2D.Length == 0)
-            return new Material[0];
-
-        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
-        Material[] mat = new Material[meshRenderers.Length];
-        m_DefaultAlbedo = new Color[meshRenderers.Length];
+    private void InitMaterials() {
+        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        m_MaterialsAll = new Material[meshRenderers.Length];
+        List<GameObject> inactivatedGameObjects = new List<GameObject>();
 
         for (int i = 0; i < meshRenderers.Length; i++) {
-            mat[i] = meshRenderers[i].material;
-            m_DefaultAlbedo[i] = meshRenderers[i].material.color;
+            m_MaterialsAll[i] = meshRenderers[i].material;
         }
-        return mat;
-    }
 
-    private Material[] GetMaterials() {
-        if (m_EnemyUnit.m_Collider2D.Length == 0) {
-            if (m_EnemyUnit.m_ChildEnemies.Length == 0)
-                return new Material[0];
-        }
-        if (m_EnemyHealth.m_HealthType == HealthType.Share)
-            return new Material[0];
-
-        for (int i = 0; i < m_EnemyUnit.m_ChildEnemies.Length; i++) {
-            m_EnemyUnit.m_ChildEnemies[i].gameObject.SetActive(false);
+        EnemyHealth[] enemyHealth = GetComponentsInChildren<EnemyHealth>();
+        for (int i = 0; i < enemyHealth.Length; ++i) {
+            if (enemyHealth[i].m_HealthType != HealthType.Share) { // ShareHealth가 아닐 경우 미포함
+                enemyHealth[i].gameObject.SetActive(false);
+                inactivatedGameObjects.Add(enemyHealth[i].gameObject); // 비활성화 오브젝트 목록 저장
+            }
         }
         
-        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
-        Material[] mat = new Material[meshRenderers.Length];
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        m_Materials = new Material[meshRenderers.Length];
         m_DefaultAlbedo = new Color[meshRenderers.Length];
+
         for (int i = 0; i < meshRenderers.Length; i++) {
-            mat[i] = meshRenderers[i].material;
+            m_Materials[i] = meshRenderers[i].material;
             m_DefaultAlbedo[i] = meshRenderers[i].material.color;
         }
-
-        for (int i = 0; i < m_EnemyUnit.m_ChildEnemies.Length; i++) {
-            m_EnemyUnit.m_ChildEnemies[i].gameObject.SetActive(true);
+        
+        foreach (GameObject value in inactivatedGameObjects) { // 복구
+            value.SetActive(true);
         }
-        return mat;
-    }*/
+    }
 
-    private void StartInteractableEffect() {
+    public void StartInteractableEffect() {
         StartCoroutine(InteractableEffect());
     }
 
@@ -108,20 +107,10 @@ public class EnemyColorBlender : MonoBehaviour
     }
 
 
-    private void StartDamagingBlendEffect() {
-        if (m_DamagingBlendEffect != null)
-            StopCoroutine(m_DamagingBlendEffect);
-        m_DamagingBlendEffect = DamagingBlendEffect();
-        StartCoroutine(DamagingBlendEffect());
-    }
-
-    private IEnumerator DamagingBlendEffect() {
-        m_IsDamaging = true;
-        ImageBlend(m_DamagingAlbedo);
-        yield return new WaitForFrames(2);
-        m_IsDamaging = false;
-        ImageBlend(m_DefaultAlbedo);
-        yield break;
+    private void SetDamagingBlendEffectTimer() {
+        m_DamagingBlendTimer = DAMAGING_BLEND_FRAME;
+        //ImageBlend(m_DamagingAlbedo);
+        SetColorChannel(ColorChannelLevel.DamagingState, true);
     }
 
     private void StartLowHealthBlendEffect() {
@@ -131,20 +120,35 @@ public class EnemyColorBlender : MonoBehaviour
 
     private IEnumerator LowHealthBlendEffect() {
         while (true) {
-            ImageBlend(Color.red);
-            yield return new WaitForMillisecondFrames(120);
-            if (m_IsDamaging) {
-                ImageBlend(m_DamagingAlbedo);
-            }
-            else {
-                ImageBlend(m_DefaultAlbedo);
-            }
+            SetColorChannel(ColorChannelLevel.LowHealthState, true);
+            yield return new WaitForSeconds(0.12f);
+            SetColorChannel(ColorChannelLevel.LowHealthState, false);
+            yield return new WaitForSeconds(0.38f);
         }
     }
     
 
     private void DyingImageBlend() {
-        ImageBlend(Color.red);
+        if (m_LowHealthBlendEffect != null) {
+            StopCoroutine(m_LowHealthBlendEffect);
+        }
+        //ImageBlend(m_LowHealthAlbedo);
+        SetColorChannel(ColorChannelLevel.LowHealthState, true);
+    }
+
+    private void SetColorChannel(ColorChannelLevel level, bool state) {
+        m_ColorBitArray.Set((int) level, state);
+
+        if (m_ColorBitArray.Get((int) ColorChannelLevel.LowHealthState)) {
+            ImageBlend(m_LowHealthAlbedo);
+            return;
+        }
+
+        if (m_ColorBitArray.Get((int) ColorChannelLevel.DamagingState)) {
+            ImageBlend(m_DamagingAlbedo);
+            return;
+        }
+        ImageBlend(m_DefaultAlbedo);
     }
 
     private void ImageBlend(Color target_color) {

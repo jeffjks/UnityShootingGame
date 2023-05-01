@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss4 : EnemyBoss
+public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public EnemyBoss4SmallTurret[] m_SmallTurrets = new EnemyBoss4SmallTurret[4];
     public EnemyBoss4FrontTurret[] m_FrontTurrets = new EnemyBoss4FrontTurret[2];
@@ -11,8 +11,8 @@ public class EnemyBoss4 : EnemyBoss
     public EnemyBoss4Launcher[] m_Launchers = new EnemyBoss4Launcher[2];
     public MeshRenderer m_Track;
 
-    [HideInInspector] public int m_Phase;
-    [HideInInspector] public float m_Direction;
+    private int m_Phase;
+    private float m_Direction;
     
     private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 8000;
@@ -29,18 +29,18 @@ public class EnemyBoss4 : EnemyBoss
         m_TargetPosition = transform.position;
         m_MoveVector = new MoveVector(0f, 180f); // new MoveVector(-4.5f, 180f);
         
-        m_EnemyHealth.DisableInteractable();
-        for (int i = 0; i < m_SmallTurrets.Length; i++) {
-            m_SmallTurrets[i].m_EnemyHealth.DisableInteractable();
-        }
-        for (int i = 0; i < m_FrontTurrets.Length; i++) {
-            m_FrontTurrets[i].m_EnemyHealth.DisableInteractable();
-        }
+        DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_Launchers[0].Func_GetDirection += GetDirection;
+        m_Launchers[1].Func_GetDirection += GetDirection;
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         float init_speed = m_MoveVector.speed;
@@ -58,7 +58,7 @@ public class EnemyBoss4 : EnemyBoss
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         int random_speed = Random.Range(0, 2);
         //m_MoveDirection = random_speed*2 - 1;
         //m_MoveSpeed = m_DefaultSpeed*m_MoveDirection;
@@ -68,13 +68,7 @@ public class EnemyBoss4 : EnemyBoss
 
         m_FollowingBackground = true;
         
-        m_EnemyHealth.EnableInteractable();
-        for (int i = 0; i < m_SmallTurrets.Length; i++) {
-            m_SmallTurrets[i].m_EnemyHealth.EnableInteractable();
-        }
-        for (int i = 0; i < m_FrontTurrets.Length; i++) {
-            m_FrontTurrets[i].m_EnemyHealth.EnableInteractable();
-        }
+        EnableInteractableAll();
     }
 
     private void ControlSpeed() {
@@ -127,10 +121,10 @@ public class EnemyBoss4 : EnemyBoss
         }*/
 
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 65 / 100) { // 체력 65% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.65f) { // 체력 65% 이하
                 for (int i = 0; i < m_FrontTurrets.Length; i++) {
                     if (m_FrontTurrets[i] != null)
-                        m_FrontTurrets[i].m_EnemyHealth.OnDeath();
+                        m_FrontTurrets[i].m_EnemyDeath.OnDying();
                 }
                 m_SystemManager.EraseBullets(2000);
                 StartCoroutine(NextPhaseExplosion1(2000));
@@ -161,6 +155,10 @@ public class EnemyBoss4 : EnemyBoss
             m_Direction += 360f;
 
         RunTracks();
+    }
+
+    private float GetDirection() {
+        return m_Direction;
     }
 
     private void RunTracks() {
@@ -456,7 +454,7 @@ public class EnemyBoss4 : EnemyBoss
             m_Launchers[1].StopPattern();
             m_Launchers[0].SetMoving(false);
             m_Launchers[1].SetMoving(false);
-            if (m_Health <= m_MaxHealth / 4) { // 체력 25% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -471,7 +469,7 @@ public class EnemyBoss4 : EnemyBoss
             yield return new WaitForMillisecondFrames(1000);
             m_SubTurrets[0].m_RotatePattern = 10;
             m_SubTurrets[1].m_RotatePattern = 10;
-            if (m_Health <= m_MaxHealth / 4) { // 체력 25% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -486,7 +484,7 @@ public class EnemyBoss4 : EnemyBoss
             m_MainTurret.StopPattern();
             m_SubTurrets[0].StopPattern();
             m_SubTurrets[1].StopPattern();
-            if (m_Health <= m_MaxHealth / 4) { // 체력 25% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -615,7 +613,7 @@ public class EnemyBoss4 : EnemyBoss
             StopCoroutine(m_CurrentPhase);
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
             if (m_SmallTurrets[i] != null)
-                m_SmallTurrets[i].m_EnemyHealth.OnDeath();
+                m_SmallTurrets[i].m_EnemyDeath.OnDying();
         }
         m_SystemManager.BulletsToGems(2000);
 
@@ -651,9 +649,16 @@ public class EnemyBoss4 : EnemyBoss
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
-        CreateItems();
-        BossDestroyed();
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnBossDying() {
+        m_SystemManager.BossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.StartStageClearCoroutine();
     }
 
     private IEnumerator NextPhaseExplosion1(int duration) {

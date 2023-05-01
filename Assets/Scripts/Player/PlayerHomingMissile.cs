@@ -19,6 +19,7 @@ public class PlayerHomingMissile : PlayerWeapon {
         m_MoveVector.speed = m_Speed;
         
         UpdateTransform();
+        SetPosition2D();
     }
 
     private void Update()
@@ -45,6 +46,7 @@ public class PlayerHomingMissile : PlayerWeapon {
         
         //RotateImmediately(m_MoveVector.direction);
         UpdateTransform();
+        SetPosition2D();
     }
 
     private GameObject FindClosestEnemy()
@@ -65,14 +67,16 @@ public class PlayerHomingMissile : PlayerWeapon {
                 continue;
             else if (target_temp.transform.position.y > m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f) // 0
                 continue;
-
-            if (enemy.m_EnemyHealth.IsInteractable()) {
-                Vector2 diff = enemy.m_Position2D - m_Position2D;
-                float curDistance = diff.sqrMagnitude;
-                if (curDistance < distance) {
-                    target = target_temp;
-                    distance = curDistance;
-                }
+            
+            if (!enemy.IsInteractable()) {
+                continue;
+            }
+            
+            Vector2 diff = enemy.m_Position2D - m_Position2D;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance) {
+                target = target_temp;
+                distance = curDistance;
             }
         }
         return target;

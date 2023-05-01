@@ -27,7 +27,7 @@ public class EnemyPlaneMedium4 : EnemyUnit
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
@@ -120,8 +120,7 @@ public class EnemyPlaneMedium4 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(-1f, 1f));
         ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

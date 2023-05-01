@@ -31,6 +31,10 @@ public abstract class PlayerWeapon : PlayerObject, UseObjectPool, IRotatable
         m_HasDamaged = false;
     }
 
+    public void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
+        m_Position2D = transform.position;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!m_HasDamaged) {
@@ -39,7 +43,7 @@ public abstract class PlayerWeapon : PlayerObject, UseObjectPool, IRotatable
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 if (m_IsPenetrate) { // 관통 공격이며
                     if ((1 << other.gameObject.layer & Layer.SMALL) != 0) { // 적이 소형이면
-                        enemyObject.m_EnemyHealth.OnDeath(); // 기냥 죽임
+                        enemyObject.m_EnemyDeath.OnDying(); // 기냥 죽임
                     }
                 }
                 else { // 그 이외의 경우에는

@@ -6,76 +6,107 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyColorBlender))]
 public class EnemyHealth : MonoBehaviour
 {
+    private EnemyDeath m_EnemyDeath;
     [Tooltip("None: 독립적인 Blend, 자체 체력이 있지만 본체에도 데미지 전달\nIndependent: 독립적인 Blend, 독립적인 자체 체력\nShare: 본체와 Blend와 체력 모두 공유")]
     public HealthType m_HealthType;
-    [DrawIf("m_HealthType", HealthType.Share, false)]
+    [DrawIf("m_HealthType", HealthType.Share, ComparisonType.NotEqual)]
     [SerializeField] private int m_DefaultHealth;
     [SerializeField] private Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
+    [HideInInspector] public float m_HealthPercent;
 
-    public event Action Action_StartInteractable;
     public event Action Action_LowHealthState;
     public event Action Action_DamagingBlend;
-    public event Action Action_OnDying;
-    public event Action Action_OnDeath;
-    public event Action Action_OnRemoved;
+    public event Action Action_OnHealthChanged; // 여기 등록된 메소드는 Invoke 실행 시 인자로 체력 백분율, 체력 고정값을 받아서 실행됨
 
+    private EnemyHealth m_ParentEnemyHealth = null;
     private int m_CurrentHealth;
-    private bool m_Interactable = true;
-    private bool m_Invincibility;
     private bool[] m_IsTakingDamage = { false, false, false }; // 중복 데미지 방지
     private bool m_IsLowHealthState = false;
-    private bool m_IsDead;
-    
-    // [Tooltip("-1일 경우 무적이며 데미지를 parent 오브젝트에게 전달")]
+    private bool m_Invincibility = false;
+
+    public int CurrentHealth {
+        get { return m_CurrentHealth; }
+        set {
+            m_CurrentHealth = value;
+            m_HealthPercent = (float) m_CurrentHealth / (float) m_DefaultHealth;
+            Action_OnHealthChanged?.Invoke();
+        }
+    }
 
     void Start()
     {
-        if (m_HealthType == HealthType.Share) { // TODO: 지우기?
+        if (transform.parent != null) {
+            m_ParentEnemyHealth = transform.parent.GetComponentInParent<EnemyHealth>();
+        }
+        m_EnemyDeath = GetComponent<EnemyDeath>();
+
+        if (m_HealthType == HealthType.Share) {
             m_DefaultHealth = -1;
         }
-        m_CurrentHealth = m_DefaultHealth;
+        CurrentHealth = m_DefaultHealth;
 
         Action_LowHealthState += SetLowHealthState;
-        Action_OnDying += DisableInteractable;
+        Action_OnHealthChanged += UpdateColorBlend;
     }
     
-    void Update()
+    void LateUpdate()
     {
         for (int i = 0; i < m_IsTakingDamage.Length; i++)
             m_IsTakingDamage[i] = false;
     }
+    
 
-    public void DisableInteractable() {
-        DisableInteractable(-1);
+    public void TakeDamage(int amount, sbyte damage_type = -1, bool blend = true)
+    {
+        // damage_type - -1:일반공격, 0:레이저, 1:레이저(Aura), 2:폭탄
+        // blend - ImageBlend 실행 여부
+
+        PreventDamageDuplicating(damage_type);
+
+        if (m_Invincibility) {
+            return;
+        }
+
+        if (m_HealthType == HealthType.None) { // 본체와 자신에게 데미지 및 자신 색 blend
+            m_ParentEnemyHealth?.TakeDamage(amount, damage_type, false);
+        }
+        else if (m_HealthType == HealthType.Share) { // 본체에게 데미지 및 본체 색 blend
+            m_ParentEnemyHealth?.TakeDamage(amount, damage_type, true);
+            return;
+        }
+
+        if (m_DefaultHealth >= 0f) {
+            CurrentHealth -= amount;
+
+            if (CurrentHealth <= 0) {
+                OnHpZero();
+            }
+        }
     }
 
-    public void DisableInteractable(int millisecond) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    private void PreventDamageDuplicating(sbyte damage_type) {
+        if (damage_type >= 0) {
+            if (m_IsTakingDamage[damage_type])
+                return;
+            else
+                m_IsTakingDamage[damage_type] = true;
+        }
+    }
+
+    public void SetActiveColliders(bool state) {
         if (m_Collider2D.Length == 0)
             return;
-        if (millisecond == 0)
-            return;
-        m_Interactable = false;
         for (int i = 0; i < m_Collider2D.Length; i++)
-            m_Collider2D[i].enabled = false;
-        
-        if (millisecond != -1)
-            StartCoroutine(InteractableTimer(millisecond));
+            m_Collider2D[i].enabled = state;
     }
 
-    public void EnableInteractable() {
-        if (m_Interactable)
-            return;
-        if (m_Collider2D.Length == 0)
-            return;
-        m_Interactable = true;
-        for (int i = 0; i < m_Collider2D.Length; i++)
-            m_Collider2D[i].enabled = true;
-        StartCoroutine(InteractableTimer());
+    public void SetColliderPosition2D(Vector3 screenPosition, Quaternion screenRotation) {
+        for (int i = 0; i < m_Collider2D.Length; i++) {
+            m_Collider2D[i].transform.position = screenPosition;
+            m_Collider2D[i].transform.rotation = screenRotation;
+        }
     }
 
-    public bool IsInteractable() {
-        return m_Interactable;
-    }
 
     public void DisableInvincibility(int millisecond = -1) { // millisecond간 무적. 0이면 미적용. -1이면 무기한 무적
         if (millisecond == 0)
@@ -94,58 +125,22 @@ public class EnemyHealth : MonoBehaviour
         yield break;
     }
 
-    private IEnumerator InteractableTimer(int millisecond = -1) {
-        if (millisecond != -1) {
-            yield return new WaitForMillisecondFrames(millisecond);
-        }
-        EnableInteractable();
-        Action_StartInteractable?.Invoke();
-        yield break;
-    }
-    
-
-    public void TakeDamage(int amount, sbyte damage_type = -1, bool blend = true)
-    {
-        // damage_type - -1:일반공격, 0:레이저, 1:레이저(Aura), 2:폭탄
-        // blend - ImageBlend 실행 여부
-        
-        if (damage_type >= 0) {
-            if (m_IsTakingDamage[damage_type])
-                return;
-            else
-                m_IsTakingDamage[damage_type] = true;
-        }
-        
-        UpdateColorBlend();
-
-        if (m_DefaultHealth >= 0f) {
-            m_CurrentHealth -= amount;
-
-            if (m_CurrentHealth <= 0) {
-                //m_EnemyUnit.m_IsDead = true;
-                //KilledByPlayer();
-                OnDying();
-            }
-        }
-    }
-
-
     private void UpdateColorBlend() {
-        if (m_IsDead)
+        if (m_EnemyDeath.m_IsDead)
             return;
-        if (m_HealthType == HealthType.Share)
+        if (m_HealthType == HealthType.Share) // TODO : 제거해도 되는지 체크
             return;
 
         Action_DamagingBlend?.Invoke();
         
         if (!m_IsLowHealthState) {
             if (m_DefaultHealth < 10000) {
-                if (m_CurrentHealth * 10 < m_DefaultHealth * 3) { // 30% 미만
+                if (m_HealthPercent < 0.30f) { // 30% 미만
                     Action_LowHealthState?.Invoke();
                 }
             }
             else { // 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
-                if (m_CurrentHealth < 3000) {
+                if (CurrentHealth < 3000) {
                     Action_LowHealthState?.Invoke();
                 }
             }
@@ -156,19 +151,7 @@ public class EnemyHealth : MonoBehaviour
         m_IsLowHealthState = true;
     }
 
-    public void OnDying() {
-        m_IsDead = true;
-
-        Action_OnDying?.Invoke();
-    }
-
-    public void OnDeath() {
-        Action_OnDeath?.Invoke();
-        Destroy(gameObject);
-    }
-
-    private void OnRemoved() {
-        Action_OnRemoved?.Invoke();
-        Destroy(gameObject);
+    private void OnHpZero() {
+        m_EnemyDeath.OnDying();
     }
 }

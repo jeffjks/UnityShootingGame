@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerUnit : PlayerObject
 {
     [HideInInspector] public bool m_SlowMode = false;
-    public Transform m_PlayerBody;
 
     private Vector2Int positionInt2D;
     public Vector2Int m_PositionInt2D {

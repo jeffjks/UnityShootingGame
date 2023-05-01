@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMiddleBoss1 : EnemyUnit
+public class EnemyMiddleBoss1 : EnemyUnit, IEnemyMiddleBossMain
 {
     public EnemyMiddleBoss1Turret[] m_Turret = new EnemyMiddleBoss1Turret[2];
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
     
     private Vector3 m_TargetPosition;
     private Quaternion m_TargetQuaternion;
@@ -20,9 +20,12 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_TargetQuaternion = Quaternion.identity;
         transform.rotation = Quaternion.Euler(0f, 36f, 20f);
 
-        m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
         
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
     }
 
     protected override void Update()
@@ -30,7 +33,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -63,7 +66,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         }
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         Vector3 init_vector = transform.position;
@@ -85,7 +88,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_UpdateTransform = true;
@@ -94,7 +97,7 @@ public class EnemyMiddleBoss1 : EnemyUnit
         m_CurrentPattern1 = PatternA(m_SystemManager.GetDifficulty());
         StartCoroutine(m_CurrentPattern1);
         
-        m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -257,9 +260,12 @@ public class EnemyMiddleBoss1 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         m_SystemManager.ScreenEffect(0);
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnMiddleBossDying() {
+        m_SystemManager.MiddleBossClear();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

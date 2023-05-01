@@ -8,7 +8,6 @@ public abstract class UnitObject : MonoBehaviour
 
 	[HideInInspector] public Vector2 m_Position2D;
 	[HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
-	[HideInInspector] public bool m_IsDead = false;
 
     protected void MoveDirection(float speed, float direction) // speed 속도로 direction 방향으로 이동. 0도는 아래, 90도는 오른쪽
     {
@@ -37,6 +36,7 @@ public interface IRotatable
     void RotateImmediately(Vector2 target, float rot = 0f);
     void RotateImmediately(float target_angle, float rot = 0f);
     void UpdateTransform();
+    void SetPosition2D();
 }
 
 
@@ -204,13 +204,13 @@ public abstract class PlayerObject : UnitObject
 
         //m_PositionInt2D = Vector2Int.RoundToInt(transform.position*256);
     }
-
+    
     protected void DealDamage(EnemyUnit enemyObject, int damage, sbyte damage_type = -1) {
         try {
-            enemyObject.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_EnemyType] / 100, damage_type);
+            enemyObject.m_EnemyHealth.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_EnemyType] / 100, damage_type);
         }
         catch (System.IndexOutOfRangeException) {
-            enemyObject.TakeDamage(damage, damage_type);
+            enemyObject.m_EnemyHealth.TakeDamage(damage, damage_type);
         }
     }
 }

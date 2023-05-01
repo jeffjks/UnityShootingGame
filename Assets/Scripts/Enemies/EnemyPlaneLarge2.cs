@@ -61,7 +61,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
     protected override IEnumerator DyingEffect() { // 파괴 과정
         for (int i = 0; i < m_Turret.Length; i++) {
             if (m_Turret[i] != null)
-                m_Turret[i].m_EnemyHealth.OnDeath();
+                m_Turret[i].m_EnemyDeath.OnDying();
         }
         m_SystemManager.EraseBullets(1000);
 
@@ -72,8 +72,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
         ExplosionEffect(1, -1, new Vector2(0f, -3.8f));
         ExplosionEffect(0, -1, new Vector2(1.5f, -3.8f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

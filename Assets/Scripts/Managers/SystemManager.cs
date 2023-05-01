@@ -79,7 +79,7 @@ public class SystemManager : MonoBehaviour
     public SoundManager m_SoundManager;
     public ScreenEffecter m_ScreenEffecter;
     public MainCamera m_MainCamera;
-    public BossHealthHandler m_BossHealthBar;
+    public BossHealthBarHandler m_BossHealthBar;
     public OverviewHandler m_OverviewHandler;
     public TextUI_GameType m_TextUI_GameType;
     public PlayerManager m_PlayerManager;

@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
+#if UNITY_2018_1_OR_NEWER
+using Unity.Collections;
+#endif
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+#if UNITY_2018_3_OR_NEWER && !UNITY_2021_2_OR_NEWER
+using PrefabStage = UnityEditor.Experimental.SceneManagement.PrefabStage;
+using PrefabStageUtility = UnityEditor.Experimental.SceneManagement.PrefabStageUtility;
+#endif
 
-namespace AssetUsageDetectorNamespace.Extras
+namespace AssetUsageDetectorNamespace
 {
 	public static class Utilities
 	{
@@ -36,12 +44,16 @@ namespace AssetUsageDetectorNamespace.Extras
 #endif
 		};
 
+		private static readonly string reflectionNamespace = typeof( Assembly ).Namespace;
+#if UNITY_2018_1_OR_NEWER
+		private static readonly string nativeCollectionsNamespace = typeof( NativeArray<int> ).Namespace;
+#endif
+
+		private static MethodInfo screenFittedRectGetter;
+
 		private static readonly HashSet<string> folderContentsSet = new HashSet<string>();
 
-#if UNITY_2018_3_OR_NEWER
-		private static int previousPingedPrefabInstanceId;
-		private static double previousPingedPrefabPingTime;
-#endif
+		internal static readonly StringBuilder stringBuilder = new StringBuilder( 400 );
 
 		public static readonly GUILayoutOption GL_EXPAND_WIDTH = GUILayout.ExpandWidth( true );
 		public static readonly GUILayoutOption GL_EXPAND_HEIGHT = GUILayout.ExpandHeight( true );
@@ -49,6 +61,7 @@ namespace AssetUsageDetectorNamespace.Extras
 		public static readonly GUILayoutOption GL_WIDTH_100 = GUILayout.Width( 100 );
 		public static readonly GUILayoutOption GL_WIDTH_250 = GUILayout.Width( 250 );
 		public static readonly GUILayoutOption GL_HEIGHT_0 = GUILayout.Height( 0 );
+		public static readonly GUILayoutOption GL_HEIGHT_2 = GUILayout.Height( 2 );
 		public static readonly GUILayoutOption GL_HEIGHT_30 = GUILayout.Height( 30 );
 		public static readonly GUILayoutOption GL_HEIGHT_35 = GUILayout.Height( 35 );
 		public static readonly GUILayoutOption GL_HEIGHT_40 = GUILayout.Height( 40 );
@@ -63,63 +76,36 @@ namespace AssetUsageDetectorNamespace.Extras
 					m_boxGUIStyle = new GUIStyle( EditorStyles.helpBox )
 					{
 						alignment = TextAnchor.MiddleCenter,
-						font = EditorStyles.label.font
+						font = EditorStyles.label.font,
+						richText = true
 					};
+
+					Color textColor = GUI.skin.button.normal.textColor;
+					m_boxGUIStyle.normal.textColor = textColor;
+					m_boxGUIStyle.hover.textColor = textColor;
+					m_boxGUIStyle.focused.textColor = textColor;
+					m_boxGUIStyle.active.textColor = textColor;
+
+#if !UNITY_2019_1_OR_NEWER || UNITY_2019_3_OR_NEWER
+					// On 2019.1 and 2019.2 versions, GUI.skin.button.fontSize returns 0 on some devices
+					// https://forum.unity.com/threads/asset-usage-detector-find-references-to-an-asset-object-open-source.408134/page-3#post-7285954
+					m_boxGUIStyle.fontSize = ( m_boxGUIStyle.fontSize + GUI.skin.button.fontSize ) / 2;
+#endif
 				}
 
 				return m_boxGUIStyle;
 			}
 		}
 
-		private static GUIStyle m_tooltipGUIStyle; // GUIStyle used to draw the tooltip
-		public static GUIStyle TooltipGUIStyle
-		{
-			get
-			{
-				GUIStyleState normalState;
-
-				if( m_tooltipGUIStyle != null )
-					normalState = m_tooltipGUIStyle.normal;
-				else
-				{
-					m_tooltipGUIStyle = new GUIStyle( EditorStyles.helpBox )
-					{
-						alignment = TextAnchor.MiddleCenter,
-						font = EditorStyles.label.font
-					};
-
-					normalState = m_tooltipGUIStyle.normal;
-
-					normalState.background = null;
-					normalState.textColor = Color.black;
-				}
-
-				if( normalState.background == null || normalState.background.Equals( null ) )
-				{
-					Texture2D backgroundTexture = new Texture2D( 1, 1 );
-					backgroundTexture.SetPixel( 0, 0, new Color( 0.88f, 0.88f, 0.88f, 0.85f ) );
-					backgroundTexture.Apply();
-
-					normalState.background = backgroundTexture;
-				}
-
-				return m_tooltipGUIStyle;
-			}
-		}
-
-		// Get a unique-ish string hash code for an object
-		public static string Hash( this object obj )
-		{
-			if( obj is Object )
-				return obj.GetHashCode().ToString();
-
-			return obj.GetHashCode() + obj.GetType().Name;
-		}
-
 		// Check if object is an asset or a Scene object
 		public static bool IsAsset( this object obj )
 		{
 			return obj is Object && AssetDatabase.Contains( (Object) obj );
+		}
+
+		public static bool IsAsset( this Object obj )
+		{
+			return AssetDatabase.Contains( obj );
 		}
 
 		// Check if object is a folder asset
@@ -146,132 +132,73 @@ namespace AssetUsageDetectorNamespace.Extras
 			return folderContentsSet;
 		}
 
-		// Select an object in the editor
-		public static void SelectInEditor( this Object obj )
+		public static void GetObjectsToSelectAndPing( this Object obj, out Object selection, out Object pingTarget )
 		{
-			if( obj == null )
-				return;
-
-			Event e = Event.current;
-
-			// If CTRL or Shift keys are pressed, do a multi-select;
-			// otherwise select only the clicked object and ping it in editor
-			if( !e.control && !e.shift )
-				Selection.activeObject = obj.PingInEditor();
-			else
+			if( obj == null || obj.Equals( null ) )
 			{
-				Component objAsComp = obj as Component;
-				GameObject objAsGO = obj as GameObject;
-				int selectionIndex = -1;
-
-				Object[] selection = Selection.objects;
-				for( int i = 0; i < selection.Length; i++ )
-				{
-					Object selected = selection[i];
-
-					// Don't allow including both a gameobject and one of its components in the selection
-					if( selected == obj || ( objAsComp != null && selected == objAsComp.gameObject ) ||
-						( objAsGO != null && selected is Component && ( (Component) selected ).gameObject == objAsGO ) )
-					{
-						selectionIndex = i;
-						break;
-					}
-				}
-
-				Object[] newSelection;
-				if( selectionIndex == -1 )
-				{
-					// Include object in selection
-					newSelection = new Object[selection.Length + 1];
-					selection.CopyTo( newSelection, 0 );
-					newSelection[selection.Length] = obj;
-				}
-				else
-				{
-					// Remove object from selection
-					newSelection = new Object[selection.Length - 1];
-					int j = 0;
-					for( int i = 0; i < selectionIndex; i++, j++ )
-						newSelection[j] = selection[i];
-					for( int i = selectionIndex + 1; i < selection.Length; i++, j++ )
-						newSelection[j] = selection[i];
-				}
-
-				Selection.objects = newSelection;
+				selection = pingTarget = null;
+				return;
 			}
-		}
 
-		// Ping an object in either Project view or Hierarchy view
-		public static Object PingInEditor( this Object obj )
-		{
 			if( obj is Component )
 				obj = ( (Component) obj ).gameObject;
 
-			Object selection = obj;
+			selection = pingTarget = obj;
 
-			// Pinging a prefab only works if the pinged object is the root of the prefab
-			// or a direct child of it. Pinging any grandchildren of the prefab
-			// does not work; in which case, traverse the parent hierarchy until
-			// a pingable parent is reached
-			if( obj.IsAsset() && obj is GameObject )
+			if( obj.IsAsset() )
 			{
-#if UNITY_2018_3_OR_NEWER
-				Transform objTR = ( (GameObject) obj ).transform.root;
-
-				PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType( objTR.gameObject );
-				if( prefabAssetType == PrefabAssetType.Regular || prefabAssetType == PrefabAssetType.Variant )
+				if( obj is GameObject )
 				{
-					string assetPath = AssetDatabase.GetAssetPath( objTR.gameObject );
-					var openPrefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+					// Pinging a prefab only works if the pinged object is the root of the prefab or a direct child of it. Pinging any grandchildren
+					// of the prefab doesn't work; in which case, traverse the parent hierarchy until a pingable parent is reached
+#if UNITY_2018_3_OR_NEWER
+					Transform objTR = ( (GameObject) obj ).transform.root;
 
-					// Try to open the prefab stage of pinged prefabs if they are double clicked
-					if( previousPingedPrefabInstanceId == objTR.GetInstanceID() && EditorApplication.timeSinceStartup - previousPingedPrefabPingTime <= 0.3f &&
-						( openPrefabStage == null || !openPrefabStage.stageHandle.IsValid() || assetPath != openPrefabStage.prefabAssetPath ) )
+					PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType( objTR.gameObject );
+					if( prefabAssetType == PrefabAssetType.Regular || prefabAssetType == PrefabAssetType.Variant )
 					{
-						AssetDatabase.OpenAsset( objTR.gameObject );
-						openPrefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
-					}
-
-					previousPingedPrefabInstanceId = objTR.GetInstanceID();
-					previousPingedPrefabPingTime = EditorApplication.timeSinceStartup;
-
-					if( openPrefabStage != null && openPrefabStage.stageHandle.IsValid() && assetPath == openPrefabStage.prefabAssetPath )
-					{
-						GameObject prefabStageGO = FollowSymmetricHierarchy( (GameObject) obj, openPrefabStage.prefabContentsRoot );
-						if( prefabStageGO != null )
+						string assetPath = AssetDatabase.GetAssetPath( objTR.gameObject );
+						PrefabStage openPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+#if UNITY_2020_1_OR_NEWER
+						if( openPrefabStage != null && openPrefabStage.stageHandle.IsValid() && assetPath == openPrefabStage.assetPath )
+#else
+						if( openPrefabStage != null && openPrefabStage.stageHandle.IsValid() && assetPath == openPrefabStage.prefabAssetPath )
+#endif
 						{
-							objTR = prefabStageGO.transform;
-							selection = objTR.gameObject;
+							GameObject prefabStageGO = FollowSymmetricHierarchy( (GameObject) obj, ( (GameObject) obj ).transform.root.gameObject, openPrefabStage.prefabContentsRoot );
+							if( prefabStageGO != null )
+							{
+								objTR = prefabStageGO.transform;
+								selection = objTR.gameObject;
+							}
 						}
-					}
 #if UNITY_2019_1_OR_NEWER
-					else if( obj != objTR.gameObject )
-					{
-						Debug.Log( "Open " + assetPath + " in prefab mode to select and edit " + obj.name );
-						selection = objTR.gameObject;
+						else if( obj != objTR.gameObject )
+							selection = objTR.gameObject;
+#endif
 					}
 #else
-					else
-						Debug.Log( "Open " + assetPath + " in prefab mode to select and edit " + obj.name );
+					Transform objTR = ( (GameObject) obj ).transform;
+					while( objTR.parent != null && objTR.parent.parent != null )
+						objTR = objTR.parent;
 #endif
+
+					pingTarget = objTR.gameObject;
 				}
-#else
-				Transform objTR = ( (GameObject) obj ).transform;
-				while( objTR.parent != null && objTR.parent.parent != null )
-					objTR = objTR.parent;
-#endif
-
-				obj = objTR.gameObject;
+				else if( ( obj.hideFlags & ( HideFlags.HideInInspector | HideFlags.HideInHierarchy ) ) != HideFlags.None )
+				{
+					// Can't ping assets that are hidden from Project window (e.g. animator states of AnimatorController), ping the main asset at that path instead
+					pingTarget = AssetDatabase.LoadMainAssetAtPath( AssetDatabase.GetAssetPath( obj ) );
+				}
 			}
-
-			EditorGUIUtility.PingObject( obj );
-			return selection;
 		}
 
-		public static GameObject FollowSymmetricHierarchy( this GameObject go, GameObject symmetricRoot )
+		// We are passing "go"s root Transform to thisRoot parameter. If we use go.transform.root instead, when we are in prefab mode on
+		// newer Unity versions, it points to the preview scene at the root of the prefab stage instead of pointing to the actual root of "go"
+		public static GameObject FollowSymmetricHierarchy( this GameObject go, GameObject thisRoot, GameObject symmetricRoot )
 		{
 			Transform target = go.transform;
-			Transform root1 = target.root;
+			Transform root1 = thisRoot.transform;
 			Transform root2 = symmetricRoot.transform;
 			while( root1 != target )
 			{
@@ -300,12 +227,57 @@ namespace AssetUsageDetectorNamespace.Extras
 			return root2.gameObject;
 		}
 
+		// Returns -1 if t1 is above t2 in Hierarchy, 1 if t1 is below t2 in Hierarchy and 0 if they are the same object
+		public static int CompareHierarchySiblingIndices( Transform t1, Transform t2 )
+		{
+			Transform parent1 = t1.parent;
+			Transform parent2 = t2.parent;
+
+			if( parent1 == parent2 )
+				return t1.GetSiblingIndex() - t2.GetSiblingIndex();
+
+			int deltaHierarchyDepth = 0;
+			for( ; parent1; parent1 = parent1.parent )
+				deltaHierarchyDepth++;
+			for( ; parent2; parent2 = parent2.parent )
+				deltaHierarchyDepth--;
+
+			for( ; deltaHierarchyDepth > 0; deltaHierarchyDepth-- )
+			{
+				t1 = t1.parent;
+				if( t1 == t2 )
+					return 1;
+			}
+			for( ; deltaHierarchyDepth < 0; deltaHierarchyDepth++ )
+			{
+				t2 = t2.parent;
+				if( t1 == t2 )
+					return -1;
+			}
+
+			while( t1.parent != t2.parent )
+			{
+				t1 = t1.parent;
+				t2 = t2.parent;
+			}
+
+			return t1.GetSiblingIndex() - t2.GetSiblingIndex();
+		}
+
 		// Check if the field is serializable
 		public static bool IsSerializable( this FieldInfo fieldInfo )
 		{
-			// see Serialization Rules: https://docs.unity3d.com/Manual/script-Serialization.html
-			if( fieldInfo.IsInitOnly || ( ( !fieldInfo.IsPublic || fieldInfo.IsNotSerialized ) &&
-			   !Attribute.IsDefined( fieldInfo, typeof( SerializeField ) ) ) )
+			// See Serialization Rules: https://docs.unity3d.com/Manual/script-Serialization.html
+			if( fieldInfo.IsInitOnly )
+				return false;
+
+#if UNITY_2019_3_OR_NEWER
+			// SerializeReference makes even System.Object fields serializable
+			if( Attribute.IsDefined( fieldInfo, typeof( SerializeReference ) ) )
+				return true;
+#endif
+
+			if( ( !fieldInfo.IsPublic || fieldInfo.IsNotSerialized ) && !Attribute.IsDefined( fieldInfo, typeof( SerializeField ) ) )
 				return false;
 
 			return IsTypeSerializable( fieldInfo.FieldType );
@@ -336,6 +308,16 @@ namespace AssetUsageDetectorNamespace.Extras
 			}
 			else if( type.IsGenericType )
 			{
+				// Generic types are allowed on 2020.1 and later
+#if UNITY_2020_1_OR_NEWER
+				if( type.GetGenericTypeDefinition() == typeof( List<> ) )
+				{
+					type = type.GetGenericArguments()[0];
+
+					if( typeof( Object ).IsAssignableFrom( type ) )
+						return true;
+				}
+#else
 				if( type.GetGenericTypeDefinition() != typeof( List<> ) )
 					return false;
 
@@ -343,18 +325,38 @@ namespace AssetUsageDetectorNamespace.Extras
 
 				if( typeof( Object ).IsAssignableFrom( type ) )
 					return true;
+#endif
 			}
 
+#if !UNITY_2020_1_OR_NEWER
 			if( type.IsGenericType )
 				return false;
+#endif
 
 			return Attribute.IsDefined( type, typeof( SerializableAttribute ), false );
 		}
 
-		// Check if the type is a common Unity type (let's call them primitives)
-		public static bool IsPrimitiveUnityType( this Type type )
+		// Check if instances of this type should be searched for references
+		public static bool IsIgnoredUnityType( this Type type )
 		{
-			return type.IsPrimitive || primitiveUnityTypes.Contains( type ) || type.IsEnum;
+			if( type.IsPrimitive || primitiveUnityTypes.Contains( type ) || type.IsEnum )
+				return true;
+
+#if UNITY_2018_1_OR_NEWER
+			// Searching NativeArrays for reference can throw InvalidOperationException if the collection is disposed
+			if( type.Namespace == nativeCollectionsNamespace )
+				return true;
+#endif
+
+			// Searching assembly variables for reference throws InvalidCastException on .NET 4.0 runtime
+			if( typeof( Type ).IsAssignableFrom( type ) || type.Namespace == reflectionNamespace )
+				return true;
+
+			// Searching pointers or ref variables for reference throws ArgumentException
+			if( type.IsPointer || type.IsByRef )
+				return true;
+
+			return false;
 		}
 
 		// Get <get> function for a field
@@ -381,7 +383,20 @@ namespace AssetUsageDetectorNamespace.Extras
 		{
 			// Can't use PropertyWrapper (which uses CreateDelegate) for property getters of structs
 			if( propertyInfo.DeclaringType.IsValueType )
-				return propertyInfo.CanRead ? ( ( obj ) => propertyInfo.GetValue( obj, null ) ) : (VariableGetVal) null;
+			{
+				return !propertyInfo.CanRead ? (VariableGetVal) null : ( obj ) =>
+				{
+					try
+					{
+						return propertyInfo.GetValue( obj, null );
+					}
+					catch
+					{
+						// Property getters may return various kinds of exceptions if their backing fields are not initialized (yet)
+						return null;
+					}
+				};
+			}
 
 			Type GenType = typeof( PropertyWrapper<,> ).MakeGenericType( propertyInfo.DeclaringType, propertyInfo.PropertyType );
 			return ( (IPropertyAccessor) Activator.CreateInstance( GenType, propertyInfo.GetGetMethod( true ) ) ).GetValue;
@@ -398,6 +413,43 @@ namespace AssetUsageDetectorNamespace.Extras
 			}
 
 			return true;
+		}
+
+		// Returns file extension in lowercase (period not included)
+		public static string GetFileExtension( string path )
+		{
+			int extensionIndex = path.LastIndexOf( '.' );
+			if( extensionIndex < 0 || extensionIndex >= path.Length - 1 )
+				return "";
+
+			stringBuilder.Length = 0;
+			for( extensionIndex++; extensionIndex < path.Length; extensionIndex++ )
+			{
+				char ch = path[extensionIndex];
+				if( ch >= 65 && ch <= 90 ) // A-Z
+					ch += (char) 32; // Converted to a-z
+
+				stringBuilder.Append( ch );
+			}
+
+			return stringBuilder.ToString();
+		}
+
+		// Draw horizontal line inside OnGUI
+		public static void DrawSeparatorLine()
+		{
+			GUILayout.Space( 4f );
+			GUILayout.Box( "", GL_HEIGHT_2, GL_EXPAND_WIDTH );
+			GUILayout.Space( 4f );
+		}
+
+		// Restricts the given Rect within the screen's bounds
+		public static Rect GetScreenFittedRect( Rect originalRect )
+		{
+			if( screenFittedRectGetter == null )
+				screenFittedRectGetter = typeof( EditorWindow ).Assembly.GetType( "UnityEditor.ContainerWindow" ).GetMethod( "FitRectToScreen", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static );
+
+			return (Rect) screenFittedRectGetter.Invoke( null, new object[3] { originalRect, true, true } );
 		}
 
 		// Check if all the objects inside the list are null
@@ -448,6 +500,35 @@ namespace AssetUsageDetectorNamespace.Extras
 			return true;
 		}
 
+		// Returns true is str starts with prefix
+		public static bool StartsWithFast( this string str, string prefix )
+		{
+			int aLen = str.Length;
+			int bLen = prefix.Length;
+			int ap = 0; int bp = 0;
+			while( ap < aLen && bp < bLen && str[ap] == prefix[bp] )
+			{
+				ap++;
+				bp++;
+			}
+
+			return bp == bLen;
+		}
+
+		// Returns true is str ends with postfix
+		public static bool EndsWithFast( this string str, string postfix )
+		{
+			int ap = str.Length - 1;
+			int bp = postfix.Length - 1;
+			while( ap >= 0 && bp >= 0 && str[ap] == postfix[bp] )
+			{
+				ap--;
+				bp--;
+			}
+
+			return bp < 0;
+		}
+
 		public static bool ContainsFast<T>( this List<T> list, T element )
 		{
 			if( !( element is ValueType ) )
@@ -468,14 +549,6 @@ namespace AssetUsageDetectorNamespace.Extras
 			}
 
 			return false;
-		}
-
-		public static void RemoveAtFast<T>( this List<T> list, int index )
-		{
-			int lastElementIndex = list.Count - 1;
-
-			list[index] = list[lastElementIndex];
-			list.RemoveAt( lastElementIndex );
 		}
 	}
 }

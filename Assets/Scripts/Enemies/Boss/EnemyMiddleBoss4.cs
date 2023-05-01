@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMiddleBoss4 : EnemyUnit
+public class EnemyMiddleBoss4 : EnemyUnit, IEnemyMiddleBossMain
 {
     public EnemyMiddleBoss4Turret1 m_Turret1;
     public EnemyMiddleBoss4Turret2 m_Turret2;
     public EnemyMiddleBoss4Part[] m_Part = new EnemyMiddleBoss4Part[2];
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
     
     private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 1500;
@@ -20,11 +20,12 @@ public class EnemyMiddleBoss4 : EnemyUnit
         m_UpdateTransform = false;
         m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);
 
-        m_EnemyHealth.DisableInteractable();
-        m_ChildEnemies[0].m_EnemyHealth.DisableInteractable();
-        m_ChildEnemies[1].m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
         
         /*
         m_Sequence = DOTween.Sequence()
@@ -36,7 +37,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth / 3) { // 체력 33% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.33f) { // 체력 33% 이하
                 ToNextPhase();
             }
         }
@@ -61,7 +62,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         }
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
         float init_position_y = transform.position.y;
 
@@ -77,7 +78,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float[] random_direction = { 80f, 100f, -80f, -100f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_UpdateTransform = true;
@@ -87,9 +88,7 @@ public class EnemyMiddleBoss4 : EnemyUnit
         m_SubPattern = SubPattern();
         StartCoroutine(m_SubPattern);
 
-        m_EnemyHealth.EnableInteractable();
-        m_ChildEnemies[0].m_EnemyHealth.EnableInteractable();
-        m_ChildEnemies[1].m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -490,9 +489,9 @@ public class EnemyMiddleBoss4 : EnemyUnit
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        for (int i = 0; i < m_ChildEnemies.Length; i++) {
-            if (m_ChildEnemies[i] != null) {
-                m_ChildEnemies[i].m_EnemyHealth.OnDeath();
+        for (int i = 0; i < m_Part.Length; i++) {
+            if (m_Part[i] != null) {
+                m_Part[i].m_EnemyDeath.OnDying();
             }
         }
 
@@ -511,8 +510,12 @@ public class EnemyMiddleBoss4 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         m_SystemManager.ScreenEffect(0);
         
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnMiddleBossDying() {
+        m_SystemManager.MiddleBossClear();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

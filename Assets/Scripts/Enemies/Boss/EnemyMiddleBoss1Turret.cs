@@ -21,10 +21,6 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
     protected override void Update()
     {
         base.Update();
-        
-        if (m_ParentEnemy.m_Health <= 0) {
-            m_EnemyHealth.OnDeath();
-        }
 
         if (m_RotateState == 0) {
             if (!m_Shooting) {

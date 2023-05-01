@@ -6,6 +6,8 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
 {
     private int[] m_FireDelay = { 2400, 1500, 1000 };
     public Transform m_FirePosition;
+
+    [HideInInspector] public int m_Phase;
     
     private IEnumerator m_CurrentPattern;
     private int m_Side = 1, m_RoateState;
@@ -78,7 +80,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     private IEnumerator Pattern0() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos = m_FirePosition.position;
-        while (((EnemyBoss2) m_ParentEnemy).m_Phase == 1) {
+        while (m_Phase == 1) {
             if (m_PlayerPosition.y >= -5.8f) {
                 if (!m_Pattern2Rotate) {
                     pos = GetScreenPosition(m_FirePosition.position);

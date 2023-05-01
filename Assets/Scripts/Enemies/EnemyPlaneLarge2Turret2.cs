@@ -17,7 +17,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
     {
         base.Update();
         
-        float target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition()); // Special (Parent 기준)
+        float target_angle = GetAngleToTarget(transform.root.position, m_PlayerManager.GetPlayerPosition()); // Special (Parent 기준)
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateSlightly(target_angle, 50f);
         else
@@ -32,18 +32,18 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
         while(true) {
             if (m_SystemManager.GetDifficulty() == 0) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(transform.root.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.9f, target_angle, accel, 2, 13f);
             }
             else if (m_SystemManager.GetDifficulty() == 1) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(transform.root.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.4f, target_angle, accel, 2, 12f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle, accel, 2, 12f);
             }
             else {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(m_ParentEnemy.transform.position, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(transform.root.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.4f, target_angle - 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 5.4f, target_angle + 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle - 12f, accel, 2, 8f);

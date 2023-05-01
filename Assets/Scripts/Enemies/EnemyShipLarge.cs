@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyShipLarge : EnemyUnit
 {
+    public EnemyShipLargeTurret0 m_Turret0;
+    public EnemyShipLargeTurret1 m_Turret1;
     public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 900, 360, 240 };
     private int m_Phase = 0;
@@ -11,6 +13,8 @@ public class EnemyShipLarge : EnemyUnit
     void Start()
     {
         RotateImmediately(m_MoveVector.direction);
+
+        m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
     }
     
     protected override void Update()
@@ -18,12 +22,17 @@ public class EnemyShipLarge : EnemyUnit
         base.Update();
         
         RotateImmediately(m_MoveVector.direction);
+    }
 
-        if (m_Phase == 0) {
-            if (3 * m_Health < m_MaxHealth) {
-                m_Phase = 1;
-                StartCoroutine(Pattern1());
-            }
+    private void DestroyChildEnemy() {
+        if (m_Phase > 0) {
+            return;
+        }
+        if (m_EnemyHealth.m_HealthPercent <= 0.33f) {
+            m_Phase = 1;
+            StartCoroutine(Pattern1());
+            m_Turret0?.m_EnemyDeath.OnDying();
+            m_Turret1?.m_EnemyDeath.OnDying();
         }
     }
     
@@ -59,8 +68,7 @@ public class EnemyShipLarge : EnemyUnit
         ExplosionEffect(0, -1, new Vector3(0f, 2f, 0f));
         ExplosionEffect(1, -1, new Vector3(0f, 2f, -2f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

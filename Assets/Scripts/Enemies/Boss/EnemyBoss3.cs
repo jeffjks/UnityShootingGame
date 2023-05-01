@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss3 : EnemyBoss
+public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public EnemyBoss3Turret[] m_Turret = new EnemyBoss3Turret[2];
     public EnemyBoss3Part m_Part;
@@ -10,7 +10,7 @@ public class EnemyBoss3 : EnemyBoss
     public EnemyBoss3Barrel[] m_EnemyBoss3Barrel = new EnemyBoss3Barrel[2];
     public GameObject[] m_PartOnDeath = new GameObject[2];
 
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
     
     private Vector3 m_TargetPosition;
     private Vector3 m_DefaultScale;
@@ -31,13 +31,13 @@ public class EnemyBoss3 : EnemyBoss
         m_MoveVector = new MoveVector(1f, -125f);
         RotateImmediately(m_MoveVector.direction);
 
-        m_EnemyHealth.DisableInteractable();
-        m_Part.m_EnemyHealth.DisableInteractable();
-        /*
-        m_Sequence = DOTween.Sequence()
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 15f, 2f).SetEase(Ease.InQuad));*/
+        DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
     }
 
     protected override void Update()
@@ -45,7 +45,7 @@ public class EnemyBoss3 : EnemyBoss
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -79,6 +79,8 @@ public class EnemyBoss3 : EnemyBoss
                 m_Direction += m_MaxRotation * m_RotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
         }
+
+        m_Part.m_CurrentAngle = m_CurrentAngle;
         
         if (m_Direction > 360f)
             m_Direction -= 360f;
@@ -86,7 +88,7 @@ public class EnemyBoss3 : EnemyBoss
             m_Direction += 360f;
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         int frame;
 
         float init_speed = m_MoveVector.speed;
@@ -121,15 +123,14 @@ public class EnemyBoss3 : EnemyBoss
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float random_direction = Random.Range(75f, 105f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
-        m_EnemyHealth.EnableInteractable();
-        m_Part.m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
     }
 
     private int RandomValue() {
@@ -159,8 +160,8 @@ public class EnemyBoss3 : EnemyBoss
             if (m_Phase == 2) {
                 m_CurrentPhase = Phase2();
                 StartCoroutine(m_CurrentPhase);
-                m_Part.m_EnemyHealth.OnDeath();
-                DisableInvincibility(duration);
+                m_Part.m_EnemyDeath.OnDying();
+                m_EnemyHealth.DisableInvincibility(duration);
                 NextPhaseExplosion(duration);
             }
         }
@@ -569,7 +570,7 @@ public class EnemyBoss3 : EnemyBoss
             StopCoroutine(m_CurrentPhase);
         for (int i = 0; i < m_Turret.Length; i++) {
             if (m_Turret[i] != null)
-                m_Turret[i].m_EnemyHealth.OnDeath();
+                m_Turret[i].m_EnemyDeath.OnDying();
         }
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
@@ -614,9 +615,16 @@ public class EnemyBoss3 : EnemyBoss
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
-        CreateItems();
-        BossDestroyed();
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnBossDying() {
+        m_SystemManager.BossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.StartStageClearCoroutine();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

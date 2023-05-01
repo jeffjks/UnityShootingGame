@@ -58,7 +58,7 @@ public class PlayerController : PlayerUnit
         
         m_PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
         
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.parent);
     }
 
     void Update()
@@ -217,7 +217,7 @@ public class PlayerController : PlayerUnit
                 
                 m_PlayerManager.PlayerDead(m_PositionInt2D);
                 ResetPosition();
-                gameObject.SetActive(false);
+                transform.root.gameObject.SetActive(false);
             }
         }
     }

@@ -153,7 +153,7 @@ TextureImporter:
       213: 3975359254225529288
     second: HitEffect_Shot_24
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -173,6 +173,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -181,12 +183,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -204,11 +206,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 512
     resizeAlgorithm: 0
@@ -219,7 +226,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 512
     resizeAlgorithm: 0
@@ -230,7 +238,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 512
     resizeAlgorithm: 0
@@ -241,6 +250,19 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -779,6 +801,32 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      HitEffect_Shot_0: 2996197726935702872
+      HitEffect_Shot_1: -6740807574122627209
+      HitEffect_Shot_10: -2013002148876616367
+      HitEffect_Shot_11: -7899322626929248985
+      HitEffect_Shot_12: -4688514348472118742
+      HitEffect_Shot_13: -5502529365743712229
+      HitEffect_Shot_14: 7061849176961248590
+      HitEffect_Shot_15: 291910262802679562
+      HitEffect_Shot_16: -5224550599299401112
+      HitEffect_Shot_17: 4081061779327339976
+      HitEffect_Shot_18: -510949448551198777
+      HitEffect_Shot_19: 6826214340337517358
+      HitEffect_Shot_2: -1894270151124617480
+      HitEffect_Shot_20: 3889181356260565126
+      HitEffect_Shot_21: -5018432201973949980
+      HitEffect_Shot_22: -2557638425504324166
+      HitEffect_Shot_23: 2326018146638236954
+      HitEffect_Shot_24: 3975359254225529288
+      HitEffect_Shot_3: -5247352753502131781
+      HitEffect_Shot_4: 8872442662123633594
+      HitEffect_Shot_5: 5940103535280283864
+      HitEffect_Shot_6: -6437822485910796242
+      HitEffect_Shot_7: 8351184257728311663
+      HitEffect_Shot_8: 8912144663735031124
+      HitEffect_Shot_9: -6350142695703423623
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

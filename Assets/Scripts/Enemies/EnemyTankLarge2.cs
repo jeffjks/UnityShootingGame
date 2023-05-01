@@ -65,8 +65,7 @@ public class EnemyTankLarge2 : EnemyUnit
         ExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.1f));
         ExplosionEffect(0, -1, new Vector3(1.4f, 0f, -1.1f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

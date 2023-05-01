@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss3 : EnemyUnit
+public class EnemyMiddleBoss3 : EnemyUnit, IEnemyMiddleBossMain
 {
     public Transform[] m_FirePosition = new Transform[3];
     private int[] m_FireDelay = { 1150, 500, 300 };
@@ -18,10 +18,13 @@ public class EnemyMiddleBoss3 : EnemyUnit
     {
         m_TargetPosition = new Vector2(0f, -4.3f);
 
-        m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
 
         int delay = 2000;
         StartCoroutine(AppearanceSequence(delay));
+
+        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
 
         /*
         m_Sequence = DOTween.Sequence()
@@ -47,14 +50,14 @@ public class EnemyMiddleBoss3 : EnemyUnit
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float[] random_direction = { 90f, -90f };
         m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 2)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
-        m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
     }
 
     protected override void Update()
@@ -65,7 +68,7 @@ public class EnemyMiddleBoss3 : EnemyUnit
         transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동
 
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -333,9 +336,12 @@ public class EnemyMiddleBoss3 : EnemyUnit
         ExplosionEffect(3, -1, new Vector3(0f, 3f, -7f));
         m_SystemManager.ScreenEffect(0);
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnMiddleBossDying() {
+        m_SystemManager.MiddleBossClear();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

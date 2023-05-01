@@ -25,7 +25,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
         DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, APPEARANCE_TIME).SetEase(Ease.OutQuad);*/
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(750);
 
         float init_speed = m_MoveVector.speed;
@@ -73,8 +73,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0f, 1.5f));
         ExplosionEffect(0, -1, new Vector2(0f, -2f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss2 : EnemyBoss
+public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public EnemyUnit[] m_Part1_Turrets = new EnemyUnit[3];
     public EnemyUnit[] m_Part2_Turrets = new EnemyUnit[4];
     public EnemyUnit[] m_Part3_Turrets = new EnemyUnit[4];
     public int m_NextPhaseDelay;
 
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
+    public int Phase {
+        get { return m_Phase; }
+        set {
+            m_Phase = value;
+            (m_Part1_Turrets[0] as EnemyBoss2Turret0_1).m_Phase = value;
+            (m_Part1_Turrets[1] as EnemyBoss2Turret0_1).m_Phase = value;
+        }
+    }
     
     private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 11000;
@@ -20,18 +28,14 @@ public class EnemyBoss2 : EnemyBoss
     void Start()
     {
         m_TargetPosition = transform.position;
-        
-        for (int i = 0; i < m_Part1_Turrets.Length; i++) {
-            m_Part1_Turrets[i].m_EnemyHealth.DisableInteractable();
-        }
-        for (int i = 0; i < m_Part2_Turrets.Length; i++) {
-            m_Part2_Turrets[i].m_EnemyHealth.DisableInteractable();
-        }
-        for (int i = 0; i < m_Part3_Turrets.Length; i++) {
-            m_Part3_Turrets[i].m_EnemyHealth.DisableInteractable();
-        }
 
         StartCoroutine(AppearanceSequence());
+        
+        DisableInteractableAll();
+
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
     }
 
     protected override void Update()
@@ -54,18 +58,18 @@ public class EnemyBoss2 : EnemyBoss
         }
 
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 625 / 1000) { // 체력 62.5% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.625f) { // 체력 62.5% 이하
                 for (int i = 0; i < m_Part1_Turrets.Length; i++) {
-                    m_Part1_Turrets[i].m_EnemyHealth.OnDeath();
+                    m_Part1_Turrets[i].m_EnemyDeath.OnDying();
                 }
                 m_SystemManager.EraseBullets(2000);
                 ToNextPhase(m_NextPhaseDelay);
             }
         }
         else if (m_Phase == 2) {
-            if (m_Health <= m_MaxHealth / 4) { // 체력 25% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.25f) { // 체력 25% 이하
                 for (int i = 0; i < m_Part2_Turrets.Length; i++) {
-                    m_Part2_Turrets[i].m_EnemyHealth.OnDeath();
+                    m_Part2_Turrets[i].m_EnemyDeath.OnDying();
                 }
                 m_SystemManager.EraseBullets(2000);
                 ToNextPhase(m_NextPhaseDelay);
@@ -73,13 +77,13 @@ public class EnemyBoss2 : EnemyBoss
         }
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
         OnAppearanceComplete();
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float random_direction = Random.Range(70f, 110f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
         m_Phase = 1;
@@ -87,7 +91,7 @@ public class EnemyBoss2 : EnemyBoss
         StartCoroutine(m_CurrentPhase);
 
         for (int i = 0; i < m_Part1_Turrets.Length; i++) {
-            m_Part1_Turrets[i].m_EnemyHealth.EnableInteractable();
+            m_Part1_Turrets[i].EnableInteractable();
         }
     }
 
@@ -110,8 +114,8 @@ public class EnemyBoss2 : EnemyBoss
             StartCoroutine(m_SystemManager.MoveBackgroundCameraDuration(true, 13f, duration));
         }
         else if (m_Phase == 3) { // Phase 2 to 3
-            m_Collider2D[0].gameObject.SetActive(true);
-            //m_EnemyHealth.DisableInteractable();
+            //m_Collider2D[0].gameObject.SetActive(true);
+            //DisableInteractable();
             DisableInteractable(duration);
 
             m_CurrentPhase = Phase3();
@@ -248,7 +252,7 @@ public class EnemyBoss2 : EnemyBoss
         ((EnemyBoss2Turret2_1) m_Part3_Turrets[1]).StartPattern();
         ((EnemyBoss2Turret2_2) m_Part3_Turrets[2]).StartPattern();
         ((EnemyBoss2Turret2_2) m_Part3_Turrets[3]).StartPattern();
-        while (m_Health >= 7000)
+        while (m_EnemyHealth.CurrentHealth >= 7000)
             yield return new WaitForMillisecondFrames(0);
         ((EnemyBoss2Turret2_0) m_Part3_Turrets[0]).StopPattern();
         yield return new WaitForMillisecondFrames(500);
@@ -268,7 +272,7 @@ public class EnemyBoss2 : EnemyBoss
         m_MoveVector = new MoveVector(0f, 0f);
 
         for (int i = 0; i < m_Part3_Turrets.Length; i++) {
-            m_Part3_Turrets[i].m_EnemyHealth.OnDeath();
+            m_Part3_Turrets[i].m_EnemyDeath.OnDying();
         }
         
         yield return new WaitForMillisecondFrames(1500);
@@ -288,9 +292,16 @@ public class EnemyBoss2 : EnemyBoss
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
-        CreateItems();
-        BossDestroyed();
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnBossDying() {
+        m_SystemManager.BossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.StartStageClearCoroutine();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

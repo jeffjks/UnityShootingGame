@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // 파괴 후 Quaternion.identity 상태로 돌아가는 용도
 
-public class EnemyBoss1 : EnemyUnit, IHasAppearance
+public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public EnemyBoss1Turret0 m_Turret0;
     public EnemyBoss1Turret1[] m_Turret1 = new EnemyBoss1Turret1[2];
@@ -12,7 +11,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance
     public Transform[] m_FirePosition = new Transform[4];
     public AnimationCurve m_AnimationCurve_Turn;
 
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
 
     private Vector3[] m_TargetPosition = new Vector3[2];
     private const int APPEARANCE_TIME = 2000;
@@ -30,23 +29,30 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance
 
         transform.rotation = Quaternion.Euler(0f, -35f, 0f);
 
-        m_EnemyHealth.DisableInteractable();
-        m_Part.m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
+        m_Part.m_EnemyDeath.Action_OnDying += ToNextPhase;
     }
 
     protected override void Update()
     {
         base.Update();
 
+        OnPhase1();
+    }
+
+    private void DestroyChildEnemy() {
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 3 / 10) { // 체력 30% 이하
-                m_ChildEnemies[0].m_EnemyHealth.OnDeath();
+            if (m_EnemyHealth.m_HealthPercent <= 0.30f) { // 체력 30% 이하
+                m_Part?.m_EnemyDeath.OnDying();
             }
         }
-
-        OnPhase1();
     }
 
     public void ToNextPhase() {
@@ -129,8 +135,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance
         int rand = Random.Range(0, 2);
         m_MoveVector = new MoveVector(1f, 90f + 180f*rand);
 
-        m_EnemyHealth.EnableInteractable();
-        m_Part.m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
         /*
         m_Sequence.Kill();
         m_Sequence = DOTween.Sequence()
@@ -375,7 +380,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance
             StopCoroutine(m_CurrentPhase);
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.6f, 0f);
-        m_Turret0.m_EnemyHealth.OnDying();
+        m_Turret0.m_EnemyDeath.OnDying();
 
         transform.DORotateQuaternion(Quaternion.identity, 1f).SetEase(Ease.Linear);
 
@@ -396,9 +401,16 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
         
-        m_SystemManager.StartStageClearCoroutine();
-        m_EnemyHealth.OnDeath();
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnBossDying() {
+        m_SystemManager.BossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.StartStageClearCoroutine();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

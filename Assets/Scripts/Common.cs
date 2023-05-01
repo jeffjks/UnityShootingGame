@@ -6,6 +6,11 @@ public class Common : MonoBehaviour
 {
 }
 
+
+public interface UseObjectPool { // TODO : 구현
+    void ReturnToPool();
+}
+
 public class BulletDirection
 {
     public const byte FIXED = 0;
@@ -100,6 +105,14 @@ public enum Debris
     Medium,
     Large,
 };
+
+public enum PlayerDamageType
+{
+    Normal,
+    Laser,
+    LaserAura,
+    Bomb
+}
 
 public enum Explosion
 {

@@ -44,13 +44,13 @@ public class NetworkAccount : MonoBehaviour
         form.AddField("userPW", pw);
         form.AddField("pcID", SystemInfo.deviceUniqueIdentifier);
 
-        UnityWebRequest www = UnityWebRequest.Post(url, form);
-        yield return www.SendWebRequest();
-        if(www.isNetworkError || www.isHttpError) {
-            handler.NetworkError(www.error);
+        UnityWebRequest webRequeset = UnityWebRequest.Post(url, form);
+        yield return webRequeset.SendWebRequest();
+        if(webRequeset.result == UnityWebRequest.Result.ConnectionError || webRequeset.result == UnityWebRequest.Result.ProtocolError) {
+            handler.NetworkError(webRequeset.error);
         }
         else {
-            handler.TryLogin(id, www.downloadHandler.text);
+            handler.TryLogin(id, webRequeset.downloadHandler.text);
         }
         yield return null;
     }
@@ -68,13 +68,13 @@ public class NetworkAccount : MonoBehaviour
         form.AddField("userPW", pw);
         form.AddField("pcID", SystemInfo.deviceUniqueIdentifier);
 
-        UnityWebRequest www = UnityWebRequest.Post(url, form);
-        yield return www.SendWebRequest();
-        if(www.isNetworkError || www.isHttpError) {
-            handler.NetworkError(www.error);
+        UnityWebRequest webRequeset = UnityWebRequest.Post(url, form);
+        yield return webRequeset.SendWebRequest();
+        if(webRequeset.result == UnityWebRequest.Result.ConnectionError || webRequeset.result == UnityWebRequest.Result.ProtocolError) {
+            handler.NetworkError(webRequeset.error);
         }
         else {
-            handler.TryLogin(id, www.downloadHandler.text);
+            handler.TryLogin(id, webRequeset.downloadHandler.text);
         }
         yield return null;
     }

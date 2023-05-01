@@ -34,13 +34,9 @@ public class PlayerLaserAura : PlayerObject
                     DealDamage(enemyObject, m_LaserDamage, 1); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
-                    enemyObject.m_EnemyHealth.OnDeath();
+                    enemyObject.m_EnemyDeath.OnDying();
                 }
             }
         }
-    }
-
-    private void OnDeath() {
-        Destroy(gameObject);
     }
 }

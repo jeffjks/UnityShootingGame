@@ -2,7 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace AssetUsageDetectorNamespace.Extras
+namespace AssetUsageDetectorNamespace
 {
 	// Delegate to get the value of a variable (either field or property)
 	public delegate object VariableGetVal( object obj );
@@ -10,23 +10,23 @@ namespace AssetUsageDetectorNamespace.Extras
 	// Custom struct to hold a variable, its important properties and its getter function
 	public struct VariableGetterHolder
 	{
-		public readonly string name;
-		public readonly bool isProperty;
+		public readonly MemberInfo variable;
 		public readonly bool isSerializable;
 		private readonly VariableGetVal getter;
 
+		public string Name { get { return variable.Name; } }
+		public bool IsProperty { get { return variable is PropertyInfo; } }
+
 		public VariableGetterHolder( FieldInfo fieldInfo, VariableGetVal getter, bool isSerializable )
 		{
-			name = fieldInfo.Name;
-			isProperty = false;
+			this.variable = fieldInfo;
 			this.isSerializable = isSerializable;
 			this.getter = getter;
 		}
 
 		public VariableGetterHolder( PropertyInfo propertyInfo, VariableGetVal getter, bool isSerializable )
 		{
-			name = propertyInfo.Name;
-			isProperty = true;
+			this.variable = propertyInfo;
 			this.isSerializable = isSerializable;
 			this.getter = getter;
 		}
@@ -69,8 +69,7 @@ namespace AssetUsageDetectorNamespace.Extras
 			}
 			catch
 			{
-				// Property getters may return various kinds of exceptions
-				// if their backing fields are not initialized (yet)
+				// Property getters may return various kinds of exceptions if their backing fields are not initialized (yet)
 				return null;
 			}
 		}

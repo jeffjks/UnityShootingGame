@@ -35,12 +35,13 @@ public class GroundEnemySpawner : EnemyUnit
     }
 
     private void SpawnEnemy(GameObject enemy) {
-        GameObject ins = Instantiate(enemy, transform.position, transform.rotation);
+        GameObject ins = Instantiate(enemy, transform.position, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
         enemy_unit.m_MoveVector = new MoveVector(m_Speed, m_Direction);
+        enemy_unit.RotateImmediately(m_Direction);
         
         if (m_AttackableTimer != 0) {
-            enemy_unit.m_EnemyHealth?.DisableInteractable(m_AttackableTimer);
+            enemy_unit.DisableInteractable(m_AttackableTimer);
         }
         
         for (int i = 0; i < m_MovePattern.Length; i++) {
@@ -55,6 +56,7 @@ public class GroundEnemySpawner : EnemyUnit
             //.Append(DOTween.To(()=>enemy_unit.m_MoveVector.direction, x=>enemy_unit.m_MoveVector.direction = x, pattern_direction, pattern_duration).SetEase(Ease.Linear))
             //.Join(DOTween.To(()=>enemy_unit.m_MoveVector.speed, x=>enemy_unit.m_MoveVector.speed = x, pattern_speed, pattern_duration).SetEase(Ease.Linear));
         }
+        enemy_unit.StartPlayTweenData();
         
         if (m_RemoveTimer > 0) {
             StartCoroutine(DestroySpawnedEnemy(ins));
@@ -75,14 +77,14 @@ public class GroundEnemySpawner : EnemyUnit
     IEnumerator DestroySpawner()
     {
         yield return new WaitForMillisecondFrames(m_DeactivateTime);
-        Destroy(gameObject);
+        m_EnemyDeath.OnRemoved();
         yield break;
     }
 
     IEnumerator DestroySpawnedEnemy(GameObject gameObject)
     {
         yield return new WaitForMillisecondFrames(m_RemoveTimer);
-        Destroy(gameObject);
+        m_EnemyDeath.OnRemoved();
         yield break;
     }
 

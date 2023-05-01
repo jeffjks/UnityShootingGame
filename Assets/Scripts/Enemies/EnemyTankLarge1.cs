@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class EnemyTankLarge1 : EnemyUnit
 {
+    public EnemyTankLarge1Turret1[] m_Turret1 = new EnemyTankLarge1Turret1[2];
+    public EnemyTankLarge1Turret2 m_Turret2;
     public Transform[] m_FirePosition = new Transform[2];
     public Transform m_LauncherRotation;
 
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
     private Quaternion m_LauncherRotationTarget;
     private float m_Rotation = -240f;
+    private bool m_TurretState = true;
 
     void Start()
     {
         m_LauncherRotationTarget = Quaternion.identity;
-    }
-    
-    protected override void Update()
-    {
-        base.Update();
-        
-        RotateImmediately(m_MoveVector.direction);
+        m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
 
-        if (m_Phase == 0) {
-            if (m_Position2D.y < - 1f) {
-                m_Phase = 1;
-            }
-        }
-        if (3 * m_Health <= m_MaxHealth) {
+        m_Turret1[0].Func_GetDirection += GetDirection;
+        m_Turret1[1].Func_GetDirection += GetDirection;
+    }
+
+    private void DestroyChildEnemy() {
+        if (m_EnemyHealth.m_HealthPercent <= 0.33f) { // 체력 33% 이하
+            m_Turret1[0]?.m_EnemyDeath.OnDying();
+            m_Turret1[2]?.m_EnemyDeath.OnDying();
+            m_Turret2?.m_EnemyDeath.OnDying();
+
             if (m_Phase <= 1) {
                 if (m_LauncherRotation.localRotation != m_LauncherRotationTarget) {
                     m_Rotation = Mathf.MoveTowards(m_Rotation, 0f, 400f / Application.targetFrameRate * Time.timeScale);
@@ -39,6 +40,30 @@ public class EnemyTankLarge1 : EnemyUnit
                 }
             }
         }
+    }
+    
+    protected override void Update()
+    {
+        base.Update();
+        
+        RotateImmediately(m_MoveVector.direction);
+        m_Turret2.RotateImmediately(m_CurrentAngle);
+
+        if (m_Phase == 0) {
+            if (m_Position2D.y < - 1f) {
+                m_Phase = 1;
+            }
+        }
+
+        if (m_TurretState) {
+            m_Turret1[0].ToNextPhase();
+            m_Turret1[1].ToNextPhase();
+            m_TurretState = false;
+        }
+    }
+
+    private float GetDirection() {
+        return m_MoveVector.direction;
     }
     
     private IEnumerator Pattern2() {
@@ -117,8 +142,7 @@ public class EnemyTankLarge1 : EnemyUnit
         ExplosionEffect(1, -1, new Vector3(-2f, 0f, -1.4f));
         ExplosionEffect(1, -1, new Vector3(2f, 0f, -1.4f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

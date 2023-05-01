@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss2 : EnemyUnit
+public class EnemyMiddleBoss2 : EnemyUnit, IEnemyMiddleBossMain
 {
     public Transform m_FirePosition0;
     public Transform[] m_FirePosition2 = new Transform[2];
     public EnemyMiddleBoss2Turret0 m_Turret0;
     public EnemyMiddleBoss2Turret1[] m_Turret1 = new EnemyMiddleBoss2Turret1[2];
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
     
     private float m_Direction;
 
@@ -18,13 +18,19 @@ public class EnemyMiddleBoss2 : EnemyUnit
     void Start()
     {
         m_Phase = 1;
-        m_MoveVector = new MoveVector(3f, 120f);
+        m_MoveVector = new MoveVector(-3f, 120f + 180f);
 
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
 
         m_CurrentPattern1 = Pattern1A();
         StartCoroutine(m_CurrentPattern1);
+        
+        DisableInteractableAll();
+
+        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
+        m_Turret0.m_EnemyDeath.Action_OnDying += ToNextPhase;
 
         /*
         m_Sequence = DOTween.Sequence()
@@ -44,24 +50,24 @@ public class EnemyMiddleBoss2 : EnemyUnit
         .Append(DOTween.To(()=>m_MoveVector.direction, x=>m_MoveVector.direction = x, 240f, 2.5f).SetEase(Ease.Linear));*/
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         //MoveVector init_moveVector;
         yield return new WaitForMillisecondFrames(4000);
         yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop
         yield return new WaitForMillisecondFrames(2000);
-        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1000); // speed to 2f
+        yield return MovementPattern(new MoveVector(-2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1000); // speed to 2f
         yield return new WaitForMillisecondFrames(1000);
-        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 220f), EaseType.Linear, EaseType.InOutQuad, 3500); // direction to 220f
+        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 220f + 180f), EaseType.Linear, EaseType.InOutQuad, 3500); // direction to 220f
         yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop
         yield return new WaitForMillisecondFrames(500);
-        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1000); // speed to 2f
-        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 170f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 170f
+        yield return MovementPattern(new MoveVector(-2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1000); // speed to 2f
+        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 170f + 180f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 170f
         yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop
         yield return new WaitForMillisecondFrames(1000);
-        yield return MovementPattern(new MoveVector(2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1500); // speed to 2f
-        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 240f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 240f
+        yield return MovementPattern(new MoveVector(-2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1500); // speed to 2f
+        yield return MovementPattern(new MoveVector(m_MoveVector.speed, 240f + 180f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 240f
         yield return new WaitForMillisecondFrames(6500);
-        Destroy(gameObject);
+        m_EnemyDeath.OnRemoved();
         yield break;
 
         /*
@@ -95,7 +101,7 @@ public class EnemyMiddleBoss2 : EnemyUnit
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 375 / 1000) { // 체력 37.5% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.375f) { // 체력 37.5% 이하
                 ToNextPhase();
             }
         }
@@ -119,14 +125,12 @@ public class EnemyMiddleBoss2 : EnemyUnit
         StartCoroutine(m_CurrentPattern1);
         StartCoroutine(m_CurrentPattern2);
 
-        if (m_Turret0 != null)
-            m_Turret0.m_EnemyHealth.OnDeath();
-        if (m_Turret1[0] != null)
-            m_Turret1[0].m_EnemyHealth.OnDeath();
-        if (m_Turret1[1] != null)
-            m_Turret1[1].m_EnemyHealth.OnDeath();
+        m_Turret0?.m_EnemyDeath.OnDying();
+        m_Turret1[0]?.m_EnemyDeath.OnDying();
+        m_Turret1[1]?.m_EnemyDeath.OnDying();
         
-        m_Collider2D[0].gameObject.SetActive(true);
+        //m_Collider2D[0].gameObject.SetActive(true);
+        EnableInteractableAll();
         m_SystemManager.EraseBullets(500);
     }
 
@@ -255,9 +259,12 @@ public class EnemyMiddleBoss2 : EnemyUnit
         ExplosionEffect(0, -1, new Vector3(1f, 0f, -1.2f));
         m_SystemManager.ScreenEffect(0);
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnMiddleBossDying() {
+        m_SystemManager.MiddleBossClear();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

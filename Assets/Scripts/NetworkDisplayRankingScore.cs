@@ -146,13 +146,13 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         form.AddField("userID", id);
         form.AddField("deviceUniqueIdentifier", pcID);
 
-        UnityWebRequest www = UnityWebRequest.Post(url, form);
-        yield return www.SendWebRequest();
-        if(www.isNetworkError || www.isHttpError) {
-            NetworkError(www.error);
+        UnityWebRequest webRequeset = UnityWebRequest.Post(url, form);
+        yield return webRequeset.SendWebRequest();
+        if(webRequeset.result == UnityWebRequest.Result.ConnectionError || webRequeset.result == UnityWebRequest.Result.ProtocolError) {
+            NetworkError(webRequeset.error);
         }
         else {
-            //TryDisplayScoreRanking(www.downloadHandler.text);
+            //TryDisplayScoreRanking(webRequeset.downloadHandler.text);
         }
         yield return null;
     }

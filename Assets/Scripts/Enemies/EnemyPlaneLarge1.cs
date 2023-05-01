@@ -23,7 +23,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         transform.rotation = Quaternion.Euler(0f, 30f, 0f);
         m_TargetPosition = new Vector3(0f, -5.2f, Depth.ENEMY);
 
-        m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
         
@@ -33,7 +33,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         */
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
         Quaternion init_rotation = transform.rotation;
         Quaternion target_rotation = Quaternion.identity;
@@ -53,14 +53,14 @@ public class EnemyPlaneLarge1 : EnemyUnit
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         m_UpdateTransform = true;
         m_Phase = 1;
 
         m_CurrentPattern1 = PatternA();
         StartCoroutine(m_CurrentPattern1);
 
-        m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
 
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
@@ -94,7 +94,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -102,8 +102,8 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     private void ToNextPhase() {
         m_Phase++;
-        m_Turret[0].m_EnemyHealth.OnDeath();
-        m_Turret[1].m_EnemyHealth.OnDeath();
+        m_Turret[0].m_EnemyDeath.OnDying();
+        m_Turret[1].m_EnemyDeath.OnDying();
         Destroy(m_Part[0]);
         Destroy(m_Part[1]);
 
@@ -262,8 +262,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         ExplosionEffect(2, -1, new Vector2(2f, -4.5f));
         ExplosionEffect(2, -1, new Vector2(-2f, -4.5f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

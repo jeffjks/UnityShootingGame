@@ -21,6 +21,7 @@ public abstract class PlayerShooterManager : MonoBehaviour
     public PlayerDrone[] m_PlayerDrone = new PlayerDrone[4];
     public PlayerLaserShooterManager m_PlayerLaserShooter;
     public PlayerUnit m_PlayerUnit;
+    public Transform m_PlayerBody;
 
     [Header("ShotNumber회 m_FireRate초 간격으로 실행. 실행 주기는 m_FireDelay (ms)")]
     [SerializeField] protected int m_FireRate; // 50
@@ -187,7 +188,7 @@ public abstract class PlayerShooterManager : MonoBehaviour
     private void CreateAddShot() {
         Vector3[] shotPosition = new Vector3[2];
         byte damage_level = (byte) m_ShotLevelToType[m_ShotLevel];
-        float rot = m_PlayerUnit.m_PlayerBody.eulerAngles.y;
+        float rot = m_PlayerBody.eulerAngles.y;
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
         CreatePlayerAttacks(m_PlayerWeaponName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f + rot, damage_level);

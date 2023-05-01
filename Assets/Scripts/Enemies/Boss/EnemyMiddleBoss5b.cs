@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMiddleBoss5b : EnemyUnit
+public class EnemyMiddleBoss5b : EnemyUnit, IEnemyMiddleBossMain
 {
     public Transform[] m_FirePosition = new Transform[3];
     public GameObject m_Hull;
@@ -24,6 +24,9 @@ public class EnemyMiddleBoss5b : EnemyUnit
         StartCoroutine(m_MovementPattern);
         
         RotateImmediately(m_PlayerPosition);
+
+        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
         /*
         m_Sequence = DOTween.Sequence()
         .Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad))
@@ -38,7 +41,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         .Append(transform.DOMoveY(10f, 3f).SetEase(Ease.InQuad));*/
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         int duration = 3000;
         int random_sign = Random.Range(-1, 1);
         if (random_sign == 0)
@@ -78,7 +81,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         base.Update();
         
         if (m_Phase == 0) {
-            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -206,7 +209,7 @@ public class EnemyMiddleBoss5b : EnemyUnit
         m_Phase = 2;
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
-        m_Turret.m_EnemyHealth.OnDeath();
+        m_Turret.m_EnemyDeath.OnDying();
 
         if (m_MovementPattern != null) {
             StopCoroutine(m_MovementPattern);
@@ -228,8 +231,12 @@ public class EnemyMiddleBoss5b : EnemyUnit
         ExplosionEffect(1, -1, new Vector2(-1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         ExplosionEffect(1, -1, new Vector2(0f, 1.4f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         m_SystemManager.ScreenEffect(0);
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnMiddleBossDying() {
+        m_SystemManager.MiddleBossClear();
     }
 
     private IEnumerator DeathExplosion1() {

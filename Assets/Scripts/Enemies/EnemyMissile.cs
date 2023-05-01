@@ -13,19 +13,22 @@ public class EnemyMissile : EnemyUnit
     {
         base.Awake();
         m_Rotation = m_Renderer.rotation;
+
+        DisableInteractableAll();
     }
 
     void OnEnable()
     {
         transform.parent = null;
-        m_Collider2D[0].enabled = true;
         m_MoveVector = new MoveVector(1f, 0f);
         UpdateTransform();
         m_Renderer.rotation = m_Rotation;
         StartCoroutine(AppearanceSequence());
+
+        EnableInteractableAll();
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(1000);
         m_Engine.SetActive(true);
 
@@ -61,8 +64,7 @@ public class EnemyMissile : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0f, -1f));
         ExplosionEffect(0, -1, new Vector2(0f, 1f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

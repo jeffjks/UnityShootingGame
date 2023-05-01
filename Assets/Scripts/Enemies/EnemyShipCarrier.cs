@@ -113,7 +113,7 @@ public class EnemyShipCarrier : EnemyUnit
 
         for (int i = 0; i < m_EnemyUnits.Length; i++) {
             if (m_EnemyUnits[i] != null)
-                m_EnemyUnits[i].m_EnemyHealth.OnDeath();
+                m_EnemyUnits[i].m_EnemyDeath.OnDying();
         }
 
         StartCoroutine(DeathExplosion1(2f));
@@ -139,8 +139,7 @@ public class EnemyShipCarrier : EnemyUnit
         ExplosionEffect(0, -1, new Vector3(2f, 2f, -4f));
         ExplosionEffect(0, -1, new Vector3(-2f, 2f, -4f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 

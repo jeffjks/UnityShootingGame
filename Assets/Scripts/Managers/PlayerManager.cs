@@ -7,17 +7,17 @@ using UnityEngine;
 public static class Size
 {
     public const float MAIN_CAMERA_POS = -64f;
-    public const float CAMERA_WIDTH = 12; // 정확히는 카메라 콜라이더
-    public const float CAMERA_HEIGHT = 16;
+    public const float CAMERA_WIDTH = 12f; // 정확히는 카메라 콜라이더
+    public const float CAMERA_HEIGHT = 16f;
     public const float GAME_WIDTH = 15.11f;
-    public const float GAME_HEIGHT = 16;
+    public const float GAME_HEIGHT = 16f;
 
     public const float CAMERA_MOVE_LIMIT = 4.895f; // 카메라가 움직이는 플레이어의 최대/최소 x값
 
     public const float GAME_BOUNDARY_LEFT = - GAME_WIDTH / 2;
     public const float GAME_BOUNDARY_RIGHT = GAME_WIDTH / 2;
-    public const float GAME_BOUNDARY_BOTTOM = -8f - GAME_HEIGHT / 2;
-    public const float GAME_BOUNDARY_TOP = -8f + GAME_HEIGHT / 2;
+    public const float GAME_BOUNDARY_BOTTOM = -GAME_HEIGHT;
+    public const float GAME_BOUNDARY_TOP = -GAME_HEIGHT;
 
     public const float BACKGROUND_CAMERA_ANGLE = 25f;
 }
@@ -106,8 +106,8 @@ public class PlayerManager : MonoBehaviour
         else {
             m_Player = Instantiate(m_PlayerPrefab, new Vector3(0f, m_RevivePositionY/256, Depth.PLAYER), Quaternion.identity);
         }
-        m_PlayerShooter = m_Player.GetComponent<PlayerShooter>();
-        m_PlayerController = m_Player.GetComponent<PlayerController>();
+        m_PlayerShooter = m_Player.GetComponentInChildren<PlayerShooter>();
+        m_PlayerController = m_Player.GetComponentInChildren<PlayerController>();
 
         if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING) {
             int power;
@@ -151,6 +151,7 @@ public class PlayerManager : MonoBehaviour
         else {
             item_num = 0;
         }
+        m_SystemManager.AddMiss();
 
         for (int i = 0; i < item_num; i++) { // item_num 만큼 파워업 아이템 드랍
             GameObject item = Instantiate(m_ItemPowerUp, item_pos, Quaternion.identity);
@@ -162,7 +163,6 @@ public class PlayerManager : MonoBehaviour
     
     private IEnumerator RevivePlayer() {
         yield return new WaitForMillisecondFrames(REVIVE_DELAY);
-        m_SystemManager.AddMiss();
         m_PlayerIsAlive = true;
         m_Player.SetActive(true);
         yield break;
@@ -172,7 +172,7 @@ public class PlayerManager : MonoBehaviour
         if (m_Player == null) {
             return new Vector3(0f, m_RevivePositionY, Depth.PLAYER);
         }
-        return m_Player.transform.position;
+        return m_PlayerController.transform.position;
     }
 
     public void DestroyPlayer() {

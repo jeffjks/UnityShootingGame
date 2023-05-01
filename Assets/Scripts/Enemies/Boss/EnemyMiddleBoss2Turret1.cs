@@ -8,7 +8,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     private int[] m_FireDelay = { 2000, 1500, 1250 };
     
     private IEnumerator m_CurrentPattern;
-    private int m_KillScore;
+    private int m_KillScore = 0;
 
     void Start()
     {
@@ -17,6 +17,8 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
         RotateImmediately(m_PlayerPosition);
         m_KillScore = m_Score;
         m_Score = 0;
+        
+        m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
     }
 
     protected override void Update()
@@ -66,7 +68,9 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
         }
     }
 
-    protected override void KilledByPlayer() {
-        m_Score = m_KillScore;
+    private void DestroyBonus() {
+        if (m_EnemyHealth.CurrentHealth == 0) {
+            m_Score = m_KillScore;
+        }
     }
 }

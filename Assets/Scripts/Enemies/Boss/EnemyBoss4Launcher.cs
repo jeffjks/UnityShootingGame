@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class EnemyBoss4Launcher : EnemyUnit
@@ -12,6 +12,8 @@ public class EnemyBoss4Launcher : EnemyUnit
     private int m_MoveDirection;
     private byte m_Pattern = 0;
     private float m_Direction;
+
+    public event Func<float> Func_GetDirection;
 
     void Start()
     {
@@ -86,15 +88,15 @@ public class EnemyBoss4Launcher : EnemyUnit
         while (true) {
             pos = GetScreenPosition(m_FirePosition.position);
             if (m_SystemManager.GetDifficulty() == 0) {
-                CreateBulletsSector(4, pos, 6.1f, ((EnemyBoss4) m_ParentEnemy).m_Direction, accel, 4, 90f);
+                CreateBulletsSector(4, pos, 6.1f, Func_GetDirection.Invoke(), accel, 4, 90f);
                 yield return new WaitForFrames(9);
             }
             else if (m_SystemManager.GetDifficulty() == 1) {
-                CreateBulletsSector(4, pos, 6.4f, ((EnemyBoss4) m_ParentEnemy).m_Direction, accel, 5, 72f);
+                CreateBulletsSector(4, pos, 6.4f, Func_GetDirection.Invoke(), accel, 5, 72f);
                 yield return new WaitForFrames(7);
             }
             else {
-                CreateBulletsSector(4, pos, 6.8f, ((EnemyBoss4) m_ParentEnemy).m_Direction, accel, 6, 60f);
+                CreateBulletsSector(4, pos, 6.8f, Func_GetDirection.Invoke(), accel, 6, 60f);
                 yield return new WaitForFrames(5);
             }
         }
@@ -105,13 +107,13 @@ public class EnemyBoss4Launcher : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 500);
         
         if (m_SystemManager.GetDifficulty() == 0) {
-            CreateBulletsSector(2, pos, 7f, Random.Range(0f, 360f), accel, 24, 15f);
+            CreateBulletsSector(2, pos, 7f, UnityEngine.Random.Range(0f, 360f), accel, 24, 15f);
         }
         else if (m_SystemManager.GetDifficulty() == 1) {
-            CreateBulletsSector(2, pos, 7.6f, Random.Range(0f, 360f), accel, 36, 10f);
+            CreateBulletsSector(2, pos, 7.6f, UnityEngine.Random.Range(0f, 360f), accel, 36, 10f);
         }
         else {
-            CreateBulletsSector(2, pos, 8f, Random.Range(0f, 360f), accel, 45, 8f);
+            CreateBulletsSector(2, pos, 8f, UnityEngine.Random.Range(0f, 360f), accel, 45, 8f);
         }
         yield break;
     }
@@ -120,7 +122,7 @@ public class EnemyBoss4Launcher : EnemyUnit
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         int rotate;
-        m_Direction = Random.Range(0f, 360f);
+        m_Direction = UnityEngine.Random.Range(0f, 360f);
         if (dir == 0)
             rotate = -1;
         else
@@ -133,14 +135,14 @@ public class EnemyBoss4Launcher : EnemyUnit
                 CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 8, 45f);
                 CreateBulletsSector(2, pos, 4.7f, (m_Direction + 1.4f)*rotate, accel, 8, 45f);
                 m_Direction += 12f;
-                yield return new WaitForMillisecondFrames(1000 + Random.Range(0, 300));
+                yield return new WaitForMillisecondFrames(1000 + UnityEngine.Random.Range(0, 300));
             }
             else if (m_SystemManager.GetDifficulty() == 1) {
                 CreateBulletsSector(2, pos, 4.25f, (m_Direction - 1.5f)*rotate, accel, 12, 30f);
                 CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 12, 30f);
                 CreateBulletsSector(2, pos, 4.75f, (m_Direction + 1.5f)*rotate, accel, 12, 30f);
                 m_Direction += 10f;
-                yield return new WaitForMillisecondFrames(600 + Random.Range(0, 200));
+                yield return new WaitForMillisecondFrames(600 + UnityEngine.Random.Range(0, 200));
             }
             else {
                 CreateBulletsSector(2, pos, 4.25f, (m_Direction - 2.25f)*rotate, accel, 12, 30f);
@@ -148,7 +150,7 @@ public class EnemyBoss4Launcher : EnemyUnit
                 CreateBulletsSector(2, pos, 4.75f, (m_Direction + 0.75f)*rotate, accel, 12, 30f);
                 CreateBulletsSector(2, pos, 5f, (m_Direction + 2.25f)*rotate, accel, 12, 30f);
                 m_Direction += 10f;
-                yield return new WaitForMillisecondFrames(400 + Random.Range(0, 200));
+                yield return new WaitForMillisecondFrames(400 + UnityEngine.Random.Range(0, 200));
             }
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBossFinal : EnemyBoss
+public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public GameObject m_BombBarrier;
     public Transform m_Core;
@@ -27,12 +27,16 @@ public class EnemyBossFinal : EnemyBoss
         m_TargetPosition = new Vector3(0f, -3.8f, Depth.ENEMY);
         //m_RotateAxisSide = 2*Random.Range(0, 2) - 1;
         
-        m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
         Vector3 init_scale = transform.localScale;
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
@@ -50,7 +54,7 @@ public class EnemyBossFinal : EnemyBoss
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
 
@@ -59,7 +63,7 @@ public class EnemyBossFinal : EnemyBoss
         StartCoroutine(m_CurrentPhase);
         m_SystemManager.m_StageManager.SetTrueLastBossState(false);
 
-        m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
     }
 
     protected override void Update()
@@ -67,7 +71,7 @@ public class EnemyBossFinal : EnemyBoss
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth / 2) { // 체력 50% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.50f) { // 체력 50% 이하
                 ToNextPhase();
             }
         }
@@ -133,7 +137,7 @@ public class EnemyBossFinal : EnemyBoss
             return;
         if (m_Phase > 0) {
             if (m_PlayerManager.m_PlayerController.GetInvincibility()) {
-                DisableInvincibility();
+                m_EnemyHealth.DisableInvincibility();
                 m_BombBarrier.SetActive(true);
             }
         }
@@ -622,10 +626,17 @@ public class EnemyBossFinal : EnemyBoss
         ExplosionEffect(1, -1, new Vector2(3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(2f);
-
-        CreateItems();
-        BossDestroyed();
+        
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnBossDying() {
+        m_SystemManager.BossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.StartStageClearCoroutine();
     }
 
     private IEnumerator DeathExplosion1() {

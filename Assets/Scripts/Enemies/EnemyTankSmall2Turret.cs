@@ -18,10 +18,6 @@ public class EnemyTankSmall2Turret : EnemyUnit
     protected override void Update()
     {
         base.Update();
-        
-        if (2 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
-            m_EnemyHealth.OnDeath();
-        }
 
         if (m_PlayerManager.m_PlayerIsAlive) {
             if (!m_Shooting)

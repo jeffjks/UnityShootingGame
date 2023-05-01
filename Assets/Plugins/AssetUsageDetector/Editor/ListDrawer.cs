@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace AssetUsageDetectorNamespace.Extras
+namespace AssetUsageDetectorNamespace
 {
 	public abstract class ListDrawer<T>
 	{
@@ -31,8 +31,7 @@ namespace AssetUsageDetectorNamespace.Extras
 			{
 				// Handle drag & drop references to array
 				// Credit: https://answers.unity.com/answers/657877/view.html
-				if( ( ev.type == EventType.DragPerform || ev.type == EventType.DragUpdated ) &&
-					GUILayoutUtility.GetLastRect().Contains( ev.mousePosition ) )
+				if( ( ev.type == EventType.DragPerform || ev.type == EventType.DragUpdated ) && GUILayoutUtility.GetLastRect().Contains( ev.mousePosition ) )
 				{
 					DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
 					if( ev.type == EventType.DragPerform )
@@ -69,6 +68,18 @@ namespace AssetUsageDetectorNamespace.Extras
 
 					ev.Use();
 				}
+				else if( ev.type == EventType.ContextClick && GUILayoutUtility.GetLastRect().Contains( ev.mousePosition ) )
+				{
+					GenericMenu contextMenu = new GenericMenu();
+					contextMenu.AddItem( new GUIContent( "Clear" ), false, () =>
+					{
+						list.Clear();
+						list.Add( CreateElement( null ) );
+					} );
+					contextMenu.ShowAsContext();
+
+					ev.Use();
+				}
 
 				if( GUILayout.Button( "+", Utilities.GL_WIDTH_25 ) )
 					list.Insert( 0, CreateElement( null ) );
@@ -86,7 +97,7 @@ namespace AssetUsageDetectorNamespace.Extras
 				Object prevObject = GetObjectFromElement( element );
 				Object newObject = EditorGUILayout.ObjectField( "", prevObject, typeof( Object ), acceptSceneObjects );
 
-				if( GUI.changed && prevObject != newObject )
+				if( GUI.changed )
 				{
 					hasChanged = true;
 					SetObjectOfElement( list, i, newObject );

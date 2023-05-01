@@ -51,13 +51,13 @@ public class NetworkUploadRankingScore : MonoBehaviour
         form.AddField("totalMiss", (int) totalMiss);
         form.AddField("deviceUniqueIdentifier", pcID);*/
 
-        UnityWebRequest www = UnityWebRequest.Post(url, form);
-        yield return www.SendWebRequest();
-        if(www.isNetworkError || www.isHttpError) {
-            NetworkError(www.error);
+        UnityWebRequest webRequeset = UnityWebRequest.Post(url, form);
+        yield return webRequeset.SendWebRequest();
+        if(webRequeset.result == UnityWebRequest.Result.ConnectionError || webRequeset.result == UnityWebRequest.Result.ProtocolError) {
+            NetworkError(webRequeset.error);
         }
         else {
-            TryUploadScore(www.downloadHandler.text);
+            TryUploadScore(webRequeset.downloadHandler.text);
         }
         yield return null;
     }

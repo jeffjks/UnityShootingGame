@@ -39,7 +39,7 @@ public class EnemyItemHeli : EnemyUnit {
         base.Update();
     }*/
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;

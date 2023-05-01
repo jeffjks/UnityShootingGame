@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMiddleBoss4Part : EnemyUnit
 {
     public Transform m_FirePosition;
+    public EnemyItemCreater m_EnemyItemCreater;
     private IEnumerator m_CurrentPattern;
     private float m_Direction;
     
@@ -15,6 +16,8 @@ public class EnemyMiddleBoss4Part : EnemyUnit
         m_Direction -= 20f / Application.targetFrameRate * Time.timeScale;
         if (m_Direction < 0f)
             m_Direction += 360f;
+        
+        m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
     }
 
     public void StartPattern(byte num) {
@@ -67,17 +70,18 @@ public class EnemyMiddleBoss4Part : EnemyUnit
         }
     }
 
-    protected override void KilledByPlayer() {
-        m_GemNumber = 12;
+    private void DestroyBonus() {
+        if (m_EnemyHealth.CurrentHealth == 0) {
+            m_EnemyItemCreater.enabled = true;
+        }
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateItems();
         ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, 1.6f));
         ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, 0.6f));
         ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, -0.4f));
         ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, -1.4f));
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

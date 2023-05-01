@@ -27,7 +27,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
@@ -85,8 +85,8 @@ public class EnemyPlaneMedium2 : EnemyUnit
             if (m_SystemManager.GetDifficulty() == 0) {
                 for (int i = 0; i < 4; i++) {
                     SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
-                    CreateBullet(4, pos[1], 6.2f, 0f, accel);
-                    CreateBullet(4, pos[2], 6.2f, 0f, accel);
+                    CreateBullet(4, pos[1], 6.2f, m_CurrentAngle, accel);
+                    CreateBullet(4, pos[2], 6.2f, m_CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(1000);
@@ -169,8 +169,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(-1.4f, 0.6f));
         ExplosionEffect(0, -1, new Vector2(0f, -1.3f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

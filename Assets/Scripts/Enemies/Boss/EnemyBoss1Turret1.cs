@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyBoss1Turret1 : EnemyUnit
 {
     public Transform m_FirePosition;
+
+    [HideInInspector] public int m_Phase;
     
     private IEnumerator m_CurrentPattern;
 
@@ -17,7 +19,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
     {
         base.Update();
 
-        if (((EnemyBoss1) m_ParentEnemy).m_Phase == 1) {
+        if (m_Phase == 1) {
             if (m_PlayerManager.m_PlayerIsAlive)
                 RotateImmediately(m_PlayerPosition);
             else

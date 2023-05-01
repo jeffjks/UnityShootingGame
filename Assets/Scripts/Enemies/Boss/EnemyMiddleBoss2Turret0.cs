@@ -77,12 +77,4 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
             yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        ((EnemyMiddleBoss2) m_ParentEnemy).ToNextPhase();
-        
-        CreateItems();
-        Destroy(gameObject);
-        yield break;
-    }
 }

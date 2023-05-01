@@ -31,8 +31,8 @@ public class GameOuterBoundary : MonoBehaviour
     {
         if (other.CompareTag("Enemy")) {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-            if (enemyObject.m_ParentEnemy == null) {
-                if (!enemyObject.m_IsDead) {
+            if (enemyObject.transform == enemyObject.transform.root) { // 본체일 경우
+                if (!enemyObject.m_EnemyDeath.m_IsDead) {
                     enemyObject.OutOfBound();
                 }
             }
@@ -44,7 +44,7 @@ public class GameOuterBoundary : MonoBehaviour
                 ItemGem item_gem = other.gameObject.GetComponentInParent<ItemGem>();
                 if (item_gem == null)
                     return;
-                item_gem.m_EnemyHealth.OnDeath();
+                item_gem.m_EnemyDeath.OnDying();
             }
         }
 
@@ -71,7 +71,7 @@ public class GameOuterBoundary : MonoBehaviour
                 if (other.gameObject.activeSelf) {
                     if (other.transform.parent.gameObject.activeSelf) {
                         EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                        enemyBullet.m_EnemyHealth.OnDeath();
+                        enemyBullet.m_EnemyDeath.OnDying();
                     }
                 }
             }

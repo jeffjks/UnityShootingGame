@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyHelicopter : HasTargetPosition
+public class EnemyHelicopter : EnemyUnit, ITargetPosition
 {
     public Transform m_FirePosition;
 	public GameObject m_FanU, m_FanB;
@@ -37,6 +37,24 @@ public class EnemyHelicopter : HasTargetPosition
 		m_FanU.transform.Rotate(0, m_FanRotationSpeed * Time.deltaTime, 0);
 		m_FanB.transform.Rotate(-m_FanRotationSpeed * Time.deltaTime, 0 , 0);
 	}
+
+    public void MoveTowardsToTarget(Vector2 target_vec2, int duration) {
+        StartCoroutine(MoveTowardsToTargetSequence(target_vec2, duration));
+    }
+
+    private IEnumerator MoveTowardsToTargetSequence(Vector2 target_vec2, int duration) {
+        Vector3 init_position = transform.position;
+        Vector3 target_position = new Vector3(target_vec2.x, target_vec2.y, Depth.ENEMY);
+        int frame = duration * Application.targetFrameRate / 1000;
+
+        for (int i = 0; i < frame; ++i) {
+            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            
+            transform.position = Vector3.Lerp(init_position, target_position, t_pos);
+            yield return new WaitForMillisecondFrames(0);
+        }
+        yield break;
+    }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);

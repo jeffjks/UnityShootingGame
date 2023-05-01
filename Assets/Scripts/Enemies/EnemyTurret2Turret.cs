@@ -22,10 +22,6 @@ public class EnemyTurret2Turret : EnemyUnit
             RotateSlightly(m_PlayerPosition, 90f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-
-        if (2 * m_ParentEnemy.m_Health <= m_ParentEnemy.m_MaxHealth) {
-            m_EnemyHealth.OnDeath();
-        }
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {

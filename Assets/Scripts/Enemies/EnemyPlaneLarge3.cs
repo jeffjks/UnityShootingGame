@@ -30,7 +30,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
         */
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
@@ -131,8 +131,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
         ExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random - 120f));
         ExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random - 240f));
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

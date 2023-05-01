@@ -27,7 +27,7 @@ public class EnemyPlaneMedium3 : EnemyUnit
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
@@ -116,11 +116,10 @@ public class EnemyPlaneMedium3 : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_Turret[0].m_EnemyHealth.OnDeath();
-        m_Turret[1].m_EnemyHealth.OnDeath();
+        m_Turret[0].m_EnemyDeath.OnDying();
+        m_Turret[1].m_EnemyDeath.OnDying();
         
-        CreateItems();
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

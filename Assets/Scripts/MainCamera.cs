@@ -7,7 +7,7 @@ public class MainCamera : MonoBehaviour {
     private PlayerManager m_PlayerManager = null;
     private Vector2Int m_PlayerPosition;
     private Vector2 m_ShakePosition;
-    private const float POSITION_Y = -8f;
+    private const float POSITION_Y = -Size.GAME_HEIGHT/2;
     private float m_CameraMoveRate, m_CameraMargin;
     private IEnumerator m_ShakeCamera;
 

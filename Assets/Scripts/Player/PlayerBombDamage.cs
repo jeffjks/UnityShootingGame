@@ -12,6 +12,10 @@ public class PlayerBombDamage : PlayerObject
         m_BoxCollider2D.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
     }
 
+    private void Update() {
+        transform.position = new Vector2(0f, -Size.GAME_HEIGHT/2);
+    }
+
     void OnEnable()
     {
         StartCoroutine(BombDamageEnd());

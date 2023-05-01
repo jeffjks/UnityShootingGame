@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss5 : EnemyBoss
+public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public GameObject m_Core, m_Wings, m_WingsForAppearance;
     public MeshRenderer[] m_WingMeshRenderers = new MeshRenderer[3];
@@ -33,16 +33,20 @@ public class EnemyBoss5 : EnemyBoss
             m_WingMeshRenderers[i].gameObject.SetActive(false);
         }
 
-        m_EnemyHealth.DisableInteractable();
+        DisableInteractableAll();
         
         /*
         m_Sequence = DOTween.Sequence()
         .Append(transform.DOMoveY(m_TargetPosition.y, APPEARANCE_TIME).SetEase(Ease.Linear));*/
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         float init_position_y = transform.position.y;
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
@@ -58,14 +62,14 @@ public class EnemyBoss5 : EnemyBoss
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float random_direction = 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.05f, random_direction);
         m_MoveDirection = Random.Range(0, 2)*2 - 1;
         ToNextPhase();
         StartCoroutine(InitMaterial());
 
-        m_EnemyHealth.EnableInteractable();
+        EnableInteractableAll();
     }
 
     protected override void Update()
@@ -73,7 +77,7 @@ public class EnemyBoss5 : EnemyBoss
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_Health <= m_MaxHealth * 4 / 10) { // 체력 40% 이하
+            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -744,10 +748,17 @@ public class EnemyBoss5 : EnemyBoss
                 Debug.LogAssertion("Cannot cast StageManager to Stage5Manager!");
             }
         }
-
-        CreateItems();
-        BossDestroyed();
+        
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnBossDying() {
+        m_SystemManager.BossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.StartStageClearCoroutine();
     }
 
     private IEnumerator NextPhaseExplosion() {

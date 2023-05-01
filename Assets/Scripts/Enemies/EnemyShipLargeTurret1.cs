@@ -21,10 +21,6 @@ public class EnemyShipLargeTurret1 : EnemyUnit
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-
-        if (3 * m_ParentEnemy.m_Health < m_ParentEnemy.m_MaxHealth) {
-            m_EnemyHealth.OnDeath();
-        }
     }
     
     private IEnumerator Pattern1() {

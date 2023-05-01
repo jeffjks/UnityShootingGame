@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMiddleBoss5a : EnemyUnit
+public class EnemyMiddleBoss5a : EnemyUnit, IEnemyMiddleBossMain
 {
     public EnemyMiddleBoss5aMainTurret m_MainTurret;
     public EnemyMiddleBoss5aTurret[] m_Turret = new EnemyMiddleBoss5aTurret[2];
     public EnemyMissile[] m_Missiles = new EnemyMissile[8];
-    [HideInInspector] public int m_Phase;
+    private int m_Phase;
     
     private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 2500;
@@ -20,6 +20,9 @@ public class EnemyMiddleBoss5a : EnemyUnit
         m_TargetPosition = new Vector3(0f, -4f, Depth.ENEMY);
 
         StartCoroutine(AppearanceSequence());
+
+        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
         
         /*
         m_Sequence = DOTween.Sequence()
@@ -46,7 +49,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
         }
     }
 
-    private IEnumerator AppearanceSequence() {
+    public IEnumerator AppearanceSequence() {
         float init_position_y = transform.position.y;
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
@@ -61,7 +64,7 @@ public class EnemyMiddleBoss5a : EnemyUnit
         yield break;
     }
 
-    private void OnAppearanceComplete() {
+    public void OnAppearanceComplete() {
         float random_direction = Random.Range(80f, 100f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.4f, random_direction);
         m_Phase = 1;
@@ -183,8 +186,12 @@ public class EnemyMiddleBoss5a : EnemyUnit
         ExplosionEffect(0, -1, new Vector2(0f, -3f));
         m_SystemManager.ScreenEffect(0);
         
-        Destroy(gameObject);
+        m_EnemyDeath.OnDeath();
         yield break;
+    }
+
+    public void OnMiddleBossDying() {
+        m_SystemManager.MiddleBossClear();
     }
 
     private IEnumerator DeathExplosion1(int duration) {

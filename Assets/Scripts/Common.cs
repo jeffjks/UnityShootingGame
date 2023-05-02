@@ -95,15 +95,14 @@ public enum EnemyType
 {
     Zako,
     MiddleBoss,
-    Boss,
+    Boss
 }
 
 public enum Debris
 {
-    None,
     Small,
     Medium,
-    Large,
+    Large
 };
 
 public enum PlayerDamageType
@@ -126,11 +125,11 @@ public enum Explosion
     ExplosionSimple_1,
     ExplosionSimple_2,
     ExplosionStar,
-    ExplosionMine,
+    ExplosionMine
 };
 
 public enum HealthType {
     None,
     Independent,
-    Share,
+    Share
 }

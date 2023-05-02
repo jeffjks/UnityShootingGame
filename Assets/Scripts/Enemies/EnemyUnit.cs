@@ -16,7 +16,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     public int m_Score;
     [Space(10)]
     [Tooltip("사망 상태 돌입시 폭발 이펙트")]
-    [SerializeField] private Debris m_Debris = 0;
     [SerializeField] private Explosion m_DefaultExplosion = 0;
     [SerializeField] protected AudioClip m_DefaultAudioClip = null;
     [SerializeField] private Explosion[] m_Explosion = new Explosion[0];
@@ -244,17 +243,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
 
         m_EnemyDeath.OnRemoved();
     }
-
-
-    private void CreateDebris() {
-        if (m_Debris == Debris.None)
-            return;
-        GameObject obj = m_PoolingManager.PopFromPool("Debris", PoolingParent.DEBRIS);
-        DebrisEffect debris = obj.GetComponent<DebrisEffect>();
-        obj.transform.position = transform.position;
-        obj.SetActive(true);
-        debris.OnStart((int) m_Debris);
-    }
+    
 
     private GameObject DefatulExplosionEffect() {
         GameObject obj = null;

@@ -8,8 +8,7 @@ public class EnemyItemCreater : MonoBehaviour
     [SerializeField] private GameObject m_ItemBox = null;
     [SerializeField] private byte m_GemNumber = 0;
     private PoolingManager m_PoolingManager = null;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         m_PoolingManager = PoolingManager.instance_op;

@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 4321402386482491992}
   - component: {fileID: 515412261101433539}
   - component: {fileID: 6605208663967901235}
+  - component: {fileID: 8968808646381496086}
   m_Layer: 12
   m_Name: EnemyTankLarge1
   m_TagString: Untagged
@@ -412,13 +413,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 2000
-  m_Debris: 3
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 030000000200000006000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Turret1:
   - {fileID: 1850863824149968204}
   - {fileID: 7732258645414893920}
@@ -484,6 +482,20 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 515412261101433539}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 6
+--- !u!114 &8968808646381496086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947a2d1b3728dd94f8762371ef45d8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 515412261101433539}
+  m_Debris: 2
 --- !u!1 &149529292025146066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,13 +1095,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 500
-  m_Debris: 0
   m_DefaultExplosion: 10
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition:
   - {fileID: 4287026626115791604}
   - {fileID: 6612182412610256966}
@@ -1242,13 +1251,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
 --- !u!114 &7211766909098493758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,13 +1368,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 500
-  m_Debris: 0
   m_DefaultExplosion: 10
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition:
   - {fileID: 22032423976621568}
   - {fileID: 583097748549169610}

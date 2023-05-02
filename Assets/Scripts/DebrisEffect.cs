@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class DebrisEffect : MonoBehaviour, UseObjectPool
 {
-    public string m_ObjectName;
     public GameObject[] m_DebrisObject;
+    public string m_ObjectName;
     public int m_LifeTime;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
 
     private Vector2 m_Position2D;
     private Vector2 m_BackgroundCameraSize;
     private Material[] m_Materials;
-    private int m_DebrisType = -1;
+    private int m_DebrisIndex = -1;
 
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
@@ -26,7 +26,6 @@ public class DebrisEffect : MonoBehaviour, UseObjectPool
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
         m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
-
         
         MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
         m_Materials = new Material[meshRenderers.Length];
@@ -51,45 +50,46 @@ public class DebrisEffect : MonoBehaviour, UseObjectPool
         Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
         Vector2 modified_pos = new Vector2(
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
-            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y);
+            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y
+            );
         return modified_pos;
     }
     
-    public void OnStart(int debrisSize)
+    public void OnStart(Debris debrisSize)
     {
         DeactivateAllChildren();
 
         switch(debrisSize) {
-            case 1: // Small
-                m_DebrisType = System.Environment.TickCount % 3; // 0, 1, 2
+            case Debris.Small:
+                m_DebrisIndex = System.Environment.TickCount % 3; // 0, 1, 2
                 break;
-            case 2: // Medium
-                m_DebrisType = (System.Environment.TickCount % 2) + 3; // 3, 4
+            case Debris.Medium:
+                m_DebrisIndex = (System.Environment.TickCount % 2) + 3; // 3, 4
                 break;
-            case 3: // Large
-                m_DebrisType = (System.Environment.TickCount % 2) + 5; // 5, 6
+            case Debris.Large:
+                m_DebrisIndex = (System.Environment.TickCount % 2) + 5; // 5, 6
                 break;
             default:
-                m_DebrisType = -1;
+                m_DebrisIndex = -1;
                 ReturnToPool();
                 return;
         }
-        m_DebrisObject[m_DebrisType].SetActive(true);
-        m_Materials[m_DebrisType].color = Color.white;
+        m_DebrisObject[m_DebrisIndex].SetActive(true);
+        m_Materials[m_DebrisIndex].color = Color.white;
         
         m_FadeOutAnimation = FadeOutAnimation();
         StartCoroutine(m_FadeOutAnimation);
     }
 
     private IEnumerator FadeOutAnimation() {
-        float init_alpha = m_Materials[m_DebrisType].color.a;
+        float init_alpha = m_Materials[m_DebrisIndex].color.a;
         int frame = m_LifeTime * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
             float t_fade = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
             
             float alpha = Mathf.Lerp(init_alpha, 0f, t_fade);
-            Color color_tmp = m_Materials[m_DebrisType].color;
-            m_Materials[m_DebrisType].color = new Color(color_tmp.r, color_tmp.g, color_tmp.b, alpha);
+            Color color_tmp = m_Materials[m_DebrisIndex].color;
+            m_Materials[m_DebrisIndex].color = new Color(color_tmp.r, color_tmp.g, color_tmp.b, alpha);
             yield return new WaitForMillisecondFrames(0);
         }
         

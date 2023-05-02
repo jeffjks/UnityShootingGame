@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 1848958304765786861}
   - component: {fileID: 5008286825400514406}
   - component: {fileID: 2086992599391477854}
+  - component: {fileID: 3837575615890229735}
   m_Layer: 12
   m_Name: EnemyMiddleBoss2
   m_TagString: Untagged
@@ -306,7 +307,6 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 6000
-  m_Debris: 3
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 030000000400000005000000
@@ -314,8 +314,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
   - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   - {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_FirePosition0: {fileID: 6472575040096996155}
   m_FirePosition2:
   - {fileID: 2781393159343238472}
@@ -381,6 +379,20 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 5008286825400514406}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &3837575615890229735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947a2d1b3728dd94f8762371ef45d8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5008286825400514406}
+  m_Debris: 2
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,13 +856,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 2000
-  m_Debris: 0
   m_DefaultExplosion: 3
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_EnemyMiddleBoss2Barrel: {fileID: 8132453542206253034}
   m_FirePosition:
   - {fileID: 5967848668563099295}
@@ -1019,13 +1028,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition: {fileID: 8887693637085473274}
 --- !u!114 &5219776185344882156
 MonoBehaviour:
@@ -1959,13 +1965,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition: {fileID: 6342520265946974100}
 --- !u!114 &2502074007988769016
 MonoBehaviour:

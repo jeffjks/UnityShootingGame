@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2797207959746886678}
   - component: {fileID: 4450760002710729640}
   - component: {fileID: 4513432000215153851}
+  - component: {fileID: 8752691327478028972}
   m_Layer: 12
   m_Name: EnemyTurret2
   m_TagString: Untagged
@@ -77,13 +78,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 75
-  m_Debris: 1
   m_DefaultExplosion: 1
   m_DefaultAudioClip: {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 2
   m_Turret: {fileID: 0}
 --- !u!114 &1364429096475363529
 MonoBehaviour:
@@ -142,6 +140,20 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 4450760002710729640}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 2
+--- !u!114 &8752691327478028972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947a2d1b3728dd94f8762371ef45d8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 4450760002710729640}
+  m_Debris: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,13 +541,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 75
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition: {fileID: 8498697892288209725}
 --- !u!114 &5834182054885518444
 MonoBehaviour:

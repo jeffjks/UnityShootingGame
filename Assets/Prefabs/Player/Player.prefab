@@ -15101,7 +15101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
   m_ObjectName: LaserBeam
   m_Damage: 0
   m_DamageScale: 640000006400000064000000
@@ -15206,7 +15205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
   m_ObjectName: PlayerBomb
   m_Damage: 50
   m_DamageScale: 640000003200000021000000
@@ -15526,7 +15524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
   m_ObjectName: Player
   m_Damage: 1500
   m_DamageScale: 640000006400000064000000
@@ -20749,6 +20746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1e476030e7ce74893a99cbd6033834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerTransform: {fileID: 7007784690338842168}
   m_Bomb: {fileID: 168333053920294026}
   m_Explosion: {fileID: 431771514133159694}
   m_BombDamage: {fileID: 4180450511839748019}

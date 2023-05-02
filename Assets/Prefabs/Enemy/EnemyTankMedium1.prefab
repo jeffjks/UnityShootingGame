@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7924027591515508201}
   - component: {fileID: 5801427616005951070}
   - component: {fileID: 1686895223111532974}
+  - component: {fileID: 4715573208315158707}
   m_Layer: 12
   m_Name: EnemyTankMedium1
   m_TagString: Untagged
@@ -72,21 +73,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 350
-  m_Debris: 2
   m_DefaultExplosion: 2
   m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 9214580811006826016}
+  m_Turret: {fileID: 0}
+  m_HasDestroyableTurret: 0
 --- !u!114 &7924027591515508201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &5801427616005951070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +125,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &4715573208315158707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947a2d1b3728dd94f8762371ef45d8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 1686895223111532974}
+  m_Debris: 1
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,20 +638,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 4987848309060957489}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D: []
   m_FirePosition: {fileID: 2795246010226298155}
 --- !u!114 &1938508205301454329
 MonoBehaviour:

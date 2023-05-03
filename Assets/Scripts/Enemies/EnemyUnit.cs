@@ -135,7 +135,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         m_SystemManager.AddScore(m_Score);
         
         // ------------------- TODO : 보스쪽에 델리게이트로 구현 필요
-        DefatulExplosionEffect();
+        //DefatulExplosionEffect();
         // ---------------------
         //DOTween.Kill(transform);
         //ImageBlend(Color.red);
@@ -249,12 +249,12 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         GameObject obj = null;
         if (m_DefaultExplosion != 0) {
             obj = m_PoolingManager.PopFromPool(m_DefaultExplosion.ToString(), PoolingParent.EXPLOSION);
-            ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
+            ExplosionEffecter explosion_effect = obj.GetComponent<ExplosionEffecter>();
 
             Vector3 explosion_pos;
 
             if ((1 << gameObject.layer & Layer.AIR) != 0) {
-                explosion_effect.m_MoveVector = m_MoveVector;
+                //explosion_effect.m_MoveVector = m_MoveVector;
                 explosion_pos = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
             }
             else
@@ -263,7 +263,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             obj.transform.position = explosion_pos;
 
             obj.SetActive(true);
-            explosion_effect.OnStart();
         }
         m_SystemManager.m_SoundManager.PlayAudio(m_DefaultAudioClip);
         return obj;
@@ -272,9 +271,9 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     protected GameObject ExplosionEffect(int explosion, int audio, Vector3? pos = null, MoveVector? moveVector = null) {
         try {
             GameObject obj = m_PoolingManager.PopFromPool(m_Explosion[explosion].ToString(), PoolingParent.EXPLOSION);
-            ExplosionEffect explosion_effect = obj.GetComponent<ExplosionEffect>();
+            ExplosionEffecter explosion_effect = obj.GetComponent<ExplosionEffecter>();
 
-            explosion_effect.m_MoveVector = moveVector ?? new MoveVector(0f, 0f);
+            //explosion_effect.m_MoveVector = moveVector ?? new MoveVector(0f, 0f);
             
             Vector3 explosion_pos = transform.TransformPoint(pos ?? Vector3.zero);
             
@@ -284,7 +283,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             obj.transform.position = explosion_pos;
             
             obj.SetActive(true);
-            explosion_effect.OnStart();
             
             if (audio < 0)
                 return obj;
@@ -376,10 +374,6 @@ interface IHasAppearance {
 interface IEnemyBossMain {
     public void OnBossDying();
     public void OnBossDeath();
-}
-
-interface IEnemyMiddleBossMain {
-    public void OnMiddleBossDying();
 }
 
 /*

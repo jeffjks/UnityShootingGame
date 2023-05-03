@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss2 : EnemyUnit, IEnemyMiddleBossMain
+public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
 {
     public Transform m_FirePosition0;
     public Transform[] m_FirePosition2 = new Transform[2];
@@ -28,8 +28,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyMiddleBossMain
         
         DisableInteractableAll();
 
-        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
-        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDying;
         m_Turret0.m_EnemyDeath.Action_OnDying += ToNextPhase;
 
         /*
@@ -257,14 +258,17 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyMiddleBossMain
         ExplosionEffect(0, -1, new Vector3(1f, 0f, 1.2f));
         ExplosionEffect(0, -1, new Vector3(-1f, 0f, -1.2f));
         ExplosionEffect(0, -1, new Vector3(1f, 0f, -1.2f));
-        m_SystemManager.ScreenEffect(0);
         
         m_EnemyDeath.OnDeath();
         yield break;
     }
 
-    public void OnMiddleBossDying() {
+    public void OnBossDying() {
         m_SystemManager.MiddleBossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.ScreenEffect(0);
     }
 
     private IEnumerator DeathExplosion1(int duration) {

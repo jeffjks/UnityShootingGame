@@ -69,16 +69,16 @@ public class PoolingManager : MonoBehaviour
 
         m_ObjectPoolDictionary.Add("EnemyBullet", new PooledObject(m_PooledPrefabs[4], 1024, transform.GetChild(PoolingParent.ENEMY_BULLET)));
 
-        m_ObjectPoolDictionary.Add("ExplosionG_1", new PooledObject(m_PooledPrefabs[5], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("ExplosionG_2", new PooledObject(m_PooledPrefabs[6], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("ExplosionG_3", new PooledObject(m_PooledPrefabs[7], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("Explosion_1", new PooledObject(m_PooledPrefabs[8], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("Explosion_2", new PooledObject(m_PooledPrefabs[9], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("Explosion_3", new PooledObject(m_PooledPrefabs[10], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionGround_1", new PooledObject(m_PooledPrefabs[5], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionGround_2", new PooledObject(m_PooledPrefabs[6], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionGround_3", new PooledObject(m_PooledPrefabs[7], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionGeneral_1", new PooledObject(m_PooledPrefabs[8], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionGeneral_2", new PooledObject(m_PooledPrefabs[9], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionGeneral_3", new PooledObject(m_PooledPrefabs[10], 15, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("ExplosionSimple_1", new PooledObject(m_PooledPrefabs[11], 15, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("ExplosionSimple_2", new PooledObject(m_PooledPrefabs[12], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("ExplosionStar", new PooledObject(m_PooledPrefabs[13], 15, transform.GetChild(PoolingParent.EXPLOSION)));
-        m_ObjectPoolDictionary.Add("ExplosionMine", new PooledObject(m_PooledPrefabs[14], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionStarShape", new PooledObject(m_PooledPrefabs[13], 15, transform.GetChild(PoolingParent.EXPLOSION)));
+        m_ObjectPoolDictionary.Add("ExplosionMineShape", new PooledObject(m_PooledPrefabs[14], 15, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("PlayerExplosion", new PooledObject(m_PooledPrefabs[15], 1, transform.GetChild(PoolingParent.EXPLOSION)));
         m_ObjectPoolDictionary.Add("PlayerHitEffect", new PooledObject(m_PooledPrefabs[16], 40, transform.GetChild(PoolingParent.EXPLOSION)));
         

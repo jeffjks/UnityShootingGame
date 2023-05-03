@@ -737,17 +737,6 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         ExplosionEffect(2, -1, new Vector2(-2f, 3.4f));
         ExplosionEffect(2, -1, new Vector2(2f, -3.4f));
         ExplosionEffect(2, -1, new Vector2(2f, 3.4f));
-        m_SystemManager.ScreenEffect(1);
-        m_SystemManager.ShakeCamera(1.5f);
-        
-        if (m_SystemManager.GetDifficulty() == Difficulty.HELL) {
-            try {
-                ((Stage5Manager) m_SystemManager.m_StageManager).TrueLastBoss(new Vector3(transform.position.x, transform.position.y, Depth.ENEMY)); // True Last Boss
-            }
-            catch {
-                Debug.LogAssertion("Cannot cast StageManager to Stage5Manager!");
-            }
-        }
         
         m_EnemyDeath.OnDeath();
         yield break;
@@ -759,6 +748,17 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
+        m_SystemManager.ScreenEffect(1);
+        m_SystemManager.ShakeCamera(1.5f);
+        
+        if (m_SystemManager.GetDifficulty() == Difficulty.HELL) {
+            try {
+                ((Stage5Manager) m_SystemManager.m_StageManager).TrueLastBoss(new Vector3(transform.position.x, transform.position.y, Depth.ENEMY)); // True Last Boss
+            }
+            catch {
+                Debug.LogAssertion("Cannot cast StageManager to Stage5Manager!");
+            }
+        }
     }
 
     private IEnumerator NextPhaseExplosion() {

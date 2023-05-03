@@ -113,6 +113,40 @@ public enum PlayerDamageType
     Bomb
 }
 
+public enum ExplosionEffect
+{
+    None = -1,
+
+    Ground_1,
+    Ground_2,
+    Ground_3,
+    General_1,
+    General_2,
+    General_3,
+    Simple_1,
+    Simple_2,
+    StarShape,
+    MineShape,
+
+    Max
+};
+
+public enum ExplosionAudio
+{
+    None = -1,
+
+    AirMedium_1,
+    AirMedium_2,
+    AirSmall,
+    GroundMedium,
+    GroundSmall,
+    Huge_1,
+    Huge_2,
+    Large,
+
+    Max
+};
+
 public enum Explosion
 {
     None,

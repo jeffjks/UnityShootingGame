@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExplosionEffect : MonoBehaviour, UseObjectPool
+public class ExplosionEffecter : MonoBehaviour, UseObjectPool
 {
     public string m_ObjectName;
     public int m_Lifetime;
@@ -9,20 +9,15 @@ public class ExplosionEffect : MonoBehaviour, UseObjectPool
     [HideInInspector] public MoveVector m_MoveVector;
     
     private IEnumerator m_ExplosionTimer;
-
-    private SystemManager m_SystemManager = null;
-    private PlayerManager m_PlayerManager = null;
     private PoolingManager m_PoolingManager = null;
 
     void Awake()
     {
         m_MoveVector = new MoveVector(0f, 0f);
         m_PoolingManager = PoolingManager.instance_op;
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_SystemManager = SystemManager.instance_sm;
     }
 
-    public void OnStart() {
+    void OnEnable() {
         m_ExplosionTimer = ExplosionTimer();
         StartCoroutine(m_ExplosionTimer);
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMiddleBoss5a : EnemyUnit, IEnemyMiddleBossMain
+public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
 {
     public EnemyMiddleBoss5aMainTurret m_MainTurret;
     public EnemyMiddleBoss5aTurret[] m_Turret = new EnemyMiddleBoss5aTurret[2];
@@ -21,8 +21,9 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyMiddleBossMain
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
-        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDying;
         
         /*
         m_Sequence = DOTween.Sequence()
@@ -184,14 +185,17 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyMiddleBossMain
         ExplosionEffect(0, -1, new Vector2(-2f, 1.6f));
         ExplosionEffect(0, -1, new Vector2(2f, 1.6f));
         ExplosionEffect(0, -1, new Vector2(0f, -3f));
-        m_SystemManager.ScreenEffect(0);
         
         m_EnemyDeath.OnDeath();
         yield break;
     }
 
-    public void OnMiddleBossDying() {
+    public void OnBossDying() {
         m_SystemManager.MiddleBossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.ScreenEffect(0);
     }
 
     private IEnumerator DeathExplosion1(int duration) {

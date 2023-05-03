@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMiddleBoss5b : EnemyUnit, IEnemyMiddleBossMain
+public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
 {
     public Transform[] m_FirePosition = new Transform[3];
     public GameObject m_Hull;
@@ -25,8 +25,9 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyMiddleBossMain
         
         RotateImmediately(m_PlayerPosition);
 
-        m_EnemyDeath.Action_OnDying += OnMiddleBossDying;
-        m_EnemyDeath.Action_OnRemoved += OnMiddleBossDying;
+        m_EnemyDeath.Action_OnDying += OnBossDying;
+        m_EnemyDeath.Action_OnDeath += OnBossDeath;
+        m_EnemyDeath.Action_OnRemoved += OnBossDying;
         /*
         m_Sequence = DOTween.Sequence()
         .Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad))
@@ -230,13 +231,17 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyMiddleBossMain
         ExplosionEffect(1, -1, new Vector2(1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         ExplosionEffect(1, -1, new Vector2(-1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         ExplosionEffect(1, -1, new Vector2(0f, 1.4f), new MoveVector(1.8f, Random.Range(0f, 360f)));
-        m_SystemManager.ScreenEffect(0);
+        
         m_EnemyDeath.OnDeath();
         yield break;
     }
 
-    public void OnMiddleBossDying() {
+    public void OnBossDying() {
         m_SystemManager.MiddleBossClear();
+    }
+
+    public void OnBossDeath() {
+        m_SystemManager.ScreenEffect(0);
     }
 
     private IEnumerator DeathExplosion1() {

@@ -370,7 +370,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
 
 
-    protected new IEnumerator DyingEffect() { // 파괴 과정
+    protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         if (m_CurrentMovement != null)
             StopCoroutine(m_CurrentMovement);
@@ -383,25 +383,6 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_Turret0.m_EnemyDeath.OnDying();
 
         transform.DORotateQuaternion(Quaternion.identity, 1f).SetEase(Ease.Linear);
-
-        StartCoroutine(DeathExplosion1(4900));
-        yield return new WaitForMillisecondFrames(1500);
-
-        StartCoroutine(DeathExplosion2(2800));
-        StartCoroutine(DeathExplosion3(2800));
-
-        yield return new WaitForMillisecondFrames(3500);
-        ExplosionEffect(2, 2); // 최종 파괴
-        ExplosionEffect(1, -1, new Vector2(1.2f, 2.2f));
-        ExplosionEffect(1, -1, new Vector2(-1.2f, 2.2f));
-        ExplosionEffect(0, -1, new Vector2(2f, 0f));
-        ExplosionEffect(0, -1, new Vector2(-2f, 0f));
-        ExplosionEffect(1, -1, new Vector2(1.2f, -2.2f));
-        ExplosionEffect(1, -1, new Vector2(-1.2f, -2.2f));
-        m_SystemManager.ScreenEffect(1);
-        m_SystemManager.ShakeCamera(1f);
-        
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -411,45 +392,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
-    }
-
-    private IEnumerator DeathExplosion1(int duration) {
-        int timer = 0, t_add = 0;
-        while (timer < duration) {
-            ExplosionEffect(0, -1, new Vector2(0f, 1.225f), new MoveVector(5f, 180f));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(200);
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion2(int duration) {
-        int timer = 0, t_add = 0;
-        Vector2 random_pos;
-        while (timer < duration) {
-            t_add = Random.Range(450, 600);
-            random_pos = Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(0, 0, random_pos);
-            random_pos = Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(0, -1, random_pos);
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion3(int duration) {
-        int timer = 0, t_add = 0;
-        Vector2 random_pos;
-        while (timer < duration) {
-            t_add = Random.Range(150, 300);
-            random_pos = Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(1, 1, random_pos);
-            random_pos = Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(1, -1, random_pos);
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
+        m_SystemManager.ScreenEffect(1);
+        m_SystemManager.ShakeCamera(1f);
     }
 }

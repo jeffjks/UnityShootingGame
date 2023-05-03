@@ -209,11 +209,10 @@ public class PlayerController : PlayerUnit
             if (!m_HasCollided) {
                 m_HasCollided = true;
                 GameObject obj = m_PoolingManager.PopFromPool(m_Explosion, PoolingParent.EXPLOSION); // 폭발 이펙트
-                ExplosionEffect explosionEffect = obj.GetComponent<ExplosionEffect>();
+                ExplosionEffecter explosionEffecter = obj.GetComponent<ExplosionEffecter>();
 
                 obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
-                explosionEffect.OnStart();
                 
                 m_PlayerManager.PlayerDead(m_PositionInt2D);
                 ResetPosition();

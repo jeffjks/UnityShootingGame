@@ -624,8 +624,6 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         ExplosionEffect(1, -1, new Vector2(1.5f, 2.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
         ExplosionEffect(1, -1, new Vector2(-3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
         ExplosionEffect(1, -1, new Vector2(3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
-        m_SystemManager.ScreenEffect(1);
-        m_SystemManager.ShakeCamera(2f);
         
         m_EnemyDeath.OnDeath();
         yield break;
@@ -637,6 +635,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
+        m_SystemManager.ScreenEffect(1);
+        m_SystemManager.ShakeCamera(2f);
     }
 
     private IEnumerator DeathExplosion1() {

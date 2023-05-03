@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 693751754886075942}
   - component: {fileID: 7961872413012891224}
   - component: {fileID: 7427637404073788237}
+  - component: {fileID: 4434846234821202751}
   m_Layer: 10
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -267,12 +268,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 30000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   m_Explosion: 04000000050000000600000008000000
@@ -280,9 +279,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   - {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   - {fileID: 8300000, guid: ace7f34e586dba844970439075790e1b, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_Turret0: {fileID: 3385715111078662454}
   m_Turret1:
   - {fileID: 6799106137971308598}
@@ -329,7 +325,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Phase: 0
 --- !u!114 &693751754886075942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +367,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &4434846234821202751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74531673ae6bb14398bf9b34d42762d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 7427637404073788237}
+  m_explosionAudioData: {fileID: 11400000, guid: 08daea9f0af3c8144942da4f186392dc,
+    type: 2}
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,19 +1081,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 6680336588109625789}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_FirePosition: {fileID: 5422302557399437400}
 --- !u!114 &401202328062057025
 MonoBehaviour:
@@ -1524,19 +1529,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 6680336588109625789}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_FirePosition: {fileID: 450619147110160440}
 --- !u!114 &5941105993797695290
 MonoBehaviour:
@@ -2877,20 +2877,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 6680336588109625789}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_FirePosition: {fileID: 2775689256702845394}
+  m_Phase: 0
 --- !u!114 &3372187585273066131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3016,20 +3012,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 6680336588109625789}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_FirePosition: {fileID: 3258065114507138636}
+  m_Phase: 0
 --- !u!114 &6567572222341365436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3224,6 +3216,7 @@ GameObject:
   - component: {fileID: 6595924187833569471}
   - component: {fileID: 3926020963003103878}
   - component: {fileID: 618218625103322066}
+  - component: {fileID: 3611234675309213270}
   m_Layer: 10
   m_Name: Part
   m_TagString: Untagged
@@ -3285,19 +3278,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 6680336588109625789}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   m_Explosion: 0500000006000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_PartObj:
   - {fileID: 3806728726757168906}
   - {fileID: 2771398303429543800}
@@ -3344,6 +3332,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &3611234675309213270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517212350611022900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25b4b6af6356894d93e64aa83d4c2a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 618218625103322066}
+  m_explosionAudioData: {fileID: 11400000, guid: 08daea9f0af3c8144942da4f186392dc,
+    type: 2}
 --- !u!1 &6783256538769005770
 GameObject:
   m_ObjectHideFlags: 0
@@ -3654,19 +3657,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_ParentEnemy: {fileID: 6680336588109625789}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 8
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Test: 0
   m_FirePosition: {fileID: 3004855640862697177}
 --- !u!114 &3831122247406469405
 MonoBehaviour:

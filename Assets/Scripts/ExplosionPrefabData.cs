@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class ExplosionPrefabData : ScriptableObject
 {
-    [SerializeField]
-    private GameObject explosionGroundLarge;
-    [SerializeField]
-    private GameObject explosionGroundMedium;
-    [SerializeField]
-    private GameObject explosionGroundSmall;
-    [SerializeField]
-    private GameObject explosionLandMine;
-    [SerializeField]
-    private GameObject explosionLarge;
-    [SerializeField]
-    private GameObject explosionMedium;
-    [SerializeField]
-    private GameObject explosionSimpleMedium;
-    [SerializeField]
-    private GameObject explosionSmall;
-    [SerializeField]
-    private GameObject explosionSimpleSmall;
-    [SerializeField]
-    private GameObject explosionStarSmoke;
+    public GameObject explosionGroundLarge;
+    public GameObject explosionGroundMedium;
+    public GameObject explosionGroundSmall;
+    public GameObject explosionLandMine;
+    public GameObject explosionLarge;
+    public GameObject explosionMedium;
+    public GameObject explosionSimpleMedium;
+    public GameObject explosionSmall;
+    public GameObject explosionSimpleSmall;
+    public GameObject explosionStarSmoke;
 }

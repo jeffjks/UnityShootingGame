@@ -23,7 +23,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     [Space(10)]
     public Queue<TweenData> m_TweenDataQueue = new Queue<TweenData>();
     
-    protected bool m_UpdateTransform = true;
     protected bool m_TimeLimitState = false;
 
     private readonly Vector3 m_AirEnemyAxis = new Vector3(0f, -0.4f, 1f);
@@ -58,9 +57,14 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     protected virtual void Update()
     {
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        UpdateTransform();
-        GetPlayerPosition2D();
         SetPosition2D();
+        GetPlayerPosition2D();
+    }
+
+    private void LateUpdate()
+    {
+        UpdateTransform();
+        SetColliderPosition();
     }
 
     public void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
@@ -69,10 +73,15 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             m_Position2D = transform.position;
         else {
             m_Position2D = GetScreenPosition(transform.position);
-            Quaternion screenRotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
-            m_EnemyHealth?.SetColliderPosition2D(m_Position2D, screenRotation);
         }
     }
+
+    private void SetColliderPosition() {
+        Quaternion screenRotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+        m_EnemyHealth?.SetColliderPositionOnScreen(m_Position2D, screenRotation);
+    }
+
+    
     
 
     
@@ -167,10 +176,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         if (!IsInteractable()) {
             return false;
         }
-        if (!base.BulletCondition(pos))
-            return false;
-        
-        return true;
+        return base.BulletCondition(pos);
     }
 
     public void StartPlayTweenData() {
@@ -268,7 +274,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         return obj;
     }
 
-    protected GameObject ExplosionEffect(int explosion, int audio, Vector3? pos = null, MoveVector? moveVector = null) {
+    protected GameObject CreateExplosionEffect(int explosion, int audio, Vector3? pos = null, MoveVector? moveVector = null) {
         try {
             GameObject obj = m_PoolingManager.PopFromPool(m_Explosion[explosion].ToString(), PoolingParent.EXPLOSION);
             ExplosionEffecter explosion_effect = obj.GetComponent<ExplosionEffecter>();
@@ -306,7 +312,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
         m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-        UpdateTransform();
     }
 
     public void RotateSlightly(float target_angle, float speed, float rot = 0f) {
@@ -314,7 +319,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             return;
         }
         m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-        UpdateTransform();
     }
 
     public void RotateImmediately(Vector2 target, float rot = 0f) {
@@ -323,7 +327,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
         float target_angle = GetAngleToTarget(m_Position2D, target);
         m_CurrentAngle = target_angle + rot;
-        UpdateTransform();
     }
 
     public void RotateImmediately(float target_angle, float rot = 0f) {
@@ -331,7 +334,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             return;
         }
         m_CurrentAngle = target_angle + rot;
-        UpdateTransform();
     }
 
     public void UpdateTransform()
@@ -341,10 +343,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
         else if (m_CurrentAngle < 0f) {
             m_CurrentAngle += 360f;
-        }
-
-        if (!m_UpdateTransform) {
-            return;
         }
         
         Quaternion target_rotation = Quaternion.identity;

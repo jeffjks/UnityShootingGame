@@ -174,19 +174,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         m_MoveVector = new MoveVector(1.5f, 0f);
         
         m_Phase = -1;
-
-        StartCoroutine(DeathExplosion1(2000));
-        StartCoroutine(DeathExplosion2(2000));
-
-        yield return new WaitForMillisecondFrames(2100);
-        ExplosionEffect(2, 2); // 최종 파괴
-        ExplosionEffect(0, -1, new Vector2(-2f, -1.6f));
-        ExplosionEffect(0, -1, new Vector2(2f, -1.6f));
-        ExplosionEffect(0, -1, new Vector2(-2f, 1.6f));
-        ExplosionEffect(0, -1, new Vector2(2f, 1.6f));
-        ExplosionEffect(0, -1, new Vector2(0f, -3f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -204,7 +192,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(200, 350);
             random_pos = new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(-2.5f, 1.5f));
-            ExplosionEffect(0, 0, random_pos, new MoveVector(Random.Range(2f, 3f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(0, 0, random_pos, new MoveVector(Random.Range(2f, 3f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -217,7 +205,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(400, 700);
             random_pos = new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(-2.5f, 1.5f));
-            ExplosionEffect(1, 1, random_pos, new MoveVector(Random.Range(3f, 4f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(1, 1, random_pos, new MoveVector(Random.Range(3f, 4f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

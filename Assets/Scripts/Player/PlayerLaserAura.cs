@@ -11,6 +11,7 @@ public class PlayerLaserAura : PlayerObject
     private int m_LaserDamage;
     private int m_ShotLevelBonus;
     private int m_LaserIndex;
+    private PlayerDamageType m_PlayerDamageType = PlayerDamageType.LaserAura;
 
     void OnEnable() {
         if (m_PlayerLaser != null)
@@ -31,7 +32,7 @@ public class PlayerLaserAura : PlayerObject
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
                 if ((1 << other.gameObject.layer & Layer.LARGE) != 0) { // 대형이면
-                    DealDamage(enemyObject, m_LaserDamage, 1); // 데미지 줌
+                    DealDamage(enemyObject, m_LaserDamage, m_PlayerDamageType); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
                     enemyObject.m_EnemyDeath.OnDying();

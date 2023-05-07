@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 696288135215100546}
   - component: {fileID: 4824996300273409103}
   - component: {fileID: 4450760002710729640}
+  - component: {fileID: 1178527869220532233}
   m_Layer: 12
   m_Name: EnemyMiddleBoss3
   m_TagString: Untagged
@@ -72,13 +73,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 12500
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 05000000060000000200000003000000
@@ -87,14 +85,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   - {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 2454776734911714938}
   m_FirePosition:
   - {fileID: 6370598594428764208}
   - {fileID: 6733764848227821035}
   - {fileID: 5559496410657840515}
+  m_NextPhaseExplosionCreater: {fileID: 0}
 --- !u!114 &696288135215100546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &4824996300273409103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +132,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &1178527869220532233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 4450760002710729640}
+  m_JsonKey: EnemyMiddleBoss3
+  m_RunOnDying: 1
 --- !u!1 &1036572634550386068
 GameObject:
   m_ObjectHideFlags: 0

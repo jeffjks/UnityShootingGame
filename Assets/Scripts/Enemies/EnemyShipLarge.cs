@@ -50,25 +50,4 @@ public class EnemyShipLarge : EnemyUnit
             yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        int timer = 0, random_timer = 0;
-        float explosion_height = 2f;
-        Vector3 random_pos1, random_pos2;
-        while (timer < 700) {
-            random_timer = Random.Range(100, 250);
-            random_pos1 = Random.insideUnitCircle * 1;
-            random_pos2 = Random.insideUnitCircle * 1;
-            ExplosionEffect(0, 0, new Vector3(random_pos1.x, explosion_height, random_pos1.z) + new Vector3(0f, 0f, 1.7f));
-            ExplosionEffect(0, -1, new Vector3(random_pos2.x, explosion_height, random_pos2.z) + new Vector3(0f, 0f, -2f));
-            yield return new WaitForMillisecondFrames(random_timer);
-            timer += random_timer;
-        }
-        ExplosionEffect(1, 1, new Vector3(0f, 2f, 1.7f));
-        ExplosionEffect(0, -1, new Vector3(0f, 2f, 0f));
-        ExplosionEffect(1, -1, new Vector3(0f, 2f, -2f));
-        
-        m_EnemyDeath.OnDeath();
-        yield break;
-    }
 }

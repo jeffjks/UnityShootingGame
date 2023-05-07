@@ -60,9 +60,8 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        ExplosionEffect(0, -1, new Vector2(0f, 2f));
+        CreateExplosionEffect(0, -1, new Vector2(0f, 2f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

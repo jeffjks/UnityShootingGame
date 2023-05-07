@@ -106,40 +106,13 @@ public class EnemyShipCarrier : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        int timer = 0, random_timer = 0;
-        float explosion_height = 3f;
-        Vector3 random_pos1, random_pos2;
         m_SystemManager.EraseBullets(2000);
 
         for (int i = 0; i < m_EnemyUnits.Length; i++) {
             if (m_EnemyUnits[i] != null)
                 m_EnemyUnits[i].m_EnemyDeath.OnDying();
         }
-
-        StartCoroutine(DeathExplosion1(2f));
-        StartCoroutine(DeathExplosion2(2f));
-
-        while (timer < 1500) {
-            random_timer = Random.Range(100, 250);
-            random_pos1 = Random.insideUnitCircle * 3f;
-            random_pos2 = Random.insideUnitCircle * 3f;
-            ExplosionEffect(0, -1, new Vector3(random_pos1.x, explosion_height, random_pos1.z), new MoveVector(3f, Random.Range(0f, 360f)));
-            ExplosionEffect(2, -1, new Vector3(random_pos2.x, explosion_height, random_pos2.z), new MoveVector(3f, Random.Range(0f, 360f)));
-            yield return new WaitForMillisecondFrames(random_timer);
-            timer += random_timer;
-        }
-        yield return new WaitForMillisecondFrames(200);
-        ExplosionEffect(0, -1, new Vector3(2f, 2f, 2f));
-        ExplosionEffect(0, -1, new Vector3(-2f, 2f, 2f));
-        ExplosionEffect(0, -1, new Vector3(2f, 2f, 4f));
-        ExplosionEffect(0, -1, new Vector3(-2f, 2f, 4f));
-        ExplosionEffect(1, 2, new Vector3(0f, 2f, 0f));
-        ExplosionEffect(0, -1, new Vector3(2f, 2f, -2f));
-        ExplosionEffect(0, -1, new Vector3(-2f, 2f, -2f));
-        ExplosionEffect(0, -1, new Vector3(2f, 2f, -4f));
-        ExplosionEffect(0, -1, new Vector3(-2f, 2f, -4f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -149,7 +122,7 @@ public class EnemyShipCarrier : EnemyUnit
         while (timer < 1500) {
             random_timer = Random.Range(100, 250);
             random_pos = Random.insideUnitCircle * 4f;
-            ExplosionEffect(0, 0, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, 3.8f));
+            CreateExplosionEffect(0, 0, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, 3.8f));
             yield return new WaitForMillisecondFrames(random_timer);
             timer += random_timer;
         }
@@ -162,7 +135,7 @@ public class EnemyShipCarrier : EnemyUnit
         while (timer < 1500) {
             random_timer = Random.Range(100, 250);
             random_pos = Random.insideUnitCircle * 4f;
-            ExplosionEffect(0, 1, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, -3.8f));
+            CreateExplosionEffect(0, 1, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, -3.8f));
             yield return new WaitForMillisecondFrames(random_timer);
             timer += random_timer;
         }

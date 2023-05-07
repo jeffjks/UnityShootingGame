@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRocket : PlayerWeapon
 {
     [Space(10)]
-    public int m_MaxSpeed;
+    public float m_MaxSpeed;
     public float m_Accel;
 
     public override void OnStart()
@@ -23,14 +23,12 @@ public class PlayerRocket : PlayerWeapon
     {
         if (Time.timeScale == 0)
             return;
-        if (m_Speed < m_MaxSpeed) {
-            m_Speed += m_Accel / Application.targetFrameRate * Time.timeScale;
+        if (m_MoveVector.speed < m_MaxSpeed) {
+            m_MoveVector.speed += m_Accel / Application.targetFrameRate * Time.timeScale;
         }
         else {
-            m_Speed = m_MaxSpeed;
+            m_MoveVector.speed = m_MaxSpeed;
         }
-        
-        m_MoveVector.speed = m_Speed;
         
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         UpdateTransform();

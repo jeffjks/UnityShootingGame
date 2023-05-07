@@ -203,25 +203,23 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected IEnumerator MiddleBossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화, number = 중간보스 번호
-        int frame = millisecond * Application.targetFrameRate / 1000;
         GameObject middle_boss;
         middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
         EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
-        m_BossHealthBar.StartHealthListener(enemy_unit);
 
-        yield return new WaitForFrames(frame);
+        yield return new WaitForMillisecondFrames(millisecond);
+        m_BossHealthBar.StartHealthListener(enemy_unit);
         m_SystemManager.m_PlayState = 1;
         yield break;
     }
 
     protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화
-        int frame = millisecond * Application.targetFrameRate / 1000;
         GameObject boss;
         boss = CreateEnemy(m_BossUnit[number], pos);
         EnemyUnit enemy_unit = boss.GetComponent<EnemyUnit>();
-        m_BossHealthBar.StartHealthListener(enemy_unit);
 
-        yield return new WaitForFrames(frame);
+        yield return new WaitForMillisecondFrames(millisecond);
+        m_BossHealthBar.StartHealthListener(enemy_unit);
         m_SystemManager.m_PlayState = 1;
         yield break;
     }

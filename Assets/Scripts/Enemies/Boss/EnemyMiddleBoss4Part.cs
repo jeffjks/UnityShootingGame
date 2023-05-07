@@ -75,13 +75,4 @@ public class EnemyMiddleBoss4Part : EnemyUnit
             m_EnemyItemCreater.enabled = true;
         }
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, 1.6f));
-        ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, 0.6f));
-        ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, -0.4f));
-        ExplosionEffect(Random.Range(0, 2), -1, new Vector3(Random.Range(-0.1f, 0.3f), 0f, -1.4f));
-        m_EnemyDeath.OnDeath();
-        yield break;
-    }
 }

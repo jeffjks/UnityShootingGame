@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour
     [Tooltip("None: 독립적인 Blend, 자체 체력이 있지만 본체에도 데미지 전달\nIndependent: 독립적인 Blend, 독립적인 자체 체력\nShare: 본체와 Blend와 체력 모두 공유")]
     public HealthType m_HealthType;
     [DrawIf("m_HealthType", HealthType.Share, ComparisonType.NotEqual)]
-    [SerializeField] private int m_DefaultHealth;
+    [SerializeField] private int m_DefaultHealth = -1;
     [SerializeField] private Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
     [HideInInspector] public float m_HealthPercent;
 
@@ -20,7 +20,7 @@ public class EnemyHealth : MonoBehaviour
 
     private EnemyHealth m_ParentEnemyHealth = null;
     private int m_CurrentHealth;
-    private bool[] m_IsTakingDamage = { false, false, false }; // 중복 데미지 방지
+    private Dictionary<PlayerDamageType, bool> m_IsTakingDamage = new Dictionary<PlayerDamageType, bool>(); // 중복 데미지 방지
     private bool m_IsLowHealthState = false;
     private bool m_Invincibility = false;
 
@@ -35,43 +35,49 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
-        if (transform.parent != null) {
+        if (transform != transform.root) {
             m_ParentEnemyHealth = transform.parent.GetComponentInParent<EnemyHealth>();
         }
         m_EnemyDeath = GetComponent<EnemyDeath>();
-
-        if (m_HealthType == HealthType.Share) {
-            m_DefaultHealth = -1;
-        }
+        
         CurrentHealth = m_DefaultHealth;
 
-        Action_LowHealthState += SetLowHealthState;
-        Action_OnHealthChanged += UpdateColorBlend;
+        ResetIsTakingDamage();
     }
     
     void LateUpdate()
     {
-        for (int i = 0; i < m_IsTakingDamage.Length; i++)
-            m_IsTakingDamage[i] = false;
+        ResetIsTakingDamage();
+    }
+
+    private void ResetIsTakingDamage() {
+        m_IsTakingDamage[PlayerDamageType.Normal] = false;
+        m_IsTakingDamage[PlayerDamageType.Laser] = false;
+        m_IsTakingDamage[PlayerDamageType.LaserAura] = false;
+        m_IsTakingDamage[PlayerDamageType.Bomb] = false;
     }
     
 
-    public void TakeDamage(int amount, sbyte damage_type = -1, bool blend = true)
+    public void TakeDamage(int amount, PlayerDamageType damage_type = PlayerDamageType.Normal, bool blend = true)
     {
-        // damage_type - -1:일반공격, 0:레이저, 1:레이저(Aura), 2:폭탄
         // blend - ImageBlend 실행 여부
-
-        PreventDamageDuplicating(damage_type);
-
-        if (m_Invincibility) {
-            return;
-        }
 
         if (m_HealthType == HealthType.None) { // 본체와 자신에게 데미지 및 자신 색 blend
             m_ParentEnemyHealth?.TakeDamage(amount, damage_type, false);
         }
         else if (m_HealthType == HealthType.Share) { // 본체에게 데미지 및 본체 색 blend
             m_ParentEnemyHealth?.TakeDamage(amount, damage_type, true);
+            return;
+        }
+
+        if (blend) {
+            UpdateColorBlend();
+        }
+
+        if (m_Invincibility) {
+            return;
+        }
+        if (IsDuplicatedDamage(damage_type)) {
             return;
         }
 
@@ -84,13 +90,15 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void PreventDamageDuplicating(sbyte damage_type) {
-        if (damage_type >= 0) {
-            if (m_IsTakingDamage[damage_type])
-                return;
-            else
-                m_IsTakingDamage[damage_type] = true;
+    private bool IsDuplicatedDamage(PlayerDamageType damage_type) {
+        if (damage_type == PlayerDamageType.Normal) {
+            return false;
         }
+        if (m_IsTakingDamage[damage_type]) {
+            return true;
+        }
+        m_IsTakingDamage[damage_type] = true;
+        return false;
     }
 
     public void SetActiveColliders(bool state) {
@@ -100,7 +108,7 @@ public class EnemyHealth : MonoBehaviour
             m_Collider2D[i].enabled = state;
     }
 
-    public void SetColliderPosition2D(Vector3 screenPosition, Quaternion screenRotation) {
+    public void SetColliderPositionOnScreen(Vector3 screenPosition, Quaternion screenRotation) {
         for (int i = 0; i < m_Collider2D.Length; i++) {
             m_Collider2D[i].transform.position = screenPosition;
             m_Collider2D[i].transform.rotation = screenRotation;
@@ -128,27 +136,29 @@ public class EnemyHealth : MonoBehaviour
     private void UpdateColorBlend() {
         if (m_EnemyDeath.m_IsDead)
             return;
-        if (m_HealthType == HealthType.Share) // TODO : 제거해도 되는지 체크
-            return;
 
         Action_DamagingBlend?.Invoke();
         
         if (!m_IsLowHealthState) {
-            if (m_DefaultHealth < 10000) {
-                if (m_HealthPercent < 0.30f) { // 30% 미만
-                    Action_LowHealthState?.Invoke();
-                }
-            }
-            else { // 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
-                if (CurrentHealth < 3000) {
-                    Action_LowHealthState?.Invoke();
-                }
+            if (IsLowHealth()) {
+                m_IsLowHealthState = true;
+                Action_LowHealthState?.Invoke();
             }
         }
     }
 
-    private void SetLowHealthState() {
-        m_IsLowHealthState = true;
+    private bool IsLowHealth() {
+        if (m_DefaultHealth < 10000) {
+            if (m_HealthPercent < 0.30f) { // 30% 미만
+                return true;
+            }
+        }
+        else { // 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
+            if (CurrentHealth < 3000) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnHpZero() {

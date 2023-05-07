@@ -16,7 +16,7 @@ public class EnemyBoss1Turret0 : EnemyUnit
     protected override void Update()
     {
         base.Update();
-
+        
         if (m_PlayerManager.m_PlayerIsAlive)
             RotateImmediately(m_PlayerPosition);
         else

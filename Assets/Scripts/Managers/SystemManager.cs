@@ -5,76 +5,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 
-public static class Depth // Z Axis
-{
-    // Far
-    public const int ENEMY = 32 + (int) Size.MAIN_CAMERA_POS; // Only Air Enemy
-    public const int EXPLOSION = 23 + (int) Size.MAIN_CAMERA_POS; // Only Air Explosion
-    public const int OVERVIEW = 22 + (int) Size.MAIN_CAMERA_POS;
-    public const int ITEMS = 21 + (int) Size.MAIN_CAMERA_POS;
-    public const int TRANSITION = 20 + (int) Size.MAIN_CAMERA_POS;
-    public const int PLAYER = 19 + (int) Size.MAIN_CAMERA_POS; // Player, Laser
-    public const int PLAYER_MISSILE = 18 + (int) Size.MAIN_CAMERA_POS;
-    public const int HIT_EFFECT = 17 + (int) Size.MAIN_CAMERA_POS;
-    public const int WHITE_EFFECT = 16 + (int) Size.MAIN_CAMERA_POS;
-    public const int SCORE_TEXT = 15 + (int) Size.MAIN_CAMERA_POS;
-    public const int ENEMY_BULLET = 14 + (int) Size.MAIN_CAMERA_POS;
-    public const int CAMERA = 0 + (int) Size.MAIN_CAMERA_POS;
-    // Close
-}
-
-public static class Layer // AirSmall(9), AirLarge(10), GroundSmall(11), GroundLarge(12)
-{
-    public const int SMALL = 2560; // (1 << 9 | 1 << 11) LayerMask.GetMask("AirSmallEnemy", "GroundSmallEnemy")
-    public const int LARGE = 5120; // (1 << 10 | 1 << 12) LayerMask.GetMask("AirLargeEnemy", "GroundLargeEnemy")
-    public const int AIR = 1536; // (1 << 9 | 1 << 10) LayerMask.GetMask("AirSmallEnemy", "AirLargeEnemy")
-    public const int GROUND = 6144; // (1 << 11 | 1 << 12) LayerMask.GetMask("GroundSmallEnemy", "GroundLargeEnemy")
-}
-
-public static class ItemScore // Z Axis
-{
-    // Far
-    public const ushort GEM_GROUND = 200;
-    public const ushort GEM_AIR = 100;
-    public const ushort POWERUP = 2000;
-    public const ushort BOMB = 5000;
-    // Close
-}
-
-public static class BonusScale // Overview
-{
-    public const float BONUS_0 = 0.5f;
-    public const float BONUS_1 = 0.3f;
-    public const float BONUS_2 = 0.1f;
-}
-
-public static class Difficulty
-{
-    public const int DIFFICULTY_SIZE = 3;
-    public const string DIFFICULTY1 = "Normal";
-    public const string DIFFICULTY2 = "Expert";
-    public const string DIFFICULTY3 = "Hell";
-    public const int NORMAL = 0;
-    public const int EXPERT = 1;
-    public const int HELL = 2;
-}
-
-public enum GameType
-{
-    GAMETYPE_NORMAL = 0,
-    GAMETYPE_TRAINING = 1,
-    GAMETYPE_REPLAY = 2
-}
-
 public class SystemManager : MonoBehaviour
 {
-    public enum DebugDifficulty
-    {
-        Normal,
-        Expert,
-        Hell,
-    }
-    
     public Camera m_BackgroundCamera;
     public SoundManager m_SoundManager;
     public ScreenEffecter m_ScreenEffecter;
@@ -124,6 +56,9 @@ public class SystemManager : MonoBehaviour
 
     public static SystemManager instance_sm = null;
 
+    public event Action Action_OnEnableSystemManager;
+    public event Action Action_OnDisableSystemManager;
+
     void Awake()
     {
         if (instance_sm != null) {
@@ -158,6 +93,7 @@ public class SystemManager : MonoBehaviour
     void OnEnable() { // Start였음
         InitCamera();
         Init();
+        Action_OnEnableSystemManager?.Invoke();
         
         UpdateBombNumber();
         m_TextUI_GameType.UpdateGameTypeText(m_GameType);
@@ -168,6 +104,7 @@ public class SystemManager : MonoBehaviour
     void OnDisable()
     {
         StopAllCoroutines();
+        Action_OnDisableSystemManager?.Invoke();
     }
 
     void Update()

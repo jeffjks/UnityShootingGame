@@ -601,7 +601,6 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         StopAllPatterns();
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
-        ExplosionEffect(2, -1);
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.7f, 0f);
         
@@ -616,16 +615,15 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         
         yield return new WaitForMillisecondFrames(4000);
         
-        ExplosionEffect(2, 3); // 최종 파괴
-        ExplosionEffect(2, -1, new Vector2(-4f, 3f), new MoveVector(2f, 126.87f));
-        ExplosionEffect(2, -1, new Vector2(4f, 3f), new MoveVector(2f, -126.87f));
-        ExplosionEffect(2, -1, new Vector2(0f, 3f), new MoveVector(1.2f, 0f));
-        ExplosionEffect(1, -1, new Vector2(-1.5f, 2.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(1.5f, 2.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(-3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
+        CreateExplosionEffect(2, 3); // 최종 파괴
+        CreateExplosionEffect(2, -1, new Vector2(-4f, 3f), new MoveVector(2f, 126.87f));
+        CreateExplosionEffect(2, -1, new Vector2(4f, 3f), new MoveVector(2f, -126.87f));
+        CreateExplosionEffect(2, -1, new Vector2(0f, 3f), new MoveVector(1.2f, 0f));
+        CreateExplosionEffect(1, -1, new Vector2(-1.5f, 2.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
+        CreateExplosionEffect(1, -1, new Vector2(1.5f, 2.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
+        CreateExplosionEffect(1, -1, new Vector2(-3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
+        CreateExplosionEffect(1, -1, new Vector2(3.5f, 0.4f) + Random.insideUnitCircle*0.5f, new MoveVector(0.8f, Random.Range(0f, 360f)));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -641,7 +639,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator DeathExplosion1() {
         while (true) {
-            ExplosionEffect(1, -1, Random.insideUnitCircle, new MoveVector(5f, Random.Range(160f, 200f)));
+            CreateExplosionEffect(1, -1, Random.insideUnitCircle, new MoveVector(5f, Random.Range(160f, 200f)));
             yield return new WaitForMillisecondFrames(200);
         }
     }
@@ -650,8 +648,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         int timer = 0, t_add = 0;
         while (timer < duration) {
             t_add = Random.Range(200, 350);
-            ExplosionEffect(0, 0, Random.insideUnitCircle * 2f, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
-            ExplosionEffect(1, -1, Random.insideUnitCircle * 5f, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(0, 0, Random.insideUnitCircle * 2f, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(1, -1, Random.insideUnitCircle * 5f, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -662,8 +660,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         int timer = 0, t_add = 0;
         while (timer < duration) {
             t_add = Random.Range(200, 400);
-            ExplosionEffect(2, 1, Random.insideUnitCircle * 2f, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
-            ExplosionEffect(2, -1, Random.insideUnitCircle * 5f, new MoveVector(Random.Range(0f, 1f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(2, 1, Random.insideUnitCircle * 2f, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(2, -1, Random.insideUnitCircle * 5f, new MoveVector(Random.Range(0f, 1f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -674,7 +672,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         int timer = 0, t_add = 0;
         while (timer < duration) {
             t_add = Random.Range(100, 500);
-            ExplosionEffect(1, 2, Random.insideUnitCircle * 4f, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(1, 2, Random.insideUnitCircle * 4f, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

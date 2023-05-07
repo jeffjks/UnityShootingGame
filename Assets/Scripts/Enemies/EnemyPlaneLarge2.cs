@@ -65,14 +65,13 @@ public class EnemyPlaneLarge2 : EnemyUnit
         }
         m_SystemManager.EraseBullets(1000);
 
-        ExplosionEffect(0, -1, new Vector2(-1.5f, 2.5f));
-        ExplosionEffect(1, -1, new Vector2(0f, 2.5f));
-        ExplosionEffect(0, -1, new Vector2(1.5f, 2.5f));
-        ExplosionEffect(0, -1, new Vector2(-1.5f, -3.8f));
-        ExplosionEffect(1, -1, new Vector2(0f, -3.8f));
-        ExplosionEffect(0, -1, new Vector2(1.5f, -3.8f));
+        CreateExplosionEffect(0, -1, new Vector2(-1.5f, 2.5f));
+        CreateExplosionEffect(1, -1, new Vector2(0f, 2.5f));
+        CreateExplosionEffect(0, -1, new Vector2(1.5f, 2.5f));
+        CreateExplosionEffect(0, -1, new Vector2(-1.5f, -3.8f));
+        CreateExplosionEffect(1, -1, new Vector2(0f, -3.8f));
+        CreateExplosionEffect(0, -1, new Vector2(1.5f, -3.8f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 693751754886075942}
   - component: {fileID: 7961872413012891224}
   - component: {fileID: 7427637404073788237}
-  - component: {fileID: 4434846234821202751}
+  - component: {fileID: 6477694972780195976}
   m_Layer: 10
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -203,7 +203,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2730931661666969876}
+  - {fileID: 1521779718265855556}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -292,6 +292,7 @@ MonoBehaviour:
   - {fileID: 6155251564605104993}
   - {fileID: 747809586268101702}
   - {fileID: 1647796258182680312}
+  m_Rotator: {fileID: 1521779718265855556}
   m_AnimationCurve_Turn:
     serializedVersion: 2
     m_Curve:
@@ -367,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
---- !u!114 &4434846234821202751
+--- !u!114 &6477694972780195976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,12 +377,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b74531673ae6bb14398bf9b34d42762d, type: 3}
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 7427637404073788237}
-  m_explosionAudioData: {fileID: 11400000, guid: 08daea9f0af3c8144942da4f186392dc,
-    type: 2}
+  m_JsonKey: EnemyBoss1
+  m_RunOnDying: 1
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1211,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2198907910250808335}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
@@ -1222,7 +1223,7 @@ Transform:
   - {fileID: 3218016995649507991}
   - {fileID: 7147595463659249834}
   - {fileID: 618556789853471107}
-  m_Father: {fileID: 400018}
+  m_Father: {fileID: 1521779718265855556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &2282254347439157895
@@ -2265,6 +2266,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4116197761046769210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1521779718265855556}
+  m_Layer: 10
+  m_Name: Rotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1521779718265855556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116197761046769210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2730931661666969876}
+  m_Father: {fileID: 400018}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4189931160304719940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3216,7 +3249,7 @@ GameObject:
   - component: {fileID: 6595924187833569471}
   - component: {fileID: 3926020963003103878}
   - component: {fileID: 618218625103322066}
-  - component: {fileID: 3611234675309213270}
+  - component: {fileID: 2935975655334535033}
   m_Layer: 10
   m_Name: Part
   m_TagString: Untagged
@@ -3332,7 +3365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
---- !u!114 &3611234675309213270
+--- !u!114 &2935975655334535033
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3341,12 +3374,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6517212350611022900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f25b4b6af6356894d93e64aa83d4c2a8, type: 3}
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 618218625103322066}
-  m_explosionAudioData: {fileID: 11400000, guid: 08daea9f0af3c8144942da4f186392dc,
-    type: 2}
+  m_JsonKey: EnemyBoss1_Part
+  m_RunOnDying: 1
 --- !u!1 &6783256538769005770
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,6 +3653,7 @@ GameObject:
   - component: {fileID: 8962546894195927483}
   - component: {fileID: 3385715111078662454}
   - component: {fileID: 3831122247406469405}
+  - component: {fileID: 1091254013656855434}
   m_Layer: 10
   m_Name: Turret0
   m_TagString: Untagged
@@ -3679,6 +3713,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &1091254013656855434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252737689123727914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 3831122247406469405}
+  m_ExplType: 7
+  m_ExplAudioType: -1
 --- !u!1 &7525877152753686994
 GameObject:
   m_ObjectHideFlags: 0

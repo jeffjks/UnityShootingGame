@@ -7,6 +7,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     public GameObject m_Hull;
     public EnemyMiddleBoss5bTurret m_Turret;
     public Transform m_Renderer;
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int[] m_FireDelay = { 3200, 2600, 2000 };
     private IEnumerator m_MovementPattern;
@@ -98,9 +99,14 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         if (m_CurrentPattern2 != null)
             StopCoroutine(m_CurrentPattern2);
         m_Hull.SetActive(false);
-        ExplosionEffect(0, 0);
         
         m_Turret.StartPattern1();
+        
+        NextPhaseExplosion();
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
 
     private IEnumerator Pattern1() {
@@ -222,17 +228,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         m_Sequence = DOTween.Sequence()
         .Append(m_Renderer.DORotateQuaternion(new Quaternion(-0.2f, 0.9f, -0.4f, -0.2f), 2.5f).SetEase(Ease.Linear))
         .Join(m_Renderer.DOScale(new Vector3(0.7f, 0.7f, 0.7f), 2.5f).SetEase(Ease.Linear));*/
-
-        StartCoroutine(DeathExplosion1());
-        StartCoroutine(DeathExplosion2());
-        yield return new WaitForMillisecondFrames(2100);
-
-        ExplosionEffect(0, 2, new Vector2(0f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(-1.3f, 0f), new MoveVector(1.8f, Random.Range(0f, 360f)));
-        ExplosionEffect(1, -1, new Vector2(0f, 1.4f), new MoveVector(1.8f, Random.Range(0f, 360f)));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -250,7 +246,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         while (timer < 2f) {
             t_add = Random.Range(200, 300);
             random_pos = (Vector2) Random.insideUnitCircle * 1.2f;
-            ExplosionEffect(1, -1, random_pos);
+            CreateExplosionEffect(1, -1, random_pos);
             yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;
@@ -262,7 +258,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         while (timer < 2f) {
             t_add = Random.Range(150, 250);
             random_pos = (Vector2) Random.insideUnitCircle * 1.7f;
-            ExplosionEffect(2, 1, random_pos);
+            CreateExplosionEffect(2, 1, random_pos);
             yield return new WaitForMillisecondFrames(t_add);
         }
         yield break;

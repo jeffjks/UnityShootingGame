@@ -247,19 +247,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         if (m_MovementPattern != null) {
             StopCoroutine(m_MovementPattern);
         }
-
-        StartCoroutine(DeathExplosion1(1900));
-        StartCoroutine(DeathExplosion2(1900));
-
-        yield return new WaitForMillisecondFrames(2000);
-        ExplosionEffect(0, 0, new Vector3(-1f, 0f, 0f)); // 최종 파괴
-        ExplosionEffect(0, -1, new Vector3(1f, 0f, 0f));
-        ExplosionEffect(0, -1, new Vector3(-1f, 0f, 1.2f));
-        ExplosionEffect(0, -1, new Vector3(1f, 0f, 1.2f));
-        ExplosionEffect(0, -1, new Vector3(-1f, 0f, -1.2f));
-        ExplosionEffect(0, -1, new Vector3(1f, 0f, -1.2f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -277,9 +265,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(200, 500);
             random_pos = new Vector3(Random.Range(-1.6f, 1.6f), 2f, Random.Range(-1.8f, 1.8f));
-            ExplosionEffect(1, 1, random_pos);
+            CreateExplosionEffect(1, 1, random_pos);
             random_pos = new Vector3(Random.Range(-1.6f, 1.6f), 2f, Random.Range(-1.8f, 1.8f));
-            ExplosionEffect(1, -1, random_pos);
+            CreateExplosionEffect(1, -1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -292,9 +280,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(400, 700);
             random_pos = new Vector3(Random.Range(-1.6f, 1.6f), 2f, Random.Range(-1.8f, 1.8f));
-            ExplosionEffect(2, 2, random_pos);
+            CreateExplosionEffect(2, 2, random_pos);
             random_pos = new Vector3(Random.Range(-1.6f, 1.6f), 2f, Random.Range(-1.8f, 1.8f));
-            ExplosionEffect(2, -1, random_pos);
+            CreateExplosionEffect(2, -1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

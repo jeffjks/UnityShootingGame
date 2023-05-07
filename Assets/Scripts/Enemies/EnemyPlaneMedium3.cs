@@ -119,7 +119,6 @@ public class EnemyPlaneMedium3 : EnemyUnit
         m_Turret[0].m_EnemyDeath.OnDying();
         m_Turret[1].m_EnemyDeath.OnDying();
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

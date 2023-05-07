@@ -61,10 +61,9 @@ public class EnemyMissile : EnemyUnit
             CreateBulletsSector(3, pos, 0.25f, -10f, new EnemyBulletAccel(4f, 500), 18, 20f);
             CreateBulletsSector(0, pos, 0.75f, 0f, new EnemyBulletAccel(5f, 500), 18, 20f);
         }
-        ExplosionEffect(0, -1, new Vector2(0f, -1f));
-        ExplosionEffect(0, -1, new Vector2(0f, 1f));
+        CreateExplosionEffect(0, -1, new Vector2(0f, -1f));
+        CreateExplosionEffect(0, -1, new Vector2(0f, 1f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

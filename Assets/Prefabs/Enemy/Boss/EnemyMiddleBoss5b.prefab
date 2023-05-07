@@ -186,6 +186,8 @@ GameObject:
   - component: {fileID: 1427736326533186560}
   - component: {fileID: 1746846531553386692}
   - component: {fileID: 5036429281607314849}
+  - component: {fileID: 277672990995395821}
+  - component: {fileID: 5980605178834276607}
   m_Layer: 10
   m_Name: EnemyMiddleBoss5b
   m_TagString: Enemy
@@ -278,13 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 10000
-  m_Debris: 0
   m_DefaultExplosion: 6
   m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   m_Explosion: 060000000500000008000000
@@ -292,10 +291,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 6957407809276292631}
   m_FirePosition:
   - {fileID: 4528136409146943543}
   - {fileID: 8900644420630997598}
@@ -303,6 +298,7 @@ MonoBehaviour:
   m_Hull: {fileID: 8301452804511892796}
   m_Turret: {fileID: 1427492857392280761}
   m_Renderer: {fileID: 7551878699012226129}
+  m_NextPhaseExplosionCreater: {fileID: 277672990995395821}
 --- !u!114 &1427736326533186560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &1746846531553386692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +341,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &277672990995395821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5036429281607314849}
+  m_JsonKey: EnemyMiddleBoss5b_NextPhase
+  m_RunOnDying: 0
+--- !u!114 &5980605178834276607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5036429281607314849}
+  m_JsonKey: EnemyMiddleBoss5b
+  m_RunOnDying: 1
 --- !u!1 &64298677514116869
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,20 +419,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 655304664469003935}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D: []
   m_FirePosition: {fileID: 8605005144375726545}
 --- !u!114 &3797291644669490344
 MonoBehaviour:

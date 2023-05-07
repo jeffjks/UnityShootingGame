@@ -165,11 +165,10 @@ public class EnemyPlaneMedium2 : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        ExplosionEffect(0, -1, new Vector2(1.4f, 0.6f));
-        ExplosionEffect(0, -1, new Vector2(-1.4f, 0.6f));
-        ExplosionEffect(0, -1, new Vector2(0f, -1.3f));
+        CreateExplosionEffect(0, -1, new Vector2(1.4f, 0.6f));
+        CreateExplosionEffect(0, -1, new Vector2(-1.4f, 0.6f));
+        CreateExplosionEffect(0, -1, new Vector2(0f, -1.3f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

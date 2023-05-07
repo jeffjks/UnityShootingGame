@@ -5,9 +5,10 @@ using UnityEngine;
 public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public GameObject m_Core, m_Wings, m_WingsForAppearance;
-    public MeshRenderer[] m_WingMeshRenderers = new MeshRenderer[3];
+    public EnemyBoss5Wing[] m_EnemyBoss5Wings = new EnemyBoss5Wing[3];
     public Transform m_FirePosition;
     public Transform[] m_FirePositionsWing = new Transform[3];
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int m_Phase;
     private float m_Direction;
@@ -17,6 +18,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private int m_MoveDirection;
     private float m_MoveSpeed, m_DefaultSpeed = 0.2f;
     private float m_TrackPos;
+    private MeshRenderer[] m_WingMeshRenderers = new MeshRenderer[3];
 
     private int[,] m_FireDelay1 = {{ 600, 360, 250 }, { 2400, 2000, 2000 }};
     private int[,] m_FireDelay2 = {{ 2400, 2000, 2000 }, { 600, 400, 250 }};
@@ -29,7 +31,9 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     {
         m_TargetPosition = new Vector2(0f, -4f);
         m_WingsAngle = Random.Range(0f, 360f);
+       
         for (int i = 0; i < m_WingMeshRenderers.Length; i++) {
+            m_WingMeshRenderers[i] = m_EnemyBoss5Wings[i].GetComponentInChildren<MeshRenderer>();
             m_WingMeshRenderers[i].gameObject.SetActive(false);
         }
 
@@ -136,11 +140,11 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator OpenWings() {
-        Quaternion[] init_localRotation = new Quaternion[m_WingMeshRenderers.Length];
+        Quaternion[] init_localRotation = new Quaternion[m_EnemyBoss5Wings.Length];
         
-        for (int i = 0; i < m_WingMeshRenderers.Length; ++i) {
+        for (int i = 0; i < m_EnemyBoss5Wings.Length; ++i) {
             m_FirePositionsWing[i].localPosition = new Vector3(0f, 4.5f, -3.3f);
-            init_localRotation[i] = m_WingMeshRenderers[i].transform.localRotation;
+            init_localRotation[i] = m_EnemyBoss5Wings[i].transform.localRotation;
         }
         
         int frame = 1500 * Application.targetFrameRate / 1000;
@@ -149,8 +153,8 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             float t_rot = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
 
             try {
-                for (int j = 0; j < m_WingMeshRenderers.Length; ++j) {
-                    m_WingMeshRenderers[j].transform.localRotation = Quaternion.Lerp(init_localRotation[j], Quaternion.Euler(30f, 0f, 0f), t_rot);
+                for (int j = 0; j < m_EnemyBoss5Wings.Length; ++j) {
+                    m_EnemyBoss5Wings[j].transform.localRotation = Quaternion.Lerp(init_localRotation[j], Quaternion.Euler(30f, 0f, 0f), t_rot);
                 }
             }
             catch {
@@ -183,7 +187,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             StartCoroutine(m_CurrentPhase);
         }
         else if (m_Phase == 2) {
-            StartCoroutine(NextPhaseExplosion());
+            NextPhaseExplosion();
             m_SystemManager.EraseBullets(2000);
             StartCoroutine(OpenWings());
 
@@ -192,6 +196,10 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
         }
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
@@ -693,13 +701,9 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         StopAllPatterns();
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
-        for (int i = 0; i < m_WingMeshRenderers.Length; i++) {
-            ExplosionEffect(2, -1, m_FirePositionsWing[i].position);
-            //ExplosionEffect(2, -1, m_WingMeshRenderers[i].transform.TransformPoint(new Vector3(0f, 0f, 7f)));
-            //ExplosionEffect(2, -1, m_WingMeshRenderers[i].transform.position);
-            //ExplosionEffect(2, -1, m_WingMeshRenderers[i].transform.TransformPoint(new Vector3(0f, 0f, -5f)));
+        for (int i = 0; i < m_EnemyBoss5Wings.Length; i++) {
+            m_EnemyBoss5Wings[i].m_EnemyDeath.OnDeath();
         }
-        ExplosionEffect(2, -1);
         Destroy(m_Wings);
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0f, 0f);
@@ -707,38 +711,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         if (m_SystemManager.GetDifficulty() < Difficulty.HELL) {
             m_SystemManager.SaveClearedTime();
         }
-
-        StartCoroutine(DeathExplosion1(3200));
-        StartCoroutine(DeathExplosion2(3200));
         
-        Vector2 random_pos;
-        yield return new WaitForMillisecondFrames(800);
-        random_pos = Random.insideUnitCircle * 3f;
-        ExplosionEffect(2, 2, random_pos);
-        random_pos = Random.insideUnitCircle * 3f;
-        ExplosionEffect(2, -1, random_pos);
-        yield return new WaitForMillisecondFrames(800);
-        random_pos = Random.insideUnitCircle * 3f;
-        ExplosionEffect(2, 2, random_pos);
-        random_pos = Random.insideUnitCircle * 3f;
-        ExplosionEffect(2, -1, random_pos);
-        yield return new WaitForMillisecondFrames(1200);
-        random_pos = Random.insideUnitCircle * 3f;
-        ExplosionEffect(2, 2, random_pos);
-        random_pos = Random.insideUnitCircle * 3f;
-        ExplosionEffect(2, -1, random_pos);
-        yield return new WaitForMillisecondFrames(1200);
-        
-        ExplosionEffect(2, 3); // 최종 파괴
-        ExplosionEffect(2, 2, new Vector2(0f, 0f), new MoveVector(3f, Random.Range(0f, 360f)));
-        ExplosionEffect(2, -1, new Vector2(-4f, 0f));
-        ExplosionEffect(2, -1, new Vector2(4f, 0f));
-        ExplosionEffect(2, -1, new Vector2(-2f, -3.4f));
-        ExplosionEffect(2, -1, new Vector2(-2f, 3.4f));
-        ExplosionEffect(2, -1, new Vector2(2f, -3.4f));
-        ExplosionEffect(2, -1, new Vector2(2f, 3.4f));
-        
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -761,24 +734,15 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
     }
 
-    private IEnumerator NextPhaseExplosion() {
-        ExplosionEffect(1, 2, new Vector2(0f, 0f), new MoveVector(3f, Random.Range(0f, 360f)));
-        ExplosionEffect(2, -1, new Vector2(-Random.Range(2.5f, 3.5f), -Random.Range(2.5f, 3.5f)), new MoveVector(3f, Random.Range(0f, 360f)));
-        ExplosionEffect(2, -1, new Vector2(-Random.Range(2.5f, 3.5f), Random.Range(2.5f, 3.5f)), new MoveVector(3f, Random.Range(0f, 360f)));
-        ExplosionEffect(2, -1, new Vector2(Random.Range(2.5f, 3.5f), -Random.Range(2.5f, 3.5f)), new MoveVector(3f, Random.Range(0f, 360f)));
-        ExplosionEffect(2, -1, new Vector2(Random.Range(2.5f, 3.5f), Random.Range(2.5f, 3.5f)), new MoveVector(3f, Random.Range(0f, 360f)));
-        yield break;
-    }
-
     private IEnumerator DeathExplosion1(int duration) {
         int timer = 0, t_add = 0;
         Vector2 random_pos;
         while (timer < duration) {
             t_add = Random.Range(250, 350);
             random_pos = Random.insideUnitCircle * 3f;
-            ExplosionEffect(0, 0, random_pos, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(0, 0, random_pos, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
             random_pos = Random.insideUnitCircle * 3f;
-            ExplosionEffect(0, -1, random_pos, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(0, -1, random_pos, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -791,9 +755,9 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(400, 600);
             random_pos = Random.insideUnitCircle * 3f;
-            ExplosionEffect(1, 1, random_pos, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(1, 1, random_pos, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
             random_pos = Random.insideUnitCircle * 3f;
-            ExplosionEffect(1, -1, random_pos, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
+            CreateExplosionEffect(1, -1, random_pos, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

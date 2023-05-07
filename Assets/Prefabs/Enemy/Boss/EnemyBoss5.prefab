@@ -250,6 +250,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6359245742833284990}
+  - component: {fileID: 7403120876155489487}
+  - component: {fileID: 3061002104077901386}
+  - component: {fileID: 2539544195755880103}
   m_Layer: 10
   m_Name: Wing (2)
   m_TagString: Untagged
@@ -273,6 +276,56 @@ Transform:
   m_Father: {fileID: 643861111866822498}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 120}
+--- !u!114 &7403120876155489487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765907377369463028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59fd930860836e4285c690c6deb9c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_EnemyHealth: {fileID: 0}
+  m_EnemyDeath: {fileID: 0}
+  m_EnemyType: 2
+  m_Score: 0
+  m_DefaultExplosion: 0
+  m_DefaultAudioClip: {fileID: 0}
+  m_Explosion: 
+  m_AudioClip: []
+--- !u!114 &3061002104077901386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765907377369463028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsDead: 0
+--- !u!114 &2539544195755880103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765907377369463028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 6594443677645485074}
+  m_ExplType: 5
+  m_ExplAudioType: -1
 --- !u!1 &1894428658847978831
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +471,8 @@ GameObject:
   - component: {fileID: 8989448250438833964}
   - component: {fileID: 579445898691065725}
   - component: {fileID: 5667442117550585716}
+  - component: {fileID: 9080709706137137727}
+  - component: {fileID: 5906733050014589650}
   m_Layer: 10
   m_Name: EnemyBoss5
   m_TagString: Untagged
@@ -476,13 +531,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 100000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 040000000500000006000000
@@ -491,22 +543,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   - {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   - {fileID: 8300000, guid: ace7f34e586dba844970439075790e1b, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 7122233041792260751}
   m_Core: {fileID: 1161593236161121628}
   m_Wings: {fileID: 8024313439898444883}
   m_WingsForAppearance: {fileID: 6161929909053796587}
-  m_WingMeshRenderers:
-  - {fileID: 1881203878595410234}
-  - {fileID: 2684349565713830948}
-  - {fileID: 6792104436027683928}
+  m_EnemyBoss5Wings:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_FirePosition: {fileID: 4975343088006806313}
   m_FirePositionsWing:
   - {fileID: 3476680720526473216}
   - {fileID: 8746116740752515704}
   - {fileID: 8808925658807472578}
+  m_NextPhaseExplosionCreater: {fileID: 9080709706137137727}
 --- !u!114 &8989448250438833964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &579445898691065725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,6 +598,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &9080709706137137727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626877864803362105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5667442117550585716}
+  m_JsonKey: EnemyBoss5_NextPhase
+  m_RunOnDying: 0
+--- !u!114 &5906733050014589650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626877864803362105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5667442117550585716}
+  m_JsonKey: EnemyBoss5
+  m_RunOnDying: 1
 --- !u!1 &3344154920020013677
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +920,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4568974255402004969}
+  - component: {fileID: 2026939687749254909}
+  - component: {fileID: 2440039974565747813}
+  - component: {fileID: 7377338095739092809}
   m_Layer: 10
   m_Name: Wing (1)
   m_TagString: Untagged
@@ -865,6 +946,56 @@ Transform:
   m_Father: {fileID: 643861111866822498}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2026939687749254909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551434637577192248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59fd930860836e4285c690c6deb9c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_EnemyHealth: {fileID: 0}
+  m_EnemyDeath: {fileID: 0}
+  m_EnemyType: 2
+  m_Score: 0
+  m_DefaultExplosion: 0
+  m_DefaultAudioClip: {fileID: 0}
+  m_Explosion: 
+  m_AudioClip: []
+--- !u!114 &2440039974565747813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551434637577192248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsDead: 0
+--- !u!114 &7377338095739092809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551434637577192248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 2440039974565747813}
+  m_ExplType: 5
+  m_ExplAudioType: -1
 --- !u!1 &4962172072019673638
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,6 +1005,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1064237322710129711}
+  - component: {fileID: 919856330169884490}
+  - component: {fileID: 6594443677645485074}
+  - component: {fileID: 7830397697415898975}
   m_Layer: 10
   m_Name: Wing (3)
   m_TagString: Untagged
@@ -897,6 +1031,56 @@ Transform:
   m_Father: {fileID: 643861111866822498}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -120}
+--- !u!114 &919856330169884490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962172072019673638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59fd930860836e4285c690c6deb9c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Position2D: {x: 0, y: 0}
+  m_CurrentAngle: 0
+  m_EnemyHealth: {fileID: 0}
+  m_EnemyDeath: {fileID: 0}
+  m_EnemyType: 2
+  m_Score: 0
+  m_DefaultExplosion: 0
+  m_DefaultAudioClip: {fileID: 0}
+  m_Explosion: 
+  m_AudioClip: []
+--- !u!114 &6594443677645485074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962172072019673638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsDead: 0
+--- !u!114 &7830397697415898975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962172072019673638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 6594443677645485074}
+  m_ExplType: 5
+  m_ExplAudioType: -1
 --- !u!1 &5079691988238516356
 GameObject:
   m_ObjectHideFlags: 0

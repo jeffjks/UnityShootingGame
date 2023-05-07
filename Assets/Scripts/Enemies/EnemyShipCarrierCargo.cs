@@ -4,8 +4,4 @@ using UnityEngine;
 
 public class EnemyShipCarrierCargo : EnemyUnit
 {
-    void Start()
-    {
-        m_UpdateTransform = false;
-    }
 }

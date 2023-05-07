@@ -41,6 +41,7 @@ public interface IRotatable
 
 
 
+
 // ================ 적 ================ //
 
 public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
@@ -68,7 +69,8 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
         Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
         Vector2 modified_pos = new Vector2(
             screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
-            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y);
+            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y
+            );
         return modified_pos;
     }
 
@@ -205,7 +207,7 @@ public abstract class PlayerObject : UnitObject
         //m_PositionInt2D = Vector2Int.RoundToInt(transform.position*256);
     }
     
-    protected void DealDamage(EnemyUnit enemyObject, int damage, sbyte damage_type = -1) {
+    protected void DealDamage(EnemyUnit enemyObject, int damage, PlayerDamageType damage_type = PlayerDamageType.Normal) {
         try {
             enemyObject.m_EnemyHealth.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_EnemyType] / 100, damage_type);
         }

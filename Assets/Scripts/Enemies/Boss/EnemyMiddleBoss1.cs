@@ -4,21 +4,21 @@ using UnityEngine;
 public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 {
     public EnemyMiddleBoss1Turret[] m_Turret = new EnemyMiddleBoss1Turret[2];
+    public Transform m_Rotator;
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
+
     private int m_Phase;
-    
     private Vector3 m_TargetPosition;
-    private Quaternion m_TargetQuaternion;
     private const int APPEARANCE_TIME = 2000;
     private const int TIME_LIMIT = 17000;
+    private const float ROLLING_ANGLE_MAX = 30f;
 
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
 
     void Start()
     {
-        m_UpdateTransform = false;
         m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);
-        m_TargetQuaternion = Quaternion.identity;
-        transform.rotation = Quaternion.Euler(0f, 36f, 20f);
+        m_Rotator.rotation = Quaternion.Euler(0f, 36f, 20f);
 
         DisableInteractableAll();
         
@@ -71,14 +71,14 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         Vector3 init_vector = transform.position;
-        Quaternion init_quarternion = transform.rotation;
+        Quaternion init_quarternion = m_Rotator.rotation;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
             transform.position = Vector3.Lerp(init_vector, m_TargetPosition, t_pos);
-            transform.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion, t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_quarternion, Quaternion.identity, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
         OnAppearanceComplete();
@@ -92,7 +92,6 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     public void OnAppearanceComplete() {
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
-        m_UpdateTransform = true;
         m_Phase = 1;
 
         m_CurrentPattern1 = PatternA(m_SystemManager.GetDifficulty());
@@ -106,11 +105,10 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME + time_limit);
         m_TimeLimitState = true;
-        m_UpdateTransform = false;
 
         int frame = 3500 * Application.targetFrameRate / 1000;
 
-        Quaternion init_quarternion = transform.rotation;
+        Quaternion init_quarternion = m_Rotator.rotation;
         float target_xspeed;
 
         if (Mathf.DeltaAngle(0f, m_MoveVector.direction) < 180f) {
@@ -125,7 +123,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
             float t_rot = (i+1) / frame;
             
             transform.Translate(new Vector3(Mathf.Lerp(0f, target_xspeed / Application.targetFrameRate, t_pos), 0f, 0f));
-            transform.rotation = Quaternion.Lerp(init_quarternion, Quaternion.Euler(0f, 30f, 0f), t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_quarternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
 
@@ -150,8 +148,11 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         m_Turret[0].StartPattern();
         m_Turret[1].StartPattern();
 
-        ExplosionEffect(2, -1, new Vector2(2f, 0f));
-        ExplosionEffect(2, 1, new Vector2(-2f, 0f));
+        NextPhaseExplosion();
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
 
     private IEnumerator PatternA(int difficulty) {
@@ -249,18 +250,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
         m_Phase = -1;
-
-        StartCoroutine(DeathExplosion1(1500));
-        StartCoroutine(DeathExplosion2(1500));
-
-        yield return new WaitForMillisecondFrames(1600);
-        ExplosionEffect(2, 2); // 최종 파괴
-        ExplosionEffect(0, -1, new Vector2(3f, 0f));
-        ExplosionEffect(0, -1, new Vector2(-3f, 0f));
-        ExplosionEffect(0, -1, new Vector2(0f, 2f));
-        ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -278,9 +268,9 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(200, 500);
             random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(0, 0, random_pos);
+            CreateExplosionEffect(0, 0, random_pos);
             random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(0, -1, random_pos);
+            CreateExplosionEffect(0, -1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -293,9 +283,9 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(400, 700);
             random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(1, 1, random_pos);
+            CreateExplosionEffect(1, 1, random_pos);
             random_pos = (Vector2) Random.insideUnitCircle * 2.5f;
-            ExplosionEffect(1, -1, random_pos);
+            CreateExplosionEffect(1, -1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

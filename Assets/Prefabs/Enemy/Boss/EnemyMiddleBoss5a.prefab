@@ -348,13 +348,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 1433835503573568786}
   m_Engine: {fileID: 8224979487976780532}
 --- !u!114 &130941298310000170
@@ -508,13 +505,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 7315138404752789924}
   m_Engine: {fileID: 552064749147534282}
 --- !u!114 &2180559297393885647
@@ -668,13 +662,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 4110174184765956700}
   m_Engine: {fileID: 5651210580512101998}
 --- !u!114 &2905015291714125477
@@ -828,13 +819,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 8750100009720944235}
   m_Engine: {fileID: 8229429719054029177}
 --- !u!114 &8714089075472327789
@@ -988,13 +976,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 2215795199871025905}
   m_Engine: {fileID: 6525869664458682481}
 --- !u!114 &1200425879223489663
@@ -1148,13 +1133,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 8402865314328902377}
   m_Engine: {fileID: 7524817519260449283}
 --- !u!114 &5084699909150798975
@@ -1308,13 +1290,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 2308859156474059023}
   m_Engine: {fileID: 2378610710514130012}
 --- !u!114 &8783451381051133850
@@ -1468,13 +1447,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 04000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
   m_Renderer: {fileID: 1607289933592711200}
   m_Engine: {fileID: 7401197519292741744}
 --- !u!114 &2193017007457302404
@@ -1625,13 +1601,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition: {fileID: 1444788518534740730}
   m_RotatePattern: 10
 --- !u!114 &4128822069944445729
@@ -1661,6 +1634,7 @@ GameObject:
   - component: {fileID: 963543929464101144}
   - component: {fileID: 7927978532329084971}
   - component: {fileID: 4594881256512531662}
+  - component: {fileID: 9175210826188414474}
   m_Layer: 10
   m_Name: EnemyMiddleBoss5a
   m_TagString: Untagged
@@ -1723,7 +1697,6 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 25000
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 050000000900000006000000
@@ -1731,8 +1704,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   - {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_MainTurret: {fileID: 8899105967141548953}
   m_Turret:
   - {fileID: 7566465114371849519}
@@ -1788,6 +1759,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &9175210826188414474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 4594881256512531662}
+  m_JsonKey: EnemyMiddleBoss5a
+  m_RunOnDying: 1
 --- !u!1 &100048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11568,13 +11554,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition:
   - {fileID: 6626880381667716888}
   - {fileID: 4628748407013359911}
@@ -36240,13 +36223,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_FirePosition:
   - {fileID: 3017209431804007154}
   - {fileID: 1246601882547752241}

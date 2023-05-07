@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 {
     public Transform[] m_FirePosition = new Transform[3];
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
+
     private int[] m_FireDelay = { 1150, 500, 300 };
-    
     private float m_Direction1, m_Direction2;
     private Vector2 m_TargetPosition;
     private int m_Phase;
@@ -104,15 +105,16 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
 
-        ExplosionEffect(1, 0, new Vector3(0f, 3f, 2.8f));
-        ExplosionEffect(0, -1, new Vector3(1.4f, 3f, 0.8f));
-        ExplosionEffect(0, -1, new Vector3(-1.4f, 3f, 0.8f));
-        ExplosionEffect(1, -1, new Vector3(0f, 3f, -1.2f));
-
         m_CurrentPattern1 = Pattern2A1();
         m_CurrentPattern2 = Pattern2A2();
         StartCoroutine(m_CurrentPattern1);
         StartCoroutine(m_CurrentPattern2);
+
+        NextPhaseExplosion();
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
 
     
@@ -323,20 +325,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector.speed = 0f;
         m_Phase = -1;
-
-        StartCoroutine(DeathExplosion1(1900));
-        StartCoroutine(DeathExplosion2(1900));
-
-        yield return new WaitForMillisecondFrames(2000);
-        ExplosionEffect(3, 3, new Vector3(0f, 3f, 5f)); // 최종 파괴
-        ExplosionEffect(2, -1, new Vector3(1.5f, 3f, 2f));
-        ExplosionEffect(2, -1, new Vector3(-1.5f, 3f, 2f));
-        ExplosionEffect(3, -1, new Vector3(0f, 3f, -1f));
-        ExplosionEffect(2, -1, new Vector3(1.5f, 3f, -4f));
-        ExplosionEffect(2, -1, new Vector3(-1.5f, 3f, -4f));
-        ExplosionEffect(3, -1, new Vector3(0f, 3f, -7f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -354,9 +343,9 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(200, 400);
             random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
-            ExplosionEffect(0, 2, random_pos);
+            CreateExplosionEffect(0, 2, random_pos);
             random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
-            ExplosionEffect(0, -1, random_pos);
+            CreateExplosionEffect(0, -1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -367,11 +356,11 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         int timer = 0, t_add = 0;
         Vector3 random_pos;
         while (timer < duration) {
-            t_add = Random.Range(4000, 7000);
+            t_add = Random.Range(400, 700);
             random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
-            ExplosionEffect(1, 1, random_pos);
+            CreateExplosionEffect(1, 1, random_pos);
             random_pos = new Vector3(Random.Range(-2.5f, 2.5f), 3f, Random.Range(-8f, 7f));
-            ExplosionEffect(1, -1, random_pos);
+            CreateExplosionEffect(1, -1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

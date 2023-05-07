@@ -60,12 +60,11 @@ public class EnemyTankLarge2 : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        ExplosionEffect(0, -1, new Vector3(-1.5f, 0f, 1f));
-        ExplosionEffect(0, -1, new Vector3(1.5f, 0f, 1f));
-        ExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.1f));
-        ExplosionEffect(0, -1, new Vector3(1.4f, 0f, -1.1f));
+        CreateExplosionEffect(0, -1, new Vector3(-1.5f, 0f, 1f));
+        CreateExplosionEffect(0, -1, new Vector3(1.5f, 0f, 1f));
+        CreateExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.1f));
+        CreateExplosionEffect(0, -1, new Vector3(1.4f, 0f, -1.1f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

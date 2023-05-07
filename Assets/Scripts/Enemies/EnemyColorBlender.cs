@@ -34,12 +34,7 @@ public class EnemyColorBlender : MonoBehaviour
 
     private void Update()
     {
-        if (m_DamagingBlendTimer > 0) {
-            m_DamagingBlendTimer--;
-        }
-        else {
-            SetColorChannel(ColorChannelLevel.DamagingState, false);
-        }
+        CountdownDamagingBlendEffectTimer();
     }
 
     private void OnEnable()
@@ -67,11 +62,14 @@ public class EnemyColorBlender : MonoBehaviour
             m_MaterialsAll[i] = meshRenderers[i].material;
         }
 
-        EnemyHealth[] enemyHealth = GetComponentsInChildren<EnemyHealth>();
-        for (int i = 0; i < enemyHealth.Length; ++i) {
-            if (enemyHealth[i].m_HealthType != HealthType.Share) { // ShareHealth가 아닐 경우 미포함
-                enemyHealth[i].gameObject.SetActive(false);
-                inactivatedGameObjects.Add(enemyHealth[i].gameObject); // 비활성화 오브젝트 목록 저장
+        EnemyHealth[] enemyHealths = GetComponentsInChildren<EnemyHealth>();
+        for (int i = 0; i < enemyHealths.Length; ++i) {
+            if (enemyHealths[i].transform == transform) { // 자기자신 제외
+                continue;
+            }
+            if (enemyHealths[i].m_HealthType != HealthType.Share) { // ShareHealth가 아닐 경우 미포함
+                enemyHealths[i].gameObject.SetActive(false);
+                inactivatedGameObjects.Add(enemyHealths[i].gameObject); // 비활성화 오브젝트 목록 저장
             }
         }
         
@@ -109,8 +107,20 @@ public class EnemyColorBlender : MonoBehaviour
 
     private void SetDamagingBlendEffectTimer() {
         m_DamagingBlendTimer = DAMAGING_BLEND_FRAME;
-        //ImageBlend(m_DamagingAlbedo);
         SetColorChannel(ColorChannelLevel.DamagingState, true);
+    }
+
+    private void CountdownDamagingBlendEffectTimer() {
+        if (m_DamagingBlendTimer > 0) {
+            m_DamagingBlendTimer--;
+        }
+        else {
+            return;
+        }
+
+        if (m_DamagingBlendTimer == 0) {
+            SetColorChannel(ColorChannelLevel.DamagingState, false);
+        }
     }
 
     private void StartLowHealthBlendEffect() {
@@ -132,7 +142,6 @@ public class EnemyColorBlender : MonoBehaviour
         if (m_LowHealthBlendEffect != null) {
             StopCoroutine(m_LowHealthBlendEffect);
         }
-        //ImageBlend(m_LowHealthAlbedo);
         SetColorChannel(ColorChannelLevel.LowHealthState, true);
     }
 

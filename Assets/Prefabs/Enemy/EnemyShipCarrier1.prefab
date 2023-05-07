@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1386633708750019361}
   - component: {fileID: 3851520786745407258}
   - component: {fileID: 5036429281607314849}
+  - component: {fileID: 403894686176737028}
   m_Layer: 12
   m_Name: EnemyShipCarrier1
   m_TagString: Untagged
@@ -72,13 +73,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 5000
-  m_Debris: 0
   m_DefaultExplosion: 8
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 050000000600000009000000
@@ -86,10 +84,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   - {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
   - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 7530292145792047302}
   m_FirePosition:
   - {fileID: 8600843656446972908}
   - {fileID: 1627735005470464450}
@@ -115,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &3851520786745407258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +139,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &403894686176737028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5036429281607314849}
+  m_JsonKey: EnemyShipCarrier
+  m_RunOnDying: 1
 --- !u!1 &304753266443773739
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +239,7 @@ GameObject:
   - component: {fileID: 4906176201639230784}
   - component: {fileID: 927479205129542794}
   - component: {fileID: 5068984236688004338}
+  - component: {fileID: 2200579995888412242}
   m_Layer: 11
   m_Name: EnemyHelicopter (1)
   m_TagString: Untagged
@@ -289,21 +298,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 5433659531096476103}
 --- !u!114 &4906176201639230784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &927479205129542794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +348,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &2200579995888412242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585318179780114316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5068984236688004338}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &682094867577990052
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +508,7 @@ GameObject:
   - component: {fileID: 3000987598553287627}
   - component: {fileID: 6099878226317609060}
   - component: {fileID: 7273369595855979581}
+  - component: {fileID: 5557048809717744944}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (2)
   m_TagString: Untagged
@@ -550,21 +567,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 5072523587418273590}
 --- !u!114 &3000987598553287627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &6099878226317609060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +617,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &5557048809717744944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953851255267076599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 7273369595855979581}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &958070308450450945
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +742,7 @@ GameObject:
   - component: {fileID: 3486761492386827219}
   - component: {fileID: 2834725098111628195}
   - component: {fileID: 3510468714110486856}
+  - component: {fileID: 1590793564321128523}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (3)
   m_TagString: Untagged
@@ -776,21 +801,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 1385021496966112610}
 --- !u!114 &3486761492386827219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,7 +821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &2834725098111628195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,6 +851,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &1590793564321128523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228048143187233325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 3510468714110486856}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &1378899526354185720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1796,7 @@ GameObject:
   - component: {fileID: 3976192573836631297}
   - component: {fileID: 922554202290435559}
   - component: {fileID: 6238011330765287056}
+  - component: {fileID: 2856701428026394807}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (1)
   m_TagString: Untagged
@@ -1822,21 +1855,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 1650716858753972313}
 --- !u!114 &3976192573836631297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1849,7 +1875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &922554202290435559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1880,6 +1905,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &2856701428026394807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3325382406784745485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 6238011330765287056}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &4085729612522455767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,6 +2135,7 @@ GameObject:
   - component: {fileID: 2426935661023589049}
   - component: {fileID: 746669952599841113}
   - component: {fileID: 6974024865813410587}
+  - component: {fileID: 8168956364294129749}
   m_Layer: 11
   m_Name: EnemyHelicopter (3)
   m_TagString: Untagged
@@ -2153,21 +2194,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 349424761819422866}
 --- !u!114 &2426935661023589049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2180,7 +2214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &746669952599841113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2211,6 +2244,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &8168956364294129749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4456860041893159554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 6974024865813410587}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &4759009957738583957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3073,6 +3121,7 @@ GameObject:
   - component: {fileID: 8379272075456722300}
   - component: {fileID: 6820479241615387138}
   - component: {fileID: 1201872739710998542}
+  - component: {fileID: 1032461058120324866}
   m_Layer: 11
   m_Name: EnemyHelicopter (2)
   m_TagString: Untagged
@@ -3131,21 +3180,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 7969953563956996022}
 --- !u!114 &8379272075456722300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3158,7 +3200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &6820479241615387138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3189,6 +3230,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &1032461058120324866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886961490967193770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 1201872739710998542}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &7122131320952026749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3365,6 +3421,7 @@ GameObject:
   - component: {fileID: 3935044799663393213}
   - component: {fileID: 4786918868752477252}
   - component: {fileID: 7978458616619827513}
+  - component: {fileID: 7678937569635908225}
   m_Layer: 11
   m_Name: EnemyHelicopter (4)
   m_TagString: Untagged
@@ -3423,21 +3480,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 4572607875431434519}
 --- !u!114 &3935044799663393213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3450,7 +3500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &4786918868752477252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3481,6 +3530,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &7678937569635908225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360655073418398111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 7978458616619827513}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &7511557456684220912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,6 +3738,7 @@ GameObject:
   - component: {fileID: 4143152549629123310}
   - component: {fileID: 4280481942603985029}
   - component: {fileID: 6180863432213751888}
+  - component: {fileID: 3976609082814040474}
   m_Layer: 11
   m_Name: EnemyPlaneSmall1 (4)
   m_TagString: Untagged
@@ -3732,21 +3797,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 258503854877788582}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_Debris: 0
   m_DefaultExplosion: 7
   m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 8300688331063428057}
 --- !u!114 &4143152549629123310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3759,7 +3817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &4280481942603985029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3790,6 +3847,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &3976609082814040474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655237631323507668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 6180863432213751888}
+  m_ExplType: 6
+  m_ExplAudioType: 2
 --- !u!1 &8000015583859297947
 GameObject:
   m_ObjectHideFlags: 0

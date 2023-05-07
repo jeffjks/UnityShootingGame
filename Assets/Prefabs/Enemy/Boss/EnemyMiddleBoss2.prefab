@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 5008286825400514406}
   - component: {fileID: 2086992599391477854}
   - component: {fileID: 3837575615890229735}
+  - component: {fileID: 1291753293729771185}
   m_Layer: 12
   m_Name: EnemyMiddleBoss2
   m_TagString: Untagged
@@ -393,6 +394,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 5008286825400514406}
   m_Debris: 2
+--- !u!114 &1291753293729771185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5008286825400514406}
+  m_JsonKey: EnemyMiddleBoss2
+  m_RunOnDying: 1
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +830,7 @@ GameObject:
   - component: {fileID: 3790133983894167632}
   - component: {fileID: 4574817231134468132}
   - component: {fileID: 2858088655854634424}
+  - component: {fileID: 3521022452340826322}
   m_Layer: 12
   m_Name: Turret0
   m_TagString: Untagged
@@ -906,6 +923,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &3521022452340826322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545381631926993588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 2858088655854634424}
+  m_ExplType: 2
+  m_ExplAudioType: 7
 --- !u!1 &2824968886963621582
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +1018,7 @@ GameObject:
   - component: {fileID: 5219776185344882156}
   - component: {fileID: 5831994808554573833}
   - component: {fileID: 3621604697863329020}
+  - component: {fileID: 8007411102155453716}
   m_Layer: 12
   m_Name: Turret1L
   m_TagString: Untagged
@@ -1075,6 +1108,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &8007411102155453716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395518430667097022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 3621604697863329020}
+  m_ExplType: 1
+  m_ExplAudioType: 3
 --- !u!1 &3832976421403862440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +1971,7 @@ GameObject:
   - component: {fileID: 2502074007988769016}
   - component: {fileID: 9103683087662249281}
   - component: {fileID: 5640588887376963424}
+  - component: {fileID: 471486785216962509}
   m_Layer: 12
   m_Name: Turret1R
   m_TagString: Untagged
@@ -2012,6 +2061,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &471486785216962509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878870391804837293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5640588887376963424}
+  m_ExplType: 1
+  m_ExplAudioType: 3
 --- !u!1 &8999116357584057117
 GameObject:
   m_ObjectHideFlags: 0

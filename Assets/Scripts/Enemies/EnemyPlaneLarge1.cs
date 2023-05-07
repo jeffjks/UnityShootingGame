@@ -7,6 +7,8 @@ public class EnemyPlaneLarge1 : EnemyUnit
     public GameObject[] m_Part = new GameObject[2];
     public EnemyPlaneLarge1Turret[] m_Turret = new EnemyPlaneLarge1Turret[2];
     public Transform m_FirePosition;
+    public Transform m_Rotator;
+
     private int[] m_FireDelay1 = { 1600, 800, 600 };
     private int[] m_FireDelay2 = { 1500, 1000, 800 };
     
@@ -14,13 +16,13 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private IEnumerator m_TimeLimit;
     private const int APPEARANCE_TIME = 2800;
     private const int TIME_LIMIT = 20000;
+    private const float ROLLING_ANGLE_MAX = 30f;
     private Vector3 m_TargetPosition;
     private int m_Phase;
 
     void Start ()
     {
-        m_UpdateTransform = false;
-        transform.rotation = Quaternion.Euler(0f, 30f, 0f);
+        m_Rotator.rotation = Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f);
         m_TargetPosition = new Vector3(0f, -5.2f, Depth.ENEMY);
 
         DisableInteractableAll();
@@ -35,7 +37,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     public IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
-        Quaternion init_rotation = transform.rotation;
+        Quaternion init_rotation = m_Rotator.rotation;
         Quaternion target_rotation = Quaternion.identity;
 
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
@@ -45,7 +47,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
             transform.position = Vector3.Lerp(init_position, m_TargetPosition, t_pos);
-            transform.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
 
@@ -54,7 +56,6 @@ public class EnemyPlaneLarge1 : EnemyUnit
     }
 
     public void OnAppearanceComplete() {
-        m_UpdateTransform = true;
         m_Phase = 1;
 
         m_CurrentPattern1 = PatternA();
@@ -69,13 +70,12 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        m_UpdateTransform = false;
         m_MoveVector.direction = -90f;
 
         float init_speed = m_MoveVector.speed;
-        Quaternion init_rotation = transform.rotation;
+        Quaternion init_rotation = m_Rotator.rotation;
         float target_speed = 7f;
-        Quaternion target_rotation = Quaternion.Euler(0f, 30f, 0f);
+        Quaternion target_rotation = Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f);
         int frame = 2000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
@@ -83,7 +83,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_speed, target_speed, t_spd);
-            transform.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
         yield break;
@@ -237,32 +237,9 @@ public class EnemyPlaneLarge1 : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        int timer = 0, random_timer = 0;
-        Vector2 random_pos1, random_pos2, random_pos3;
         m_MoveVector = new MoveVector(1.2f, 0f);
         m_Phase = -1;
-
-        while (timer < 600) {
-            random_timer = Random.Range(100, 150);
-            random_pos1 = Random.insideUnitCircle * 2;
-            random_pos2 = Random.insideUnitCircle * 1.5f;
-            random_pos3 = Random.insideUnitCircle * 2f;
-            ExplosionEffect(1, 0, new Vector2(0f, 3f) + random_pos1);
-            ExplosionEffect(1, -1, new Vector2(0f, -1.8f) + random_pos2);
-            ExplosionEffect(3, -1, new Vector2(0f, -0f) + random_pos3);
-            yield return new WaitForMillisecondFrames(random_timer);
-            timer += random_timer;
-        }
-        ExplosionEffect(0, 1, new Vector2(0f, 0f));
-        ExplosionEffect(1, -1, new Vector2(1.5f, 3.5f));
-        ExplosionEffect(1, -1, new Vector2(-1.5f, 3.5f));
-        ExplosionEffect(1, -1, new Vector2(2f, 0f));
-        ExplosionEffect(1, -1, new Vector2(-2f, 0f));
-        ExplosionEffect(1, -1, new Vector2(0f, -1.8f));
-        ExplosionEffect(2, -1, new Vector2(2f, -4.5f));
-        ExplosionEffect(2, -1, new Vector2(-2f, -4.5f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 }

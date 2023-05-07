@@ -20,6 +20,7 @@ public class EnemyBoss1Part : EnemyUnit
     protected override void Update()
     {
         base.Update();
+        
         StateAnimation();
     }
 

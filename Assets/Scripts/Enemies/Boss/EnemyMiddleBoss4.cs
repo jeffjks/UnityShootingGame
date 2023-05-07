@@ -6,8 +6,9 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     public EnemyMiddleBoss4Turret1 m_Turret1;
     public EnemyMiddleBoss4Turret2 m_Turret2;
     public EnemyMiddleBoss4Part[] m_Part = new EnemyMiddleBoss4Part[2];
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
+
     private int m_Phase;
-    
     private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 40000;
@@ -17,7 +18,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
     void Start()
     {
-        m_UpdateTransform = false;
         m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);
 
         DisableInteractableAll();
@@ -82,7 +82,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     public void OnAppearanceComplete() {
         float[] random_direction = { 80f, 100f, -80f, -100f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
-        m_UpdateTransform = true;
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
@@ -97,7 +96,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        m_UpdateTransform = false;
         m_MoveVector = new MoveVector(0f, 0f);
 
         int frame = 4000 * Application.targetFrameRate / 1000;
@@ -126,12 +124,11 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
 
-        ExplosionEffect(2, 2, new Vector2(0f, -1.4f));
-        ExplosionEffect(2, -1, new Vector2(0f, 1.6f));
-        ExplosionEffect(1, -1, new Vector2(0.6f, 0.9f) + Random.insideUnitCircle * 0.15f, new MoveVector(4.5f, Random.Range(100f, 170f)));
-        ExplosionEffect(1, -1, new Vector2(-0.6f, 0.9f) + Random.insideUnitCircle * 0.15f, new MoveVector(4.5f, Random.Range(190f, 260f)));
-        ExplosionEffect(1, -1, new Vector2(0.6f, -0.9f) + Random.insideUnitCircle * 0.15f, new MoveVector(4.5f, Random.Range(10f, 80f)));
-        ExplosionEffect(1, -1, new Vector2(-0.6f, -0.9f) + Random.insideUnitCircle * 0.15f, new MoveVector(4.5f, Random.Range(280f, 350f)));
+        NextPhaseExplosion();
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
 
     private IEnumerator SubPattern() { // 서브 패턴 ============================
@@ -499,18 +496,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1.4f, 0f);
         m_Phase = -1;
-
-        StartCoroutine(DeathExplosion1(1500));
-        StartCoroutine(DeathExplosion2(1500));
-
-        yield return new WaitForMillisecondFrames(2000);
-        ExplosionEffect(2, 2); // 최종 파괴
-        ExplosionEffect(0, -1, new Vector2(3f, 0f));
-        ExplosionEffect(0, -1, new Vector2(-3f, 0f));
-        ExplosionEffect(0, -1, new Vector2(0f, 2f));
-        ExplosionEffect(0, -1, new Vector2(0f, -1.5f));
         
-        m_EnemyDeath.OnDeath();
         yield break;
     }
 
@@ -528,7 +514,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(200, 400);
             random_pos = new Vector2(Random.Range(-1.3f, 1.3f), Random.Range(-1.8f, 2.4f));
-            ExplosionEffect(0, 0, random_pos);
+            CreateExplosionEffect(0, 0, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }
@@ -541,7 +527,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         while (timer < duration) {
             t_add = Random.Range(500, 800);
             random_pos = new Vector2(Random.Range(-1.3f, 1.3f), Random.Range(-1.8f, 2.4f));
-            ExplosionEffect(1, 1, random_pos);
+            CreateExplosionEffect(1, 1, random_pos);
             timer += t_add;
             yield return new WaitForMillisecondFrames(t_add);
         }

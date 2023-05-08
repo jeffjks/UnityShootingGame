@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 5962672780895046278}
   - component: {fileID: 2726026014436905523}
   - component: {fileID: 1325112521228556014}
+  - component: {fileID: 749316425527327426}
   m_Layer: 12
   m_Name: EnemyTankMedium3
   m_TagString: Untagged
@@ -390,6 +391,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 2726026014436905523}
   m_Debris: 1
+--- !u!114 &749316425527327426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 2726026014436905523}
+  m_ExplType: 1
+  m_ExplAudioType: 7
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0

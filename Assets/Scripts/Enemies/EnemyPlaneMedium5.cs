@@ -68,11 +68,4 @@ public class EnemyPlaneMedium5 : EnemyUnit
         
         RotateImmediately(m_MoveVector.direction);
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector2(0f, 1.5f));
-        CreateExplosionEffect(0, -1, new Vector2(0f, -2f));
-        
-        yield break;
-    }
 }

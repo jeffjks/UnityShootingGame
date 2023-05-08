@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 7427637404073788237}
   - component: {fileID: -9006219818572558183}
   - component: {fileID: 8508359340573330040}
+  - component: {fileID: 8331052212219506326}
   m_Layer: 12
   m_Name: EnemyTankSmall3
   m_TagString: Untagged
@@ -574,6 +575,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 7427637404073788237}
   m_Debris: 0
+--- !u!114 &8331052212219506326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 7427637404073788237}
+  m_ExplType: 0
+  m_ExplAudioType: 3
 --- !u!1 &1128771067269315507
 GameObject:
   m_ObjectHideFlags: 0

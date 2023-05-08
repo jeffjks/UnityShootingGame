@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 7316864091636520902}
   - component: {fileID: 2056113527640944080}
   - component: {fileID: 2466426118405240203}
+  - component: {fileID: 3020940777340951369}
   m_Layer: 10
   m_Name: EnemyItemHeli2
   m_TagString: Enemy
@@ -444,13 +445,10 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 300
-  m_Debris: 0
   m_DefaultExplosion: 4
   m_DefaultAudioClip: {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 100002, guid: 0c16c65c625a7de4b9d7f5ef58e52c65, type: 3}
-  m_GemNumber: 0
   m_FanL: {fileID: 1061564729087060}
   m_FanR: {fileID: 1327838167947842}
   m_FanB: {fileID: 1018867442816964}
@@ -515,6 +513,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 2056113527640944080}
   m_ItemBox: {fileID: 100002, guid: 0c16c65c625a7de4b9d7f5ef58e52c65, type: 3}
   m_GemNumber: 0
+--- !u!114 &3020940777340951369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346843116527648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 2056113527640944080}
+  m_ExplType: 3
+  m_ExplAudioType: 0
 --- !u!1 &1832351585782812
 GameObject:
   m_ObjectHideFlags: 0

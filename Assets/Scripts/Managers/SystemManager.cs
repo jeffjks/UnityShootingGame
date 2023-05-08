@@ -13,7 +13,7 @@ public class SystemManager : MonoBehaviour
     public MainCamera m_MainCamera;
     public BossHealthBarHandler m_BossHealthBar;
     public OverviewHandler m_OverviewHandler;
-    public TextUI_GameType m_TextUI_GameType;
+    public TextUI_GameMode m_TextUI_GameMode;
     public PlayerManager m_PlayerManager;
 
     [SerializeField] private Text m_ScoreNuberText = null;
@@ -30,7 +30,7 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public int m_BulletsEraseTimer;
 
     [HideInInspector] public int m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
-    [HideInInspector] public GameType m_GameType;
+    [HideInInspector] public GameMode m_GameMode;
     [HideInInspector] public int m_UsedCost;
     [HideInInspector] public TrainingInfo m_TrainingInfo;
     
@@ -78,7 +78,7 @@ public class SystemManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         CreateTransition();
 
-        m_TextUI_GameType.FadeEffect();
+        m_TextUI_GameMode.FadeEffect();
         
         m_PlayerManager.Init();
 
@@ -96,7 +96,7 @@ public class SystemManager : MonoBehaviour
         Action_OnEnableSystemManager?.Invoke();
         
         UpdateBombNumber();
-        m_TextUI_GameType.UpdateGameTypeText(m_GameType);
+        m_TextUI_GameMode.UpdateGameModeText(m_GameMode);
         
         UpdateScore();
     }
@@ -261,7 +261,7 @@ public class SystemManager : MonoBehaviour
         ScreenEffect(3); // FadeIn
         yield return new WaitForMillisecondFrames(2000);
 
-        if (m_GameType == GameType.GAMETYPE_TRAINING && !m_GameManager.m_InvincibleMod) {
+        if (m_GameMode == GameMode.GAMEMODE_TRAINING && !m_GameManager.m_InvincibleMod) {
             QuitGame();
         }
         else {
@@ -576,7 +576,7 @@ public class SystemManager : MonoBehaviour
 
     public bool SpawnAtSpawnPointCondition() {
         if (GetCurrentStage() == 0) {
-            if (m_GameType == GameType.GAMETYPE_TRAINING) {
+            if (m_GameMode == GameMode.GAMEMODE_TRAINING) {
                 if (m_TrainingInfo.m_BossOnly) {
                     return false;
                 }

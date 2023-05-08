@@ -64,7 +64,7 @@ public class PlayerController : PlayerUnit
     void Update()
     {
         if (m_PlayerManager.m_PlayerControlable) {
-            if (m_SystemManager.m_GameType != GameType.GAMETYPE_REPLAY) {
+            if (m_SystemManager.m_GameMode != GameMode.GAMEMODE_REPLAY) {
                 m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
                 m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
             }

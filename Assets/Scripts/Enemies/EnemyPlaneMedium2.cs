@@ -163,12 +163,4 @@ public class EnemyPlaneMedium2 : EnemyUnit
         pos3 = m_FirePosition[3].position;
         pos4 = m_FirePosition[4].position;
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector2(1.4f, 0.6f));
-        CreateExplosionEffect(0, -1, new Vector2(-1.4f, 0.6f));
-        CreateExplosionEffect(0, -1, new Vector2(0f, -1.3f));
-        
-        yield break;
-    }
 }

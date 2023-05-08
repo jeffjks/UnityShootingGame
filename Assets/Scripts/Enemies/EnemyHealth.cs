@@ -94,10 +94,11 @@ public class EnemyHealth : MonoBehaviour
         if (damage_type == PlayerDamageType.Normal) {
             return false;
         }
-        if (m_IsTakingDamage[damage_type]) {
-            return true;
+        
+        if (m_IsTakingDamage.TryGetValue(damage_type, out bool result)) {
+            return result;
         }
-        m_IsTakingDamage[damage_type] = true;
+        m_IsTakingDamage.Add(damage_type, true);
         return false;
     }
 

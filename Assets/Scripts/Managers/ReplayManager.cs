@@ -35,7 +35,7 @@ public class ReplayManager : MonoBehaviour
 
         if (m_Activate) {
             try {
-                if (m_SystemManager.m_GameType == GameType.GAMETYPE_REPLAY) { // 리플레이 (파일 읽기)
+                if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이 (파일 읽기)
                     m_FilePath = m_GameManager.m_ReplayDirectory + "replay" + m_GameManager.m_ReplayNum + ".rep";
 
                     if (System.IO.File.Exists(m_FilePath)) {
@@ -93,7 +93,7 @@ public class ReplayManager : MonoBehaviour
         
         
         if (m_PlayerShooter.gameObject.activeInHierarchy) {
-            if (m_SystemManager.m_GameType == GameType.GAMETYPE_REPLAY) { // 리플레이
+            if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이
                 ReadUserInput();
                 m_PlayerShooter.PlayerShooterBehaviour();
             }

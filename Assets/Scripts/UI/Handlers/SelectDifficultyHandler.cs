@@ -27,7 +27,7 @@ public class SelectDifficultyHandler : GameUI
 
     private void SelectDifficulty(int difficulty) {
         m_SystemManager.SetDifficulty(difficulty);
-        m_SystemManager.m_GameType = GameType.GAMETYPE_NORMAL;
+        m_SystemManager.m_GameMode = GameMode.GAMEMODE_NORMAL;
         
         m_PlayerPreview.SetActive(true);
         m_SelectAttributesMenu.SetActive(true);

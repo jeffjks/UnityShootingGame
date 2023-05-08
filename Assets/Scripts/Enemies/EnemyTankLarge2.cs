@@ -58,13 +58,4 @@ public class EnemyTankLarge2 : EnemyUnit
             yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector3(-1.5f, 0f, 1f));
-        CreateExplosionEffect(0, -1, new Vector3(1.5f, 0f, 1f));
-        CreateExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.1f));
-        CreateExplosionEffect(0, -1, new Vector3(1.4f, 0f, -1.1f));
-        
-        yield break;
-    }
 }

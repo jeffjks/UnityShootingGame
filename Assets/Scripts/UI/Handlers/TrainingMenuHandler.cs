@@ -133,7 +133,7 @@ public class TrainingMenuHandler : GameUI
     }
 
     private void TrainingStart() {
-        m_SystemManager.m_GameType = GameType.GAMETYPE_TRAINING;
+        m_SystemManager.m_GameMode = GameMode.GAMEMODE_TRAINING;
         m_SystemManager.m_TrainingInfo = m_TrainingInfo;
         m_SystemManager.SetDifficulty(m_TrainingInfo.m_Difficulty);
         

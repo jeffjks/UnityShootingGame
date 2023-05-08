@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5117365138498627068}
   - component: {fileID: 5036429281607314849}
   - component: {fileID: 5441479397995938923}
+  - component: {fileID: 6075543103812785141}
   m_Layer: 11
   m_Name: EnemyTankSmall1
   m_TagString: Untagged
@@ -139,6 +140,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 5036429281607314849}
   m_Debris: 0
+--- !u!114 &6075543103812785141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5036429281607314849}
+  m_ExplType: 0
+  m_ExplAudioType: 4
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +648,7 @@ GameObject:
   - component: {fileID: 1666556070501394991}
   - component: {fileID: 6949044101867533789}
   - component: {fileID: 3450285929430402525}
+  - component: {fileID: 4032332817488101324}
   m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
@@ -691,6 +708,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &4032332817488101324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871773345497720875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 3450285929430402525}
+  m_ExplType: 6
+  m_ExplAudioType: -1
 --- !u!1 &7733857090866168623
 GameObject:
   m_ObjectHideFlags: 0

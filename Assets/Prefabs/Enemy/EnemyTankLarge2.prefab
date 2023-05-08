@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 8502280800643667659}
   - component: {fileID: 7427637404073788237}
   - component: {fileID: 2947130230750901578}
+  - component: {fileID: 4594959551401288983}
   m_Layer: 12
   m_Name: EnemyTankLarge2
   m_TagString: Untagged
@@ -475,6 +476,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 7427637404073788237}
   m_Debris: 2
+--- !u!114 &4594959551401288983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 7427637404073788237}
+  m_JsonKey: EnemyTankLarge2
+  m_RunOnDying: 1
 --- !u!1 &36343646346909390
 GameObject:
   m_ObjectHideFlags: 0

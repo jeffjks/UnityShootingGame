@@ -64,13 +64,6 @@ public class EnemyPlaneLarge2 : EnemyUnit
                 m_Turret[i].m_EnemyDeath.OnDying();
         }
         m_SystemManager.EraseBullets(1000);
-
-        CreateExplosionEffect(0, -1, new Vector2(-1.5f, 2.5f));
-        CreateExplosionEffect(1, -1, new Vector2(0f, 2.5f));
-        CreateExplosionEffect(0, -1, new Vector2(1.5f, 2.5f));
-        CreateExplosionEffect(0, -1, new Vector2(-1.5f, -3.8f));
-        CreateExplosionEffect(1, -1, new Vector2(0f, -3.8f));
-        CreateExplosionEffect(0, -1, new Vector2(1.5f, -3.8f));
         
         yield break;
     }

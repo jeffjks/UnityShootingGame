@@ -48,20 +48,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 3119006708911008031}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D: []
   m_FirePosition: {fileID: 3891070898566310485}
 --- !u!114 &4450760002710729640
 MonoBehaviour:
@@ -342,6 +336,7 @@ GameObject:
   - component: {fileID: 8658448493426141965}
   - component: {fileID: 1590131941867071201}
   - component: {fileID: 5008286825400514406}
+  - component: {fileID: 3513121799443448878}
   m_Layer: 11
   m_Name: EnemyShipSmall1
   m_TagString: Untagged
@@ -400,21 +395,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 120
-  m_Debris: 0
   m_DefaultExplosion: 1
   m_DefaultAudioClip: {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 8920584163489584900}
 --- !u!114 &8658448493426141965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &1590131941867071201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +445,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &3513121799443448878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5008286825400514406}
+  m_ExplType: 0
+  m_ExplAudioType: 4
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0

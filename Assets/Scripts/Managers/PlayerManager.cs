@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour
         m_PlayerShooter = m_Player.GetComponentInChildren<PlayerShooter>();
         m_PlayerController = m_Player.GetComponentInChildren<PlayerController>();
 
-        if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING) {
+        if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_TRAINING) {
             int power;
             switch (m_SystemManager.GetCurrentStage()) {
                 case 0:

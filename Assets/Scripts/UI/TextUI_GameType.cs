@@ -4,31 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class TextUI_GameType : MonoBehaviour
+public class TextUI_GameMode : MonoBehaviour
 {
-    public Text m_GameTypeText;
+    public Text m_GameModeText;
     private Sequence m_Sequence;
     
     public void FadeEffect() {
         m_Sequence = DOTween.Sequence()
-        .Append(m_GameTypeText.DOFade(0f, 0.6f))
-        .Append(m_GameTypeText.DOFade(1f, 0.2f))
+        .Append(m_GameModeText.DOFade(0f, 0.6f))
+        .Append(m_GameModeText.DOFade(1f, 0.2f))
         .SetEase(Ease.Linear)
         .SetLoops(-1);
     }
 
-    public void UpdateGameTypeText(GameType gameType) {
-        if (gameType == GameType.GAMETYPE_NORMAL) {
-            m_GameTypeText.gameObject.SetActive(false);
+    public void UpdateGameModeText(GameMode gameType) {
+        if (gameType == GameMode.GAMEMODE_NORMAL) {
+            m_GameModeText.gameObject.SetActive(false);
         }
         else {
-            if (gameType == GameType.GAMETYPE_TRAINING) {
-                m_GameTypeText.text = "TRAINING";
+            if (gameType == GameMode.GAMEMODE_TRAINING) {
+                m_GameModeText.text = "TRAINING";
             }
-            else if (gameType == GameType.GAMETYPE_REPLAY) {
-                m_GameTypeText.text = "REPLAY";
+            else if (gameType == GameMode.GAMEMODE_REPLAY) {
+                m_GameModeText.text = "REPLAY";
             }
-            m_GameTypeText.gameObject.SetActive(true);
+            m_GameModeText.gameObject.SetActive(true);
         }
     }
 }

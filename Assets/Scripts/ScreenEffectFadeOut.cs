@@ -25,7 +25,7 @@ public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효�
         }
         else {
             m_MainMenuMusicController.StopAllMusic();
-            if (m_SystemManager.m_GameType == GameType.GAMETYPE_TRAINING) {
+            if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_TRAINING) {
                 SceneManager.LoadScene("Stage" + (m_SystemManager.m_TrainingInfo.m_Stage + 1));
             }
             else {

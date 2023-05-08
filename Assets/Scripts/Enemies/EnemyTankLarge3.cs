@@ -37,13 +37,4 @@ public class EnemyTankLarge3 : EnemyUnit
             }
         }
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector3(-1.4f, 0f, -1.4f));
-        CreateExplosionEffect(0, -1, new Vector3(1.4f, 0f, -1.4f));
-        CreateExplosionEffect(0, -1, new Vector3(-1.4f, 0f, 1.4f));
-        CreateExplosionEffect(0, -1, new Vector3(1.4f, 0f, 1.4f));
-        
-        yield break;
-    }
 }

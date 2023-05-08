@@ -935,20 +935,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 2563803976030731554}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D: []
   m_FirePosition: {fileID: 4538746463223771363}
 --- !u!114 &1499310381098499890
 MonoBehaviour:
@@ -978,6 +972,7 @@ GameObject:
   - component: {fileID: 8288380888511264079}
   - component: {fileID: 4187536776169725285}
   - component: {fileID: 8815127729404513221}
+  - component: {fileID: 2236400823119758669}
   m_Layer: 10
   m_Name: EnemyPlaneLarge3
   m_TagString: Enemy
@@ -1067,21 +1062,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1500
-  m_Debris: 0
   m_DefaultExplosion: 5
   m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
   m_Explosion: 0500000004000000
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
-  m_Collider2D:
-  - {fileID: 1190137795198671516}
   m_Turret: {fileID: 2721401565013210851}
   m_FirePosition:
   - {fileID: 1901432298335677782}
@@ -1098,7 +1086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0d46d076abd148927580abcc50a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyHealth: {fileID: 0}
 --- !u!114 &4187536776169725285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1129,6 +1116,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &2236400823119758669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 8815127729404513221}
+  m_JsonKey: EnemyPlaneLarge3
+  m_RunOnDying: 1
 --- !u!1 &871587460142201470
 GameObject:
   m_ObjectHideFlags: 0

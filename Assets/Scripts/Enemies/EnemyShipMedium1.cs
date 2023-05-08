@@ -58,10 +58,4 @@ public class EnemyShipMedium1 : EnemyUnit
             yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector3(0f, 0f, -1.8f));
-        
-        yield break;
-    }
 }

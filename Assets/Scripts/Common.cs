@@ -61,11 +61,11 @@ public static class Difficulty
     public const int HELL = 2;
 }
 
-public enum GameType
+public enum GameMode
 {
-    GAMETYPE_NORMAL = 0,
-    GAMETYPE_TRAINING = 1,
-    GAMETYPE_REPLAY = 2
+    GAMEMODE_NORMAL = 0,
+    GAMEMODE_TRAINING = 1,
+    GAMEMODE_REPLAY = 2
 }
 
 public enum DebugDifficulty
@@ -263,14 +263,14 @@ public class Effect {
     public ExplAudioType explAudioType;
     public JVector3 position;
     public float radius;
-    public float[] speed;
-    public float[] direction;
+    public PairFloat speed;
+    public PairFloat direction;
 
     public Effect() {
         this.position = new JVector3(Vector3.zero);
         this.radius = 0f;
-        this.speed = new float[2] { 0f, 0f };
-        this.direction = new float[2] { 0f, 0f };
+        this.speed = new PairFloat(0f);
+        this.direction = new PairFloat(0f);
     }
 
     public Effect(ExplType explType, ExplAudioType explAudioType) {
@@ -278,8 +278,8 @@ public class Effect {
         this.explAudioType = explAudioType;
         this.position = new JVector3(Vector3.zero);
         this.radius = 0f;
-        this.speed = new float[2] { 0f, 0f };
-        this.direction = new float[2] { 0f, 0f };
+        this.speed = new PairFloat(0f);
+        this.direction = new PairFloat(0f);
     }
 
     public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position) {
@@ -287,8 +287,8 @@ public class Effect {
         this.explAudioType = explAudioType;
         this.position = new JVector3(position);
         this.radius = 0f;
-        this.speed = new float[2] { 0f, 0f };
-        this.direction = new float[2] { 0f, 0f };
+        this.speed = new PairFloat(0f);
+        this.direction = new PairFloat(0f);
     }
 
     public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position, MoveVector moveVector) {
@@ -296,11 +296,11 @@ public class Effect {
         this.explAudioType = explAudioType;
         this.position = new JVector3(position);
         this.radius = 0f;
-        this.speed = new float[2] { moveVector.speed, moveVector.speed };
-        this.direction = new float[2] { moveVector.direction, moveVector.direction };
+        this.speed = new PairFloat(moveVector.speed);
+        this.direction = new PairFloat(moveVector.direction);
     }
 
-    public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position, float[] speed, float[] direction) {
+    public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position, PairFloat speed, PairFloat direction) {
         this.explType = explType;
         this.explAudioType = explAudioType;
         this.position = new JVector3(position);
@@ -314,8 +314,8 @@ public class Effect {
         this.explAudioType = explAudioType;
         this.position = new JVector3(position);
         this.radius = radius;
-        this.speed = new float[2] { 0f, 0f };
-        this.direction = new float[2] { 0f, 0f };
+        this.speed = new PairFloat(0f);
+        this.direction = new PairFloat(0f);
     }
 
     public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position, float radius, MoveVector moveVector) {
@@ -323,11 +323,11 @@ public class Effect {
         this.explAudioType = explAudioType;
         this.position = new JVector3(position);
         this.radius = radius;
-        this.speed = new float[2] { moveVector.speed, moveVector.speed };
-        this.direction = new float[2] { moveVector.direction, moveVector.direction };
+        this.speed = new PairFloat(moveVector.speed);
+        this.direction = new PairFloat(moveVector.direction);
     }
 
-    public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position, float radius, float[] speed, float[] direction) {
+    public Effect(ExplType explType, ExplAudioType explAudioType, Vector3 position, float radius, PairFloat speed, PairFloat direction) {
         this.explType = explType;
         this.explAudioType = explAudioType;
         this.position = new JVector3(position);
@@ -339,22 +339,22 @@ public class Effect {
 
 public class Coroutine {
     public int duration;
-    public int[] timer_add;
+    public PairInt timer_add;
     public int number;
 
     public Coroutine() {
         this.duration = 0;
-        this.timer_add = new int[] { 0, 0 };
+        this.timer_add = new PairInt(0);
         this.number = 0;
     }
 
     public Coroutine(int duration, int timer_add, int number) {
         this.duration = duration;
-        this.timer_add = new int[] { timer_add, timer_add };
+        this.timer_add = new PairInt(timer_add);
         this.number = number;
     }
 
-    public Coroutine(int duration, int[] timer_add, int number) {
+    public Coroutine(int duration, PairInt timer_add, int number) {
         this.duration = duration;
         this.timer_add = timer_add;
         this.number = number;
@@ -371,5 +371,41 @@ public struct ExplosionData {
         this.effect = effect;
         this.coroutine = coroutine;
         this.waitAfter = waitAfter;
+    }
+}
+
+public struct PairInt {
+    public Vector2Int vec;
+
+    public PairInt(int value) {
+        vec = new Vector2Int(value, value);
+    }
+
+    public PairInt(int value1, int value2) {
+        vec = new Vector2Int(value1, value2);
+    }
+
+    public int this[int index] {
+        get {
+            return vec[index];
+        }
+    }
+}
+
+public struct PairFloat {
+    public Vector2 vec;
+
+    public PairFloat(float value) {
+        vec = new Vector2(value, value);
+    }
+
+    public PairFloat(float value1, float value2) {
+        vec = new Vector2(value1, value2);
+    }
+
+    public float this[int index] {
+        get {
+            return vec[index];
+        }
     }
 }

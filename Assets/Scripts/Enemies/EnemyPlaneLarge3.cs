@@ -117,20 +117,4 @@ public class EnemyPlaneLarge3 : EnemyUnit
         }
         yield break;
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        float random = Random.Range(0f, 360f);
-        CreateExplosionEffect(0, -1, new Vector2(0.8f, 0.24f));
-        CreateExplosionEffect(0, -1, new Vector2(-0.8f, 0.24f));
-        CreateExplosionEffect(1, -1, new Vector2(0.2f, 0.36f), new MoveVector(Random.Range(1.4f, 2f), 45f));
-        CreateExplosionEffect(1, -1, new Vector2(-0.2f, 0.36f), new MoveVector(Random.Range(1.4f, 2f), -45f));
-        CreateExplosionEffect(1, -1, new Vector2(0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random));
-        CreateExplosionEffect(1, -1, new Vector2(0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random + 120f));
-        CreateExplosionEffect(1, -1, new Vector2(0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random + 240f));
-        CreateExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random));
-        CreateExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random - 120f));
-        CreateExplosionEffect(1, -1, new Vector2(-0.8f, 0.24f), new MoveVector(Random.Range(2f, 2.35f), random - 240f));
-        
-        yield break;
-    }
 }

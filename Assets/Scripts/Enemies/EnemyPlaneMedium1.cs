@@ -146,11 +146,4 @@ public class EnemyPlaneMedium1 : EnemyUnit
         pos2 = m_FirePosition[2].position;
         target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector2(2f, 0f));
-        CreateExplosionEffect(0, -1, new Vector2(-2f, 0f));
-        
-        yield break;
-    }
 }

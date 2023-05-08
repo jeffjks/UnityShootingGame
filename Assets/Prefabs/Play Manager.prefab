@@ -888,7 +888,7 @@ MonoBehaviour:
   m_MainCamera: {fileID: 5824299594861438883}
   m_BossHealthBar: {fileID: 5824299596427968521}
   m_OverviewHandler: {fileID: 5824299595459288743}
-  m_TextUI_GameType: {fileID: 821671048954703511}
+  m_TextUI_GameMode: {fileID: 821671048954703511}
   m_PlayerManager: {fileID: 5824299595195028251}
   m_ScoreNuberText: {fileID: 5824299595933309618}
   m_DifficultyText: {fileID: 5824299596817021783}
@@ -903,7 +903,7 @@ MonoBehaviour:
   BulletsSortingLayer: 0
   m_BulletsEraseTimer: 0
   m_PlayState: 0
-  m_GameType: 0
+  m_GameMode: 0
   m_UsedCost: 0
   m_DebugMod: 0
   m_DebugDifficulty: 2
@@ -5087,7 +5087,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5824299596427968525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5140,7 +5140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80cc6f370ee1b93429bb990182e37b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GameTypeText: {fileID: 5824299596917180172}
+  m_GameModeText: {fileID: 0}
 --- !u!1 &5824299596451372553
 GameObject:
   m_ObjectHideFlags: 0
@@ -6550,7 +6550,7 @@ GameObject:
   - component: {fileID: 5824299596917180172}
   - component: {fileID: 5824299596917180175}
   m_Layer: 5
-  m_Name: Game Type
+  m_Name: Game Mode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

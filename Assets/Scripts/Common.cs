@@ -374,38 +374,58 @@ public struct ExplosionData {
     }
 }
 
+[System.Serializable]
 public struct PairInt {
-    public Vector2Int vec;
+    public int value1, value2;
 
     public PairInt(int value) {
-        vec = new Vector2Int(value, value);
+        this.value1 = value;
+        this.value2 = value;
     }
 
     public PairInt(int value1, int value2) {
-        vec = new Vector2Int(value1, value2);
+        this.value1 = value1;
+        this.value2 = value2;
     }
 
     public int this[int index] {
         get {
-            return vec[index];
+            switch (index) {
+                case 0:
+                    return value1;
+                case 1:
+                    return value2;
+                default:
+                    throw new System.IndexOutOfRangeException();
+            }
         }
     }
 }
 
+[System.Serializable]
 public struct PairFloat {
-    public Vector2 vec;
+    public float value1, value2;
 
     public PairFloat(float value) {
-        vec = new Vector2(value, value);
+        this.value1 = value;
+        this.value2 = value;
     }
 
     public PairFloat(float value1, float value2) {
-        vec = new Vector2(value1, value2);
+        this.value1 = value1;
+        this.value2 = value2;
     }
 
     public float this[int index] {
         get {
-            return vec[index];
+            switch (index) {
+                case 0:
+                    return value1;
+                case 1:
+                    return value2;
+                default:
+                    throw new System.IndexOutOfRangeException();
+            }
         }
     }
 }

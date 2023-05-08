@@ -115,30 +115,4 @@ public class EnemyShipCarrier : EnemyUnit
         
         yield break;
     }
-
-    private IEnumerator DeathExplosion1(float explosion_height) {
-        int timer = 0, random_timer = 0;
-        Vector3 random_pos;
-        while (timer < 1500) {
-            random_timer = Random.Range(100, 250);
-            random_pos = Random.insideUnitCircle * 4f;
-            CreateExplosionEffect(0, 0, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, 3.8f));
-            yield return new WaitForMillisecondFrames(random_timer);
-            timer += random_timer;
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion2(float explosion_height) {
-        int timer = 0, random_timer = 0;
-        Vector3 random_pos;
-        while (timer < 1500) {
-            random_timer = Random.Range(100, 250);
-            random_pos = Random.insideUnitCircle * 4f;
-            CreateExplosionEffect(0, 1, new Vector3(random_pos.x, explosion_height, random_pos.z) + new Vector3(0f, 0f, -3.8f));
-            yield return new WaitForMillisecondFrames(random_timer);
-            timer += random_timer;
-        }
-        yield break;
-    }
 }

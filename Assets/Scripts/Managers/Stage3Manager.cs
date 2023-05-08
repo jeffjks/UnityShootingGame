@@ -5,7 +5,7 @@ public class Stage3Manager : StageManager
 {
     [Space(10)]
     public GameObject m_ShipSmall_1, m_ShipSmall_2, m_ShipMedium, m_ShipLarge, m_ShipCarrier_1, m_TankLarge_3,
-    m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_ItemHeli_1, m_ItemHeli_2, m_PlaneMedium_5;
+    m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_ItemHeliRed, m_ItemHeliGreen, m_PlaneMedium_5;
 
     private const float WATER_HEIGHT = 2.32f;
 
@@ -75,7 +75,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForMillisecondFrames(600);
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -2f), Random.Range(2f, 4f)));
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(2f, 5f), Random.Range(2f, 4f)));
-        CreateEnemy(m_ItemHeli_1, new Vector2(2f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(2f, 3f)); // Item Heli 1
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-6f, -3f), Random.Range(2f, 4f)));
         CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-3f, 0f), Random.Range(2f, 4f)));
@@ -132,7 +132,7 @@ public class Stage3Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -3f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -7f), new Vector2(4f, -7f), 1000);
         yield return new WaitForMillisecondFrames(1000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(1f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(1f, 3f)); // Item Heli 1
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(2f, -4f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -6f), new Vector2(5f, -6f), 1000);
@@ -162,8 +162,8 @@ public class Stage3Manager : StageManager
             }
         }
         yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(3f, 3f)); // Item Heli 1
-        CreateEnemy(m_ItemHeli_2, new Vector2(-3f, 3f)); // Item Heli 2
+        CreateEnemy(m_ItemHeliRed, new Vector2(3f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliGreen, new Vector2(-3f, 3f)); // Item Heli 2
         yield break;
     }
 

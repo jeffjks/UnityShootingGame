@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 6914176658240159056}
   - component: {fileID: 6766749690001554221}
   - component: {fileID: 748648914517165654}
+  - component: {fileID: 391236306842451729}
   - component: {fileID: 7525156068199041478}
   m_Layer: 10
   m_Name: EnemyPlaneLarge1
@@ -419,6 +420,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
+--- !u!114 &391236306842451729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 748648914517165654}
+  m_JsonKey: EnemyPlaneLarge1_NextPhase
+  m_RunOnDying: 0
 --- !u!114 &7525156068199041478
 MonoBehaviour:
   m_ObjectHideFlags: 0

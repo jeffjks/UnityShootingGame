@@ -507,30 +507,4 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     public void OnBossDeath() {
         m_SystemManager.ScreenEffect(0);
     }
-
-    private IEnumerator DeathExplosion1(int duration) {
-        int timer = 0, t_add = 0;
-        Vector2 random_pos;
-        while (timer < duration) {
-            t_add = Random.Range(200, 400);
-            random_pos = new Vector2(Random.Range(-1.3f, 1.3f), Random.Range(-1.8f, 2.4f));
-            CreateExplosionEffect(0, 0, random_pos);
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion2(int duration) {
-        int timer = 0, t_add = 0;
-        Vector2 random_pos;
-        while (timer < duration) {
-            t_add = Random.Range(500, 800);
-            random_pos = new Vector2(Random.Range(-1.3f, 1.3f), Random.Range(-1.8f, 2.4f));
-            CreateExplosionEffect(1, 1, random_pos);
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
 }

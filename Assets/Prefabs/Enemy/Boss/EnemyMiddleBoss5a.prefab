@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 3475776166298948259}
   - component: {fileID: 5385556361113366454}
   - component: {fileID: 7531658163447374302}
+  - component: {fileID: 2640752344818669441}
   m_Layer: 10
   m_Name: ExplosiveMissile (2)
   m_TagString: Enemy
@@ -411,6 +412,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 5385556361113366454}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &2640752344818669441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5385556361113366454}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +443,7 @@ GameObject:
   - component: {fileID: 1847464190364878771}
   - component: {fileID: 515412261101433539}
   - component: {fileID: 3339679984491930381}
+  - component: {fileID: 7107805279910688738}
   m_Layer: 10
   m_Name: ExplosiveMissile (4)
   m_TagString: Enemy
@@ -568,6 +585,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 515412261101433539}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &7107805279910688738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 515412261101433539}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100014
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,6 +616,7 @@ GameObject:
   - component: {fileID: 5448708646223412686}
   - component: {fileID: 2726026014436905523}
   - component: {fileID: 5218033561829801605}
+  - component: {fileID: 3155771572065246652}
   m_Layer: 10
   m_Name: ExplosiveMissile (1)
   m_TagString: Enemy
@@ -725,6 +758,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 2726026014436905523}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &3155771572065246652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 2726026014436905523}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +789,7 @@ GameObject:
   - component: {fileID: 7713770940712636449}
   - component: {fileID: 5008286825400514406}
   - component: {fileID: 5903338493260572031}
+  - component: {fileID: 382530899239196700}
   m_Layer: 10
   m_Name: ExplosiveMissile (5)
   m_TagString: Enemy
@@ -882,6 +931,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 5008286825400514406}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &382530899239196700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 5008286825400514406}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +962,7 @@ GameObject:
   - component: {fileID: 5193734547908033505}
   - component: {fileID: 7427637404073788237}
   - component: {fileID: 2828791897277658246}
+  - component: {fileID: 6495345836781249810}
   m_Layer: 10
   m_Name: ExplosiveMissile (6)
   m_TagString: Enemy
@@ -1039,6 +1104,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 7427637404073788237}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &6495345836781249810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 7427637404073788237}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1135,7 @@ GameObject:
   - component: {fileID: 5883636535505093969}
   - component: {fileID: 3391064297525549700}
   - component: {fileID: 3488346283450031802}
+  - component: {fileID: 7945921143358561207}
   m_Layer: 10
   m_Name: ExplosiveMissile (3)
   m_TagString: Enemy
@@ -1196,6 +1277,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 3391064297525549700}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &7945921143358561207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 3391064297525549700}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,6 +1308,7 @@ GameObject:
   - component: {fileID: 8427864732366939121}
   - component: {fileID: 8865729688615271646}
   - component: {fileID: 4012135805520878404}
+  - component: {fileID: 3784819291220376130}
   m_Layer: 10
   m_Name: ExplosiveMissile (7)
   m_TagString: Enemy
@@ -1353,6 +1450,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 8865729688615271646}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &3784819291220376130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 8865729688615271646}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1481,7 @@ GameObject:
   - component: {fileID: 660550213377324083}
   - component: {fileID: 6374387857110140405}
   - component: {fileID: 8324998712416499212}
+  - component: {fileID: 7697718717165396140}
   m_Layer: 10
   m_Name: ExplosiveMissile (8)
   m_TagString: Enemy
@@ -1510,6 +1623,21 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 6374387857110140405}
   m_ItemBox: {fileID: 0}
   m_GemNumber: 10
+--- !u!114 &7697718717165396140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 6374387857110140405}
+  m_JsonKey: EnemyMiddleBoss5a_Missile
+  m_RunOnDying: 1
 --- !u!1 &100042
 GameObject:
   m_ObjectHideFlags: 0

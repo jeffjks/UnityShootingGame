@@ -4,7 +4,7 @@ using System.Collections;
 public class Stage2Manager : StageManager
 {
     [Space(10)]
-    public GameObject m_TankSmall_1, m_TankSmall_2, m_ShipSmall_1, m_ShipSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeli_1, m_ItemHeli_2, m_Gunship, m_PlaneMedium_2, m_PlaneMedium_3;
+    public GameObject m_TankSmall_1, m_TankSmall_2, m_ShipSmall_1, m_ShipSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeliRed, m_ItemHeliGreen, m_Gunship, m_PlaneMedium_2, m_PlaneMedium_3;
 
     private const float WATER_HEIGHT = 2.32f;
     private IEnumerator m_CurrentSpawn;
@@ -76,7 +76,7 @@ public class Stage2Manager : StageManager
         CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(-3.5f, 3f, 14f), new MoveVector(1f, 0f), movePatterns7000);
         CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(1f, 3f, 16f), new MoveVector(1f, 0f), movePatterns7000);
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(0f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(0f, 3f)); // Item Heli 1
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-5f, 3f, 17f), new MoveVector(1f, 0f), movePatterns5000);
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-3.5f, 3f, 15f), new MoveVector(1f, 0f), movePatterns5000);
@@ -183,9 +183,9 @@ public class Stage2Manager : StageManager
         StopCoroutine(m_CurrentSpawn);
 
         yield return new WaitForMillisecondFrames(4000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(-2f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(-2f, 3f)); // Item Heli 1
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemy(m_ItemHeli_2, new Vector2(3.5f, 3f)); // Item Heli 2
+        CreateEnemy(m_ItemHeliGreen, new Vector2(3.5f, 3f)); // Item Heli 2
         yield break;
     }
 

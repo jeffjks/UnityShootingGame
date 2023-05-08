@@ -8,6 +8,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
     public EnemyPlaneLarge1Turret[] m_Turret = new EnemyPlaneLarge1Turret[2];
     public Transform m_FirePosition;
     public Transform m_Rotator;
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int[] m_FireDelay1 = { 1600, 800, 600 };
     private int[] m_FireDelay2 = { 1500, 1000, 800 };
@@ -110,6 +111,12 @@ public class EnemyPlaneLarge1 : EnemyUnit
         StopCoroutine(m_CurrentPattern1);
         m_CurrentPattern2 = PatternB();
         StartCoroutine(m_CurrentPattern2);
+
+        NextPhaseExplosion();
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
     
     private IEnumerator PatternA() {

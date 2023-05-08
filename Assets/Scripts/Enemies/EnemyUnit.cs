@@ -15,12 +15,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     public EnemyType m_EnemyType;
     public int m_Score;
     [Space(10)]
-    [Tooltip("사망 상태 돌입시 폭발 이펙트")]
-    [SerializeField] private Explosion m_DefaultExplosion = 0;
-    [SerializeField] protected AudioClip m_DefaultAudioClip = null;
-    [SerializeField] private Explosion[] m_Explosion = new Explosion[0];
-    [SerializeField] protected AudioClip[] m_AudioClip = new AudioClip[0];
-    [Space(10)]
     public Queue<TweenData> m_TweenDataQueue = new Queue<TweenData>();
     
     protected bool m_TimeLimitState = false;
@@ -248,59 +242,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
 
         m_EnemyDeath.OnRemoved();
-    }
-    
-
-    private GameObject DefatulExplosionEffect() {
-        GameObject obj = null;
-        if (m_DefaultExplosion != 0) {
-            obj = m_PoolingManager.PopFromPool(m_DefaultExplosion.ToString(), PoolingParent.EXPLOSION);
-            ExplosionEffecter explosion_effect = obj.GetComponent<ExplosionEffecter>();
-
-            Vector3 explosion_pos;
-
-            if ((1 << gameObject.layer & Layer.AIR) != 0) {
-                //explosion_effect.m_MoveVector = m_MoveVector;
-                explosion_pos = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
-            }
-            else
-                explosion_pos = transform.position;
-            
-            obj.transform.position = explosion_pos;
-
-            obj.SetActive(true);
-        }
-        m_SystemManager.m_SoundManager.PlayAudio(m_DefaultAudioClip);
-        return obj;
-    }
-
-    protected GameObject CreateExplosionEffect(int explosion, int audio, Vector3? pos = null, MoveVector? moveVector = null) {
-        try {
-            GameObject obj = m_PoolingManager.PopFromPool(m_Explosion[explosion].ToString(), PoolingParent.EXPLOSION);
-            ExplosionEffecter explosion_effect = obj.GetComponent<ExplosionEffecter>();
-
-            //explosion_effect.m_MoveVector = moveVector ?? new MoveVector(0f, 0f);
-            
-            Vector3 explosion_pos = transform.TransformPoint(pos ?? Vector3.zero);
-            
-            if ((1 << gameObject.layer & Layer.AIR) != 0)
-                explosion_pos = new Vector3(explosion_pos.x, explosion_pos.y, Depth.EXPLOSION);
-            
-            obj.transform.position = explosion_pos;
-            
-            obj.SetActive(true);
-            
-            if (audio < 0)
-                return obj;
-            else {
-                m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip[audio]);
-                return obj;
-            }
-        }
-        catch {
-            Debug.LogAssertion("Explosion OutOfRangeException has occured.");
-            return null;
-        }
     }
 
 

@@ -672,19 +672,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -1644,19 +1639,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -4097,19 +4087,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -4631,19 +4616,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -6737,19 +6717,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -7230,19 +7205,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -8801,19 +8771,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -9083,9 +9048,9 @@ MonoBehaviour:
   m_TankLarge_2: {fileID: 100018, guid: fee8a48d14e5e3a40ae478a182c83325, type: 3}
   m_Gunship: {fileID: 100006, guid: 3e3304ed2d033014780a68963f571825, type: 3}
   m_PlaneSmall_1: {fileID: 100014, guid: f7728fb29871acb47b34bf1f7aedcfc1, type: 3}
-  m_ItemHeli_1: {fileID: 1346843116527648, guid: 0537168c670fce04992d921bc592ff8d,
+  m_ItemHeliRed: {fileID: 1770139926367605940, guid: ec11cef2fa1d4ac4db8ef555a8dc630e,
     type: 3}
-  m_ItemHeli_2: {fileID: 1346843116527648, guid: 58363915dc8e23d4d9645a7ca1b4cf32,
+  m_ItemHeliGreen: {fileID: 3195663710459935221, guid: 84ee4271d2bd51a4f9517974be350148,
     type: 3}
   m_PlaneMedium_3: {fileID: 100040, guid: f152f960cd4bd53408ba28b300a96fbf, type: 3}
   m_PlaneMedium_4: {fileID: 100010, guid: 3c9acb6ed1d30384aa75b8bd4e6be01f, type: 3}
@@ -9573,19 +9538,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8

@@ -372,9 +372,9 @@ MonoBehaviour:
   m_PlaneSmall_1: {fileID: 100014, guid: f7728fb29871acb47b34bf1f7aedcfc1, type: 3}
   m_PlaneSmall_2: {fileID: 100014, guid: 02c15b5e607002049ae7dafea72d59e2, type: 3}
   m_PlaneSmall_3: {fileID: 100018, guid: cccf4ecdf235ef9449af4985f990a850, type: 3}
-  m_ItemHeli_1: {fileID: 1346843116527648, guid: 0537168c670fce04992d921bc592ff8d,
+  m_ItemHeliRed: {fileID: 1770139926367605940, guid: ec11cef2fa1d4ac4db8ef555a8dc630e,
     type: 3}
-  m_ItemHeli_2: {fileID: 1346843116527648, guid: 58363915dc8e23d4d9645a7ca1b4cf32,
+  m_ItemHeliGreen: {fileID: 3195663710459935221, guid: 84ee4271d2bd51a4f9517974be350148,
     type: 3}
   m_PlaneMedium_5: {fileID: 100032, guid: b5fea407a60574f49ac95ab25487cf83, type: 3}
 --- !u!4 &35179875
@@ -769,19 +769,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100048, guid: a6416b0ddb7a93e45b2dc48b34f355d1, type: 3}
   m_Speed: 1
@@ -1701,19 +1696,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100016, guid: fde099b61cee14345a24c27a878ea83a, type: 3}
   m_Speed: 1
@@ -3318,19 +3308,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
-  m_IsDead: 0
-  m_ParentEnemy: {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_Debris: 0
   m_DefaultExplosion: 0
   m_DefaultAudioClip: {fileID: 0}
   m_Explosion: 
   m_AudioClip: []
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
   m_Enemy:
   - {fileID: 100052, guid: 27f1241ee78b41e438b446db2c8ba5bf, type: 3}
   m_Speed: 0.8

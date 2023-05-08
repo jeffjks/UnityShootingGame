@@ -58,10 +58,4 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         }
         yield break;
     }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        CreateExplosionEffect(0, -1, new Vector2(0f, 2f));
-        
-        yield break;
-    }
 }

@@ -405,12 +405,21 @@ public class ExplosionJsonWriter : MonoBehaviour
     private void WriteJsonList20(string enemyKey) {
         list.Clear();
 
-        CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.AirMedium_2);
+        CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.None, new Vector2(0f, -1f));
+        CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.None, new Vector2(0f, 1f));
         
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
     private void WriteJsonList21(string enemyKey) {
+        list.Clear();
+
+        CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.AirMedium_2);
+        
+        dictionary[enemyKey] = new List<ExplosionData>(list);
+    }
+
+    private void WriteJsonList22(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.AirMedium_2);
@@ -429,7 +438,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList22(string enemyKey) {
+    private void WriteJsonList23(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.None, ExplAudioType.AirMedium_2);
@@ -454,7 +463,16 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList23(string enemyKey) {
+    private void WriteJsonList24(string enemyKey) {
+        list.Clear();
+
+        CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.None, new Vector3(0.8f, 2f, 1.5f));
+        CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.None, new Vector3(0.8f, 2f, 1.5f));
+
+        dictionary[enemyKey] = new List<ExplosionData>(list);
+    }
+
+    private void WriteJsonList25(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.Large);
@@ -468,7 +486,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList24(string enemyKey) {
+    private void WriteJsonList26(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.Large);
@@ -486,7 +504,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList25(string enemyKey) {
+    private void WriteJsonList27(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.Large);
@@ -496,7 +514,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList26(string enemyKey) {
+    private void WriteJsonList28(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.Large);
@@ -507,7 +525,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList27(string enemyKey) {
+    private void WriteJsonList29(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.Large);
@@ -518,7 +536,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList28(string enemyKey) {
+    private void WriteJsonList30(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.Large);
@@ -528,7 +546,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList29(string enemyKey) {
+    private void WriteJsonList31(string enemyKey) {
         list.Clear();
 
         DeathExplosion(1500, new Effect(ExplType.Normal_2, ExplAudioType.None, new Vector3(0f, 3f, 0f), 3f),
@@ -555,7 +573,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList30(string enemyKey) {
+    private void WriteJsonList32(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Ground_3, ExplAudioType.AirMedium_1);
@@ -571,7 +589,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList31(string enemyKey) {
+    private void WriteJsonList33(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Ground_2, ExplAudioType.GroundMedium);
@@ -580,7 +598,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList32(string enemyKey) {
+    private void WriteJsonList34(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Ground_3, ExplAudioType.Large, new Vector3(0f, 0f, -0.4f));
@@ -593,7 +611,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList33(string enemyKey) {
+    private void WriteJsonList35(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Ground_3, ExplAudioType.Large);
@@ -605,7 +623,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         dictionary[enemyKey] = new List<ExplosionData>(list);
     }
 
-    private void WriteJsonList34(string enemyKey) {
+    private void WriteJsonList36(string enemyKey) {
         list.Clear();
 
         CreateExplosionEffect(ExplType.Ground_2, ExplAudioType.Large);
@@ -641,22 +659,24 @@ public class ExplosionJsonWriter : MonoBehaviour
         WriteJsonList17("EnemyMiddleBoss4");
         WriteJsonList18("EnemyMiddleBoss4_Part");
         WriteJsonList19("EnemyMiddleBoss5a");
-        WriteJsonList20("EnemyMiddleBoss5b_NextPhase");
-        WriteJsonList21("EnemyMiddleBoss5b");
+        WriteJsonList20("EnemyMiddleBoss5a_Missile");
+        WriteJsonList21("EnemyMiddleBoss5b_NextPhase");
+        WriteJsonList22("EnemyMiddleBoss5b");
         
-        WriteJsonList22("EnemyPlaneLarge1");
-        WriteJsonList23("EnemyPlaneLarge2");
-        WriteJsonList24("EnemyPlaneLarge3");
-        WriteJsonList25("EnemyPlaneMedium1");
-        WriteJsonList26("EnemyPlaneMedium2");
-        WriteJsonList27("EnemyPlaneMedium4");
-        WriteJsonList28("EnemyPlaneMedium5");
-        WriteJsonList29("EnemyShipCarrier");
-        WriteJsonList30("EnemyShipLarge");
-        WriteJsonList31("EnemyShipMedium");
-        WriteJsonList32("EnemyTankLarge1");
-        WriteJsonList33("EnemyTankLarge2");
-        WriteJsonList34("EnemyTankLarge3");
+        WriteJsonList23("EnemyPlaneLarge1");
+        WriteJsonList24("EnemyPlaneLarge1_NextPhase");
+        WriteJsonList25("EnemyPlaneLarge2");
+        WriteJsonList26("EnemyPlaneLarge3");
+        WriteJsonList27("EnemyPlaneMedium1");
+        WriteJsonList28("EnemyPlaneMedium2");
+        WriteJsonList29("EnemyPlaneMedium4");
+        WriteJsonList30("EnemyPlaneMedium5");
+        WriteJsonList31("EnemyShipCarrier");
+        WriteJsonList32("EnemyShipLarge");
+        WriteJsonList33("EnemyShipMedium");
+        WriteJsonList34("EnemyTankLarge1");
+        WriteJsonList35("EnemyTankLarge2");
+        WriteJsonList36("EnemyTankLarge3");
 
         string str = JsonConvert.SerializeObject(dictionary, Formatting.None);
         //Debug.Log(str);

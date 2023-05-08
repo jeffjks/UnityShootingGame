@@ -733,34 +733,4 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             }
         }
     }
-
-    private IEnumerator DeathExplosion1(int duration) {
-        int timer = 0, t_add = 0;
-        Vector2 random_pos;
-        while (timer < duration) {
-            t_add = Random.Range(250, 350);
-            random_pos = Random.insideUnitCircle * 3f;
-            CreateExplosionEffect(0, 0, random_pos, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
-            random_pos = Random.insideUnitCircle * 3f;
-            CreateExplosionEffect(0, -1, random_pos, new MoveVector(Random.Range(2f, 3.5f), Random.Range(0f, 360f)));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion2(int duration) {
-        int timer = 0, t_add = 0;
-        Vector2 random_pos;
-        while (timer < duration) {
-            t_add = Random.Range(400, 600);
-            random_pos = Random.insideUnitCircle * 3f;
-            CreateExplosionEffect(1, 1, random_pos, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
-            random_pos = Random.insideUnitCircle * 3f;
-            CreateExplosionEffect(1, -1, random_pos, new MoveVector(Random.Range(1f, 2f), Random.Range(0f, 360f)));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
 }

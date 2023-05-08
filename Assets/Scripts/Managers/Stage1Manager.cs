@@ -4,7 +4,7 @@ using System.Collections;
 public class Stage1Manager : StageManager
 {
     [Space(10)]
-    public GameObject m_TankSmall_1, m_TankSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeli_1, m_ShipSmall_1, m_PlaneMedium_1, m_PlaneMedium_3;
+    public GameObject m_TankSmall_1, m_TankSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeliRed, m_ShipSmall_1, m_PlaneMedium_1, m_PlaneMedium_3;
 
     private const float WATER_HEIGHT = 2.32f;
 
@@ -79,7 +79,7 @@ public class Stage1Manager : StageManager
             CreateEnemyWithTarget(m_Helicopter, new Vector2(6f, 3f), new Vector2(6f, -3f), random_duration);
         }
         yield return new WaitForMillisecondFrames(1500);
-        CreateEnemy(m_ItemHeli_1, new Vector2(-1f, 3f)); // Item Heli
+        CreateEnemy(m_ItemHeliRed, new Vector2(-1f, 3f)); // Item Heli
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_PlaneSmall_1, new Vector2(3f, 3f));
         CreateEnemy(m_PlaneSmall_1, new Vector2(6f, 3f));
@@ -147,7 +147,7 @@ public class Stage1Manager : StageManager
             CreateEnemy(m_PlaneSmall_1, new Vector2(-6f, 3f));
         }
         yield return new WaitForMillisecondFrames(20000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(1.5f, 3f)); // Item Heli
+        CreateEnemy(m_ItemHeliRed, new Vector2(1.5f, 3f)); // Item Heli
         yield return new WaitForMillisecondFrames(14000);
         CreateEnemy(m_PlaneMedium_1, new Vector2(3f, 3f));
         yield break;

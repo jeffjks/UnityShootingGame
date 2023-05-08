@@ -5,7 +5,7 @@ public class Stage4Manager : StageManager
 {
     [Space(10)]
     public GameObject m_Helicopter, m_TankLarge_2, m_Gunship,
-    m_PlaneSmall_1, m_ItemHeli_1, m_ItemHeli_2, m_PlaneMedium_3, m_PlaneMedium_4, m_PlaneLarge_2, m_PlaneLarge_3;
+    m_PlaneSmall_1, m_ItemHeliRed, m_ItemHeliGreen, m_PlaneMedium_3, m_PlaneMedium_4, m_PlaneLarge_2, m_PlaneLarge_3;
     public Transform[] m_BossTerrains = new Transform[3];
 
     private float m_BackgroundPos;
@@ -103,7 +103,7 @@ public class Stage4Manager : StageManager
     protected override IEnumerator EnemyTimeline()
     {
         yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(0f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(0f, 3f)); // Item Heli 1
         StartCoroutine(SpawnHelicopters1());
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneMedium_3, new Vector2(3f, 3f));
@@ -181,13 +181,13 @@ public class Stage4Manager : StageManager
         yield return new WaitForMillisecondFrames(4000);
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-24.35f, 3.21f, 84.5f), new MoveVector(-4f, -90f), new MovePattern[] {new MovePattern(2100, 8739f, 0f, 1400)});
         yield return new WaitForMillisecondFrames(6000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(2f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(2f, 3f)); // Item Heli 1
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-5f, 3f), new Vector2(-5f, -3f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4.5f, 3f), new Vector2(-4f, -6f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -3f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -6f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemy(m_ItemHeli_2, new Vector2(-3f, 3f)); // Item Heli 2
+        CreateEnemy(m_ItemHeliGreen, new Vector2(-3f, 3f)); // Item Heli 2
         CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -3f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(4.5f, 3f), new Vector2(4.5f, -6f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -3f), Random.Range(1200, 1500));
@@ -215,7 +215,7 @@ public class Stage4Manager : StageManager
         m_TankLarge_2_Move = CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
             new MovePattern[] {new MovePattern(1000, 8739f, 0f, 1000), new MovePattern(2000, 8739f, -0.8f, 1000), new MovePattern(6000, 8739f, 0f, 500)});
         yield return new WaitForMillisecondFrames(6000);
-        CreateEnemy(m_ItemHeli_1, new Vector2(3f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(3f, 3f)); // Item Heli 1
         yield break;
     }
 

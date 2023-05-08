@@ -172,30 +172,6 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_NextPhaseExplosionCreater.StartExplosion();
     }
 
-    private IEnumerator NextPhaseExplosionEffect1(int duration) {
-        int timer = 0, t_add = 0;
-        while (timer < duration) {
-            t_add = Random.Range(350, 500);
-            m_SystemManager.ShakeCamera(0.3f);
-            CreateExplosionEffect(1, 1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION), new MoveVector(Random.Range(0.75f, 1.25f), Random.Range(0f, 360f)));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
-    private IEnumerator NextPhaseExplosionEffect2(int duration) {
-        int timer = 0, t_add = 0;
-        while (timer < duration) {
-            t_add = Random.Range(200, 400);
-            CreateExplosionEffect(2, 2, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION), new MoveVector(Random.Range(0.75f, 1.25f), Random.Range(0f, 360f)));
-            CreateExplosionEffect(2, -1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION), new MoveVector(Random.Range(0.75f, 1.25f), Random.Range(0f, 360f)));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
     private IEnumerator Phase1() { // 페이즈 1 패턴 =================
         int side;
         yield return new WaitForMillisecondFrames(1000);
@@ -591,41 +567,5 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_SystemManager.StartStageClearCoroutine();
         m_SystemManager.ScreenEffect(1);
         m_SystemManager.ShakeCamera(1f);
-    }
-
-    private IEnumerator DeathExplosion1(int duration) {
-        int timer = 0, t_add = 0;
-        while (timer < duration) {
-            t_add = Random.Range(500, 700);
-            CreateExplosionEffect(2, 3, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            CreateExplosionEffect(2, -1, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion2(int duration) {
-        int timer = 0, t_add = 0;
-        while (timer < duration) {
-            t_add = Random.Range(350, 500);
-            CreateExplosionEffect(1, 2, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            CreateExplosionEffect(1, -1, new Vector3(Random.Range(-0.64f, 0.64f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
-    }
-
-    private IEnumerator DeathExplosion3(int duration) {
-        int timer = 0, t_add = 0;
-        while (timer < duration) {
-            t_add = Random.Range(200, 400);
-            CreateExplosionEffect(0, -1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            CreateExplosionEffect(0, -1, new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.5f, 0.8f), Depth.EXPLOSION));
-            timer += t_add;
-            yield return new WaitForMillisecondFrames(t_add);
-        }
-        yield break;
     }
 }

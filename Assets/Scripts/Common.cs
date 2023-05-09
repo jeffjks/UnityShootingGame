@@ -170,7 +170,7 @@ public enum EnemyType
     Boss
 }
 
-public enum Debris
+public enum DebrisType
 {
     Small,
     Medium,

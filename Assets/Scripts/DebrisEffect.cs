@@ -55,30 +55,30 @@ public class DebrisEffect : MonoBehaviour, UseObjectPool
         return modified_pos;
     }
     
-    public void OnStart(Debris debrisSize)
+    public void OnStart(DebrisType debrisType)
     {
         DeactivateAllChildren();
-
-        switch(debrisSize) {
-            case Debris.Small:
-                m_DebrisIndex = System.Environment.TickCount % 3; // 0, 1, 2
-                break;
-            case Debris.Medium:
-                m_DebrisIndex = (System.Environment.TickCount % 2) + 3; // 3, 4
-                break;
-            case Debris.Large:
-                m_DebrisIndex = (System.Environment.TickCount % 2) + 5; // 5, 6
-                break;
-            default:
-                m_DebrisIndex = -1;
-                ReturnToPool();
-                return;
-        }
+        
+        m_DebrisIndex = GetDebrisIndex(debrisType);
         m_DebrisObject[m_DebrisIndex].SetActive(true);
         m_Materials[m_DebrisIndex].color = Color.white;
         
         m_FadeOutAnimation = FadeOutAnimation();
         StartCoroutine(m_FadeOutAnimation);
+    }
+
+    private int GetDebrisIndex(DebrisType debrisType) {
+        System.Random rand = new System.Random();
+        switch(debrisType) {
+            case DebrisType.Small:
+                return rand.Next(3); // 0, 1, 2
+            case DebrisType.Medium:
+                return rand.Next(2) + 2; // 3, 4
+            case DebrisType.Large:
+                return rand.Next(2) + 5; // 5, 6
+            default:
+                return -1;
+        }
     }
 
     private IEnumerator FadeOutAnimation() {

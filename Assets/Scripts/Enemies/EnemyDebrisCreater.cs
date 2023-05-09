@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDebrisCreater : MonoBehaviour
 {
     [SerializeField] private EnemyDeath m_EnemyDeath;
-    [SerializeField] private Debris m_Debris;
+    [SerializeField] private DebrisType m_Debris;
     private PoolingManager m_PoolingManager = null;
 
     void Start()

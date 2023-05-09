@@ -175,7 +175,12 @@ public abstract class StageManager : MonoBehaviour
     protected GameObject CreateEnemyWithTarget(GameObject obj, Vector3 pos, Vector2 target_pos, int duration) { // Only Air Unit (where T: HasTargetPosition)
         GameObject ins = InstantiateEnemyObject(obj, pos);
         ITargetPosition enemy_unit = ins.GetComponent<ITargetPosition>();
-        enemy_unit.MoveTowardsToTarget(target_pos, duration);
+        try {
+            enemy_unit.MoveTowardsToTarget(target_pos, duration);
+        }
+        catch (System.NullReferenceException e) {
+            Debug.LogError(e);
+        }
         return ins;
     }
     

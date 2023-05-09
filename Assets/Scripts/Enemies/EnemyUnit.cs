@@ -8,7 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyDeath))]
 public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 (적 총알 제외)
 {
-    [Space(10)]
     [HideInInspector] public EnemyHealth m_EnemyHealth; // Can bu null
     [HideInInspector] public EnemyDeath m_EnemyDeath;
 

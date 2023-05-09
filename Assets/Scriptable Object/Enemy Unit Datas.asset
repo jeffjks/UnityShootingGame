@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7b870ce4f8d2744a78364a29a28838, type: 3}
+  m_Name: Enemy Unit Datas
+  m_EditorClassIdentifier: 
+  m_Values:
+  - m_UnitID: 10
+    m_Prefab: {fileID: 100018, guid: d47850806cfc30c49a36864d829c7129, type: 3}
+    m_EnemyType: 2
+    m_HealthType: 0
+    m_DefaultHealth: 25000
+    m_Score: 30000
+  - m_UnitID: 11
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 2
+    m_HealthType: 0
+    m_DefaultHealth: 10000
+    m_Score: 0
+  - m_UnitID: 20
+    m_Prefab: {fileID: 100146, guid: 01bdc9a859a9fd54d8b56ff22302f2ea, type: 3}
+    m_EnemyType: 2
+    m_HealthType: 0
+    m_DefaultHealth: 70000
+    m_Score: 10000
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0
+  - m_UnitID: 0
+    m_Prefab: {fileID: 0}
+    m_EnemyType: 0
+    m_HealthType: 0
+    m_DefaultHealth: 0
+    m_Score: 0

@@ -7,8 +7,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public EnemyUnit[] m_Part1_Turrets = new EnemyUnit[3];
     public EnemyUnit[] m_Part2_Turrets = new EnemyUnit[4];
     public EnemyUnit[] m_Part3_Turrets = new EnemyUnit[4];
-    public int m_NextPhaseDelay;
-
+    
     private int m_Phase;
     public int Phase {
         get { return m_Phase; }
@@ -21,6 +20,8 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
     
     private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 11000;
+    private const int NEXT_PHASE_DELAY = 4000;
+
     private bool m_InPattern = false;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern;
@@ -66,7 +67,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     m_Part1_Turrets[i].m_EnemyDeath.OnDying();
                 }
                 m_SystemManager.EraseBullets(2000);
-                ToNextPhase(m_NextPhaseDelay);
+                ToNextPhase(NEXT_PHASE_DELAY);
             }
         }
         else if (m_Phase == 2) {
@@ -75,7 +76,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     m_Part2_Turrets[i].m_EnemyDeath.OnDying();
                 }
                 m_SystemManager.EraseBullets(2000);
-                ToNextPhase(m_NextPhaseDelay);
+                ToNextPhase(NEXT_PHASE_DELAY);
             }
         }
     }

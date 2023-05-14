@@ -415,7 +415,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_EnemySpawnerDatas: {fileID: 0}
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 34e6f1ba47e754641abb0c07a7ad175f,
+    type: 2}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 1.8
@@ -6725,7 +6726,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_EnemySpawnerDatas: {fileID: 0}
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 7c9649a7547f1824fb380f461e82b426,
+    type: 2}
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Speed: 1.8
@@ -12795,7 +12797,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_EnemySpawnerDatas: {fileID: 0}
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: c794a019b0d2f8f48af87bda78c2595e,
+    type: 2}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 1.8

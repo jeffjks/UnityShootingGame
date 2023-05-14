@@ -173,7 +173,7 @@ public abstract class ItemBox : Item
 }
 
 
-public abstract class ItemGem : Item, UseObjectPool
+public abstract class ItemGem : Item, IObjectPooling
 {
     public string m_ObjectName;
     public MeshRenderer m_MeshRenderer;

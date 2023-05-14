@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 56142225}
   - component: {fileID: 56142226}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (3)
+  m_Name: GroundEnemySpawner (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,10 +415,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 1.8
@@ -427,11 +424,15 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1300
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 0
     duration: 800
   - delay: 0
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 0
     duration: 500
   m_ActivateTime: 149000
@@ -737,7 +738,7 @@ GameObject:
   - component: {fileID: 90633017}
   - component: {fileID: 90633018}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (3)
+  m_Name: GroundEnemySpawner (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,10 +777,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Speed: 1.4
@@ -834,7 +832,7 @@ GameObject:
   - component: {fileID: 91101475}
   - component: {fileID: 91101476}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (1)
+  m_Name: GroundEnemySpawner (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -873,10 +871,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
   m_Speed: 1
@@ -4688,10 +4683,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 1.2
@@ -4700,7 +4692,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 6000
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: -90
     duration: 2500
   m_ActivateTime: 18000
@@ -6692,7 +6686,7 @@ GameObject:
   - component: {fileID: 769721878}
   - component: {fileID: 769721879}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (2)
+  m_Name: GroundEnemySpawner (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6731,10 +6725,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Speed: 1.8
@@ -6743,11 +6734,15 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1450
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 10
     duration: 800
   - delay: 0
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 10
     duration: 500
   m_ActivateTime: 149000
@@ -7001,7 +6996,7 @@ GameObject:
   - component: {fileID: 791976779}
   - component: {fileID: 791976780}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (2)
+  m_Name: GroundEnemySpawner (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7040,10 +7035,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Speed: 1.4
@@ -7070,7 +7062,7 @@ MonoBehaviour:
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1
-  m_SpawnPeriod_Normal: 3000
+  m_SpawnPeriod_Normal: 3200
   m_SpawnPeriod_Expert: 0
 --- !u!114 &791976780
 MonoBehaviour:
@@ -9712,7 +9704,7 @@ GameObject:
   - component: {fileID: 1052302088}
   - component: {fileID: 1052302089}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (6)
+  m_Name: GroundEnemySpawner (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9751,10 +9743,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 0.8
@@ -10379,7 +10368,7 @@ GameObject:
   - component: {fileID: 1151259196}
   - component: {fileID: 1151259197}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (2)
+  m_Name: GroundEnemySpawner (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10418,10 +10407,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -10508,7 +10494,7 @@ GameObject:
   - component: {fileID: 1171928357}
   - component: {fileID: 1171928358}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (5)
+  m_Name: GroundEnemySpawner (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10547,10 +10533,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Speed: 0.8
@@ -12773,7 +12756,7 @@ GameObject:
   - component: {fileID: 1443606942}
   - component: {fileID: 1443606943}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (1)
+  m_Name: GroundEnemySpawner (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12812,10 +12795,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 1.8
@@ -12824,11 +12804,15 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1600
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 20
     duration: 800
   - delay: 0
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 20
     duration: 500
   m_ActivateTime: 149000
@@ -14158,7 +14142,7 @@ GameObject:
   - component: {fileID: 1610739048}
   - component: {fileID: 1610739049}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (5)
+  m_Name: GroundEnemySpawner (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14197,10 +14181,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   m_Speed: 0.8
@@ -15227,7 +15208,7 @@ GameObject:
   - component: {fileID: 1760847912}
   - component: {fileID: 1760847913}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (6)
+  m_Name: GroundEnemySpawner (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15266,10 +15247,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 0.8
@@ -16138,7 +16116,7 @@ GameObject:
   - component: {fileID: 1880481561}
   - component: {fileID: 1880481562}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (4)
+  m_Name: GroundEnemySpawner (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16177,10 +16155,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100014, guid: 2d57fa3eedf91944e9c8d8310d670f1a, type: 3}
   m_Speed: 1
@@ -16274,10 +16249,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100018, guid: 19b5952420e31a846b47201d539459d9, type: 3}
   m_Speed: 1.5
@@ -16286,7 +16258,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 6000
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 1000
   m_ActivateTime: 52000
@@ -16310,10 +16284,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100018, guid: 19b5952420e31a846b47201d539459d9, type: 3}
   m_Speed: 1.5
@@ -16322,7 +16293,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 3000
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 1000
   m_ActivateTime: 55000
@@ -16971,10 +16944,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_Speed: 1.2
@@ -16983,7 +16953,9 @@ MonoBehaviour:
   m_RemoveTimer: 15000
   m_MovePattern:
   - delay: 4500
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 90
     duration: 2500
   m_ActivateTime: 18000
@@ -17228,7 +17200,7 @@ GameObject:
   - component: {fileID: 1994372758}
   - component: {fileID: 1994372759}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (1)
+  m_Name: GroundEnemySpawner (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17267,10 +17239,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 0}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}

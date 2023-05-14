@@ -19195,7 +19195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a195971782c0e42b7b310489230cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ObjectName: ExplosionGeneral_1
+  m_ObjectName: ExplosionNormal_1
   m_Lifetime: 2000
 --- !u!1 &100008
 GameObject:

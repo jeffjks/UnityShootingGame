@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreText : MonoBehaviour, UseObjectPool
+public class ScoreText : MonoBehaviour, IObjectPooling
 {
     public TextMesh m_TextMesh;
     

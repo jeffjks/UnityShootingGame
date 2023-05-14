@@ -109,7 +109,7 @@ public class EnemyHealth : MonoBehaviour
             m_Collider2D[i].enabled = state;
     }
 
-    public void SetColliderPositionOnScreen(Vector3 screenPosition, Quaternion screenRotation) {
+    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation) {
         for (int i = 0; i < m_Collider2D.Length; i++) {
             m_Collider2D[i].transform.position = screenPosition;
             m_Collider2D[i].transform.rotation = screenRotation;

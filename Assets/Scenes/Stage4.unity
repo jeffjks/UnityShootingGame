@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 119958759}
   - component: {fileID: 119958760}
   m_Layer: 12
-  m_Name: GroundEnemySpawner
+  m_Name: GroundEnemySpawner (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -676,10 +676,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 66f7e6d48abb1c44fa5587bf98fceb01,
+    type: 2}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -689,11 +687,15 @@ MonoBehaviour:
   m_RemoveTimer: 16000
   m_MovePattern:
   - delay: 2000
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 316
     duration: 3000
   - delay: 3000
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 297
     duration: 3000
   m_ActivateTime: 42000
@@ -1643,10 +1645,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 78290548ec9916b479ba493cf558da83,
+    type: 2}
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -1655,7 +1655,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 2000
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 800
   m_ActivateTime: 14000
@@ -4091,10 +4093,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 34795c2c8ba343f41bed2c81fd70b275,
+    type: 2}
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -4103,7 +4103,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 400
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 800
   m_ActivateTime: 15600
@@ -4581,7 +4583,7 @@ GameObject:
   - component: {fileID: 1130997573}
   - component: {fileID: 1130997574}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (1)
+  m_Name: GroundEnemySpawner (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4620,10 +4622,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 503919c3c7fd3ff438aebb7a675f7df1,
+    type: 2}
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -4632,7 +4632,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 2000
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 800
   m_ActivateTime: 37000
@@ -6682,7 +6684,7 @@ GameObject:
   - component: {fileID: 1575252556}
   - component: {fileID: 1575252557}
   m_Layer: 12
-  m_Name: GroundEnemySpawner
+  m_Name: GroundEnemySpawner (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6721,10 +6723,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 2592ac4b7d6557948b52c5a8a72149c2,
+    type: 2}
   m_Enemy:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -6734,11 +6734,15 @@ MonoBehaviour:
   m_RemoveTimer: 8000
   m_MovePattern:
   - delay: 700
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 245
     duration: 1000
   - delay: 1500
+    keepSpeed: 0
     speed: 8739
+    keepDirection: 0
     direction: 275
     duration: 3000
   m_ActivateTime: 110000
@@ -7170,7 +7174,7 @@ GameObject:
   - component: {fileID: 1676556092}
   - component: {fileID: 1676556093}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (3)
+  m_Name: GroundEnemySpawner (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7209,10 +7213,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: a224515c9c2024a4e9fb5282eec91f4f,
+    type: 2}
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -7221,7 +7223,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 400
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 800
   m_ActivateTime: 38600
@@ -8775,10 +8779,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 9996942a33542d04d8e166b3866e9ea0,
+    type: 2}
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -8787,7 +8789,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1200
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 800
   m_ActivateTime: 14800
@@ -9503,7 +9507,7 @@ GameObject:
   - component: {fileID: 2105755971}
   - component: {fileID: 2105755972}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (2)
+  m_Name: GroundEnemySpawner (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9542,10 +9546,8 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 630c6dc81cb86ed4582bc4e7b62813f9,
+    type: 2}
   m_Enemy:
   - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
   m_Speed: 3.8
@@ -9554,7 +9556,9 @@ MonoBehaviour:
   m_RemoveTimer: 20000
   m_MovePattern:
   - delay: 1200
+    keepSpeed: 0
     speed: 0
+    keepDirection: 0
     direction: 8739
     duration: 800
   m_ActivateTime: 37800

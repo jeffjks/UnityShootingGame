@@ -72,8 +72,10 @@ public class EnemyItemHeli : EnemyUnit {
         yield break;
     }
 
-    void LateUpdate()
+    protected override void Update()
     {
+        base.Update();
+        
         RotateFan();
     }
 

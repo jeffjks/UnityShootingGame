@@ -555,8 +555,6 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_PartOnDeath[0].SetActive(false);
         yield return new WaitForMillisecondFrames(800);
         m_PartOnDeath[1].SetActive(false);
-        
-        yield break;
     }
 
     public void OnBossDying() {

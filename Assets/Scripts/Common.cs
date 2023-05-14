@@ -75,7 +75,7 @@ public enum DebugDifficulty
     Hell,
 }
 
-public interface UseObjectPool { // TODO : 구현
+public interface IObjectPooling {
     public void ReturnToPool();
 }
 
@@ -130,28 +130,59 @@ public class TweenData<T, TResult> {
     }
 }*/
 
-public class TweenData
+[System.Serializable]
+public class MovePattern
 {
-    public int duration; // duration동안 대기(TweenData) 혹은 duration에 걸쳐서 변화(TweenDataMovement)
+    public int delay;
+    public bool keepSpeed;
+    [DrawIf("keepSpeed", true, ComparisonType.NotEqual)]
+    public float speed;
+    public bool keepDirection;
+    [DrawIf("keepDirection", true, ComparisonType.NotEqual)]
+    public float direction;
+    public int duration;
 
-    public TweenData(int duration) {
+    public MovePattern(int duration) {
+        this.keepSpeed = true;
+        this.keepDirection = true;
+        this.duration = duration;
+    }
+
+    public MovePattern(int delay, float direction, float speed, int duration) {
+        this.delay = delay;
+        this.speed = speed;
+        this.direction = direction;
+        this.duration = duration;
+    }
+
+    public MovePattern(int delay, bool keepDirection, float speed, int duration) {
+        this.delay = delay;
+        this.speed = speed;
+        this.keepDirection = keepDirection;
+        this.duration = duration;
+    }
+
+    public MovePattern(int delay, float direction, bool keepSpeed, int duration) {
+        this.delay = delay;
+        this.keepSpeed = keepSpeed;
+        this.direction = direction;
         this.duration = duration;
     }
 }
 
-public class TweenDataMoveVector : TweenData
+public class TweenDataMovePattern
 {
-    public MoveVector moveVector;
-    public int easeType = EaseType.Linear;
+    public MovePattern movePattern;
+    public readonly int easeType = EaseType.Linear;
 
-    public TweenDataMoveVector(MoveVector moveVector, int duration = 0, int easeType = EaseType.Linear) : base(duration) {
-        this.moveVector = moveVector;
-        this.duration = duration;
+    public TweenDataMovePattern(MovePattern movePattern, int easeType = EaseType.Linear) {
+        this.movePattern = movePattern;
         this.easeType = easeType;
     }
 }
 
-public class TweenDataPosition : TweenData
+/*
+public class TweenDataPosition
 {
     public Vector3 position;
     public int easeType = EaseType.Linear;
@@ -161,7 +192,7 @@ public class TweenDataPosition : TweenData
         this.duration = duration;
         this.easeType = easeType;
     }
-}
+}*/
 
 public enum EnemyType
 {

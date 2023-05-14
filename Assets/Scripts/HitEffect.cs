@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitEffect : MonoBehaviour, UseObjectPool
+public class HitEffect : MonoBehaviour, IObjectPooling
 {
     public string m_ObjectName;
 

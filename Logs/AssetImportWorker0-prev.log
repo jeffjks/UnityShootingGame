@@ -4,20 +4,20 @@ OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'ko' Physical Memory: 32681 
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
-D:\Unity\2021.3.24f1\Editor\Unity.exe
+C:\Program Files\Unity\2021.3.24f1\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-D:/Unity/Project/Dead Planet 2
+C:/Program Files/Unity/Project/Dead Planet 2
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-13338
-Successfully changed project path to: D:/Unity/Project/Dead Planet 2
-D:/Unity/Project/Dead Planet 2
+4369
+Successfully changed project path to: C:/Program Files/Unity/Project/Dead Planet 2
+C:/Program Files/Unity/Project/Dead Planet 2
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -47,15 +47,15 @@ D:/Unity/Project/Dead Planet 2
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [31640] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 4213363941 [EditorId] 4213363941 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [21716] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 871571064 [EditorId] 871571064 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [31640] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 4213363941 [EditorId] 4213363941 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [21716] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 871571064 [EditorId] 871571064 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 557.02 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 103.74 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.24f1 (cf10dcf7010d)
-[Subsystems] Discovering subsystems at path D:/Unity/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path D:/Unity/Project/Dead Planet 2/Assets
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Project/Dead Planet 2/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -66,48 +66,270 @@ Direct3D:
 Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
 Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
 Initialize mono
-Mono path[0] = 'D:/Unity/2021.3.24f1/Editor/Data/Managed'
-Mono path[1] = 'D:/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'D:/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56196
+Mono path[0] = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56980
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: D:/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
-Register platform support module: D:/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.055930 seconds.
+Register platform support module: C:/Program Files/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.009756 seconds.
 Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 433 ms
-Refreshing native plugins compatible for Editor in 92.67 ms, found 3 plugins.
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 98.53 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.886 seconds
+- Completed reload, in  0.693 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1887ms)
-		BeginReloadAssembly (747ms)
+	ReloadAssembly (693ms)
+		BeginReloadAssembly (100ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (986ms)
-			LoadAssemblies (750ms)
+		EndReloadAssembly (478ms)
+			LoadAssemblies (96ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (136ms)
+			SetupTypeCache (111ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (26ms)
-			SetupLoadedEditorAssemblies (765ms)
+			SetupLoadedEditorAssemblies (285ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (531ms)
+				InitializePlatformSupportModulesInManaged (10ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (93ms)
+				RefreshPlugins (99ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (82ms)
-				ProcessInitializeOnLoadMethodAttributes (58ms)
+				ProcessInitializeOnLoadAttributes (121ms)
+				ProcessInitializeOnLoadMethodAttributes (53ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.181409 seconds.
+Registered in 0.008678 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.32 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.164 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1165ms)
+		BeginReloadAssembly (140ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (22ms)
+		EndReloadAssembly (907ms)
+			LoadAssemblies (110ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (209ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (54ms)
+			SetupLoadedEditorAssemblies (495ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (81ms)
+				ProcessInitializeOnLoadAttributes (245ms)
+				ProcessInitializeOnLoadMethodAttributes (148ms)
+				AfterProcessingInitializeOnLoad (12ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (15ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
+Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.32 seconds
+Refreshing native plugins compatible for Editor in 1.50 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2488 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 55 unused Assets / (58.2 KB). Loaded Objects now: 2956.
+Memory consumption went from 112.8 MB to 112.7 MB.
+Total: 7.970800 ms (FindLiveObjects: 0.409800 ms CreateObjectMapping: 0.519800 ms MarkObjects: 6.944200 ms  DeleteObjects: 0.095600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 216741.953826 seconds.
+  path: Assets/VSCode/Plugins/Editor/VSCode.cs
+  artifactKey: Guid(c34beeaf0d4cf44c49f1039006a08591) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VSCode/Plugins/Editor/VSCode.cs using Guid(c34beeaf0d4cf44c49f1039006a08591) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ea2eb1f67be5fd6b64f714095f50b79') in 0.131880 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 27.116801 seconds.
+  path: Assets/VSCode
+  artifactKey: Guid(fa0005d82365eed4f88c2d0eac9d4f86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VSCode using Guid(fa0005d82365eed4f88c2d0eac9d4f86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e587d43078341a76160ed579ac82e24d') in 0.004130 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.871015 seconds.
+  path: Assets/Resources/DOTweenSettings.asset
+  artifactKey: Guid(aebe49557bb0f274d811494a447e8a57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/DOTweenSettings.asset using Guid(aebe49557bb0f274d811494a447e8a57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0785df63b35e5545566c789aa498c25') in 0.026603 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 9.906786 seconds.
+  path: Assets/Audio/boss_alert1.wav
+  artifactKey: Guid(cd8f15edb9ee1d74388bf10749919598) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/boss_alert1.wav using Guid(cd8f15edb9ee1d74388bf10749919598) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f40b4b9cf23aafd2e9b6644fb27ee94') in 0.177083 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Audio/weapon_enemy.wav
+  artifactKey: Guid(88080e7e2ebfb6840ba4316ea93ac8b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/weapon_enemy.wav using Guid(88080e7e2ebfb6840ba4316ea93ac8b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '770e685642721de9407d79ae7539a2ac') in 0.024657 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Audio/weapon_playerShot1.wav
+  artifactKey: Guid(d55e603819aa9314cbf1381e5fc88fd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/weapon_playerShot1.wav using Guid(d55e603819aa9314cbf1381e5fc88fd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a4be683f8cc677ff444fba3df47d485') in 0.027062 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Audio/item_gem.wav
+  artifactKey: Guid(e6601203e638e2d46a0decd08613bb61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/item_gem.wav using Guid(e6601203e638e2d46a0decd08613bb61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cfd88e72aa6d5f9319c43b109961611') in 0.020771 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Audio/ui_confirm.wav
+  artifactKey: Guid(805b9257f76a9ce47b16409048985f89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/ui_confirm.wav using Guid(805b9257f76a9ce47b16409048985f89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94892c72c4eff4f1aa6da8d7ef6f562a') in 0.019007 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Audio/item_get.wav
+  artifactKey: Guid(080dc337f188b3a40b9815555961cda1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/item_get.wav using Guid(080dc337f188b3a40b9815555961cda1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16b28b5c8fec7de6c20fda8f54c32783') in 0.020373 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Audio/weapon_playerBomb2.wav
+  artifactKey: Guid(be36e9caf256ab941bde0b68e63a0fc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/weapon_playerBomb2.wav using Guid(be36e9caf256ab941bde0b68e63a0fc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e387ed1742d8816bfcffca72987bb95a') in 0.022526 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Audio/item_coin.wav
+  artifactKey: Guid(8ef18a70d3f099240887d57efe0542b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/item_coin.wav using Guid(8ef18a70d3f099240887d57efe0542b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78626041a4603fb1d7f60f5bafc75d13') in 0.023760 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Audio/weapon_playerLaser.wav
+  artifactKey: Guid(72ba5915b6f7c304286bc669aa1876fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/weapon_playerLaser.wav using Guid(72ba5915b6f7c304286bc669aa1876fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16237b0a432f4a85ac2f3ee8935abf96') in 0.022108 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Audio/weapon_playerBomb1.wav
+  artifactKey: Guid(fd30842501f9bb649909b37cc853e37f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/weapon_playerBomb1.wav using Guid(fd30842501f9bb649909b37cc853e37f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0db1dfb78a16e97f10ebd36750815fd9') in 0.025470 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Audio/boss_alert2.wav
+  artifactKey: Guid(5deaba735c6a6364399d83b4f3f27d0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/boss_alert2.wav using Guid(5deaba735c6a6364399d83b4f3f27d0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c15bb0f96fdee0ec7914060901fb8e3') in 0.023804 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Audio/weapon_playerShot2.wav
+  artifactKey: Guid(f4afe66796b0a8b4fb60564a025466a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/weapon_playerShot2.wav using Guid(f4afe66796b0a8b4fb60564a025466a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e434db564904b4a1dddc2097975fa0be') in 0.021486 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Audio/item_1up.wav
+  artifactKey: Guid(bcbcaf76aa102ac4dae7406601900a79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/item_1up.wav using Guid(bcbcaf76aa102ac4dae7406601900a79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f26e550433f6a57dddd18a06802ec4f9') in 0.022872 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Audio/ui_sally.wav
+  artifactKey: Guid(72ab10df1aee71c4aa52a9795848bb10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/ui_sally.wav using Guid(72ab10df1aee71c4aa52a9795848bb10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74bb2a157f535fdd7b07d1cd9e5376e9') in 0.016617 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Audio/ui_cancel.wav
+  artifactKey: Guid(bbae85860e1880b4c8b056d33a4716eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/ui_cancel.wav using Guid(bbae85860e1880b4c8b056d33a4716eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65b72ee0d5334a44d1d75a207d12293e') in 0.020610 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007666 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.31 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.159 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1159ms)
+		BeginReloadAssembly (185ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (37ms)
+		EndReloadAssembly (840ms)
+			LoadAssemblies (156ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (223ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (43ms)
+			SetupLoadedEditorAssemblies (417ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (64ms)
+				ProcessInitializeOnLoadAttributes (199ms)
+				ProcessInitializeOnLoadMethodAttributes (133ms)
+				AfterProcessingInitializeOnLoad (12ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (14ms)
+Platform modules already initialized, skipping
+Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
+Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
+Refreshing native plugins compatible for Editor in 9.98 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2463 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 44 unused Assets / (25.9 KB). Loaded Objects now: 2969.
+Memory consumption went from 113.2 MB to 113.2 MB.
+Total: 5.316100 ms (FindLiveObjects: 0.223600 ms CreateObjectMapping: 0.132400 ms MarkObjects: 4.923500 ms  DeleteObjects: 0.035400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 

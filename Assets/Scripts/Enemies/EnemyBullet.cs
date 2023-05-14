@@ -20,7 +20,7 @@ public static class BulletType
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
 }
 
-public class EnemyBullet : EnemyObject, UseObjectPool
+public class EnemyBullet : EnemyObject, IObjectPooling
 {
     public string m_ObjectName;
 

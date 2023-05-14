@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85785014d93507946b4949dc4df377f4, type: 3}
+  m_Name: S2 EnemySpawner (1) 2
+  m_EditorClassIdentifier: 
+  Normal: 0
+  Expert: 1
+  Hell: 0
+  EnemyUnits:
+  - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
+  SpawnPeriod: 2500
+  InteractableTimer: 0
+  RemoveTimer: 25000
+  MovePatterns:
+  - delay: 0
+    keepSpeed: 0
+    speed: 2
+    keepDirection: 0
+    direction: 45
+    duration: 0
+  - delay: 2700
+    keepSpeed: 1
+    speed: 2
+    keepDirection: 0
+    direction: 90
+    duration: 17000
+  ActivateTime: 50000
+  DeActivateTime: 90000

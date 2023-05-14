@@ -11,7 +11,7 @@ public abstract class UnitObject : MonoBehaviour
 
     protected void MoveDirection(float speed, float direction) // speed 속도로 direction 방향으로 이동. 0도는 아래, 90도는 오른쪽
     {
-        if ((1 << gameObject.layer & Layer.GROUND) != 0) { // Ground
+        if (CheckLayer(Layer.GROUND)) {
             Vector3 vector3 = Quaternion.AngleAxis(direction, Vector3.down) * Vector3.back;
             transform.Translate(vector3 * speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
@@ -26,6 +26,21 @@ public abstract class UnitObject : MonoBehaviour
         Vector2 point_direction_vector = target - pos;
         float target_player = Vector2.SignedAngle(Vector2.down, point_direction_vector);
         return target_player;
+    }
+
+    protected bool CheckLayer(int layerValue)
+    {
+        return CheckLayer(gameObject, layerValue);
+    }
+
+    protected bool CheckLayer(GameObject obj, int layerValue)
+    {
+        if ((1 << obj.layer & layerValue) != 0) // 공중
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 
@@ -50,8 +65,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
     protected Vector2 m_PlayerPosition, m_BackgroundCameraSize;
-
-    protected const float NO_CHANGE = 8739f;
+    
     private const float SAFE_LINE = -11f;
 
     protected virtual void Awake()

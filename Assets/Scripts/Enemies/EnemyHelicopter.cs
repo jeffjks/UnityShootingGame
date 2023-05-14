@@ -7,7 +7,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
 	public GameObject m_FanU, m_FanB;
 	public float m_FanRotationSpeed;
 
-    private int[] m_FireDelay = { 2000, 1000, 500 };
+    private readonly int[] m_FireDelay = { 2000, 1000, 500 };
     private const int TIME_LIMIT = 4000;
 
     void Start()
@@ -26,10 +26,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
-    }
-
-    void LateUpdate()
-    {
+        
         RotateFan();
     }
     
@@ -53,7 +50,6 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
             transform.position = Vector3.Lerp(init_position, target_position, t_pos);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
@@ -70,7 +66,6 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
             m_MoveVector.speed = Mathf.Lerp(init_speed, 7.2f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     private IEnumerator Pattern1() {
@@ -82,6 +77,5 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
             CreateBullet(1, pos, speed[m_SystemManager.GetDifficulty()], m_CurrentAngle, accel);
             yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
         }
-        yield break;
     }
 }

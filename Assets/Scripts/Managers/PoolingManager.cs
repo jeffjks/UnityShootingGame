@@ -138,7 +138,7 @@ public class PoolingManager : MonoBehaviour
         foreach (Transform childObject in transform) { // 모든 직계 자식 오브젝트 순회
             foreach (Transform item in childObject) { // 모든 직계 자식(손자) 오브젝트 순회
                 if (item.gameObject.activeSelf) {
-                    UseObjectPool script = item.GetComponentInChildren<UseObjectPool>();
+                    IObjectPooling script = item.GetComponentInChildren<IObjectPooling>();
                     script.ReturnToPool();
                 }
             }

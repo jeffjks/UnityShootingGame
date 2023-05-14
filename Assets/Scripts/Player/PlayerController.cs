@@ -196,7 +196,7 @@ public class PlayerController : PlayerUnit
             if (!m_Invincibility) {
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
 
-                if ((1 << other.gameObject.layer & Layer.AIR) != 0) {
+                if (CheckLayer(other.gameObject, Layer.AIR)) {
                     DealDamage(enemyObject, m_Damage);
                     OnPlayerDeath();
                 }

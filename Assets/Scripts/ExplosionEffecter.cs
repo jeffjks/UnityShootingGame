@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExplosionEffecter : MonoBehaviour, UseObjectPool
+public class ExplosionEffecter : MonoBehaviour, IObjectPooling
 {
     public string m_ObjectName;
     public int m_Lifetime;

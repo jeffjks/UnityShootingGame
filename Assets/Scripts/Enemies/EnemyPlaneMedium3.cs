@@ -20,6 +20,8 @@ public class EnemyPlaneMedium3 : EnemyUnit
 
         StartCoroutine(AppearanceSequence());
 
+        m_EnemyDeath.Action_OnDying += DestroyTurrets;
+
         /*
         m_Sequence = DOTween.Sequence();
         m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
@@ -115,10 +117,8 @@ public class EnemyPlaneMedium3 : EnemyUnit
         yield break;
     }
 
-    protected override IEnumerator DyingEffect() { // 파괴 과정
+    private void DestroyTurrets() {
         m_Turret[0].m_EnemyDeath.OnDying();
         m_Turret[1].m_EnemyDeath.OnDying();
-        
-        yield break;
     }
 }

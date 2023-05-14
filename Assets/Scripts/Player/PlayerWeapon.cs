@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerWeapon : PlayerObject, UseObjectPool, IRotatable
+public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
 {
     [SerializeField] private int[] m_DamageBonus = {0, 0, 0};
     [SerializeField] protected float m_Speed = 0;
@@ -42,7 +42,7 @@ public abstract class PlayerWeapon : PlayerObject, UseObjectPool, IRotatable
             
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 if (m_IsPenetrate) { // 관통 공격이며
-                    if ((1 << other.gameObject.layer & Layer.SMALL) != 0) { // 적이 소형이면
+                    if (CheckLayer(other.gameObject, Layer.SMALL)) { // 적이 소형이면
                         enemyObject.m_EnemyDeath.OnDying(); // 기냥 죽임
                     }
                 }

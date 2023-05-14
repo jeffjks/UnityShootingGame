@@ -73,7 +73,7 @@ Material:
     - _ReflectiveColor_ST: {r: 1, g: 1, b: 0, a: 0}
     - _RefrColor: {r: 0.9372549, g: 0.9372549, b: 0.9372549, a: 1}
     - _RefractionTex_ST: {r: 1, g: 1, b: 0, a: 0}
-    - _WaveOffset: {r: 10661.901, g: 15606, b: -3449.9932, a: 3429.63}
+    - _WaveOffset: {r: 10757.966, g: 15648.928, b: -3483.4595, a: 3411.9314}
   m_BuildTextureStacks: []
 --- !u!1002 &2100001
 EditorExtensionImpl:

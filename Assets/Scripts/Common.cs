@@ -495,3 +495,51 @@ public struct EnemyUnitPrefab
     public string name;
     public GameObject prefab;
 }
+
+[System.Serializable]
+public struct StageMusicInfo
+{
+    public AudioSource stageMusicAudio;
+    public float loopStartPoint;
+    public float loopEndPoint;
+}
+
+public class EnemyBuilder {
+    private GameObject _prefab;
+    private Vector3 _spawnPosition;
+    private MoveVector _moveVector;
+    private Queue<TweenData> _tweenDataQueue = new Queue<TweenData>();
+
+    public EnemyBuilder(GameObject prefab) {
+        _prefab = prefab;
+    }
+
+    public EnemyBuilder SetPosition(Vector3 pos) {
+        if ((1 << _prefab.layer & Layer.AIR) != 0) {
+            _spawnPosition = new Vector3(pos.x, pos.y, Depth.ENEMY);
+        }
+        else
+        {
+            _spawnPosition = pos;
+        }
+        return this;
+    }
+
+    public EnemyBuilder AddTarget(int duration, Vector2 targetVector2) {
+        _tweenDataQueue.Enqueue(new TweenData(new MoveTarget(duration, targetVector2)));
+        return this;
+    }
+
+    public EnemyBuilder SetMoveVector(float speed, float direction) {
+        _moveVector = new MoveVector(speed, direction);
+        return this;
+    }
+
+    public GameObject Build() {
+        var instance = UnityEngine.Object.Instantiate(_prefab, _spawnPosition, Quaternion.identity);
+        EnemyUnit enemyUnit = instance.GetComponent<EnemyUnit>();
+        enemyUnit.m_TweenDataQueue = _tweenDataQueue;
+        enemyUnit.m_MoveVector = _moveVector;
+        return instance;
+    }
+}

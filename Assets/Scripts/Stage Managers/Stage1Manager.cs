@@ -38,12 +38,12 @@ public class Stage1Manager : StageManager
     protected override IEnumerator BossTimeline()
     {
         yield return new WaitForMillisecondFrames(3000);
-        StartCoroutine(FadeOutMusic());
+        Action_FadeOutMusic.Invoke(3.3f);
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
         yield return new WaitForMillisecondFrames(4000);
         SetBackgroundSpeed(7.2f, 938);
-        PlayBossMusic();
+        Action_PlayMusic.Invoke(1);
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1000));
         yield return new WaitForMillisecondFrames(2000);
         SetBackgroundSpeed(0f);
@@ -56,8 +56,8 @@ public class Stage1Manager : StageManager
         int random_duration;
         yield return new WaitForMillisecondFrames(8000);
         random_duration = Random.Range(1200, 1500);
-        //EnemyBuilder enemyBuilder = new EnemyBuilder(m_Helicopter);
-        //enemyBuilder.SetPosition(new Vector3(-4f, 3f)).AddTarget(random_duration, new Vector2(-3f, -3f)).Build();
+        //GetEnemyBuilder("Helicopter").SetPosition(new Vector3(-4f, 3f)).AddTarget(random_duration, new Vector2(-3f, -3f)).Build();
+        
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-3f, -3f), random_duration);
         yield return new WaitForMillisecondFrames(2000);
         if (m_SystemManager.GetDifficulty() >= 1) {

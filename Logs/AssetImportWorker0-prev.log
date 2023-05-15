@@ -15,7 +15,7 @@ C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-62117
+63688
 Successfully changed project path to: C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [11040] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1466912026 [EditorId] 1466912026 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [16112] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1809297097 [EditorId] 1809297097 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [11040] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1466912026 [EditorId] 1466912026 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [16112] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1809297097 [EditorId] 1809297097 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 80.17 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 81.33 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.24f1 (cf10dcf7010d)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
@@ -69,77 +69,77 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56548
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56012
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005380 seconds.
+Registered in 0.005910 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 144 ms
-Refreshing native plugins compatible for Editor in 76.85 ms, found 3 plugins.
+Android Extension - Scanning For ADB Devices 155 ms
+Refreshing native plugins compatible for Editor in 74.72 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.662 seconds
+- Completed reload, in  0.675 seconds
 Domain Reload Profiling:
-	ReloadAssembly (662ms)
+	ReloadAssembly (675ms)
 		BeginReloadAssembly (64ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (522ms)
+		EndReloadAssembly (531ms)
 			LoadAssemblies (63ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (86ms)
+			SetupTypeCache (88ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (22ms)
-			SetupLoadedEditorAssemblies (373ms)
+			SetupLoadedEditorAssemblies (380ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (193ms)
+				InitializePlatformSupportModulesInManaged (205ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (77ms)
+				RefreshPlugins (75ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (69ms)
-				ProcessInitializeOnLoadMethodAttributes (33ms)
+				ProcessInitializeOnLoadAttributes (67ms)
+				ProcessInitializeOnLoadMethodAttributes (32ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003907 seconds.
+Registered in 0.003979 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 1.27 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.25 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.824 seconds
+- Completed reload, in  0.814 seconds
 Domain Reload Profiling:
-	ReloadAssembly (825ms)
-		BeginReloadAssembly (88ms)
+	ReloadAssembly (814ms)
+		BeginReloadAssembly (93ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (15ms)
-		EndReloadAssembly (648ms)
-			LoadAssemblies (68ms)
+		EndReloadAssembly (635ms)
+			LoadAssemblies (71ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (171ms)
+			SetupTypeCache (164ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (45ms)
-			SetupLoadedEditorAssemblies (336ms)
+			RebuildScriptCaches (42ms)
+			SetupLoadedEditorAssemblies (333ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (14ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
 				BeforeProcessingInitializeOnLoad (54ms)
-				ProcessInitializeOnLoadAttributes (157ms)
+				ProcessInitializeOnLoadAttributes (154ms)
 				ProcessInitializeOnLoadMethodAttributes (104ms)
 				AfterProcessingInitializeOnLoad (6ms)
 				EditorAssembliesLoaded (0ms)
@@ -151,12 +151,12 @@ Worker process is ready to serve import requests
 Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
 Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
-Refreshing native plugins compatible for Editor in 1.31 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 2.26 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2488 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 55 unused Assets / (58.6 KB). Loaded Objects now: 2952.
 Memory consumption went from 112.0 MB to 112.0 MB.
-Total: 4.523600 ms (FindLiveObjects: 0.190200 ms CreateObjectMapping: 0.129300 ms MarkObjects: 4.132000 ms  DeleteObjects: 0.071300 ms)
+Total: 7.761000 ms (FindLiveObjects: 0.308400 ms CreateObjectMapping: 0.223300 ms MarkObjects: 7.114400 ms  DeleteObjects: 0.114000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -170,19 +170,111 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 346552.087720 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO
-  artifactKey: Guid(bb7251168bec00e4fac7636fc6154bd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO using Guid(bb7251168bec00e4fac7636fc6154bd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30835efe8523bf84c085b2f2c962c8ff') in 0.009066 seconds 
+  Time since last request: 347756.103750 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage3/S3 EnemySpawner (3).asset
+  artifactKey: Guid(2fe7de9ba80b84142a08fbfd6194bf16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage3/S3 EnemySpawner (3).asset using Guid(2fe7de9ba80b84142a08fbfd6194bf16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78e92061cc8b9760bf64f37101883ed1') in 0.029671 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage3
+  artifactKey: Guid(d270f17d963ce9f4aa17da74bdd95d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage3 using Guid(d270f17d963ce9f4aa17da74bdd95d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc4d3257470c44a37ffbdd0013adf34e') in 0.006407 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004263 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.779 seconds
+Domain Reload Profiling:
+	ReloadAssembly (779ms)
+		BeginReloadAssembly (108ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (26ms)
+		EndReloadAssembly (595ms)
+			LoadAssemblies (69ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (161ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (28ms)
+			SetupLoadedEditorAssemblies (310ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (14ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (44ms)
+				ProcessInitializeOnLoadAttributes (145ms)
+				ProcessInitializeOnLoadMethodAttributes (100ms)
+				AfterProcessingInitializeOnLoad (6ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
+Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
+Refreshing native plugins compatible for Editor in 7.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2464 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 44 unused Assets / (25.9 KB). Loaded Objects now: 2956.
+Memory consumption went from 108.6 MB to 108.6 MB.
+Total: 7.319700 ms (FindLiveObjects: 0.243700 ms CreateObjectMapping: 0.195700 ms MarkObjects: 6.845100 ms  DeleteObjects: 0.034000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 181.604572 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (1).asset
+  artifactKey: Guid(abcdd301a54b9084db2c6d4cc808d3a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (1).asset using Guid(abcdd301a54b9084db2c6d4cc808d3a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a2767f2e4c903b3d15b540836a2d5e7') in 0.022451 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (6).asset
+  artifactKey: Guid(2f03f0aafcf504d44a32492470a56237) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (6).asset using Guid(2f03f0aafcf504d44a32492470a56237) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ede3c8579bfb7b6e002cd613c82aa722') in 0.008959 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (9) 1.asset
+  artifactKey: Guid(c6dc2beeea6430241a90bc5b5832eea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (9) 1.asset using Guid(c6dc2beeea6430241a90bc5b5832eea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c49069708d051a85e91e46e87bbc2aa8') in 0.008632 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000016 seconds.
-  path: Assets/Scriptable Object/Enemy Unit Datas.asset
-  artifactKey: Guid(5b41db030888ece498b18df522e1dc3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Unit Datas.asset using Guid(5b41db030888ece498b18df522e1dc3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '530f39c535e805008fa60d338f6cacb1') in 0.031612 seconds 
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (5) 2.asset
+  artifactKey: Guid(e9a6a57aab317ba47ab1c4dcf7661663) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (5) 2.asset using Guid(e9a6a57aab317ba47ab1c4dcf7661663) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c0739bb1849afe25fe76863b096fe1d') in 0.010140 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 22.041983 seconds.
-  path: Assets/Scripts/NetworkUploadRankingScore.cs
-  artifactKey: Guid(81d32c6eea30d7c4aa0b39db324e2d49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/NetworkUploadRankingScore.cs using Guid(81d32c6eea30d7c4aa0b39db324e2d49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4a4c6a7468026d94261a12aea695098') in 0.009873 seconds 
+  Time since last request: 0.000017 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (3).asset
+  artifactKey: Guid(4526d840c25416a43ac33c4bb668d738) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (3).asset using Guid(4526d840c25416a43ac33c4bb668d738) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5325ff209d24e1da0a33617ece84e89') in 0.009477 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (4).asset
+  artifactKey: Guid(3014a4925fa794641ba0ea76620391ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (4).asset using Guid(3014a4925fa794641ba0ea76620391ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23261a3fa28e007f1c2b544b52ede480') in 0.008347 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

@@ -303,7 +303,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         float modelRotationAngle = m_CurrentAngle;
 
         if (CheckLayer(Layer.AIR)) { // 공중
-            target_rotation = Quaternion.AngleAxis(modelRotationAngle, (transform == this.transform.root) ? m_AirEnemyAxis : Vector3.down);
+            target_rotation = Quaternion.AngleAxis(modelRotationAngle, (transform == transform.root) ? m_AirEnemyAxis : Vector3.down);
         }
         else { // 지상
             target_rotation = Quaternion.AngleAxis(modelRotationAngle, Vector3.down);

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -16,23 +17,27 @@ public abstract class StageManager : MonoBehaviour
     [Space(10)]
     [SerializeField] protected GameObject m_EnemySpawners = null;
     
-    public EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
+    [SerializeField] private EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
 
     [HideInInspector] public Vector3 m_BackgroundVector;
+
+    public Action<int> Action_PlayMusic;
+    public Action Action_StopMusic;
+    public Action<float> Action_FadeOutMusic;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
 
     private BossHealthBarHandler m_BossHealthBar;
-    private Vector3[] m_BossOnlyBackgroundLocalPositions = {
+    private readonly Vector3[] m_BossOnlyBackgroundLocalPositions = {
         new (0.00000000f, 50.00000000f, 284.35050000f + 64f),
         new (15.98016000f, 50.00000000f, 76.13345000f + 64f),
         new (-24.95980000f, 50.00000000f, 29.27469000f + 64f),
         new (14.00522000f, 50.00000000f, 83.86731000f + 64f),
         new (0.00000000f, 50.00000000f, 387.63410000f + 64f)
     };
-    private Vector3[] m_BossOnlyBackgroundMoveVectors = {
+    private readonly Vector3[] m_BossOnlyBackgroundMoveVectors = {
         new (0f, 0f, 2.7f),
         new (0f, 0f, 0.96f),
         new (0f, 0f, 0.96f),
@@ -58,7 +63,7 @@ public abstract class StageManager : MonoBehaviour
 
         foreach (var value in m_EnemyUnitPrefabDatas.EnemyUnitPrefabs)
         {
-            m_EnemyBuilders[value.name] = new EnemyBuilder(value.prefab);
+            //m_EnemyBuilders[value.name] = new EnemyBuilder(value.prefab);
         }
 
         Init();
@@ -280,44 +285,9 @@ public abstract class StageManager : MonoBehaviour
     public void SetTrueLastBossState(bool state) {
         m_FinalBossAvailable = state;
     }
-}
 
-public class EnemyBuilder {
-    private GameObject _prefab;
-    private Vector3 _spawnPosition;
-    private MoveVector _moveVector;
-    private Queue<TweenData> _tweenDataQueue = new Queue<TweenData>();
-
-    public EnemyBuilder(GameObject prefab) {
-        _prefab = prefab;
-    }
-
-    public EnemyBuilder SetPosition(Vector3 pos) {
-        if ((1 << _prefab.layer & Layer.AIR) != 0) {
-            _spawnPosition = new Vector3(pos.x, pos.y, Depth.ENEMY);
-        }
-        else
-        {
-            _spawnPosition = pos;
-        }
-        return this;
-    }
-
-    public EnemyBuilder AddTarget(int duration, Vector2 targetVector2) {
-        _tweenDataQueue.Enqueue(new TweenData(new MoveTarget(duration, targetVector2)));
-        return this;
-    }
-
-    public EnemyBuilder SetMoveVector(float speed, float direction) {
-        _moveVector = new MoveVector(speed, direction);
-        return this;
-    }
-
-    public GameObject Build() {
-        var instance = Object.Instantiate(_prefab, _spawnPosition, Quaternion.identity);
-        EnemyUnit enemyUnit = instance.GetComponent<EnemyUnit>();
-        enemyUnit.m_TweenDataQueue = _tweenDataQueue;
-        enemyUnit.m_MoveVector = _moveVector;
-        return instance;
+    protected EnemyBuilder GetEnemyBuilder(string key)
+    {
+        return m_EnemyBuilders[key];
     }
 }

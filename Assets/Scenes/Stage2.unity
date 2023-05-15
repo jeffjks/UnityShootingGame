@@ -179,8 +179,8 @@ GameObject:
   m_Component:
   - component: {fileID: 63751299}
   - component: {fileID: 63751300}
-  - component: {fileID: 63751301}
   - component: {fileID: 63751302}
+  - component: {fileID: 63751301}
   m_Layer: 12
   m_Name: GroundEnemySpawner (2)
   m_TagString: Untagged
@@ -215,30 +215,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
-  m_Enemy:
-  - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
-  m_Speed: 2
-  m_Direction: 45
-  m_SpawnPeriod: 2000
-  m_RemoveTimer: 25000
-  m_MovePattern:
-  - delay: 2700
-    speed: 8739
-    direction: 90
-    duration: 16000
-  m_ActivateTime: 50000
-  m_DeactivateTime: 90000
-  m_AttackableTimer: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: ab71382ca33116f49bb3d910ca436158,
+    type: 2}
+  Normal: 1
+  Expert: 0
+  Hell: 0
+  m_Normal: 1
+  m_Expert: 0
+  m_Hell: 0
 --- !u!114 &63751301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,15 +232,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 63751298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GroundEnemySpawner: {fileID: 63751300}
-  m_Normal: 1
-  m_Expert: 1
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: dd95f30bb7fa6c943a275c4b5acecf2b,
+    type: 2}
+  Normal: 0
+  Expert: 0
+  Hell: 1
+  m_Normal: 0
+  m_Expert: 0
   m_Hell: 1
-  m_SpawnPeriod_Normal: 3000
-  m_SpawnPeriod_Expert: 2500
 --- !u!114 &63751302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,10 +252,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 63751298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 1bb813abe6d61064ebd7eff5ef472e4d,
+    type: 2}
+  Normal: 0
+  Expert: 1
+  Hell: 0
+  m_Normal: 0
+  m_Expert: 1
+  m_Hell: 0
 --- !u!1 &84663665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,8 +1023,8 @@ GameObject:
   m_Component:
   - component: {fileID: 840666687}
   - component: {fileID: 840666688}
-  - component: {fileID: 840666689}
   - component: {fileID: 840666690}
+  - component: {fileID: 840666689}
   m_Layer: 12
   m_Name: GroundEnemySpawner (3)
   m_TagString: Untagged
@@ -1066,31 +1059,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
-  m_Enemy:
-  - {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-  - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
-  m_Speed: 2
-  m_Direction: 270
-  m_SpawnPeriod: 2000
-  m_RemoveTimer: 20000
-  m_MovePattern:
-  - delay: 0
-    speed: 8739
-    direction: 225
-    duration: 13500
-  m_ActivateTime: 55000
-  m_DeactivateTime: 95000
-  m_AttackableTimer: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 095bac2e121411649b1ff686d1cae6ce,
+    type: 2}
+  Normal: 1
+  Expert: 0
+  Hell: 0
+  m_Normal: 1
+  m_Expert: 0
+  m_Hell: 0
 --- !u!114 &840666689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,15 +1076,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 840666686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GroundEnemySpawner: {fileID: 840666688}
-  m_Normal: 1
-  m_Expert: 1
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 6f074ae8993d188409648b1d366a3285,
+    type: 2}
+  Normal: 0
+  Expert: 0
+  Hell: 1
+  m_Normal: 0
+  m_Expert: 0
   m_Hell: 1
-  m_SpawnPeriod_Normal: 3000
-  m_SpawnPeriod_Expert: 2500
 --- !u!114 &840666690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,111 +1096,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 840666686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsDead: 0
---- !u!1 &845341422
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 845341423}
-  - component: {fileID: 845341424}
-  - component: {fileID: 845341425}
-  - component: {fileID: 845341426}
-  m_Layer: 12
-  m_Name: GroundEnemySpawner (4) H
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &845341423
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845341422}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34, y: 4.3, z: 91.19}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1883073571}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &845341424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845341422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
-  m_Enemy:
-  - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
-  m_Speed: 2
-  m_Direction: 270
-  m_SpawnPeriod: 2000
-  m_RemoveTimer: 16000
-  m_MovePattern:
-  - delay: 0
-    speed: 8739
-    direction: 225
-    duration: 12500
-  m_ActivateTime: 55000
-  m_DeactivateTime: 95000
-  m_AttackableTimer: 0
---- !u!114 &845341425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845341422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GroundEnemySpawner: {fileID: 845341424}
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 8451a36ecd51235429c42eaaef22349e,
+    type: 2}
+  Normal: 0
+  Expert: 1
+  Hell: 0
   m_Normal: 0
-  m_Expert: 0
-  m_Hell: 1
-  m_SpawnPeriod_Normal: 0
-  m_SpawnPeriod_Expert: 0
---- !u!114 &845341426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845341422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsDead: 0
+  m_Expert: 1
+  m_Hell: 0
 --- !u!1 &882221969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,108 +1389,6 @@ Transform:
   m_Father: {fileID: 1035349719}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1114189361
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1114189362}
-  - component: {fileID: 1114189363}
-  - component: {fileID: 1114189364}
-  - component: {fileID: 1114189365}
-  m_Layer: 12
-  m_Name: GroundEnemySpawner (4) E
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1114189362
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114189361}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34, y: 4.3, z: 91.19}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1883073571}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1114189363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114189361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
-  m_Enemy:
-  - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
-  - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
-  m_Speed: 2
-  m_Direction: 270
-  m_SpawnPeriod: 2000
-  m_RemoveTimer: 16000
-  m_MovePattern:
-  - delay: 0
-    speed: 8739
-    direction: 225
-    duration: 12500
-  m_ActivateTime: 55000
-  m_DeactivateTime: 95000
-  m_AttackableTimer: 0
---- !u!114 &1114189364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114189361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GroundEnemySpawner: {fileID: 1114189363}
-  m_Normal: 0
-  m_Expert: 1
-  m_Hell: 0
-  m_SpawnPeriod_Normal: 0
-  m_SpawnPeriod_Expert: 2500
---- !u!114 &1114189365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114189361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &1150961309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,8 +2372,6 @@ Transform:
   - {fileID: 63751299}
   - {fileID: 840666687}
   - {fileID: 1915044467}
-  - {fileID: 1114189362}
-  - {fileID: 845341423}
   m_Father: {fileID: 1035349719}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2605,10 +2385,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1915044467}
   - component: {fileID: 1915044468}
-  - component: {fileID: 1915044469}
   - component: {fileID: 1915044470}
+  - component: {fileID: 1915044469}
   m_Layer: 12
-  m_Name: GroundEnemySpawner (4) N
+  m_Name: GroundEnemySpawner (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2641,30 +2421,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
-  m_Enemy:
-  - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
-  m_Speed: 2
-  m_Direction: 270
-  m_SpawnPeriod: 2000
-  m_RemoveTimer: 16000
-  m_MovePattern:
-  - delay: 0
-    speed: 8739
-    direction: 225
-    duration: 12500
-  m_ActivateTime: 55000
-  m_DeactivateTime: 95000
-  m_AttackableTimer: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 5d531e5b07477af4bb2fb4f5f567758a,
+    type: 2}
+  Normal: 1
+  Expert: 0
+  Hell: 0
+  m_Normal: 1
+  m_Expert: 0
+  m_Hell: 0
 --- !u!114 &1915044469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,15 +2438,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1915044466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GroundEnemySpawner: {fileID: 1915044468}
-  m_Normal: 1
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 5d79a8b3d80a13745b71e729ae33f16c,
+    type: 2}
+  Normal: 0
+  Expert: 0
+  Hell: 1
+  m_Normal: 0
   m_Expert: 0
-  m_Hell: 0
-  m_SpawnPeriod_Normal: 3000
-  m_SpawnPeriod_Expert: 0
+  m_Hell: 1
 --- !u!114 &1915044470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2692,10 +2458,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1915044466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 760d3b21468072d4181a0030f6e01cad,
+    type: 2}
+  Normal: 0
+  Expert: 1
+  Hell: 0
+  m_Normal: 0
+  m_Expert: 1
+  m_Hell: 0
 --- !u!1001 &1934945172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2952,7 +2725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6345367217902060088}
   - component: {fileID: 7766424090260131985}
-  - component: {fileID: 6964040497571365834}
+  - component: {fileID: 7766424090260131987}
   - component: {fileID: 7766424090260131986}
   m_Layer: 12
   m_Name: GroundEnemySpawner (1)
@@ -2961,24 +2734,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &6964040497571365834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6964040497571365833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6935769baacce6458419cbf1049219c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GroundEnemySpawner: {fileID: 7766424090260131985}
-  m_Normal: 1
-  m_Expert: 1
-  m_Hell: 1
-  m_SpawnPeriod_Normal: 3000
-  m_SpawnPeriod_Expert: 2500
 --- !u!114 &7766424090260131985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2991,30 +2746,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
-  m_Enemy:
-  - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
-  m_Speed: 2
-  m_Direction: 45
-  m_SpawnPeriod: 2000
-  m_RemoveTimer: 25000
-  m_MovePattern:
-  - delay: 2700
-    speed: 8739
-    direction: 90
-    duration: 17000
-  m_ActivateTime: 50000
-  m_DeactivateTime: 90000
-  m_AttackableTimer: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 327329f2a6c4e574ea794ff1392b0978,
+    type: 2}
+  Normal: 1
+  Expert: 0
+  Hell: 0
+  m_Normal: 1
+  m_Expert: 0
+  m_Hell: 0
 --- !u!114 &7766424090260131986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3024,7 +2763,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 6964040497571365833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: ed3d17f2275d3b34bb9c9f4f4a86ad9c,
+    type: 2}
+  Normal: 0
+  Expert: 0
+  Hell: 1
+  m_Normal: 0
+  m_Expert: 0
+  m_Hell: 1
+--- !u!114 &7766424090260131987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964040497571365833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemySpawnerDatas: {fileID: 11400000, guid: 7e356f045babe9c40a406ae032e7ef37,
+    type: 2}
+  Normal: 0
+  Expert: 1
+  Hell: 0
+  m_Normal: 0
+  m_Expert: 1
+  m_Hell: 0

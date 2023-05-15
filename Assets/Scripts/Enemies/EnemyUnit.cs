@@ -14,7 +14,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     public EnemyType m_EnemyType;
     public int m_Score;
     [Space(10)]
-    public Queue<TweenDataMovePattern> m_TweenDataQueue = new Queue<TweenDataMovePattern>();
+    public Queue<TweenData> m_TweenDataQueue = new Queue<TweenData>();
     
     protected bool m_TimeLimitState = false;
 
@@ -161,14 +161,26 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     private IEnumerator PlayTweenData() { // 프레임 기반
         while (true) {
             if (m_TweenDataQueue.Count > 0) {
-                TweenDataMovePattern tdmp = m_TweenDataQueue.Dequeue(); // delay동안 대기 후 duration동안 속도와 방향 변화
-                MovePattern movePattern = tdmp.movePattern;
+                TweenData tdmp = m_TweenDataQueue.Dequeue(); // delay동안 대기 후 duration동안 속도와 방향 변화
+                UnitMovement unitMovement = tdmp.unitMovement;
                 
-                yield return new WaitForMillisecondFrames(movePattern.delay);
+                yield return new WaitForMillisecondFrames(unitMovement.delay);
                 
-                int frame = movePattern.duration * Application.targetFrameRate / 1000;
-                float init_speed = movePattern.speed;
-                float init_direction = movePattern.direction;
+                int frame = unitMovement.duration * Application.targetFrameRate / 1000;
+
+                if (unitMovement is MovePattern) {
+                    yield return SetTweenMovement(frame, tdmp, (MovePattern) unitMovement);
+                }
+                else if (unitMovement is MoveTarget) {
+                    yield return SetTweenMovement(frame, tdmp, (MoveTarget) unitMovement);
+                }
+                else {
+                    Debug.LogError("Unknown TweenData type!");
+                }
+
+                /*
+                float init_speed = m_MoveVector.speed;
+                float init_direction = m_MoveVector.direction;
 
                 if (movePattern.keepSpeed) {
                     movePattern.speed = init_speed;
@@ -191,11 +203,48 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
                         //Debug.Log(m_MoveVector.direction);
                         yield return new WaitForFrames(0);
                     }
-                }
+                }*/
             }
             else { // Idle
                 yield return null;
             }
+        }
+    }
+
+    private IEnumerator SetTweenMovement(int frame, TweenData tdmp, MovePattern movePattern) {
+        float init_speed = m_MoveVector.speed;
+        float init_direction = m_MoveVector.direction;
+
+        if (movePattern.keepSpeed) {
+            movePattern.speed = init_speed;
+        }
+        if (movePattern.keepDirection) {
+            movePattern.direction = init_direction;
+        }
+
+        if (frame == 0) { // 즉시 적용
+            m_MoveVector = new MoveVector(movePattern.speed, movePattern.direction);
+        }
+        else {
+            for (int i = 0; i < frame; ++i) {
+                float t_lerp = AC_Ease.ac_ease[tdmp.easeType].Evaluate((float) (i+1)/frame);
+
+                m_MoveVector.speed = Mathf.Lerp(init_speed, movePattern.speed, t_lerp);
+                m_MoveVector.direction = Mathf.LerpAngle(init_direction, movePattern.direction, t_lerp);
+                yield return new WaitForFrames(0);
+            }
+        }
+    }
+
+    private IEnumerator SetTweenMovement(int frame, TweenData tdmp, MoveTarget moveTarget) {
+        Vector3 init_position = transform.position;
+        Vector3 target_position = new Vector3(moveTarget.targetVector2.x, moveTarget.targetVector2.y, Depth.ENEMY);
+
+        for (int i = 0; i < frame; ++i) {
+            float t_lerp = AC_Ease.ac_ease[tdmp.easeType].Evaluate((float) (i+1)/frame);
+            
+            transform.position = Vector3.Lerp(init_position, target_position, t_lerp);
+            yield return new WaitForMillisecondFrames(0);
         }
     }
 

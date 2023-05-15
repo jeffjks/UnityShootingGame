@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Stage1Manager : StageManager
 {
@@ -27,7 +28,6 @@ public class Stage1Manager : StageManager
         yield return new WaitForMillisecondFrames(52000);
         
         StartBossTimeline();
-        yield break;
     }
 
     protected override IEnumerator TestTimeline()
@@ -56,6 +56,8 @@ public class Stage1Manager : StageManager
         int random_duration;
         yield return new WaitForMillisecondFrames(8000);
         random_duration = Random.Range(1200, 1500);
+        //EnemyBuilder enemyBuilder = new EnemyBuilder(m_Helicopter);
+        //enemyBuilder.SetPosition(new Vector3(-4f, 3f)).AddTarget(random_duration, new Vector2(-3f, -3f)).Build();
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-3f, -3f), random_duration);
         yield return new WaitForMillisecondFrames(2000);
         if (m_SystemManager.GetDifficulty() >= 1) {
@@ -91,7 +93,7 @@ public class Stage1Manager : StageManager
         yield return new WaitForMillisecondFrames(500);
 
         if (m_SystemManager.GetDifficulty() >= Difficulty.HELL) { // 3 small ship
-            MovePattern[] movePatterns = { new MovePattern(2000, true, 0f, 2000) };
+            MovePattern[] movePatterns = { new MovePattern(2000, 2000, true, 0f) };
             CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-10.055f, WATER_HEIGHT, 132.5f), new MoveVector(3f, 70f), movePatterns);
             CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-11.06f, WATER_HEIGHT, 135.44f), new MoveVector(3f, 70f), movePatterns);
             CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-13.98f, WATER_HEIGHT, 133.93f), new MoveVector(3f, 70f), movePatterns);

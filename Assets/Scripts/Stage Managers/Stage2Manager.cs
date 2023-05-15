@@ -226,7 +226,7 @@ public class Stage2Manager : StageManager
     }
 
     private MovePattern[] StopAfterMilliseconds(int delay) {
-        MovePattern[] movePatterns = { new MovePattern(delay, true, 0f, 1000) };
+        MovePattern[] movePatterns = { new MovePattern(delay, 1000, true, 0f) };
         return movePatterns;
     }
 }

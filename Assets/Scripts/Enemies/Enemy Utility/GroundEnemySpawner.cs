@@ -2,42 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundEnemySpawner : EnemyUnit
+public class GroundEnemySpawner : MonoBehaviour
 {
     public EnemySpawnerDatas m_EnemySpawnerDatas;
     private GameObject[] m_EnemyUnits;
+    private MovePattern[] m_MovePattern;
     
-    public GameObject[] m_Enemy;
-    public float m_Speed, m_Direction;
-    [Space(10)]
-    public int m_SpawnPeriod;
-    public int m_RemoveTimer;
-    [Space(10)]
-    public MovePattern[] m_MovePattern;
-    [Space(10)]
-    [Tooltip("스포너 활성화 시간")]
-    public int m_ActivateTime;
-    [Tooltip("스포너 비활성화 시간")]
-    public int m_DeactivateTime;
-    [Space(10)]
-    public int m_AttackableTimer;
+    public bool m_Normal;
+    public bool m_Expert;
+    public bool m_Hell;
+
+    private SystemManager m_SystemManager;
 
     void Start()
     {
+        m_SystemManager = SystemManager.instance_sm;
+
         m_EnemyUnits = m_EnemySpawnerDatas.EnemyUnits;
+        m_MovePattern = m_EnemySpawnerDatas.MovePatterns;
+        
+        if (m_MovePattern.Length == 0) {
+            Debug.LogError("Enemy Spawner doesn't have any MovePattern class.");
+            return;
+        }
+        if (m_EnemyUnits.Length == 0) {
+            Debug.LogError("Enemy Spawner doesn't have any Enemy Prefabs.");
+            return;
+        }
+        if (!CheckDifficulty()) {
+            return;
+        }
         StartCoroutine(SpawnEnemySequence());
         StartCoroutine(DestroySpawner());
     }
 
     private void SpawnEnemy(GameObject enemy) {
-        if (m_MovePattern.Length == 0)
-        {
-            Debug.LogError("Enemy Spawner doesn't have any MovePattern class.");
-            return;
-        }
         GameObject ins = Instantiate(enemy, transform.position, Quaternion.identity);
         EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
-        //enemy_unit.m_MoveVector = new MoveVector(m_MovePattern[0].speed, m_MovePattern[0].direction);
+        enemy_unit.m_MoveVector = new MoveVector(m_MovePattern[0].speed, m_MovePattern[0].direction);
         enemy_unit.RotateImmediately(m_MovePattern[0].direction);
         
         if (m_EnemySpawnerDatas.InteractableTimer != 0)
@@ -46,7 +48,7 @@ public class GroundEnemySpawner : EnemyUnit
         }
         
         for (int i = 0; i < m_MovePattern.Length; i++) {
-            enemy_unit.m_TweenDataQueue.Enqueue(new TweenDataMovePattern(m_MovePattern[i]));
+            enemy_unit.m_TweenDataQueue.Enqueue(new TweenData(m_MovePattern[i]));
         }
         enemy_unit.StartPlayTweenData();
         
@@ -55,7 +57,7 @@ public class GroundEnemySpawner : EnemyUnit
         }
     }
 
-    IEnumerator SpawnEnemySequence()
+    private IEnumerator SpawnEnemySequence()
     {
         yield return new WaitForMillisecondFrames(m_EnemySpawnerDatas.ActivateTime + 1000);
         while (true) {
@@ -66,19 +68,29 @@ public class GroundEnemySpawner : EnemyUnit
         }
     }
 
-    IEnumerator DestroySpawner()
+    private IEnumerator DestroySpawner()
     {
-        yield return new WaitForMillisecondFrames(m_EnemySpawnerDatas.DeActivateTime);
-        m_EnemyDeath.OnRemoved();
+        yield return new WaitForMillisecondFrames(m_EnemySpawnerDatas.DeactivateTime);
+        Destroy(gameObject);
     }
 
-    IEnumerator DestroySpawnedEnemy()
+    private IEnumerator DestroySpawnedEnemy()
     {
         yield return new WaitForMillisecondFrames(m_EnemySpawnerDatas.RemoveTimer);
-        m_EnemyDeath.OnRemoved();
+        Destroy(gameObject);
     }
 
-    public void SetSpawnPeriodTime(int millisecond) {
-        m_SpawnPeriod = millisecond;
+    private bool CheckDifficulty() {
+        int difficulty = m_SystemManager.GetDifficulty();
+        if (difficulty == 0 && m_Normal) {
+            return true;
+        }
+        if (difficulty == 1 && m_Expert) {
+            return true;
+        }
+        if (difficulty == 2 && m_Hell) {
+            return true;
+        }
+        return false;
     }
 }

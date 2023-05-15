@@ -26,10 +26,10 @@ public class GroundEnemySpawnerDifficultyModifier : MonoBehaviour
             m_GroundEnemySpawner.gameObject.SetActive(false);
         
         if (m_Normal && m_SpawnPeriod_Normal > 0) {
-            m_GroundEnemySpawner.SetSpawnPeriodTime(m_SpawnPeriod_Normal);
+            //m_GroundEnemySpawner.SetSpawnPeriodTime(m_SpawnPeriod_Normal);
         }
         else if (m_Expert && m_SpawnPeriod_Expert > 0) {
-            m_GroundEnemySpawner.SetSpawnPeriodTime(m_SpawnPeriod_Expert);
+            //m_GroundEnemySpawner.SetSpawnPeriodTime(m_SpawnPeriod_Expert);
         }
     }
 }

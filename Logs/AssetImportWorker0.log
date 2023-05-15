@@ -1,23 +1,23 @@
 Using pre-set license
 Built from '2021.3/staging' branch; Version is '2021.3.24f1 (cf10dcf7010d) revision 13570268'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'ko' Physical Memory: 32681 MB
+OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 32702 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
-C:\Program Files\Unity\2021.3.24f1\Editor\Unity.exe
+C:\Program Files\Unity\Hub\Editor\2021.3.24f1\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-C:/Program Files/Unity/Project/Dead Planet 2
+C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-10062
-Successfully changed project path to: C:/Program Files/Unity/Project/Dead Planet 2
-C:/Program Files/Unity/Project/Dead Planet 2
+63688
+Successfully changed project path to: C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
+C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -47,115 +47,116 @@ C:/Program Files/Unity/Project/Dead Planet 2
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [158372] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 2155176980 [EditorId] 2155176980 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [16112] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1809297097 [EditorId] 1809297097 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [158372] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 2155176980 [EditorId] 2155176980 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [16112] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1809297097 [EditorId] 1809297097 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 93.82 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 81.33 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.24f1 (cf10dcf7010d)
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Project/Dead Planet 2/Assets
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1070 Ti (ID=0x1b82)
+    Renderer: NVIDIA GeForce GTX 1660 SUPER (ID=0x21c4)
     Vendor:   NVIDIA
-    VRAM:     8073 MB
-    Driver:   31.0.15.3141
+    VRAM:     5991 MB
+    Driver:   27.21.14.5751
 Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
 Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
 Initialize mono
-Mono path[0] = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56796
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56012
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
-Register platform support module: C:/Program Files/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.008423 seconds.
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005910 seconds.
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 88.61 ms, found 3 plugins.
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 155 ms
+Refreshing native plugins compatible for Editor in 74.72 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.613 seconds
+- Completed reload, in  0.675 seconds
 Domain Reload Profiling:
-	ReloadAssembly (613ms)
-		BeginReloadAssembly (90ms)
+	ReloadAssembly (675ms)
+		BeginReloadAssembly (64ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (425ms)
-			LoadAssemblies (87ms)
+		EndReloadAssembly (531ms)
+			LoadAssemblies (63ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (102ms)
+			SetupTypeCache (88ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (23ms)
-			SetupLoadedEditorAssemblies (250ms)
+			RebuildScriptCaches (22ms)
+			SetupLoadedEditorAssemblies (380ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
+				InitializePlatformSupportModulesInManaged (205ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (89ms)
+				RefreshPlugins (75ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (105ms)
-				ProcessInitializeOnLoadMethodAttributes (46ms)
+				ProcessInitializeOnLoadAttributes (67ms)
+				ProcessInitializeOnLoadMethodAttributes (32ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.006920 seconds.
+Registered in 0.003979 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.32 ms, found 3 plugins.
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.25 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.967 seconds
+- Completed reload, in  0.814 seconds
 Domain Reload Profiling:
-	ReloadAssembly (967ms)
-		BeginReloadAssembly (118ms)
+	ReloadAssembly (814ms)
+		BeginReloadAssembly (93ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (16ms)
-		EndReloadAssembly (745ms)
-			LoadAssemblies (94ms)
+			CreateAndSetChildDomain (15ms)
+		EndReloadAssembly (635ms)
+			LoadAssemblies (71ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (182ms)
+			SetupTypeCache (164ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (48ms)
-			SetupLoadedEditorAssemblies (395ms)
+			RebuildScriptCaches (42ms)
+			SetupLoadedEditorAssemblies (333ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
+				InitializePlatformSupportModulesInManaged (14ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (71ms)
-				ProcessInitializeOnLoadAttributes (184ms)
-				ProcessInitializeOnLoadMethodAttributes (121ms)
-				AfterProcessingInitializeOnLoad (10ms)
+				BeforeProcessingInitializeOnLoad (54ms)
+				ProcessInitializeOnLoadAttributes (154ms)
+				ProcessInitializeOnLoadMethodAttributes (104ms)
+				AfterProcessingInitializeOnLoad (6ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
 Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 1.62 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 2.26 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2488 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 55 unused Assets / (57.8 KB). Loaded Objects now: 2960.
-Memory consumption went from 114.2 MB to 114.1 MB.
-Total: 5.622100 ms (FindLiveObjects: 0.220300 ms CreateObjectMapping: 0.175600 ms MarkObjects: 5.123900 ms  DeleteObjects: 0.101000 ms)
+Unloading 55 unused Assets / (58.6 KB). Loaded Objects now: 2952.
+Memory consumption went from 112.0 MB to 112.0 MB.
+Total: 7.761000 ms (FindLiveObjects: 0.308400 ms CreateObjectMapping: 0.223300 ms MarkObjects: 7.114400 ms  DeleteObjects: 0.114000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -169,235 +170,111 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 43736.368834 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 4.asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 4.asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c44bd82ab3cf0a8d633e6a42a442bb5') in 0.046528 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.761904 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a537634501270e2fe7d6f7056b2acad') in 0.008077 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 100.608362 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 1.asset
-  artifactKey: Guid(c6c27eda2f5e6934e963608f58968b6b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 1.asset using Guid(c6c27eda2f5e6934e963608f58968b6b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ce99c0cc915acf603dd2d7854baf3bb') in 0.007716 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 3.asset
-  artifactKey: Guid(184d1558a506d2146945969995965172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 3.asset using Guid(184d1558a506d2146945969995965172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc3a1caff060ecd0b6f5220776c7e20a') in 0.007791 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c8a23a91b80eaac98663d97f6ccc96f') in 0.005951 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 2.asset
-  artifactKey: Guid(ab1d145abb5276f4e80f9ad091c1a1c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 2.asset using Guid(ab1d145abb5276f4e80f9ad091c1a1c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '215150d70eae518790c1f10bd170bbf9') in 0.008785 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 26.586897 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99aa334ebc7cd17a9c22e0d0a0b0a711') in 0.005102 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 33.079986 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8) 1.asset
-  artifactKey: Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8) 1.asset using Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd222bdfe589129ee13b76a3ddf406f84') in 0.008197 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd4eb750b87cff03c5ea0cb7f2bd82c5') in 0.004812 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.144198 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9).asset
-  artifactKey: Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9).asset using Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ecf19be9c9d7192e682f0019c1e381df') in 0.007705 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 125.878155 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '365798ad233d7e0de944878f0ef724b6') in 0.005078 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9) 1.asset
-  artifactKey: Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9) 1.asset using Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccd5324905dfaf101496107622161286') in 0.009113 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9).asset
-  artifactKey: Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9).asset using Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ae1b29eece00ed8fbee51f04f36166e') in 0.005299 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.486518 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10).asset
-  artifactKey: Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10).asset using Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3e3c0197ec2b8fcb698aa37a1f7c110') in 0.008363 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 47.805659 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10).asset
-  artifactKey: Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10).asset using Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '921d94389ac7633d6f503837eee852e5') in 0.004934 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 80.964362 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 2.asset
-  artifactKey: Guid(ab1d145abb5276f4e80f9ad091c1a1c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 2.asset using Guid(ab1d145abb5276f4e80f9ad091c1a1c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e48e2c3b665c8ddb4307c0db139e7d3f') in 0.004720 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 3.asset
-  artifactKey: Guid(184d1558a506d2146945969995965172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (7) 3.asset using Guid(184d1558a506d2146945969995965172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40653ca866722e55b79c221a9c74f485') in 0.004479 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset
-  artifactKey: Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (8).asset using Guid(c794a019b0d2f8f48af87bda78c2595e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8427cdb66f855b9f0a921f9cef56f1a') in 0.005146 seconds 
+  Time since last request: 347756.103750 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage3/S3 EnemySpawner (3).asset
+  artifactKey: Guid(2fe7de9ba80b84142a08fbfd6194bf16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage3/S3 EnemySpawner (3).asset using Guid(2fe7de9ba80b84142a08fbfd6194bf16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78e92061cc8b9760bf64f37101883ed1') in 0.029671 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000020 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10) 1.asset
-  artifactKey: Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10) 1.asset using Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce16a7f18cc9bcc407043109f0e3de2c') in 0.008441 seconds 
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage3
+  artifactKey: Guid(d270f17d963ce9f4aa17da74bdd95d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage3 using Guid(d270f17d963ce9f4aa17da74bdd95d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc4d3257470c44a37ffbdd0013adf34e') in 0.006407 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004263 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.779 seconds
+Domain Reload Profiling:
+	ReloadAssembly (779ms)
+		BeginReloadAssembly (108ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (26ms)
+		EndReloadAssembly (595ms)
+			LoadAssemblies (69ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (161ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (28ms)
+			SetupLoadedEditorAssemblies (310ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (14ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (44ms)
+				ProcessInitializeOnLoadAttributes (145ms)
+				ProcessInitializeOnLoadMethodAttributes (100ms)
+				AfterProcessingInitializeOnLoad (6ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
+Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
+Refreshing native plugins compatible for Editor in 7.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2464 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 44 unused Assets / (25.9 KB). Loaded Objects now: 2956.
+Memory consumption went from 108.6 MB to 108.6 MB.
+Total: 7.319700 ms (FindLiveObjects: 0.243700 ms CreateObjectMapping: 0.195700 ms MarkObjects: 6.845100 ms  DeleteObjects: 0.034000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10).asset
-  artifactKey: Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (10).asset using Guid(34e6f1ba47e754641abb0c07a7ad175f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '32fee93df9a3eda627e5e0d7945fcde9') in 0.005941 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9).asset
-  artifactKey: Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (9).asset using Guid(7c9649a7547f1824fb380f461e82b426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c48d16b638a402318c759fdb585eb7c') in 0.004985 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.594076 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11).asset
-  artifactKey: Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11).asset using Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb9ff56d930b330335d5eee009cbc0cc') in 0.008624 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 45.912614 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11).asset
-  artifactKey: Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11).asset using Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b1f6f2758df01862fcf3164e6e04fd5') in 0.004776 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 28.779863 seconds.
-  path: Assets/Prefabs/Enemy/EnemyPlaneMedium3.prefab
-  artifactKey: Guid(f152f960cd4bd53408ba28b300a96fbf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Enemy/EnemyPlaneMedium3.prefab using Guid(f152f960cd4bd53408ba28b300a96fbf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bda49e525da1e2be7fd613abcb39c0c1') in 0.231043 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/Prefabs/Enemy/GroundEnemySpawner.prefab
-  artifactKey: Guid(7fa7dc6580831844e850f981748e803d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Enemy/GroundEnemySpawner.prefab using Guid(7fa7dc6580831844e850f981748e803d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '813f7fcfa828624c872cca8328ec06df') in 0.007340 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 42.395505 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11,12).asset
-  artifactKey: Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11,12).asset using Guid(5f6e063ada0886f4e9ee62bad0dccedb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e235776a29f2c8a6b331e51dd2728951') in 0.009801 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 15.273845 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11,12) 1.asset
-  artifactKey: Guid(7ff41b6303190d347be50b06e1bae34b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (11,12) 1.asset using Guid(7ff41b6303190d347be50b06e1bae34b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14b60bd5203bee3d20df4149887c0554') in 0.010650 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.469261 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13).asset
-  artifactKey: Guid(7ff41b6303190d347be50b06e1bae34b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13).asset using Guid(7ff41b6303190d347be50b06e1bae34b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a516e587cd972ee1f127eac16fa63a1') in 0.009444 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 40.859957 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13).asset
-  artifactKey: Guid(7ff41b6303190d347be50b06e1bae34b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13).asset using Guid(7ff41b6303190d347be50b06e1bae34b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8af82ebea983854288da1252a239c2ad') in 0.004977 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 13.892626 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13) 1.asset
-  artifactKey: Guid(4705629dbccaee0498c904b6a97c0d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13) 1.asset using Guid(4705629dbccaee0498c904b6a97c0d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2059924c151a0990582e2a6f2042dfbe') in 0.007880 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.631215 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (14).asset
-  artifactKey: Guid(4705629dbccaee0498c904b6a97c0d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (14).asset using Guid(4705629dbccaee0498c904b6a97c0d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b6fcbad6827b473d140cb6731bedef6') in 0.007806 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 20.687249 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13) 1.asset
-  artifactKey: Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (13) 1.asset using Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c6ed0583d41b033f35a3681ada84db2') in 0.009610 seconds 
+  Time since last request: 181.604572 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (1).asset
+  artifactKey: Guid(abcdd301a54b9084db2c6d4cc808d3a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (1).asset using Guid(abcdd301a54b9084db2c6d4cc808d3a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a2767f2e4c903b3d15b540836a2d5e7') in 0.022451 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000017 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (14).asset
-  artifactKey: Guid(4705629dbccaee0498c904b6a97c0d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (14).asset using Guid(4705629dbccaee0498c904b6a97c0d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f861724e9f38d06a1e4340bb73fe15b1') in 0.005439 seconds 
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (6).asset
+  artifactKey: Guid(2f03f0aafcf504d44a32492470a56237) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (6).asset using Guid(2f03f0aafcf504d44a32492470a56237) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ede3c8579bfb7b6e002cd613c82aa722') in 0.008959 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 5.174864 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15).asset
-  artifactKey: Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15).asset using Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4d638b235994652acbbd8ab8cefd9b0') in 0.008362 seconds 
+  Time since last request: 0.000020 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (9) 1.asset
+  artifactKey: Guid(c6dc2beeea6430241a90bc5b5832eea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (9) 1.asset using Guid(c6dc2beeea6430241a90bc5b5832eea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c49069708d051a85e91e46e87bbc2aa8') in 0.008632 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 24.561864 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15).asset
-  artifactKey: Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15).asset using Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3aef16ec07ba915169c8ef3ce25ed47e') in 0.004786 seconds 
+  Time since last request: 0.000016 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (5) 2.asset
+  artifactKey: Guid(e9a6a57aab317ba47ab1c4dcf7661663) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (5) 2.asset using Guid(e9a6a57aab317ba47ab1c4dcf7661663) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c0739bb1849afe25fe76863b096fe1d') in 0.010140 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.038839 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15).asset
-  artifactKey: Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15).asset using Guid(7e98ea6f7930df448bdc8d22871ef676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '63d169e1021671654faea2b2bd6c76df') in 0.004717 seconds 
+  Time since last request: 0.000017 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (3).asset
+  artifactKey: Guid(4526d840c25416a43ac33c4bb668d738) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (3).asset using Guid(4526d840c25416a43ac33c4bb668d738) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5325ff209d24e1da0a33617ece84e89') in 0.009477 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 12.274279 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15) 1.asset
-  artifactKey: Guid(f20a2a9c6916c7a408e9055b8a251b20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (15) 1.asset using Guid(f20a2a9c6916c7a408e9055b8a251b20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd66086c74c30b729018d93aa8285c5d9') in 0.008083 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.585818 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (16).asset
-  artifactKey: Guid(f20a2a9c6916c7a408e9055b8a251b20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (16).asset using Guid(f20a2a9c6916c7a408e9055b8a251b20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65bc1141ed48c41887e453d5ccce3a1e') in 0.010027 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.422782 seconds.
-  path: Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (16).asset
-  artifactKey: Guid(f20a2a9c6916c7a408e9055b8a251b20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage5/S5 EnemySpawner (16).asset using Guid(f20a2a9c6916c7a408e9055b8a251b20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab172c4e878d2f65ca0881c31fae922a') in 0.004669 seconds 
+  Time since last request: 0.000013 seconds.
+  path: Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (4).asset
+  artifactKey: Guid(3014a4925fa794641ba0ea76620391ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Object/Enemy Spawners SO/Stage1/S1 EnemySpawner (4).asset using Guid(3014a4925fa794641ba0ea76620391ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23261a3fa28e007f1c2b544b52ede480') in 0.008347 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

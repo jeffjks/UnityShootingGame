@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 
 public abstract class StageManager : MonoBehaviour
@@ -14,6 +15,8 @@ public abstract class StageManager : MonoBehaviour
     [SerializeField] protected GameObject[] m_EnemyPreloaded = new GameObject[Difficulty.DIFFICULTY_SIZE];
     [Space(10)]
     [SerializeField] protected GameObject m_EnemySpawners = null;
+    
+    public EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
 
     [HideInInspector] public Vector3 m_BackgroundVector;
 
@@ -39,6 +42,8 @@ public abstract class StageManager : MonoBehaviour
 
     private bool m_FinalBossAvailable = false; // 일반 스테이지는 시작시 false, Hell 난이도 최종 스테이지는 시작시 true
 
+    private Dictionary<string, EnemyBuilder> m_EnemyBuilders = default;
+
     protected abstract void Init();
     protected abstract IEnumerator MainTimeline();
     protected abstract IEnumerator EnemyTimeline();
@@ -50,6 +55,11 @@ public abstract class StageManager : MonoBehaviour
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
+
+        foreach (var value in m_EnemyUnitPrefabDatas.EnemyUnitPrefabs)
+        {
+            m_EnemyBuilders[value.name] = new EnemyBuilder(value.prefab);
+        }
 
         Init();
 
@@ -171,7 +181,7 @@ public abstract class StageManager : MonoBehaviour
             return ins;
         }
         for (int i = 0; i < movePattern.Length; i++) {
-            enemy_unit.m_TweenDataQueue.Enqueue(new TweenDataMovePattern(movePattern[i]));
+            enemy_unit.m_TweenDataQueue.Enqueue(new TweenData(movePattern[i]));
         }
         enemy_unit.StartPlayTweenData();
 
@@ -269,5 +279,45 @@ public abstract class StageManager : MonoBehaviour
 
     public void SetTrueLastBossState(bool state) {
         m_FinalBossAvailable = state;
+    }
+}
+
+public class EnemyBuilder {
+    private GameObject _prefab;
+    private Vector3 _spawnPosition;
+    private MoveVector _moveVector;
+    private Queue<TweenData> _tweenDataQueue = new Queue<TweenData>();
+
+    public EnemyBuilder(GameObject prefab) {
+        _prefab = prefab;
+    }
+
+    public EnemyBuilder SetPosition(Vector3 pos) {
+        if ((1 << _prefab.layer & Layer.AIR) != 0) {
+            _spawnPosition = new Vector3(pos.x, pos.y, Depth.ENEMY);
+        }
+        else
+        {
+            _spawnPosition = pos;
+        }
+        return this;
+    }
+
+    public EnemyBuilder AddTarget(int duration, Vector2 targetVector2) {
+        _tweenDataQueue.Enqueue(new TweenData(new MoveTarget(duration, targetVector2)));
+        return this;
+    }
+
+    public EnemyBuilder SetMoveVector(float speed, float direction) {
+        _moveVector = new MoveVector(speed, direction);
+        return this;
+    }
+
+    public GameObject Build() {
+        var instance = Object.Instantiate(_prefab, _spawnPosition, Quaternion.identity);
+        EnemyUnit enemyUnit = instance.GetComponent<EnemyUnit>();
+        enemyUnit.m_TweenDataQueue = _tweenDataQueue;
+        enemyUnit.m_MoveVector = _moveVector;
+        return instance;
     }
 }

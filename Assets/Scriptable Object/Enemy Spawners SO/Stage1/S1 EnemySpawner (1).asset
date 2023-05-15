@@ -28,4 +28,4 @@ MonoBehaviour:
     direction: 250
     duration: 0
   ActivateTime: 5000
-  DeActivateTime: 30000
+  DeactivateTime: 30000

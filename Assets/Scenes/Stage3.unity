@@ -732,7 +732,6 @@ GameObject:
   m_Component:
   - component: {fileID: 308018369}
   - component: {fileID: 308018370}
-  - component: {fileID: 308018371}
   m_Layer: 12
   m_Name: GroundEnemySpawner (2)
   m_TagString: Untagged
@@ -767,37 +766,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 51bf712e7923a9343a21f1d89c1e48bb,
     type: 2}
-  m_Enemy:
-  - {fileID: 100048, guid: a6416b0ddb7a93e45b2dc48b34f355d1, type: 3}
-  m_Speed: 1
-  m_Direction: 72
-  m_SpawnPeriod: 6000
-  m_RemoveTimer: 25000
-  m_MovePattern: []
-  m_ActivateTime: 26000
-  m_DeactivateTime: 48000
-  m_AttackableTimer: 0
---- !u!114 &308018371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308018368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsDead: 0
+  Normal: 1
+  Expert: 1
+  Hell: 1
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
 --- !u!1001 &388905875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1657,7 +1633,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1153409712}
   - component: {fileID: 1153409713}
-  - component: {fileID: 1153409714}
   m_Layer: 12
   m_Name: GroundEnemySpawner (3)
   m_TagString: Untagged
@@ -1692,37 +1667,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 2fe7de9ba80b84142a08fbfd6194bf16,
     type: 2}
-  m_Enemy:
-  - {fileID: 100016, guid: fde099b61cee14345a24c27a878ea83a, type: 3}
-  m_Speed: 1
-  m_Direction: -5
-  m_SpawnPeriod: 5000
-  m_RemoveTimer: 30000
-  m_MovePattern: []
-  m_ActivateTime: 65000
-  m_DeactivateTime: 90000
-  m_AttackableTimer: 0
---- !u!114 &1153409714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153409711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsDead: 0
+  Normal: 1
+  Expert: 1
+  Hell: 1
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
 --- !u!1001 &1174652684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3302,24 +3254,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c25baac905e749939e71ba9f821fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 0
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 07d9b4a3c1a98cd41bd2437c05c8a1db,
     type: 2}
-  m_Enemy:
-  - {fileID: 100052, guid: 27f1241ee78b41e438b446db2c8ba5bf, type: 3}
-  m_Speed: 0.8
-  m_Direction: -60
-  m_SpawnPeriod: 12000
-  m_RemoveTimer: 35000
-  m_MovePattern: []
-  m_ActivateTime: 0
-  m_DeactivateTime: 40000
-  m_AttackableTimer: 0
+  Normal: 1
+  Expert: 1
+  Hell: 1
+  m_Normal: 1
+  m_Expert: 1
+  m_Hell: 1
 --- !u!1 &781271977011726088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3330,7 +3272,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3638304367433172729}
   - component: {fileID: 123144039306400848}
-  - component: {fileID: 3638304367433172730}
   m_Layer: 12
   m_Name: GroundEnemySpawner (1)
   m_TagString: Untagged
@@ -3353,16 +3294,3 @@ Transform:
   m_Father: {fileID: 201440851}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3638304367433172730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781271977011726088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsDead: 0

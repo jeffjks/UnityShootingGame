@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class EnemySpawnerDatas : ScriptableObject
 {
-    public bool Normal;
-    public bool Expert;
-    public bool Hell;
-    [Space(10)]
     public GameObject[] EnemyUnits;
     public int SpawnPeriod;
     public int InteractableTimer;
     public int RemoveTimer;
     public MovePattern[] MovePatterns;
     public int ActivateTime;
-    public int DeActivateTime;
+    public int DeactivateTime;
 }

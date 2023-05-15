@@ -131,7 +131,7 @@ public class Stage4Manager : StageManager
         yield return new WaitForMillisecondFrames(4000);
         StartCoroutine(SpawnPlaneSmalls2());
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(2.61f, 3.18f, 56.17f), new MoveVector(0f, -32f),
-            new MovePattern[] {new MovePattern(2000, true, 0.7f, 0), new MovePattern(2000, true, 0f, 720)});
+            new MovePattern[] {new MovePattern(2000, 0, true, 0.7f), new MovePattern(2000, 720, true, 0f)});
         yield return new WaitForMillisecondFrames(4000);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4f, -4f), 1200);
         yield return new WaitForMillisecondFrames(5000);
@@ -179,7 +179,7 @@ public class Stage4Manager : StageManager
             }
         }
         yield return new WaitForMillisecondFrames(4000);
-        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-24.35f, 3.21f, 84.5f), new MoveVector(-4f, -90f), new MovePattern[] {new MovePattern(2100, true, 0f, 1400)});
+        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-24.35f, 3.21f, 84.5f), new MoveVector(-4f, -90f), new MovePattern[] {new MovePattern(2100, 1400, true, 0f)});
         yield return new WaitForMillisecondFrames(6000);
         CreateEnemy(m_ItemHeliRed, new Vector2(2f, 3f)); // Item Heli 1
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-5f, 3f), new Vector2(-5f, -3f), Random.Range(1200, 1500));
@@ -213,7 +213,7 @@ public class Stage4Manager : StageManager
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4.5f, -4.5f), 1200);
         yield return new WaitForMillisecondFrames(9000);
         m_TankLarge_2_Move = CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
-            new MovePattern[] {new MovePattern(1000, true, 0f, 1000), new MovePattern(2000, true, -0.8f, 1000), new MovePattern(6000, true, 0f, 500)});
+            new MovePattern[] {new MovePattern(1000, 1000, true, 0f), new MovePattern(2000, 1000, true, -0.8f), new MovePattern(6000, 500, true, 0f)});
         yield return new WaitForMillisecondFrames(6000);
         CreateEnemy(m_ItemHeliRed, new Vector2(3f, 3f)); // Item Heli 1
         yield break;

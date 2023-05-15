@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Common : MonoBehaviour
@@ -130,17 +131,27 @@ public class TweenData<T, TResult> {
     }
 }*/
 
+public enum UnitMovementType {
+    MoveVector,
+    MoveTarget
+}
+
+
 [System.Serializable]
-public class MovePattern
-{
+public abstract class UnitMovement {
     public int delay;
+    public int duration;
+}
+
+[System.Serializable]
+public class MovePattern : UnitMovement
+{
     public bool keepSpeed;
     [DrawIf("keepSpeed", true, ComparisonType.NotEqual)]
     public float speed;
     public bool keepDirection;
     [DrawIf("keepDirection", true, ComparisonType.NotEqual)]
     public float direction;
-    public int duration;
 
     public MovePattern(int duration) {
         this.keepSpeed = true;
@@ -148,35 +159,52 @@ public class MovePattern
         this.duration = duration;
     }
 
-    public MovePattern(int delay, float direction, float speed, int duration) {
+    public MovePattern(int delay, int duration, float direction, float speed) {
         this.delay = delay;
+        this.duration = duration;
         this.speed = speed;
         this.direction = direction;
-        this.duration = duration;
     }
 
-    public MovePattern(int delay, bool keepDirection, float speed, int duration) {
+    public MovePattern(int delay, int duration, bool keepDirection, float speed) {
         this.delay = delay;
+        this.duration = duration;
         this.speed = speed;
         this.keepDirection = keepDirection;
-        this.duration = duration;
     }
 
-    public MovePattern(int delay, float direction, bool keepSpeed, int duration) {
+    public MovePattern(int delay, int duration, float direction, bool keepSpeed) {
         this.delay = delay;
+        this.duration = duration;
         this.keepSpeed = keepSpeed;
         this.direction = direction;
-        this.duration = duration;
     }
 }
 
-public class TweenDataMovePattern
+[System.Serializable]
+public class MoveTarget : UnitMovement
 {
-    public MovePattern movePattern;
+    public Vector2 targetVector2;
+
+    public MoveTarget(int duration, Vector2 targetVector2) {
+        this.duration = duration;
+        this.targetVector2 = targetVector2;
+    }
+
+    public MoveTarget(int delay, int duration, Vector2 targetVector2) {
+        this.delay = delay;
+        this.duration = duration;
+        this.targetVector2 = targetVector2;
+    }
+}
+
+public class TweenData
+{
+    public UnitMovement unitMovement;
     public readonly int easeType = EaseType.Linear;
 
-    public TweenDataMovePattern(MovePattern movePattern, int easeType = EaseType.Linear) {
-        this.movePattern = movePattern;
+    public TweenData(UnitMovement unitMovement, int easeType = EaseType.Linear) {
+        this.unitMovement = unitMovement;
         this.easeType = easeType;
     }
 }
@@ -459,4 +487,11 @@ public struct PairFloat {
             }
         }
     }
+}
+
+[System.Serializable]
+public struct EnemyUnitPrefab
+{
+    public string name;
+    public GameObject prefab;
 }

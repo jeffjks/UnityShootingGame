@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class MusicDatas : ScriptableObject
 {
-    public AudioClip[] backgroundMusics;
+    public string[] musicInfoNames;
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd972c98be4ddc044821525e0b8339a4, type: 3}
   m_Name: SO Stage4 Music
   m_EditorClassIdentifier: 
-  backgroundMusics:
-  - {fileID: 8300000, guid: 96b5f15a4ad760c4c9ea0f90e5b52772, type: 3}
-  - {fileID: 8300000, guid: 12fca48d035308842be9cba4c07db652, type: 3}
-  - {fileID: 8300000, guid: 8797ca0e7946c4541b1d27ac5b0ea79b, type: 3}
+  musicInfoNames:
+  - Stage4
+  - StageClear
+  - Boss1

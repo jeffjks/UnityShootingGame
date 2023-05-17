@@ -1460,6 +1460,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f00fed1f77648f84580e12afa4ee4c31, type: 2}
   - {fileID: 11400000, guid: f0634148550342446886976a9f57ce69, type: 2}
   - {fileID: 11400000, guid: 8a7950205cecbd94098cae82c5687d07, type: 2}
+  m_MusicInfoDatas: {fileID: 11400000, guid: abb97e96c707b144dbe2fb24f7daaaba, type: 2}
+  m_AudioMixerGroup: {fileID: -5853744554792782671, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
+    type: 2}
 --- !u!4 &951628992
 Transform:
   m_ObjectHideFlags: 0

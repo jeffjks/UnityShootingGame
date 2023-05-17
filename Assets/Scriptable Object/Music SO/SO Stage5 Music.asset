@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd972c98be4ddc044821525e0b8339a4, type: 3}
   m_Name: SO Stage5 Music
   m_EditorClassIdentifier: 
-  backgroundMusics:
-  - {fileID: 8300000, guid: 96b5f15a4ad760c4c9ea0f90e5b52772, type: 3}
-  - {fileID: 8300000, guid: 5062e8153627b1f4cb3426d2f1722d11, type: 3}
-  - {fileID: 8300000, guid: 055052f12e0bca84e892146975ca166d, type: 3}
-  - {fileID: 8300000, guid: 88f419ab74dc2bc4c8259ee6c8054f60, type: 3}
+  musicInfoNames:
+  - Stage5
+  - StageClear
+  - Boss2
+  - FinalBoss

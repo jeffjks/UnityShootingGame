@@ -492,14 +492,15 @@ public struct PairFloat {
 [System.Serializable]
 public struct EnemyUnitPrefab
 {
-    public string name;
+    public string enemyName;
     public GameObject prefab;
 }
 
 [System.Serializable]
-public struct StageMusicInfo
+public struct MusicInfo
 {
-    public AudioSource stageMusicAudio;
+    public string musicName;
+    public AudioClip stageMusicAudio;
     public float loopStartPoint;
     public float loopEndPoint;
 }

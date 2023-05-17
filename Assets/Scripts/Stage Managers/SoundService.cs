@@ -1,20 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class SoundService : MonoBehaviour
 {
     public string[] m_SceneString;
     public MusicDatas[] m_MusicDatas;
+    public MusicInfoDatas m_MusicInfoDatas;
+    public AudioMixerGroup m_AudioMixerGroup;
     
-    private Dictionary<string, MusicDatas> m_MusicDataDict = default;
+    private Dictionary<string, MusicInfo> m_MusicInfoDict = new Dictionary<string, MusicInfo>();
+    private Dictionary<string, MusicDatas> m_MusicDataDict = new Dictionary<string, MusicDatas>();
     private string m_CurrentScene;
-    private Dictionary<string, AudioSource> m_MusicDict = default;
-    private string m_CurrentMusic;
+    private Dictionary<string, AudioSource> m_AudioSourceDict = new Dictionary<string, AudioSource>();
+    private string m_CurrentMusic = String.Empty;
 
-    public static SoundService instance_ss;
+    private float _loopStartPoint;
+    private float _loopEndPoint;
 
+    private static SoundService instance_ss;
+    
     private void Start()
     {
         if (instance_ss != null) {
@@ -27,6 +35,16 @@ public class SoundService : MonoBehaviour
         {
             m_MusicDataDict[m_SceneString[i]] = m_MusicDatas[i];
         }
+
+        for (int i = 0; i < m_MusicInfoDatas.musicInfos.Length; ++i)
+        {
+            string musicName = m_MusicInfoDatas.musicInfos[i].musicName;
+            m_MusicInfoDict[musicName] = m_MusicInfoDatas.musicInfos[i];
+        }
+
+        LoadMusics("Main");
+        
+        DontDestroyOnLoad(gameObject);
     }
     
     private void Update()
@@ -41,33 +59,58 @@ public class SoundService : MonoBehaviour
             return;
         }
         
-        MusicDatas musicDatas = m_MusicDataDict[sceneString];
-        foreach (KeyValuePair<string, AudioSource> keyValue in m_MusicDict)
+        foreach (KeyValuePair<string, AudioSource> keyValue in m_AudioSourceDict)
         {
             Destroy(keyValue.Value);
         }
-        m_MusicDict.Clear();
+        m_AudioSourceDict.Clear();
         
-        for (int i = 0; i < musicDatas.backgroundMusics.Length; ++i)
+        MusicDatas musicDatas = m_MusicDataDict[sceneString];
+        m_CurrentScene = sceneString;
+        for (int i = 0; i < musicDatas.musicInfoNames.Length; ++i)
         {
             AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            m_MusicDict[audioSource.name] = audioSource;
+            string audioName = musicDatas.musicInfoNames[i];
+            audioSource.outputAudioMixerGroup = m_AudioMixerGroup;
+            audioSource.clip = m_MusicInfoDict[audioName].stageMusicAudio;
+            audioSource.playOnAwake = false;
+            audioSource.loop = true;
+            m_AudioSourceDict[audioName] = audioSource;
         }
+        Debug.Log("Loaded");
     }
 
     public void PlayMusic(string musicName)
     {
-        m_MusicDict[m_CurrentMusic].Stop();
-        m_MusicDict[musicName].Play();
+        if (m_CurrentMusic != string.Empty)
+        {
+            m_AudioSourceDict[m_CurrentMusic].Stop();
+        }
+        if (m_AudioSourceDict.TryGetValue(musicName, out AudioSource audioSource))
+        {
+            audioSource.Play();
+            m_CurrentMusic = musicName;
+        
+            _loopStartPoint = m_MusicInfoDict[m_CurrentMusic].loopStartPoint;
+            _loopEndPoint = m_MusicInfoDict[m_CurrentMusic].loopEndPoint;
+        }
     }
 
     private void LoopMusic()
     {
+        if (_loopEndPoint == 0)
+        {
+            return;
+        }
+        if (m_AudioSourceDict[m_CurrentMusic].time > _loopEndPoint) {
+            m_AudioSourceDict[m_CurrentMusic].time = _loopStartPoint;
+        }
     }
 
     private void StopMusic()
     {
-        m_MusicDict[m_CurrentMusic].Stop();
+        m_AudioSourceDict[m_CurrentMusic].Stop();
+        m_CurrentMusic = string.Empty;
     }
 
     private void FadeOutMusic(float duration)
@@ -76,10 +119,10 @@ public class SoundService : MonoBehaviour
     }
 
     private IEnumerator FadingOut(float duration = 3.3f) {
-        m_MusicDict[m_CurrentMusic].DOFade(0f, duration);
+        m_AudioSourceDict[m_CurrentMusic].DOFade(0f, duration);
 
         yield return new WaitForSeconds(duration);
-        DOTween.Kill(m_MusicDict[m_CurrentMusic]);
-        m_MusicDict[m_CurrentMusic].Stop();
+        DOTween.Kill(m_AudioSourceDict[m_CurrentMusic]);
+        m_AudioSourceDict[m_CurrentMusic].Stop();
     }
 }

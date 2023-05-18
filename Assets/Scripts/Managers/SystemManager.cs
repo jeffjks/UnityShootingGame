@@ -8,7 +8,6 @@ using System;
 public class SystemManager : MonoBehaviour
 {
     public Camera m_BackgroundCamera;
-    public SoundManager m_SoundManager;
     public ScreenEffecter m_ScreenEffecter;
     public MainCamera m_MainCamera;
     public BossHealthBarHandler m_BossHealthBar;
@@ -22,7 +21,6 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private WarningUI m_WarningUI = null;
     [SerializeField] private GameObject m_Transition = null;
     [SerializeField] private AudioSource m_AudioWarning = null;
-    [SerializeField] private AudioSource m_AudioStageClear = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
@@ -225,8 +223,9 @@ public class SystemManager : MonoBehaviour
         m_PlayState = 0;
     }
 
-    public void BossClear() {
-        m_StageManager.StopMusic();
+    public void BossClear()
+    {
+        SoundService.StopMusic();
         m_PlayState = 2;
         if (m_StageManager.GetTrueLastBossState())
             return;
@@ -239,13 +238,12 @@ public class SystemManager : MonoBehaviour
         yield return new WaitForMillisecondFrames(3000);
         m_PlayState = 3;
         m_PlayerManager.m_PlayerControlable = false;
-        m_AudioStageClear.Play();
+        SoundService.PlayMusic("StageClear");
         yield return new WaitForMillisecondFrames(2000);
         m_StageManager.SetBackgroundSpeed(0f);
         m_StageManager.StopCoroutine("MainTimeline");
         m_OverviewHandler.gameObject.SetActive(true);
         m_OverviewHandler.DisplayOverview();
-        yield break;
     }
 
     public void StartStageClearCoroutine() {

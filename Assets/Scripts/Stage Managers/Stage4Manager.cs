@@ -16,45 +16,10 @@ public class Stage4Manager : StageManager
     {
         m_SystemManager.SetCurrentStage(3);
         m_BossBackgroundSpeed = 3.12f / Application.targetFrameRate * Time.timeScale;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        /*
-        if (m_LoopTerrain)
-            LoopTerrain();*/
-    }
-
-    /*
-    private void LoopTerrain() {
-        for (int i = 0; i < m_BossTerrains.Length; i++) {
-            m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z - m_BossBackgroundSpeed);
-        }
-        Vector3 debris_pos, item_gem_ground;
-        debris_pos = m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position;
-        item_gem_ground = m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position;
         
-        if (debris_pos.z > -24f) {
-            m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(debris_pos.x, debris_pos.y, debris_pos.z - m_BossBackgroundSpeed);
-            m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(item_gem_ground.x, item_gem_ground.y, item_gem_ground.z - m_BossBackgroundSpeed);
-        
-            for (int i = 0; i < m_EnemyPreloaded.Length; i++) {
-                Vector3 pos = m_EnemyPreloaded[i].transform.position;
-                m_EnemyPreloaded[i].transform.position = new Vector3(pos.x, pos.y, pos.z - m_BossBackgroundSpeed);
-            }
-            if (m_TankLarge_2_Move != null) {
-                Vector3 pos = m_TankLarge_2_Move.transform.position;
-                m_TankLarge_2_Move.transform.position = new Vector3(pos.x, pos.y, pos.z - m_BossBackgroundSpeed);
-            }
-        }
-
-        if (m_BossTerrains[1].position.z < 24f) {
-            for (int i = 0; i < m_BossTerrains.Length; i++) {
-                m_BossTerrains[i].position = new Vector3(m_BossTerrains[i].position.x, m_BossTerrains[i].position.y, m_BossTerrains[i].position.z + 60f);
-            }
-        }
-    }*/
+        SoundService.LoadMusics("Stage4");
+        SoundService.PlayMusic("Stage4");
+    }
 
     protected override IEnumerator MainTimeline()
     {
@@ -77,7 +42,6 @@ public class Stage4Manager : StageManager
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(14000);
         StartBossTimeline();
-        yield break;
     }
 
     protected override IEnumerator TestTimeline()
@@ -88,16 +52,15 @@ public class Stage4Manager : StageManager
     protected override IEnumerator BossTimeline()
     {
         yield return new WaitForMillisecondFrames(2000);
-        StartCoroutine(FadeOutMusic());
+        SoundService.FadeOutMusic();
         StartCoroutine(BossStart(new Vector3(14f, 3f, 121.5f), 7500)); // Boss
         SetBackgroundSpeed(new Vector3(0f, 0f, 1.5f), 1000);
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
         yield return new WaitForMillisecondFrames(4000);
-        PlayBossMusic();
+        SoundService.PlayMusic("Boss1");
         yield return new WaitForMillisecondFrames(64000);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f), 2000);
-        yield break;
     }
 
     protected override IEnumerator EnemyTimeline()

@@ -6,9 +6,6 @@ using DG.Tweening;
 
 public abstract class StageManager : MonoBehaviour
 {
-    [SerializeField] protected AudioSource m_AudioStage = null;
-    [SerializeField] protected AudioSource m_AudioBoss = null;
-    [Space(10)]
     [SerializeField] protected GameObject[] m_BossUnit = null;
     [Space(10)]
     [SerializeField] protected GameObject[] m_MiddleBossUnit = null;
@@ -20,10 +17,6 @@ public abstract class StageManager : MonoBehaviour
     [SerializeField] private EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
 
     [HideInInspector] public Vector3 m_BackgroundVector;
-
-    public Action<int> Action_PlayMusic;
-    public Action Action_StopMusic;
-    public Action<float> Action_FadeOutMusic;
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -91,11 +84,6 @@ public abstract class StageManager : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
-    {
-        MusicLoop();
-    }
-
     protected void StartBossTimeline() {
         if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_TRAINING && m_SystemManager.m_TrainingInfo.m_BossOnly) {
             int stage = m_SystemManager.GetCurrentStage();
@@ -109,51 +97,6 @@ public abstract class StageManager : MonoBehaviour
         Vector3 pos = m_SystemManager.m_BackgroundCamera.transform.position;
         if (pos.z > z - 24f) {
             m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(pos.x, pos.y, pos.z - subtract);
-        }
-    }
-
-    private void MusicLoop() {
-        if (m_SystemManager.m_PlayState == 0) {
-            switch(m_SystemManager.GetCurrentStage()) {
-                case 2: // Stage 3
-                    if (m_AudioStage.time > 215.248f) {
-                        m_AudioStage.time = 14.496f;
-                    }
-                    break;
-                case 3: // Stage 4
-                    if (m_AudioStage.time > 168.228f) {
-                        m_AudioStage.time = 4.518f;
-                    }
-                    break;
-                case 4: // Stage 5
-                    if (m_AudioStage.time > 182.654f) {
-                        m_AudioStage.time = 94.74f;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        else if (m_SystemManager.m_PlayState == 1) {
-            switch(m_SystemManager.GetCurrentStage()) {
-                case 4:
-                    if (m_FinalBossAvailable || m_SystemManager.GetDifficulty() < 2) { // Last Boss
-                        if (m_AudioBoss.time > 101.168f) {
-                            m_AudioBoss.time = 12.77f;
-                        }
-                    }
-                    else { // True Last Boss
-                        if (m_AudioBoss.time > 117.694f) {
-                            m_AudioBoss.time = 9.697f;
-                        }
-                    }
-                    break;
-                default: // Boss
-                    if (m_AudioBoss.time > 128.077f) {
-                        m_AudioBoss.time = 6.49f;
-                    }
-                    break;
-            }
         }
     }
 
@@ -211,23 +154,6 @@ public abstract class StageManager : MonoBehaviour
         yield return new WaitForMillisecondFrames(millisecond);
         m_BossHealthBar.StartHealthListener(enemy_unit);
         m_SystemManager.m_PlayState = 1;
-    }
-
-    protected IEnumerator FadeOutMusic(float duration = 3.3f) {
-        m_AudioStage.DOFade(0f, duration);
-
-        yield return new WaitForSeconds(duration);
-        DOTween.Kill(m_AudioStage);
-        m_AudioStage.Stop();
-    }
-
-    protected void PlayBossMusic() {
-        m_AudioBoss.Play();
-    }
-
-    public void StopMusic() {
-        m_AudioBoss.Stop();
-        m_AudioStage.Stop();
     }
 
     public void SetBackgroundSpeed(float target, int millisecond = 0) {

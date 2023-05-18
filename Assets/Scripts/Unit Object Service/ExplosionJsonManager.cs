@@ -7,9 +7,7 @@ using Newtonsoft.Json;
 
 public class ExplosionJsonManager : MonoBehaviour
 {
-    [SerializeField] private ExplosionSoundPlayer m_ExplosionSoundPlayer;
     private string[] m_PoolingString;
-    private AudioClip[] m_ExplosionAudio;
     private Dictionary<string, List<ExplosionData>> m_ExplosionJsonData;
 
     private PoolingManager m_PoolingManager = null;
@@ -140,7 +138,7 @@ public class ExplosionJsonManager : MonoBehaviour
         
         
         if (ExplAudioType != ExplAudioType.None && num == 0) {
-            m_ExplosionSoundPlayer.PlayAudio(ExplAudioType);
+            SoundService.PlayExplosionSFX(ExplAudioType);
         }
     }
 

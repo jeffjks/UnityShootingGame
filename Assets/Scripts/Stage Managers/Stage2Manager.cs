@@ -12,6 +12,9 @@ public class Stage2Manager : StageManager
     protected override void Init()
     {
         m_SystemManager.SetCurrentStage(1);
+        
+        SoundService.LoadMusics("Stage2");
+        SoundService.PlayMusic("Stage2");
     }
 
     protected override IEnumerator MainTimeline()
@@ -42,14 +45,13 @@ public class Stage2Manager : StageManager
     {
         StartCoroutine(BossStart(new Vector3(16f, WATER_HEIGHT, 116f), 10000)); // Boss
         yield return new WaitForMillisecondFrames(4000);
-        StartCoroutine(FadeOutMusic());
+        SoundService.FadeOutMusic();
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
         yield return new WaitForMillisecondFrames(4000);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         SetBackgroundSpeed(0f);
-        PlayBossMusic();
-        yield break;
+        SoundService.PlayMusic("Boss1");
     }
 
     protected override IEnumerator EnemyTimeline()

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Stage5Manager : StageManager
 {
-    public AudioSource m_AudioTrueLastBoss;
     [Space(10)]
     public GameObject m_Helicopter, m_ItemHeliRed, m_ItemHeliGreen,
     m_PlaneSmall_1, m_PlaneSmall_2, m_PlaneSmall_3, m_TankSmall_1, m_TankSmall_2, m_TankSmall_3,
@@ -16,12 +15,13 @@ public class Stage5Manager : StageManager
     protected override void Init()
     {
         m_SystemManager.SetCurrentStage(4);
+        
+        SoundService.LoadMusics("Stage5");
+        SoundService.PlayMusic("Stage5");
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
         BackgroundLoop(460f, 32f);
     }
 
@@ -32,13 +32,12 @@ public class Stage5Manager : StageManager
         m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 389.4f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(3000);
-        StartCoroutine(FadeOutMusic(5f));
+        SoundService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(5000);
         m_SystemManager.WarningText();
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
         TrueLastBoss(new Vector3(0f, -10f, Depth.ENEMY));
-        yield break;
     }
 
     protected override IEnumerator MainTimeline()
@@ -56,28 +55,26 @@ public class Stage5Manager : StageManager
         SetBackgroundSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(140000);
         StartBossTimeline();
-        yield break;
     }
 
     protected override IEnumerator BossTimeline()
     {
         CheckTrueLastBossState();
         yield return new WaitForMillisecondFrames(3000);
-        StartCoroutine(FadeOutMusic(5f));
+        SoundService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(0f, 8f, Depth.ENEMY), 9000)); // Boss
         yield return new WaitForMillisecondFrames(4000);
         m_SystemManager.WarningText();
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
-        PlayBossMusic();
+        SoundService.PlayMusic("Boss2");
         yield break;
     }
 
     public void TrueLastBoss(Vector3 pos) {
         SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
-        m_AudioBoss = m_AudioTrueLastBoss;
-        PlayBossMusic();
+        SoundService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
     }
 

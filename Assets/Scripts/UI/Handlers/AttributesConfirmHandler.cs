@@ -42,6 +42,7 @@ public class AttributesConfirmHandler : GameUI
     private void Confirm() { // Select Confirm (Sally)
         m_SelectAttributesHandler.m_State = -1;
         m_ScreenEffectFadeOut.gameObject.SetActive(true);
+        SoundService.FadeOutMusic(2f);
         m_AudioSally.Play();
     }
 

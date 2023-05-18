@@ -33,12 +33,11 @@ public abstract class AttributeSelectButtonUI : GameUI
 
 public class AttributesSelectHandler : MonoBehaviour
 {
-    [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
     [HideInInspector] public int m_State = 1;
     public int m_AvailableCost;
 
     void OnEnable()
     {
-        m_MainMenuMusicController.PlaySelectMusic();
+        SoundService.PlayMusic("Select");
     }
 }

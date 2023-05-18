@@ -12,6 +12,9 @@ public class Stage1Manager : StageManager
     protected override void Init()
     {
         m_SystemManager.SetCurrentStage(0);
+        
+        SoundService.LoadMusics("Stage1");
+        SoundService.PlayMusic("Stage1");
     }
 
     protected override IEnumerator MainTimeline()
@@ -38,12 +41,12 @@ public class Stage1Manager : StageManager
     protected override IEnumerator BossTimeline()
     {
         yield return new WaitForMillisecondFrames(3000);
-        Action_FadeOutMusic.Invoke(3.3f);
+        SoundService.FadeOutMusic();
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
         yield return new WaitForMillisecondFrames(4000);
         SetBackgroundSpeed(7.2f, 938);
-        Action_PlayMusic.Invoke(1);
+        SoundService.PlayMusic("Boss1");
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1000));
         yield return new WaitForMillisecondFrames(2000);
         SetBackgroundSpeed(0f);

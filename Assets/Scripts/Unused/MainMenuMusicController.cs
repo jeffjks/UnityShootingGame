@@ -9,7 +9,7 @@ public class MainMenuMusicController : MonoBehaviour
 
     private sbyte m_MusicState = -1;
 
-    public void PlayMainMusic() {
+    private void PlayMainMusic() {
         if (m_MusicState != 0) {
             m_MusicState = 0;
             m_AudioSelect.Stop();
@@ -17,7 +17,7 @@ public class MainMenuMusicController : MonoBehaviour
         }
     }
 
-    public void PlaySelectMusic() {
+    private void PlaySelectMusic() {
         if (m_MusicState != 1) {
             m_MusicState = 1;
             m_AudioSelect.volume = 1f;
@@ -26,14 +26,14 @@ public class MainMenuMusicController : MonoBehaviour
         }
     }
 
-    public void SetSelectMusicVolume(float value) {
+    private void SetSelectMusicVolume(float value) {
         if (m_AudioMain.isPlaying)
             m_AudioMain.volume = 1 - value;
         else if (m_AudioSelect.isPlaying)
             m_AudioSelect.volume = 1 - value;
     }
 
-    public void StopAllMusic() {
+    private void StopAllMusic() {
         m_MusicState = -1;
         m_AudioSelect.Stop();
         m_AudioMain.Stop();

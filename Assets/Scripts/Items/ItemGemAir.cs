@@ -42,7 +42,7 @@ public class ItemGemAir : ItemGem
 
     protected override void ItemEffect(Collider2D other) {
         m_SystemManager.AddScoreEffect(ItemScore.GEM_AIR, false);
-        m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
+        SoundService.PlaySFX("ItemGem");
     }
 
     public override void OnItemRemoved() {

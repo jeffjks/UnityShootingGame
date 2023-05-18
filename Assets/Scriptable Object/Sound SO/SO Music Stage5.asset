@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd972c98be4ddc044821525e0b8339a4, type: 3}
-  m_Name: SO Stage2 Music
+  m_Name: SO Music Stage5
   m_EditorClassIdentifier: 
   musicInfoNames:
-  - Stage2
+  - Stage5
   - StageClear
-  - Boss1
+  - Boss2
+  - FinalBoss

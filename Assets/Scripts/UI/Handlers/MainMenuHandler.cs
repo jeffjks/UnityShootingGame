@@ -13,17 +13,16 @@ public class MainMenuHandler : GameUI
     public GameObject m_KeyConfigMenu;
     public GameObject m_CreditMenu;
 
-    [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
-
     void Start()
     {
         Time.timeScale = 1;
-        AudioListener.pause = false;
     }
 
     void OnEnable()
     {
-        m_MainMenuMusicController.PlayMainMusic();
+        SoundService.LoadMusics("Main");
+        SoundService.PlayMusic("Main");
+        
         m_GameManager.SetOptions();
 
         if (m_GameManager.m_NetworkAvailable) {

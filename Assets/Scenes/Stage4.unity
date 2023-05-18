@@ -672,9 +672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 66f7e6d48abb1c44fa5587bf98fceb01,
     type: 2}
-  Normal: 1
-  Expert: 0
-  Hell: 0
   m_Normal: 1
   m_Expert: 0
   m_Hell: 0
@@ -692,9 +689,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: f635cfaf1af5c9c4fbd37c2977914912,
     type: 2}
-  Normal: 0
-  Expert: 0
-  Hell: 1
   m_Normal: 0
   m_Expert: 0
   m_Hell: 1
@@ -712,9 +706,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 23437627be752984b873b7631f96aba4,
     type: 2}
-  Normal: 0
-  Expert: 1
-  Hell: 0
   m_Normal: 0
   m_Expert: 1
   m_Hell: 0
@@ -1626,9 +1617,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 78290548ec9916b479ba493cf558da83,
     type: 2}
-  Normal: 1
-  Expert: 1
-  Hell: 1
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1
@@ -4044,9 +4032,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 34795c2c8ba343f41bed2c81fd70b275,
     type: 2}
-  Normal: 1
-  Expert: 1
-  Hell: 1
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1
@@ -4543,9 +4528,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 503919c3c7fd3ff438aebb7a675f7df1,
     type: 2}
-  Normal: 1
-  Expert: 1
-  Hell: 1
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1
@@ -6615,9 +6597,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 2592ac4b7d6557948b52c5a8a72149c2,
     type: 2}
-  Normal: 1
-  Expert: 0
-  Hell: 0
   m_Normal: 1
   m_Expert: 0
   m_Hell: 0
@@ -6635,9 +6614,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 0834d1ec79a840c46b6017325e29298d,
     type: 2}
-  Normal: 0
-  Expert: 0
-  Hell: 1
   m_Normal: 0
   m_Expert: 0
   m_Hell: 1
@@ -6655,9 +6631,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 5215030e4f509c0429e4bb1332eccfc0,
     type: 2}
-  Normal: 0
-  Expert: 1
-  Hell: 0
   m_Normal: 0
   m_Expert: 1
   m_Hell: 0
@@ -7090,9 +7063,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: a224515c9c2024a4e9fb5282eec91f4f,
     type: 2}
-  Normal: 1
-  Expert: 1
-  Hell: 1
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1
@@ -8626,9 +8596,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 9996942a33542d04d8e166b3866e9ea0,
     type: 2}
-  Normal: 1
-  Expert: 1
-  Hell: 1
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1
@@ -8642,8 +8609,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2073007113}
   - component: {fileID: 2073007112}
-  - component: {fileID: 2073007111}
-  - component: {fileID: 2073007110}
   m_Layer: 0
   m_Name: Stage4 Manager
   m_TagString: StageManager
@@ -8651,200 +8616,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &2073007110
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073007109}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5853744554792782671, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: 8797ca0e7946c4541b1d27ac5b0ea79b, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &2073007111
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073007109}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5853744554792782671, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: 12fca48d035308842be9cba4c07db652, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &2073007112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8857,8 +8628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81234cb1e06a81d4aad4abacf4cee3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioStage: {fileID: 2073007111}
-  m_AudioBoss: {fileID: 2073007110}
+  m_AudioStage: {fileID: 0}
+  m_AudioBoss: {fileID: 0}
   m_BossUnit:
   - {fileID: 100212, guid: aaa4d9b9720cad04c99d4e0321cfdcd4, type: 3}
   m_MiddleBossUnit:
@@ -8868,6 +8639,7 @@ MonoBehaviour:
   - {fileID: 555169995}
   - {fileID: 285032343}
   m_EnemySpawners: {fileID: 110971421}
+  m_EnemyUnitPrefabDatas: {fileID: 0}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
   m_Helicopter: {fileID: 2610135649203121185, guid: 691377558a126544bbcc4525f317a0c9,
     type: 3}
@@ -9363,9 +9135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 630c6dc81cb86ed4582bc4e7b62813f9,
     type: 2}
-  Normal: 1
-  Expert: 1
-  Hell: 1
   m_Normal: 1
   m_Expert: 1
   m_Hell: 1

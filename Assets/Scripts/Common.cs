@@ -500,9 +500,23 @@ public struct EnemyUnitPrefab
 public struct MusicInfo
 {
     public string musicName;
-    public AudioClip stageMusicAudio;
+    public AudioClip musicAudio;
     public float loopStartPoint;
     public float loopEndPoint;
+}
+
+[System.Serializable]
+public struct SoundEffectInfo
+{
+    public string soundEffectName;
+    public AudioClip soundEffectAudio;
+}
+
+[System.Serializable]
+public struct SoundEffectExplosionInfo
+{
+    public ExplAudioType explosionAudioType;
+    public AudioClip soundEffectAudio;
 }
 
 public class EnemyBuilder {

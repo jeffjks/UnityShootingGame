@@ -10,54 +10,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9094b99b06eade4e87c7a25e9fcc4c2, type: 3}
-  m_Name: Music Info Data
+  m_Name: SO Music Info
   m_EditorClassIdentifier: 
   musicInfos:
   - musicName: Main
-    stageMusicAudio: {fileID: 8300000, guid: d4cff9d02cda8db4d96b148f0f6496df, type: 3}
+    musicAudio: {fileID: 8300000, guid: d4cff9d02cda8db4d96b148f0f6496df, type: 3}
     loopStartPoint: 0
     loopEndPoint: 0
   - musicName: Select
-    stageMusicAudio: {fileID: 8300000, guid: c1b64080714f42e4d84edae473b0850a, type: 3}
+    musicAudio: {fileID: 8300000, guid: c1b64080714f42e4d84edae473b0850a, type: 3}
     loopStartPoint: 0
     loopEndPoint: 0
   - musicName: StageClear
-    stageMusicAudio: {fileID: 8300000, guid: 96b5f15a4ad760c4c9ea0f90e5b52772, type: 3}
+    musicAudio: {fileID: 8300000, guid: 96b5f15a4ad760c4c9ea0f90e5b52772, type: 3}
     loopStartPoint: 0
     loopEndPoint: 0
   - musicName: Ending
-    stageMusicAudio: {fileID: 8300000, guid: 1ebf45baf83247547a10aaea703537c4, type: 3}
+    musicAudio: {fileID: 8300000, guid: 1ebf45baf83247547a10aaea703537c4, type: 3}
     loopStartPoint: 0
     loopEndPoint: 0
   - musicName: Stage1
-    stageMusicAudio: {fileID: 8300000, guid: 6bc53c67452792349a5bfb07263facac, type: 3}
+    musicAudio: {fileID: 8300000, guid: 6bc53c67452792349a5bfb07263facac, type: 3}
     loopStartPoint: 0
     loopEndPoint: 0
   - musicName: Stage2
-    stageMusicAudio: {fileID: 8300000, guid: ce11a28d3cd92ce4c9e64fd43ad9bca8, type: 3}
+    musicAudio: {fileID: 8300000, guid: ce11a28d3cd92ce4c9e64fd43ad9bca8, type: 3}
     loopStartPoint: 0
     loopEndPoint: 0
   - musicName: Stage3
-    stageMusicAudio: {fileID: 8300000, guid: e7a654389fa8f274d95ba7bdaa4d19c7, type: 3}
+    musicAudio: {fileID: 8300000, guid: e7a654389fa8f274d95ba7bdaa4d19c7, type: 3}
     loopStartPoint: 14.496
     loopEndPoint: 215.248
   - musicName: Stage4
-    stageMusicAudio: {fileID: 8300000, guid: 12fca48d035308842be9cba4c07db652, type: 3}
+    musicAudio: {fileID: 8300000, guid: 12fca48d035308842be9cba4c07db652, type: 3}
     loopStartPoint: 4.518
     loopEndPoint: 168.228
   - musicName: Stage5
-    stageMusicAudio: {fileID: 8300000, guid: 5062e8153627b1f4cb3426d2f1722d11, type: 3}
+    musicAudio: {fileID: 8300000, guid: 5062e8153627b1f4cb3426d2f1722d11, type: 3}
     loopStartPoint: 94.74
     loopEndPoint: 182.654
   - musicName: Boss1
-    stageMusicAudio: {fileID: 8300000, guid: 8797ca0e7946c4541b1d27ac5b0ea79b, type: 3}
+    musicAudio: {fileID: 8300000, guid: 8797ca0e7946c4541b1d27ac5b0ea79b, type: 3}
     loopStartPoint: 6.49
     loopEndPoint: 128.077
   - musicName: Boss2
-    stageMusicAudio: {fileID: 8300000, guid: 055052f12e0bca84e892146975ca166d, type: 3}
+    musicAudio: {fileID: 8300000, guid: 055052f12e0bca84e892146975ca166d, type: 3}
     loopStartPoint: 12.77
     loopEndPoint: 101.168
   - musicName: FinalBoss
-    stageMusicAudio: {fileID: 8300000, guid: 88f419ab74dc2bc4c8259ee6c8054f60, type: 3}
+    musicAudio: {fileID: 8300000, guid: 88f419ab74dc2bc4c8259ee6c8054f60, type: 3}
     loopStartPoint: 9.697
     loopEndPoint: 117.694

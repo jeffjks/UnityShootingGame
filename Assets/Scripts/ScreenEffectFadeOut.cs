@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효과
 {
-    [SerializeField] private MainMenuMusicController m_MainMenuMusicController = null;
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;
 
     private SystemManager m_SystemManager = null;
@@ -21,10 +20,8 @@ public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효�
         m_SpriteRenderer.color = new Color(0f, 0f, 0f, m_Delta);
         if (m_Delta < 1f) {
             m_Delta += 0.5f * Time.deltaTime;
-            m_MainMenuMusicController.SetSelectMusicVolume(m_Delta);
         }
         else {
-            m_MainMenuMusicController.StopAllMusic();
             if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_TRAINING) {
                 SceneManager.LoadScene("Stage" + (m_SystemManager.m_TrainingInfo.m_Stage + 1));
             }

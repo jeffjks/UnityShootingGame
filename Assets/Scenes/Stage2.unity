@@ -217,9 +217,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: ab71382ca33116f49bb3d910ca436158,
     type: 2}
-  Normal: 1
-  Expert: 0
-  Hell: 0
   m_Normal: 1
   m_Expert: 0
   m_Hell: 0
@@ -237,9 +234,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: dd95f30bb7fa6c943a275c4b5acecf2b,
     type: 2}
-  Normal: 0
-  Expert: 0
-  Hell: 1
   m_Normal: 0
   m_Expert: 0
   m_Hell: 1
@@ -257,9 +251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 1bb813abe6d61064ebd7eff5ef472e4d,
     type: 2}
-  Normal: 0
-  Expert: 1
-  Hell: 0
   m_Normal: 0
   m_Expert: 1
   m_Hell: 0
@@ -273,8 +264,6 @@ GameObject:
   m_Component:
   - component: {fileID: 84663666}
   - component: {fileID: 84663669}
-  - component: {fileID: 84663668}
-  - component: {fileID: 84663667}
   m_Layer: 0
   m_Name: Stage2 Manager
   m_TagString: StageManager
@@ -297,200 +286,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &84663667
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84663665}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5853744554792782671, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: 8797ca0e7946c4541b1d27ac5b0ea79b, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &84663668
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84663665}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5853744554792782671, guid: 706bf0cd1f348574b9e5e470eff1e0b1,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: ce11a28d3cd92ce4c9e64fd43ad9bca8, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &84663669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82a889b48a8ce94e95fa8621bbba7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioStage: {fileID: 84663668}
-  m_AudioBoss: {fileID: 84663667}
+  m_AudioStage: {fileID: 0}
+  m_AudioBoss: {fileID: 0}
   m_BossUnit:
   - {fileID: 100146, guid: 01bdc9a859a9fd54d8b56ff22302f2ea, type: 3}
   m_MiddleBossUnit:
@@ -514,6 +309,7 @@ MonoBehaviour:
   - {fileID: 1486902134}
   - {fileID: 475876281}
   m_EnemySpawners: {fileID: 1883073570}
+  m_EnemyUnitPrefabDatas: {fileID: 0}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
   m_TankSmall_1: {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_TankSmall_2: {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
@@ -1061,9 +857,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 095bac2e121411649b1ff686d1cae6ce,
     type: 2}
-  Normal: 1
-  Expert: 0
-  Hell: 0
   m_Normal: 1
   m_Expert: 0
   m_Hell: 0
@@ -1081,9 +874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 6f074ae8993d188409648b1d366a3285,
     type: 2}
-  Normal: 0
-  Expert: 0
-  Hell: 1
   m_Normal: 0
   m_Expert: 0
   m_Hell: 1
@@ -1101,9 +891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 8451a36ecd51235429c42eaaef22349e,
     type: 2}
-  Normal: 0
-  Expert: 1
-  Hell: 0
   m_Normal: 0
   m_Expert: 1
   m_Hell: 0
@@ -2423,9 +2210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 5d531e5b07477af4bb2fb4f5f567758a,
     type: 2}
-  Normal: 1
-  Expert: 0
-  Hell: 0
   m_Normal: 1
   m_Expert: 0
   m_Hell: 0
@@ -2443,9 +2227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 5d79a8b3d80a13745b71e729ae33f16c,
     type: 2}
-  Normal: 0
-  Expert: 0
-  Hell: 1
   m_Normal: 0
   m_Expert: 0
   m_Hell: 1
@@ -2463,9 +2244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 760d3b21468072d4181a0030f6e01cad,
     type: 2}
-  Normal: 0
-  Expert: 1
-  Hell: 0
   m_Normal: 0
   m_Expert: 1
   m_Hell: 0
@@ -2748,9 +2526,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 327329f2a6c4e574ea794ff1392b0978,
     type: 2}
-  Normal: 1
-  Expert: 0
-  Hell: 0
   m_Normal: 1
   m_Expert: 0
   m_Hell: 0
@@ -2768,9 +2543,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: ed3d17f2275d3b34bb9c9f4f4a86ad9c,
     type: 2}
-  Normal: 0
-  Expert: 0
-  Hell: 1
   m_Normal: 0
   m_Expert: 0
   m_Hell: 1
@@ -2788,9 +2560,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemySpawnerDatas: {fileID: 11400000, guid: 7e356f045babe9c40a406ae032e7ef37,
     type: 2}
-  Normal: 0
-  Expert: 1
-  Hell: 0
   m_Normal: 0
   m_Expert: 1
   m_Hell: 0

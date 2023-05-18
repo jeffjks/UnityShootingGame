@@ -7,7 +7,7 @@ public class ItemBomb : ItemBox
     protected override void ItemEffect(Collider2D other) {
         PlayerShooter playerShooter = other.GetComponentInParent<PlayerShooter>();
         if (playerShooter != null) {
-            m_SystemManager.m_SoundManager.PlayAudio(m_AudioClip);
+            SoundService.PlaySFX("ItemGet");
             playerShooter.AddBomb();
         }
         else {

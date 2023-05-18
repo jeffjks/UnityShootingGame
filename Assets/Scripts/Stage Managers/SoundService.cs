@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Audio;
@@ -13,10 +14,10 @@ public class SoundService : MonoBehaviour
     public AudioMixerGroup m_AudioMixerGroup;
     
     private Dictionary<string, MusicInfo> m_MusicInfoDict = new Dictionary<string, MusicInfo>();
-    private Dictionary<string, MusicDatas> m_MusicDataDict = new Dictionary<string, MusicDatas>();
-    private string m_CurrentScene;
-    private Dictionary<string, AudioSource> m_AudioSourceDict = new Dictionary<string, AudioSource>();
-    private string m_CurrentMusic = String.Empty;
+    private static Dictionary<string, HashSet<string>> m_SceneMusicDict = new Dictionary<string, HashSet<string>>();
+    private static string m_CurrentScene = String.Empty;
+    private static Dictionary<string, AudioSource> m_AudioSourceDict = new Dictionary<string, AudioSource>();
+    private static string m_CurrentMusic = String.Empty;
 
     private float _loopStartPoint;
     private float _loopEndPoint;
@@ -31,15 +32,30 @@ public class SoundService : MonoBehaviour
         }
         instance_ss = this;
 
-        for (int i = 0; i < m_SceneString.Length; ++i)
+        for (int i = 0; i < m_MusicDatas.Length; ++i)
         {
-            m_MusicDataDict[m_SceneString[i]] = m_MusicDatas[i];
+            string sceneName = m_SceneString[i];
+            MusicDatas musicDatas = m_MusicDatas[i];
+            m_SceneMusicDict[sceneName] = new HashSet<string>();
+            
+            foreach (var musicName in musicDatas.musicInfoNames)
+            {
+                m_SceneMusicDict[sceneName].Add(musicName);
+            }
         }
+        m_SceneMusicDict[String.Empty] = new HashSet<string>();
 
-        for (int i = 0; i < m_MusicInfoDatas.musicInfos.Length; ++i)
+        foreach (var musicInfo in m_MusicInfoDatas.musicInfos)
         {
-            string musicName = m_MusicInfoDatas.musicInfos[i].musicName;
-            m_MusicInfoDict[musicName] = m_MusicInfoDatas.musicInfos[i];
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            string audioName = musicInfo.musicName;
+            audioSource.outputAudioMixerGroup = m_AudioMixerGroup;
+            audioSource.clip = musicInfo.stageMusicAudio;
+            audioSource.playOnAwake = false;
+            audioSource.loop = true;
+            
+            m_AudioSourceDict[audioName] = audioSource;
+            m_MusicInfoDict[audioName] = musicInfo;
         }
 
         LoadMusics("Main");
@@ -52,35 +68,34 @@ public class SoundService : MonoBehaviour
         LoopMusic();
     }
 
-    public void LoadMusics(string sceneString)
+    public static void LoadMusics(string sceneString)
     {
         if (sceneString == m_CurrentScene)
         {
             return;
         }
-        
-        foreach (KeyValuePair<string, AudioSource> keyValue in m_AudioSourceDict)
+        // 현재 : m_SceneMusicDict[m_CurrentScene]
+        // 신규 : m_SceneMusicDict[sceneString]
+        // 겹치는건 유지 현재에만 있는건 Unload, 신규에만 있는건 Load
+        HashSet<string> currentMusicNames = m_SceneMusicDict[m_CurrentScene];
+
+        foreach (var musicName in m_SceneMusicDict[sceneString])
         {
-            Destroy(keyValue.Value);
+            if (!currentMusicNames.Remove(musicName))
+            {
+                m_AudioSourceDict[musicName].clip.LoadAudioData();
+            }
         }
-        m_AudioSourceDict.Clear();
+
+        foreach (var musicName in currentMusicNames)
+        {
+            m_AudioSourceDict[musicName].clip.UnloadAudioData();
+        }
         
-        MusicDatas musicDatas = m_MusicDataDict[sceneString];
         m_CurrentScene = sceneString;
-        for (int i = 0; i < musicDatas.musicInfoNames.Length; ++i)
-        {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            string audioName = musicDatas.musicInfoNames[i];
-            audioSource.outputAudioMixerGroup = m_AudioMixerGroup;
-            audioSource.clip = m_MusicInfoDict[audioName].stageMusicAudio;
-            audioSource.playOnAwake = false;
-            audioSource.loop = true;
-            m_AudioSourceDict[audioName] = audioSource;
-        }
-        Debug.Log("Loaded");
     }
 
-    public void PlayMusic(string musicName)
+    public static void PlayMusic(string musicName)
     {
         if (m_CurrentMusic != string.Empty)
         {
@@ -98,6 +113,10 @@ public class SoundService : MonoBehaviour
 
     private void LoopMusic()
     {
+        if (m_CurrentMusic == String.Empty)
+        {
+            return;
+        }
         if (_loopEndPoint == 0)
         {
             return;
@@ -107,9 +126,12 @@ public class SoundService : MonoBehaviour
         }
     }
 
-    private void StopMusic()
+    private static void StopMusic()
     {
-        m_AudioSourceDict[m_CurrentMusic].Stop();
+        if (m_AudioSourceDict.TryGetValue(m_CurrentMusic, out AudioSource audioSource))
+        {
+            audioSource.Stop();
+        }
         m_CurrentMusic = string.Empty;
     }
 

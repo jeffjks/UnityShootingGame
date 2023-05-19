@@ -13,8 +13,8 @@ public class Stage3Manager : StageManager
     {
         m_SystemManager.SetCurrentStage(2);
         
-        SoundService.LoadMusics("Stage3");
-        SoundService.PlayMusic("Stage3");
+        AudioService.LoadMusics("Stage3");
+        AudioService.PlayMusic("Stage3");
     }
 
     private void Update()
@@ -49,14 +49,14 @@ public class Stage3Manager : StageManager
     protected override IEnumerator BossTimeline()
     {
         yield return new WaitForMillisecondFrames(2000);
-        SoundService.FadeOutMusic();
+        AudioService.FadeOutMusic();
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3000)); // Boss
         yield return new WaitForMillisecondFrames(2000);
         SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1000);
-        SoundService.PlayMusic("Boss1");
+        AudioService.PlayMusic("Boss1");
     }
 
     protected override IEnumerator EnemyTimeline()

@@ -5,8 +5,6 @@ using UnityEngine;
 public class AttributesConfirmHandler : GameUI
 {
     public AttributesSelectHandler m_SelectAttributesHandler;
-    public ScreenEffectFadeOut m_ScreenEffectFadeOut;
-    public AudioSource m_AudioSally;
 
     private bool m_Enable = false;
 
@@ -41,9 +39,9 @@ public class AttributesConfirmHandler : GameUI
 
     private void Confirm() { // Select Confirm (Sally)
         m_SelectAttributesHandler.m_State = -1;
-        m_ScreenEffectFadeOut.gameObject.SetActive(true);
-        SoundService.FadeOutMusic(2f);
-        m_AudioSally.Play();
+        ScreenFadeService.ScreenFadeOut();
+        AudioService.FadeOutMusic(2f);
+        AudioService.PlaySound("SallyUI");
     }
 
     private void Back() {

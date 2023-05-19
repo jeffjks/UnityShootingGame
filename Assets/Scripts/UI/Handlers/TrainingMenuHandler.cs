@@ -139,14 +139,14 @@ public class TrainingMenuHandler : GameUI
         
         m_PlayerPreview.SetActive(true);
         m_SelectAttributesMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         m_TrainingMenu.SetActive(false);
     }
 
     private void Back() {
         m_SystemManager.m_TrainingInfo = m_TrainingInfo;
         SetText();
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         m_MainLogo.SetActive(true);
         m_PreviousMenu.SetActive(true);
         m_TrainingMenu.SetActive(false);

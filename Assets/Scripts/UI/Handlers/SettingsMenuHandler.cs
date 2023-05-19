@@ -43,25 +43,25 @@ public class SettingsMenuHandler : GameUI
 
     private void Graphics() {
         m_GraphicsMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void Sound() {
         m_SoundMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void Language() {
         m_LanguageMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void Back() {
         m_PreviousMenu.SetActive(true);
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
     }
 }

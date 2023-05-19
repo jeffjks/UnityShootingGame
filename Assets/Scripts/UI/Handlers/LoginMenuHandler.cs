@@ -76,12 +76,12 @@ public class LoginMenuHandler : GameUI
     }
 
     private void PlayOffline() {
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         SceneManager.LoadScene("MainMenu");
     }
 
     private void ExitGame() {
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         Application.Quit(); // 에디터에서는 무시됨
         m_InputFieldID.DeactivateInputField();
         m_InputFieldPW.DeactivateInputField();
@@ -90,7 +90,7 @@ public class LoginMenuHandler : GameUI
     public void TryLogin(string id, string code) {
         m_Active = true;
         if (code == "UserLoginSucceed" || code == "UserRegisterSucceed") {
-            ConfirmSound();
+            AudioService.PlaySound("ConfirmUI");
             PlayerPrefs.SetString("LastLoginID", id);
             m_GameManager.SetAccountID(id);
             SceneManager.LoadScene("MainMenu");
@@ -98,7 +98,7 @@ public class LoginMenuHandler : GameUI
             m_InputFieldPW.DeactivateInputField();
         }
         else {
-            CancelSound();
+            AudioService.PlaySound("CancelUI");
             m_ErrorMessage.DisplayText(code);
         }
     }
@@ -106,6 +106,6 @@ public class LoginMenuHandler : GameUI
     public void NetworkError(string errorDetails) {
         m_Active = true;
         m_ErrorMessage.DisplayText("NetworkError", errorDetails);
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
     }
 }

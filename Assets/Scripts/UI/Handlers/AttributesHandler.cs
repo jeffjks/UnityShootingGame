@@ -79,7 +79,7 @@ public class AttributesHandler : AttributeSelectButtonUI
 
     private void SelectDetails(int num) {
         try {
-            ConfirmSound();
+            AudioService.PlaySound("ConfirmUI");
             m_DetailsPanels[num].SetActive(true);
             m_SelectAttributesHandler.m_State = 2;
             m_Enable = false;
@@ -98,13 +98,13 @@ public class AttributesHandler : AttributeSelectButtonUI
     }
 
     private void Complete() {
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         m_SelectAttributesHandler.m_State = 0;
         m_Enable = false;
     }
 
     private void Back() {
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         m_Enable = false;
         m_PreviousMenu.SetActive(true);
         m_MainLogo.SetActive(true);

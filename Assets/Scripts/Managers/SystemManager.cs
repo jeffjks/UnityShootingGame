@@ -20,7 +20,6 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_BombNumberText = null;
     [SerializeField] private WarningUI m_WarningUI = null;
     [SerializeField] private GameObject m_Transition = null;
-    [SerializeField] private AudioSource m_AudioWarning = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
@@ -197,20 +196,6 @@ public class SystemManager : MonoBehaviour
                     m_TransitionList[i].PlayTransition();
                 }
                 break;
-            case 3: // FadeIn
-                for (int i = 0; i < m_TransitionList.Count; i++) { // Fade In (End Overview)
-                    m_TransitionList[i].gameObject.SetActive(true);
-                    m_TransitionList[i].PlayFadeIn();
-                }
-                break;
-            case 4: // FadeOut
-                for (int i = 0; i < m_TransitionList.Count; i++) { // Fade Out (Ending Credit)
-                    m_TransitionList[i].gameObject.SetActive(true);
-                    m_TransitionList[i].PlayFadeOut();
-                }
-                break;
-            default:
-                break;
         }
     }
 
@@ -225,7 +210,7 @@ public class SystemManager : MonoBehaviour
 
     public void BossClear()
     {
-        SoundService.StopMusic();
+        AudioService.StopMusic();
         m_PlayState = 2;
         if (m_StageManager.GetTrueLastBossState())
             return;
@@ -238,7 +223,7 @@ public class SystemManager : MonoBehaviour
         yield return new WaitForMillisecondFrames(3000);
         m_PlayState = 3;
         m_PlayerManager.m_PlayerControlable = false;
-        SoundService.PlayMusic("StageClear");
+        AudioService.PlayMusic("StageClear");
         yield return new WaitForMillisecondFrames(2000);
         m_StageManager.SetBackgroundSpeed(0f);
         m_StageManager.StopCoroutine("MainTimeline");
@@ -256,7 +241,7 @@ public class SystemManager : MonoBehaviour
 
     private IEnumerator NextStage() { // 2스테이지 부터
         m_PlayState = 4;
-        ScreenEffect(3); // FadeIn
+        S2creenFadeService.ScreenFadeIn();
         yield return new WaitForMillisecondFrames(2000);
 
         if (m_GameMode == GameMode.GAMEMODE_TRAINING && !m_GameManager.m_InvincibleMod) {
@@ -288,10 +273,9 @@ public class SystemManager : MonoBehaviour
 
                 m_PlayState = 3;
                 yield return new WaitForMillisecondFrames(1000);
-                ScreenEffect(4); // FadeOut
+                S2creenFadeService.ScreenFadeOut(1.5f);
             }
         }
-        yield break;
     }
 
     public void QuitGame() {
@@ -448,7 +432,7 @@ public class SystemManager : MonoBehaviour
     private IEnumerator WarningTextAnimation() {
         float value = 0f;
         float time = 0f;
-        m_AudioWarning.Play();
+        AudioService.PlaySound("BossAlert1");
 
         m_WarningUI.m_WarningPanelWhite.color = new Color(1f, 1f, 1f, 0f);
         m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, 0f, m_WarningUI.transform.localScale.z);

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591427dc568db544a8c8ff0d2bd25c71, type: 3}
+  m_Name: SO Sound PlayerWeapon
+  m_EditorClassIdentifier: 
+  soundInfos:
+  - soundName: PlayerBomb1
+    soundAudio: {fileID: 8300000, guid: fd30842501f9bb649909b37cc853e37f, type: 3}
+  - soundName: PlayerBomb2
+    soundAudio: {fileID: 8300000, guid: be36e9caf256ab941bde0b68e63a0fc7, type: 3}
+  - soundName: PlayerLaser
+    soundAudio: {fileID: 8300000, guid: 72ba5915b6f7c304286bc669aa1876fd, type: 3}
+  - soundName: PlayerShot1
+    soundAudio: {fileID: 8300000, guid: d55e603819aa9314cbf1381e5fc88fd8, type: 3}
+  - soundName: PlayerShot2
+    soundAudio: {fileID: 8300000, guid: f4afe66796b0a8b4fb60564a025466a3, type: 3}

@@ -92,7 +92,7 @@ public class SoundMenuHandler : GameUI
         m_GameManager.SetSoundVolume(m_SoundVolume);
         PlayerPrefs.Save();
         
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         PreviousMenu();
     }
 
@@ -100,7 +100,7 @@ public class SoundMenuHandler : GameUI
         m_GameManager.SetMusicVolume(m_PreviousMusicVolume);
         m_GameManager.SetSoundVolume(m_PreviousSoundVolume);
         SetText();
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         PreviousMenu();
     }
 

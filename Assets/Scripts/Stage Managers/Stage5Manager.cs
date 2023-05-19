@@ -16,8 +16,8 @@ public class Stage5Manager : StageManager
     {
         m_SystemManager.SetCurrentStage(4);
         
-        SoundService.LoadMusics("Stage5");
-        SoundService.PlayMusic("Stage5");
+        AudioService.LoadMusics("Stage5");
+        AudioService.PlayMusic("Stage5");
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class Stage5Manager : StageManager
         m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 389.4f);
         SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(3000);
-        SoundService.FadeOutMusic(5f);
+        AudioService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(5000);
         m_SystemManager.WarningText();
         StartCoroutine(DarkEffect());
@@ -61,20 +61,20 @@ public class Stage5Manager : StageManager
     {
         CheckTrueLastBossState();
         yield return new WaitForMillisecondFrames(3000);
-        SoundService.FadeOutMusic(5f);
+        AudioService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(0f, 8f, Depth.ENEMY), 9000)); // Boss
         yield return new WaitForMillisecondFrames(4000);
         m_SystemManager.WarningText();
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
-        SoundService.PlayMusic("Boss2");
+        AudioService.PlayMusic("Boss2");
         yield break;
     }
 
     public void TrueLastBoss(Vector3 pos) {
         SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
-        SoundService.PlayMusic("FinalBoss");
+        AudioService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
     }
 

@@ -33,17 +33,17 @@ public class ServerMenuHandler : GameUI
 	}
 
     private void Reconnect() {
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         m_NetworkAccount.InitServer();
     }
 
     private void PlayOffline() {
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         SceneManager.LoadScene("MainMenu");
     }
 
     private void ExitGame() {
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         Application.Quit(); // 에디터에서는 무시됨
     }
 }

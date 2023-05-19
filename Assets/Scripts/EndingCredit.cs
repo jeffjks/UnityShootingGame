@@ -39,8 +39,8 @@ public class EndingCredit : MonoBehaviour
             m_Language = 0;
         }
         
-        SoundService.LoadMusics("Main");
-        SoundService.PlayMusic("Ending");
+        AudioService.LoadMusics("Main");
+        AudioService.PlayMusic("Ending");
         
         m_Scale = m_EndingScroll[m_Language].rectTransform.localScale.x;
         m_EndingScroll[m_Language].gameObject.SetActive(true);
@@ -78,11 +78,11 @@ public class EndingCredit : MonoBehaviour
         Debug.Log("Quitting");
 
         m_SpriteRenderer.DOFade(1f, 2f);
-        SoundService.FadeOutMusic(2f);
+        AudioService.FadeOutMusic(2f);
         yield return new WaitForSeconds(3f);
         
         m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
-        SoundService.StopMusic();
+        AudioService.StopMusic();
         m_RegisterRecordMenu.SetActive(true);
         gameObject.SetActive(false);
     }

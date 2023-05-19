@@ -6,21 +6,21 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Audio;
 
-public class SoundService : MonoBehaviour
+public class AudioService : MonoBehaviour
 {
-    public GameObject m_GameObjectBGM;
-    public GameObject m_GameObjectSFX;
+    public GameObject m_GameObjectMusic;
+    public GameObject m_GameObjectSound;
     public string[] m_SceneString;
     public MusicDatas[] m_SO_Musics;
     
     public MusicInfoDatas m_SO_MusicInfo;
-    public AudioMixerGroup m_AudioMixerGroupBGM;
+    public AudioMixerGroup m_AudioMixerGroupMusic;
     
-    public ExplosionSoundEffectDatas m_SO_ExplosionSoundEffect;
+    public ExplosionSoundDatas m_SO_ExplosionSound;
     public AudioMixerGroup m_AudioMixerGroupExplosion;
     
-    public SoundEffectDatas[] m_SO_SoundEffects;
-    public AudioMixerGroup[] m_AudioMixerGroupSFX;
+    public SoundDatas[] m_SO_Sounds;
+    public AudioMixerGroup[] m_AudioMixerGroupSound;
     
     private static Dictionary<string, MusicInfo> m_MusicInfoDict = new Dictionary<string, MusicInfo>();
     private static Dictionary<string, HashSet<string>> m_SceneMusicDict = new Dictionary<string, HashSet<string>>();
@@ -28,30 +28,30 @@ public class SoundService : MonoBehaviour
     private static Dictionary<string, AudioSource> m_AudioSourceMusicDict = new Dictionary<string, AudioSource>();
     private static string currentMusic = String.Empty;
     
-    private static Dictionary<string, AudioSource> m_AudioSourceSFXDict = new Dictionary<string, AudioSource>();
+    private static Dictionary<string, AudioSource> m_AudioSourceSoundDict = new Dictionary<string, AudioSource>();
     private static Dictionary<ExplAudioType, AudioSource> m_AudioSourceExplosionDict = new Dictionary<ExplAudioType, AudioSource>();
 
     private float _loopStartPoint;
     private float _loopEndPoint;
 
-    private static SoundService instance_ss;
+    private static AudioService Instance;
     
     private void Start()
     {
-        if (instance_ss != null) {
+        if (Instance != null) {
             Destroy(this.gameObject);
             return;
         }
-        instance_ss = this;
+        Instance = this;
 
-        InitBGM();
-        InitSFX();
-        InitExplosionSFX();
+        InitMusic();
+        InitSound();
+        InitExplosionSound();
         
         DontDestroyOnLoad(gameObject);
     }
 
-    private void InitBGM()
+    private void InitMusic()
     {
         for (int i = 0; i < m_SO_Musics.Length; ++i)
         {
@@ -68,9 +68,9 @@ public class SoundService : MonoBehaviour
 
         foreach (var musicInfo in m_SO_MusicInfo.musicInfos)
         {
-            AudioSource audioSource = m_GameObjectBGM.AddComponent<AudioSource>();
+            AudioSource audioSource = m_GameObjectMusic.AddComponent<AudioSource>();
             string audioName = musicInfo.musicName;
-            audioSource.outputAudioMixerGroup = m_AudioMixerGroupBGM;
+            audioSource.outputAudioMixerGroup = m_AudioMixerGroupMusic;
             audioSource.clip = musicInfo.musicAudio;
             audioSource.playOnAwake = false;
             audioSource.loop = true;
@@ -80,45 +80,45 @@ public class SoundService : MonoBehaviour
         }
     }
 
-    private void InitSFX()
+    private void InitSound()
     {
-        for (int i = 0; i < m_SO_SoundEffects.Length; ++i)
+        for (int i = 0; i < m_SO_Sounds.Length; ++i)
         {
-            foreach (var soundEffectInfo in m_SO_SoundEffects[i].soundEffectInfos)
+            foreach (var soundInfo in m_SO_Sounds[i].soundInfos)
             {
-                AudioSource audioSource = m_GameObjectSFX.AddComponent<AudioSource>();
-                audioSource.outputAudioMixerGroup = m_AudioMixerGroupSFX[i];
-                audioSource.clip = soundEffectInfo.soundEffectAudio;
+                AudioSource audioSource = m_GameObjectSound.AddComponent<AudioSource>();
+                audioSource.outputAudioMixerGroup = m_AudioMixerGroupSound[i];
+                audioSource.clip = soundInfo.soundAudio;
                 audioSource.playOnAwake = false;
 
-                if (m_AudioSourceMusicDict.ContainsKey(soundEffectInfo.soundEffectName))
+                if (m_AudioSourceMusicDict.ContainsKey(soundInfo.soundName))
                 {
                     Debug.LogError("There are duplicated sound effect name!");
                 }
                 else
                 {
-                    m_AudioSourceSFXDict[soundEffectInfo.soundEffectName] = audioSource;
+                    m_AudioSourceSoundDict[soundInfo.soundName] = audioSource;
                 }
             }
         }
     }
 
-    private void InitExplosionSFX()
+    private void InitExplosionSound()
     {
-        foreach (var soundEffectInfo in m_SO_ExplosionSoundEffect.soundEffectInfos)
+        foreach (var soundInfo in m_SO_ExplosionSound.soundInfos)
         {
-            AudioSource audioSource = m_GameObjectSFX.AddComponent<AudioSource>();
+            AudioSource audioSource = m_GameObjectSound.AddComponent<AudioSource>();
             audioSource.outputAudioMixerGroup = m_AudioMixerGroupExplosion;
-            audioSource.clip = soundEffectInfo.soundEffectAudio;
+            audioSource.clip = soundInfo.soundAudio;
             audioSource.playOnAwake = false;
 
-            if (m_AudioSourceExplosionDict.ContainsKey(soundEffectInfo.explosionAudioType))
+            if (m_AudioSourceExplosionDict.ContainsKey(soundInfo.explosionAudioType))
             {
                 Debug.LogError("There are duplicated sound effect name!");
             }
             else
             {
-                m_AudioSourceExplosionDict[soundEffectInfo.explosionAudioType] = audioSource;
+                m_AudioSourceExplosionDict[soundInfo.explosionAudioType] = audioSource;
             }
         }
     }
@@ -159,7 +159,7 @@ public class SoundService : MonoBehaviour
     {
         if (!m_SceneMusicDict[currentScene].Contains(musicName))
         {
-            Debug.LogError($"'{musicName}' is not loaded music in this scene.");
+            Debug.LogError($"'{musicName}' can not be played in this scene.");
             return;
         }
         
@@ -172,8 +172,8 @@ public class SoundService : MonoBehaviour
             audioSource.Play();
             currentMusic = musicName;
         
-            instance_ss._loopStartPoint = m_MusicInfoDict[currentMusic].loopStartPoint;
-            instance_ss._loopEndPoint = m_MusicInfoDict[currentMusic].loopEndPoint;
+            Instance._loopStartPoint = m_MusicInfoDict[currentMusic].loopStartPoint;
+            Instance._loopEndPoint = m_MusicInfoDict[currentMusic].loopEndPoint;
         }
     }
 
@@ -203,7 +203,8 @@ public class SoundService : MonoBehaviour
 
     public static void FadeOutMusic(float seconds = 3.3f)
     {
-        instance_ss.StartCoroutine(instance_ss.FadingOut(seconds));
+        Instance.StopAllCoroutines();
+        Instance.StartCoroutine(Instance.FadingOut(seconds));
     }
 
     private IEnumerator FadingOut(float seconds) {
@@ -214,19 +215,43 @@ public class SoundService : MonoBehaviour
         m_AudioSourceMusicDict[currentMusic].Stop();
     }
 
-    public static void PlaySFX(string soundEffectName)
+    public static void PlaySound(string soundName)
     {
-        if (m_AudioSourceMusicDict.TryGetValue(soundEffectName, out AudioSource audioSource))
+        if (m_AudioSourceMusicDict.TryGetValue(soundName, out AudioSource audioSource))
         {
             audioSource.Play();
         }
     }
 
-    public static void PlayExplosionSFX(ExplAudioType explAudioType)
+    public static void PlaySound(ExplAudioType explAudioType)
     {
         if (m_AudioSourceExplosionDict.TryGetValue(explAudioType, out AudioSource audioSource))
         {
             audioSource.Play();
+        }
+    }
+
+    public static void StopSound(string soundName)
+    {
+        if (m_AudioSourceMusicDict.TryGetValue(soundName, out AudioSource audioSource))
+        {
+            if (!audioSource.isPlaying)
+            {
+                return;
+            }
+            audioSource.Stop();
+        }
+    }
+
+    public static void StopSound(ExplAudioType explAudioType)
+    {
+        if (m_AudioSourceExplosionDict.TryGetValue(explAudioType, out AudioSource audioSource))
+        {
+            if (!audioSource.isPlaying)
+            {
+                return;
+            }
+            audioSource.Stop();
         }
     }
 }

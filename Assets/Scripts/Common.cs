@@ -506,17 +506,17 @@ public struct MusicInfo
 }
 
 [System.Serializable]
-public struct SoundEffectInfo
+public struct SoundInfo
 {
-    public string soundEffectName;
-    public AudioClip soundEffectAudio;
+    public string soundName;
+    public AudioClip soundAudio;
 }
 
 [System.Serializable]
-public struct SoundEffectExplosionInfo
+public struct SoundExplosionInfo
 {
     public ExplAudioType explosionAudioType;
-    public AudioClip soundEffectAudio;
+    public AudioClip soundAudio;
 }
 
 public class EnemyBuilder {

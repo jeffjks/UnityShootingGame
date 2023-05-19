@@ -48,7 +48,7 @@ public class KeyConfigMenuHandler : GameUI
 
     private void Apply() {
         PlayerPrefs.Save();
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
 
         m_PreviousMenu.SetActive(true);
         m_KeyConfigMenu.SetActive(false);
@@ -58,7 +58,7 @@ public class KeyConfigMenuHandler : GameUI
     private void Cancel() {
         UpdateValues();
         SetText();
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         m_PreviousMenu.SetActive(true);
         m_KeyConfigMenu.SetActive(false);
         gameObject.SetActive(false);

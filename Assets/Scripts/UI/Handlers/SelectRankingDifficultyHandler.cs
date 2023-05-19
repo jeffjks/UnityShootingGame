@@ -50,13 +50,13 @@ public class SelectRankingDifficultyHandler : GameUI
         m_SystemManager.SetDifficulty(difficulty);
         
         m_RankingMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void Back() {
         m_PreviousMenu.SetActive(true);
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
     }
 }

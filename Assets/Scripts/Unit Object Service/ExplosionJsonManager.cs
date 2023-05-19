@@ -138,7 +138,7 @@ public class ExplosionJsonManager : MonoBehaviour
         
         
         if (ExplAudioType != ExplAudioType.None && num == 0) {
-            SoundService.PlayExplosionSFX(ExplAudioType);
+            AudioService.PlaySound(ExplAudioType);
         }
     }
 

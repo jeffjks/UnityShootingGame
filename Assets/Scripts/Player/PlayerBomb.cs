@@ -7,7 +7,6 @@ public class PlayerBomb : MonoBehaviour
     public Transform m_PlayerTransform;
     public GameObject m_Bomb, m_Explosion, m_BombDamage;
     public ParticleSystem m_ParticleSystem;
-    public AudioSource m_AudioSource;
 
     //private Vector3 m_FixedPosition;
 
@@ -51,7 +50,7 @@ public class PlayerBomb : MonoBehaviour
 
     private IEnumerator BombExplosion(Vector3 init_position, Vector3 target_position) {
         int frame = TARGET_TIMER * Application.targetFrameRate / 1000;
-        m_AudioSource.Play();
+        AudioService.PlaySound("PlayerBomb1");
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
@@ -67,11 +66,11 @@ public class PlayerBomb : MonoBehaviour
         m_BombDamage.SetActive(true);
 
         yield return new WaitForMillisecondFrames(REMOVE_TIMER);
+        AudioService.PlaySound("PlayerBomb2");
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(false);
         m_BombDamage.SetActive(false);
         m_Enable = true;
-        yield break;
     }
 
     public bool GetEnableState() {

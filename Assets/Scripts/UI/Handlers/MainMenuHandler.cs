@@ -20,8 +20,8 @@ public class MainMenuHandler : GameUI
 
     void OnEnable()
     {
-        SoundService.LoadMusics("Main");
-        SoundService.PlayMusic("Main");
+        AudioService.LoadMusics("Main");
+        AudioService.PlayMusic("Main");
         
         m_GameManager.SetOptions();
 
@@ -66,29 +66,29 @@ public class MainMenuHandler : GameUI
 
     private void SelectDifficulty() {
         m_SelectDifficultyMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void Training() {
         m_TrainingMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void SelectRankingDifficulty() {
         if (m_IsEnabled[2]) {
             m_SelectRankingDifficultyMenu.SetActive(true);
-            ConfirmSound();
+            AudioService.PlaySound("ConfirmUI");
             gameObject.SetActive(false);
         }
         else {
-            CancelSound();
+            AudioService.PlaySound("CancelUI");
         }
     }
 
     private void Replay() {
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         //m_ReplayMenu.SetActive(true);
         //ConfirmSound();
         //gameObject.SetActive(false);
@@ -96,12 +96,12 @@ public class MainMenuHandler : GameUI
 
     private void Option() {
         m_SettingsMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void KeyConfig() {
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         // m_KeyConfigMenu.SetActive(true);
         // ConfirmSound();
         // gameObject.SetActive(false);
@@ -109,12 +109,12 @@ public class MainMenuHandler : GameUI
 
     private void Credit() {
         m_CreditMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void ExitGame() {
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         Application.Quit(); // 에디터에서는 무시됨
     }
 }

@@ -76,14 +76,14 @@ public class LanguageMenuHandler : GameUI
     private void Apply() {
         m_GameManager.SetLanguage(m_LanguageOptions);
         PlayerPrefs.Save();
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         PreviousMenu();
     }
 
     private void Cancel() {
         UpdateValues();
         SetText();
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         PreviousMenu();
     }
 

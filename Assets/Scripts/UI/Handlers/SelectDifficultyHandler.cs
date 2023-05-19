@@ -31,13 +31,13 @@ public class SelectDifficultyHandler : GameUI
         
         m_PlayerPreview.SetActive(true);
         m_SelectAttributesMenu.SetActive(true);
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     private void Back() {
         m_PreviousMenu.SetActive(true);
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
     }
 }

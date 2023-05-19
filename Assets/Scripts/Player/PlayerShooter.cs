@@ -6,7 +6,6 @@ public class PlayerShooter : PlayerShooterManager
 {
     public PlayerBomb m_PlayerBomb;
 
-    private AudioSource m_AudioSource;
     private Transform m_MainCamera;
     private int m_ShotKeyPressFrame;
     private bool m_ShotKeyPrevious = false, m_NowShooting;
@@ -25,7 +24,6 @@ public class PlayerShooter : PlayerShooterManager
 
     void Start()
     {
-        m_AudioSource = GetComponent<AudioSource>();
         m_MainCamera = m_SystemManager.m_MainCamera.transform;
 
         for (int i = 0; i < PlayerWeapon.Length; i++) {
@@ -161,8 +159,6 @@ public class PlayerShooter : PlayerShooterManager
     protected override IEnumerator Shot() {
         m_AutoShot--;
         for (int i = 0; i < m_ShotNumber; i++) { // m_FireRate초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
-            if (m_AudioSource != null)
-                m_AudioSource.Play();
             if (m_ShotDamage == 0)
                 CreateShotNormal(m_ShotLevel);
             else if (m_ShotDamage == 1)
@@ -172,6 +168,7 @@ public class PlayerShooter : PlayerShooterManager
             else {
                 m_ShotDamage = 0;
             }
+            AudioService.PlaySound("PlayerShot1");
             yield return new WaitForMillisecondFrames(m_FireRate);
         }
         yield return new WaitForMillisecondFrames(m_FireDelayWait);

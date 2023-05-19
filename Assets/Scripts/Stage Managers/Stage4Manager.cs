@@ -17,8 +17,8 @@ public class Stage4Manager : StageManager
         m_SystemManager.SetCurrentStage(3);
         m_BossBackgroundSpeed = 3.12f / Application.targetFrameRate * Time.timeScale;
         
-        SoundService.LoadMusics("Stage4");
-        SoundService.PlayMusic("Stage4");
+        AudioService.LoadMusics("Stage4");
+        AudioService.PlayMusic("Stage4");
     }
 
     protected override IEnumerator MainTimeline()
@@ -52,13 +52,13 @@ public class Stage4Manager : StageManager
     protected override IEnumerator BossTimeline()
     {
         yield return new WaitForMillisecondFrames(2000);
-        SoundService.FadeOutMusic();
+        AudioService.FadeOutMusic();
         StartCoroutine(BossStart(new Vector3(14f, 3f, 121.5f), 7500)); // Boss
         SetBackgroundSpeed(new Vector3(0f, 0f, 1.5f), 1000);
         yield return new WaitForMillisecondFrames(3000);
         m_SystemManager.WarningText();
         yield return new WaitForMillisecondFrames(4000);
-        SoundService.PlayMusic("Boss1");
+        AudioService.PlayMusic("Boss1");
         yield return new WaitForMillisecondFrames(64000);
         SetBackgroundSpeed(new Vector3(0f, 0f, 0f), 2000);
     }

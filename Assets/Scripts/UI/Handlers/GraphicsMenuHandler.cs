@@ -113,14 +113,14 @@ public class GraphicsMenuHandler : GameUI
         m_GameManager.SetGraphicsQuality(m_GraphicsQuality);
         m_GameManager.SetAntiAliasing(m_AntiAliasing);
         PlayerPrefs.Save();
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         PreviousMenu();
     }
 
     private void Cancel() {
         UpdateValues();
         SetText();
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         PreviousMenu();
     }
 

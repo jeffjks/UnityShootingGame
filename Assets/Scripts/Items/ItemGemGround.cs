@@ -5,7 +5,7 @@ public class ItemGemGround : ItemGem {
 
     protected override void ItemEffect(Collider2D other) {
         m_SystemManager.AddScoreEffect(ItemScore.GEM_GROUND, true);
-        SoundService.PlaySFX("ItemGem");
+        AudioService.PlaySound("ItemGem");
     }
 
     public override void OnItemRemoved() {

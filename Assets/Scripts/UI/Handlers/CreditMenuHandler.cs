@@ -33,7 +33,7 @@ public class CreditMenuHandler : GameUI
 
     private void Back() {
         m_PreviousMenu.SetActive(true);
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         m_CreditMenu.SetActive(false);
     }
 }

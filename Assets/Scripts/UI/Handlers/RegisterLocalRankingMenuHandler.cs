@@ -103,7 +103,7 @@ public class RegisterLocalRankingMenuHandler : GameUI
 
     private void Cancel() {
         m_Active = false;
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         m_InputFieldID.DeactivateInputField();
         StartCoroutine(ReturnToMainMenu());
     }

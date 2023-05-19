@@ -21,8 +21,6 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
         m_SystemManager = SystemManager.instance_sm;
         m_GameManager = GameManager.instance_gm;
         m_Selection = m_PlayerManager.m_CurrentAttributes.GetAttributes(m_Attributes);
-
-        FindAudioSource();
     }
 
     void OnEnable()
@@ -87,7 +85,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
         m_SystemManager.m_UsedCost += cost_need;
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
-        ConfirmSound();
+        AudioService.PlaySound("ConfirmUI");
         m_PreviousMenu.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -99,7 +97,7 @@ public class AttributesDetailsHandler : AttributeSelectButtonUI
         m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
         SetPreviewDesign();
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         m_PreviousMenu.SetActive(true);
         gameObject.SetActive(false);
     }

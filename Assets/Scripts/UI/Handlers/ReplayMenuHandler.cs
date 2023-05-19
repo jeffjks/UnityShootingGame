@@ -5,8 +5,6 @@ using System.IO;
 public class ReplayMenuHandler : GameUI
 {
     public GameObject m_PreviousMenu;
-    public ScreenEffectFadeOut m_ScreenEffectFadeOut;
-    public AudioSource m_AudioSally;
 
     private const byte MAX_REPLAY_NUMBER = 5;
     private bool m_State;
@@ -78,19 +76,19 @@ public class ReplayMenuHandler : GameUI
 
     private void StartReplay(int num) {
         if (!m_IsEnabled[num]) {
-            CancelSound();
+            AudioService.PlaySound("CancelUI");
             return;
         }
         m_State = false;
         m_SystemManager.m_GameMode = GameMode.GAMEMODE_REPLAY;
         m_GameManager.m_ReplayNum = (byte) num;
-        m_ScreenEffectFadeOut.gameObject.SetActive(true);
-        m_AudioSally.Play();
+        ScreenFadeService.ScreenFadeOut();
+        AudioService.PlaySound("SallyUI");
     }
 
     private void Back() {
         m_PreviousMenu.SetActive(true);
-        CancelSound();
+        AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
     }
 }

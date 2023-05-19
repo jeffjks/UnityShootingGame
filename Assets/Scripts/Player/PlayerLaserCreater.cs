@@ -143,16 +143,16 @@ public class PlayerLaserCreater : MonoBehaviour
         StopParticles(m_HitParticles);
     }
 
-    private void PlayParticles(ParticleSystem[] particle_system) {
-        foreach (var AllPs in particle_system) {
-            if (!AllPs.isPlaying) AllPs.Play();
+    private void PlayParticles(ParticleSystem[] particleSystems) {
+        foreach (var particle in particleSystems) {
+            if (!particle.isPlaying) particle.Play();
         }
     }
 
-    private void StopParticles(ParticleSystem[] particle_system) {
-        if (particle_system != null) {
-            foreach (var part in particle_system) {
-                if (part.isPlaying) part.Stop();
+    private void StopParticles(ParticleSystem[] particleSystems) {
+        if (particleSystems != null) {
+            foreach (var particle in particleSystems) {
+                if (particle.isPlaying) particle.Stop();
             }
         }
     }

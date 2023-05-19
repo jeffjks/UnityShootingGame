@@ -47,7 +47,7 @@ public class RankingMenuHandler : GameUI
     private void MovePage(int move) {
         if (m_NetworkDisplayRankingScore.m_Active) {
             if (m_NetworkDisplayRankingScore.TurnOverPage(move)) {
-                ConfirmSound();
+                AudioService.PlaySound("ConfirmUI");
             }
         }
     }
@@ -57,7 +57,7 @@ public class RankingMenuHandler : GameUI
             m_MainLogo.SetActive(true);
             m_PreviousMenu.SetActive(true);
             m_DifficultyText[m_SystemManager.GetDifficulty()].SetActive(false);
-            CancelSound();
+            AudioService.PlaySound("CancelUI");
             m_RankingMenu.SetActive(false);
         }
     }

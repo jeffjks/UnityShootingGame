@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerLaserShooter : PlayerLaserShooterManager
 {
-    public AudioSource m_AudioLaser = null;
     public PlayerLaser m_PlayerLaser;
 
     private PlayerManager m_PlayerManager = null;
@@ -28,7 +27,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
         m_PlayerLaser.UpdateLaserDamage();
         UpdateLaser();
         if (transform.root.gameObject.activeInHierarchy)
-            m_AudioLaser.Play();
+            AudioService.PlaySound("PlayerLaser");
     }
 
     public override void StopLaser() {
@@ -38,7 +37,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
             m_PlayerLaserCreater.DisablePrepare();
         }
         m_MaxLaserLength = 0f;
-        m_AudioLaser.Stop();
+        AudioService.StopSound("PlayerLaser");
     }
 
     void Update()

@@ -24,7 +24,6 @@ public abstract class GameUI : MonoBehaviour {
     protected Color m_ColorDisabled_1 = new Color32(163, 163, 163, 200); // grey
     protected Image[] m_Image;
     protected Text[] m_Text;
-    protected AudioSource[] m_AudioSource = new AudioSource[2];
 
     protected GameManager m_GameManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -46,17 +45,9 @@ public abstract class GameUI : MonoBehaviour {
         }
         m_Selection = m_InitialSelection;
 
-        FindAudioSource();
-
         m_GameManager = GameManager.instance_gm;
         m_PlayerManager = PlayerManager.instance_pm;
         m_SystemManager = SystemManager.instance_sm;
-    }
-
-    protected void FindAudioSource() {
-        GameObject obj = transform.root.gameObject;
-        m_AudioSource[0] = obj.GetComponents<AudioSource>()[0];
-        m_AudioSource[1] = obj.GetComponents<AudioSource>()[1];
     }
 
     protected virtual void MoveCursorVertical(int move) {
@@ -126,17 +117,17 @@ public abstract class GameUI : MonoBehaviour {
         }
     }
 
-    protected void ConfirmSound() {
+    protected void PlayConfirmSound() {
         if (!AudioListener.pause) {
-            m_AudioSource[0].Stop();
-            m_AudioSource[0].Play();
+            AudioService.StopSound("ConfirmUI");
+            AudioService.PlaySound("ConfirmUI");
         }
     }
 
-    protected void CancelSound() {
+    protected void PlayCancelSound() {
         if (!AudioListener.pause) {
-            m_AudioSource[1].Stop();
-            m_AudioSource[1].Play();
+            AudioService.StopSound("CancelUI");
+            AudioService.PlaySound("CancelUI");
         }
     }
 }

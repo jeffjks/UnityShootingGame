@@ -38,6 +38,6 @@ public class AttributesSelectHandler : MonoBehaviour
 
     void OnEnable()
     {
-        SoundService.PlayMusic("Select");
+        AudioService.PlayMusic("Select");
     }
 }

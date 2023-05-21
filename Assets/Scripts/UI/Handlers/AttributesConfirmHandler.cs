@@ -1,13 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AttributesConfirmHandler : GameUI
 {
     public AttributesSelectHandler m_SelectAttributesHandler;
 
+    private Action Action_startStage;
     private bool m_Enable = false;
 
+    void Start()
+    {
+        Action_startStage += StartStage;
+    }
+
+    private void StartStage()
+    {
+        SceneManager.LoadScene("Stage1");
+    }
+    
     void Update()
 	{
         if (!m_Enable) {
@@ -39,7 +52,7 @@ public class AttributesConfirmHandler : GameUI
 
     private void Confirm() { // Select Confirm (Sally)
         m_SelectAttributesHandler.m_State = -1;
-        ScreenFadeService.ScreenFadeOut();
+        ScreenEffectService.ScreenFadeOut(2f, Action_startStage);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
     }

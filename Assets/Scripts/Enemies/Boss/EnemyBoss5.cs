@@ -721,7 +721,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
-        m_SystemManager.ScreenEffect(1);
+        ScreenEffectService.ScreenWhiteEffect(true);
         m_SystemManager.ShakeCamera(1.5f);
         
         if (m_SystemManager.GetDifficulty() == Difficulty.HELL) {

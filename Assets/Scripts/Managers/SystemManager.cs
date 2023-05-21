@@ -8,18 +8,15 @@ using System;
 public class SystemManager : MonoBehaviour
 {
     public Camera m_BackgroundCamera;
-    public ScreenEffecter m_ScreenEffecter;
     public MainCamera m_MainCamera;
-    public BossHealthBarHandler m_BossHealthBar;
     public OverviewHandler m_OverviewHandler;
     public TextUI_GameMode m_TextUI_GameMode;
     public PlayerManager m_PlayerManager;
 
-    [SerializeField] private Text m_ScoreNuberText = null;
+    [SerializeField] private Text m_ScoreNumberText = null;
     [SerializeField] private Text m_DifficultyText = null;
     [SerializeField] private Text m_BombNumberText = null;
     [SerializeField] private WarningUI m_WarningUI = null;
-    [SerializeField] private GameObject m_Transition = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
@@ -37,7 +34,6 @@ public class SystemManager : MonoBehaviour
     private GameManager m_GameManager = null;
     private PoolingManager m_PoolingManager = null;
 
-    private List<ScreenEffectAnimation> m_TransitionList = new List<ScreenEffectAnimation>();
     private PlayerController m_PlayerController;
     private Vector3 m_BackgroundCameraDefaultLocalPos;
     private long m_TotalScore;
@@ -73,7 +69,6 @@ public class SystemManager : MonoBehaviour
         m_BackgroundCameraDefaultLocalPos = m_BackgroundCamera.transform.localPosition;
         
         DontDestroyOnLoad(gameObject);
-        CreateTransition();
 
         m_TextUI_GameMode.FadeEffect();
         
@@ -121,14 +116,9 @@ public class SystemManager : MonoBehaviour
         m_BulletNumber = 0;
         
         m_PlayState = 0;
-        InitBossHealthBar();
 
         m_OverviewHandler.gameObject.SetActive(false);
         m_WarningUI.gameObject.SetActive(false);
-    }
-
-    private void InitBossHealthBar() {
-        m_BossHealthBar.InitPosition();
     }
 
     private void MoveBackgroundCamera() {
@@ -166,37 +156,6 @@ public class SystemManager : MonoBehaviour
     
     public void SetPlayerController(PlayerController playerController) {
         m_PlayerController = playerController;
-    }
-
-    private void CreateTransition() {
-        int r = 1;
-        for(int i = 0; i < 8; i++) { // 가로 6개, 세로 8개. 12*16
-            for(int j = 0; j < 6; j++) {
-                GameObject ins = Instantiate(m_Transition, new Vector3(j*2f-5f, i*2f-15f, Depth.TRANSITION), Quaternion.Euler(0, 0, 45+45*r)); // depth = -4f
-                ins.transform.parent = m_ScreenEffecter.transform;
-                ScreenEffectAnimation animation = ins.GetComponent<ScreenEffectAnimation>();
-                m_TransitionList.Add(animation);
-                r *= -1;
-            }
-            r *= -1;
-        }
-    }
-
-    public void ScreenEffect(byte num) {
-        switch (num) {
-            case 0:
-                m_ScreenEffecter.PlayWhiteEffect(false); // small
-                break;
-            case 1:
-                m_ScreenEffecter.PlayWhiteEffect(true); // large
-                break;
-            case 2: // TransitionEffect
-                for (int i = 0; i < m_TransitionList.Count; i++) {
-                    m_TransitionList[i].gameObject.SetActive(true);
-                    m_TransitionList[i].PlayTransition();
-                }
-                break;
-        }
     }
 
     public void ShakeCamera(float duration) {
@@ -241,7 +200,7 @@ public class SystemManager : MonoBehaviour
 
     private IEnumerator NextStage() { // 2스테이지 부터
         m_PlayState = 4;
-        S2creenFadeService.ScreenFadeIn();
+        ScreenEffectService.ScreenFadeIn();
         yield return new WaitForMillisecondFrames(2000);
 
         if (m_GameMode == GameMode.GAMEMODE_TRAINING && !m_GameManager.m_InvincibleMod) {
@@ -261,7 +220,7 @@ public class SystemManager : MonoBehaviour
                 m_PlayState = 0;
                 m_PlayerManager.m_PlayerControlable = true;
                 m_PlayerController.DisableInvincibility(3000);
-                ScreenEffect(2); // Transition
+                ScreenEffectService.ScreenTransitionIn();
             }
             else {
                 string scene_name = "Ending";
@@ -273,7 +232,7 @@ public class SystemManager : MonoBehaviour
 
                 m_PlayState = 3;
                 yield return new WaitForMillisecondFrames(1000);
-                S2creenFadeService.ScreenFadeOut(1.5f);
+                ScreenEffectService.ScreenFadeOut(1.5f);
             }
         }
     }
@@ -290,7 +249,7 @@ public class SystemManager : MonoBehaviour
 
 
     private void UpdateScore() {
-        m_ScoreNuberText.text = "" + m_TotalScore;
+        m_ScoreNumberText.text = "" + m_TotalScore;
     }
 
     public void AddScore(long score) {

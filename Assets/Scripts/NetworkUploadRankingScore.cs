@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class NetworkUploadRankingScore : MonoBehaviour
 {
-    public TextUI_ErrorMessage m_ErrorMessage;
+    public TextErrorMessage m_ErrorMessage;
 
     private GameManager m_GameManager = null;
     private SystemManager m_SystemManager = null;

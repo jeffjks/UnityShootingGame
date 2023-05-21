@@ -40,6 +40,10 @@ public class BossHealthBarHandler : MonoBehaviour
     private IEnumerator m_CurrentScrollCoroutine;
     private BossHealthBarState m_BossHealthBarState = BossHealthBarState.ScrollUp;
 
+    private void OnEnable() {
+        InitPosition();
+    }
+
     public float InterpolateY {
         get { return m_InterpolateY; }
         set {
@@ -130,7 +134,7 @@ public class BossHealthBarHandler : MonoBehaviour
         }
     }
 
-    public void InitPosition() {
+    private void InitPosition() {
         InterpolateY = POSITION_Y_UP;
     }
 }

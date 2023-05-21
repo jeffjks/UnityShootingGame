@@ -84,7 +84,7 @@ public class TrainingMenuHandler : GameUI
     }
 
     private void SetText() {
-        if (m_GameManager.m_Language == 0) {
+        if (GameSetting.m_Language == Language.English) {
             m_Text[0].text = "Stage " + (m_TrainingInfo.m_Stage + 1);
             switch (m_TrainingInfo.m_Difficulty) {
                 case 0:

@@ -132,6 +132,7 @@ public class AudioService : MonoBehaviour
     {
         if (sceneString == currentScene)
         {
+            Debug.Log("Current scene's musics are already loaded.");
             return;
         }
         // 현재 : m_SceneMusicDict[currentScene]
@@ -162,11 +163,14 @@ public class AudioService : MonoBehaviour
             Debug.LogError($"'{musicName}' can not be played in this scene.");
             return;
         }
-        
-        if (currentMusic != string.Empty)
+        if (currentMusic == musicName)
         {
-            m_AudioSourceMusicDict[currentMusic].Stop();
+            return;
         }
+        
+        Instance.StopAllCoroutines();
+        StopMusic();
+        
         if (m_AudioSourceMusicDict.TryGetValue(musicName, out AudioSource audioSource))
         {
             audioSource.Play();
@@ -174,6 +178,10 @@ public class AudioService : MonoBehaviour
         
             Instance._loopStartPoint = m_MusicInfoDict[currentMusic].loopStartPoint;
             Instance._loopEndPoint = m_MusicInfoDict[currentMusic].loopEndPoint;
+        }
+        else
+        {
+            Debug.LogError($"There is no music name such as '{musicName}' in dictionary.");
         }
     }
 
@@ -194,6 +202,7 @@ public class AudioService : MonoBehaviour
 
     public static void StopMusic()
     {
+        Instance.StopAllCoroutines();
         if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
         {
             audioSource.Stop();
@@ -217,9 +226,13 @@ public class AudioService : MonoBehaviour
 
     public static void PlaySound(string soundName)
     {
-        if (m_AudioSourceMusicDict.TryGetValue(soundName, out AudioSource audioSource))
+        if (m_AudioSourceSoundDict.TryGetValue(soundName, out AudioSource audioSource))
         {
             audioSource.Play();
+        }
+        else
+        {
+            Debug.LogError($"There is no sound name such as '{soundName}' in dictionary.");
         }
     }
 
@@ -229,11 +242,15 @@ public class AudioService : MonoBehaviour
         {
             audioSource.Play();
         }
+        else
+        {
+            Debug.LogError($"There is no explosion type sound such as '{explAudioType}' in dictionary.");
+        }
     }
 
     public static void StopSound(string soundName)
     {
-        if (m_AudioSourceMusicDict.TryGetValue(soundName, out AudioSource audioSource))
+        if (m_AudioSourceSoundDict.TryGetValue(soundName, out AudioSource audioSource))
         {
             if (!audioSource.isPlaying)
             {

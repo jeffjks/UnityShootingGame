@@ -9,20 +9,13 @@ public class TextLanguage : MonoBehaviour
     public Font[] m_Font;
     [TextArea(4, 6)]
     public string[] m_String;
-    
-    private GameManager m_GameManager = null;
-
-    void Awake()
-    {
-        m_GameManager = GameManager.instance_gm;
-    }
 
     void OnEnable()
     {
         try {
-            m_Text.font = m_Font[m_GameManager.m_Language];
+            m_Text.font = m_Font[(int) GameSetting.m_Language];
             if (m_String.Length > 0)
-                m_Text.text = m_String[m_GameManager.m_Language];
+                m_Text.text = m_String[(int) GameSetting.m_Language];
         }
         catch (System.NullReferenceException) {
         }

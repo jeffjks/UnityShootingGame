@@ -222,6 +222,23 @@ public class TweenDataPosition
     }
 }*/
 
+public enum GraphicsOption {
+    Resolution,
+    FullScreen,
+    Quality,
+    AntiAliasing
+}
+
+public enum SoundOption {
+    MusicVolume,
+    SoundEffectVolume
+}
+
+public enum Language {
+    English,
+    Korean
+}
+
 public enum EnemyType
 {
     Zako,

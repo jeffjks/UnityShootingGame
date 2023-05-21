@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkAccount : MonoBehaviour
 {
-    public GameObject[] m_ServerMenus;
-    public GameObject[] m_LoginMenus;
+    public GameObject m_LoginPanel;
 
     private GameManager m_GameManager = null;
 
@@ -17,14 +16,12 @@ public class NetworkAccount : MonoBehaviour
 
         m_GameManager = GameManager.instance_gm;
         
-        if (!m_GameManager.m_NetworkAvailable) {
+        if (!m_LoginPanel.activeInHierarchy) {
             SceneManager.LoadScene("MainMenu");
             return;
         }
 
-        for (int i = 0; i < m_LoginMenus.Length; i++) {
-            m_LoginMenus[i].SetActive(true);
-        }
+        m_LoginPanel.SetActive(true);
     }
 
     public void InitServer() {
@@ -44,13 +41,13 @@ public class NetworkAccount : MonoBehaviour
         form.AddField("userPW", pw);
         form.AddField("pcID", SystemInfo.deviceUniqueIdentifier);
 
-        UnityWebRequest webRequeset = UnityWebRequest.Post(url, form);
-        yield return webRequeset.SendWebRequest();
-        if(webRequeset.result == UnityWebRequest.Result.ConnectionError || webRequeset.result == UnityWebRequest.Result.ProtocolError) {
-            handler.NetworkError(webRequeset.error);
+        UnityWebRequest webRequest = UnityWebRequest.Post(url, form);
+        yield return webRequest.SendWebRequest();
+        if(webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError) {
+            handler.NetworkError(webRequest.error);
         }
         else {
-            handler.TryLogin(id, webRequeset.downloadHandler.text);
+            handler.TryLogin(id, webRequest.downloadHandler.text);
         }
         yield return null;
     }

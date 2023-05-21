@@ -47,7 +47,7 @@ public struct LocalRankingData {
 
 public class NetworkDisplayRankingScore : MonoBehaviour
 {
-    public TextUI_ErrorMessage m_ErrorMessage;
+    public TextErrorMessage m_ErrorMessage;
     public RankingScoreSlot[] m_TopRankingScoreSlots = new RankingScoreSlot[5];
     public RankingScoreSlot m_MyRankingScoreSlot;
 

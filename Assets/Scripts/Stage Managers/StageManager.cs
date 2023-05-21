@@ -67,12 +67,11 @@ public abstract class StageManager : MonoBehaviour
 
     void Start ()
     {
-        m_BossHealthBar = m_SystemManager.m_BossHealthBar;
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(0f, 0f, 0f);
         m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(0f, 0f, 0f);
         m_SystemManager.m_StageManager = this;
-        m_SystemManager.ScreenEffect(2);
+        ScreenEffectService.ScreenTransitionIn();
 
         SetBackgroundSpeed(0f);
         if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_TRAINING && m_SystemManager.m_TrainingInfo.m_BossOnly) {

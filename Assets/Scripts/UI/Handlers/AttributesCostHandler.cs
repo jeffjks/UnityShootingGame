@@ -20,9 +20,9 @@ public class AttributesCostHandler : MonoBehaviour
     {
         string available = m_AttributesSelectHandler.m_AvailableCost.ToString();
         string used = m_SystemManager.m_UsedCost.ToString();
-        if (m_GameManager.m_Language == 0)
+        if (GameSetting.m_Language == Language.English)
             m_Text.text = "COST\n"+used+" / "+available;
-        else if (m_GameManager.m_Language == 1)
+        else if (GameSetting.m_Language == Language.Korean)
             m_Text.text = "비용\n"+used+" / "+available;
     }
 
@@ -30,9 +30,9 @@ public class AttributesCostHandler : MonoBehaviour
     {
         string available = m_AttributesSelectHandler.m_AvailableCost.ToString();
         string used = m_SystemManager.m_UsedCost.ToString();
-        if (m_GameManager.m_Language == 0)
+        if (GameSetting.m_Language == Language.English)
             m_Text.text = "COST\n"+used+" / "+available;
-        else if (m_GameManager.m_Language == 1)
+        else if (GameSetting.m_Language == Language.Korean)
             m_Text.text = "비용\n"+used+" / "+available;
     }
 }

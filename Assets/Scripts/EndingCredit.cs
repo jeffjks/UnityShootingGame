@@ -32,12 +32,7 @@ public class EndingCredit : MonoBehaviour
             m_EndingScroll[i].text = m_EndingText[i] + "\nver " + Application.version + "\n" + m_Date;
         }
 
-        try {
-            m_Language = m_GameManager.m_Language;
-        }
-        catch (System.NullReferenceException) {
-            m_Language = 0;
-        }
+        m_Language = (int) GameSetting.m_Language;
         
         AudioService.LoadMusics("Main");
         AudioService.PlayMusic("Ending");

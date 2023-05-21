@@ -36,7 +36,7 @@ public class ExplosionJsonManager : MonoBehaviour
 
     private void InitExplosionEffectString()
     {
-        m_PoolingString = new string[] {
+        m_PoolingString = new[] {
             "ExplosionGround_1",
             "ExplosionGround_2",
             "ExplosionGround_3",

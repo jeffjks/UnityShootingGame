@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class LanguageMenuHandler : GameUI
 {
@@ -65,16 +65,16 @@ public class LanguageMenuHandler : GameUI
 	}
 
     private void UpdateValues() {
-        m_LanguageOptions = (int) m_GameManager.m_Language;
-        m_MaxLanguageOptions = m_GameManager.m_MaxLanguageOptions;
+        //m_LanguageOptions = (int) m_GameManager.m_Language;
+        //m_MaxLanguageOptions = m_GameManager.m_MaxLanguageOptions;
     }
 
     private void SetText() {
-        m_Text[0].text = m_GameManager.GetLanguage(m_LanguageOptions);
+        //m_Text[0].text = m_GameManager.GetLanguage(m_LanguageOptions);
     }
 
     private void Apply() {
-        m_GameManager.SetLanguage(m_LanguageOptions);
+        //m_GameManager.SetLanguage(m_LanguageOptions);
         PlayerPrefs.Save();
         AudioService.PlaySound("ConfirmUI");
         PreviousMenu();

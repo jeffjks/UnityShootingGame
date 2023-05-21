@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenuHandler : GameUI
+public class MainMenuHandler : MenuHandler
 {
-    public GameObject m_SelectDifficultyMenu;
-    public GameObject m_TrainingMenu;
-    public GameObject m_ReplayMenu;
-    public GameObject m_SelectRankingDifficultyMenu;
-    public GameObject m_SettingsMenu;
-    public GameObject m_KeyConfigMenu;
-    public GameObject m_CreditMenu;
+    public GameObject m_SelectDifficultyPanel;
+    public GameObject m_TrainingPanel;
+    public GameObject m_ReplayPanel;
+    public GameObject m_SelectRankingDifficultyPanel;
+    public GameObject m_SettingsPanel;
+    public GameObject m_KeyConfigPanel;
+    public GameObject m_CreditPanel;
 
     void Start()
     {
@@ -23,97 +24,53 @@ public class MainMenuHandler : GameUI
         AudioService.LoadMusics("Main");
         AudioService.PlayMusic("Main");
         
-        m_GameManager.SetOptions();
-
-        if (m_GameManager.m_NetworkAvailable) {
-            m_IsEnabled[2] = m_GameManager.m_IsOnline;
-        }
+        //m_GameManager.SetOptions();
     }
 
-    void Update()
-	{
-        int moveRawVertical = (int) Input.GetAxisRaw("Vertical");
-
-        if (Input.GetButtonDown("Fire1")) {
-            switch(m_Selection) {
-                case 0:
-                    SelectDifficulty();
-                    break;
-                case 1:
-                    Training();
-                    break;
-                case 2:
-                    SelectRankingDifficulty();
-                    break;
-                case 3:
-                    Option();
-                    break;
-                case 4:
-                    Credit();
-                    break;
-                case 5:
-                    ExitGame();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        MoveCursorVertical(moveRawVertical);
-        m_Selection = EndToStart(m_Selection, m_Total);
-        SetColor();
-	}
-
-    private void SelectDifficulty() {
-        m_SelectDifficultyMenu.SetActive(true);
+    public void StartGame() {
+        GoToTargetMenu(m_SelectDifficultyPanel);
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
-    private void Training() {
-        m_TrainingMenu.SetActive(true);
+    public void Training() {
+        GoToTargetMenu(m_TrainingPanel);
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
-    private void SelectRankingDifficulty() {
-        if (m_IsEnabled[2]) {
-            m_SelectRankingDifficultyMenu.SetActive(true);
-            AudioService.PlaySound("ConfirmUI");
-            gameObject.SetActive(false);
-        }
-        else {
-            AudioService.PlaySound("CancelUI");
-        }
-    }
-
-    private void Replay() {
-        AudioService.PlaySound("CancelUI");
-        //m_ReplayMenu.SetActive(true);
-        //ConfirmSound();
-        //gameObject.SetActive(false);
-    }
-
-    private void Option() {
-        m_SettingsMenu.SetActive(true);
+    public void RankingMenu() {
+        GoToTargetMenu(m_SelectRankingDifficultyPanel);
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
-    private void KeyConfig() {
-        AudioService.PlaySound("CancelUI");
-        // m_KeyConfigMenu.SetActive(true);
-        // ConfirmSound();
-        // gameObject.SetActive(false);
-    }
-
-    private void Credit() {
-        m_CreditMenu.SetActive(true);
+    public void ReplayMenu() {
+        GoToTargetMenu(m_ReplayPanel);
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
-    private void ExitGame() {
+    public void SettingMenu() {
+        GoToTargetMenu(m_SettingsPanel);
+        AudioService.PlaySound("ConfirmUI");
+        gameObject.SetActive(false);
+    }
+
+    public void KeyConfigMenu() {
+        GoToTargetMenu(m_KeyConfigPanel);
+        AudioService.PlaySound("ConfirmUI");
+        gameObject.SetActive(false);
+    }
+
+    public void CreditMenu()
+    {
+        GoToTargetMenu(m_CreditPanel);
+        AudioService.PlaySound("ConfirmUI");
+        gameObject.SetActive(false);
+    }
+
+    public void ExitGame() {
         AudioService.PlaySound("CancelUI");
         Application.Quit(); // 에디터에서는 무시됨
     }

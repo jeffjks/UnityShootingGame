@@ -9,12 +9,12 @@ public class LanguageMenuHandler : MenuHandler
         _oldLanguage = GameSetting.m_Language;
     }
 
-    public void Apply()
+    public override void Apply()
     {
         GameSetting.SaveLanguageSetting();
         PlayerPrefs.Save();
         
-        base.Back();
+        base.Apply();
     }
     
     public override void Back()

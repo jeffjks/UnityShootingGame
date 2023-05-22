@@ -12,12 +12,12 @@ public class SoundMenuHandler : MenuHandler
         }
     }
 
-    public void Apply()
+    public override void Apply()
     {
         GameSetting.SaveSoundSettings();
         PlayerPrefs.Save();
         
-        base.Back();
+        base.Apply();
     }
     
     public override void Back() {

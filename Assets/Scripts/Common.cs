@@ -502,6 +502,46 @@ public struct PairFloat {
     }
 }
 
+public struct LocalRankingData {
+    public string id;
+    public long score;
+    public ShipAttributes shipAttributes;
+    public int miss;
+    public long date;
+
+    public LocalRankingData(string id, long score, ShipAttributes shipAttributes, int miss, long date) {
+        this.id = id;
+        this.score = score;
+        this.shipAttributes = shipAttributes;
+        this.miss = miss;
+        this.date = date;
+    }
+
+    public bool isBetter(LocalRankingData localRankingData) {
+        if (id != localRankingData.id) {
+            return false;
+        }
+        if (score > localRankingData.score) {
+            return false;
+        }
+        if (shipAttributes != localRankingData.shipAttributes) {
+            return false;
+        }
+        if (miss < localRankingData.miss) {
+            return false;
+        }
+        if (date < localRankingData.date) {
+            return false;
+        }
+        return true;
+    }
+
+    public void Print() {
+        int attributesCode = shipAttributes.GetAttributesCode();
+        Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
+    }
+}
+
 [System.Serializable]
 public struct EnemyUnitPrefab
 {

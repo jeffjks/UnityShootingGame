@@ -12,12 +12,12 @@ public class GraphicsMenuHandler : MenuHandler
         }
     }
 
-    public void Apply()
+    public override void Apply()
     {
         GameSetting.SaveGraphicSettings();
         PlayerPrefs.Save();
         
-        base.Back();
+        base.Apply();
     }
     
     public override void Back() {

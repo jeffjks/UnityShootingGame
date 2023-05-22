@@ -60,7 +60,7 @@ public class ExplosionJsonManager : MonoBehaviour
     }
     
     private T LoadJsonFile<T>(string filePath, string fileName) {
-        FileStream fileStream = new FileStream(string.Format("{0}/{1}.dat", filePath, fileName), FileMode.Open);
+        FileStream fileStream = new FileStream($"{filePath}/{fileName}.dat", FileMode.Open);
         byte[] data = new byte[fileStream.Length];
         fileStream.Read(data, 0, data.Length);
         fileStream.Close();

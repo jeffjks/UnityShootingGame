@@ -2,19 +2,24 @@
 
 public class RankingDifficultyMenuHandler : MenuHandler
 {
-    public GameObject m_NormalRankingPanel;
-    public GameObject m_ExpertRankingPanel;
-    public GameObject m_HellRankingPanel;
+    public GameObject m_RankingPanel;
+    public RankingDataLoader m_RankingDataLoader;
 
-    public void NormalRanking() {
-        GoToTargetMenu(m_NormalRankingPanel);
+    public void RankingNormal()
+    {
+        m_RankingDataLoader.m_GameDifficulty = GameDifficulty.Normal; 
+        GoToTargetMenu(m_RankingPanel);
     }
 
-    public void ExpertRanking() {
-        GoToTargetMenu(m_ExpertRankingPanel);
+    public void RankingExpert()
+    {
+        m_RankingDataLoader.m_GameDifficulty = GameDifficulty.Expert;
+        GoToTargetMenu(m_RankingPanel);
     }
 
-    public void HellRanking() {
-        GoToTargetMenu(m_HellRankingPanel);
+    public void RankingHell()
+    {
+        m_RankingDataLoader.m_GameDifficulty = GameDifficulty.Hell;
+        GoToTargetMenu(m_RankingPanel);
     }
 }

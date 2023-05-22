@@ -24,7 +24,21 @@ public abstract class MenuHandler : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public virtual void Apply()
+    {
+        ReturnPreviousMenu();
+        AudioService.PlaySound("ConfirmUI");
+        gameObject.SetActive(false);
+    }
+
     public virtual void Back()
+    {
+        ReturnPreviousMenu();
+        AudioService.PlaySound("CancelUI");
+        gameObject.SetActive(false);
+    }
+
+    private void ReturnPreviousMenu()
     {
         if (_previousMenuStack.Count == 0)
         {
@@ -36,9 +50,6 @@ public abstract class MenuHandler : MonoBehaviour
 
         SaveLastSelection();
         FindNextSelection(previousMenu);
-        
-        AudioService.PlaySound("CancelUI");
-        gameObject.SetActive(false);
     }
 
     private void SaveLastSelection()

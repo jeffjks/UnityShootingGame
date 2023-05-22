@@ -6,22 +6,22 @@ using UnityEngine.UI;
 
 public abstract class MenuHandler : MonoBehaviour
 {
+    public int m_InitialSelection;
+    public bool m_PreserveLastSelection;
+    
     private static readonly Stack<GameObject> _previousMenuStack = new();
     private static readonly Dictionary<GameObject, Selectable> _lastSelected = new();
 
-    protected void GoToTargetMenu(GameObject targetMenu, int index = 0)
+    protected void GoToTargetMenu(GameObject targetMenu)
     {
         targetMenu.SetActive(true);
         _previousMenuStack.Push(gameObject);
-        _lastSelected[gameObject] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
 
-        if (_lastSelected.TryGetValue(targetMenu, out Selectable selectable))
-        {
-            selectable.Select();
-            return;
-        }
-        Selectable[] selectables = targetMenu.GetComponentsInChildren<Selectable>();
-        selectables[index].Select();
+        SaveLastSelection();
+        FindNextSelection(targetMenu);
+        
+        AudioService.PlaySound("ConfirmUI");
+        gameObject.SetActive(false);
     }
 
     public virtual void Back()
@@ -30,12 +30,30 @@ public abstract class MenuHandler : MonoBehaviour
         {
             return;
         }
-        var _previousMenu = _previousMenuStack.Peek();
-        _previousMenu.SetActive(true);
-        _lastSelected[_previousMenu].Select();
+        var previousMenu = _previousMenuStack.Peek();
+        previousMenu.SetActive(true);
         _previousMenuStack.Pop();
+
+        SaveLastSelection();
+        FindNextSelection(previousMenu);
         
         AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
+    }
+
+    private void SaveLastSelection()
+    {
+        if (m_PreserveLastSelection)
+            _lastSelected[gameObject] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+    }
+
+    private void FindNextSelection(GameObject menu)
+    {if (_lastSelected.TryGetValue(menu, out Selectable selectable))
+        {
+            selectable.Select();
+            return;
+        }
+        Selectable[] selectables = menu.GetComponentsInChildren<Selectable>();
+        selectables[m_InitialSelection].Select();
     }
 }

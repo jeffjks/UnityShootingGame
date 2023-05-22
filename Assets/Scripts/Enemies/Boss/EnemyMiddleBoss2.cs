@@ -140,7 +140,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(2500);
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(500);
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
@@ -150,7 +150,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(2500);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(500);
                 CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
@@ -184,12 +184,12 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern2A() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 CreateBullet(3, GetScreenPosition(m_FirePosition2[0].position), 6.4f, m_Direction, accel);
                 CreateBullet(3, GetScreenPosition(m_FirePosition2[1].position), 6.4f, -m_Direction, accel);
                 yield return new WaitForMillisecondFrames(110);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[0].position), 6.6f, m_Direction, accel, 2, 180f);
                 CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[1].position), 6.6f, -m_Direction, accel, 2, 180f);
                 yield return new WaitForMillisecondFrames(70);
@@ -208,14 +208,14 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         float random_value, target_angle;
         yield return new WaitForMillisecondFrames(1000);
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 random_value = Random.Range(0f, 360f);
                 pos = GetScreenPosition(m_FirePosition0.position);
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(4, pos, 6f, random_value + target_angle, accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(1800);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
                     pos = GetScreenPosition(m_FirePosition0.position);

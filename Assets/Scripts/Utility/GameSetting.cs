@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -10,12 +9,13 @@ public class GameSetting : MonoBehaviour
     public static readonly Dictionary<SoundOption, int> m_SoundOptions = new();
     
     public static Language m_Language;
+    public static readonly int m_LanguageCount = System.Enum.GetValues(typeof(Language)).Length;
 
     public AudioMixer m_AudioMixer = null;
 
     public const int MAX_VOLUME = 100;
 
-    private static List<Vector2Int> _resolutionList = new List<Vector2Int>()
+    private static readonly List<Vector2Int> _resolutionList = new List<Vector2Int>()
     {
         new(680, 900),
         new(1600, 900),
@@ -77,7 +77,7 @@ public class GameSetting : MonoBehaviour
 
         m_Language = (Language) PlayerPrefs.GetInt("Language", 1);
         
-        SaveLanguage();
+        SaveLanguageSetting();
     }
 
     private int GetResolutionIndex(int width, int height)
@@ -162,12 +162,11 @@ public class GameSetting : MonoBehaviour
     }
 
     private float GetMixerVolume(int volume) { // vol = 0~100 -> 90
-        float volume_f = volume;
-        float volume_result = Mathf.Log(volume_f/100f + 0.01f)*20 + 5;
-        return volume_result;
+        var mixerVolume = Mathf.Log(volume/100f + 0.01f)*20 + 5;
+        return mixerVolume;
     }
 
-    public void SaveLanguage()
+    public static void SaveLanguageSetting()
     {
         var language = m_Language;
         PlayerPrefs.SetInt("Language", (int) language);

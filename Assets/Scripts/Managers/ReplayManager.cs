@@ -51,7 +51,7 @@ public class ReplayManager : MonoBehaviour
                         else {
                             // ToDo 버전이 다름
                         }
-                        m_SystemManager.SetDifficulty(m_Difficulty);
+                        m_SystemManager.SetDifficulty((GameDifficulty) m_Difficulty);
                     }
                 }
                 else { // 비 리플레이 (파일 쓰기)
@@ -60,7 +60,7 @@ public class ReplayManager : MonoBehaviour
 
                     m_FileStream = new FileStream(m_FilePath, FileMode.Create);
                     m_Attributes = m_PlayerManager.m_CurrentAttributes;
-                    m_Difficulty = m_SystemManager.GetDifficulty();
+                    m_Difficulty = (int) m_SystemManager.GetDifficulty();
                     BinarySerialize(m_RandomSeed); // 시드 쓰기
                     BinarySerialize(Application.version); // 버전 쓰기
                     BinarySerialize(m_Attributes); // 기체 스펙 쓰기

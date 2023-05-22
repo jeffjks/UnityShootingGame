@@ -89,7 +89,7 @@ public class Stage2Manager : StageManager
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(1.5f, 3f, 23f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(6.2f, 3f, 24f), new MoveVector(1f, 0f), StopAfterMilliseconds(6000));
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(4.8f, 3f, 27f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
-        if (m_SystemManager.GetDifficulty() >= Difficulty.EXPERT) {
+        if (m_SystemManager.GetDifficulty() >= GameDifficulty.Expert) {
             StartCoroutine(SpawnHelicopters(true));
         }
         yield return new WaitForMillisecondFrames(3000);
@@ -101,7 +101,7 @@ public class Stage2Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemy(m_PlaneMedium_3, new Vector2(-3f, 3f));
         yield return new WaitForMillisecondFrames(1000);
-        if (m_SystemManager.GetDifficulty() >= Difficulty.HELL) {
+        if (m_SystemManager.GetDifficulty() >= GameDifficulty.Hell) {
             CreateEnemy(m_PlaneMedium_3, new Vector2(3f, 3f));
         }
         yield return new WaitForMillisecondFrames(3000);
@@ -113,7 +113,7 @@ public class Stage2Manager : StageManager
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -1f), 3f));
         CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 5f), 3f));
         yield return new WaitForMillisecondFrames(1000);
-        if (m_SystemManager.GetDifficulty() >= Difficulty.HELL) {
+        if (m_SystemManager.GetDifficulty() >= GameDifficulty.Hell) {
             StartCoroutine(SpawnHelicopters(false));
         }
         yield return new WaitForMillisecondFrames(14000); // Middle Boss ==========================
@@ -146,7 +146,7 @@ public class Stage2Manager : StageManager
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-3f, 3f), new Vector2(-3f, -6f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0.5f, -4f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(2500);
-        if (m_SystemManager.GetDifficulty() <= Difficulty.EXPERT) {
+        if (m_SystemManager.GetDifficulty() <= GameDifficulty.Expert) {
             CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
         }
         else {
@@ -167,11 +167,11 @@ public class Stage2Manager : StageManager
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(12.5f, WATER_HEIGHT, 92.5f), new MoveVector(0f, 45f));
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(19f, WATER_HEIGHT, 94f), new MoveVector(0f, -20f));
 
-        if (m_SystemManager.GetDifficulty() >= Difficulty.EXPERT) {
+        if (m_SystemManager.GetDifficulty() >= GameDifficulty.Expert) {
             CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(21.5f, WATER_HEIGHT, 93f), new MoveVector(0f, 100f));
             CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(15.5f, WATER_HEIGHT, 94f), new MoveVector(0f, -53f));
         }
-        if (m_SystemManager.GetDifficulty() >= Difficulty.HELL) {
+        if (m_SystemManager.GetDifficulty() >= GameDifficulty.Hell) {
             CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(22f, WATER_HEIGHT, 96f), new MoveVector(0f, -117f));
             CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(12f, WATER_HEIGHT, 95.5f), new MoveVector(0f, 100f));
         }
@@ -192,7 +192,7 @@ public class Stage2Manager : StageManager
     {
         while (true) {
             for (int i = 0; i < 2; i++) {
-                if (m_SystemManager.GetDifficulty() == Difficulty.NORMAL) {
+                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                     CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-2f, -1f), Random.Range(2f, 4f)));
                     CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 2f), Random.Range(2f, 4f)));
                 }
@@ -215,7 +215,7 @@ public class Stage2Manager : StageManager
                 pos = 6f - i*1.8f;
             else
                 pos = -6f + i*1.8f;
-            if (m_SystemManager.GetDifficulty() == Difficulty.NORMAL) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(pos, 3f), new Vector2(pos, -3f - (3-i)*0.2f), 1100);
             }
             else {

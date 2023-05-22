@@ -261,7 +261,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_Turret2[1].StopPattern();
         yield return new WaitForMillisecondFrames(1700);
         m_Turret0.StartPattern(1);
-        if (m_SystemManager.GetDifficulty() <= 1)
+        if (m_SystemManager.GetDifficulty() <= GameDifficulty.Expert)
             yield return new WaitForMillisecondFrames(3000);
 
         m_InPattern = false;
@@ -279,11 +279,11 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         pos = m_FirePosition[random_value].position;
         for (int i = 0; i < 2; i++) {
             random_dir = Random.Range(0f, 360f);
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 15, 24f);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 20, 18f);
                 CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
@@ -315,7 +315,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_InPattern = true;
         yield return new WaitForMillisecondFrames(1000);
         
-        for (int i = 0; i < fire_number[m_SystemManager.GetDifficulty()]; i++) {
+        for (int i = 0; i < fire_number[(int) m_SystemManager.GetDifficulty()]; i++) {
             pos1 = m_FirePosition[2].position;
             pos2 = m_FirePosition[3].position;
             target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.GetPlayerPosition());
@@ -324,7 +324,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
             CreateBullet(4, pos1, 4.8f, target_angle1 + Random.Range(-52f, 52f), accel);
             CreateBullet(4, pos2, 4.8f, target_angle2 + Random.Range(-52f, 52f), accel);
                 
-            yield return new WaitForMillisecondFrames(fire_delay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(fire_delay[(int) m_SystemManager.GetDifficulty()]);
         }
         yield return new WaitForMillisecondFrames(500);
 
@@ -337,7 +337,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         int random_value;
         m_InPattern = true;
         int difficulty_timer = 0;
-        if (m_SystemManager.GetDifficulty() == 0)
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal)
             difficulty_timer = 400;
         
         m_Turret0.StartPattern(2);

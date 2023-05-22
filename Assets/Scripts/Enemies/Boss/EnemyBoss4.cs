@@ -252,13 +252,13 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator Pattern1A1() {
         int r = Random.Range(0, 2);
         int[] n = {6, 12, 12};
-        for (int i = 0; i < n[m_SystemManager.GetDifficulty()]; i++) {
+        for (int i = 0; i < n[(int) m_SystemManager.GetDifficulty()]; i++) {
             m_SubTurrets[r].StartPattern(1);
             
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(1000);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(500);
             }
             else {
@@ -285,7 +285,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 yield break;
             }
             
-            if (m_SystemManager.GetDifficulty() <= 1) {
+            if (m_SystemManager.GetDifficulty() <= GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(3000);
             }
             else {
@@ -308,7 +308,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     m_FrontTurrets[j].StartPattern(2);
             }
             
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(3000);
             }
             else {
@@ -324,13 +324,14 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_Direction = Random.Range(0f, 360f);
             m_Launchers[rand1].StartPattern(1);
             rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
+            float difficulty = (int) m_SystemManager.GetDifficulty();
             for (int i = 0; i < 32; i++) {
-                m_Direction += (20f + m_SystemManager.GetDifficulty()*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
+                m_Direction += (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
                 yield return new WaitForMillisecondFrames(0);
             }
             rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
             for (int i = 0; i < 32; i++) {
-                m_Direction -= (20f + m_SystemManager.GetDifficulty()*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
+                m_Direction -= (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
                 yield return new WaitForMillisecondFrames(0);
             }
             m_Launchers[rand1].StopPattern();
@@ -345,10 +346,10 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (true) {
             int rand = Random.Range(0, 2);
             m_Launchers[rand].StartPattern(2);
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(1800);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(1200);
             }
             else {
@@ -372,7 +373,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 yield break;
             }
             
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(3000);
             }
             else {
@@ -385,13 +386,13 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator Pattern1D() {
         int r = Random.Range(0, 2);
         int[] n = {6, 12, 12};
-        for (int i = 0; i < n[m_SystemManager.GetDifficulty()]; i++) {
+        for (int i = 0; i < n[(int) m_SystemManager.GetDifficulty()]; i++) {
             m_SubTurrets[r].StartPattern(4);
             
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(800);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(400);
             }
             else {
@@ -470,7 +471,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern2A() {
         Vector3[] pos = new Vector3[2];
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             for (int i = 0; i < 1; i++) {
                 m_MainTurret.StartPattern(2);
                 yield return new WaitForMillisecondFrames(500);
@@ -496,7 +497,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 yield return new WaitForMillisecondFrames(500);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             for (int i = 0; i < 1; i++) {
                 m_MainTurret.StartPattern(2);
                 yield return new WaitForMillisecondFrames(400);

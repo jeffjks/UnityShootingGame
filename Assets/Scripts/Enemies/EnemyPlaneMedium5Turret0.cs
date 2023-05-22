@@ -36,13 +36,13 @@ public class EnemyPlaneMedium5Turret0 : EnemyUnit
 
         while (true) {
             for (int i = 0; i < 3; i++) {
-                if (m_SystemManager.GetDifficulty() == 0) {
+                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(0, pos, 6.1f, m_CurrentAngle - 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 6.1f, m_CurrentAngle + 6f, accel, 4, 30f);
                     break;
                 }
-                else if (m_SystemManager.GetDifficulty() == 1) {
+                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(0, pos, 6.2f, m_CurrentAngle - 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 6.2f, m_CurrentAngle + 6f, accel, 4, 30f);

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class ButtonDisablerRanking : MonoBehaviour
 {
-    public EventSystem m_EventSystem;
     public Button m_Button;
     
     private GameManager m_GameManager;
@@ -27,9 +26,14 @@ public class ButtonDisablerRanking : MonoBehaviour
 
     private void SetButtonInteractable(bool state)
     {
-        if (m_EventSystem.currentSelectedGameObject == gameObject)
+        if (state)
         {
-            m_Button.interactable = state;
+            return;
+        }
+        if (EventSystem.current.currentSelectedGameObject == gameObject)
+        {
+            (m_Button.navigation.selectOnDown)?.Select();
+            m_Button.interactable = false;
         }
     }
 }

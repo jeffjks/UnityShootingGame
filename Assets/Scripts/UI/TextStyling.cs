@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TextBoxStyling : MonoBehaviour
+public class TextStyling : MonoBehaviour
 {
     public string m_NativeText;
 
@@ -40,6 +40,10 @@ public class TextBoxStyling : MonoBehaviour
 
     private void SetText()
     {
+        if (m_NativeText == "..." || m_NativeText == String.Empty)
+        {
+            return;
+        }
         if (GameSetting.m_Language == Language.English)
         {
             _textUI.text = _englishText;

@@ -41,13 +41,13 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1500);
 
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 4f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(2000 + Random.Range(0, 1000));
             }
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             while(true) {
                 yield return new WaitForMillisecondFrames(1200 + Random.Range(0, 500));
             }
@@ -61,14 +61,14 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 2f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(200);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             while(true) {
                 yield return new WaitForMillisecondFrames(50);
             }

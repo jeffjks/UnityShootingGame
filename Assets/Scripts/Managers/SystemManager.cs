@@ -44,7 +44,7 @@ public class SystemManager : MonoBehaviour
     private byte m_TotalMiss;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
     private int m_BulletNumber;
-    private int m_Difficulty;
+    private GameDifficulty m_Difficulty;
     private long m_ClearedTime;
 
     public static SystemManager instance_sm = null;
@@ -358,30 +358,14 @@ public class SystemManager : MonoBehaviour
     }
 
 
-    public int GetDifficulty() {
+    public GameDifficulty GetDifficulty() {
         return m_Difficulty;
     }
 
-    public void SetDifficulty(int difficulty)
+    public void SetDifficulty(GameDifficulty difficulty)
     {
         m_Difficulty = difficulty;
-        SetDifficultyText();
-    }
-
-    private void SetDifficultyText() {
-        switch(m_Difficulty) {
-            case 0:
-                m_DifficultyText.text = Difficulty.DIFFICULTY1;
-                break;
-            case 1:
-                m_DifficultyText.text = Difficulty.DIFFICULTY2;
-                break;
-            case 2:
-                m_DifficultyText.text = Difficulty.DIFFICULTY3;
-                break;
-            default:
-                break;
-        }
+        m_DifficultyText.text = m_Difficulty.ToString();
     }
 
     public void WarningText() {

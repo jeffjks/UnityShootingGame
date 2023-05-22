@@ -12,7 +12,7 @@ public class RegisterLocalRankingMenuHandler : GameUI
     public InputField m_InputFieldID;
     public SpriteRenderer m_SpriteRenderer;
 
-    private int m_Difficulty;
+    private GameDifficulty m_Difficulty;
     private long m_TotalScore;
     private ShipAttributes m_ShipAttributes;
     private int m_TotalMiss;
@@ -148,8 +148,8 @@ public class RegisterLocalRankingMenuHandler : GameUI
         TryDisplayScoreRanking();
     }*/
 
-    public void WriteLocalRanking(int difficulty, LocalRankingData record) {
-        string filePath = $"{m_GameManager.m_RankingDirectory}ranking{difficulty}.bin";
+    public void WriteLocalRanking(GameDifficulty difficulty, LocalRankingData record) {
+        string filePath = $"{m_GameManager.m_RankingDirectory}ranking{(int) difficulty}.bin";
 
         FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write);
         try {

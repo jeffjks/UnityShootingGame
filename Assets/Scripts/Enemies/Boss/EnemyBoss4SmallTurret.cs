@@ -48,11 +48,11 @@ public class EnemyBoss4SmallTurret : EnemyUnit
 
         while(true) {
             pos = GetScreenPosition(m_FirePosition.position);
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(3000);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(2000);
             }

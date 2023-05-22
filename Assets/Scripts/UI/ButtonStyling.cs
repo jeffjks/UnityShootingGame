@@ -59,7 +59,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
 
     private void SetText()
     {
-        if (m_NativeText == "...")
+        if (m_NativeText == "..." || m_NativeText == String.Empty)
         {
             return;
         }

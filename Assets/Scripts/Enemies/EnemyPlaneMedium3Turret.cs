@@ -41,14 +41,14 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
         target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
         random_value = Random.Range(-2f, 2f);
 
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             for (int i = 0; i < 3; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(4, pos, 6f, target_angle + random_value, accel);
                 yield return new WaitForMillisecondFrames(47);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(4, pos, 7f, target_angle + random_value, accel);

@@ -66,8 +66,8 @@ public class TrainingMenuHandler : GameUI
         else if (m_TrainingInfo.m_Stage > 4)
             m_TrainingInfo.m_Stage = 0;
 
-        if (m_TrainingInfo.m_Difficulty > Difficulty.HELL)
-            m_TrainingInfo.m_Difficulty = Difficulty.HELL;
+        if (m_TrainingInfo.m_Difficulty > GameDifficulty.Hell)
+            m_TrainingInfo.m_Difficulty = GameDifficulty.Hell;
         else if (m_TrainingInfo.m_Difficulty < 0)
             m_TrainingInfo.m_Difficulty = 0;
 
@@ -86,20 +86,8 @@ public class TrainingMenuHandler : GameUI
     private void SetText() {
         if (GameSetting.m_Language == Language.English) {
             m_Text[0].text = "Stage " + (m_TrainingInfo.m_Stage + 1);
-            switch (m_TrainingInfo.m_Difficulty) {
-                case 0:
-                    m_Text[1].text = Difficulty.DIFFICULTY1;
-                    break;
-                case 1:
-                    m_Text[1].text = Difficulty.DIFFICULTY2;
-                    break;
-                case 2:
-                    m_Text[1].text = Difficulty.DIFFICULTY3;
-                    break;
-                default:
-                    m_Text[1].text = "Unknown";
-                    break;
-            }
+            m_Text[1].text = m_TrainingInfo.m_Difficulty.ToString();
+            
             if (m_TrainingInfo.m_BossOnly) {
                 m_Text[2].text = "Boss";
             }
@@ -109,20 +97,8 @@ public class TrainingMenuHandler : GameUI
         }
         else {
             m_Text[0].text = "" + (m_TrainingInfo.m_Stage + 1);
-            switch (m_TrainingInfo.m_Difficulty) {
-                case 0:
-                    m_Text[1].text = Difficulty.DIFFICULTY1;
-                    break;
-                case 1:
-                    m_Text[1].text = Difficulty.DIFFICULTY2;
-                    break;
-                case 2:
-                    m_Text[1].text = Difficulty.DIFFICULTY3;
-                    break;
-                default:
-                    m_Text[1].text = "알 수 없음";
-                    break;
-            }
+            m_Text[1].text = m_TrainingInfo.m_Difficulty.ToString();
+            
             if (m_TrainingInfo.m_BossOnly) {
                 m_Text[2].text = "보스전";
             }

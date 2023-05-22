@@ -137,11 +137,11 @@ public class Stage3Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(2f, -4f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -6f), new Vector2(5f, -6f), 1000);
         yield return new WaitForMillisecondFrames(2000);
-        if (m_SystemManager.GetDifficulty() == Difficulty.HELL)
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell)
             StartCoroutine(SpawnPlaneSmalls_B(5000, 600));
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(-36.5f, 3f, 26f), new MoveVector(4f, 85f), new MovePattern[] {new MovePattern(1200, 1000, true, 0f)});
-        if (m_SystemManager.GetDifficulty() == Difficulty.NORMAL) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             yield return new WaitForMillisecondFrames(10000);
             CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
             yield return new WaitForMillisecondFrames(12000);
@@ -182,8 +182,8 @@ public class Stage3Manager : StageManager
                 CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 3f), 4.8f));
             }
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(4f, 6f), 2f));
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
-            timer += period[m_SystemManager.GetDifficulty()];
+            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            timer += period[(int) m_SystemManager.GetDifficulty()];
         }
         yield break;
     }
@@ -212,8 +212,8 @@ public class Stage3Manager : StageManager
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-7f, -4f), Random.Range(2f, 4f)));
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 4f)));
             CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(4f, 7f), Random.Range(2f, 4f)));
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
-            timer += period[m_SystemManager.GetDifficulty()];
+            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            timer += period[(int) m_SystemManager.GetDifficulty()];
         }
         yield break;
     }
@@ -229,8 +229,8 @@ public class Stage3Manager : StageManager
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2.5f, 5f), Random.Range(2f, 3f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(6f, 8f), Random.Range(2f, 3f)));
             }
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()]);
-            timer += period[m_SystemManager.GetDifficulty()];
+            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            timer += period[(int) m_SystemManager.GetDifficulty()];
         }
         yield break;
     }

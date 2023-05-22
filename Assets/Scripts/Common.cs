@@ -51,15 +51,11 @@ public static class BonusScale // Overview
     public const float BONUS_2 = 0.1f;
 }
 
-public static class Difficulty
+public enum GameDifficulty
 {
-    public const int DIFFICULTY_SIZE = 3;
-    public const string DIFFICULTY1 = "Normal";
-    public const string DIFFICULTY2 = "Expert";
-    public const string DIFFICULTY3 = "Hell";
-    public const int NORMAL = 0;
-    public const int EXPERT = 1;
-    public const int HELL = 2;
+    Normal,
+    Expert,
+    Hell
 }
 
 public enum GameMode

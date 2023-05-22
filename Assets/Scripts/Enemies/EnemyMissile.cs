@@ -50,10 +50,10 @@ public class EnemyMissile : EnemyUnit
     protected override IEnumerator DyingEffect() { // 파괴 과정
         Vector3 pos = transform.position;
         
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             CreateBulletsSector(0, pos, 0.5f, -15f, new EnemyBulletAccel(4.5f, 500), 12, 30f);
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             CreateBulletsSector(3, pos, 0.25f, -12f, new EnemyBulletAccel(4f, 500), 15, 24f);
             CreateBulletsSector(0, pos, 0.75f, 0f, new EnemyBulletAccel(5f, 500), 15, 24f);
         }

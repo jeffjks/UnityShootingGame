@@ -13,7 +13,7 @@ public class SelectDifficultyHandler : GameUI
         int moveRawVertical = (int) Input.GetAxisRaw("Vertical");
 
         if (Input.GetButtonDown("Fire1")) {
-            SelectDifficulty((byte) m_Selection);
+            SelectDifficulty((GameDifficulty) m_Selection);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
             Back();
@@ -25,7 +25,7 @@ public class SelectDifficultyHandler : GameUI
         SetColor();
 	}
 
-    private void SelectDifficulty(int difficulty) {
+    private void SelectDifficulty(GameDifficulty difficulty) {
         m_SystemManager.SetDifficulty(difficulty);
         m_SystemManager.m_GameMode = GameMode.GAMEMODE_NORMAL;
         

@@ -40,13 +40,13 @@ public class EnemyTurret3Turret : EnemyUnit
     private IEnumerator Pattern1() {
         Vector3 pos1, pos2;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[m_SystemManager.GetDifficulty()]));
+        yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[(int) m_SystemManager.GetDifficulty()]));
         while(true) {
             pos1 = GetScreenPosition(m_FirePosition[0].position);
             pos2 = GetScreenPosition(m_FirePosition[1].position);
             
             if (BulletCondition((pos1 + pos2)/2)) {
-                if (m_SystemManager.GetDifficulty() == 0) {
+                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                     for (int i = 0; i < 4; i++) {
                         CreateBullet(4, pos1, 4.8f + i*0.3f, m_CurrentAngle, accel);
                         CreateBullet(4, pos2, 4.8f + i*0.3f, m_CurrentAngle, accel);
@@ -62,7 +62,7 @@ public class EnemyTurret3Turret : EnemyUnit
                 }
                 PlayFireAnimation();
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 

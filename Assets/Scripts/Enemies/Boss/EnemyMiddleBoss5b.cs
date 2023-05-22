@@ -137,12 +137,12 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
             }
             state *= -1;
             for (int i = 0; i < 2; i++) {
-                if (m_SystemManager.GetDifficulty() == 0) {
+                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                     for (int j = 0; j < bulletInfo1.GetLength(1); ++j) {
                         CreateBullet(0, pos[i], bulletInfo1[0,j], m_CurrentAngle + bulletInfo1[1,j], accel);
                     }
                 }
-                else if (m_SystemManager.GetDifficulty() == 1) {
+                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                     for (int j = 0; j < bulletInfo2a.GetLength(1); ++j) {
                         CreateBullet(2, pos[i], bulletInfo2a[0,j], m_CurrentAngle + bulletInfo2a[1,j], accel);
                     }
@@ -159,7 +159,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
                     }
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 
@@ -169,14 +169,14 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         Vector3 pos;
         float random_value = Random.Range(-6f, 6f);
         
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 6.7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 5, 25f);
                 yield return new WaitForMillisecondFrames(260);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             for (int i = 0; i < 5; i++) {
                 pos = m_FirePosition[2].position;
                 CreateBulletsSector(4, pos, 7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);

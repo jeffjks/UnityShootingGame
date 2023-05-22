@@ -59,11 +59,11 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
         
         if (side)
             yield return new WaitForMillisecondFrames(1500);
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle, accel, 3, 32f);
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle, accel, 8, 0.8f);
             CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 20f, accel, 8, 0.8f);

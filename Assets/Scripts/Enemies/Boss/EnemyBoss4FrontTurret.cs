@@ -55,11 +55,11 @@ public class EnemyBoss4FrontTurret : EnemyUnit
     {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, 4f, m_CurrentAngle, accel);
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBulletsSector(0, pos, 4.1f, m_CurrentAngle, accel, 3, 14f);
         }
@@ -77,7 +77,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f;
         
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 pos0 = GetScreenPosition(m_FirePosition.position);
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
@@ -87,7 +87,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         }
         else {
             for (int i = 0; i < 5; i++) {
-                if (m_SystemManager.GetDifficulty() == 1) {
+                if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                     pos0 = GetScreenPosition(m_FirePosition.position);
                     pos1 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                     pos2 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
@@ -114,11 +114,11 @@ public class EnemyBoss4FrontTurret : EnemyUnit
     {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, 6.5f, m_CurrentAngle, accel);
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, 6.3f, m_CurrentAngle, accel);
             CreateBullet(0, pos, 6.9f, m_CurrentAngle, accel);

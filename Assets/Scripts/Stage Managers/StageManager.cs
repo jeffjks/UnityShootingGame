@@ -10,7 +10,7 @@ public abstract class StageManager : MonoBehaviour
     [Space(10)]
     [SerializeField] protected GameObject[] m_MiddleBossUnit = null;
     [Space(10)]
-    [SerializeField] protected GameObject[] m_EnemyPreloaded = new GameObject[Difficulty.DIFFICULTY_SIZE];
+    [SerializeField] protected GameObject[] m_EnemyPreloaded = new GameObject[3];
     [Space(10)]
     [SerializeField] protected GameObject m_EnemySpawners = null;
     

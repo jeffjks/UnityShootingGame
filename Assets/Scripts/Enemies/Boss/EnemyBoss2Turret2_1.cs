@@ -45,7 +45,7 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
                 yield return new WaitForMillisecondFrames(70);
             }
             m_Shooting = false;
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 }

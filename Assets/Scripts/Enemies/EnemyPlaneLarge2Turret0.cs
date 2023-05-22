@@ -17,11 +17,11 @@ public class EnemyPlaneLarge2Turret0 : EnemyUnit
         Vector3 pos;
 
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 pos = m_FirePosition.position;
                 CreateBullet(2, pos, 6.4f, m_CurrentAngle, accel);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
                 CreateBulletsSector(2, pos, 6.5f, m_CurrentAngle, accel, 3, 16f);
             }
@@ -29,7 +29,7 @@ public class EnemyPlaneLarge2Turret0 : EnemyUnit
                 pos = m_FirePosition.position;
                 CreateBulletsSector(2, pos, 6.6f, m_CurrentAngle, accel, 3, 16f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 }

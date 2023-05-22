@@ -81,14 +81,14 @@ public class GroundEnemySpawner : MonoBehaviour
     }
 
     private bool CheckDifficulty() {
-        int difficulty = m_SystemManager.GetDifficulty();
-        if (difficulty == 0 && m_Normal) {
+        GameDifficulty difficulty = m_SystemManager.GetDifficulty();
+        if (difficulty == GameDifficulty.Normal && m_Normal) {
             return true;
         }
-        if (difficulty == 1 && m_Expert) {
+        if (difficulty == GameDifficulty.Expert && m_Expert) {
             return true;
         }
-        if (difficulty == 2 && m_Hell) {
+        if (difficulty == GameDifficulty.Hell && m_Hell) {
             return true;
         }
         return false;

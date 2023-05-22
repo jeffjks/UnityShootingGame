@@ -33,7 +33,7 @@ public class EnemyTankLarge3 : EnemyUnit
                     CreateBullet(4, pos[i], 8f, target_angle[i], accel);
                     yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+                yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
             }
         }
     }

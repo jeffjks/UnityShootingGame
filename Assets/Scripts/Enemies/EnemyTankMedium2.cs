@@ -42,7 +42,7 @@ public class EnemyTankMedium2 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(Random.Range(0, 1000));
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 18, 20f); // 1
                 yield return new WaitForMillisecondFrames(1000);
@@ -52,7 +52,7 @@ public class EnemyTankMedium2 : EnemyUnit
                 yield return new WaitForMillisecondFrames(1000);
             }
 
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 for (int i = 0; i < 5; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 30, 12f); // 1
@@ -68,7 +68,7 @@ public class EnemyTankMedium2 : EnemyUnit
                 yield return new WaitForMillisecondFrames(700);
             }
 
-            else if (m_SystemManager.GetDifficulty() == 2) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell) {
                 for (int i = 0; i < 5; i++) {
                     pos = GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(5, pos, 7.5f, Random.Range(0f, 360f), accel, 36, 10f); // 1

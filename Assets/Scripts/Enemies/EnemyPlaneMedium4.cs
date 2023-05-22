@@ -88,9 +88,9 @@ public class EnemyPlaneMedium4 : EnemyUnit
 
             m_Turret[0].StopPattern();
             m_Turret[1].StopPattern();
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
             
-            if (m_SystemManager.GetDifficulty() <= 1) {
+            if (m_SystemManager.GetDifficulty() <= GameDifficulty.Expert) {
                 for (int i = 0; i < 10; i++) {
                     pos = transform.position;
                     target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
@@ -110,7 +110,7 @@ public class EnemyPlaneMedium4 : EnemyUnit
                     yield return new WaitForMillisecondFrames(60);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
         yield break;
     }

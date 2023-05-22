@@ -2,25 +2,19 @@
 
 public class SettingsMenuHandler : MenuHandler
 {
-    public GameObject m_GraphicsPannel;
-    public GameObject m_SoundPannel;
-    public GameObject m_LanguagePannel;
+    public GameObject m_GraphicsPanel;
+    public GameObject m_SoundPanel;
+    public GameObject m_LanguagePanel;
 
     public void Graphics() {
-        GoToTargetMenu(m_GraphicsPannel);
-        AudioService.PlaySound("ConfirmUI");
-        gameObject.SetActive(false);
+        GoToTargetMenu(m_GraphicsPanel);
     }
 
     public void Sound() {
-        GoToTargetMenu(m_SoundPannel);
-        AudioService.PlaySound("ConfirmUI");
-        gameObject.SetActive(false);
+        GoToTargetMenu(m_SoundPanel);
     }
 
     public void Language() {
-        GoToTargetMenu(m_LanguagePannel);
-        AudioService.PlaySound("ConfirmUI");
-        gameObject.SetActive(false);
+        GoToTargetMenu(m_LanguagePanel);
     }
 }

@@ -27,7 +27,7 @@ public class EnemyTankLarge3Turret : EnemyUnit
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 3, 19.5f);
                 yield return new WaitForMillisecondFrames(300);
@@ -40,7 +40,7 @@ public class EnemyTankLarge3Turret : EnemyUnit
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 4, 19.5f);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 3, 15.5f);
                 yield return new WaitForMillisecondFrames(200);
@@ -78,7 +78,7 @@ public class EnemyTankLarge3Turret : EnemyUnit
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(0, pos, 7f, m_CurrentAngle, accel, 5, 15.5f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 }

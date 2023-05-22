@@ -48,10 +48,10 @@ public class EnemyBoss1Turret2 : EnemyUnit
         
         while(true) {
             pos = m_FirePosition.position;
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 CreateBullet(1, pos, 5f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
                 CreateBulletsSector(1, pos, 3f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 3, 18f);
             }
@@ -59,7 +59,7 @@ public class EnemyBoss1Turret2 : EnemyUnit
                 pos = m_FirePosition.position;
                 CreateBulletsSector(1, pos, 3f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 3, 18f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 
@@ -68,10 +68,10 @@ public class EnemyBoss1Turret2 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         Vector3 pos = m_FirePosition.position;
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             CreateBulletsSector(0, pos, 5.75f, m_CurrentAngle, accel, 15, 24f);
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             CreateBulletsSector(0, pos, 5.75f, m_CurrentAngle, accel, 18, 20f);
             CreateBulletsSector(0, pos, 6.8f, m_CurrentAngle, accel, 18, 20f);
         }

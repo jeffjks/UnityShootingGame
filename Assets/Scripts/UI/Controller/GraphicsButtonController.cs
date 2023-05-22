@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonGraphicsController : MonoBehaviour, IMoveHandler
+public class GraphicsButtonController : MonoBehaviour, IMoveHandler
 {
     public GraphicsOption m_GraphicsOption;
     
@@ -39,23 +39,25 @@ public class ButtonGraphicsController : MonoBehaviour, IMoveHandler
 
     public void OnMove(AxisEventData axisEventData)
     {
-        if (EventSystem.current.currentSelectedGameObject == gameObject)
+        if (EventSystem.current.currentSelectedGameObject != gameObject)
         {
-            var moveInputX = (int) axisEventData.moveVector.x;
-            GameSetting.m_GraphicOptions[m_GraphicsOption] += moveInputX;
-            
-            var maxCount = GameSetting.m_GraphicOptionsCount[m_GraphicsOption];
-            if (GameSetting.m_GraphicOptions[m_GraphicsOption] < 0)
-            {
-                GameSetting.m_GraphicOptions[m_GraphicsOption] = maxCount - 1;
-            }
-            else if (GameSetting.m_GraphicOptions[m_GraphicsOption] >= maxCount)
-            {
-                GameSetting.m_GraphicOptions[m_GraphicsOption] = 0;
-            }
-
-            SetText();
+            return;
         }
+
+        var moveInputX = (int) axisEventData.moveVector.x;
+        GameSetting.m_GraphicOptions[m_GraphicsOption] += moveInputX;
+        
+        var maxCount = GameSetting.m_GraphicOptionsCount[m_GraphicsOption];
+        if (GameSetting.m_GraphicOptions[m_GraphicsOption] < 0)
+        {
+            GameSetting.m_GraphicOptions[m_GraphicsOption] = maxCount - 1;
+        }
+        else if (GameSetting.m_GraphicOptions[m_GraphicsOption] >= maxCount)
+        {
+            GameSetting.m_GraphicOptions[m_GraphicsOption] = 0;
+        }
+
+        SetText();
     }
 
     private void SetText()

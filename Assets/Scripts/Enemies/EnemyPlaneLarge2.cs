@@ -31,10 +31,10 @@ public class EnemyPlaneLarge2 : EnemyUnit
         yield return new WaitForMillisecondFrames(1000);
 
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 break;
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 12; i++) {

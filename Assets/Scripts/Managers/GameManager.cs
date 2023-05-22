@@ -8,7 +8,7 @@ public struct TrainingInfo
 {
     public int m_Stage;
     public bool m_BossOnly;
-    public int m_Difficulty;
+    public GameDifficulty m_Difficulty;
 }
 
 public class WaitForFrames : CustomYieldInstruction

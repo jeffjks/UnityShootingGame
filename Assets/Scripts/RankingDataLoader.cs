@@ -45,18 +45,17 @@ public struct LocalRankingData {
     }
 }
 
-public class NetworkDisplayRankingScore : MonoBehaviour
+public class RankingDataLoader : MonoBehaviour
 {
     public TextErrorMessage m_ErrorMessage;
-    public RankingScoreSlot[] m_TopRankingScoreSlots = new RankingScoreSlot[5];
-    public RankingScoreSlot m_MyRankingScoreSlot;
-
-    [HideInInspector] public bool m_Active = false;
-
+    public RankingDataSlotLoader[] m_RankingDataSlotLoaders = new RankingDataSlotLoader[5];
+    public RankingDataSlotLoader m_MyRankingDataSlotLoader;
+    
     private string[] m_ResponseText; // 0 : succeedMessage, 1~6 : myRank, 7~maxLength-1 : topRank, 
-    private const int m_MaxPage = 3;
-    private int m_Page;
-    private List<LocalRankingData> m_LocalRankingDataList = new List<LocalRankingData>();
+    private const int MAX_PAGE = 3;
+    private int _currentPage;
+    private bool _isLoaded;
+    private List<LocalRankingData> m_LocalRankingDataList = new();
 
     private GameManager m_GameManager = null;
     private SystemManager m_SystemManager = null;
@@ -69,15 +68,15 @@ public class NetworkDisplayRankingScore : MonoBehaviour
 
     void OnEnable() {
         string id = m_GameManager.GetAccountID();
-        m_Active = false;
-        m_Page = 0;
+        _isLoaded = false;
+        _currentPage = 0;
 
         if (m_GameManager.m_NetworkAvailable) {
             if (id == string.Empty) {
-                //TryDisplayScoreRanking("OfflineException");
+                //DisplayRanking("OfflineException");
             }
             else {
-                StartCoroutine(DisplayScoreRanking(m_SystemManager.GetDifficulty(), m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
+                StartCoroutine(DisplayOnlineRanking(m_SystemManager.GetDifficulty(), m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
             }
         }
         else {
@@ -85,7 +84,7 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         }
     }
 
-    public void DisplayLocalRanking(int difficulty) {
+    private void DisplayLocalRanking(GameDifficulty difficulty) {
         if (m_LocalRankingDataList.Count == 0) {
             string filePath = $"{m_GameManager.m_RankingDirectory}ranking{difficulty}.bin";
 
@@ -98,8 +97,7 @@ public class NetworkDisplayRankingScore : MonoBehaviour
                     int miss = br.ReadInt32();
                     long date = br.ReadInt64();
 
-                    int attributesCode = shipAttributes.GetAttributesCode();
-
+                    //int attributesCode = shipAttributes.GetAttributesCode();
                     //Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
 
                     LocalRankingData record = new LocalRankingData(id, score, shipAttributes, miss, date);
@@ -115,7 +113,7 @@ public class NetworkDisplayRankingScore : MonoBehaviour
             m_LocalRankingDataList.Sort(new Comparison<LocalRankingData>((n1, n2) => CompareListElement(n1, n2)));
         }
 
-        TryDisplayScoreRanking();
+        DisplayRanking();
     }
 
     private int CompareListElement(LocalRankingData n1, LocalRankingData n2) {
@@ -123,9 +121,7 @@ public class NetworkDisplayRankingScore : MonoBehaviour
             if (n1.date < n2.date) {
                 return 1;
             }
-            else {
-                return -1;
-            }
+            return -1;
         }
         if (n1.score > n2.score) {
             return 1;
@@ -133,65 +129,41 @@ public class NetworkDisplayRankingScore : MonoBehaviour
         return -1;
     }
 
-    public IEnumerator DisplayScoreRanking(int difficulty, string id, string pcID) {
+    private IEnumerator DisplayOnlineRanking(GameDifficulty difficulty, string id, string pcID) {
         string url = "http://jeffjks.cafe24.com/DeadPlanet2php/getRankingScore.php";
 
-        if (difficulty < Difficulty.NORMAL || Difficulty.HELL < difficulty) {
-            //TryDisplayScoreRanking("ArgumentException");
-            yield break;
-        }
-
         WWWForm form = new WWWForm();
-        form.AddField("difficulty", difficulty);
+        form.AddField("difficulty", (int) difficulty);
         form.AddField("userID", id);
         form.AddField("deviceUniqueIdentifier", pcID);
 
-        UnityWebRequest webRequeset = UnityWebRequest.Post(url, form);
-        yield return webRequeset.SendWebRequest();
-        if(webRequeset.result == UnityWebRequest.Result.ConnectionError || webRequeset.result == UnityWebRequest.Result.ProtocolError) {
-            NetworkError(webRequeset.error);
+        UnityWebRequest webRequest = UnityWebRequest.Post(url, form);
+        yield return webRequest.SendWebRequest();
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError) {
+            m_ErrorMessage.DisplayText("NetworkErrorException", webRequest.error);
         }
-        else {
-            //TryDisplayScoreRanking(webRequeset.downloadHandler.text);
-        }
-        yield return null;
+        _isLoaded = true;
     }
 
-    private void TryDisplayScoreRanking() {
-        /*
-        m_ResponseText = response.Split(',');
-        string code = m_ResponseText[0];
-        
-        if (code == "ScoreRankingDisplaySucceed" && m_ResponseText.Length > 6) {
-            UpdateMyRankingSlot();
-            UpdateTopRankingSlot();
-        }
-        else {
-            m_ErrorMessage.DisplayText(code);
-        }
-        */
-        m_Active = true;
+    private void DisplayRanking() {
         for (int i = 0; i < m_LocalRankingDataList.Count; ++i) {
-            m_TopRankingScoreSlots[i].UpdateScoreInfo(i + 1, m_LocalRankingDataList[i]);
+            m_RankingDataSlotLoaders[i].LoadRankingData(i + 1, m_LocalRankingDataList[i]);
         }
-    }
 
-    private void NetworkError(string errorDetails) {
-        m_ErrorMessage.DisplayText("NetworkErrorException", errorDetails);
-        m_Active = true;
+        _isLoaded = true;
     }
 
     public bool TurnOverPage(int move) {
-        if (m_Active) {
-            m_Page += move;
+        if (_isLoaded) {
+            _currentPage += move;
         }
-        if (m_Page < 0) {
-            m_Page = m_MaxPage;
+        if (_currentPage < 0) {
+            _currentPage = MAX_PAGE;
         }
-        if (m_Page > m_MaxPage) {
-            m_Page = 0;
+        if (_currentPage > MAX_PAGE) {
+            _currentPage = 0;
         }
         //UpdateTopRankingSlot();
-        return m_Active;
+        return _isLoaded;
     }
 }

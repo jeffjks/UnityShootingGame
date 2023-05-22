@@ -110,7 +110,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithMoveVector(m_TankMedium_3, new Vector3(10f, 2f, 26f), new MoveVector(2f, -65f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
         yield return new WaitForMillisecondFrames(2000);
         period = new int[] { 1000, 750, 500};
-        StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 4000, period[m_SystemManager.GetDifficulty()]));
+        StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 4000, period[(int) m_SystemManager.GetDifficulty()]));
         CreateEnemy(m_ItemHeliGreen, new Vector2(-4f, 3f));
         yield return new WaitForMillisecondFrames(5500);
         CreateEnemy(m_PlaneLarge_1, new Vector2(11f, -3f));
@@ -123,7 +123,7 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(500);
         CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 2f), 3f));
         yield return new WaitForMillisecondFrames(1000);
-        if (m_SystemManager.GetDifficulty() >= Difficulty.EXPERT)
+        if (m_SystemManager.GetDifficulty() >= GameDifficulty.Expert)
             CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(3f, 4f), 3f));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneSmall_1, new Vector2(7f, 5f));
@@ -166,12 +166,12 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-4f, -3f), 1200);
         yield return new WaitForMillisecondFrames(500);
-        if (m_SystemManager.GetDifficulty() == Difficulty.HELL)
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell)
             CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(0f, -6f), 1200);
         yield return new WaitForMillisecondFrames(30500); // Middle Boss 1 (137s)
 
         period = new int[] { 600, 300, 250 };
-        StartCoroutine(SpawnPlaneSmall_2s(15000, period[m_SystemManager.GetDifficulty()]));
+        StartCoroutine(SpawnPlaneSmall_2s(15000, period[(int) m_SystemManager.GetDifficulty()]));
         if (m_SystemManager.GetDifficulty() != 0)
             StartCoroutine(SpawnPlaneSmalls_B(m_PlaneSmall_1, 15000, 600));
         yield return new WaitForMillisecondFrames(16000);
@@ -220,7 +220,7 @@ public class Stage5Manager : StageManager
             StartCoroutine(SpawnPlaneSmalls_C(m_PlaneSmall_1, true));
         }
         yield return new WaitForMillisecondFrames(2000);
-        if (m_SystemManager.GetDifficulty() == Difficulty.HELL) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell) {
             CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -9f), 1200);
             CreateEnemyWithTarget(m_Helicopter, new Vector2(-2f, 5f), new Vector2(-2f, -7f), 1200);
             CreateEnemyWithTarget(m_Helicopter, new Vector2(2f, 5f), new Vector2(2f, -7f), 1200);
@@ -339,7 +339,7 @@ public class Stage5Manager : StageManager
         SetBackgroundSpeed(7f, 2000);
         yield return new WaitForMillisecondFrames(2000);
         period = new int[] { 5500, 2000, 1500 };
-        StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 10000, period[m_SystemManager.GetDifficulty()]));
+        StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 10000, period[(int) m_SystemManager.GetDifficulty()]));
         yield return new WaitForMillisecondFrames(11000);
         SetBackgroundSpeed(1f, 4000);
         yield return new WaitForMillisecondFrames(5000);
@@ -484,12 +484,12 @@ public class Stage5Manager : StageManager
             if (m_SystemManager.m_PlayState == 0) {
                 CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 6f), 3f));
             }
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()] - rand_period);
+            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()] - rand_period);
             if (m_SystemManager.m_PlayState == 0) {
                 CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 6f), 3f));
             }
-            yield return new WaitForMillisecondFrames(period[m_SystemManager.GetDifficulty()] + rand_period);
-            timer += period[m_SystemManager.GetDifficulty()]*2;
+            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()] + rand_period);
+            timer += period[(int) m_SystemManager.GetDifficulty()]*2;
         }
         yield break;
     }
@@ -511,7 +511,7 @@ public class Stage5Manager : StageManager
     }
 
     private void CheckTrueLastBossState() {
-        if (m_SystemManager.GetDifficulty() == Difficulty.HELL) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell) {
             SetTrueLastBossState(true);
         }
     }

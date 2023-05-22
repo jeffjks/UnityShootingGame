@@ -33,14 +33,14 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos;
         
-        if (m_SystemManager.GetDifficulty() == 0) {
+        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
             for (int i = 0; i < 6; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(3, pos, 7.5f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(80);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == 1) {
+        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
             for (int i = 0; i < 10; i++) {
                 pos = m_FirePosition.position;
                 CreateBullet(3, pos, 8.5f, m_CurrentAngle, accel);

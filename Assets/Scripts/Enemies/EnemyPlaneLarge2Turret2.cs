@@ -30,12 +30,12 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
         float target_angle;
 
         while(true) {
-            if (m_SystemManager.GetDifficulty() == 0) {
+            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(transform.root.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.9f, target_angle, accel, 2, 13f);
             }
-            else if (m_SystemManager.GetDifficulty() == 1) {
+            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(transform.root.position, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(0, pos, 5.4f, target_angle, accel, 2, 12f);
@@ -49,7 +49,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
                 CreateBulletsSector(0, pos, 6.3f, target_angle - 12f, accel, 2, 8f);
                 CreateBulletsSector(0, pos, 6.3f, target_angle + 12f, accel, 2, 8f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
         }
     }
 }

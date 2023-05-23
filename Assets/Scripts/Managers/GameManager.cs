@@ -62,13 +62,13 @@ public class AC_Ease
 [System.Serializable]
 public class ShipAttributes
 {
-    public int m_Color, m_Speed, m_ShotDamage, m_LaserDamage, m_Module, m_Bomb;
+    public int m_Color, m_Speed, m_ShotLevel, m_LaserLevel, m_Module, m_Bomb;
     
-    public ShipAttributes(int color, int speed, int shot_form, int shot_damage, int laser_damage, int module, int bomb) {
+    public ShipAttributes(int color, int speed, int shot_form, int shotLevel, int laserLevel, int module, int bomb) {
         m_Color = color;
         m_Speed = speed;
-        m_ShotDamage = shot_damage;
-        m_LaserDamage = laser_damage;
+        m_ShotLevel = shotLevel;
+        m_LaserLevel = laserLevel;
         m_Module = module;
         m_Bomb = bomb;
     }
@@ -84,8 +84,8 @@ public class ShipAttributes
         }
         m_Bomb = nums[0];
         m_Module = nums[1];
-        m_LaserDamage = nums[2];
-        m_ShotDamage = nums[3];
+        m_LaserLevel = nums[2];
+        m_ShotLevel = nums[3];
         m_Speed = nums[4];
         m_Color = nums[5];
     }
@@ -99,10 +99,10 @@ public class ShipAttributes
                 m_Speed = value;
                 break;
             case 2:
-                m_ShotDamage = value;
+                m_ShotLevel = value;
                 break;
             case 3:
-                m_LaserDamage = value;
+                m_LaserLevel = value;
                 break;
             case 4:
                 m_Module = value;
@@ -122,9 +122,9 @@ public class ShipAttributes
             case 1:
                 return m_Speed;
             case 2:
-                return m_ShotDamage;
+                return m_ShotLevel;
             case 3:
-                return m_LaserDamage;
+                return m_LaserLevel;
             case 4:
                 return m_Module;
             case 5:
@@ -138,8 +138,8 @@ public class ShipAttributes
         int code = 0;
         code += 100000*m_Color;
         code += 10000*m_Speed;
-        code += 1000*m_ShotDamage;
-        code += 100*m_LaserDamage;
+        code += 1000*m_ShotLevel;
+        code += 100*m_LaserLevel;
         code += 10*m_Module;
         code += 1*m_Bomb;
         return code;
@@ -148,9 +148,9 @@ public class ShipAttributes
     public static bool operator ==(ShipAttributes op1, ShipAttributes op2) {
         if (op1.m_Speed != op2.m_Speed)
             return false;
-        if (op1.m_ShotDamage != op2.m_ShotDamage)
+        if (op1.m_ShotLevel != op2.m_ShotLevel)
             return false;
-        if (op1.m_LaserDamage != op2.m_LaserDamage)
+        if (op1.m_LaserLevel != op2.m_LaserLevel)
             return false;
         if (op1.m_Module != op2.m_Module)
             return false;

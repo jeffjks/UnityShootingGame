@@ -38,14 +38,14 @@ public class PlayerDrone : MonoBehaviour
     {
         int laser_damage;
         if (m_PlayerManager != null) {
-            m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotDamage;
+            m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotLevel;
         }
         m_DefaultDepth = transform.localPosition.y;
 
         if (m_PlayerManager == null)
             laser_damage = 0;
         else
-            laser_damage = m_PlayerManager.m_CurrentAttributes.m_LaserDamage;
+            laser_damage = m_PlayerManager.m_CurrentAttributes.m_LaserLevel;
 
         if (laser_damage == 0)
             m_ShockWaveNumber = 0;
@@ -97,9 +97,9 @@ public class PlayerDrone : MonoBehaviour
 
     public void SetPreviewDrones() {
         int laser_damage;
-        m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotDamage;
+        m_ShotForm = m_PlayerManager.m_CurrentAttributes.m_ShotLevel;
 
-        laser_damage = m_PlayerManager.m_CurrentAttributes.m_LaserDamage;
+        laser_damage = m_PlayerManager.m_CurrentAttributes.m_LaserLevel;
         
         SetShotLevel(m_PlayerShooter.m_ShotLevel);
 

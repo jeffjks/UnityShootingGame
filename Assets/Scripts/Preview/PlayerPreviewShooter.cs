@@ -85,7 +85,7 @@ public class PlayerPreviewShooter : PlayerShooterManager
 
 
     public override void SetPreviewShooter() {
-        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.m_ShotDamage; // 샷 데미지
+        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.m_ShotLevel; // 샷 데미지
         m_Module = m_PlayerManager.m_CurrentAttributes.m_Module; // 모듈 종류
         SetModule();
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,11 @@ public class RankingDataSlotText : RankingDataSlot
     public TMP_Text m_Text;
     public bool m_IsRankText;
 
+    public override void InitRankingData()
+    {
+        SetRankingData(String.Empty);
+    }
+
     public override void SetRankingData(string text) {
         m_Text.text = text;
 
@@ -19,7 +25,7 @@ public class RankingDataSlotText : RankingDataSlot
         }
     }
 
-    public override void SetRankingData(int data) {
+    public override void SetRankingData(ShipAttributes shipAttributes) {
         Debug.LogWarning("Ranking slot warning: Type unmatched.");
     }
     

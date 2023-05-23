@@ -7,7 +7,7 @@ using System.Linq;
 
 public class RankingDataSlotLoader : MonoBehaviour
 {
-    public RankingDataSlot[] m_RankingDataSlots = new RankingDataSlot[6];
+    public RankingDataSlot[] m_RankingDataSlots;
 
     public void SetRankingSlot(int rank, LocalRankingData localRankingData)
     {
@@ -21,12 +21,10 @@ public class RankingDataSlotLoader : MonoBehaviour
 
     public void InitRankingSlot()
     {
-        m_RankingDataSlots[0].SetRankingData(String.Empty);
-        m_RankingDataSlots[1].SetRankingData(String.Empty);
-        m_RankingDataSlots[2].SetRankingData(String.Empty);
-        m_RankingDataSlots[3].SetRankingData(0);
-        m_RankingDataSlots[4].SetRankingData(String.Empty);
-        m_RankingDataSlots[5].SetRankingData(String.Empty);
+        foreach (var rankingDataSlot in m_RankingDataSlots)
+        {
+            rankingDataSlot.InitRankingData();
+        }
     }
 
     private void SetRankingDataRank(int rank)
@@ -46,8 +44,8 @@ public class RankingDataSlotLoader : MonoBehaviour
 
     private void SetRankingDataAttributes(ShipAttributes shipAttributes)
     {
-        var code = shipAttributes.GetAttributesCode();
-        m_RankingDataSlots[3].SetRankingData(code);
+        //var code = shipAttributes.GetAttributesCode();
+        m_RankingDataSlots[3].SetRankingData(shipAttributes);
     }
 
     private void SetRankingDataMiss(int miss)
@@ -61,7 +59,7 @@ public class RankingDataSlotLoader : MonoBehaviour
         var missText = displayMiss.ToString();
         if (exceed)
         {
-            missText += "↑";
+            missText += "+";
         }
         m_RankingDataSlots[4].SetRankingData(missText + " Miss");
     }
@@ -75,6 +73,7 @@ public class RankingDataSlotLoader : MonoBehaviour
 
 public abstract class RankingDataSlot : MonoBehaviour
 {
+    public abstract void InitRankingData();
     public abstract void SetRankingData(string text);
-    public abstract void SetRankingData(int data);
+    public abstract void SetRankingData(ShipAttributes shipAttributes);
 }

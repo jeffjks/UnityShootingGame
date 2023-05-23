@@ -67,11 +67,11 @@ public class EnemyBoss3Turret : EnemyUnit
 
         while(true) {
             pos = m_FirePosition.position;
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 8, 20.6f);
                 yield return new WaitForMillisecondFrames(640);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 15f);
                 yield return new WaitForMillisecondFrames(320);
             }
@@ -91,25 +91,25 @@ public class EnemyBoss3Turret : EnemyUnit
         yield return new WaitForMillisecondFrames(1000);
 
         if (m_RandomValue == 0)
-            yield return new WaitForMillisecondFrames(fire_delay[(int) m_SystemManager.GetDifficulty()] / 2);
+            yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty] / 2);
 
         while(true) {
             pos = m_FirePosition.position;
             random_value = Random.Range(-3f, 3f);
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++)
                     CreateBullet(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel);
-                yield return new WaitForMillisecondFrames(fire_delay[(int) m_SystemManager.GetDifficulty()]);
+                yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++)
                     CreateBullet(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel);
-                yield return new WaitForMillisecondFrames(fire_delay[(int) m_SystemManager.GetDifficulty()]);
+                yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
             }
             else {
                 for (int i = 0; i < 4; i++)
                     CreateBulletsSector(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel, 3, 18f);
-                yield return new WaitForMillisecondFrames(fire_delay[(int) m_SystemManager.GetDifficulty()]);
+                yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
             }
         }
     }

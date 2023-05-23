@@ -80,7 +80,7 @@ public class ReplayMenuHandler : GameUI
             return;
         }
         m_State = false;
-        m_SystemManager.m_GameMode = GameMode.GAMEMODE_REPLAY;
+        SystemManager.SetGameMode(GameMode.GAMEMODE_REPLAY);
         m_GameManager.m_ReplayNum = (byte) num;
         ScreenEffectService.ScreenFadeOut();
         AudioService.PlaySound("SallyUI");

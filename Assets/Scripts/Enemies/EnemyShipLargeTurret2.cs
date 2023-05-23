@@ -38,7 +38,7 @@ public class EnemyShipLargeTurret2 : EnemyUnit
         while(true) {
             pos = GetScreenPosition(m_FirePosition.position);
             CreateBullet(1, pos, 6.8f, m_CurrentAngle + m_Side*12f, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
     }
 }

@@ -9,7 +9,7 @@ public class EnemyTankSmall3Turret : EnemyUnit
 
     void Start()
     {
-        StartCoroutine(Pattern1(Random.Range(0, m_FireDelay[(int) m_SystemManager.GetDifficulty()])));
+        StartCoroutine(Pattern1(Random.Range(0, m_FireDelay[(int) SystemManager.Difficulty])));
         RotateImmediately(m_PlayerPosition);
     }
 
@@ -28,7 +28,7 @@ public class EnemyTankSmall3Turret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(5.2f, 1400);
         yield return new WaitForMillisecondFrames(millisecond);
         while(true) {
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = GetScreenPosition(m_FirePosition[2].position);
@@ -47,7 +47,7 @@ public class EnemyTankSmall3Turret : EnemyUnit
                     yield return new WaitForMillisecondFrames(100);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
     }
 }

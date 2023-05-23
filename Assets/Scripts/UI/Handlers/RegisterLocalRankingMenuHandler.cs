@@ -12,7 +12,6 @@ public class RegisterLocalRankingMenuHandler : GameUI
     public InputField m_InputFieldID;
     public SpriteRenderer m_SpriteRenderer;
 
-    private GameDifficulty m_Difficulty;
     private long m_TotalScore;
     private ShipAttributes m_ShipAttributes;
     private int m_TotalMiss;
@@ -23,7 +22,6 @@ public class RegisterLocalRankingMenuHandler : GameUI
 
     void Start()
     {
-        m_Difficulty = m_SystemManager.GetDifficulty();
         m_TotalScore = m_SystemManager.GetTotalScore();
         m_ShipAttributes = m_PlayerManager.m_CurrentAttributes;
         m_TotalMiss = m_SystemManager.GetTotalMiss();
@@ -95,8 +93,8 @@ public class RegisterLocalRankingMenuHandler : GameUI
 
         LocalRankingData localRankingData = new LocalRankingData(id, m_TotalScore, m_ShipAttributes, m_TotalMiss, m_ClearedTime);
 
-        //ReadLocalRanking(m_Difficulty, localRankingData);
-        WriteLocalRanking(m_Difficulty, localRankingData);
+        //ReadLocalRanking(SystemManager.Difficulty, localRankingData);
+        WriteLocalRanking(SystemManager.Difficulty, localRankingData);
 
         StartCoroutine(ReturnToMainMenu());
     }

@@ -18,11 +18,11 @@ public class GroundEnemySpawnerDifficultyModifier : MonoBehaviour
     
     void Start()
     {
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal && !m_Normal)
+        if (SystemManager.Difficulty == GameDifficulty.Normal && !m_Normal)
             m_GroundEnemySpawner.gameObject.SetActive(false);
-        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert && !m_Expert)
+        else if (SystemManager.Difficulty == GameDifficulty.Expert && !m_Expert)
             m_GroundEnemySpawner.gameObject.SetActive(false);
-        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell && !m_Hell)
+        else if (SystemManager.Difficulty == GameDifficulty.Hell && !m_Hell)
             m_GroundEnemySpawner.gameObject.SetActive(false);
         
         if (m_Normal && m_SpawnPeriod_Normal > 0) {

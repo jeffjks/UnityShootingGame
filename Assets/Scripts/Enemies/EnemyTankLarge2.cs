@@ -19,7 +19,7 @@ public class EnemyTankLarge2 : EnemyUnit
         
         RotateImmediately(m_MoveVector.direction);
 
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+        if (SystemManager.Difficulty == GameDifficulty.Normal) {
             m_Direction += 97f / Application.targetFrameRate * Time.timeScale;
         }
         else {
@@ -35,13 +35,13 @@ public class EnemyTankLarge2 : EnemyUnit
         Vector3[] pos = new Vector3[2];
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = GetScreenPosition(m_FirePosition[1].position);
                 CreateBulletsSector(3, pos[0], 6f, m_CurrentAngle + m_Direction, accel, 3, 120f);
                 CreateBulletsSector(3, pos[1], 6f, m_CurrentAngle - m_Direction, accel, 3, 120f);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos[0] = GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = GetScreenPosition(m_FirePosition[1].position);
                 CreateBulletsSector(3, pos[0], 6.8f, m_CurrentAngle + m_Direction, accel, 4, 90f);
@@ -55,7 +55,7 @@ public class EnemyTankLarge2 : EnemyUnit
                     CreateBulletsSector(3, pos[1], 6.3f + 0.5f*i, m_CurrentAngle - m_Direction, accel, 4, 90f);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
     }
 }

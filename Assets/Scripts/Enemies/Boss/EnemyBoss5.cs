@@ -246,10 +246,10 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator Pattern1_A0(int duration) {
-        int init_fire_delay_1 = m_FireDelay1[0, (int) m_SystemManager.GetDifficulty()]; // start value
-        int init_fire_delay_2 = m_FireDelay2[0, (int) m_SystemManager.GetDifficulty()]; // start value
-        int target_fire_delay_1 = m_FireDelay1[1, (int) m_SystemManager.GetDifficulty()]; // target value
-        int target_fire_delay_2 = m_FireDelay2[1, (int) m_SystemManager.GetDifficulty()]; // target value
+        int init_fire_delay_1 = m_FireDelay1[0, (int) SystemManager.Difficulty]; // start value
+        int init_fire_delay_2 = m_FireDelay2[0, (int) SystemManager.Difficulty]; // start value
+        int target_fire_delay_1 = m_FireDelay1[1, (int) SystemManager.Difficulty]; // target value
+        int target_fire_delay_2 = m_FireDelay2[1, (int) SystemManager.Difficulty]; // target value
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
@@ -269,18 +269,18 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         //int[] fire_delay_start = { 600, 360, 250 };
         //int[] fire_delay_end = { 2400, 2000, 2000 };
-        //int fire_delay = fire_delay_start[(int) m_SystemManager.GetDifficulty()];
+        //int fire_delay = fire_delay_start[(int) SystemManager.Difficulty];
         float rand = Random.Range(0f, 360f);
-        //DOTween.To(()=>fire_delay, x=>fire_delay = x, fire_delay_end[(int) m_SystemManager.GetDifficulty()], 11f).SetEase(Ease.InOutQuad);
+        //DOTween.To(()=>fire_delay, x=>fire_delay = x, fire_delay_end[(int) SystemManager.Difficulty], 11f).SetEase(Ease.InOutQuad);
 
-        while (m_CurrentFireDelay1 < m_FireDelay1[1, (int) m_SystemManager.GetDifficulty()]) {
+        while (m_CurrentFireDelay1 < m_FireDelay1[1, (int) SystemManager.Difficulty]) {
             pos = m_FirePosition.position;
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(3, pos, 6.7f, rand, accel, 18, 20f);
                 rand += Random.Range(8.4375f, 14.0625f);
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay1);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(3, pos, 7f, rand, accel, 24, 15f);
                 rand += Random.Range(6.75f, 11.25f);
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay1);
@@ -300,18 +300,18 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0), accel2 = new EnemyBulletAccel(4f, 600);
         //int[] fire_delay_start = { 2400, 2000, 2000 };
         //int[] fire_delay_end = { 600, 400, 250 };
-        //int fire_delay = fire_delay_start[(int) m_SystemManager.GetDifficulty()];
-        //DOTween.To(()=>fire_delay, x=>fire_delay = x, fire_delay_end[(int) m_SystemManager.GetDifficulty()], 11f).SetEase(Ease.InOutQuad);
+        //int fire_delay = fire_delay_start[(int) SystemManager.Difficulty];
+        //DOTween.To(()=>fire_delay, x=>fire_delay = x, fire_delay_end[(int) SystemManager.Difficulty], 11f).SetEase(Ease.InOutQuad);
 
-        while (m_CurrentFireDelay2 > m_FireDelay2[1, (int) m_SystemManager.GetDifficulty()]) {
+        while (m_CurrentFireDelay2 > m_FireDelay2[1, (int) SystemManager.Difficulty]) {
             pos = m_FirePosition.position;
             dir = GetAngleToTarget(pos, m_PlayerPosition) + Random.Range(-6f, 6f);
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(1, pos, 5f, dir, accel, 6, 20f, BulletType.ERASE_AND_CREATE, 600,
                 1, 2f, BulletDirection.CURRENT, 0f, accel2, 2, 20f + Random.Range(0f, 24f));
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay2);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(1, pos, 5.3f, dir, accel, 10, 12f, BulletType.ERASE_AND_CREATE, 600,
                 1, 2f, BulletDirection.CURRENT, 0f, accel2, 2, 20f + Random.Range(0f, 24f));
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay2);
@@ -333,13 +333,13 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (true) {
             pos = m_FirePosition.position;
             dir = GetAngleToTarget(pos, m_PlayerPosition) + Random.Range(-5f, 5f);
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(1, pos, 5.2f, dir - 2f, accel, 7, 19f);
                 CreateBulletsSector(1, pos, 5.4f, dir, accel, 7, 19f);
                 CreateBulletsSector(1, pos, 5.2f, dir + 2f, accel, 7, 19f);
                 yield return new WaitForMillisecondFrames(1000);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(1, pos, 5.4f, dir - 2f, accel, 9, 14f);
                 CreateBulletsSector(1, pos, 5.6f, dir, accel, 9, 14f);
                 CreateBulletsSector(1, pos, 5.4f, dir + 2f, accel, 9, 14f);
@@ -368,10 +368,10 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 dir = GetAngleToTarget(center_point, pos);
                 CreateBullet(4, pos, 6f, dir, accel);
             }
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(400);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(210);
             }
             else {
@@ -388,13 +388,13 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (true) {
             pos = m_FirePosition.position;
             dir = GetAngleToTarget(pos, m_PlayerPosition);
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 dir += Random.Range(-10f, 10f);
                 CreateBulletsSector(3, pos, 4f, dir, accel, 7, 17f);
                 CreateBulletsSector(5, pos, 5.6f, dir, accel, 7, 13f);
                 yield return new WaitForMillisecondFrames(1200);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 dir += Random.Range(-8f, 8f);
                 CreateBulletsSector(3, pos, 4f, dir, accel, 8, 14f);
                 CreateBulletsSector(5, pos, 5.6f, dir, accel, 8, 10f);
@@ -417,10 +417,10 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (true) {
             pos = m_FirePosition.position;
             dir = GetAngleToTarget(pos, m_PlayerPosition);
-            if (m_SystemManager.GetDifficulty() <= GameDifficulty.Expert) {
+            if (SystemManager.Difficulty <= GameDifficulty.Expert) {
                 break;
             }
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell) {
+            if (SystemManager.Difficulty == GameDifficulty.Hell) {
                 CreateBulletsSector(4, pos, 6f, dir, accel, 9, 10f);
                 yield return new WaitForMillisecondFrames(500);
             }
@@ -436,28 +436,28 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         int[] period = { 1200, 700, 500 };
 
         int[] duration_scale = { 50, 80, 100 }; // 난이도에 따른 duration 비율 (%)
-        duration = duration * duration_scale[(int) m_SystemManager.GetDifficulty()] / 100;
+        duration = duration * duration_scale[(int) SystemManager.Difficulty] / 100;
 
         yield return new WaitForMillisecondFrames(Random.Range(0, 1200));
 
         while (true) {
             while (time < duration) {
                 pos = m_FirePositionsWing[fire_position].position;
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     CreateBulletsSector(0, pos, 4.4f, dir, accel, 3, 90f);
                 }
-                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     CreateBulletsSector(0, pos, 4.4f, dir, accel, 5, 72f);
                 }
                 else {
                     CreateBulletsSector(0, pos, 4.4f, dir, accel, 6, 60f);
                 }
-                time += time_add[(int) m_SystemManager.GetDifficulty()];
+                time += time_add[(int) SystemManager.Difficulty];
                 dir += dir_delta;
-                yield return new WaitForMillisecondFrames(time_add[(int) m_SystemManager.GetDifficulty()]);
+                yield return new WaitForMillisecondFrames(time_add[(int) SystemManager.Difficulty]);
             }
             time = 0;
-            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty]);
         }
     }
 
@@ -469,11 +469,11 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (true) {
             pos = m_FirePosition.position;
             dir = GetAngleToTarget(pos, m_PlayerPosition);
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(5, pos, 3.6f, dir, accel);
                 yield return new WaitForMillisecondFrames(1500);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBullet(5, pos, 3.6f, dir, accel);
                 yield return new WaitForMillisecondFrames(600);
             }
@@ -542,10 +542,10 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     }
                 }
 
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     CreateBulletsSector(5, pos, 5.5f, Random.Range(-5f, 5f), accel, 4 - number, 25f);
                 }
-                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     CreateBulletsSector(5, pos, 5.7f, Random.Range(-5f, 5f), accel, 5 - number, 15f);
                 }
                 else {
@@ -553,7 +553,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 }
                 number = 1 - number;
             }
-            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty]);
         }
     }
 
@@ -599,17 +599,17 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     }
                 }
 
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     CreateBullet(4, pos, 2f, Random.Range(-18f, 18f), accel1);
                 }
-                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     CreateBullet(4, pos, 2.5f, Random.Range(-18f, 18f), accel2);
                 }
                 else {
                     CreateBullet(4, pos, 3f, Random.Range(-18f, 18f), accel1);
                 }
             }
-            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty]);
         }
     }
 
@@ -621,7 +621,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         int[] number = { 52, 54, 55 };
         int rand;
 
-        while (interval > min_interval[(int) m_SystemManager.GetDifficulty()]) {
+        while (interval > min_interval[(int) SystemManager.Difficulty]) {
             pos = m_FirePosition.position;
             CreateBulletsSector(1, pos, 8f, 0f, accel, 2, interval);
             CreateBulletsSector(0, pos, 8f, 0f, accel, 2, interval + 14f);
@@ -629,7 +629,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             interval -= 21.1f;
             yield return new WaitForMillisecondFrames(80);
         }
-        interval = min_interval[(int) m_SystemManager.GetDifficulty()];
+        interval = min_interval[(int) SystemManager.Difficulty];
         rand = 2*Random.Range(0, 2) - 1;
         dir = 0f;
         while (true) {
@@ -638,7 +638,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             CreateBulletsSector(0, pos, 8f, dir, accel, 2, interval + 14f);
             CreateBulletsSector(1, pos, 8f, dir, accel, 2, interval + 21f);
             if (timer > 0.8f) {
-                for (int i = 0; i < number[(int) m_SystemManager.GetDifficulty()]; i++)
+                for (int i = 0; i < number[(int) SystemManager.Difficulty]; i++)
                     CreateBulletsSector(0, pos, 8f, dir + 180f, accel, 2, 3f + i*6f);
                 timer -= 0.8f;
             }
@@ -676,14 +676,14 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     }
                 }
 
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     CreateBulletsSector(1, pos, 5.2f, dir[i] + m_Direction, accel, 15, 24f);
                 }
                 else {
                     CreateBulletsSector(1, pos, 5.2f, dir[i] + m_Direction, accel, 20, 18f);
                 }
             }
-            yield return new WaitForMillisecondFrames(period[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty]);
         }
     }
 
@@ -708,7 +708,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0f, 0f);
         
-        if (m_SystemManager.GetDifficulty() < GameDifficulty.Hell) {
+        if (SystemManager.Difficulty < GameDifficulty.Hell) {
             m_SystemManager.SaveClearedTime();
         }
         
@@ -724,7 +724,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         ScreenEffectService.ScreenWhiteEffect(true);
         m_SystemManager.ShakeCamera(1.5f);
         
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell) {
+        if (SystemManager.Difficulty == GameDifficulty.Hell) {
             try {
                 ((Stage5Manager) m_SystemManager.m_StageManager).TrueLastBoss(new Vector3(transform.position.x, transform.position.y, Depth.ENEMY)); // True Last Boss
             }

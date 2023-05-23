@@ -9,14 +9,14 @@ public class TextStyling : MonoBehaviour
 {
     public string m_NativeText;
 
-    private TMP_Text _textUI;
+    private TextMeshProUGUI _textUI;
     private string _englishText;
 
     private GameManager m_GameManager = null;
 
     void Awake()
     {
-        _textUI = GetComponentInChildren<TMP_Text>();
+        _textUI = GetComponentInChildren<TextMeshProUGUI>();
         _englishText = _textUI.text;
     }
 

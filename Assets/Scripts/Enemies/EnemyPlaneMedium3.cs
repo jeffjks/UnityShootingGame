@@ -94,13 +94,13 @@ public class EnemyPlaneMedium3 : EnemyUnit
                 m_Turret[1].StartPattern();
             }
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 3; i++) {
                     CreateBullet(2, pos, 6f, target_angle + random_value, accel);
                     yield return new WaitForMillisecondFrames(50);
                 }
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
                     CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
                     yield return new WaitForMillisecondFrames(43);
@@ -112,7 +112,7 @@ public class EnemyPlaneMedium3 : EnemyUnit
                     yield return new WaitForMillisecondFrames(35);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()] * Random.Range(85, 115) / 100);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty] * Random.Range(85, 115) / 100);
         }
         yield break;
     }

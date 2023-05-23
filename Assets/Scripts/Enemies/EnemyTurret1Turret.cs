@@ -46,12 +46,12 @@ public class EnemyTurret1Turret : EnemyUnit
             for (int i = 0; i < 4; i++) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
-                CreateBullet(5, pos1, speed[(int) m_SystemManager.GetDifficulty()], m_CurrentAngle, accel);
-                CreateBullet(5, pos2, speed[(int) m_SystemManager.GetDifficulty()], m_CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(delay[(int) m_SystemManager.GetDifficulty()]);
+                CreateBullet(5, pos1, speed[(int) SystemManager.Difficulty], m_CurrentAngle, accel);
+                CreateBullet(5, pos2, speed[(int) SystemManager.Difficulty], m_CurrentAngle, accel);
+                yield return new WaitForMillisecondFrames(delay[(int) SystemManager.Difficulty]);
             }
             m_Shooting = false;
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
     }
 }

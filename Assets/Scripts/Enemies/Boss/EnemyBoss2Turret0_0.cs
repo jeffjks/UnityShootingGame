@@ -45,7 +45,7 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
         Vector3 pos;
         m_InPattern = true;
 
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+        if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 3; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 5, 22.5f);
@@ -55,7 +55,7 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
                 yield return new WaitForMillisecondFrames(1200);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 4; i++) {
                 pos = GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 8, 15f);
@@ -102,7 +102,7 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
                 CreateBullet(0, pos3, 5.3f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(90);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
     }
 }

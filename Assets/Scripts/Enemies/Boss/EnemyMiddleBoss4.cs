@@ -140,10 +140,10 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             else if (m_Part[1] != null) {
                 m_Part[1].StartPattern(1);
             }
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(1800);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(1300);
             }
             else {
@@ -155,10 +155,10 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             else if (m_Part[0] != null) {
                 m_Part[0].StartPattern(1);
             }
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(1800);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 yield return new WaitForMillisecondFrames(1300);
             }
             else {
@@ -217,11 +217,11 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             target_angle = m_Turret1.m_CurrentAngle + Random.Range(-1.5f, 1.5f);
             random_value = Random.Range(0.5f,14f);
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(4, pos, 6f, target_angle, accel, 5, random_value);
                 yield return new WaitForMillisecondFrames(1000);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(4, pos, 6f, target_angle, accel, 7, random_value);
                 yield return new WaitForMillisecondFrames(600);
             }
@@ -242,7 +242,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             random_value = Random.Range(0, 2);
 
             if (random_value == 0) {
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int i = 0; i < 5; i++) {
                         pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
@@ -251,7 +251,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                     }
                     yield return new WaitForMillisecondFrames(1200);
                 }
-                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     for (int i = 0; i < 5; i++) {
                         pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
@@ -271,7 +271,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 }
             }
             else {
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int i = 0; i < 3; i++) {
                         pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
@@ -282,7 +282,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                     }
                     yield return new WaitForMillisecondFrames(1300);
                 }
-                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     for (int i = 0; i < 3; i++) {
                         pos = m_Turret2.m_FirePosition.position;
                         target_angle = m_Turret2.m_CurrentAngle;
@@ -316,7 +316,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         while (m_Pattern1B) {
             pos = m_Turret1.m_FirePosition.position;
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 6; i++) {
                     target_angle = m_Turret1.m_CurrentAngle;
                     CreateBullet(4, pos, 3.5f + i*1.2f, target_angle, accel);
@@ -324,7 +324,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 }
                 yield return new WaitForMillisecondFrames(2300);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 8; i++) {
                     target_angle = m_Turret1.m_CurrentAngle;
                     CreateBullet(4, pos, 3.5f + i*1.2f, target_angle, accel);
@@ -352,7 +352,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             pos = m_Turret2.m_FirePosition.position;
             target_angle = m_Turret2.m_CurrentAngle;
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(0, pos, 7.3f, target_angle, accel, 2, 80f);
                 yield return new WaitForFrames(2);
                 CreateBulletsSector(0, pos, 6.6f, target_angle, accel, 2, 62f);
@@ -364,7 +364,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 CreateBulletsSector(2, pos, 4.5f, target_angle, accel, 2, 8f);
                 yield return new WaitForMillisecondFrames(1000);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(0, pos, 7.3f, target_angle, accel, 2, 80f);
                 yield return new WaitForFrames(2);
                 CreateBulletsSector(0, pos, 6.6f, target_angle, accel, 2, 62f);
@@ -425,14 +425,14 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             target_angle = m_Turret1.m_CurrentAngle;
             random_value = Random.Range(-12f, 12f);
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(2, pos, 3.6f, target_angle + random_value, accel, 5, 24f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1f, accel, 4, 24f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value, accel, 4, 24f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value + 1f, accel, 4, 24f);
                 yield return new WaitForMillisecondFrames(600);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBulletsSector(2, pos, 3.6f, target_angle + random_value, accel, 6, 19.2f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 1.5f, accel, 5, 19.2f);
                 CreateBulletsSector(5, pos, 3.6f, target_angle + random_value - 0.5f, accel, 5, 19.2f);
@@ -460,14 +460,14 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             pos = m_Turret1.m_FirePosition.position;
             target_angle = m_Turret1.m_CurrentAngle;
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 3; i++) {
                     CreateBulletsSector(1, pos, 5.6f + i*0.4f, target_angle, accel, 6, 60f);
                     CreateBulletsSector(1, pos, 6f + i*0.4f, target_angle + 30f, accel, 6, 60f);
                 }
                 yield return new WaitForMillisecondFrames(1500);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 3; i++) {
                     CreateBulletsSector(1, pos, 5.6f + i*0.4f, target_angle, accel, 10, 36f);
                     CreateBulletsSector(1, pos, 6f + i*0.4f, target_angle + 18f, accel, 10, 36f);

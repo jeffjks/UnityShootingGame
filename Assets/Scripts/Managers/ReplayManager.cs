@@ -35,7 +35,7 @@ public class ReplayManager : MonoBehaviour
 
         if (m_Activate) {
             try {
-                if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이 (파일 읽기)
+                if (SystemManager.GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이 (파일 읽기)
                     m_FilePath = m_GameManager.m_ReplayDirectory + "replay" + m_GameManager.m_ReplayNum + ".rep";
 
                     if (System.IO.File.Exists(m_FilePath)) {
@@ -51,7 +51,7 @@ public class ReplayManager : MonoBehaviour
                         else {
                             // ToDo 버전이 다름
                         }
-                        m_SystemManager.SetDifficulty((GameDifficulty) m_Difficulty);
+                        SystemManager.SetDifficulty((GameDifficulty) m_Difficulty);
                     }
                 }
                 else { // 비 리플레이 (파일 쓰기)
@@ -60,7 +60,7 @@ public class ReplayManager : MonoBehaviour
 
                     m_FileStream = new FileStream(m_FilePath, FileMode.Create);
                     m_Attributes = m_PlayerManager.m_CurrentAttributes;
-                    m_Difficulty = (int) m_SystemManager.GetDifficulty();
+                    m_Difficulty = (int) SystemManager.Difficulty;
                     BinarySerialize(m_RandomSeed); // 시드 쓰기
                     BinarySerialize(Application.version); // 버전 쓰기
                     BinarySerialize(m_Attributes); // 기체 스펙 쓰기
@@ -93,7 +93,7 @@ public class ReplayManager : MonoBehaviour
         
         
         if (m_PlayerShooter.gameObject.activeInHierarchy) {
-            if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이
+            if (SystemManager.GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이
                 ReadUserInput();
                 m_PlayerShooter.PlayerShooterBehaviour();
             }

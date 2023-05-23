@@ -84,7 +84,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
             Vector3 pos1 = m_FirePosition[1].position;
             Vector3 pos2 = m_FirePosition[2].position;
             float target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(3, pos0, 6.4f, target_angle, accel, 6, 12);
                 CreateBulletsSector(5, pos0, 5.2f, target_angle, accel, 5, 12);
                 yield return new WaitForMillisecondFrames(1000);
@@ -96,7 +96,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
                 }
                 yield return new WaitForMillisecondFrames(1500);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 3; i++) {
                     SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
                     CreateBulletsSector(3, pos0, 6.4f, target_angle + Random.Range(-3f, 3f), accel, 9, 10f);

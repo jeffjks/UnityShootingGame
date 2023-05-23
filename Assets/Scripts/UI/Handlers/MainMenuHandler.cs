@@ -28,10 +28,13 @@ public class MainMenuHandler : MenuHandler
     }
 
     public void StartGame() {
+        SystemManager.SetGameMode(GameMode.GAMEMODE_NORMAL);
         GoToTargetMenu(m_SelectDifficultyPanel);
     }
 
-    public void Training() {
+    public void Training()
+    {
+        SystemManager.SetGameMode(GameMode.GAMEMODE_TRAINING);
         GoToTargetMenu(m_TrainingPanel);
     }
 

@@ -28,14 +28,14 @@ public class EnemyTankMedium1Turret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(Random.Range(0, 1500));
         while(true) {
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
             
                 CreateBulletsSector(5, pos1, 7f, m_CurrentAngle, accel, 4, 20f);
                 yield return new WaitForMillisecondFrames(2000);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
             
@@ -55,7 +55,7 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 yield return new WaitForMillisecondFrames(800);
             }
 
-            if (m_SystemManager.GetDifficulty() != 0) {
+            if (SystemManager.Difficulty != 0) {
                 for (int i = 0; i < 6; i++) {
                     pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                     pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));

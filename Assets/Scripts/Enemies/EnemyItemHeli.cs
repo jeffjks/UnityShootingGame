@@ -106,7 +106,7 @@ public class EnemyItemHeli : EnemyUnit {
                 CreateBullet(1, pos2, 5.4f, target_angle2 + random_value, accel);
                 yield return new WaitForMillisecondFrames(80);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
         yield break;
     }

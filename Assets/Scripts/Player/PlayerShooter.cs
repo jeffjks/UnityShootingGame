@@ -55,7 +55,7 @@ public class PlayerShooter : PlayerShooterManager
         if (Time.timeScale == 0)
             return;
             
-        if (m_SystemManager.m_GameMode != GameMode.GAMEMODE_REPLAY) {
+        if (SystemManager.GameMode != GameMode.GAMEMODE_REPLAY) {
             if (Input.GetButton("Fire1")) {
                 m_ShotKeyPress = 1; // 버튼 누를시 m_ShotKeyPressFrame 증가
             }

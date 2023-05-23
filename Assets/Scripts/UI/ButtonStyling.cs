@@ -10,7 +10,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
     public string m_NativeText;
 
     private Button _buttonUI;
-    private TMP_Text _textUI;
+    private TextMeshProUGUI _textUI;
     private MenuHandler _menuHandler;
     private string _englishText;
     private float _alpha;
@@ -32,7 +32,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
     void Awake()
     {
         _buttonUI = GetComponent<Button>();
-        _textUI = GetComponentInChildren<TMP_Text>();
+        _textUI = GetComponentInChildren<TextMeshProUGUI>();
         _menuHandler = GetComponentInParent<MenuHandler>();
         _englishText = _textUI.text;
         

@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 
 public class LanguageButtonController : MonoBehaviour, IMoveHandler
 {
-    private TMP_Text _text;
+    private TextMeshProUGUI _textUI;
 
-    private readonly Dictionary<Language, string> _languageText = new()
+    private static readonly Dictionary<Language, string> _languageText = new()
     {
         { Language.English, "English" },
         { Language.Korean, "한국어" }
@@ -17,7 +17,7 @@ public class LanguageButtonController : MonoBehaviour, IMoveHandler
 
     private void Awake()
     {
-        _text = GetComponentInChildren<TMP_Text>();
+        _textUI = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnEnable()
@@ -52,12 +52,12 @@ public class LanguageButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _text.text = _languageText[GameSetting.m_Language];
+            _textUI.text = _languageText[GameSetting.m_Language];
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            _text.text = "Unknown";
+            _textUI.text = "Unknown";
         }
     }
 }

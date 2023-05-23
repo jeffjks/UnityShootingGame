@@ -109,11 +109,11 @@ public class PlayerManager : MonoBehaviour
         m_PlayerShooter = m_Player.GetComponentInChildren<PlayerShooter>();
         m_PlayerController = m_Player.GetComponentInChildren<PlayerController>();
 
-        if (m_SystemManager.m_GameMode == GameMode.GAMEMODE_TRAINING) {
+        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING) {
             int power;
             switch (m_SystemManager.GetCurrentStage()) {
                 case 0:
-                    if (m_SystemManager.m_TrainingInfo.m_BossOnly) {
+                    if (SystemManager.TrainingInfo.m_BossOnly) {
                         power = 2;
                     }
                     else {
@@ -121,7 +121,7 @@ public class PlayerManager : MonoBehaviour
                     }
                     break;
                 case 1:
-                    if (m_SystemManager.m_TrainingInfo.m_BossOnly) {
+                    if (SystemManager.TrainingInfo.m_BossOnly) {
                         power = 4;
                     }
                     else {

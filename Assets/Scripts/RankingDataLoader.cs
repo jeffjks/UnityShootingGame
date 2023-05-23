@@ -10,7 +10,18 @@ public class RankingDataLoader : MonoBehaviour
     public TextErrorMessage m_ErrorMessage;
     public RankingDataSlotLoader[] m_RankingDataSlotLoaders = new RankingDataSlotLoader[SLOTS_PER_PAGE];
     public RankingDataSlotLoader m_MyRankingDataSlotLoader; // Unused
+    public RankingPageText m_RankingPageText;
     public GameDifficulty m_GameDifficulty;
+
+    private int CurrentPage
+    {
+        get => _currentPage;
+        set
+        {
+            _currentPage = value;
+            m_RankingPageText.SetText(_currentPage, MAX_PAGE);
+        }
+    }
     
     private const int MAX_PAGE = 2;
     private const int SLOTS_PER_PAGE = 5;
@@ -27,7 +38,7 @@ public class RankingDataLoader : MonoBehaviour
 
     private void OnEnable() {
         string id = m_GameManager.GetAccountID();
-        _currentPage = 0;
+        CurrentPage = 0;
 
         if (m_GameManager.m_NetworkAvailable) {
             if (id == string.Empty) {
@@ -119,7 +130,7 @@ public class RankingDataLoader : MonoBehaviour
     {
         for (int i = 0; i < SLOTS_PER_PAGE; ++i)
         {
-            var index = _currentPage * SLOTS_PER_PAGE + i;
+            var index = CurrentPage * SLOTS_PER_PAGE + i;
             if (index < _localRankingDataList[m_GameDifficulty].Count)
             {
                 m_RankingDataSlotLoaders[i].SetRankingSlot(index + 1, _localRankingDataList[m_GameDifficulty][index]);
@@ -136,13 +147,13 @@ public class RankingDataLoader : MonoBehaviour
         {
             return;
         }
-        _currentPage += move;
+        CurrentPage += move;
         
-        if (_currentPage < 0) {
-            _currentPage = MAX_PAGE;
+        if (CurrentPage < 0) {
+            CurrentPage = MAX_PAGE;
         }
-        else if (_currentPage > MAX_PAGE) {
-            _currentPage = 0;
+        else if (CurrentPage > MAX_PAGE) {
+            CurrentPage = 0;
         }
 
         DisplayRanking();

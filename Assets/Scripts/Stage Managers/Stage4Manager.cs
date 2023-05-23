@@ -103,7 +103,7 @@ public class Stage4Manager : StageManager
         CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 4f), 3f));
         yield return new WaitForMillisecondFrames(2000);
         int rand = 1 - 2*Random.Range(0, 2); // -1 or 1
-        if (m_SystemManager.GetDifficulty() != GameDifficulty.Normal) {
+        if (SystemManager.Difficulty != GameDifficulty.Normal) {
             CreateEnemy(m_PlaneMedium_4, new Vector2(4.5f * rand, 3f));
         }
         CreateEnemy(m_PlaneMedium_4, new Vector2(-4.5f * rand, 3f));

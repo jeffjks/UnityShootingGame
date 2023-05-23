@@ -130,7 +130,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         yield return new WaitForMillisecondFrames(200);
 
         while(!m_TimeLimitState) {
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
@@ -141,7 +141,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
                 }
                 yield return new WaitForMillisecondFrames(280);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
@@ -162,11 +162,11 @@ public class EnemyPlaneLarge1 : EnemyUnit
                     yield return new WaitForMillisecondFrames(70);
                 }
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay1[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay1[(int) SystemManager.Difficulty]);
             state *= -1;
 
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 6; i++) {
                     pos = m_FirePosition.position;
@@ -174,7 +174,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
                     yield return new WaitForMillisecondFrames(150);
                 }
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 6; i++) {
                     pos = m_FirePosition.position;
@@ -202,7 +202,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
             m_Turret[0].StartPattern();
             m_Turret[1].StartPattern();
-            yield return new WaitForMillisecondFrames(m_FireDelay1[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay1[(int) SystemManager.Difficulty]);
         }
         yield break;
     }
@@ -217,13 +217,13 @@ public class EnemyPlaneLarge1 : EnemyUnit
         while(!m_TimeLimitState) {
             random_value = Random.Range(-3f, 3f);
 
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 6, 16f);
                 CreateBulletsSector(5, pos, 6.4f, target_angle + random_value, accel, 6, 16f);
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 6, 12f);
@@ -239,7 +239,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
                 CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 8, 12f);
                 CreateBulletsSector(5, pos, 7.1f, target_angle + random_value, accel, 8, 12f);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay2[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay2[(int) SystemManager.Difficulty]);
         }
     }
 

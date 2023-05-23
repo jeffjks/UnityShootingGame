@@ -72,7 +72,7 @@ public class EnemyTankLarge1 : EnemyUnit
         float[] target_angle = new float[2];
         while(true) {
             yield return new WaitForMillisecondFrames(500);
-            if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int j = 0; j < 2; j++) {
                     pos[j] = GetScreenPosition(m_FirePosition[j].position);
                     target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
@@ -89,7 +89,7 @@ public class EnemyTankLarge1 : EnemyUnit
                     CreateBulletsSector(0, pos[j], 7f, target_angle[j], accel, 3, 22f);
                 }
             }
-            else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 2; j++) {
                         pos[j] = GetScreenPosition(m_FirePosition[j].position);

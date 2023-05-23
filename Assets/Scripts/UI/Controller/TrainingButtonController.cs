@@ -5,26 +5,33 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GraphicsButtonController : MonoBehaviour, IMoveHandler
+public enum TrainingOption
 {
-    public GraphicsOption m_GraphicsOption;
+    Stage,
+    Difficulty,
+    StartingPoint
+}
+public class TrainingButtonController : MonoBehaviour, IMoveHandler
+{
+    public TrainingOption m_TrainingOption;
+    public TrainingMenuHandler m_TrainingMenuHandler;
     
     private TextMeshProUGUI _textUI;
 
-    private static readonly Dictionary<Language, string[]> _fullScreenText = new()
+    private static readonly Dictionary<Language, string[]> _stageText = new()
     {
-        { Language.English, new[] { "Full", "Windowed" } },
-        { Language.Korean, new[] { "전체 화면", "창 화면" } }
+        { Language.English, new[] { "Stage 1", "Stage 2", "Stage 3", "Stage 4", "Stage 5" } },
+        { Language.Korean, new[] { "스테이지 1", "스테이지 2", "스테이지 3", "스테이지 4", "스테이지 5" } }
     };
-    private static readonly Dictionary<Language, string[]> _qualityText = new()
+    private static readonly Dictionary<Language, string[]> _difficultyText = new()
     {
-        { Language.English, new[] { "Ultra", "Very High", "High", "Medium", "Low", "Very Low" } },
-        { Language.Korean, new[] { "울트라", "매우 높음", "높음", "중간", "낮음", "매우 낮음" } }
+        { Language.English, new[] { "Normal", "Expert", "Hell" } },
+        { Language.Korean, new[] { "노말", "익스퍼트", "헬" } }
     };
-    private static readonly Dictionary<Language, string[]> _antiAliasingText = new()
+    private static readonly Dictionary<Language, string[]> _startingPointText = new()
     {
-        { Language.English, new[] { "On", "Off" } },
-        { Language.Korean, new[] { "사용", "미사용" } }
+        { Language.English, new[] { "Boss", "Field" } },
+        { Language.Korean, new[] { "보스전", "필드전" } }
     };
 
     private void Awake()
@@ -39,12 +46,21 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
 
     public void OnMove(AxisEventData axisEventData)
     {
+        /*
         if (EventSystem.current.currentSelectedGameObject != gameObject)
         {
             return;
         }
 
         var moveInputX = (int) axisEventData.moveVector.x;
+
+        switch (m_TrainingOption)
+        {
+            case TrainingOption.Stage:
+                SystemManager.Difficulty
+        }
+        
+        SystemManager.TrainingInfo
         GameSetting.m_GraphicOptions[m_GraphicsOption] += moveInputX;
         
         var maxCount = GameSetting.m_GraphicOptionsCount[m_GraphicsOption];
@@ -57,11 +73,11 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
             GameSetting.m_GraphicOptions[m_GraphicsOption] = 0;
         }
 
-        SetText();
+        SetText();*/
     }
 
     private void SetText()
-    {
+    {/*
         try
         {
             switch (m_GraphicsOption)
@@ -85,6 +101,6 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
         {
             Debug.LogError(e);
             _textUI.text = "Unknown";
-        }
+        }*/
     }
 }

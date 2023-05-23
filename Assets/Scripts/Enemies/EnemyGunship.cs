@@ -75,12 +75,12 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
             for (int i = 0; i < 4; i++) {
                 Vector3 pos1 = m_FirePosition[0].position;
                 Vector3 pos2 = m_FirePosition[1].position;
-                if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+                if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     CreateBullet(4, pos1, 6.7f, m_CurrentAngle + 2.5f, accel);
                     CreateBullet(4, pos2, 6.7f, m_CurrentAngle - 2.5f, accel);
                     break;
                 }
-                else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     CreateBullet(4, pos1, 8f, m_CurrentAngle + 2.5f, accel);
                     CreateBullet(4, pos2, 8f, m_CurrentAngle - 2.5f, accel);
                 }
@@ -92,7 +92,7 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
                 }
                 yield return new WaitForMillisecondFrames(140);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) m_SystemManager.GetDifficulty()]);
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
         yield break;
     }

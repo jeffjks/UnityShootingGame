@@ -65,13 +65,6 @@ public enum GameMode
     GAMEMODE_REPLAY = 2
 }
 
-public enum DebugDifficulty
-{
-    Normal,
-    Expert,
-    Hell,
-}
-
 public interface IObjectPooling {
     public void ReturnToPool();
 }

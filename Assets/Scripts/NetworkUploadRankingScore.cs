@@ -17,7 +17,6 @@ public class NetworkUploadRankingScore : MonoBehaviour
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
 
-        GameDifficulty difficulty = m_SystemManager.GetDifficulty();
         string id = m_GameManager.GetAccountID();
         long totalScore = m_SystemManager.GetTotalScore();
         ShipAttributes shipAttributes = m_PlayerManager.m_CurrentAttributes;
@@ -25,14 +24,14 @@ public class NetworkUploadRankingScore : MonoBehaviour
         string pcID = SystemInfo.deviceUniqueIdentifier;
 
         if (m_GameManager.m_NetworkAvailable) {
-            StartCoroutine(UploadScore(difficulty, id, totalScore, shipAttributes, totalMiss, pcID));
+            StartCoroutine(UploadScore(id, totalScore, shipAttributes, totalMiss, pcID));
         }
     }
 
-    public IEnumerator UploadScore(GameDifficulty difficulty, string id, long totalScore, ShipAttributes shipAttributes, int totalMiss, string pcID) {
+    public IEnumerator UploadScore(string id, long totalScore, ShipAttributes shipAttributes, int totalMiss, string pcID) {
         string url = "http://jeffjks.cafe24.com/DeadPlanet2php/uploadRankingScore.php";
 
-        if (difficulty < GameDifficulty.Normal || GameDifficulty.Hell < difficulty) {
+        if (SystemManager.Difficulty < GameDifficulty.Normal || GameDifficulty.Hell < SystemManager.Difficulty) {
             TryUploadScore("ArgumentException");
             yield break;
         }

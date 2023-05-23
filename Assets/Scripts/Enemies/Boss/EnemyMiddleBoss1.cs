@@ -94,7 +94,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_Phase = 1;
 
-        m_CurrentPattern1 = PatternA((int) m_SystemManager.GetDifficulty());
+        m_CurrentPattern1 = PatternA((int) SystemManager.Difficulty);
         StartCoroutine(m_CurrentPattern1);
         
         EnableInteractableAll();
@@ -139,7 +139,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
             StopCoroutine(m_CurrentPattern1);
         
         m_CurrentPattern2 = PatternB();
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Hell)
+        if (SystemManager.Difficulty == GameDifficulty.Hell)
             StartCoroutine(m_CurrentPattern2);
 
         m_Turret[0].StopPattern();

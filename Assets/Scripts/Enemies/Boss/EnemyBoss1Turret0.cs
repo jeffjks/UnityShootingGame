@@ -51,14 +51,14 @@ public class EnemyBoss1Turret0 : EnemyUnit
         float gap = 0.03f;
         pos = m_FirePosition.position;
 
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+        if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 6; i++) {
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle + 3f, accel);
                 yield return new WaitForMillisecondFrames(60);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 6; i++) {
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 14f, accel);
                 CreateBullet(3, m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)), 5f + 0.7f*i, m_CurrentAngle - 3f, accel);

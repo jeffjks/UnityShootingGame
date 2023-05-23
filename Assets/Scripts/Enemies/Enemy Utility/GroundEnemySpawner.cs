@@ -81,7 +81,7 @@ public class GroundEnemySpawner : MonoBehaviour
     }
 
     private bool CheckDifficulty() {
-        GameDifficulty difficulty = m_SystemManager.GetDifficulty();
+        GameDifficulty difficulty = SystemManager.Difficulty;
         if (difficulty == GameDifficulty.Normal && m_Normal) {
             return true;
         }

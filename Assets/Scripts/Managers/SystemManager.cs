@@ -24,12 +24,9 @@ public class SystemManager : MonoBehaviour
     [HideInInspector] public int m_BulletsEraseTimer;
 
     [HideInInspector] public int m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
-    [HideInInspector] public GameMode m_GameMode;
     [HideInInspector] public int m_UsedCost;
-    [HideInInspector] public TrainingInfo m_TrainingInfo;
     
     public bool m_DebugMod;
-    public DebugDifficulty m_DebugDifficulty;
     
     private GameManager m_GameManager = null;
     private PoolingManager m_PoolingManager = null;
@@ -44,9 +41,13 @@ public class SystemManager : MonoBehaviour
     private byte m_TotalMiss;
     private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
     private int m_BulletNumber;
-    private GameDifficulty m_Difficulty;
     private long m_ClearedTime;
 
+    public static GameMode GameMode  { get; private set; }
+    public static GameDifficulty Difficulty { get; private set; }
+    public static GameDifficulty DebugDifficulty;
+    public static TrainingInfo TrainingInfo;
+    
     public static SystemManager instance_sm = null;
 
     public event Action Action_OnEnableSystemManager;
@@ -88,7 +89,7 @@ public class SystemManager : MonoBehaviour
         Action_OnEnableSystemManager?.Invoke();
         
         UpdateBombNumber();
-        m_TextUI_GameMode.UpdateGameModeText(m_GameMode);
+        m_TextUI_GameMode.UpdateGameModeText(GameMode);
         
         UpdateScore();
     }
@@ -203,7 +204,7 @@ public class SystemManager : MonoBehaviour
         ScreenEffectService.ScreenFadeIn();
         yield return new WaitForMillisecondFrames(2000);
 
-        if (m_GameMode == GameMode.GAMEMODE_TRAINING && !m_GameManager.m_InvincibleMod) {
+        if (GameMode == GameMode.GAMEMODE_TRAINING && !m_GameManager.m_InvincibleMod) {
             QuitGame();
         }
         else {
@@ -357,17 +358,6 @@ public class SystemManager : MonoBehaviour
         return m_StageMiss[m_Stage];
     }
 
-
-    public GameDifficulty GetDifficulty() {
-        return m_Difficulty;
-    }
-
-    public void SetDifficulty(GameDifficulty difficulty)
-    {
-        m_Difficulty = difficulty;
-        m_DifficultyText.text = m_Difficulty.ToString();
-    }
-
     public void WarningText() {
         StartCoroutine(WarningTextAnimation());
     }
@@ -501,8 +491,8 @@ public class SystemManager : MonoBehaviour
 
     public bool SpawnAtSpawnPointCondition() {
         if (GetCurrentStage() == 0) {
-            if (m_GameMode == GameMode.GAMEMODE_TRAINING) {
-                if (m_TrainingInfo.m_BossOnly) {
+            if (GameMode == GameMode.GAMEMODE_TRAINING) {
+                if (TrainingInfo.m_BossOnly) {
                     return false;
                 }
                 else {
@@ -512,5 +502,15 @@ public class SystemManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public static void SetGameMode(GameMode gameMode)
+    {
+        GameMode = gameMode;
+    }
+
+    public static void SetDifficulty(GameDifficulty gameDifficulty)
+    {
+        Difficulty = gameDifficulty;
     }
 }

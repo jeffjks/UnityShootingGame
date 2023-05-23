@@ -9,11 +9,11 @@ public class SoundButtonController : MonoBehaviour, IMoveHandler
 {
     public SoundOption m_SoundOption;
     
-    private TMP_Text _text;
+    private TextMeshProUGUI _textUI;
 
     private void Awake()
     {
-        _text = GetComponentInChildren<TMP_Text>();
+        _textUI = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnEnable()
@@ -43,6 +43,6 @@ public class SoundButtonController : MonoBehaviour, IMoveHandler
 
     private void SetText()
     {
-        _text.text = GameSetting.m_SoundOptions[m_SoundOption].ToString();
+        _textUI.text = GameSetting.m_SoundOptions[m_SoundOption].ToString();
     }
 }

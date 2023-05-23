@@ -7,7 +7,7 @@ public class RankingDifficultyText : MonoBehaviour
 {
     public RankingDataLoader m_RankingDataLoader;
     
-    private TMP_Text _text;
+    private TextMeshProUGUI _textUI;
     private GameDifficulty _gameDifficulty;
 
     private readonly Dictionary<Language, string[]> _rankingDifficultyText = new()
@@ -18,7 +18,7 @@ public class RankingDifficultyText : MonoBehaviour
 
     private void Awake()
     {
-        _text = GetComponentInChildren<TMP_Text>();
+        _textUI = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnEnable()
@@ -31,12 +31,12 @@ public class RankingDifficultyText : MonoBehaviour
     {
         try
         {
-            _text.text = _rankingDifficultyText[GameSetting.m_Language][(int) _gameDifficulty];
+            _textUI.text = _rankingDifficultyText[GameSetting.m_Language][(int) _gameDifficulty];
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            _text.text = "Unknown";
+            _textUI.text = "Unknown";
         }
     }
 }

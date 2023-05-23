@@ -28,8 +28,17 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     {
         base.Awake();
 
-        m_DefaultRotation = transform.rotation;
-        m_MoveVector.direction = - transform.rotation.eulerAngles.y;
+        Transform root = transform.root;
+        if (transform == root)
+        {
+            m_DefaultRotation = Quaternion.identity;
+        }
+        else
+        {
+            m_DefaultRotation = transform.rotation * Quaternion.Inverse(root.rotation);
+        }
+        
+        m_MoveVector.direction = - m_DefaultRotation.eulerAngles.y;
         
         m_EnemyDeath = GetComponent<EnemyDeath>();
         

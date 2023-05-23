@@ -44,7 +44,7 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
         Vector3 pos;
         m_InPattern = true;
 
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+        if (SystemManager.Difficulty == GameDifficulty.Normal) {
             int[] num = { 1, 2, 3, 3};
             for (int k = 0; k < 3; k++) {
                 for (int i = 0; i < num[k]; i++) {
@@ -58,7 +58,7 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                 yield return new WaitForMillisecondFrames(1500);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             int[] num = { 3, 5, 12 };
             for (int k = 0; k < 3; k++) {
                 for (int i = 0; i < num[k]; i++) {

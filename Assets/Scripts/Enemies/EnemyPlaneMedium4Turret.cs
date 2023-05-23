@@ -33,7 +33,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
         Vector3[] pos = new Vector3[2];
         float factor;
 
-        if (m_SystemManager.GetDifficulty() == GameDifficulty.Normal) {
+        if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
                 factor = SpeedOval(m_CurrentAngle);
                 pos[0] = m_FirePosition[0].position;
@@ -43,7 +43,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
                 yield return new WaitForMillisecondFrames(160);
             }
         }
-        else if (m_SystemManager.GetDifficulty() == GameDifficulty.Expert) {
+        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
                 factor = SpeedOval(m_CurrentAngle);
                 pos[0] = m_FirePosition[0].position;

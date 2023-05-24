@@ -23,7 +23,7 @@ public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효�
         }
         else {
             if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING) {
-                SceneManager.LoadScene("Stage" + (SystemManager.TrainingInfo.m_Stage + 1));
+                SceneManager.LoadScene("Stage" + (SystemManager.TrainingInfo.stage + 1));
             }
             else {
                 SceneManager.LoadScene("Stage1");

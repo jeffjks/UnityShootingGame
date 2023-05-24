@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SelectDifficultyMenuHandler : MenuHandler
+public class DifficultyMenuHandler : MenuHandler
 {
-    public GameObject m_SelectAttributesMenu;
+    public MenuHandler m_SelectAttributesMenu;
     
     public void SelectDifficultyNormal()
     {

@@ -2,7 +2,7 @@
 
 public class RankingDifficultyMenuHandler : MenuHandler
 {
-    public GameObject m_RankingPanel;
+    public MenuHandler m_RankingPanel;
     public RankingDataLoader m_RankingDataLoader;
 
     public void RankingNormal()

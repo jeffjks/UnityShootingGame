@@ -6,19 +6,19 @@ using UnityEngine;
 public class RankingDifficultyText : MonoBehaviour
 {
     public RankingDataLoader m_RankingDataLoader;
-    
+    public string[] m_NativeTexts;
+    public string[] m_Texts;
+
+    private readonly Dictionary<Language, string[]> _textContainer = new();
     private TextMeshProUGUI _textUI;
     private GameDifficulty _gameDifficulty;
-
-    private readonly Dictionary<Language, string[]> _rankingDifficultyText = new()
-    {
-        { Language.English, new[] { "Normal Ranking", "Expert Ranking", "Hell Ranking" } },
-        { Language.Korean, new[] { "노말 랭킹", "익스퍼트 랭킹", "헬 랭킹" } }
-    };
 
     private void Awake()
     {
         _textUI = GetComponentInChildren<TextMeshProUGUI>();
+        
+        _textContainer[Language.Korean] = m_NativeTexts;
+        _textContainer[Language.English] = m_Texts;
     }
 
     private void OnEnable()
@@ -31,7 +31,7 @@ public class RankingDifficultyText : MonoBehaviour
     {
         try
         {
-            _textUI.text = _rankingDifficultyText[GameSetting.m_Language][(int) _gameDifficulty];
+            _textUI.text = _textContainer[GameSetting.m_Language][(int) _gameDifficulty];
         }
         catch (Exception e)
         {

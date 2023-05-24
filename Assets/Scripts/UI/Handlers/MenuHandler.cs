@@ -12,13 +12,13 @@ public abstract class MenuHandler : MonoBehaviour
     private static readonly Stack<GameObject> _previousMenuStack = new();
     private static readonly Dictionary<GameObject, Selectable> _lastSelected = new();
 
-    protected void GoToTargetMenu(GameObject targetMenu)
+    protected void GoToTargetMenu(MenuHandler targetMenu)
     {
-        targetMenu.SetActive(true);
+        targetMenu.gameObject.SetActive(true);
         _previousMenuStack.Push(gameObject);
 
         SaveLastSelection();
-        FindNextSelection(targetMenu);
+        FindNextSelection(targetMenu.gameObject);
         
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);

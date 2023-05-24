@@ -491,13 +491,9 @@ public class SystemManager : MonoBehaviour
 
     public bool SpawnAtSpawnPointCondition() {
         if (GetCurrentStage() == 0) {
-            if (GameMode == GameMode.GAMEMODE_TRAINING) {
-                if (TrainingInfo.m_BossOnly) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
+            if (GameMode == GameMode.GAMEMODE_TRAINING)
+            {
+                return !TrainingInfo.bossOnly;
             }
             return true;
         }

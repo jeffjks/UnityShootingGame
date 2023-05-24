@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class TrainingMenuHandler : MenuHandler
 {
-    public GameObject m_SelectAttributesMenu;
+    public MenuHandler m_SelectAttributesMenu;
     private TrainingInfo _oldTrainingInfo;
-    private GameDifficulty _difficulty;
+    private GameDifficulty _oldDifficulty;
     
     void OnEnable()
     {
         _oldTrainingInfo = SystemManager.TrainingInfo;
+        _oldDifficulty = SystemManager.Difficulty;
     }
 
     public void StartTraining()
@@ -22,6 +23,7 @@ public class TrainingMenuHandler : MenuHandler
     
     public override void Back() {
         SystemManager.TrainingInfo = _oldTrainingInfo;
+        SystemManager.SetDifficulty(_oldDifficulty);
         
         base.Back();
     }

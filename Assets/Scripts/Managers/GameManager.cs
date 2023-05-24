@@ -6,8 +6,8 @@ using DG.Tweening;
 
 public struct TrainingInfo
 {
-    public int m_Stage;
-    public bool m_BossOnly;
+    public int stage;
+    public bool bossOnly;
 }
 
 public class WaitForFrames : CustomYieldInstruction

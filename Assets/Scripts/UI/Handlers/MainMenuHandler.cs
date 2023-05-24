@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MenuHandler
 {
-    public GameObject m_SelectDifficultyPanel;
-    public GameObject m_TrainingPanel;
-    public GameObject m_ReplayPanel;
-    public GameObject m_SelectRankingDifficultyPanel;
-    public GameObject m_SettingsPanel;
-    public GameObject m_KeyConfigPanel;
-    public GameObject m_CreditPanel;
+    public MenuHandler m_DifficultyPanel;
+    public MenuHandler m_TrainingPanel;
+    public MenuHandler m_ReplayPanel;
+    public MenuHandler m_RankingDifficultyPanel;
+    public MenuHandler m_SettingsPanel;
+    public MenuHandler m_KeyConfigPanel;
+    public MenuHandler m_CreditPanel;
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class MainMenuHandler : MenuHandler
 
     public void StartGame() {
         SystemManager.SetGameMode(GameMode.GAMEMODE_NORMAL);
-        GoToTargetMenu(m_SelectDifficultyPanel);
+        GoToTargetMenu(m_DifficultyPanel);
     }
 
     public void Training()
@@ -38,12 +38,13 @@ public class MainMenuHandler : MenuHandler
         GoToTargetMenu(m_TrainingPanel);
     }
 
-    public void RankingMenu() {
-        GoToTargetMenu(m_SelectRankingDifficultyPanel);
+    public void ReplayMenu() {
+        SystemManager.SetGameMode(GameMode.GAMEMODE_REPLAY);
+        GoToTargetMenu(m_ReplayPanel);
     }
 
-    public void ReplayMenu() {
-        GoToTargetMenu(m_ReplayPanel);
+    public void RankingMenu() {
+        GoToTargetMenu(m_RankingDifficultyPanel);
     }
 
     public void SettingMenu() {

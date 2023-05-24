@@ -11,32 +11,24 @@ public enum TrainingOption
     Difficulty,
     StartingPoint
 }
+
 public class TrainingButtonController : MonoBehaviour, IMoveHandler
 {
     public TrainingOption m_TrainingOption;
     public TrainingMenuHandler m_TrainingMenuHandler;
-    
-    private TextMeshProUGUI _textUI;
+    public string[] m_NativeTexts;
+    public string[] m_Texts;
 
-    private static readonly Dictionary<Language, string[]> _stageText = new()
-    {
-        { Language.English, new[] { "Stage 1", "Stage 2", "Stage 3", "Stage 4", "Stage 5" } },
-        { Language.Korean, new[] { "스테이지 1", "스테이지 2", "스테이지 3", "스테이지 4", "스테이지 5" } }
-    };
-    private static readonly Dictionary<Language, string[]> _difficultyText = new()
-    {
-        { Language.English, new[] { "Normal", "Expert", "Hell" } },
-        { Language.Korean, new[] { "노말", "익스퍼트", "헬" } }
-    };
-    private static readonly Dictionary<Language, string[]> _startingPointText = new()
-    {
-        { Language.English, new[] { "Boss", "Field" } },
-        { Language.Korean, new[] { "보스전", "필드전" } }
-    };
+    private readonly Dictionary<Language, string[]> _textContainer = new();
+
+    private TextMeshProUGUI _textUI;
 
     private void Awake()
     {
         _textUI = GetComponentInChildren<TextMeshProUGUI>();
+        
+        _textContainer[Language.Korean] = m_NativeTexts;
+        _textContainer[Language.English] = m_Texts;
     }
 
     private void OnEnable()
@@ -46,7 +38,6 @@ public class TrainingButtonController : MonoBehaviour, IMoveHandler
 
     public void OnMove(AxisEventData axisEventData)
     {
-        /*
         if (EventSystem.current.currentSelectedGameObject != gameObject)
         {
             return;
@@ -57,50 +48,54 @@ public class TrainingButtonController : MonoBehaviour, IMoveHandler
         switch (m_TrainingOption)
         {
             case TrainingOption.Stage:
-                SystemManager.Difficulty
-        }
-        
-        SystemManager.TrainingInfo
-        GameSetting.m_GraphicOptions[m_GraphicsOption] += moveInputX;
-        
-        var maxCount = GameSetting.m_GraphicOptionsCount[m_GraphicsOption];
-        if (GameSetting.m_GraphicOptions[m_GraphicsOption] < 0)
-        {
-            GameSetting.m_GraphicOptions[m_GraphicsOption] = maxCount - 1;
-        }
-        else if (GameSetting.m_GraphicOptions[m_GraphicsOption] >= maxCount)
-        {
-            GameSetting.m_GraphicOptions[m_GraphicsOption] = 0;
+                SystemManager.TrainingInfo.stage += moveInputX;
+                
+                if (SystemManager.TrainingInfo.stage < 0)
+                    SystemManager.TrainingInfo.stage = 4;
+                else if (SystemManager.TrainingInfo.stage >= 5)
+                    SystemManager.TrainingInfo.stage = 0;
+                break;
+            
+            case TrainingOption.Difficulty:
+                if (moveInputX > 0)
+                    SystemManager.SetDifficulty(SystemManager.Difficulty.GetEnumNext());
+                else if (moveInputX < 0)
+                    SystemManager.SetDifficulty(SystemManager.Difficulty.GetEnumPrev());
+                break;
+            
+            case TrainingOption.StartingPoint:
+                SystemManager.TrainingInfo.bossOnly = !SystemManager.TrainingInfo.bossOnly;
+                break;
         }
 
-        SetText();*/
+        SetText();
     }
 
     private void SetText()
-    {/*
+    {
         try
         {
-            switch (m_GraphicsOption)
+            int index = -1;
+            switch (m_TrainingOption)
             {
-                case GraphicsOption.Resolution:
-                    Resolution resolution = GameSetting.GetCurrentResolution();
-                    _textUI.text = $"{resolution.width} x {resolution.height}";
+                case TrainingOption.Stage:
+                    index = SystemManager.TrainingInfo.stage;
                     break;
-                case GraphicsOption.FullScreen:
-                    _textUI.text = _fullScreenText[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
+            
+                case TrainingOption.Difficulty:
+                    index = (int) SystemManager.Difficulty;
                     break;
-                case GraphicsOption.Quality:
-                    _textUI.text = _qualityText[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
-                    break;
-                case GraphicsOption.AntiAliasing:
-                    _textUI.text = _antiAliasingText[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
+            
+                case TrainingOption.StartingPoint:
+                    index = SystemManager.TrainingInfo.bossOnly ? 0 : 1;
                     break;
             }
+            _textUI.text = _textContainer[GameSetting.m_Language][index];
         }
         catch (Exception e)
         {
             Debug.LogError(e);
             _textUI.text = "Unknown";
-        }*/
+        }
     }
 }

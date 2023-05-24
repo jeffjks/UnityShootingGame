@@ -74,7 +74,7 @@ public abstract class StageManager : MonoBehaviour
         ScreenEffectService.ScreenTransitionIn();
 
         SetBackgroundSpeed(0f);
-        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING && SystemManager.TrainingInfo.m_BossOnly) {
+        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING && SystemManager.TrainingInfo.bossOnly) {
             StartBossTimeline();
         }
         else {
@@ -84,7 +84,7 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected void StartBossTimeline() {
-        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING && SystemManager.TrainingInfo.m_BossOnly) {
+        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING && SystemManager.TrainingInfo.bossOnly) {
             int stage = m_SystemManager.GetCurrentStage();
             m_SystemManager.m_BackgroundCamera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
             SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);

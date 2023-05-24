@@ -8,28 +8,18 @@ using UnityEngine.EventSystems;
 public class GraphicsButtonController : MonoBehaviour, IMoveHandler
 {
     public GraphicsOption m_GraphicsOption;
-    
-    private TextMeshProUGUI _textUI;
+    public string[] m_NativeTexts;
+    public string[] m_Texts;
 
-    private static readonly Dictionary<Language, string[]> _fullScreenText = new()
-    {
-        { Language.English, new[] { "Full", "Windowed" } },
-        { Language.Korean, new[] { "전체 화면", "창 화면" } }
-    };
-    private static readonly Dictionary<Language, string[]> _qualityText = new()
-    {
-        { Language.English, new[] { "Ultra", "Very High", "High", "Medium", "Low", "Very Low" } },
-        { Language.Korean, new[] { "울트라", "매우 높음", "높음", "중간", "낮음", "매우 낮음" } }
-    };
-    private static readonly Dictionary<Language, string[]> _antiAliasingText = new()
-    {
-        { Language.English, new[] { "On", "Off" } },
-        { Language.Korean, new[] { "사용", "미사용" } }
-    };
+    private readonly Dictionary<Language, string[]> _textContainer = new();
+    private TextMeshProUGUI _textUI;
 
     private void Awake()
     {
         _textUI = GetComponentInChildren<TextMeshProUGUI>();
+        
+        _textContainer[Language.Korean] = m_NativeTexts;
+        _textContainer[Language.English] = m_Texts;
     }
 
     private void OnEnable()
@@ -64,21 +54,14 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            switch (m_GraphicsOption)
+            if (m_GraphicsOption == GraphicsOption.Resolution)
             {
-                case GraphicsOption.Resolution:
-                    Resolution resolution = GameSetting.GetCurrentResolution();
-                    _textUI.text = $"{resolution.width} x {resolution.height}";
-                    break;
-                case GraphicsOption.FullScreen:
-                    _textUI.text = _fullScreenText[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
-                    break;
-                case GraphicsOption.Quality:
-                    _textUI.text = _qualityText[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
-                    break;
-                case GraphicsOption.AntiAliasing:
-                    _textUI.text = _antiAliasingText[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
-                    break;
+                Resolution resolution = GameSetting.GetCurrentResolution();
+                _textUI.text = $"{resolution.width} x {resolution.height}";
+            }
+            else
+            {
+                _textUI.text = _textContainer[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
             }
         }
         catch (Exception e)

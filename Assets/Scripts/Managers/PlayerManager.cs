@@ -113,7 +113,7 @@ public class PlayerManager : MonoBehaviour
             int power;
             switch (m_SystemManager.GetCurrentStage()) {
                 case 0:
-                    if (SystemManager.TrainingInfo.m_BossOnly) {
+                    if (SystemManager.TrainingInfo.bossOnly) {
                         power = 2;
                     }
                     else {
@@ -121,7 +121,7 @@ public class PlayerManager : MonoBehaviour
                     }
                     break;
                 case 1:
-                    if (SystemManager.TrainingInfo.m_BossOnly) {
+                    if (SystemManager.TrainingInfo.bossOnly) {
                         power = 4;
                     }
                     else {

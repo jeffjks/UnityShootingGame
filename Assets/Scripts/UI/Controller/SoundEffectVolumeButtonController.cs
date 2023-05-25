@@ -5,10 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SoundButtonController : MonoBehaviour, IMoveHandler
+public class SoundEffectVolumeButtonController : MonoBehaviour, IMoveHandler
 {
-    public SoundOption m_SoundOption;
-    
     private TextMeshProUGUI _textUI;
 
     private void Awake()
@@ -29,20 +27,16 @@ public class SoundButtonController : MonoBehaviour, IMoveHandler
         }
 
         var moveInputX = (int) axisEventData.moveVector.x;
-        GameSetting.m_SoundOptions[m_SoundOption] += moveInputX;
+        GameSetting.SoundEffectVolume += moveInputX;
 
-        GameSetting.m_SoundOptions[m_SoundOption] = Mathf.Clamp(GameSetting.m_SoundOptions[m_SoundOption], 0, 100);
-        
-        if (m_SoundOption == SoundOption.MusicVolume)
-            GameSetting.SaveMusicVolume();
-        else if (m_SoundOption == SoundOption.SoundEffectVolume)
-            GameSetting.SaveSoundEffectVolume();
+        GameSetting.SoundEffectVolume = Mathf.Clamp(GameSetting.SoundEffectVolume, 0, GameSetting.MAX_VOLUME);
+        GameSetting.SetSoundEffectVolume();
         
         SetText();
     }
 
     private void SetText()
     {
-        _textUI.text = GameSetting.m_SoundOptions[m_SoundOption].ToString();
+        _textUI.text = GameSetting.SoundEffectVolume.ToString();
     }
 }

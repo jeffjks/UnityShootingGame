@@ -3,23 +3,27 @@ using System.Collections.Generic;
 
 public class SoundMenuHandler : MenuHandler
 {
-    private SoundSettings _oldSoundSettings;
+    private int _oldMusicVolume;
+    private int _oldSoundEffectVolume;
 
     void OnEnable()
     {
-        _oldSoundSettings = GameSetting.m_SoundSettings;
+        _oldMusicVolume = GameSetting.MusicVolume;
+        _oldSoundEffectVolume = GameSetting.SoundEffectVolume;
     }
 
     public override void Apply()
     {
         GameSetting.SaveSoundSettings();
+        GameSetting.SetSoundSettings();
         PlayerPrefs.Save();
         
         base.Apply();
     }
     
     public override void Back() {
-        GameSetting.m_SoundSettings = _oldSoundSettings;
+        GameSetting.MusicVolume = _oldMusicVolume;
+        GameSetting.SoundEffectVolume = _oldSoundEffectVolume;
         
         base.Back();
     }

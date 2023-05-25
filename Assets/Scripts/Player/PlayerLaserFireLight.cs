@@ -12,7 +12,7 @@ public class PlayerLaserFireLight : MonoBehaviour {
         GameManager gameManager = GameManager.instance_gm;
 
         if (gameManager != null) {
-            if (GameSetting.m_GraphicsSettings.GraphicsQuality > GraphicsQuality.VeryHigh) {
+            if (GameSetting.GraphicsQuality > QualitySetting.VeryHigh) {
                 m_Light.enabled = false;
             }
         }

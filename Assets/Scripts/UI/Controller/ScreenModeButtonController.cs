@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GraphicsButtonController : MonoBehaviour, IMoveHandler
+public class ScreenModeButtonController : MonoBehaviour, IMoveHandler
 {
-    public GraphicsOption m_GraphicsOption;
     public string[] m_NativeTexts;
     public string[] m_Texts;
 
@@ -35,23 +33,13 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
         }
 
         var moveInputX = (int) axisEventData.moveVector.x;
-
         if (moveInputX > 0)
         {
-            
+            GameSetting.GraphicsScreenMode = GameSetting.GraphicsScreenMode.GetEnumNext();
         }
-        
-        
-        GameSetting.m_GraphicOptions[m_GraphicsOption] += moveInputX;
-        
-        var maxCount = GameSetting.m_GraphicOptionsCount[m_GraphicsOption];
-        if (GameSetting.m_GraphicOptions[m_GraphicsOption] < 0)
+        else if (moveInputX < 0)
         {
-            GameSetting.m_GraphicOptions[m_GraphicsOption] = maxCount - 1;
-        }
-        else if (GameSetting.m_GraphicOptions[m_GraphicsOption] >= maxCount)
-        {
-            GameSetting.m_GraphicOptions[m_GraphicsOption] = 0;
+            GameSetting.GraphicsScreenMode = GameSetting.GraphicsScreenMode.GetEnumPrev();
         }
 
         SetText();
@@ -61,15 +49,7 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            if (m_GraphicsOption == GraphicsOption.Resolution)
-            {
-                Resolution resolution = GameSetting.GetCurrentResolution();
-                _textUI.text = $"{resolution.width} x {resolution.height}";
-            }
-            else
-            {
-                _textUI.text = _textContainer[GameSetting.m_Language][GameSetting.m_GraphicOptions[m_GraphicsOption]];
-            }
+            _textUI.text = _textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsScreenMode];
         }
         catch (Exception e)
         {

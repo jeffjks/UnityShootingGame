@@ -4,8 +4,13 @@ using UnityEngine.Audio;
 
 public class GameSetting : MonoBehaviour
 {
-    public static GraphicsSettings m_GraphicsSettings;
-    public static SoundSettings m_SoundSettings;
+    public static int GraphicsResolution;
+    public static ScreenModeSetting GraphicsScreenMode;
+    public static QualitySetting GraphicsQuality;
+    public static AntiAliasingSetting GraphicsAntiAliasing;
+    
+    public static int MusicVolume;
+    public static int SoundEffectVolume;
     
     public static Language m_Language;
 
@@ -25,7 +30,7 @@ public class GameSetting : MonoBehaviour
     };
 
     public const int MAX_VOLUME = 100;
-    public const int RESOLUTION_NUMBER = 9;
+    public const int RESOLUTION_SETTING_COUNT = 9;
     
     private static GameSetting Instance { get; set; }
     
@@ -58,20 +63,18 @@ public class GameSetting : MonoBehaviour
         var width = PlayerPrefs.GetInt("ResolutionWidth", 1920);
         var height = PlayerPrefs.GetInt("ResolutionHeight", 1080);
 
-        m_GraphicsSettings.GraphicsResolution = GetResolutionIndex(width, height);
-        m_GraphicsSettings.GraphicsScreenMode = (GraphicsScreenMode) PlayerPrefs.GetInt("FullScreen", 1);
-        m_GraphicsSettings.GraphicsQuality = (GraphicsQuality) PlayerPrefs.GetInt("GraphicsQuality", 0);
-        m_GraphicsSettings.GraphicsAntiAliasing = (GraphicsAntiAliasing) PlayerPrefs.GetInt("AntiAliasing", 1);
+        GraphicsResolution = GetResolutionIndex(width, height);
+        GraphicsScreenMode = (ScreenModeSetting) PlayerPrefs.GetInt("FullScreen", 1);
+        GraphicsQuality = (QualitySetting) PlayerPrefs.GetInt("GraphicsQuality", 0);
+        GraphicsAntiAliasing = (AntiAliasingSetting) PlayerPrefs.GetInt("AntiAliasing", 1);
         
-        m_SoundSettings.MusicVolume = PlayerPrefs.GetInt("MusicVolume", 80);
-        m_SoundSettings.SoundEffectVolume = PlayerPrefs.GetInt("SoundEffectVolume", 80);
-
-        SaveGraphicSettings();
-        SaveSoundSettings();
+        MusicVolume = PlayerPrefs.GetInt("MusicVolume", 80);
+        SoundEffectVolume = PlayerPrefs.GetInt("SoundEffectVolume", 80);
 
         m_Language = (Language) PlayerPrefs.GetInt("Language", 1);
-        
-        SaveLanguageSetting();
+
+        SetGraphicSettings();
+        SetSoundSettings();
     }
 
     private int GetResolutionIndex(int width, int height)
@@ -89,7 +92,7 @@ public class GameSetting : MonoBehaviour
 
     public static Resolution GetCurrentResolution()
     {
-        var index = m_GraphicsSettings.GraphicsResolution;
+        var index = GraphicsResolution;
         
         Resolution resolution = new Resolution();
         resolution.width = _graphicsResolutionList[index].x;
@@ -104,37 +107,11 @@ public class GameSetting : MonoBehaviour
         SaveAntiAliasing();
     }
 
-    private static void SaveScreenSettings()
+    public static void SetGraphicSettings()
     {
-        var index = m_GraphicsSettings.GraphicsResolution;
-        
-        var width = _graphicsResolutionList[index].x;
-        var height = _graphicsResolutionList[index].y;
-        Screen.SetResolution(width, height, m_GraphicsSettings.GraphicsScreenMode == GraphicsScreenMode.FullScreen);
-        
-        PlayerPrefs.SetInt("FullScreen", m_GraphicsSettings.GraphicsScreenMode == GraphicsScreenMode.FullScreen ? 1 : 0);
-        PlayerPrefs.SetInt("ResolutionWidth", width);
-        PlayerPrefs.SetInt("ResolutionHeight", height);
-    }
-
-    private static void SaveQuality()
-    {
-        var quality = m_GraphicsSettings.GraphicsQuality;
-        
-        QualitySettings.SetQualityLevel((int) quality, true);
-        
-        PlayerPrefs.SetInt("GraphicsQuality", (int) quality);
-    }
-
-    private static void SaveAntiAliasing() {
-        var antiAliasing = m_GraphicsSettings.GraphicsAntiAliasing;
-        
-        if (antiAliasing == GraphicsAntiAliasing.Deactivated)
-            QualitySettings.antiAliasing = 0;
-        else
-            QualitySettings.antiAliasing = 2;
-        
-        PlayerPrefs.SetInt("AntiAliasing", (int) antiAliasing);
+        SetScreenSettings();
+        SetQuality();
+        SetAntiAliasing();
     }
 
     public static void SaveSoundSettings()
@@ -142,17 +119,77 @@ public class GameSetting : MonoBehaviour
         SaveMusicVolume();
         SaveSoundEffectVolume();
     }
+
+    public static void SetSoundSettings()
+    {
+        SetMusicVolume();
+        SetSoundEffectVolume();
+    }
+
+    private static void SetScreenSettings()
+    {
+        var index = GraphicsResolution;
+        var width = _graphicsResolutionList[index].x;
+        var height = _graphicsResolutionList[index].y;
+        Screen.SetResolution(width, height, GraphicsScreenMode == ScreenModeSetting.FullScreen);
+    }
+
+    private static void SaveScreenSettings()
+    {
+        var index = GraphicsResolution;
+        var width = _graphicsResolutionList[index].x;
+        var height = _graphicsResolutionList[index].y;
+        
+        PlayerPrefs.SetInt("FullScreen", GraphicsScreenMode == ScreenModeSetting.FullScreen ? 1 : 0);
+        PlayerPrefs.SetInt("ResolutionWidth", width);
+        PlayerPrefs.SetInt("ResolutionHeight", height);
+    }
+
+    private static void SetQuality()
+    {
+        var quality = GraphicsQuality;
+        QualitySettings.SetQualityLevel((int) quality, true);
+    }
+
+    private static void SaveQuality()
+    {
+        var quality = GraphicsQuality;
+        PlayerPrefs.SetInt("GraphicsQuality", (int) quality);
+    }
+
+    private static void SetAntiAliasing() {
+        var antiAliasing = GraphicsAntiAliasing;
+        
+        if (antiAliasing == AntiAliasingSetting.Deactivated)
+            QualitySettings.antiAliasing = 0;
+        else
+            QualitySettings.antiAliasing = 2;
+    }
+
+    private static void SaveAntiAliasing() {
+        var antiAliasing = GraphicsAntiAliasing;
+        PlayerPrefs.SetInt("AntiAliasing", (int) antiAliasing);
+    }
+    
+    public static void SetMusicVolume()
+    {
+        var volume = MusicVolume;
+        Instance.m_AudioMixer.SetFloat("Music", Instance.GetMixerVolume(volume));
+    }
     
     public static void SaveMusicVolume()
     {
-        var volume = m_SoundSettings.MusicVolume;
-        Instance.m_AudioMixer.SetFloat("Music", Instance.GetMixerVolume(volume));
+        var volume = MusicVolume;
         PlayerPrefs.SetInt("MusicVolume", volume);
     }
     
-    public static void SaveSoundEffectVolume() {
-        var volume = m_SoundSettings.SoundEffectVolume;
+    public static void SetSoundEffectVolume() {
+        var volume = SoundEffectVolume;
         Instance.m_AudioMixer.SetFloat("SFX", Instance.GetMixerVolume(volume));
+    }
+    
+    public static void SaveSoundEffectVolume() {
+        var volume = SoundEffectVolume;
         PlayerPrefs.SetInt("SoundEffectVolume", volume);
     }
 

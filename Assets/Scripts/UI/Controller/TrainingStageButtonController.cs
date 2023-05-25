@@ -1,16 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LanguageButtonController : MonoBehaviour, IMoveHandler
+public class TrainingStageButtonController : MonoBehaviour, IMoveHandler
 {
-    private TextMeshProUGUI _textUI;
     public string[] m_NativeTexts;
     public string[] m_Texts;
 
     private readonly Dictionary<Language, string[]> _textContainer = new();
+
+    private TextMeshProUGUI _textUI;
 
     private void Awake()
     {
@@ -33,14 +35,13 @@ public class LanguageButtonController : MonoBehaviour, IMoveHandler
         }
 
         var moveInputX = (int) axisEventData.moveVector.x;
-        if (moveInputX > 0)
-        {
-            GameSetting.m_Language = GameSetting.m_Language.GetEnumNext();
-        }
-        else if (moveInputX < 0)
-        {
-            GameSetting.m_Language = GameSetting.m_Language.GetEnumPrev();
-        }
+
+        SystemManager.TrainingInfo.stage += moveInputX;
+                
+        if (SystemManager.TrainingInfo.stage < 0)
+            SystemManager.TrainingInfo.stage = 4;
+        else if (SystemManager.TrainingInfo.stage > 4)
+            SystemManager.TrainingInfo.stage = 0;
 
         SetText();
     }
@@ -49,7 +50,8 @@ public class LanguageButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.text = _textContainer[GameSetting.m_Language][(int) GameSetting.m_Language];
+            int index = SystemManager.TrainingInfo.stage;
+            _textUI.text = _textContainer[GameSetting.m_Language][index];
         }
         catch (Exception e)
         {

@@ -218,9 +218,54 @@ public enum GraphicsOption {
     AntiAliasing
 }
 
-public enum SoundOption {
-    MusicVolume,
-    SoundEffectVolume
+public enum GraphicsScreenMode
+{
+    Windowed,
+    FullScreen
+}
+
+public enum GraphicsQuality
+{
+    Ultra,
+    VeryHigh,
+    High,
+    Medium,
+    Low,
+    VeryLow
+}
+
+public enum GraphicsAntiAliasing
+{
+    Deactivated,
+    Activated
+}
+
+public struct GraphicsSettings
+{
+    public int GraphicsResolution;
+    public GraphicsScreenMode GraphicsScreenMode;
+    public GraphicsQuality GraphicsQuality;
+    public GraphicsAntiAliasing GraphicsAntiAliasing;
+
+    public GraphicsSettings(int resolution, GraphicsScreenMode screenMode, GraphicsQuality quality, GraphicsAntiAliasing antiAliasing)
+    {
+        GraphicsResolution = resolution;
+        GraphicsScreenMode = screenMode;
+        GraphicsQuality = quality;
+        GraphicsAntiAliasing = antiAliasing;
+    }
+}
+
+public struct SoundSettings
+{
+    public int MusicVolume;
+    public int SoundEffectVolume;
+
+    public SoundSettings(int musicVolume, int soundEffectVolume)
+    {
+        MusicVolume = musicVolume;
+        SoundEffectVolume = soundEffectVolume;
+    }
 }
 
 public enum Language {

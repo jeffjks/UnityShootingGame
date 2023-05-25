@@ -4,18 +4,14 @@ using UnityEngine.Audio;
 
 public class GameSetting : MonoBehaviour
 {
-    public static readonly Dictionary<GraphicsOption, int> m_GraphicOptions = new();
-    public static readonly Dictionary<GraphicsOption, int> m_GraphicOptionsCount = new();
-    public static readonly Dictionary<SoundOption, int> m_SoundOptions = new();
+    public static GraphicsSettings m_GraphicsSettings;
+    public static SoundSettings m_SoundSettings;
     
     public static Language m_Language;
-    public static readonly int m_LanguageCount = System.Enum.GetValues(typeof(Language)).Length;
 
     public AudioMixer m_AudioMixer = null;
 
-    public const int MAX_VOLUME = 100;
-
-    private static readonly List<Vector2Int> _resolutionList = new List<Vector2Int>()
+    private static readonly List<Vector2Int> _graphicsResolutionList = new List<Vector2Int>()
     {
         new(680, 900),
         new(1600, 900),
@@ -27,6 +23,9 @@ public class GameSetting : MonoBehaviour
         new(1920, 1080),
         new(3840, 2160)
     };
+
+    public const int MAX_VOLUME = 100;
+    public const int RESOLUTION_NUMBER = 9;
     
     private static GameSetting Instance { get; set; }
     
@@ -39,11 +38,6 @@ public class GameSetting : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
-        
-        m_GraphicOptionsCount[GraphicsOption.Resolution] = _resolutionList.Count;
-        m_GraphicOptionsCount[GraphicsOption.FullScreen] = 2;
-        m_GraphicOptionsCount[GraphicsOption.Quality] = 6;
-        m_GraphicOptionsCount[GraphicsOption.AntiAliasing] = 2;
         
         LoadSettings();
     }
@@ -64,13 +58,13 @@ public class GameSetting : MonoBehaviour
         var width = PlayerPrefs.GetInt("ResolutionWidth", 1920);
         var height = PlayerPrefs.GetInt("ResolutionHeight", 1080);
 
-        m_GraphicOptions[GraphicsOption.Resolution] = GetResolutionIndex(width, height);
-        m_GraphicOptions[GraphicsOption.FullScreen] = PlayerPrefs.GetInt("FullScreen", 1);
-        m_GraphicOptions[GraphicsOption.Quality] = PlayerPrefs.GetInt("GraphicsQuality", 0);
-        m_GraphicOptions[GraphicsOption.AntiAliasing] = PlayerPrefs.GetInt("AntiAliasing", 1);
+        m_GraphicsSettings.GraphicsResolution = GetResolutionIndex(width, height);
+        m_GraphicsSettings.GraphicsScreenMode = (GraphicsScreenMode) PlayerPrefs.GetInt("FullScreen", 1);
+        m_GraphicsSettings.GraphicsQuality = (GraphicsQuality) PlayerPrefs.GetInt("GraphicsQuality", 0);
+        m_GraphicsSettings.GraphicsAntiAliasing = (GraphicsAntiAliasing) PlayerPrefs.GetInt("AntiAliasing", 1);
         
-        m_SoundOptions[SoundOption.MusicVolume] = PlayerPrefs.GetInt("MusicVolume", 80);
-        m_SoundOptions[SoundOption.SoundEffectVolume] = PlayerPrefs.GetInt("SoundEffectVolume", 80);
+        m_SoundSettings.MusicVolume = PlayerPrefs.GetInt("MusicVolume", 80);
+        m_SoundSettings.SoundEffectVolume = PlayerPrefs.GetInt("SoundEffectVolume", 80);
 
         SaveGraphicSettings();
         SaveSoundSettings();
@@ -82,9 +76,9 @@ public class GameSetting : MonoBehaviour
 
     private int GetResolutionIndex(int width, int height)
     {
-        for (int i = 0; i < _resolutionList.Count; ++i)
+        for (int i = 0; i < _graphicsResolutionList.Count; ++i)
         {
-            if (_resolutionList[i] == new Vector2Int(width, height))
+            if (_graphicsResolutionList[i] == new Vector2Int(width, height))
             {
                 return i;
             }
@@ -95,10 +89,11 @@ public class GameSetting : MonoBehaviour
 
     public static Resolution GetCurrentResolution()
     {
-        var index = m_GraphicOptions[GraphicsOption.Resolution];
+        var index = m_GraphicsSettings.GraphicsResolution;
+        
         Resolution resolution = new Resolution();
-        resolution.width = _resolutionList[index].x;
-        resolution.height = _resolutionList[index].y;
+        resolution.width = _graphicsResolutionList[index].x;
+        resolution.height = _graphicsResolutionList[index].y;
         return resolution;
     }
 
@@ -111,35 +106,35 @@ public class GameSetting : MonoBehaviour
 
     private static void SaveScreenSettings()
     {
-        var index = m_GraphicOptions[GraphicsOption.Resolution];
+        var index = m_GraphicsSettings.GraphicsResolution;
         
-        var width = _resolutionList[index].x;
-        var height = _resolutionList[index].y;
-        Screen.SetResolution(width, height, m_GraphicOptions[GraphicsOption.FullScreen] == 1);
+        var width = _graphicsResolutionList[index].x;
+        var height = _graphicsResolutionList[index].y;
+        Screen.SetResolution(width, height, m_GraphicsSettings.GraphicsScreenMode == GraphicsScreenMode.FullScreen);
         
-        PlayerPrefs.SetInt("FullScreen", m_GraphicOptions[GraphicsOption.FullScreen]);
+        PlayerPrefs.SetInt("FullScreen", m_GraphicsSettings.GraphicsScreenMode == GraphicsScreenMode.FullScreen ? 1 : 0);
         PlayerPrefs.SetInt("ResolutionWidth", width);
         PlayerPrefs.SetInt("ResolutionHeight", height);
     }
 
     private static void SaveQuality()
     {
-        var quality = m_GraphicOptions[GraphicsOption.Quality];
+        var quality = m_GraphicsSettings.GraphicsQuality;
         
-        QualitySettings.SetQualityLevel(quality, true);
+        QualitySettings.SetQualityLevel((int) quality, true);
         
-        PlayerPrefs.SetInt("GraphicsQuality", quality);
+        PlayerPrefs.SetInt("GraphicsQuality", (int) quality);
     }
 
     private static void SaveAntiAliasing() {
-        var antiAliasing = m_GraphicOptions[GraphicsOption.AntiAliasing];
+        var antiAliasing = m_GraphicsSettings.GraphicsAntiAliasing;
         
-        if (antiAliasing == 0)
+        if (antiAliasing == GraphicsAntiAliasing.Deactivated)
             QualitySettings.antiAliasing = 0;
         else
             QualitySettings.antiAliasing = 2;
         
-        PlayerPrefs.SetInt("AntiAliasing", antiAliasing);
+        PlayerPrefs.SetInt("AntiAliasing", (int) antiAliasing);
     }
 
     public static void SaveSoundSettings()
@@ -150,13 +145,13 @@ public class GameSetting : MonoBehaviour
     
     public static void SaveMusicVolume()
     {
-        var volume = m_SoundOptions[SoundOption.MusicVolume];
+        var volume = m_SoundSettings.MusicVolume;
         Instance.m_AudioMixer.SetFloat("Music", Instance.GetMixerVolume(volume));
         PlayerPrefs.SetInt("MusicVolume", volume);
     }
     
     public static void SaveSoundEffectVolume() {
-        var volume = m_SoundOptions[SoundOption.SoundEffectVolume];
+        var volume = m_SoundSettings.SoundEffectVolume;
         Instance.m_AudioMixer.SetFloat("SFX", Instance.GetMixerVolume(volume));
         PlayerPrefs.SetInt("SoundEffectVolume", volume);
     }

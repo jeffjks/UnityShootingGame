@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 public class SoundMenuHandler : MenuHandler
 {
-    private readonly Dictionary<SoundOption, int> _oldSoundSettings = new();
+    private SoundSettings _oldSoundSettings;
 
-    void OnEnable() {
-        foreach (var keyValuePair in GameSetting.m_SoundOptions)
-        {
-            _oldSoundSettings[keyValuePair.Key] = keyValuePair.Value;
-        }
+    void OnEnable()
+    {
+        _oldSoundSettings = GameSetting.m_SoundSettings;
     }
 
     public override void Apply()
@@ -21,10 +19,7 @@ public class SoundMenuHandler : MenuHandler
     }
     
     public override void Back() {
-        foreach (var keyValuePair in _oldSoundSettings)
-        {
-            GameSetting.m_SoundOptions[keyValuePair.Key] = keyValuePair.Value;
-        }
+        GameSetting.m_SoundSettings = _oldSoundSettings;
         
         base.Back();
     }

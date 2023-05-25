@@ -35,6 +35,13 @@ public class GraphicsButtonController : MonoBehaviour, IMoveHandler
         }
 
         var moveInputX = (int) axisEventData.moveVector.x;
+
+        if (moveInputX > 0)
+        {
+            
+        }
+        
+        
         GameSetting.m_GraphicOptions[m_GraphicsOption] += moveInputX;
         
         var maxCount = GameSetting.m_GraphicOptionsCount[m_GraphicsOption];

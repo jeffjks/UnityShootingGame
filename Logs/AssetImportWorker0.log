@@ -1,23 +1,23 @@
 Using pre-set license
 Built from '2021.3/staging' branch; Version is '2021.3.24f1 (cf10dcf7010d) revision 13570268'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'ko' Physical Memory: 32681 MB
+OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 32702 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
-C:\Program Files\Unity\2021.3.24f1\Editor\Unity.exe
+C:\Program Files\Unity\Hub\Editor\2021.3.24f1\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-C:/Program Files/Unity/Project/Dead Planet 2
+C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-14862
-Successfully changed project path to: C:/Program Files/Unity/Project/Dead Planet 2
-C:/Program Files/Unity/Project/Dead Planet 2
+61726
+Successfully changed project path to: C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
+C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -47,823 +47,116 @@ C:/Program Files/Unity/Project/Dead Planet 2
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [70756] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 3503257817 [EditorId] 3503257817 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [18856] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1509635104 [EditorId] 1509635104 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [70756] Host "[IP] 192.168.0.21 [Port] 0 [Flags] 2 [Guid] 3503257817 [EditorId] 3503257817 [Version] 1048832 [Id] WindowsEditor(7,NEW-DESKTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [18856] Host "[IP] 192.168.0.64 [Port] 0 [Flags] 2 [Guid] 1509635104 [EditorId] 1509635104 [Version] 1048832 [Id] WindowsEditor(7,DT-ChoKunsang) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 109.59 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 84.77 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.24f1 (cf10dcf7010d)
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Project/Dead Planet 2/Assets
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/ARCHIPIN/Desktop/Other/Private/US/UnityShootingGame/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1070 Ti (ID=0x1b82)
+    Renderer: NVIDIA GeForce GTX 1660 SUPER (ID=0x21c4)
     Vendor:   NVIDIA
-    VRAM:     8073 MB
-    Driver:   31.0.15.3141
+    VRAM:     5991 MB
+    Driver:   27.21.14.5751
 Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
 Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
 Initialize mono
-Mono path[0] = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'C:/Program Files/Unity/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56408
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56156
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
-Register platform support module: C:/Program Files/Unity/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.008428 seconds.
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005479 seconds.
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 195.78 ms, found 3 plugins.
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 155 ms
+Refreshing native plugins compatible for Editor in 81.00 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.908 seconds
+- Completed reload, in  0.684 seconds
 Domain Reload Profiling:
-	ReloadAssembly (910ms)
-		BeginReloadAssembly (91ms)
+	ReloadAssembly (685ms)
+		BeginReloadAssembly (65ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (721ms)
-			LoadAssemblies (89ms)
+		EndReloadAssembly (542ms)
+			LoadAssemblies (63ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (135ms)
+			SetupTypeCache (86ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (29ms)
-			SetupLoadedEditorAssemblies (493ms)
+			RebuildScriptCaches (23ms)
+			SetupLoadedEditorAssemblies (391ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (10ms)
+				InitializePlatformSupportModulesInManaged (204ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (196ms)
-				BeforeProcessingInitializeOnLoad (2ms)
-				ProcessInitializeOnLoadAttributes (188ms)
-				ProcessInitializeOnLoadMethodAttributes (98ms)
+				RefreshPlugins (81ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (71ms)
+				ProcessInitializeOnLoadMethodAttributes (33ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.028230 seconds.
+Registered in 0.003932 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 96.39 ms, found 3 plugins.
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 80.55 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.214 seconds
+- Completed reload, in  0.967 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1215ms)
-		BeginReloadAssembly (120ms)
+	ReloadAssembly (968ms)
+		BeginReloadAssembly (92ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (17ms)
-		EndReloadAssembly (992ms)
-			LoadAssemblies (98ms)
+			CreateAndSetChildDomain (16ms)
+		EndReloadAssembly (793ms)
+			LoadAssemblies (70ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (233ms)
+			SetupTypeCache (171ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (62ms)
-			SetupLoadedEditorAssemblies (558ms)
+			RebuildScriptCaches (50ms)
+			SetupLoadedEditorAssemblies (469ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (6ms)
+				InitializePlatformSupportModulesInManaged (15ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (96ms)
-				BeforeProcessingInitializeOnLoad (80ms)
-				ProcessInitializeOnLoadAttributes (258ms)
-				ProcessInitializeOnLoadMethodAttributes (107ms)
-				AfterProcessingInitializeOnLoad (11ms)
+				RefreshPlugins (81ms)
+				BeforeProcessingInitializeOnLoad (61ms)
+				ProcessInitializeOnLoadAttributes (213ms)
+				ProcessInitializeOnLoadMethodAttributes (95ms)
+				AfterProcessingInitializeOnLoad (6ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
 Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 1.41 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2867 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 58 unused Assets / (58.1 KB). Loaded Objects now: 3340.
-Memory consumption went from 130.5 MB to 130.4 MB.
-Total: 5.523600 ms (FindLiveObjects: 0.244700 ms CreateObjectMapping: 0.159500 ms MarkObjects: 5.015900 ms  DeleteObjects: 0.102300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 903257.812492 seconds.
-  path: Assets/Scripts/Utility/Utility.cs
-  artifactKey: Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Utility/Utility.cs using Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bef34f4ac40820de27e2210d83f526c1') in 0.101299 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006490 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.41 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.058 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1059ms)
-		BeginReloadAssembly (150ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (34ms)
-		EndReloadAssembly (814ms)
-			LoadAssemblies (102ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (212ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (39ms)
-			SetupLoadedEditorAssemblies (426ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (68ms)
-				ProcessInitializeOnLoadAttributes (229ms)
-				ProcessInitializeOnLoadMethodAttributes (108ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
 Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.42 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3343.
-Memory consumption went from 125.8 MB to 125.7 MB.
-Total: 7.388200 ms (FindLiveObjects: 0.362400 ms CreateObjectMapping: 0.205200 ms MarkObjects: 6.780600 ms  DeleteObjects: 0.038800 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 1750.546850 seconds.
-  path: Assets/Scripts/Utility/Utility.cs
-  artifactKey: Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Utility/Utility.cs using Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b9572f799822456b39333998ddb0b49') in 0.005951 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006058 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
 Refreshing native plugins compatible for Editor in 1.35 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.136 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1137ms)
-		BeginReloadAssembly (150ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (33ms)
-		EndReloadAssembly (891ms)
-			LoadAssemblies (105ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (278ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (436ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (66ms)
-				ProcessInitializeOnLoadAttributes (238ms)
-				ProcessInitializeOnLoadMethodAttributes (113ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.21 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3346.
-Memory consumption went from 125.8 MB to 125.7 MB.
-Total: 6.900500 ms (FindLiveObjects: 0.225600 ms CreateObjectMapping: 0.128300 ms MarkObjects: 6.500100 ms  DeleteObjects: 0.044700 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006089 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.49 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.100 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1101ms)
-		BeginReloadAssembly (144ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (34ms)
-		EndReloadAssembly (863ms)
-			LoadAssemblies (98ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (279ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (414ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (65ms)
-				ProcessInitializeOnLoadAttributes (221ms)
-				ProcessInitializeOnLoadMethodAttributes (109ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.19 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3349.
-Memory consumption went from 125.8 MB to 125.7 MB.
-Total: 5.302700 ms (FindLiveObjects: 0.234900 ms CreateObjectMapping: 0.154800 ms MarkObjects: 4.881300 ms  DeleteObjects: 0.030700 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006141 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.39 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.031 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1032ms)
-		BeginReloadAssembly (137ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (29ms)
-		EndReloadAssembly (803ms)
-			LoadAssemblies (97ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (190ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (40ms)
-			SetupLoadedEditorAssemblies (432ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (63ms)
-				ProcessInitializeOnLoadAttributes (236ms)
-				ProcessInitializeOnLoadMethodAttributes (113ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 15.76 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3352.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 6.068000 ms (FindLiveObjects: 0.227000 ms CreateObjectMapping: 0.138800 ms MarkObjects: 5.659000 ms  DeleteObjects: 0.042100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006680 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.38 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.056 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1056ms)
-		BeginReloadAssembly (146ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (33ms)
-		EndReloadAssembly (815ms)
-			LoadAssemblies (103ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (192ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (447ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (75ms)
-				ProcessInitializeOnLoadAttributes (236ms)
-				ProcessInitializeOnLoadMethodAttributes (117ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.80 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3355.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 40.708900 ms (FindLiveObjects: 0.842100 ms CreateObjectMapping: 1.270100 ms MarkObjects: 38.563300 ms  DeleteObjects: 0.032000 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006048 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 2.12 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.035 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1035ms)
-		BeginReloadAssembly (148ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (30ms)
-		EndReloadAssembly (792ms)
-			LoadAssemblies (108ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (192ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (40ms)
-			SetupLoadedEditorAssemblies (420ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (65ms)
-				ProcessInitializeOnLoadAttributes (223ms)
-				ProcessInitializeOnLoadMethodAttributes (109ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.21 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3358.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 5.201300 ms (FindLiveObjects: 0.249000 ms CreateObjectMapping: 0.138800 ms MarkObjects: 4.782400 ms  DeleteObjects: 0.030300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006455 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.40 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.007 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1008ms)
-		BeginReloadAssembly (137ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (28ms)
-		EndReloadAssembly (780ms)
-			LoadAssemblies (98ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (186ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (425ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (63ms)
-				ProcessInitializeOnLoadAttributes (232ms)
-				ProcessInitializeOnLoadMethodAttributes (111ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 7.13 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3361.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 12.398400 ms (FindLiveObjects: 1.598200 ms CreateObjectMapping: 0.178500 ms MarkObjects: 10.486800 ms  DeleteObjects: 0.134000 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006031 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.38 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.033 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1033ms)
-		BeginReloadAssembly (142ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (32ms)
-		EndReloadAssembly (796ms)
-			LoadAssemblies (102ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (198ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (424ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (64ms)
-				ProcessInitializeOnLoadAttributes (229ms)
-				ProcessInitializeOnLoadMethodAttributes (112ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.60 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3364.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 5.659400 ms (FindLiveObjects: 0.265800 ms CreateObjectMapping: 0.222500 ms MarkObjects: 5.140100 ms  DeleteObjects: 0.029900 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006370 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.38 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.023 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1023ms)
-		BeginReloadAssembly (144ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (29ms)
-		EndReloadAssembly (786ms)
-			LoadAssemblies (99ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (188ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (36ms)
-			SetupLoadedEditorAssemblies (429ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (63ms)
-				ProcessInitializeOnLoadAttributes (232ms)
-				ProcessInitializeOnLoadMethodAttributes (113ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 27.39 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3367.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 5.904900 ms (FindLiveObjects: 0.253800 ms CreateObjectMapping: 0.142600 ms MarkObjects: 5.476100 ms  DeleteObjects: 0.031400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006000 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.47 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.142 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1143ms)
-		BeginReloadAssembly (145ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (30ms)
-		EndReloadAssembly (900ms)
-			LoadAssemblies (103ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (215ms)
-			ReleaseScriptCaches (12ms)
-			RebuildScriptCaches (63ms)
-			SetupLoadedEditorAssemblies (444ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (76ms)
-				ProcessInitializeOnLoadAttributes (231ms)
-				ProcessInitializeOnLoadMethodAttributes (117ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.97 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3370.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 10.601600 ms (FindLiveObjects: 0.410200 ms CreateObjectMapping: 0.258000 ms MarkObjects: 9.831900 ms  DeleteObjects: 0.100500 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.007467 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.66 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.097 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1097ms)
-		BeginReloadAssembly (138ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (28ms)
-		EndReloadAssembly (864ms)
-			LoadAssemblies (99ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (216ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (474ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (16ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (70ms)
-				ProcessInitializeOnLoadAttributes (235ms)
-				ProcessInitializeOnLoadMethodAttributes (139ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (14ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 36.01 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3373.
-Memory consumption went from 125.8 MB to 125.8 MB.
-Total: 10.181400 ms (FindLiveObjects: 0.482800 ms CreateObjectMapping: 0.168600 ms MarkObjects: 9.500400 ms  DeleteObjects: 0.028400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006282 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.36 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.172 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1173ms)
-		BeginReloadAssembly (165ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (48ms)
-		EndReloadAssembly (914ms)
-			LoadAssemblies (100ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (312ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (38ms)
-			SetupLoadedEditorAssemblies (433ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (70ms)
-				ProcessInitializeOnLoadAttributes (234ms)
-				ProcessInitializeOnLoadMethodAttributes (109ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.67 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2830 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3376.
-Memory consumption went from 125.9 MB to 125.8 MB.
-Total: 5.356000 ms (FindLiveObjects: 0.237500 ms CreateObjectMapping: 0.131700 ms MarkObjects: 4.955600 ms  DeleteObjects: 0.030200 ms)
+Unloading 2868 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 58 unused Assets / (58.1 KB). Loaded Objects now: 3343.
+Memory consumption went from 130.3 MB to 130.2 MB.
+Total: 4.699600 ms (FindLiveObjects: 0.212200 ms CreateObjectMapping: 0.146200 ms MarkObjects: 4.271100 ms  DeleteObjects: 0.069700 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -877,543 +170,451 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 2381.382050 seconds.
-  path: Assets/Scripts/UI/Handlers/AttributesSelectHandler.cs
-  artifactKey: Guid(32bb1c0f6a4f46940a7f621cce4d8580) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/AttributesSelectHandler.cs using Guid(32bb1c0f6a4f46940a7f621cce4d8580) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd61687a8df122326a4d9de5e67c4b5d1') in 0.007847 seconds 
+  Time since last request: 1221773.452917 seconds.
+  path: Assets/Scripts/UI/Controller/SoundButtonController.cs
+  artifactKey: Guid(32334f96e874f2a44a55149afaef3b3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/UI/Controller/SoundButtonController.cs using Guid(32334f96e874f2a44a55149afaef3b3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff8f9f43c25639a6441252453c34173d') in 0.031853 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.733598 seconds.
-  path: Assets/Scripts/UI/Handlers/AttributesHandler.cs
-  artifactKey: Guid(2b8767fd775199640848dc45c27422dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/AttributesHandler.cs using Guid(2b8767fd775199640848dc45c27422dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '952a622c66059ef1013b14ffc900966a') in 0.002929 seconds 
+  Time since last request: 0.000015 seconds.
+  path: Assets/Scripts/UI/Controller/TrainingButtonController.cs
+  artifactKey: Guid(713dcc39fb3aa114cb35ed17e76fb84b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/UI/Controller/TrainingButtonController.cs using Guid(713dcc39fb3aa114cb35ed17e76fb84b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e590dd2a10b62fbb3c2796fadc39037a') in 0.005123 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.415752 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler.cs
-  artifactKey: Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler.cs using Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae6305cd12d0934802b9ba2e6e3f3291') in 0.001755 seconds 
+  Time since last request: 763.857228 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl1/ArtilleryLvl1TankGameTracksLeft.fbx
+  artifactKey: Guid(baa8af57de56a7949b35778691ba78d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl1/ArtilleryLvl1TankGameTracksLeft.fbx using Guid(baa8af57de56a7949b35778691ba78d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7984bdecbb9983efd153dd0873a0e4e8') in 0.171331 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.992150 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler1.cs
-  artifactKey: Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler1.cs using Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4fc86af662fb2c636461b4ca7f3840d') in 0.001801 seconds 
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Yellow/FrigateFlakTurretYellow.prefab
+  artifactKey: Guid(119cb65ec4f321340a78ca042ad8acb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Yellow/FrigateFlakTurretYellow.prefab using Guid(119cb65ec4f321340a78ca042ad8acb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be1c7ae83bfd8dc5587801bc6975cb0e') in 0.077863 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 7.441488 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectAttributesHandler.cs
-  artifactKey: Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectAttributesHandler.cs using Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82a95f682788c72c3d18665ae7217b12') in 0.001899 seconds 
+  Time since last request: 0.000018 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Red/FrigateFlakTurretRed.prefab
+  artifactKey: Guid(a9a9f37e9cf37f949a1e0631434c167d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Red/FrigateFlakTurretRed.prefab using Guid(a9a9f37e9cf37f949a1e0631434c167d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8815c2f42d51b3274f0bf5eff966735') in 0.022469 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.733384 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs
-  artifactKey: Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs using Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa52f5de07522f405be162e11934c897') in 0.001971 seconds 
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/White/FrigateFlakTurretWhite.prefab
+  artifactKey: Guid(55bd94ad988e4204482af702f020a5d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/White/FrigateFlakTurretWhite.prefab using Guid(55bd94ad988e4204482af702f020a5d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2722b4bfd121282ad011ca8a2d70973b') in 0.021218 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.253189 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs
-  artifactKey: Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs using Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d4b80428e83c3e4ea644f58d14ac74c') in 0.001804 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005988 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 2.56 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.149 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1150ms)
-		BeginReloadAssembly (150ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (33ms)
-		EndReloadAssembly (904ms)
-			LoadAssemblies (107ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (208ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (39ms)
-			SetupLoadedEditorAssemblies (498ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (17ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (3ms)
-				BeforeProcessingInitializeOnLoad (102ms)
-				ProcessInitializeOnLoadAttributes (248ms)
-				ProcessInitializeOnLoadMethodAttributes (114ms)
-				AfterProcessingInitializeOnLoad (13ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.90 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3380.
-Memory consumption went from 125.9 MB to 125.9 MB.
-Total: 5.327200 ms (FindLiveObjects: 0.247700 ms CreateObjectMapping: 0.134800 ms MarkObjects: 4.909500 ms  DeleteObjects: 0.034200 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006033 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.68 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.165 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1166ms)
-		BeginReloadAssembly (165ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (30ms)
-		EndReloadAssembly (872ms)
-			LoadAssemblies (128ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (276ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (40ms)
-			SetupLoadedEditorAssemblies (415ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (64ms)
-				ProcessInitializeOnLoadAttributes (220ms)
-				ProcessInitializeOnLoadMethodAttributes (110ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.54 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3383.
-Memory consumption went from 125.9 MB to 125.9 MB.
-Total: 5.475300 ms (FindLiveObjects: 0.227400 ms CreateObjectMapping: 0.126700 ms MarkObjects: 5.088700 ms  DeleteObjects: 0.031500 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 0.000011 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Yellow/Engines/EngineRingAnimatedYellow.prefab
+  artifactKey: Guid(5f880c01fbd47f643ac3747aab0f7aa6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Yellow/Engines/EngineRingAnimatedYellow.prefab using Guid(5f880c01fbd47f643ac3747aab0f7aa6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08cfb8bf8f806591c2f74e10ef7b05b1') in 0.203634 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 28.371509 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs
-  artifactKey: Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs using Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b61667b47d7e9a80de65252e27a6e4f0') in 0.005239 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006502 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.47 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.226 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1226ms)
-		BeginReloadAssembly (147ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (31ms)
-		EndReloadAssembly (984ms)
-			LoadAssemblies (106ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (337ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (39ms)
-			SetupLoadedEditorAssemblies (459ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (68ms)
-				ProcessInitializeOnLoadAttributes (247ms)
-				ProcessInitializeOnLoadMethodAttributes (121ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.31 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3386.
-Memory consumption went from 125.9 MB to 125.9 MB.
-Total: 5.424900 ms (FindLiveObjects: 0.236400 ms CreateObjectMapping: 0.128600 ms MarkObjects: 5.027900 ms  DeleteObjects: 0.031100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 0.000021 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Blue/Engines/EngineRingAnimatedBlue.prefab
+  artifactKey: Guid(af76d678aed56e14aa24627b5ff92f97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Blue/Engines/EngineRingAnimatedBlue.prefab using Guid(af76d678aed56e14aa24627b5ff92f97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6217a041bdc08af78beb4c8a669e750a') in 0.078017 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 6.325360 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs
-  artifactKey: Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectAttributesMenuHandler.cs using Guid(fb2959871cf7a9542872a16d2359b577) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50dd5c7e77133cec21b1da8af4cc99e8') in 0.005228 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006342 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.38 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.137 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1138ms)
-		BeginReloadAssembly (143ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (32ms)
-		EndReloadAssembly (897ms)
-			LoadAssemblies (102ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (209ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (109ms)
-			SetupLoadedEditorAssemblies (424ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (68ms)
-				ProcessInitializeOnLoadAttributes (225ms)
-				ProcessInitializeOnLoadMethodAttributes (110ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 7.99 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3389.
-Memory consumption went from 125.9 MB to 125.9 MB.
-Total: 5.570800 ms (FindLiveObjects: 0.263200 ms CreateObjectMapping: 0.177900 ms MarkObjects: 5.095900 ms  DeleteObjects: 0.033100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006184 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.58 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.334 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1335ms)
-		BeginReloadAssembly (148ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (32ms)
-		EndReloadAssembly (1093ms)
-			LoadAssemblies (105ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (210ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (51ms)
-			SetupLoadedEditorAssemblies (671ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (76ms)
-				ProcessInitializeOnLoadAttributes (460ms)
-				ProcessInitializeOnLoadMethodAttributes (113ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.73 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3392.
-Memory consumption went from 125.9 MB to 125.9 MB.
-Total: 5.209000 ms (FindLiveObjects: 0.234300 ms CreateObjectMapping: 0.129000 ms MarkObjects: 4.813600 ms  DeleteObjects: 0.031100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 0.000024 seconds.
+  path: Assets/Enemies/Models/Boss1_TurretBarrel2.fbx
+  artifactKey: Guid(5519af1c76919ff4fb0a17b1d069cb52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemies/Models/Boss1_TurretBarrel2.fbx using Guid(5519af1c76919ff4fb0a17b1d069cb52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98cfb4b8e7b01b3a8440b15a987e42f9') in 0.019923 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 426.649381 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler.cs
-  artifactKey: Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler.cs using Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e1586bad6c75d8759d01be69d8feb95') in 0.006102 seconds 
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Blue/FrigateFlakTurretBlue.prefab
+  artifactKey: Guid(db283c7403893294db3520e1cd2b797a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Blue/FrigateFlakTurretBlue.prefab using Guid(db283c7403893294db3520e1cd2b797a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bbfd4e7c3a088e554eb93f3f1ba4e65') in 0.022439 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 5.055989 seconds.
-  path: Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler.cs
-  artifactKey: Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/SelectDifficultyMenuHandler.cs using Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d1407e892d5918dfaba7f49066a5289') in 0.001564 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005983 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.55 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.082 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1083ms)
-		BeginReloadAssembly (145ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (31ms)
-		EndReloadAssembly (843ms)
-			LoadAssemblies (108ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (205ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (42ms)
-			SetupLoadedEditorAssemblies (452ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (68ms)
-				ProcessInitializeOnLoadAttributes (243ms)
-				ProcessInitializeOnLoadMethodAttributes (119ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.82 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3395.
-Memory consumption went from 125.9 MB to 125.9 MB.
-Total: 5.404600 ms (FindLiveObjects: 0.252000 ms CreateObjectMapping: 0.130800 ms MarkObjects: 4.989800 ms  DeleteObjects: 0.031100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 0.000017 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Yellow/Engines/EngineRingAnimatedYellow.prefab
+  artifactKey: Guid(f9f1a9bebac97e9418e950bfca5d42af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Yellow/Engines/EngineRingAnimatedYellow.prefab using Guid(f9f1a9bebac97e9418e950bfca5d42af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '277c40897e323a7dfa5435442d93786d') in 0.050094 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 8.088078 seconds.
-  path: Assets/Scripts/UI/Handlers/DifficultyMenuHandler.cs
-  artifactKey: Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/DifficultyMenuHandler.cs using Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '584cf2e29bb2ad75d6be804ac1a32264') in 0.005254 seconds 
+  Time since last request: 0.000019 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl2/ArtilleryLvl2TankGameTracksRight.fbx
+  artifactKey: Guid(1e01a80931038c445bb68c38c76aeb53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl2/ArtilleryLvl2TankGameTracksRight.fbx using Guid(1e01a80931038c445bb68c38c76aeb53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fa346e76302f4fcbe1abd56700c5dd8') in 0.022100 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.101128 seconds.
-  path: Assets/Scripts/UI/Handlers/DifficultyMenuHandler.cs
-  artifactKey: Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Handlers/DifficultyMenuHandler.cs using Guid(78461b1d41690864c8ac656328fbc411) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2dcd35203a6eae6b501e79d61b62cbf') in 0.001731 seconds 
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBody.fbx
+  artifactKey: Guid(c276544236a8bc94b86781fdee70ace7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBody.fbx using Guid(c276544236a8bc94b86781fdee70ace7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '812ea170086c1fe6f18384ab56a8029d') in 0.025490 seconds 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006073 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.37 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.165 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1166ms)
-		BeginReloadAssembly (151ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (31ms)
-		EndReloadAssembly (909ms)
-			LoadAssemblies (111ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (188ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (37ms)
-			SetupLoadedEditorAssemblies (550ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (63ms)
-				ProcessInitializeOnLoadAttributes (337ms)
-				ProcessInitializeOnLoadMethodAttributes (129ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.95 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.8 KB). Loaded Objects now: 3398.
-Memory consumption went from 126.0 MB to 126.0 MB.
-Total: 5.316300 ms (FindLiveObjects: 0.261800 ms CreateObjectMapping: 0.138700 ms MarkObjects: 4.883500 ms  DeleteObjects: 0.030900 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl2/HeavyTankLvl2TankGameTracksRight.fbx
+  artifactKey: Guid(e195d7561b20d1444b1e352b2eccda60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl2/HeavyTankLvl2TankGameTracksRight.fbx using Guid(e195d7561b20d1444b1e352b2eccda60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62845ed374fb7dad6a605dc2908749fd') in 0.021137 seconds 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006734 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.39 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.347 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1348ms)
-		BeginReloadAssembly (147ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (31ms)
-		EndReloadAssembly (1106ms)
-			LoadAssemblies (111ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (455ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (57ms)
-			SetupLoadedEditorAssemblies (424ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (68ms)
-				ProcessInitializeOnLoadAttributes (224ms)
-				ProcessInitializeOnLoadMethodAttributes (113ms)
-				AfterProcessingInitializeOnLoad (10ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
-Platform modules already initialized, skipping
-Shader 'WFX/Transparent Specular': fallback shader 'Particles/Alpha Blended' not found
-Shader 'WFX/Transparent Diffuse': fallback shader 'Particles/Alpha Blended' not found
-Refreshing native plugins compatible for Editor in 6.62 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2831 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 45 unused Assets / (25.9 KB). Loaded Objects now: 3401.
-Memory consumption went from 126.0 MB to 126.0 MB.
-Total: 5.500400 ms (FindLiveObjects: 0.251900 ms CreateObjectMapping: 0.128400 ms MarkObjects: 5.083900 ms  DeleteObjects: 0.034900 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl2/MissileLauncherLvl2TankGameTracksRight.fbx
+  artifactKey: Guid(113bdf101d6fd8141a9c8ebe8cb9c21b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl2/MissileLauncherLvl2TankGameTracksRight.fbx using Guid(113bdf101d6fd8141a9c8ebe8cb9c21b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd554ab939b7db8e32400371983390a22') in 0.022361 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl1/HeavyTankLvl1TankGameTracksLeft.fbx
+  artifactKey: Guid(086418f9a8acf744ab833b00982d4add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl1/HeavyTankLvl1TankGameTracksLeft.fbx using Guid(086418f9a8acf744ab833b00982d4add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ee95ae4a41a98c0467037294d4929a9') in 0.023046 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl2/MissileLauncherLvl2TankGameTracksLeft.fbx
+  artifactKey: Guid(c59430f10761d224bb95c8a43fac6fe6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl2/MissileLauncherLvl2TankGameTracksLeft.fbx using Guid(c59430f10761d224bb95c8a43fac6fe6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2d560de303c26db986e946981ff8dd0') in 0.018527 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Grey/FrigateFlakTurretGrey.prefab
+  artifactKey: Guid(4ec0d5c0583deb442b734757df4512e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Grey/FrigateFlakTurretGrey.prefab using Guid(4ec0d5c0583deb442b734757df4512e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '163f0e90d2b0a884cdff353c69601c27') in 0.013844 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Green/FrigateHeavyTurretGreen.prefab
+  artifactKey: Guid(b5fd4becdd8f5cb4581aeacf7bd556d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Green/FrigateHeavyTurretGreen.prefab using Guid(b5fd4becdd8f5cb4581aeacf7bd556d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd705204bc4aa6bdd78634fcc4fdc106e') in 0.045358 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl3/MobileFlakLvl3TankGameTracksLeft.fbx
+  artifactKey: Guid(729a6e3ecc9a7eb42b341fd92c6d672d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl3/MobileFlakLvl3TankGameTracksLeft.fbx using Guid(729a6e3ecc9a7eb42b341fd92c6d672d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '648e655e0774dd589d37bca51e7cd5a9') in 0.021063 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBarrelAnimated2.fbx
+  artifactKey: Guid(cea208ae4290063439fe014be6636543) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBarrelAnimated2.fbx using Guid(cea208ae4290063439fe014be6636543) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3eafc582e36e1956788b9ac6190487bf') in 0.014785 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl1/MobileFlakLvl1TankGameTracksLeft.fbx
+  artifactKey: Guid(2539d08c79e688a4ea2d1bad5be676a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl1/MobileFlakLvl1TankGameTracksLeft.fbx using Guid(2539d08c79e688a4ea2d1bad5be676a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00a83bccc31bf551c8a723ded6f2ef8a') in 0.021439 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Green/Engines/EngineRingAnimatedGreen.prefab
+  artifactKey: Guid(1d4a70c111baa084e82028d6e414f180) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Green/Engines/EngineRingAnimatedGreen.prefab using Guid(1d4a70c111baa084e82028d6e414f180) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9d711eb514efc991bfe9b919d781ea2') in 0.066740 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/White/Engines/EngineRingAnimatedWhite.prefab
+  artifactKey: Guid(b5ddd7799aaf4e843bbe2b41dbcb34ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/White/Engines/EngineRingAnimatedWhite.prefab using Guid(b5ddd7799aaf4e843bbe2b41dbcb34ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd998b2171dcb4662dcdd4b94bde4dfe2') in 0.072327 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl2/MobileFlakLvl2TankGameTracksRight.fbx
+  artifactKey: Guid(40c4c9e031d597a4389e44479b4075a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl2/MobileFlakLvl2TankGameTracksRight.fbx using Guid(40c4c9e031d597a4389e44479b4075a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2615949a7279758cafd0cb846d6b5a36') in 0.021996 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Red/Engines/EngineRingAnimatedRed.prefab
+  artifactKey: Guid(5f86b8f376ee4e941b98468c87122c59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Red/Engines/EngineRingAnimatedRed.prefab using Guid(5f86b8f376ee4e941b98468c87122c59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7517aa91aa0cedae482219fef209f40') in 0.082329 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Enemies/Models/Boss1_TurretBarrel1.fbx
+  artifactKey: Guid(e68185a94cb71c2419743e1ee82cf8a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemies/Models/Boss1_TurretBarrel1.fbx using Guid(e68185a94cb71c2419743e1ee82cf8a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79f51ffdf87102e021b665c95f7410a1') in 0.016799 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Enemies/Models/FrigateHeavyTurretBody.fbx
+  artifactKey: Guid(45e89eef0e73cfa4f9bc45deb7c387b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemies/Models/FrigateHeavyTurretBody.fbx using Guid(45e89eef0e73cfa4f9bc45deb7c387b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcbea3479e2f46877cd735782f17542d') in 0.015184 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBody.fbx
+  artifactKey: Guid(656a5abd1837e52438d39db15c1e6736) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBody.fbx using Guid(656a5abd1837e52438d39db15c1e6736) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3dc589d678eef74625c7e57eed011601') in 0.012372 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/White/FrigateFlakTurretWhite.prefab
+  artifactKey: Guid(7ee7a365a08561e42a4f940e55277696) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/White/FrigateFlakTurretWhite.prefab using Guid(7ee7a365a08561e42a4f940e55277696) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60cffc1d8630032975c7a1d85206b1e4') in 0.008878 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBarrelStatic.fbx
+  artifactKey: Guid(496d6f7ea8842ec4aa4147a6450bc8d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBarrelStatic.fbx using Guid(496d6f7ea8842ec4aa4147a6450bc8d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eead3b0c6429578ca9cfc470000e4b17') in 0.013364 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/LandFortress/LandFortressTankGameTracksRight.fbx
+  artifactKey: Guid(3bdc9438ec77b294391f177aecbd25ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/LandFortress/LandFortressTankGameTracksRight.fbx using Guid(3bdc9438ec77b294391f177aecbd25ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4099be025c54e091da8d6afdd1ab25e3') in 0.020837 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Green/Engines/EngineRingAnimatedGreen.prefab
+  artifactKey: Guid(4ffcfef79dee8b04e830f67c62eeb08d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Green/Engines/EngineRingAnimatedGreen.prefab using Guid(4ffcfef79dee8b04e830f67c62eeb08d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbb6be1007fb174f69effe733b14ece4') in 0.050305 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBarrelAnimated1.fbx
+  artifactKey: Guid(cc8820fe85cd486478ff806f8843cb8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBarrelAnimated1.fbx using Guid(cc8820fe85cd486478ff806f8843cb8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e5c70c1d38ff90a2f13b5219052eafb') in 0.013960 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Green/FrigateFlakTurretGreen.prefab
+  artifactKey: Guid(d9d072c3c22e9a34887378276a5c4a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Green/FrigateFlakTurretGreen.prefab using Guid(d9d072c3c22e9a34887378276a5c4a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd215f9dfed83c00f36012651fede6ef') in 0.012777 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBarrelStatic.fbx
+  artifactKey: Guid(8a47887e10848544c845bfc0db39a9b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateHeavyTurretBarrelStatic.fbx using Guid(8a47887e10848544c845bfc0db39a9b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '463c40441ba2baf9dd5ccf406d1da005') in 0.013912 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl3/MissileLauncherLvl3TankGameTracksLeft.fbx
+  artifactKey: Guid(e6b614a949ee83e468282f0875c1397c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl3/MissileLauncherLvl3TankGameTracksLeft.fbx using Guid(e6b614a949ee83e468282f0875c1397c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b303a7e9ce4af25db7b293f9aa4a5337') in 0.024675 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl3/MissileLauncherLvl3TankGameTracksRight.fbx
+  artifactKey: Guid(1b99617c704c05046b06c33761dda49f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl3/MissileLauncherLvl3TankGameTracksRight.fbx using Guid(1b99617c704c05046b06c33761dda49f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6854e7e67214f27496f0c3744a6989b') in 0.016261 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Enemies/Models/Boss1_Turret1Body.fbx
+  artifactKey: Guid(f02896af53ddc7d47985af4bb256e48c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemies/Models/Boss1_Turret1Body.fbx using Guid(f02896af53ddc7d47985af4bb256e48c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68b907446f9ee7a8bd9d82c3c7e86f40') in 0.015879 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl3/MediumTankLvl3TankGameTracksLeft.fbx
+  artifactKey: Guid(c806f93dfd29d0a4aa401baa6b4f31d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl3/MediumTankLvl3TankGameTracksLeft.fbx using Guid(c806f93dfd29d0a4aa401baa6b4f31d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bfa200e1b2bd782e05abdca59073266') in 0.021289 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl1/MissileLauncherLvl1TankGameTracksRight.fbx
+  artifactKey: Guid(3c36f1b273223c74cbd434c2c1f6e836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl1/MissileLauncherLvl1TankGameTracksRight.fbx using Guid(3c36f1b273223c74cbd434c2c1f6e836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4ac4720742495031592222da86210cb') in 0.021281 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Blue/FrigateHeavyTurretBlue.prefab
+  artifactKey: Guid(399e4cd176919ec45975327197f1574b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Blue/FrigateHeavyTurretBlue.prefab using Guid(399e4cd176919ec45975327197f1574b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e014ddc2f8ad76d3d79dd428ef3e2a13') in 0.012246 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl3/ArtilleryLvl3TankGameTracksRight.fbx
+  artifactKey: Guid(e2f8f20762b7b0a4596290217d8a12e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl3/ArtilleryLvl3TankGameTracksRight.fbx using Guid(e2f8f20762b7b0a4596290217d8a12e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '925703d8c6dd58c777ea7e256d723a5b') in 0.021057 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBarrelAnimated2.fbx
+  artifactKey: Guid(2e90d90044c100a4e913aae08cf5b841) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBarrelAnimated2.fbx using Guid(2e90d90044c100a4e913aae08cf5b841) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b719fe485ccafae7dfa3b73e8a5016a') in 0.013085 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl1/MediumTankLvl1TankGameTracksRight.fbx
+  artifactKey: Guid(15e225df0eae0c74da29f887b00a4d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl1/MediumTankLvl1TankGameTracksRight.fbx using Guid(15e225df0eae0c74da29f887b00a4d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79f73031316d8aeb39a2269d51e8396b') in 0.020570 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl1/HeavyTankLvl1TankGameTracksRight.fbx
+  artifactKey: Guid(9da36e423fbf92e4b9a7a0b3963dc026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl1/HeavyTankLvl1TankGameTracksRight.fbx using Guid(9da36e423fbf92e4b9a7a0b3963dc026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4004a06768231fab6698283e32009fe') in 0.016194 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Grey/Engines/EngineRingAnimatedGrey.prefab
+  artifactKey: Guid(7062e30a847dbc8408309896aa42a597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Grey/Engines/EngineRingAnimatedGrey.prefab using Guid(7062e30a847dbc8408309896aa42a597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc22dd0f4db170a78b290299ed1d942f') in 0.074816 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/LandFortress/LandFortressTankGameTracksLeft.fbx
+  artifactKey: Guid(54a5b06c3019fc74fb975014b82b4c7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/LandFortress/LandFortressTankGameTracksLeft.fbx using Guid(54a5b06c3019fc74fb975014b82b4c7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd94d7c1d982ba917b02174e00827b6e9') in 0.017292 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl2/MediumTankLvl2TankGameTracksLeft.fbx
+  artifactKey: Guid(a7aec6ab12d35c149841c12d02750f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl2/MediumTankLvl2TankGameTracksLeft.fbx using Guid(a7aec6ab12d35c149841c12d02750f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d2479a67a3777a1fdc858bad180ad5f') in 0.020025 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl2/MediumTankLvl2TankGameTracksRight.fbx
+  artifactKey: Guid(8fda2160136e788408357d8fea777e3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl2/MediumTankLvl2TankGameTracksRight.fbx using Guid(8fda2160136e788408357d8fea777e3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4c36ba630c32a21fb2dbaee40181bc4') in 0.015484 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Blue/Engines/EngineRingAnimatedBlue.prefab
+  artifactKey: Guid(63d322312fd156b449768230335da723) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Blue/Engines/EngineRingAnimatedBlue.prefab using Guid(63d322312fd156b449768230335da723) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b6ee46d29e7d93afbe811a60891733f') in 0.050728 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Grey/FrigateFlakTurretGrey.prefab
+  artifactKey: Guid(869f8279056db6b4588367ce3fb28051) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Grey/FrigateFlakTurretGrey.prefab using Guid(869f8279056db6b4588367ce3fb28051) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd909c8d8a874ff274aa79b11ad5b506b') in 0.009159 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Grey/Engines/EngineRingAnimatedGrey.prefab
+  artifactKey: Guid(26e6f14d3097a7f48bdbe2eb497c9ba5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/FighterCorvetteConstructionKit/FighterCorvetteConstructionKit/Grey/Engines/EngineRingAnimatedGrey.prefab using Guid(26e6f14d3097a7f48bdbe2eb497c9ba5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '509cf609668c3b79cd129aee6a51a94b') in 0.051358 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Green/FrigateFlakTurretGreen.prefab
+  artifactKey: Guid(6b7481d010c8bff41a1ea0cdbf8f6d01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Green/FrigateFlakTurretGreen.prefab using Guid(6b7481d010c8bff41a1ea0cdbf8f6d01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db0412fef0003ad2c265cb75bfb6e9f8') in 0.009210 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl1/ArtilleryLvl1TankGameTracksRight.fbx
+  artifactKey: Guid(23fa3bc9959fdea4a9f1e2f61311c5a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl1/ArtilleryLvl1TankGameTracksRight.fbx using Guid(23fa3bc9959fdea4a9f1e2f61311c5a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e3854b37752a5efae95699d4d208b28') in 0.016120 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl2/HeavyTankLvl2TankGameTracksLeft.fbx
+  artifactKey: Guid(3bc99975b4a76e9459694ed06b124172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/HeavyTankLvl2/HeavyTankLvl2TankGameTracksLeft.fbx using Guid(3bc99975b4a76e9459694ed06b124172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0ec546ffc7f3fb09781ac74c637bc50') in 0.016428 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Yellow/FrigateFlakTurretYellow.prefab
+  artifactKey: Guid(efc9356091eaa76468275c1eed9e994f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Yellow/FrigateFlakTurretYellow.prefab using Guid(efc9356091eaa76468275c1eed9e994f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47e1d9a79c4fde4c68bc70bc476ec59c') in 0.009162 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Green/FrigateHeavyTurretGreen.prefab
+  artifactKey: Guid(de1cf629ec50af949aae473230662fba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Green/FrigateHeavyTurretGreen.prefab using Guid(de1cf629ec50af949aae473230662fba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7940809a1bd9f5d3083175a5ab5ca366') in 0.009246 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl1/MediumTankLvl1TankGameTracksLeft.fbx
+  artifactKey: Guid(5fcc22e74acb2a94b99cb491a713e820) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl1/MediumTankLvl1TankGameTracksLeft.fbx using Guid(5fcc22e74acb2a94b99cb491a713e820) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29d6a5ff2d23898ac523fb0ecbfe255a') in 0.018908 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl2/MobileFlakLvl2TankGameTracksLeft.fbx
+  artifactKey: Guid(606eb8ec8511f374da2db977c22ea913) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl2/MobileFlakLvl2TankGameTracksLeft.fbx using Guid(606eb8ec8511f374da2db977c22ea913) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f49bd609e9a3f670d53cee7803018ffe') in 0.017673 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl2/ArtilleryLvl2TankGameTracksLeft.fbx
+  artifactKey: Guid(084065fce22975340905ddb3f0451cc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl2/ArtilleryLvl2TankGameTracksLeft.fbx using Guid(084065fce22975340905ddb3f0451cc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '853bbea3510612d4faa3f158b01755be') in 0.017008 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Red/Engines/EngineRingAnimatedRed.prefab
+  artifactKey: Guid(27b17b363c1bca64d9f2b40cbde3d6e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/FighterCorvetteConstructionKit/Red/Engines/EngineRingAnimatedRed.prefab using Guid(27b17b363c1bca64d9f2b40cbde3d6e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10c387cd38c1256c4021a338306f2484') in 0.051020 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Grey/FrigateHeavyTurretGrey.prefab
+  artifactKey: Guid(f0e056f511980b741af763e141c68d33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Grey/FrigateHeavyTurretGrey.prefab using Guid(f0e056f511980b741af763e141c68d33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c49161f14098096323143251bc6d7da') in 0.011648 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBarrelAnimated1.fbx
+  artifactKey: Guid(4a5cb2892670cec429e21325c6d7f85b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/FBX/LettowVorbeckClassFrigates/LVFrigateEquipment/FrigateFlakTurretBarrelAnimated1.fbx using Guid(4a5cb2892670cec429e21325c6d7f85b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b17d29e39722717fed2059f927b27c71') in 0.012814 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl1/MissileLauncherLvl1TankGameTracksLeft.fbx
+  artifactKey: Guid(5ba4981416d104e4fb4359a06b14b244) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/MissileLauncherLvl1/MissileLauncherLvl1TankGameTracksLeft.fbx using Guid(5ba4981416d104e4fb4359a06b14b244) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6a906ed45ac1dc4e591e059a0800bb3') in 0.016002 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Blue/FrigateFlakTurretBlue.prefab
+  artifactKey: Guid(f8c691ddead63c144915d2578c8f27ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Blue/FrigateFlakTurretBlue.prefab using Guid(f8c691ddead63c144915d2578c8f27ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79a6d8671f187c54872329140b0b9744') in 0.012628 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Red/FrigateFlakTurretRed.prefab
+  artifactKey: Guid(e7b76ae6c66312b4ab0993a5179d011c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/Prefabs/LettowVorbeckClassFrigates/LVFrigateEquipment/Red/FrigateFlakTurretRed.prefab using Guid(e7b76ae6c66312b4ab0993a5179d011c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35255a09c3b34d0ec1ce5d14b90ac6a3') in 0.012015 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl3/MobileFlakLvl3TankGameTracksRight.fbx
+  artifactKey: Guid(d6f8088f6ffbe32458ed6a92ba288551) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl3/MobileFlakLvl3TankGameTracksRight.fbx using Guid(d6f8088f6ffbe32458ed6a92ba288551) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ca754f70ab8fbbbe4cb06f7b6b34c14') in 0.015934 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Blue/FrigateHeavyTurretBlue.prefab
+  artifactKey: Guid(3528119bd0ab0c04b808b06b3bfe2aa3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/SpaceshipsFleetIIIMegaPackI/PrefabsUnityDimensions/Equipments/LVFrigateEquipment/Blue/FrigateHeavyTurretBlue.prefab using Guid(3528119bd0ab0c04b808b06b3bfe2aa3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a56b784b7099cbdc0196816bfc13e065') in 0.009183 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl3/MediumTankLvl3TankGameTracksRight.fbx
+  artifactKey: Guid(6ea5995558dc1e24b9a0fec73166b0ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Tanks/MediumTankLvl3/MediumTankLvl3TankGameTracksRight.fbx using Guid(6ea5995558dc1e24b9a0fec73166b0ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90677480abbabde5682af48d42c0617e') in 0.016220 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl3/ArtilleryLvl3TankGameTracksLeft.fbx
+  artifactKey: Guid(ccbfb3fe8c8357249bb1111504587d67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Artillery + Missile Launchers/ArtilleryLvl3/ArtilleryLvl3TankGameTracksLeft.fbx using Guid(ccbfb3fe8c8357249bb1111504587d67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f50a9c5a99ad11238f9d34bb77874f60') in 0.015441 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl1/MobileFlakLvl1TankGameTracksRight.fbx
+  artifactKey: Guid(f931cb5f2696f41418b448f58d33bb4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Asset Stores/ScifiRTSSeriesMegaPackII/FBX/Flak+Scouts/MobileFlakLvl1/MobileFlakLvl1TankGameTracksRight.fbx using Guid(f931cb5f2696f41418b448f58d33bb4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ae69b6e08bc14877cc6836f664c785c') in 0.016485 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 44.385722 seconds.
+  path: Assets/Scripts/Utility/GameSetting.cs
+  artifactKey: Guid(1f8f02fb3499aea43bc7467e3e9d8cae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Utility/GameSetting.cs using Guid(1f8f02fb3499aea43bc7467e3e9d8cae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '131ae5ddbe6d584f54f0c1262473bae4') in 0.006832 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 96.158631 seconds.
+  path: Assets/Scripts/Utility/Utility.cs
+  artifactKey: Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Utility/Utility.cs using Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2975aa7eab5577a2300c086bb1892a3b') in 0.005352 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 417.122979 seconds.
+  path: Assets/Scripts/Utility/Utility.cs
+  artifactKey: Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Utility/Utility.cs using Guid(37c8c57bdb2c1e347bc33859b46c5603) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9011b86a5ba0f6bd09151d24ae17994') in 0.001943 seconds 

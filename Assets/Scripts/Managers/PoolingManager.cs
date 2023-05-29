@@ -44,7 +44,7 @@ public class PoolingManager : MonoBehaviour
 
     void Start()
     {
-        //m_Module = m_GameManager.m_CurrentAttributes.m_Module; // 모듈 종류
+        //m_Module = m_GameManager.m_CurrentAttributes.GetAttributes(AttributeType.Module); // 모듈 종류
 
         m_ObjectPoolDictionary.Add("PlayerShot", new PooledObject(m_PooledPrefabs[0], 30, transform.GetChild(PoolingParent.PLAYER_MISSILE)));
 

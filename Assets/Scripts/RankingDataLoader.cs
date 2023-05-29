@@ -69,7 +69,7 @@ public class RankingDataLoader : MonoBehaviour
                 try {
                     string id = br.ReadString();
                     long score = br.ReadInt64();
-                    ShipAttributes shipAttributes = new ShipAttributes(br.ReadInt32());
+                    ShipAttributes shipAttributes = new ShipAttributes(br.ReadString());
                     int miss = br.ReadInt32();
                     long date = br.ReadInt64();
 

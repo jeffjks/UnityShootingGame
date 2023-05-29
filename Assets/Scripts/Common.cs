@@ -126,13 +126,13 @@ public enum UnitMovementType {
 }
 
 
-[System.Serializable]
+[Serializable]
 public abstract class UnitMovement {
     public int delay;
     public int duration;
 }
 
-[System.Serializable]
+[Serializable]
 public class MovePattern : UnitMovement
 {
     public bool keepSpeed;
@@ -170,7 +170,7 @@ public class MovePattern : UnitMovement
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class MoveTarget : UnitMovement
 {
     public Vector2 targetVector2;
@@ -196,6 +196,19 @@ public class TweenData
         this.unitMovement = unitMovement;
         this.easeType = easeType;
     }
+}
+
+[Serializable]
+public struct DetailsWindowElement
+{
+    public Sprite sprite;
+    public int cost;
+    public string name;
+    public string nativeName;
+    [TextArea(4, 6)]
+    public string description;
+    [TextArea(4, 6)]
+    public string nativeDescription;
 }
 
 /*
@@ -436,7 +449,7 @@ public class Coroutine {
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct ExplosionData {
     public Effect effect;
     public Coroutine coroutine;
@@ -449,7 +462,7 @@ public struct ExplosionData {
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct PairInt {
     public int value1, value2;
 
@@ -477,7 +490,7 @@ public struct PairInt {
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct PairFloat {
     public float value1, value2;
 
@@ -540,19 +553,19 @@ public struct LocalRankingData {
     }
 
     public void Print() {
-        int attributesCode = shipAttributes.GetAttributesCode();
+        string attributesCode = shipAttributes.GetAttributesCode();
         Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct EnemyUnitPrefab
 {
     public string enemyName;
     public GameObject prefab;
 }
 
-[System.Serializable]
+[Serializable]
 public struct MusicInfo
 {
     public string musicName;
@@ -561,14 +574,14 @@ public struct MusicInfo
     public float loopEndPoint;
 }
 
-[System.Serializable]
+[Serializable]
 public struct SoundInfo
 {
     public string soundName;
     public AudioClip soundAudio;
 }
 
-[System.Serializable]
+[Serializable]
 public struct SoundExplosionInfo
 {
     public ExplAudioType explosionAudioType;

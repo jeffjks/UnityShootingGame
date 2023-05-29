@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07b3d402af00944785e1a33751be6d1, type: 3}
+  m_Name: SO AttributesDetailsWindow Color
+  m_EditorClassIdentifier: 
+  AttributeKey: Color
+  AttributeName: Color
+  NativeAttributeName: "\uB3C4\uC0C9"
+  DetailsWindowElements:
+  - sprite: {fileID: 21300000, guid: a1d2d306ad140a84bb4c785aff09fc8f, type: 3}
+    cost: 0
+    name: Red
+    nativeName: "\uB808\uB4DC"
+    description: Paint the aircraft in red.
+    nativeDescription: "\uAE30\uCCB4\uB97C \uBD89\uC740\uC0C9\uC73C\uB85C \uB3C4\uC0C9\uD569\uB2C8\uB2E4."
+  - sprite: {fileID: 21300000, guid: 84b3ebaec0a9aea43a175370a8d472ec, type: 3}
+    cost: 0
+    name: Blue
+    nativeName: "\uBE14\uB8E8"
+    description: Paint the aircraft in blue.
+    nativeDescription: "\uAE30\uCCB4\uB97C \uD478\uB978\uC0C9\uC73C\uB85C \uB3C4\uC0C9\uD569\uB2C8\uB2E4."
+  - sprite: {fileID: 21300000, guid: 82278c685879598419192e1782d6e203, type: 3}
+    cost: 0
+    name: White
+    nativeName: "\uD654\uC774\uD2B8"
+    description: Paint the aircraft in white.
+    nativeDescription: "\uAE30\uCCB4\uB97C \uD558\uC580\uC0C9\uC73C\uB85C \uB3C4\uC0C9\uD569\uB2C8\uB2E4."

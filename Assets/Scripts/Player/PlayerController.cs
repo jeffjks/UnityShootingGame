@@ -39,7 +39,7 @@ public class PlayerController : PlayerUnit
         m_MoveVector.direction = 180f;
         transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward); // Vector3.forward
 
-        switch(m_PlayerManager.m_CurrentAttributes.m_Speed) {
+        switch(m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Speed)) {
             case 0:
                 m_SpeedIntDefault = 26; // 6f * 256;
                 m_SpeedIntSlow = 17; // 4f * 256;

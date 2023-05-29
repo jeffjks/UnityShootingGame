@@ -31,7 +31,7 @@ public class PlayerPreview2 : PlayerPreviewManager
         
         // Color
         for (int i = 0; i < 3; i++) {
-            if (m_PlayerManager.m_CurrentAttributes.m_Color == i)
+            if (m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Color) == i)
                 for (int j = 0; j < max_meshRenderer; j++) {
                 meshRenderer[j].material = playerColors.m_Materials[i];
             }

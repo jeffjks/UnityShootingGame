@@ -26,19 +26,48 @@ public abstract class MenuHandler : MonoBehaviour
 
     public virtual void Apply()
     {
-        ReturnPreviousMenu();
+        if (_previousMenuStack.Count == 0)
+        {
+            return;
+        }
+        ReturnToPreviousMenu();
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
     }
 
     public virtual void Back()
     {
-        ReturnPreviousMenu();
+        if (_previousMenuStack.Count == 0)
+        {
+            return;
+        }
+        ReturnToPreviousMenu();
         AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
     }
 
-    private void ReturnPreviousMenu()
+    protected void BackToMainMenu()
+    {
+        if (_previousMenuStack.Count == 0)
+        {
+            return;
+        }
+        while (_previousMenuStack.Count > 1)
+        {
+            _previousMenuStack.Pop();
+        }
+        var previousMenu = _previousMenuStack.Peek();
+        previousMenu.SetActive(true);
+        _previousMenuStack.Pop();
+
+        SaveLastSelection();
+        FindNextSelection(previousMenu);
+        
+        AudioService.PlaySound("CancelUI");
+        gameObject.SetActive(false);
+    }
+
+    private void ReturnToPreviousMenu()
     {
         if (_previousMenuStack.Count == 0)
         {

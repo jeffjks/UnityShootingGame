@@ -49,12 +49,12 @@ public class TrainingDifficultyButtonController : MonoBehaviour, IMoveHandler
         try
         {
             int index = (int) SystemManager.Difficulty;
-            _textUI.text = _textContainer[GameSetting.m_Language][index];
+            _textUI.SetText(_textContainer[GameSetting.m_Language][index]);
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            _textUI.text = "Unknown";
+            _textUI.SetText("Unknown");
         }
     }
 }

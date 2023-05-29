@@ -49,7 +49,7 @@ public class ResolutionButtonController : MonoBehaviour, IMoveHandler
         catch (Exception e)
         {
             Debug.LogError(e);
-            _textUI.text = "Unknown";
+            _textUI.SetText("Unknown");
         }
     }
 }

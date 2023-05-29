@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07b3d402af00944785e1a33751be6d1, type: 3}
+  m_Name: SO AttributesDetailsWindow Bomb
+  m_EditorClassIdentifier: 
+  AttributeType: 5
+  AttributeName: Maximum Bombs
+  NativeAttributeName: "\uCD5C\uB300 \uD3ED\uD0C4 \uAC1C\uC218"
+  DetailsWindowElements:
+  - sprite: {fileID: 21300000, guid: cb1853e4d8595094da95aa7d66950135, type: 3}
+    cost: 0
+    name: Maximum Bombs 2
+    nativeName: "\uCD5C\uB300 \uD3ED\uD0C4 \uAC1C\uC218 2"
+    description: You can hold up to a maximum of 2 bombs.
+    nativeDescription: "\uD3ED\uD0C4\uC744 \uCD5C\uB300 2\uAC1C\uAE4C\uC9C0 \uBCF4\uC720\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  - sprite: {fileID: 21300000, guid: cb1853e4d8595094da95aa7d66950135, type: 3}
+    cost: 100
+    name: Maximum Bombs 3
+    nativeName: "\uCD5C\uB300 \uD3ED\uD0C4 \uAC1C\uC218 3"
+    description: You can hold up to a maximum of 3 bombs.
+    nativeDescription: "\uD3ED\uD0C4\uC744 \uCD5C\uB300 3\uAC1C\uAE4C\uC9C0 \uBCF4\uC720\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4."

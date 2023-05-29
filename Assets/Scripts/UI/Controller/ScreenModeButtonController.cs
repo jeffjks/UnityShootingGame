@@ -49,12 +49,12 @@ public class ScreenModeButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.text = _textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsScreenMode];
+            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsScreenMode]);
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            _textUI.text = "Unknown";
+            _textUI.SetText("Unknown");
         }
     }
 }

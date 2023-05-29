@@ -49,12 +49,12 @@ public class LanguageButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.text = _textContainer[GameSetting.m_Language][(int) GameSetting.m_Language];
+            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) GameSetting.m_Language]);
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            _textUI.text = "Unknown";
+            _textUI.SetText("Unknown");
         }
     }
 }

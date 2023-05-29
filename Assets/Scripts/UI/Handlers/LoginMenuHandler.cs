@@ -16,7 +16,7 @@ public class LoginMenuHandler : MenuHandler
 
     void Start()
     {
-        m_InputFieldID.text = PlayerPrefs.GetString("LastLoginID", string.Empty);
+        m_InputFieldID.SetTextWithoutNotify(PlayerPrefs.GetString("LastLoginID", string.Empty));
 
         m_GameManager = GameManager.instance_gm;
     }

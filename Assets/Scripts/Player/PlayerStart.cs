@@ -67,9 +67,9 @@ public class PlayerStart : MonoBehaviour
     private void SetAttributes() {
         m_DronePart.SetActive(false);
         
-        m_SpeedPart[m_PlayerManager.m_CurrentAttributes.m_Speed].SetActive(true);
+        m_SpeedPart[m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
 
-        if (m_PlayerManager.m_CurrentAttributes.m_Module != 0)
+        if (m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Module) != 0)
             m_ModulePart.SetActive(true);
         
         SetPlayerColors();
@@ -86,7 +86,7 @@ public class PlayerStart : MonoBehaviour
         
         // Color
         for (int i = 0; i < 3; i++) {
-            if (m_PlayerManager.m_CurrentAttributes.m_Color == i)
+            if (m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Color) == i)
                 for (int j = 0; j < max_meshRenderer; j++) {
                 meshRenderer[j].material = playerColors.m_Materials[i];
             }

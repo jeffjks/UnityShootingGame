@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Newtonsoft.Json;
 
 public struct TrainingInfo
 {
@@ -58,104 +59,65 @@ public class AC_Ease
     public static AnimationCurve[] ac_ease = new AnimationCurve[4];
 }
 
-[System.Serializable]
+[Serializable]
+public enum AttributeType
+{
+    Color,
+    Speed,
+    ShotLevel,
+    LaserLevel,
+    Module,
+    Bomb
+}
+
+[Serializable]
 public class ShipAttributes
 {
-    public int m_Color, m_Speed, m_ShotLevel, m_LaserLevel, m_Module, m_Bomb;
-    
-    public ShipAttributes(int color, int speed, int shot_form, int shotLevel, int laserLevel, int module, int bomb) {
-        m_Color = color;
-        m_Speed = speed;
-        m_ShotLevel = shotLevel;
-        m_LaserLevel = laserLevel;
-        m_Module = module;
-        m_Bomb = bomb;
-    }
+    private Dictionary<AttributeType, int> _attributes = new();
 
-    public ShipAttributes(int code) {
-        int[] nums = { 0,0,0,0,0,0 };
-        int i = 0;
-        while (i < 6) {
-            int num = code % 10;
-            nums[i] = num;
-            code /= 10;
-            i++;
-        }
-        m_Bomb = nums[0];
-        m_Module = nums[1];
-        m_LaserLevel = nums[2];
-        m_ShotLevel = nums[3];
-        m_Speed = nums[4];
-        m_Color = nums[5];
-    }
-
-    public void SetAttributes(int num, int value) {
-        switch (num) {
-            case 0:
-                m_Color = value;
-                break;
-            case 1:
-                m_Speed = value;
-                break;
-            case 2:
-                m_ShotLevel = value;
-                break;
-            case 3:
-                m_LaserLevel = value;
-                break;
-            case 4:
-                m_Module = value;
-                break;
-            case 5:
-                m_Bomb = value;
-                break;
-            default:
-                break;
-        }
-    }
-
-    public int GetAttributes(byte num) {
-        switch (num) {
-            case 0:
-                return m_Color;
-            case 1:
-                return m_Speed;
-            case 2:
-                return m_ShotLevel;
-            case 3:
-                return m_LaserLevel;
-            case 4:
-                return m_Module;
-            case 5:
-                return m_Bomb;
-            default:
-                return -1;
-        }
-    }
-
-    public int GetAttributesCode() { // Color Speed, ShotForm, Shot, Laser, Module, Bomb
-        int code = 0;
-        code += 100000*m_Color;
-        code += 10000*m_Speed;
-        code += 1000*m_ShotLevel;
-        code += 100*m_LaserLevel;
-        code += 10*m_Module;
-        code += 1*m_Bomb;
-        return code;
+    public ShipAttributes() : this(0, 0, 0, 0, 0, 0, 0)
+    {
     }
     
-    public static bool operator ==(ShipAttributes op1, ShipAttributes op2) {
-        if (op1.m_Speed != op2.m_Speed)
+    public ShipAttributes(int color, int speed, int shot_form, int shotLevel, int laserLevel, int module, int bomb)
+    {
+        _attributes[AttributeType.Color] = color;
+        _attributes[AttributeType.Speed] = speed;
+        _attributes[AttributeType.ShotLevel] = shotLevel;
+        _attributes[AttributeType.LaserLevel] = laserLevel;
+        _attributes[AttributeType.Module] = module;
+        _attributes[AttributeType.Bomb] = bomb;
+    }
+
+    public ShipAttributes(string jsonCode)
+    {
+        _attributes = JsonConvert.DeserializeObject<Dictionary<AttributeType, int>>(jsonCode);
+    }
+
+    public void SetAttributes(AttributeType key, int value)
+    {
+        _attributes[key] = value;
+    }
+
+    public int GetAttributes(AttributeType key)
+    {
+        return _attributes[key];
+    }
+
+    public string GetAttributesCode() {
+        return JsonConvert.SerializeObject(_attributes, Formatting.None);
+    }
+    
+    public static bool operator ==(ShipAttributes op1, ShipAttributes op2)
+    {
+        if (op1 == null || op2 == null)
+        {
+            Debug.LogWarning("Compared null shipAttributes and returned false.");
             return false;
-        if (op1.m_ShotLevel != op2.m_ShotLevel)
-            return false;
-        if (op1.m_LaserLevel != op2.m_LaserLevel)
-            return false;
-        if (op1.m_Module != op2.m_Module)
-            return false;
-        if (op1.m_Bomb != op2.m_Bomb)
-            return false;
-        return true;
+        }
+        var dic1 = op1._attributes;
+        var dic2 = op2._attributes;
+        return dic1.Equals(dic2);
     }
 
     public static bool operator !=(ShipAttributes op1, ShipAttributes op2) {

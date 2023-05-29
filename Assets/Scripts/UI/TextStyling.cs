@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class TextStyling : MonoBehaviour
 {
+    [TextArea]
     public string m_NativeText;
 
     private TextMeshProUGUI _textUI;

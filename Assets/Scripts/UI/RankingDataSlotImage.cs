@@ -55,11 +55,14 @@ public class RankingDataSlotImage : RankingDataSlot
             m_AttributesSlot.SetActive(true);
         }
 
-        int[] attributes = { shipAttributes.m_Speed, shipAttributes.m_ShotLevel, shipAttributes.m_LaserLevel, shipAttributes.m_Module };
-        
-        for (int i = 0; i < m_AttributesData.Count; ++i)
-        {
-            m_AttributesData[i].attributesImage.sprite = m_AttributesData[i].attributesSprites[attributes[i]];
-        }
+        SetSprite(0, shipAttributes.GetAttributes(AttributeType.Speed));
+        SetSprite(1, shipAttributes.GetAttributes(AttributeType.ShotLevel));
+        SetSprite(2, shipAttributes.GetAttributes(AttributeType.LaserLevel));
+        SetSprite(3, shipAttributes.GetAttributes(AttributeType.Module));
+    }
+
+    private void SetSprite(int attributeType, int attribute)
+    {
+        m_AttributesData[attributeType].attributesImage.sprite = m_AttributesData[attributeType].attributesSprites[attribute];
     }
 }

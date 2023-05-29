@@ -49,12 +49,12 @@ public class QualityButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.text = _textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsQuality];
+            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsQuality]);
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            _textUI.text = "Unknown";
+            _textUI.SetText("Unknown");
         }
     }
 }

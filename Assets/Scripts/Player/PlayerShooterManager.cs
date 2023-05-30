@@ -3,16 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public struct ModuleDelay {
-    public int max_delay;
-    public int min_delay;
-
-    public ModuleDelay(int max_delay, int min_delay) {
-        this.max_delay = max_delay;
-        this.min_delay = min_delay;
-    }
-}
 
 public abstract class PlayerShooterManager : MonoBehaviour
 {

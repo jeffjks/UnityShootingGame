@@ -35,7 +35,7 @@ public class PlayerShooter : PlayerShooterManager
 
         
         
-        if (m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Bomb) == 0) // 폭탄 개수
+        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Bomb) == 0) // 폭탄 개수
             m_SystemManager.SetMaxBombNumber(2);
         else
             m_SystemManager.SetMaxBombNumber(3);
@@ -250,8 +250,8 @@ public class PlayerShooter : PlayerShooterManager
     }
     
     public override void SetPreviewShooter() {
-        m_ShotDamage = m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.ShotLevel); // 샷 데미지
-        m_Module = m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Module); // 모듈 종류
+        m_ShotDamage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotLevel); // 샷 데미지
+        m_Module = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Module); // 모듈 종류
     }
 
     public int ShotKeyPress {

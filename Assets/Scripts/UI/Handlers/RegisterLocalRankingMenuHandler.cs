@@ -23,7 +23,7 @@ public class RegisterLocalRankingMenuHandler : GameUI
     void Start()
     {
         m_TotalScore = m_SystemManager.GetTotalScore();
-        m_ShipAttributes = m_PlayerManager.m_CurrentAttributes;
+        m_ShipAttributes = PlayerManager.CurrentAttributes;
         m_TotalMiss = m_SystemManager.GetTotalMiss();
         m_ClearedTime = m_SystemManager.GetClearedTime();
 

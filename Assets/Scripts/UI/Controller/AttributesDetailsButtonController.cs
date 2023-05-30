@@ -30,7 +30,7 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
 
     private void OnEnable()
     {
-        _currentSelection = m_PlayerManager.m_CurrentAttributes.GetAttributes(m_AttributesDetailsWindowDatas.AttributeType);
+        _currentSelection = PlayerManager.CurrentAttributes.GetAttributes(m_AttributesDetailsWindowDatas.AttributeType);
         OnSelection();
     }
 

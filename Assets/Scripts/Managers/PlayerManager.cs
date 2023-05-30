@@ -3,26 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public static class Size
-{
-    public const float MAIN_CAMERA_POS = -64f;
-    public const float CAMERA_WIDTH = 12f; // 정확히는 카메라 콜라이더
-    public const float CAMERA_HEIGHT = 16f;
-    public const float GAME_WIDTH = 15.11f;
-    public const float GAME_HEIGHT = 16f;
-
-    public const float CAMERA_MOVE_LIMIT = 4.895f; // 카메라가 움직이는 플레이어의 최대/최소 x값
-
-    public const float GAME_BOUNDARY_LEFT = - GAME_WIDTH / 2;
-    public const float GAME_BOUNDARY_RIGHT = GAME_WIDTH / 2;
-    public const float GAME_BOUNDARY_BOTTOM = -GAME_HEIGHT;
-    public const float GAME_BOUNDARY_TOP = -GAME_HEIGHT;
-
-    public const float BACKGROUND_CAMERA_ANGLE = 25f;
-}
-
-
 public class PlayerManager : MonoBehaviour
 {
     public GameObject m_PlayerPrefab;
@@ -44,10 +24,11 @@ public class PlayerManager : MonoBehaviour
 
     [HideInInspector] public PlayerShooter m_PlayerShooter;
     [HideInInspector] public PlayerController m_PlayerController;
-    [HideInInspector] public ShipAttributes m_CurrentAttributes = new ShipAttributes(0, 0, 0, 0, 0, 0, 0);
     [HideInInspector] public bool m_PlayerControlable = false;
     [HideInInspector] public int m_RevivePositionY = -13*256; // -3328;
     private Vector3 m_SpawnPoint;
+    
+    public static ShipAttributes CurrentAttributes = new (0, 0, 0, 0, 0, 0, 0);
     
     private const int REVIVE_DELAY = 1200;
 
@@ -93,12 +74,12 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void SpawnPlayer() {
-        SpawnPlayer(m_CurrentAttributes);
+        SpawnPlayer(CurrentAttributes);
     }
 
     public void SpawnPlayer(ShipAttributes attributes)
     {
-        m_CurrentAttributes = attributes;
+        CurrentAttributes = attributes;
         m_PlayerIsAlive = true;
         if (m_SystemManager.SpawnAtSpawnPointCondition()) {
             m_Player = Instantiate(m_PlayerPrefab, m_SpawnPoint, Quaternion.identity);

@@ -26,13 +26,13 @@ public abstract class PlayerPreviewManager : MonoBehaviour
 
         SpeedPart();
         
-        if (m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Module) != 0) // Module
+        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Module) != 0) // Module
             m_ModulePart.SetActive(true);
         
         SetPlayerPreviewColors();
     }
 
     private void SpeedPart() {
-        m_SpeedPart[m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true); // Speed
+        m_SpeedPart[PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true); // Speed
     }
 }

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectAttributesMenuHandler : MenuHandler
 {
@@ -13,7 +14,8 @@ public class SelectAttributesMenuHandler : MenuHandler
     public TextMeshProUGUI m_AttributesTypeText;
 
     public const int MAXIMUM_COST = 500;
-    
+
+    private bool _isActive;
     private int _totalCost;
     private readonly Dictionary<AttributeType, int> _attributeCost = new();
     private Action Action_startStage;
@@ -35,6 +37,7 @@ public class SelectAttributesMenuHandler : MenuHandler
     
     void OnEnable()
     {
+        _isActive = true;
         AudioService.PlayMusic("Select");
     }
 
@@ -55,12 +58,23 @@ public class SelectAttributesMenuHandler : MenuHandler
 
     public override void Back()
     {
+        if (!_isActive)
+        {
+            return;
+        }
         BackToMainMenu();
     }
 
     public void Confirm()
     {
+        if (!_isActive)
+        {
+            return;
+        }
+
+        _isActive = false;
         EventSystem.current.currentInputModule.enabled = false;
+        EventSystem.current.currentInputModule.GetComponent<Button>().interactable = false;
         ScreenEffectService.ScreenFadeOut(2f, Action_startStage);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");

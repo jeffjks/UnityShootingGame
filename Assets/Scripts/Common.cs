@@ -1,12 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class Common : MonoBehaviour
-{
-}
 
+[Serializable]
+public static class Size
+{
+    public const float MAIN_CAMERA_POS = -64f;
+    public const float CAMERA_WIDTH = 12f; // 정확히는 카메라 콜라이더
+    public const float CAMERA_HEIGHT = 16f;
+    public const float GAME_WIDTH = 15.11f;
+    public const float GAME_HEIGHT = 16f;
+
+    public const float CAMERA_MOVE_LIMIT = 4.895f; // 카메라가 움직이는 플레이어의 최대/최소 x값
+
+    public const float GAME_BOUNDARY_LEFT = - GAME_WIDTH / 2;
+    public const float GAME_BOUNDARY_RIGHT = GAME_WIDTH / 2;
+    public const float GAME_BOUNDARY_BOTTOM = -GAME_HEIGHT;
+    public const float GAME_BOUNDARY_TOP = -GAME_HEIGHT;
+
+    public const float BACKGROUND_CAMERA_ANGLE = 25f;
+}
 
 public static class Depth // Z Axis
 {
@@ -49,6 +65,179 @@ public static class BonusScale // Overview
     public const float BONUS_0 = 0.5f;
     public const float BONUS_1 = 0.3f;
     public const float BONUS_2 = 0.1f;
+}
+
+
+public struct TrainingInfo
+{
+    public int stage;
+    public bool bossOnly;
+}
+
+public class WaitForFrames : CustomYieldInstruction
+{
+    private int _targetFrameCount;
+
+    public WaitForFrames(int numberOfFrames)
+    {
+        _targetFrameCount = Time.frameCount + numberOfFrames;
+    }
+
+    public override bool keepWaiting
+    {
+        get
+        {
+            if (Time.timeScale == 0) {
+                _targetFrameCount++;
+            }
+            return Time.frameCount < _targetFrameCount;
+        }
+    }
+}
+
+public class WaitForMillisecondFrames : CustomYieldInstruction
+{
+    private int _targetFrameCount;
+
+    public WaitForMillisecondFrames(int millisecond)
+    {
+        int numberOfFrames = millisecond * Application.targetFrameRate / 1000;
+        _targetFrameCount = Time.frameCount + numberOfFrames;
+    }
+
+    public override bool keepWaiting
+    {
+        get
+        {
+            if (Time.timeScale == 0) {
+                _targetFrameCount++;
+            }
+            return Time.frameCount < _targetFrameCount;
+        }
+    }
+}
+
+public class AC_Ease
+{
+    public static AnimationCurve[] ac_ease = new AnimationCurve[4];
+}
+
+[Serializable]
+public enum AttributeType
+{
+    Color,
+    Speed,
+    ShotLevel,
+    LaserLevel,
+    Module,
+    Bomb
+}
+
+[Serializable]
+public class ShipAttributes
+{
+    private Dictionary<AttributeType, int> _attributes = new();
+
+    public ShipAttributes() : this(0, 0, 0, 0, 0, 0, 0)
+    {
+    }
+    
+    public ShipAttributes(int color, int speed, int shot_form, int shotLevel, int laserLevel, int module, int bomb)
+    {
+        _attributes[AttributeType.Color] = color;
+        _attributes[AttributeType.Speed] = speed;
+        _attributes[AttributeType.ShotLevel] = shotLevel;
+        _attributes[AttributeType.LaserLevel] = laserLevel;
+        _attributes[AttributeType.Module] = module;
+        _attributes[AttributeType.Bomb] = bomb;
+    }
+
+    public ShipAttributes(string jsonCode)
+    {
+        _attributes = JsonConvert.DeserializeObject<Dictionary<AttributeType, int>>(jsonCode);
+    }
+
+    public void SetAttributes(AttributeType key, int value)
+    {
+        _attributes[key] = value;
+    }
+
+    public int GetAttributes(AttributeType key)
+    {
+        return _attributes[key];
+    }
+
+    public string GetAttributesCode() {
+        return JsonConvert.SerializeObject(_attributes, Formatting.None);
+    }
+    
+    public static bool operator ==(ShipAttributes op1, ShipAttributes op2)
+    {
+        if (op1 == null || op2 == null)
+        {
+            Debug.LogWarning("Compared null shipAttributes and returned false.");
+            return false;
+        }
+        var dic1 = op1._attributes;
+        var dic2 = op2._attributes;
+        return dic1.Equals(dic2);
+    }
+
+    public static bool operator !=(ShipAttributes op1, ShipAttributes op2) {
+        return !(op1 == op2);
+    }
+
+    public override bool Equals(object op)
+    {
+        return (this == ((ShipAttributes) op));
+    }
+    
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+}
+
+
+[Serializable]
+public struct ModuleDelay {
+    public int max_delay;
+    public int min_delay;
+
+    public ModuleDelay(int max_delay, int min_delay) {
+        this.max_delay = max_delay;
+        this.min_delay = min_delay;
+    }
+}
+
+public static class PoolingParent
+{
+    public const sbyte NONE = -1;
+    public const sbyte PLAYER_MISSILE = 0;
+    public const sbyte ENEMY_BULLET = 1;
+    public const sbyte EXPLOSION = 2;
+    public const sbyte ITEM_GEM_AIR = 3;
+    public const sbyte ITEM_GEM_GROUND = 4;
+    public const sbyte DEBRIS = 5;
+    public const sbyte SCORE_TEXT = 6;
+}
+
+public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
+{
+    public float targetSpeed;
+    public int duration;
+
+    public EnemyBulletAccel(float targetSpeed, int duration) {
+        this.targetSpeed = targetSpeed;
+        this.duration = duration;
+    }
+}
+
+public static class BulletType
+{
+    public const byte NORMAL = 0; // 일반 총알
+    public const byte CREATE = 1; // n초후 다른 총알 생성
+    public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
 }
 
 public enum GameDifficulty

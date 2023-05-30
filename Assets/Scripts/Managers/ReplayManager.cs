@@ -59,7 +59,7 @@ public class ReplayManager : MonoBehaviour
                     m_PlayerManager.SpawnPlayer();
 
                     m_FileStream = new FileStream(m_FilePath, FileMode.Create);
-                    m_Attributes = m_PlayerManager.m_CurrentAttributes;
+                    m_Attributes = PlayerManager.CurrentAttributes;
                     m_Difficulty = (int) SystemManager.Difficulty;
                     BinarySerialize(m_RandomSeed); // 시드 쓰기
                     BinarySerialize(Application.version); // 버전 쓰기

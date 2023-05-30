@@ -2,23 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
-{
-    public float targetSpeed;
-    public int duration;
-
-    public EnemyBulletAccel(float targetSpeed, int duration) {
-        this.targetSpeed = targetSpeed;
-        this.duration = duration;
-    }
-}
-
-public static class BulletType
-{
-    public const byte NORMAL = 0; // 일반 총알
-    public const byte CREATE = 1; // n초후 다른 총알 생성
-    public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
-}
 
 public class EnemyBullet : EnemyObject, IObjectPooling
 {

@@ -6,17 +6,6 @@ using UnityEngine;
 m_ObjectPoolDictionary : 특정 종류의 오브젝트들의 List를 담은 PooledObject 들을 가진 Dictionary
 m_PoolQueue : 오브젝트들을 담은 Queue. PooledObject 클래스 안에 존재. 아직 생성되지 않은 오브젝트들이 Queue 안에 있음.
 */
-public static class PoolingParent
-{
-    public const sbyte NONE = -1;
-    public const sbyte PLAYER_MISSILE = 0;
-    public const sbyte ENEMY_BULLET = 1;
-    public const sbyte EXPLOSION = 2;
-    public const sbyte ITEM_GEM_AIR = 3;
-    public const sbyte ITEM_GEM_GROUND = 4;
-    public const sbyte DEBRIS = 5;
-    public const sbyte SCORE_TEXT = 6;
-}
 
 public class PoolingManager : MonoBehaviour
 {

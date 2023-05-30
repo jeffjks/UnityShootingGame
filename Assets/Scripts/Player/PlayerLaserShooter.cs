@@ -14,7 +14,7 @@ public class PlayerLaserShooter : PlayerLaserShooterManager
     {
         m_PlayerManager = PlayerManager.instance_pm;
 
-        m_LaserIndex = m_PlayerManager.m_CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
+        m_LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
         m_LaserInstance = m_LaserObjects[m_LaserIndex];
         m_LaserFireLight.SetLightColor(m_LaserIndex);
         

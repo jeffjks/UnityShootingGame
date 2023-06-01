@@ -43,7 +43,7 @@ public class Stage1Manager : StageManager
         yield return new WaitForMillisecondFrames(3000);
         AudioService.FadeOutMusic();
         yield return new WaitForMillisecondFrames(3000);
-        m_SystemManager.WarningText();
+        ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
         SetBackgroundSpeed(7.2f, 938);
         AudioService.PlayMusic("Boss1");

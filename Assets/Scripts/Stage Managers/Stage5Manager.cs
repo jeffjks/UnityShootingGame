@@ -34,7 +34,7 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(3000);
         AudioService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(5000);
-        m_SystemManager.WarningText();
+        ShowBossWarningSign();
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
         TrueLastBoss(new Vector3(0f, -10f, Depth.ENEMY));
@@ -65,7 +65,7 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(0f, 8f, Depth.ENEMY), 9000)); // Boss
         yield return new WaitForMillisecondFrames(4000);
-        m_SystemManager.WarningText();
+        ShowBossWarningSign();
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
         AudioService.PlayMusic("Boss2");

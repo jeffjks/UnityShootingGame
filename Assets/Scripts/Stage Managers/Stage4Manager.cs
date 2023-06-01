@@ -56,7 +56,7 @@ public class Stage4Manager : StageManager
         StartCoroutine(BossStart(new Vector3(14f, 3f, 121.5f), 7500)); // Boss
         SetBackgroundSpeed(new Vector3(0f, 0f, 1.5f), 1000);
         yield return new WaitForMillisecondFrames(3000);
-        m_SystemManager.WarningText();
+        ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
         AudioService.PlayMusic("Boss1");
         yield return new WaitForMillisecondFrames(64000);

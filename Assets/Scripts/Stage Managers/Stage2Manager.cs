@@ -47,7 +47,7 @@ public class Stage2Manager : StageManager
         yield return new WaitForMillisecondFrames(4000);
         AudioService.FadeOutMusic();
         yield return new WaitForMillisecondFrames(3000);
-        m_SystemManager.WarningText();
+        ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         SetBackgroundSpeed(0f);

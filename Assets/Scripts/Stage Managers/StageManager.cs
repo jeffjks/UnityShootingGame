@@ -21,6 +21,8 @@ public abstract class StageManager : MonoBehaviour
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
+    
+    public static event Action Action_BossWarningSign;
 
     private BossHealthBarHandler m_BossHealthBar;
     private readonly Vector3[] m_BossOnlyBackgroundLocalPositions = {
@@ -81,6 +83,11 @@ public abstract class StageManager : MonoBehaviour
             StartCoroutine(MainTimeline());
             StartCoroutine(EnemyTimeline());
         }
+    }
+
+    protected void ShowBossWarningSign()
+    {
+        Action_BossWarningSign?.Invoke();
     }
 
     protected void StartBossTimeline() {

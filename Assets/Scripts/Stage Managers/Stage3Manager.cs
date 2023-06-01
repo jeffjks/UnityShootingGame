@@ -51,7 +51,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForMillisecondFrames(2000);
         AudioService.FadeOutMusic();
         yield return new WaitForMillisecondFrames(3000);
-        m_SystemManager.WarningText();
+        ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3000)); // Boss
         yield return new WaitForMillisecondFrames(2000);

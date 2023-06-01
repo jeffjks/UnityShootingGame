@@ -358,60 +358,6 @@ public class SystemManager : MonoBehaviour
         return m_StageMiss[m_Stage];
     }
 
-    public void WarningText() {
-        StartCoroutine(WarningTextAnimation());
-    }
-
-    private IEnumerator WarningTextAnimation() {
-        float value = 0f;
-        float time = 0f;
-        AudioService.PlaySound("BossAlert1");
-
-        m_WarningUI.m_WarningPanelWhite.color = new Color(1f, 1f, 1f, 0f);
-        m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, 0f, m_WarningUI.transform.localScale.z);
-        m_WarningUI.gameObject.SetActive(true);
-
-        while (value < 1f) { // Increase yScale
-            m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, value, m_WarningUI.transform.localScale.z);
-            value += Time.deltaTime * 4f;
-            value = Mathf.Clamp01(value);
-            yield return new WaitForFrames(0);
-        }
-        value = 0f;
-
-        while (value < 1f) { // White Blink Effect
-            m_WarningUI.m_WarningPanelWhite.color = new Color(1f, 1f, 1f, 1f - value);
-            value += Time.deltaTime * 3f;
-            value = Mathf.Clamp01(value);
-            yield return new WaitForFrames(0);
-        }
-        value = 0f;
-
-        while (time < 3f) {
-            float alpha_gap = 0.4f;
-            while (value < 1f) { // Text Effect
-                m_WarningUI.m_WarningText.color = new Color(1f - value*alpha_gap, 1f - value*alpha_gap, 1f - value*alpha_gap, 1f);
-                value += Time.deltaTime * 4f;
-                value = Mathf.Clamp01(value);
-                time += Time.deltaTime;
-                yield return new WaitForFrames(0);
-            }
-            value = 0f;
-            yield return new WaitForFrames(0);
-        }
-        value = 0f;
-
-        while (value < 1f) { // Decrease yScale
-            m_WarningUI.transform.localScale = new Vector3(m_WarningUI.transform.localScale.x, 1f - value, m_WarningUI.transform.localScale.z);
-            value += Time.deltaTime * 4f;
-            value = Mathf.Clamp01(value);
-            yield return new WaitForFrames(0);
-        }
-        value = 0f;
-
-        m_WarningUI.gameObject.SetActive(false);
-    }
-
 
     private void BulletEraseTimer() {
         if (m_BulletsEraseTimer > 0) {

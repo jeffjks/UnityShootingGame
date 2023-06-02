@@ -12,6 +12,7 @@ public class SelectAttributesMenuHandler : MenuHandler
     public AttributesDetailsWindowController m_AttributesDetailsWindowController;
     public AttributesCostWindowController m_AttributesCostWindowController;
     public TextMeshProUGUI m_AttributesTypeText;
+    public Button m_ConfirmButton;
 
     public const int MAXIMUM_COST = 500;
 
@@ -38,6 +39,7 @@ public class SelectAttributesMenuHandler : MenuHandler
     void OnEnable()
     {
         _isActive = true;
+        m_ConfirmButton.interactable = true;
         AudioService.PlayMusic("Select");
     }
 
@@ -74,7 +76,7 @@ public class SelectAttributesMenuHandler : MenuHandler
 
         _isActive = false;
         EventSystem.current.currentInputModule.enabled = false;
-        EventSystem.current.currentInputModule.GetComponent<Button>().interactable = false;
+        m_ConfirmButton.interactable = false;
         ScreenEffectService.ScreenFadeOut(2f, Action_startStage);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");

@@ -16,7 +16,6 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private Text m_ScoreNumberText = null;
     [SerializeField] private Text m_DifficultyText = null;
     [SerializeField] private Text m_BombNumberText = null;
-    [SerializeField] private WarningUI m_WarningUI = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
@@ -119,7 +118,6 @@ public class SystemManager : MonoBehaviour
         m_PlayState = 0;
 
         m_OverviewHandler.gameObject.SetActive(false);
-        m_WarningUI.gameObject.SetActive(false);
     }
 
     private void MoveBackgroundCamera() {
@@ -147,7 +145,6 @@ public class SystemManager : MonoBehaviour
             m_BackgroundCamera.transform.position = new Vector3(m_BackgroundCamera.transform.position.x, m_BackgroundCamera.transform.position.y, position_z);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     private void InitCamera() {

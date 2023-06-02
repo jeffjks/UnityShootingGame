@@ -3,23 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WarningUI : MonoBehaviour
+public class WarningSign : MonoBehaviour
 {
-    public GameObject m_WarningSign;
-    public Image m_WarningText;
     public Material m_WarningSignMat;
-
-    private void Awake()
-    {
-        StageManager.Action_BossWarningSign += PlayWarningSign;
-    }
-    
-    private void PlayWarningSign() {
-        AudioService.PlaySound("BossAlert1");
-        m_WarningSign.SetActive(true);
-        //StartCoroutine(WarningSignAnimation());
-        //StartCoroutine(WarningTextAnimation());
-    }
 
     public void StartBlinkAnimation(int duration)
     {
@@ -39,5 +25,10 @@ public class WarningUI : MonoBehaviour
     private void SetEmissionColor(float value)
     {
         m_WarningSignMat.SetColor("_Emission", new Color(value, value, value, 1f));
+    }
+
+    private void StopWarningSign()
+    {
+        gameObject.SetActive(false);
     }
 }

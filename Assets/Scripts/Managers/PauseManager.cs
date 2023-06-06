@@ -1,74 +1,88 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
-public class PauseManager : MonoBehaviour {
-    public float m_PauseDelay;
-    public GameObject m_CanvasPause;
+public class PauseManager : MonoBehaviour
+{
+    public GameObject m_EventSystemUI;
     public PauseMenuHandler m_PauseMenuHandler;
-
-    private PlayerManager m_PlayerManager = null;
+    public IngameInputController m_InGameInputController;
+    
     private SystemManager m_SystemManager = null;
-    private bool m_CanPause = true, m_PauseKeyPress = false;
+    private bool _pauseEnabled = true;
+    private const float PAUSE_DELAY = 2f;
 
-    void Start()
+    public static bool IsGamePaused = false;
+
+    private void OnEnable()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_SystemManager = SystemManager.instance_sm;
-        m_CanvasPause.SetActive(false);
+        m_InGameInputController.Action_OnPause += Pause;
     }
 
-    void Update ()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            m_PauseKeyPress = true;
-        
-        if (m_PauseKeyPress) {
-            m_PauseKeyPress = false;
-            Pause();
-        }
+        m_InGameInputController.Action_OnPause -= Pause;
+    }
+
+    private void Start()
+    {
+        m_SystemManager = SystemManager.instance_sm;
     }
 
     private void Pause() {
-        if (Time.timeScale == 1) {
-            if (m_SystemManager.m_PlayState != 3) {
-                if (m_CanPause) {
-                    Time.timeScale = 0;
-                    AudioListener.pause = true;
-                    m_CanvasPause.SetActive(true);
-                    m_CanPause = false;
-                }
-            }
+        if (!_pauseEnabled)
+        {
+            return;
         }
-        else if (m_PauseMenuHandler.gameObject.activeSelf) {
-            Resume();
+        if (SystemManager.PlayState == PlayState.OnStageResult)
+        {
+            return;
         }
+        if (IsGamePaused)
+        {
+            return;
+        }
+
+
+        IsGamePaused = true;
+        Time.timeScale = 0f;
+        AudioListener.pause = true;
+        
+        m_EventSystemUI.SetActive(true);
+        m_PauseMenuHandler.gameObject.SetActive(true);
+        //EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>().Select();
     }
 
-    public void Resume() {
-        EscapePause();
-        Invoke("PauseEnabled", m_PauseDelay);
+    public void Resume()
+    {
+        if (!IsGamePaused)
+        {
+            return;
+        }
+        
+        IsGamePaused = false;
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+        _pauseEnabled = false;
+        
+        m_EventSystemUI.SetActive(false);
+        m_PauseMenuHandler.gameObject.SetActive(false);
+        StartCoroutine(PauseEnabled());
     }
 
-    private void PauseEnabled() {
-        m_CanPause = true;
+    private IEnumerator PauseEnabled() {
+        yield return new WaitForSeconds(PAUSE_DELAY);
+        _pauseEnabled = true;
     }
 
     public void QuitGame() {
-        //EscapePause();
-        m_CanPause = true;
-        m_PauseMenuHandler.m_InitialSelection = 0;
-        m_CanvasPause.SetActive(false);
+        StopAllCoroutines();
+        _pauseEnabled = true;
 
         m_SystemManager.QuitGame();
-    }
-
-    private void EscapePause() {
-        Time.timeScale = 1;
-        AudioListener.pause = false;
-        
-        m_CanPause = true;
-        m_PauseMenuHandler.m_InitialSelection = 0;
-        m_CanvasPause.SetActive(false);
     }
 }

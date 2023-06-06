@@ -10,20 +10,16 @@ public class SystemManager : MonoBehaviour
     public Camera m_BackgroundCamera;
     public MainCamera m_MainCamera;
     public OverviewHandler m_OverviewHandler;
-    public TextUI_GameMode m_TextUI_GameMode;
     public PlayerManager m_PlayerManager;
-
-    [SerializeField] private Text m_ScoreNumberText = null;
-    [SerializeField] private Text m_DifficultyText = null;
-    [SerializeField] private Text m_BombNumberText = null;
 
     [HideInInspector] public StageManager m_StageManager;
     [HideInInspector] public Vector2 m_BackgroundCameraSize;
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public int m_BulletsEraseTimer;
-
-    [HideInInspector] public int m_PlayState; // 0: 평소, 1: 보스/중간보스전, 2: 보스 클리어, 3: 점수/엔딩 화면, 4: 다음 스테이지 전환중
     [HideInInspector] public int m_UsedCost;
+
+    public Action<long> Action_OnUpdateScore;
+    public Action<int> Action_OnUpdateBombNumber;
     
     public bool m_DebugMod;
     
@@ -37,8 +33,8 @@ public class SystemManager : MonoBehaviour
     private int m_GemsGround, m_GemsAir; // 점수가 아닌 먹은 개수
     private int m_Stage;
     private int m_BombNumber, m_MaxBombNumber;
-    private byte m_TotalMiss;
-    private byte[] m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
+    private int m_TotalMiss;
+    private int[] m_StageMiss = new int[5] {0, 0, 0, 0, 0};
     private int m_BulletNumber;
     private long m_ClearedTime;
 
@@ -46,6 +42,7 @@ public class SystemManager : MonoBehaviour
     public static GameDifficulty Difficulty { get; private set; }
     public static GameDifficulty DebugDifficulty;
     public static TrainingInfo TrainingInfo;
+    public static PlayState PlayState = PlayState.OutGame;
     
     public static SystemManager instance_sm = null;
 
@@ -69,8 +66,6 @@ public class SystemManager : MonoBehaviour
         m_BackgroundCameraDefaultLocalPos = m_BackgroundCamera.transform.localPosition;
         
         DontDestroyOnLoad(gameObject);
-
-        m_TextUI_GameMode.FadeEffect();
         
         m_PlayerManager.Init();
 
@@ -88,7 +83,6 @@ public class SystemManager : MonoBehaviour
         Action_OnEnableSystemManager?.Invoke();
         
         UpdateBombNumber();
-        m_TextUI_GameMode.UpdateGameModeText(GameMode);
         
         UpdateScore();
     }
@@ -112,10 +106,10 @@ public class SystemManager : MonoBehaviour
         m_GemsGround = 0; // 점수가 아닌 먹은 개수
         m_GemsAir = 0; // 점수가 아닌 먹은 개수
         m_TotalMiss = 0;
-        m_StageMiss = new byte[5] {0, 0, 0, 0, 0};
+        m_StageMiss = new int[5] {0, 0, 0, 0, 0};
         m_BulletNumber = 0;
         
-        m_PlayState = 0;
+        PlayState = PlayState.OnField;
 
         m_OverviewHandler.gameObject.SetActive(false);
     }
@@ -162,13 +156,13 @@ public class SystemManager : MonoBehaviour
 
 
     public void MiddleBossClear() {
-        m_PlayState = 0;
+        PlayState = PlayState.OnField;
     }
 
     public void BossClear()
     {
         AudioService.StopMusic();
-        m_PlayState = 2;
+        PlayState = PlayState.OnBossCleared;
         if (m_StageManager.GetTrueLastBossState())
             return;
         m_PlayerController.DisableInvincibility(5000);
@@ -178,14 +172,13 @@ public class SystemManager : MonoBehaviour
         if (m_StageManager.GetTrueLastBossState())
             yield break;
         yield return new WaitForMillisecondFrames(3000);
-        m_PlayState = 3;
+        PlayState = PlayState.OnStageResult;
         m_PlayerManager.m_PlayerControlable = false;
         AudioService.PlayMusic("StageClear");
         yield return new WaitForMillisecondFrames(2000);
         m_StageManager.SetBackgroundSpeed(0f);
         m_StageManager.StopCoroutine("MainTimeline");
         m_OverviewHandler.gameObject.SetActive(true);
-        m_OverviewHandler.DisplayOverview();
     }
 
     public void StartStageClearCoroutine() {
@@ -197,11 +190,11 @@ public class SystemManager : MonoBehaviour
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터
-        m_PlayState = 4;
+        PlayState = PlayState.OnStageTransition;
         ScreenEffectService.ScreenFadeIn();
         yield return new WaitForMillisecondFrames(2000);
 
-        if (GameMode == GameMode.GAMEMODE_TRAINING && !m_GameManager.m_InvincibleMod) {
+        if (GameMode == GameMode.Training && !m_GameManager.m_InvincibleMod) {
             QuitGame();
         }
         else {
@@ -215,7 +208,7 @@ public class SystemManager : MonoBehaviour
                 m_Stage++;
                 SceneManager.LoadScene(scene_name);
 
-                m_PlayState = 0;
+                PlayState = PlayState.OnField;
                 m_PlayerManager.m_PlayerControlable = true;
                 m_PlayerController.DisableInvincibility(3000);
                 ScreenEffectService.ScreenTransitionIn();
@@ -228,7 +221,7 @@ public class SystemManager : MonoBehaviour
                 gameObject.SetActive(false);
                 SceneManager.LoadScene(scene_name);
 
-                m_PlayState = 3;
+                PlayState = PlayState.OnStageResult;
                 yield return new WaitForMillisecondFrames(1000);
                 ScreenEffectService.ScreenFadeOut(1.5f);
             }
@@ -245,15 +238,15 @@ public class SystemManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-
-    private void UpdateScore() {
-        m_ScoreNumberText.text = "" + m_TotalScore;
-    }
-
     public void AddScore(long score) {
         m_TotalScore += score;
         m_StageScore[m_Stage] += score;
         UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+        Action_OnUpdateScore?.Invoke(m_TotalScore);
     }
 
     public void AddScoreEffect(long score) {
@@ -305,9 +298,14 @@ public class SystemManager : MonoBehaviour
         UpdateBombNumber();
     }
 
-    public void SetBombNumber(int add) {
+    public void AddBombNumber(int add) {
         m_BombNumber += add;
         UpdateBombNumber();
+    }
+
+    private void UpdateBombNumber()
+    {
+        Action_OnUpdateBombNumber?.Invoke(m_BombNumber);
     }
 
     public int GetBombNumber() {
@@ -320,10 +318,6 @@ public class SystemManager : MonoBehaviour
 
     public int GetMaxBombNumber() {
         return m_MaxBombNumber;
-    }
-
-    public void UpdateBombNumber() {
-        m_BombNumberText.text = m_BombNumber + " / " + m_MaxBombNumber;
     }
 
     public long GetTotalScore() {
@@ -351,7 +345,7 @@ public class SystemManager : MonoBehaviour
         return total_miss;
     }
 
-    public byte GetCurrentStageMiss() {
+    public int GetCurrentStageMiss() {
         return m_StageMiss[m_Stage];
     }
 
@@ -434,7 +428,7 @@ public class SystemManager : MonoBehaviour
 
     public bool SpawnAtSpawnPointCondition() {
         if (GetCurrentStage() == 0) {
-            if (GameMode == GameMode.GAMEMODE_TRAINING)
+            if (GameMode == GameMode.Training)
             {
                 return !TrainingInfo.bossOnly;
             }
@@ -451,5 +445,23 @@ public class SystemManager : MonoBehaviour
     public static void SetDifficulty(GameDifficulty gameDifficulty)
     {
         Difficulty = gameDifficulty;
+    }
+
+    public static bool IsOnGamePlayState()
+    {
+        if (PlayState == PlayState.OnField)
+        {
+            return true;
+        }
+        if (PlayState == PlayState.OnMiddleBoss)
+        {
+            return true;
+        }
+        if (PlayState == PlayState.OnBoss)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

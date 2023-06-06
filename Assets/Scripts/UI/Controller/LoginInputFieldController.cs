@@ -14,7 +14,7 @@ public class LoginInputFieldController : MonoBehaviour, ISubmitHandler
         _inputField = GetComponent<TMP_InputField>();
     }
 
-    public void OnSubmit(BaseEventData baseEventData)
+    public void OnSubmit(BaseEventData eventData)
     {
         LoginMenuHandler.Login();
     }

@@ -34,7 +34,7 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
         OnSelection();
     }
 
-    public void OnSelect(BaseEventData baseEventData)
+    public void OnSelect(BaseEventData eventData)
     {
         OnSelection();
         

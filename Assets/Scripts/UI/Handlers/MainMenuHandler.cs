@@ -24,18 +24,18 @@ public class MainMenuHandler : MenuHandler
     }
 
     public void StartGame() {
-        SystemManager.SetGameMode(GameMode.GAMEMODE_NORMAL);
+        SystemManager.SetGameMode(GameMode.Normal);
         GoToTargetMenu(m_DifficultyPanel);
     }
 
     public void Training()
     {
-        SystemManager.SetGameMode(GameMode.GAMEMODE_TRAINING);
+        SystemManager.SetGameMode(GameMode.Training);
         GoToTargetMenu(m_TrainingPanel);
     }
 
     public void ReplayMenu() {
-        SystemManager.SetGameMode(GameMode.GAMEMODE_REPLAY);
+        SystemManager.SetGameMode(GameMode.Replay);
         GoToTargetMenu(m_ReplayPanel);
     }
 

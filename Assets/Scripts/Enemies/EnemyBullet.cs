@@ -245,7 +245,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         if (!m_PlayerManager.m_PlayerIsAlive) {
             return false;
         }
-        else if (m_SystemManager.m_PlayState >= 2) {
+        else if (!SystemManager.IsOnGamePlayState()) {
             return false;
         }
         else if (2 * Mathf.Abs(pos.x - camera_pos.x) > Size.CAMERA_WIDTH) {

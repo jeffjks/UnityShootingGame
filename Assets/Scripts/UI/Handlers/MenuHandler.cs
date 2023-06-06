@@ -9,7 +9,7 @@ public abstract class MenuHandler : MonoBehaviour
     public int m_InitialSelection;
     public bool m_PreserveLastSelection;
     
-    private static readonly Stack<GameObject> _previousMenuStack = new();
+    protected static readonly Stack<GameObject> _previousMenuStack = new();
     private static readonly Dictionary<GameObject, Selectable> _lastSelected = new();
 
     protected void GoToTargetMenu(MenuHandler targetMenu)
@@ -69,10 +69,6 @@ public abstract class MenuHandler : MonoBehaviour
 
     private void ReturnToPreviousMenu()
     {
-        if (_previousMenuStack.Count == 0)
-        {
-            return;
-        }
         var previousMenu = _previousMenuStack.Peek();
         previousMenu.SetActive(true);
         _previousMenuStack.Pop();
@@ -88,7 +84,8 @@ public abstract class MenuHandler : MonoBehaviour
     }
 
     private void FindNextSelection(GameObject menu)
-    {if (_lastSelected.TryGetValue(menu, out Selectable selectable))
+    {
+        if (_lastSelected.TryGetValue(menu, out Selectable selectable))
         {
             selectable.Select();
             return;

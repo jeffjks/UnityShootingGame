@@ -55,7 +55,7 @@ public class PlayerShooter : PlayerShooterManager
         if (Time.timeScale == 0)
             return;
             
-        if (SystemManager.GameMode != GameMode.GAMEMODE_REPLAY) {
+        if (SystemManager.GameMode != GameMode.Replay) {
             if (Input.GetButton("Fire1")) {
                 m_ShotKeyPress = 1; // 버튼 누를시 m_ShotKeyPressFrame 증가
             }
@@ -132,13 +132,13 @@ public class PlayerShooter : PlayerShooterManager
         if (!m_PlayerBomb.GetEnableState()) {
             return;
         }
-        if (m_SystemManager.m_PlayState >= 2) {
+        if (!SystemManager.IsOnGamePlayState()) {
             return;
         }
         Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
         ((PlayerController) m_PlayerUnit).DisableInvincibility(4000);
         m_PlayerBomb.UseBomb();
-        m_SystemManager.SetBombNumber(-1);
+        m_SystemManager.AddBombNumber(-1);
     }
     
     void OnEnable()
@@ -226,7 +226,7 @@ public class PlayerShooter : PlayerShooterManager
             m_SystemManager.DisplayScoreText("POWER UP");
         }
         else {
-            m_SystemManager.AddScoreEffect(ItemScore.POWERUP);
+            m_SystemManager.AddScoreEffect(ItemScore.POWER_UP);
         }
         UpdateShotNumber();
     }
@@ -241,7 +241,7 @@ public class PlayerShooter : PlayerShooterManager
 
     public void AddBomb() {
         if (m_SystemManager.GetBombNumber() < m_SystemManager.GetMaxBombNumber()) {
-            m_SystemManager.SetBombNumber(1);
+            m_SystemManager.AddBombNumber(1);
             m_SystemManager.DisplayScoreText("BOMB");
         }
         else {

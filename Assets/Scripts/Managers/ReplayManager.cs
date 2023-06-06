@@ -35,7 +35,7 @@ public class ReplayManager : MonoBehaviour
 
         if (m_Activate) {
             try {
-                if (SystemManager.GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이 (파일 읽기)
+                if (SystemManager.GameMode == GameMode.Replay) { // 리플레이 (파일 읽기)
                     m_FilePath = m_GameManager.m_ReplayDirectory + "replay" + m_GameManager.m_ReplayNum + ".rep";
 
                     if (System.IO.File.Exists(m_FilePath)) {
@@ -93,7 +93,7 @@ public class ReplayManager : MonoBehaviour
         
         
         if (m_PlayerShooter.gameObject.activeInHierarchy) {
-            if (SystemManager.GameMode == GameMode.GAMEMODE_REPLAY) { // 리플레이
+            if (SystemManager.GameMode == GameMode.Replay) { // 리플레이
                 ReadUserInput();
                 m_PlayerShooter.PlayerShooterBehaviour();
             }
@@ -109,7 +109,7 @@ public class ReplayManager : MonoBehaviour
         int context = m_FileStream.ReadByte();
 
         if (m_StageOverview) {
-            if (m_SystemManager.m_PlayState == 0) {
+            if (SystemManager.PlayState == PlayState.OnField) {
                 m_StageOverview = false;
             }
         }
@@ -138,7 +138,7 @@ public class ReplayManager : MonoBehaviour
         byte context;
         int movement, shot, bomb;
 
-        if (m_SystemManager.m_PlayState >= 3) {
+        if (SystemManager.PlayState == PlayState.OnStageResult || SystemManager.PlayState == PlayState.OnStageTransition) {
             if (!m_StageOverview) { // 최초 Overview 진입시
                 m_StageOverview = true;
                 context = 0b0000_0001 << 7;

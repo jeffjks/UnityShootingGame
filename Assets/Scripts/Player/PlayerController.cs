@@ -64,7 +64,7 @@ public class PlayerController : PlayerUnit
     void Update()
     {
         if (m_PlayerManager.m_PlayerControlable) {
-            if (SystemManager.GameMode != GameMode.GAMEMODE_REPLAY) {
+            if (SystemManager.GameMode != GameMode.Replay) {
                 m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
                 m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
             }
@@ -128,7 +128,7 @@ public class PlayerController : PlayerUnit
         Vector2Int target_pos;
         if (m_SystemManager.GetCurrentStage() < 4) {
             target_pos = new Vector2Int(0, m_PlayerManager.m_RevivePositionY);
-            if (m_SystemManager.m_PlayState != 3) {
+            if (SystemManager.PlayState != PlayState.OnStageResult) {
                 m_OverviewSpeed = Mathf.Max(Mathf.Abs(m_PositionInt2D.x - target_pos.x), Mathf.Abs(m_PositionInt2D.y - target_pos.y));
                 m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
                 return;
@@ -136,7 +136,7 @@ public class PlayerController : PlayerUnit
         }
         else {
             target_pos = new Vector2Int(m_PositionInt2D.x, 2*256);
-            if (m_SystemManager.m_PlayState != 3) {
+            if (SystemManager.PlayState != PlayState.OnStageResult) {
                 m_OverviewSpeed = 12*256;
                 return;
             }

@@ -180,7 +180,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
         if (!m_PlayerManager.m_PlayerIsAlive) {
             return false;
         }
-        else if (m_SystemManager.m_PlayState >= 2) {
+        else if (!SystemManager.IsOnGamePlayState()) {
             return false;
         }
         else if (2 * Mathf.Abs(pos.x - camera_x) > Size.CAMERA_WIDTH) {

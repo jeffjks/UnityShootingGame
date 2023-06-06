@@ -6,15 +6,15 @@ public class SettingsMenuHandler : MenuHandler
     public MenuHandler m_SoundPanel;
     public MenuHandler m_LanguagePanel;
 
-    public void Graphics() {
+    public void GraphicsSettings() {
         GoToTargetMenu(m_GraphicsPanel);
     }
 
-    public void Sound() {
+    public void SoundSettings() {
         GoToTargetMenu(m_SoundPanel);
     }
 
-    public void Language() {
+    public void LanguageSettings() {
         GoToTargetMenu(m_LanguagePanel);
     }
 }

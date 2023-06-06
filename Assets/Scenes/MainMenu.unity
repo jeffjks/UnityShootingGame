@@ -25367,7 +25367,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Graphics
+      value: GraphicsSettings
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -30080,7 +30080,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Language
+      value: LanguageSettings
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -39908,7 +39908,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Sound
+      value: SoundSettings
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}

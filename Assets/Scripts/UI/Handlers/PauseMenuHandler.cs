@@ -1,63 +1,54 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PauseMenuHandler : GameUI
+public class PauseMenuHandler : MenuHandler
 {
-    public GameObject m_SoundMenu;
-
+    public MenuHandler m_SoundPanel;
+    public IngameInputController m_InGameInputController;
     public PauseManager m_PauseManager;
-    
-    private PoolingManager m_PoolingManager = null;
-    private int m_TempSelection;
 
-    void Update()
-	{
-        int moveRawVertical = (int) Input.GetAxisRaw("Vertical");
+    private int _activateTimer;
 
-        if (Input.GetButtonDown("Fire1")) {
-            switch(m_Selection) {
-                case 0:
-                    Resume();
-                    break;
-                case 1:
-                    Option();
-                    break;
-                case 2:
-                    QuitGame();
-                    break;
-                default:
-                    break;
-            }
+    private void OnEnable()
+    {
+        _activateTimer = 0;
+        m_InGameInputController.Action_OnPause += Back;
+    }
+
+    private void OnDisable()
+    {
+        m_InGameInputController.Action_OnPause -= Back;
+    }
+
+    private void Update()
+    {
+        _activateTimer++;
+    }
+
+    public override void Back()
+    {
+        if (_activateTimer < 10)
+        {
+            return;
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-            m_PauseManager.Resume();
-
-        MoveCursorVertical(moveRawVertical);
-        m_Selection = EndToStart(m_Selection, m_Total);
-        SetColor();
-	}
-
-    void OnEnable() {
-        m_SystemManager = SystemManager.instance_sm;
-        m_PoolingManager = PoolingManager.instance_op;
-        m_Selection = m_InitialSelection;
-    }
-
-
-    private void Resume() {
+        
         m_PauseManager.Resume();
+        base.Back();
     }
 
-    private void Option() {
-        m_InitialSelection = 1;
-        // ConfirmSound();
-        m_SoundMenu.SetActive(true);
-        gameObject.SetActive(false);
+    public void SoundSettings() {
+        GoToTargetMenu(m_SoundPanel);
+    }
+    
+    public void Resume() {
+        Back();
     }
 
-    private void QuitGame() {
+    public void QuitGame() {
         m_PauseManager.QuitGame();
     }
 }

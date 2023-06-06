@@ -199,7 +199,7 @@ public abstract class ItemGem : Item, IObjectPooling
     protected override void Update()
     {
         base.Update();
-        if (m_SystemManager.m_PlayState == 4) {
+        if (SystemManager.PlayState == PlayState.OnStageTransition) {
             ReturnToPool();
         }
 

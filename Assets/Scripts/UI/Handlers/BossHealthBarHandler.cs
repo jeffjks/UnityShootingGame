@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-enum BossHealthBarState {
+public enum BossHealthBarState {
     ScrollUp,
     ScrollingUp,
     ScrollDown,
@@ -16,8 +16,7 @@ public class BossHealthBarHandler : MonoBehaviour
     [SerializeField] private Image m_HealthBar = null;
     [SerializeField] private Sprite m_HealthBarGreen = null, m_HealthBarRed = null;
 
-    [HideInInspector] public EnemyUnit m_EnemyUnit;
-
+    private EnemyUnit _enemyUnit;
     private float _interpolateY;
     private float _healthRate = 1f;
     private IEnumerator _currentScrollCoroutine;
@@ -29,6 +28,7 @@ public class BossHealthBarHandler : MonoBehaviour
     private void Awake()
     {
         _deltaHeight = GetComponent<RectTransform>().rect.height;
+        StageManager.Action_BossHealthBar += StartHealthListener;
     }
 
     private float InterpolateY
@@ -41,14 +41,14 @@ public class BossHealthBarHandler : MonoBehaviour
     }
 
     private void SetHealthBarPosition() {
-        Vector3 hpBarPos = m_BossHealthBar.position;
-        m_BossHealthBar.position = new Vector3(hpBarPos.x, Mathf.Lerp(0f, - _deltaHeight, InterpolateY), hpBarPos.z);
+        var hpBarPos = m_BossHealthBar.anchoredPosition;
+        m_BossHealthBar.anchoredPosition = new Vector2(hpBarPos.x, Mathf.Lerp(0f, - _deltaHeight, _interpolateY));
     }
 
-    public void StartHealthListener(EnemyUnit enemyUnit) {
+    private void StartHealthListener(EnemyUnit enemyUnit) {
         enemyUnit.m_EnemyHealth.Action_OnHealthChanged += SetHealthRate;
         enemyUnit.m_EnemyHealth.Action_OnHealthChanged += CheckHealthBarLowState;
-        m_EnemyUnit = enemyUnit;
+        _enemyUnit = enemyUnit;
         StartScrollDownBar();
         enemyUnit.m_EnemyDeath.Action_OnDying += StartScrollUpBar;
     }
@@ -97,7 +97,7 @@ public class BossHealthBarHandler : MonoBehaviour
     
     private void SetHealthRate() {
         try {
-            _healthRate = m_EnemyUnit.m_EnemyHealth.m_HealthPercent;
+            _healthRate = _enemyUnit.m_EnemyHealth.m_HealthPercent;
         }
         catch(System.NullReferenceException) {
             _healthRate = 0f;
@@ -109,7 +109,7 @@ public class BossHealthBarHandler : MonoBehaviour
     private void CheckHealthBarLowState() {
         if (_healthRate <= 0.1f) {
             m_HealthBar.sprite = m_HealthBarRed;
-            m_EnemyUnit.m_EnemyHealth.Action_OnHealthChanged -= CheckHealthBarLowState;
+            _enemyUnit.m_EnemyHealth.Action_OnHealthChanged -= CheckHealthBarLowState;
         }
         else {
             m_HealthBar.sprite = m_HealthBarGreen;

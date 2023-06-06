@@ -50,21 +50,12 @@ public static class Layer // AirSmall(9), AirLarge(10), GroundSmall(11), GroundL
     public const int GROUND = 6144; // (1 << 11 | 1 << 12) LayerMask.GetMask("GroundSmallEnemy", "GroundLargeEnemy")
 }
 
-public static class ItemScore // Z Axis
+public static class ItemScore
 {
-    // Far
-    public const ushort GEM_GROUND = 200;
-    public const ushort GEM_AIR = 100;
-    public const ushort POWERUP = 2000;
-    public const ushort BOMB = 5000;
-    // Close
-}
-
-public static class BonusScale // Overview
-{
-    public const float BONUS_0 = 0.5f;
-    public const float BONUS_1 = 0.3f;
-    public const float BONUS_2 = 0.1f;
+    public const int GEM_GROUND = 200;
+    public const int GEM_AIR = 100;
+    public const int POWER_UP = 2000;
+    public const int BOMB = 5000;
 }
 
 
@@ -240,6 +231,17 @@ public static class BulletType
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
 }
 
+public enum PlayState
+{
+    OutGame = -1,
+    OnField,
+    OnMiddleBoss,
+    OnBoss,
+    OnBossCleared,
+    OnStageResult,
+    OnStageTransition
+}
+
 public enum GameDifficulty
 {
     Normal,
@@ -249,9 +251,9 @@ public enum GameDifficulty
 
 public enum GameMode
 {
-    GAMEMODE_NORMAL = 0,
-    GAMEMODE_TRAINING = 1,
-    GAMEMODE_REPLAY = 2
+    Normal = 0,
+    Training = 1,
+    Replay = 2
 }
 
 public interface IObjectPooling {

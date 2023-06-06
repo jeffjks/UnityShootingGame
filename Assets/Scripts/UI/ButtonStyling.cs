@@ -57,6 +57,11 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
         SetText();
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void SetText()
     {
         if (m_NativeText == "..." || m_NativeText == String.Empty)
@@ -87,12 +92,10 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
         StopAllCoroutines();
     }
 
-    public void OnCancel(BaseEventData baseEventData)
+    public void OnCancel(BaseEventData eventData)
     {
         if (_menuHandler == null)
-        {
             return;
-        }
         _menuHandler.Back();
     }
 

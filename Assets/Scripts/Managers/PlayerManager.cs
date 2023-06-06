@@ -13,8 +13,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private BoxCollider2D m_CameraOuterBoundary = null;
     [SerializeField] private BoxCollider2D m_GameOuterBoundary = null;
 
-    [SerializeField] private RectTransform m_CanvasUI = null;
-
     [HideInInspector] public bool m_PlayerIsAlive;
     [HideInInspector] public float m_CameraMargin;
 
@@ -52,12 +50,9 @@ public class PlayerManager : MonoBehaviour
         m_CameraBoundary.size = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
         m_CameraOuterBoundary.size = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
         m_GameOuterBoundary.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
-        m_CanvasUI.sizeDelta = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
 
         m_SpawnPoint = new Vector3(0, -20, Depth.PLAYER);
         m_CameraMargin = (Size.GAME_WIDTH - Size.CAMERA_WIDTH) / 2; // 1.555
-
-        m_CanvasUI.gameObject.SetActive(true);
     }
 
     void OnEnable() // Start였음
@@ -90,7 +85,7 @@ public class PlayerManager : MonoBehaviour
         m_PlayerShooter = m_Player.GetComponentInChildren<PlayerShooter>();
         m_PlayerController = m_Player.GetComponentInChildren<PlayerController>();
 
-        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING) {
+        if (SystemManager.GameMode == GameMode.Training) {
             int power;
             switch (m_SystemManager.GetCurrentStage()) {
                 case 0:

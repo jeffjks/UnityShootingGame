@@ -23,6 +23,7 @@ public abstract class StageManager : MonoBehaviour
     protected PoolingManager m_PoolingManager = null;
     
     public static event Action Action_BossWarningSign;
+    public static event Action<EnemyUnit> Action_BossHealthBar;
 
     private BossHealthBarHandler m_BossHealthBar;
     private readonly Vector3[] m_BossOnlyBackgroundLocalPositions = {
@@ -76,7 +77,7 @@ public abstract class StageManager : MonoBehaviour
         ScreenEffectService.ScreenTransitionIn();
 
         SetBackgroundSpeed(0f);
-        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING && SystemManager.TrainingInfo.bossOnly) {
+        if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             StartBossTimeline();
         }
         else {
@@ -91,7 +92,7 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected void StartBossTimeline() {
-        if (SystemManager.GameMode == GameMode.GAMEMODE_TRAINING && SystemManager.TrainingInfo.bossOnly) {
+        if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             int stage = m_SystemManager.GetCurrentStage();
             m_SystemManager.m_BackgroundCamera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
             SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
@@ -148,8 +149,8 @@ public abstract class StageManager : MonoBehaviour
         EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
 
         yield return new WaitForMillisecondFrames(millisecond);
-        m_BossHealthBar.StartHealthListener(enemy_unit);
-        m_SystemManager.m_PlayState = 1;
+        Action_BossHealthBar?.Invoke(enemy_unit);
+        SystemManager.PlayState = PlayState.OnField;
     }
 
     protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화
@@ -158,8 +159,8 @@ public abstract class StageManager : MonoBehaviour
         EnemyUnit enemy_unit = boss.GetComponent<EnemyUnit>();
 
         yield return new WaitForMillisecondFrames(millisecond);
-        m_BossHealthBar.StartHealthListener(enemy_unit);
-        m_SystemManager.m_PlayState = 1;
+        Action_BossHealthBar?.Invoke(enemy_unit);
+        SystemManager.PlayState = PlayState.OnField;
     }
 
     public void SetBackgroundSpeed(float target, int millisecond = 0) {

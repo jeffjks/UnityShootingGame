@@ -120,13 +120,13 @@ public class Stage2Manager : StageManager
 
         sbyte side = 1;
         for (int i = 0; i < 4; i++) {
-            if (m_SystemManager.m_PlayState == 0) {
+            if (SystemManager.PlayState == PlayState.OnField) {
                 CreateEnemy(m_PlaneMedium_2, new Vector2(3.5f*side, 3f));
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-1f*side, 3f), new Vector2(-1f*side, -3f), Random.Range(1200, 1500));
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f*side, 3f), new Vector2(-4f*side, -3f), Random.Range(1200, 1500));
             }
             yield return new WaitForMillisecondFrames(1500);
-            if (m_SystemManager.m_PlayState == 0) {
+            if (SystemManager.PlayState == PlayState.OnField) {
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-1f*side, 3f), new Vector2(-1f*side, -3f), Random.Range(1200, 1500));
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f*side, 3f), new Vector2(-4f*side, -3f), Random.Range(1200, 1500));
             }

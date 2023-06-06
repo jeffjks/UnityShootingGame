@@ -17143,8 +17143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2eea74b3f9bcfb48b1e877979fb2cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioStage: {fileID: 0}
-  m_AudioBoss: {fileID: 0}
   m_BossUnit:
   - {fileID: 2626877864803362105, guid: e061956d714bf2942bba9f5c7c918046, type: 3}
   - {fileID: 47514129448403895, guid: bace33642000e724f819d448c968c952, type: 3}
@@ -17156,9 +17154,9 @@ MonoBehaviour:
   - {fileID: 1751144229}
   - {fileID: 2121459645}
   m_EnemySpawners: {fileID: 657123530}
-  m_EnemyUnitPrefabDatas: {fileID: 0}
+  m_EnemyUnitPrefabDatas: {fileID: 11400000, guid: 30e142a287388564f941362c17bbb97d,
+    type: 2}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
-  m_AudioTrueLastBoss: {fileID: 0}
   m_Helicopter: {fileID: 2610135649203121185, guid: 691377558a126544bbcc4525f317a0c9,
     type: 3}
   m_ItemHeliRed: {fileID: 1770139926367605940, guid: ec11cef2fa1d4ac4db8ef555a8dc630e,

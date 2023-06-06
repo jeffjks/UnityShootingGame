@@ -112,31 +112,31 @@ public class Stage4Manager : StageManager
         yield return new WaitForMillisecondFrames(9000);
         CreateEnemy(m_PlaneLarge_3, new Vector2(-2f, 3f));
         yield return new WaitForMillisecondFrames(31000);
-        if (m_SystemManager.m_PlayState == 0) {
+        if (SystemManager.PlayState == PlayState.OnField) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(-2f, 3f));
         }
         yield return new WaitForMillisecondFrames(4000);
-        if (m_SystemManager.m_PlayState == 0) {
+        if (SystemManager.PlayState == PlayState.OnField) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(3f, 3f));
         }
         yield return new WaitForMillisecondFrames(6000);
-        if (m_SystemManager.m_PlayState == 0) {
+        if (SystemManager.PlayState == PlayState.OnField) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(-1f, 3f));
         }
         for (int i = 0; i < 6; i++) {
             yield return new WaitForMillisecondFrames(500);
-            if (m_SystemManager.m_PlayState == 0) {
+            if (SystemManager.PlayState == PlayState.OnField) {
                 CreateEnemy(m_PlaneSmall_1, new Vector2(-5f, 3f));
                 CreateEnemy(m_PlaneSmall_1, new Vector2(5f, 3f));
             }
         }
         yield return new WaitForMillisecondFrames(4000);
-        if (m_SystemManager.m_PlayState == 0) {
+        if (SystemManager.PlayState == PlayState.OnField) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(1f, 3f));
         }
         for (int i = 0; i < 6; i++) {
             yield return new WaitForMillisecondFrames(500);
-            if (m_SystemManager.m_PlayState == 0) {
+            if (SystemManager.PlayState == PlayState.OnField) {
                 CreateEnemy(m_PlaneSmall_1, new Vector2(-5f, 3f));
                 CreateEnemy(m_PlaneSmall_1, new Vector2(5f, 3f));
             }

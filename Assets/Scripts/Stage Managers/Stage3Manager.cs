@@ -222,7 +222,7 @@ public class Stage3Manager : StageManager
         int timer = 0;
         int[] period = { 1800, 1000, 600 };
         while (timer < 19.8f) {
-            if (m_SystemManager.m_PlayState == 0) {
+            if (SystemManager.PlayState == PlayState.OnField) {
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-8f, -6f), Random.Range(2f, 3f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-5f, -2.5f), Random.Range(2f, 3f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(2f, 3f)));

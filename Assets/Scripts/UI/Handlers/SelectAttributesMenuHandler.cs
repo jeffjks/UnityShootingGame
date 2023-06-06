@@ -55,7 +55,16 @@ public class SelectAttributesMenuHandler : MenuHandler
 
     private void StartStage()
     {
-        SceneManager.LoadScene("Stage1");
+        _previousMenuStack.Clear();
+        if (SystemManager.GameMode == GameMode.Normal)
+        {
+            SceneManager.LoadScene("Stage1");
+        }
+        else if (SystemManager.GameMode == GameMode.Training)
+        {
+            int stageNum = SystemManager.TrainingInfo.stage + 1;
+            SceneManager.LoadScene($"Stage{stageNum}");
+        }
     }
 
     public override void Back()

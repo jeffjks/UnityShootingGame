@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class InGameText_Score : MonoBehaviour
+{
+    public TextMeshProUGUI m_ScoreText;
+
+    private void Start()
+    {
+        SystemManager.instance_sm.Action_OnUpdateScore += UpdateScoreText;
+    }
+
+    private void UpdateScoreText(long value)
+    {
+        m_ScoreText.SetText(value.ToString());
+    }
+}

@@ -298,8 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82a889b48a8ce94e95fa8621bbba7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioStage: {fileID: 0}
-  m_AudioBoss: {fileID: 0}
   m_BossUnit:
   - {fileID: 100146, guid: 01bdc9a859a9fd54d8b56ff22302f2ea, type: 3}
   m_MiddleBossUnit:
@@ -309,7 +307,8 @@ MonoBehaviour:
   - {fileID: 1486902134}
   - {fileID: 475876281}
   m_EnemySpawners: {fileID: 1883073570}
-  m_EnemyUnitPrefabDatas: {fileID: 0}
+  m_EnemyUnitPrefabDatas: {fileID: 11400000, guid: 30e142a287388564f941362c17bbb97d,
+    type: 2}
   m_BackgroundVector: {x: 0, y: 0, z: 0}
   m_TankSmall_1: {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   m_TankSmall_2: {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}

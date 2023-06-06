@@ -17,7 +17,7 @@ public class TrainingMenuHandler : MenuHandler
 
     public void StartTraining()
     {
-        SystemManager.SetGameMode(GameMode.GAMEMODE_TRAINING);
+        SystemManager.SetGameMode(GameMode.Training);
         GoToTargetMenu(m_SelectAttributesMenu);
     }
     

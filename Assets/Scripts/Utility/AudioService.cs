@@ -27,6 +27,7 @@ public class AudioService : MonoBehaviour
     private static string currentScene = String.Empty;
     private static Dictionary<string, AudioSource> m_AudioSourceMusicDict = new Dictionary<string, AudioSource>();
     private static string currentMusic = String.Empty;
+    private static bool IsMusicPaused = false;
     
     private static Dictionary<string, AudioSource> m_AudioSourceSoundDict = new Dictionary<string, AudioSource>();
     private static Dictionary<ExplAudioType, AudioSource> m_AudioSourceExplosionDict = new Dictionary<ExplAudioType, AudioSource>();
@@ -163,6 +164,11 @@ public class AudioService : MonoBehaviour
             Debug.LogError($"'{musicName}' can not be played in this scene.");
             return;
         }
+        if (IsMusicPaused)
+        {
+            Debug.LogWarning($"Music is paused state. Unpause music first.");
+            return;
+        }
         if (currentMusic == musicName)
         {
             return;
@@ -182,6 +188,56 @@ public class AudioService : MonoBehaviour
         else
         {
             Debug.LogError($"There is no music name such as '{musicName}' in dictionary.");
+        }
+    }
+
+    public static void PauseAudio()
+    {
+        PauseMusic();
+        PauseSound();
+    }
+
+    public static void UnpauseAudio()
+    {
+        UnpauseMusic();
+        UnpauseSound();
+    }
+
+    private static void PauseMusic()
+    {
+        IsMusicPaused = true;
+        Instance.DOPause();
+        if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
+        {
+            audioSource.Pause();
+        }
+    }
+
+    private static void UnpauseMusic()
+    {
+        IsMusicPaused = false;
+        Instance.DOPlay();
+        if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
+        {
+            audioSource.UnPause();
+        }
+    }
+
+    private static void PauseSound()
+    {
+        foreach (var keyValue in m_AudioSourceSoundDict)
+        {
+            AudioSource audioSource = keyValue.Value;
+            audioSource.Pause();
+        }
+    }
+
+    private static void UnpauseSound()
+    {
+        foreach (var keyValue in m_AudioSourceSoundDict)
+        {
+            AudioSource audioSource = keyValue.Value;
+            audioSource.UnPause();
         }
     }
 

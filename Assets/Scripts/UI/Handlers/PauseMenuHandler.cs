@@ -16,12 +16,12 @@ public class PauseMenuHandler : MenuHandler
     private void OnEnable()
     {
         _activateTimer = 0;
-        m_InGameInputController.Action_OnPause += Back;
+        m_InGameInputController.Action_OnPause += Resume;
     }
 
     private void OnDisable()
     {
-        m_InGameInputController.Action_OnPause -= Back;
+        m_InGameInputController.Action_OnPause -= Resume;
     }
 
     private void Update()
@@ -31,13 +31,6 @@ public class PauseMenuHandler : MenuHandler
 
     public override void Back()
     {
-        if (_activateTimer < 10)
-        {
-            return;
-        }
-        
-        m_PauseManager.Resume();
-        base.Back();
     }
 
     public void SoundSettings() {
@@ -45,7 +38,12 @@ public class PauseMenuHandler : MenuHandler
     }
     
     public void Resume() {
-        Back();
+        if (_activateTimer < 10)
+        {
+            return;
+        }
+        AudioService.PlaySound("CancelUI");
+        m_PauseManager.Resume();
     }
 
     public void QuitGame() {

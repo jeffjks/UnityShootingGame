@@ -10,6 +10,7 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject m_EventSystemUI;
     public PauseMenuHandler m_PauseMenuHandler;
+    public GameObject m_PauseMenuUI;
     public IngameInputController m_InGameInputController;
     
     private SystemManager m_SystemManager = null;
@@ -50,11 +51,14 @@ public class PauseManager : MonoBehaviour
 
         IsGamePaused = true;
         Time.timeScale = 0f;
-        AudioListener.pause = true;
+        AudioService.PauseAudio();
         
-        m_EventSystemUI.SetActive(true);
+        //m_EventSystemUI.SetActive(true);
         m_PauseMenuHandler.gameObject.SetActive(true);
-        //EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>().Select();
+        m_PauseMenuUI.SetActive(true);
+        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>().Select();
     }
 
     public void Resume()
@@ -66,11 +70,12 @@ public class PauseManager : MonoBehaviour
         
         IsGamePaused = false;
         Time.timeScale = 1;
-        AudioListener.pause = false;
         _pauseEnabled = false;
+        AudioService.UnpauseAudio();
         
-        m_EventSystemUI.SetActive(false);
+        //m_EventSystemUI.SetActive(false);
         m_PauseMenuHandler.gameObject.SetActive(false);
+        m_PauseMenuUI.SetActive(false);
         StartCoroutine(PauseEnabled());
     }
 

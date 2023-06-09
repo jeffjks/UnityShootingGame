@@ -42,8 +42,8 @@ public class EnemyTurret3Turret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[(int) SystemManager.Difficulty]));
         while(true) {
-            pos1 = GetScreenPosition(m_FirePosition[0].position);
-            pos2 = GetScreenPosition(m_FirePosition[1].position);
+            pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
+            pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
             
             if (BulletCondition((pos1 + pos2)/2)) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {

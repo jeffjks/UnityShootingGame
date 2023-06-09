@@ -8,9 +8,9 @@ using UnityEngine;
 [Serializable]
 public static class Size
 {
-    public const float MAIN_CAMERA_POS = -64f;
-    public const float CAMERA_WIDTH = 12f; // 정확히는 카메라 콜라이더
-    public const float CAMERA_HEIGHT = 16f;
+    public const float MAIN_CAMERA_DEPTH = -64f;
+    public const float MAIN_CAMERA_WIDTH = 12f; // 정확히는 카메라 콜라이더
+    public const float MAIN_CAMERA_HEIGHT = 16f;
     public const float GAME_WIDTH = 15.11f;
     public const float GAME_HEIGHT = 16f;
 
@@ -27,18 +27,18 @@ public static class Size
 public static class Depth // Z Axis
 {
     // Far
-    public const int ENEMY = 32 + (int) Size.MAIN_CAMERA_POS; // Only Air Enemy
-    public const int EXPLOSION = 23 + (int) Size.MAIN_CAMERA_POS; // Only Air Explosion
-    public const int OVERVIEW = 22 + (int) Size.MAIN_CAMERA_POS;
-    public const int ITEMS = 21 + (int) Size.MAIN_CAMERA_POS;
-    public const int TRANSITION = 20 + (int) Size.MAIN_CAMERA_POS;
-    public const int PLAYER = 19 + (int) Size.MAIN_CAMERA_POS; // Player, Laser
-    public const int PLAYER_MISSILE = 18 + (int) Size.MAIN_CAMERA_POS;
-    public const int HIT_EFFECT = 17 + (int) Size.MAIN_CAMERA_POS;
-    public const int WHITE_EFFECT = 16 + (int) Size.MAIN_CAMERA_POS;
-    public const int SCORE_TEXT = 15 + (int) Size.MAIN_CAMERA_POS;
-    public const int ENEMY_BULLET = 14 + (int) Size.MAIN_CAMERA_POS;
-    public const int CAMERA = 0 + (int) Size.MAIN_CAMERA_POS;
+    public const int ENEMY = 32 + (int) Size.MAIN_CAMERA_DEPTH; // Only Air Enemy
+    public const int EXPLOSION = 23 + (int) Size.MAIN_CAMERA_DEPTH; // Only Air Explosion
+    public const int OVERVIEW = 22 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int ITEMS = 21 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int TRANSITION = 20 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int PLAYER = 19 + (int) Size.MAIN_CAMERA_DEPTH; // Player, Laser
+    public const int PLAYER_MISSILE = 18 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int HIT_EFFECT = 17 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int WHITE_EFFECT = 16 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int SCORE_TEXT = 15 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int ENEMY_BULLET = 14 + (int) Size.MAIN_CAMERA_DEPTH;
+    public const int CAMERA = 0 + (int) Size.MAIN_CAMERA_DEPTH;
     // Close
 }
 

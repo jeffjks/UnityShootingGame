@@ -394,6 +394,6 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
         ScreenEffectService.ScreenWhiteEffect(true);
-        m_SystemManager.ShakeCamera(1f);
+        MainCamera.ShakeCamera(1f);
     }
 }

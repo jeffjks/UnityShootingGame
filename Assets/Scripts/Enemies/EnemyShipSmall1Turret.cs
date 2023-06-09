@@ -29,7 +29,7 @@ public class EnemyShipSmall1Turret : EnemyUnit
         float[] speed = {6.6f, 7.8f, 7.8f};
 
         while (true) {
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
             
             CreateBullet(2, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);

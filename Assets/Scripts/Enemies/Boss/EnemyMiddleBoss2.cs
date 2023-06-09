@@ -141,41 +141,41 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         yield return new WaitForMillisecondFrames(2500);
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(2500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.5f, Random.Range(0f, 360f), accel, 18, 20f);
                 yield return new WaitForMillisecondFrames(2500);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(2000);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(2000);
             }
             else {
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForMillisecondFrames(1500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForMillisecondFrames(500);
-                CreateBulletsSector(2, GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
+                CreateBulletsSector(2, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, Random.Range(0f, 360f), accel, 24, 15f);
                 yield return new WaitForMillisecondFrames(1500);
             }
         }
@@ -185,18 +185,18 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBullet(3, GetScreenPosition(m_FirePosition2[0].position), 6.4f, m_Direction, accel);
-                CreateBullet(3, GetScreenPosition(m_FirePosition2[1].position), 6.4f, -m_Direction, accel);
+                CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.4f, m_Direction, accel);
+                CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.4f, -m_Direction, accel);
                 yield return new WaitForMillisecondFrames(110);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[0].position), 6.6f, m_Direction, accel, 2, 180f);
-                CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[1].position), 6.6f, -m_Direction, accel, 2, 180f);
+                CreateBulletsSector(5, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.6f, m_Direction, accel, 2, 180f);
+                CreateBulletsSector(5, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.6f, -m_Direction, accel, 2, 180f);
                 yield return new WaitForMillisecondFrames(70);
             }
             else {
-                CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[0].position), 6.8f, m_Direction, accel, 2, 180f);
-                CreateBulletsSector(5, GetScreenPosition(m_FirePosition2[1].position), 6.8f, -m_Direction, accel, 2, 180f);
+                CreateBulletsSector(5, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.8f, m_Direction, accel, 2, 180f);
+                CreateBulletsSector(5, BackgroundCamera.GetScreenPosition(m_FirePosition2[1].position), 6.8f, -m_Direction, accel, 2, 180f);
                 yield return new WaitForMillisecondFrames(40);
             }
         }
@@ -210,7 +210,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 random_value = Random.Range(0f, 360f);
-                pos = GetScreenPosition(m_FirePosition0.position);
+                pos = BackgroundCamera.GetScreenPosition(m_FirePosition0.position);
                 target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(4, pos, 6f, random_value + target_angle, accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(1800);
@@ -218,7 +218,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
-                    pos = GetScreenPosition(m_FirePosition0.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition0.position);
                     target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 24, 15f);
                     yield return new WaitForMillisecondFrames(80);
@@ -228,7 +228,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
             else {
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
-                    pos = GetScreenPosition(m_FirePosition0.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition0.position);
                     target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 30, 12f);
                     yield return new WaitForMillisecondFrames(80);

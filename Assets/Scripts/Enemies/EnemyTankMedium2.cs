@@ -43,10 +43,10 @@ public class EnemyTankMedium2 : EnemyUnit
         yield return new WaitForMillisecondFrames(Random.Range(0, 1000));
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                pos = GetScreenPosition(m_FirePosition.position);
+                pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 18, 20f); // 1
                 yield return new WaitForMillisecondFrames(1000);
-                pos = GetScreenPosition(m_FirePosition.position);
+                pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 10, 36f,
                 2, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                 yield return new WaitForMillisecondFrames(1000);
@@ -54,13 +54,13 @@ public class EnemyTankMedium2 : EnemyUnit
 
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 5; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 30, 12f); // 1
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
                 for (int i = 0; i < 3; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 24, 15f,
                     2, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                     yield return new WaitForMillisecondFrames(380);
@@ -70,13 +70,13 @@ public class EnemyTankMedium2 : EnemyUnit
 
             else if (SystemManager.Difficulty == GameDifficulty.Hell) {
                 for (int i = 0; i < 5; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(5, pos, 7.5f, Random.Range(0f, 360f), accel, 36, 10f); // 1
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
                 for (int i = 0; i < 3; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 7.5f, Random.Range(0f, 360f), accel, 30, 12f,
                     2, 200, 1, 6.5f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                     yield return new WaitForMillisecondFrames(380);

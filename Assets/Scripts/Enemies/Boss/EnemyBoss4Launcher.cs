@@ -86,7 +86,7 @@ public class EnemyBoss4Launcher : EnemyUnit
         Vector3 pos;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while (true) {
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(4, pos, 6.1f, Func_GetDirection.Invoke(), accel, 4, 90f);
                 yield return new WaitForFrames(9);
@@ -103,7 +103,7 @@ public class EnemyBoss4Launcher : EnemyUnit
     }
 
     private IEnumerator Pattern2() {
-        Vector3 pos = GetScreenPosition(m_FirePosition.position);
+        Vector3 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
         EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 500);
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -129,7 +129,7 @@ public class EnemyBoss4Launcher : EnemyUnit
             rotate = 1;
         
         while (true) {
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(2, pos, 4.3f, (m_Direction - 1.4f)*rotate, accel, 8, 45f);
                 CreateBulletsSector(2, pos, 4.5f, (m_Direction)*rotate, accel, 8, 45f);

@@ -40,15 +40,15 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
 
         while (true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
-                pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
+                pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
+                pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                 CreateBullet(1, pos1, 5.5f, m_CurrentAngle, accel);
                 CreateBullet(1, pos2, 5.5f, m_CurrentAngle, accel);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
-                    pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
-                    pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
+                    pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
+                    pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                     CreateBullet(1, pos1, 5f + i*0.9f, m_CurrentAngle, accel);
                     CreateBullet(1, pos2, 5f + i*0.9f, m_CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(60);
@@ -56,8 +56,8 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
             }
             else {
                 for (int i = 0; i < 6; i++) {
-                    pos1 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
-                    pos2 = GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
+                    pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
+                    pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                     CreateBullet(1, pos1, 5f + i*0.8f, m_CurrentAngle, accel);
                     CreateBullet(1, pos2, 5f + i*0.8f, m_CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(50);

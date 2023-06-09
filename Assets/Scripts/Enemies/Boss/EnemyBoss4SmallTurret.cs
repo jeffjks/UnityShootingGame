@@ -47,7 +47,7 @@ public class EnemyBoss4SmallTurret : EnemyUnit
         Vector3 pos;
 
         while(true) {
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(3000);

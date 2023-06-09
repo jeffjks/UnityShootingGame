@@ -18,9 +18,9 @@ public class EnemyBoss2Turret2_2 : EnemyUnit
         float gap = 0.32f;
 
         while(true) {
-            pos1 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
-            pos2 = GetScreenPosition(m_FirePosition.position);
-            pos3 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
+            pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
+            pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+            pos3 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
             CreateBullet(5, pos1, 7.3f, m_CurrentAngle, accel);
             CreateBullet(5, pos2, 7.6f, m_CurrentAngle, accel);
             CreateBullet(5, pos3, 7.3f, m_CurrentAngle, accel);

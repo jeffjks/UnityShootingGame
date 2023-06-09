@@ -47,12 +47,12 @@ public class PlayerManager : MonoBehaviour
         m_GameManager = GameManager.instance_gm;
         m_SystemManager = SystemManager.instance_sm;
         
-        m_CameraBoundary.size = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
-        m_CameraOuterBoundary.size = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT);
+        m_CameraBoundary.size = new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT);
+        m_CameraOuterBoundary.size = new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT);
         m_GameOuterBoundary.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
 
         m_SpawnPoint = new Vector3(0, -20, Depth.PLAYER);
-        m_CameraMargin = (Size.GAME_WIDTH - Size.CAMERA_WIDTH) / 2; // 1.555
+        m_CameraMargin = (Size.GAME_WIDTH - Size.MAIN_CAMERA_WIDTH) / 2; // 1.555
     }
 
     void OnEnable() // Start였음
@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
         m_PlayerControlable = false;
 
         m_SystemManager.SetPlayerController(m_PlayerController);
-        m_SystemManager.m_BackgroundCamera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+        BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
 
     public void SpawnPlayer() {

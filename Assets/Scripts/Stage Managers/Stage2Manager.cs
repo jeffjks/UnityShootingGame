@@ -20,16 +20,16 @@ public class Stage2Manager : StageManager
     protected override IEnumerator MainTimeline()
     {
         InitEnemies();
-        SetBackgroundSpeed(0.96f);
+        BackgroundCamera.SetBackgroundSpeed(0.96f);
 
         yield return new WaitForMillisecondFrames(35000);
         StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.23f, 29f), 1000)); // Middle Boss (36s)
 
         yield return new WaitForMillisecondFrames(35000);
-        SetBackgroundSpeed(new Vector3(1.2f, 0f, 0.6f), 750);
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(1.2f, 0f, 0.6f), 750);
         
         yield return new WaitForMillisecondFrames(13320);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
 
         yield return new WaitForMillisecondFrames(26000);
         StartBossTimeline();
@@ -50,7 +50,7 @@ public class Stage2Manager : StageManager
         ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
-        SetBackgroundSpeed(0f);
+        BackgroundCamera.SetBackgroundSpeed(0f);
         AudioService.PlayMusic("Boss1");
     }
 

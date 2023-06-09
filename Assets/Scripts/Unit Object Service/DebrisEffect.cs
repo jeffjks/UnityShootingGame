@@ -11,7 +11,6 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
 
     private Vector2 m_Position2D;
-    private Vector2 m_BackgroundCameraSize;
     private Material[] m_Materials;
     private int m_DebrisIndex = -1;
 
@@ -25,7 +24,6 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
-        m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
         
         MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
         m_Materials = new Material[meshRenderers.Length];
@@ -41,18 +39,8 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     }
 
     private void GetCoordinates() {
-        m_Position2D = GetScreenPosition(transform.position);
+        m_Position2D = BackgroundCamera.GetScreenPosition(transform.position);
         m_Collider2D.transform.position = m_Position2D;
-    }
-
-    private Vector2 GetScreenPosition(Vector3 pos) {
-        float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
-        Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
-        Vector2 modified_pos = new Vector2(
-            screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
-            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y
-            );
-        return modified_pos;
     }
     
     public void OnStart(DebrisType debrisType)

@@ -16,8 +16,6 @@ public abstract class StageManager : MonoBehaviour
     
     [SerializeField] private EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
 
-    [HideInInspector] public Vector3 m_BackgroundVector;
-
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
@@ -76,7 +74,7 @@ public abstract class StageManager : MonoBehaviour
         m_SystemManager.m_StageManager = this;
         ScreenEffectService.ScreenTransitionIn();
 
-        SetBackgroundSpeed(0f);
+        BackgroundCamera.SetBackgroundSpeed(0f);
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             StartBossTimeline();
         }
@@ -94,16 +92,16 @@ public abstract class StageManager : MonoBehaviour
     protected void StartBossTimeline() {
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             int stage = m_SystemManager.GetCurrentStage();
-            m_SystemManager.m_BackgroundCamera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
-            SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
+            BackgroundCamera.Camera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
+            BackgroundCamera.SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
         }
         StartCoroutine(BossTimeline());
     }
 
     protected void BackgroundLoop(float z, float subtract) {
-        Vector3 pos = m_SystemManager.m_BackgroundCamera.transform.position;
+        Vector3 pos = BackgroundCamera.Camera.transform.position;
         if (pos.z > z - 24f) {
-            m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(pos.x, pos.y, pos.z - subtract);
+            BackgroundCamera.Camera.transform.position = new Vector3(pos.x, pos.y, pos.z - subtract);
         }
     }
 
@@ -161,44 +159,6 @@ public abstract class StageManager : MonoBehaviour
         yield return new WaitForMillisecondFrames(millisecond);
         Action_BossHealthBar?.Invoke(enemy_unit);
         SystemManager.PlayState = PlayState.OnField;
-    }
-
-    public void SetBackgroundSpeed(float target, int millisecond = 0) {
-        StartCoroutine(BackgroundSpeedCoroutine(target, millisecond));
-    }
-
-    public void SetBackgroundSpeed(Vector3 target, int millisecond = 0) { // Overloading
-        StartCoroutine(BackgroundSpeedCoroutine(target, millisecond));
-    }
-
-    private IEnumerator BackgroundSpeedCoroutine(float target, int millisecond = 0) {
-        int frame = millisecond * Application.targetFrameRate / 1000;
-        if (frame == 0) { // 즉시 종료
-            m_BackgroundVector.z = target;
-            yield break;
-        }
-
-        float init_vector_z = m_BackgroundVector.z;
-        
-        for (int i = 0; i < frame; ++i) {
-            m_BackgroundVector.z = init_vector_z + (target - init_vector_z)*(i+1) / frame;
-            yield return new WaitForFrames(0);
-        }
-    }
-
-    private IEnumerator BackgroundSpeedCoroutine(Vector3 target_vector, int millisecond = 0) { // Overloading
-        int frame = millisecond * Application.targetFrameRate / 1000;
-        if (frame == 0) { // 즉시 종료
-            m_BackgroundVector = target_vector;
-            yield break;
-        }
-
-        Vector3 init_vector = m_BackgroundVector;
-
-        for (int i = 0; i < frame; ++i) {
-            m_BackgroundVector = init_vector + (target_vector - init_vector)*(i+1) / frame;
-            yield return new WaitForFrames(0);
-        }
     }
 
     protected void InitEnemies() {

@@ -32,7 +32,7 @@ public class EnemyShipMedium1 : EnemyUnit
         while(true) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 5; j++) {
-                    pos[j] = GetScreenPosition(m_FirePosition[j].position);
+                    pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
                     CreateBullet(1, pos[j], 4.3f, m_CurrentAngle - target_angle[j], accel);
                 }
                 yield return new WaitForMillisecondFrames(100);
@@ -47,7 +47,7 @@ public class EnemyShipMedium1 : EnemyUnit
 
         while(true) {
             for (int i = 0; i < 2; i++) {
-                pos[i] = GetScreenPosition(m_FirePosition[i+5].position);
+                pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i+5].position);
                 if (SystemManager.Difficulty == GameDifficulty.Normal)
                     CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 12, 30f);
                 else if (SystemManager.Difficulty == GameDifficulty.Expert)

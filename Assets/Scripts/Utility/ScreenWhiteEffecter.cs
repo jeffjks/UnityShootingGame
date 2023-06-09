@@ -42,7 +42,7 @@ public class ScreenWhiteEffecter : MonoBehaviour // 흰색 점멸 이펙트
     {
         Alpha = 0f;
         transform.position = new Vector3(transform.position.x, transform.position.y, Depth.WHITE_EFFECT);
-        m_MaxSize = new Vector2(Size.CAMERA_WIDTH, Size.CAMERA_HEIGHT) * WIDTH_SCALER;
+        m_MaxSize = new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT) * WIDTH_SCALER;
     }
     
     private void SetAlpha(float alpha) {

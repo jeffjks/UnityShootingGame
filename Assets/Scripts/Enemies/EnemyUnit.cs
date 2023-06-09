@@ -73,7 +73,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         if (CheckLayer(Layer.AIR))
             m_Position2D = transform.position;
         else {
-            m_Position2D = GetScreenPosition(transform.position);
+            m_Position2D = BackgroundCamera.GetScreenPosition(transform.position);
         }
     }
 

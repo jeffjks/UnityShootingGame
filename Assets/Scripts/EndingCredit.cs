@@ -49,7 +49,7 @@ public class EndingCredit : MonoBehaviour
                 StartCoroutine(QuitEnding());
         }
         
-        if (m_EndingScroll[m_Language].rectTransform.anchoredPosition.y < Size.CAMERA_HEIGHT*0.5f + m_EndingScroll[m_Language].preferredHeight*m_Scale) {
+        if (m_EndingScroll[m_Language].rectTransform.anchoredPosition.y < Size.MAIN_CAMERA_HEIGHT*0.5f + m_EndingScroll[m_Language].preferredHeight*m_Scale) {
             if (Input.GetButton("Fire1")) {
                 m_ScrollSpeed = m_DefaultScrollSpeed*8f;
             }

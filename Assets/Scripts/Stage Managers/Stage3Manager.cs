@@ -25,17 +25,17 @@ public class Stage3Manager : StageManager
     protected override IEnumerator MainTimeline()
     {
         InitEnemies();
-        SetBackgroundSpeed(0.96f);
+        BackgroundCamera.SetBackgroundSpeed(0.96f);
 
         yield return new WaitForMillisecondFrames(55000);
-        SetBackgroundSpeed(-0.96f, 2000);
+        BackgroundCamera.SetBackgroundSpeed(-0.96f, 2000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, -1f, 52f), 3000)); // Middle Boss (56s)
 
         yield return new WaitForMillisecondFrames(26000);
-        SetBackgroundSpeed(new Vector3(-1.92f, 0f, -0.72f), 750);
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(-1.92f, 0f, -0.72f), 750);
         
         yield return new WaitForMillisecondFrames(13000);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
 
         yield return new WaitForMillisecondFrames(35000);
         StartBossTimeline();
@@ -55,7 +55,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3000)); // Boss
         yield return new WaitForMillisecondFrames(2000);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1000);
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1000);
         AudioService.PlayMusic("Boss1");
     }
 

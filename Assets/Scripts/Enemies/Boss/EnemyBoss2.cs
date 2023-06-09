@@ -115,7 +115,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
             }
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
-            StartCoroutine(m_SystemManager.MoveBackgroundCameraDuration(true, 13f, duration));
+            BackgroundCamera.MoveBackgroundCamera(true, 13f, duration);
         }
         else if (m_Phase == 3) { // Phase 2 to 3
             for (int i = 0; i < m_Part3_Turrets.Length; i++) {
@@ -125,7 +125,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
             m_CurrentPhase = Phase3();
             StartCoroutine(m_CurrentPhase);
-            StartCoroutine(m_SystemManager.MoveBackgroundCameraDuration(true, -7.5f, duration));
+            BackgroundCamera.MoveBackgroundCamera(true, -7.5f, duration);
         }
     }
 
@@ -290,6 +290,6 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
         ScreenEffectService.ScreenWhiteEffect(true);
-        m_SystemManager.ShakeCamera(1f);
+        MainCamera.ShakeCamera(1f);
     }
 }

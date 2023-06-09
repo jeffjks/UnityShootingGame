@@ -157,7 +157,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         while (true) {
             random_value1 = Random.Range(-3f, 3f);
             random_value2 = Random.Range(-70f, 70f);
-            pos = GetScreenPosition(m_FirePosition[2].position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -180,7 +180,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         while (true) {
-            pos = GetScreenPosition(m_FirePosition[1].position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
             random_value = Random.Range(0f, 360f);
 
@@ -213,7 +213,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         EnemyBulletAccel accel2 = new EnemyBulletAccel(8.7f, 1200);
 
         for (int i = 0; i < 3; i++) {
-            pos = GetScreenPosition(m_FirePosition[2].position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -242,7 +242,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         while (true) {
-            pos = GetScreenPosition(m_FirePosition[1].position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -267,7 +267,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         yield return new WaitForMillisecondFrames(1500);
 
         while (true) {
-            pos = GetScreenPosition(m_FirePosition[0].position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -292,7 +292,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         yield return new WaitForMillisecondFrames(1500);
 
         while (true) {
-            pos = GetScreenPosition(m_FirePosition[0].position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             target_angle = GetAngleToTarget(pos, m_PlayerPosition);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {

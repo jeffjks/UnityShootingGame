@@ -31,8 +31,8 @@ public class EnemyTankMedium3 : EnemyUnit
         Vector3[] pos = new Vector3[2];
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         while(true) {
-            pos[0] = GetScreenPosition(m_FirePosition[0].position);
-            pos[1] = GetScreenPosition(m_FirePosition[1].position);
+            pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
+            pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
             CreateBullet(4, pos[0], 5.2f, m_Direction, accel);
             CreateBullet(4, pos[1], 5.2f, m_Direction + 180f, accel);
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

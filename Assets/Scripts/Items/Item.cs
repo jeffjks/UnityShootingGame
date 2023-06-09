@@ -11,11 +11,8 @@ public abstract class Item : MonoBehaviour
 
     protected abstract void ItemEffect(Collider2D other);
     public abstract void OnItemRemoved();
-    protected Transform m_MainCameraTransform;
     protected Vector2 m_Position2D;
     protected Vector2Int m_Position;
-
-    private Vector2 m_BackgroundCameraSize;
     
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
@@ -25,9 +22,6 @@ public abstract class Item : MonoBehaviour
     {
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
-
-        m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
-        m_MainCameraTransform = m_SystemManager.m_MainCamera.transform;
     }
     
     protected virtual void Update()
@@ -40,7 +34,7 @@ public abstract class Item : MonoBehaviour
         if (m_IsAir)
             m_Position2D = transform.position;
         else {
-            m_Position2D = GetScreenPosition(transform.position);
+            m_Position2D = BackgroundCamera.GetScreenPosition(transform.position);
             m_Collider2D.transform.position = m_Position2D;
         }
     }
@@ -60,15 +54,6 @@ public abstract class Item : MonoBehaviour
         else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + gap) {
             OnItemRemoved();
         }
-    }
-
-    private Vector2 GetScreenPosition(Vector3 pos) {
-        float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
-        Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
-        Vector2 modified_pos = new Vector2(
-            screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
-            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y);
-        return modified_pos;
     }
 
     protected void SetPosition() {
@@ -122,19 +107,19 @@ public abstract class ItemBox : Item
 
         if (!m_Disappear && m_IsAir) {
             float angle;
-            if (transform.position.x <= m_MainCameraTransform.position.x - (Size.CAMERA_WIDTH*0.5f - m_Padding)) { // left
+            if (transform.position.x <= MainCamera.Instance.transform.position.x - (Size.MAIN_CAMERA_WIDTH*0.5f - m_Padding)) { // left
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 90f + angle;
             }
-            else if (transform.position.x >= m_MainCameraTransform.position.x + (Size.CAMERA_WIDTH*0.5f - m_Padding)) { // right
+            else if (transform.position.x >= MainCamera.Instance.transform.position.x + (Size.MAIN_CAMERA_WIDTH*0.5f - m_Padding)) { // right
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = -90f + angle;
             }
-            else if (transform.position.y <= m_MainCameraTransform.position.y - (Size.CAMERA_HEIGHT*0.5f - m_Padding)) { // bottom
+            else if (transform.position.y <= MainCamera.Instance.transform.position.y - (Size.MAIN_CAMERA_HEIGHT*0.5f - m_Padding)) { // bottom
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 180f + angle;
             }
-            else if (transform.position.y >= m_MainCameraTransform.position.y + (Size.CAMERA_HEIGHT*0.5f - m_Padding)) { // top
+            else if (transform.position.y >= MainCamera.Instance.transform.position.y + (Size.MAIN_CAMERA_HEIGHT*0.5f - m_Padding)) { // top
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 0f + angle;
             }

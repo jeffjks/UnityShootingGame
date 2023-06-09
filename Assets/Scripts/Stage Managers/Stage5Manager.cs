@@ -29,8 +29,8 @@ public class Stage5Manager : StageManager
     {
         //StartCoroutine(BossTimeline());
         //yield break;
-        m_SystemManager.m_BackgroundCamera.transform.position = new Vector3(0f, 40f, 389.4f);
-        SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        BackgroundCamera.Camera.transform.position = new Vector3(0f, 40f, 389.4f);
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(3000);
         AudioService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(5000);
@@ -42,17 +42,17 @@ public class Stage5Manager : StageManager
 
     protected override IEnumerator MainTimeline()
     {
-        SetBackgroundSpeed(1f);
+        BackgroundCamera.SetBackgroundSpeed(1f);
         yield return new WaitForMillisecondFrames(1000);
         InitEnemies();
         yield return new WaitForMillisecondFrames(100000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 0)); // Middle Boss 0
-        SetBackgroundSpeed(0.9f, 1000);
+        BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(40000);
-        SetBackgroundSpeed(1f, 1000);
+        BackgroundCamera.SetBackgroundSpeed(1f, 1000);
         yield return new WaitForMillisecondFrames(50000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 1)); // Middle Boss 1
-        SetBackgroundSpeed(0.9f, 1000);
+        BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(140000);
         StartBossTimeline();
     }
@@ -73,7 +73,7 @@ public class Stage5Manager : StageManager
     }
 
     public void TrueLastBoss(Vector3 pos) {
-        SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
         AudioService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
     }
@@ -303,7 +303,7 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(0f, WATER_HEIGHT, GetBackgroundZ() + 32f),
         new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4000, 1000, true, 0f)});
-        SetBackgroundSpeed(1.2f, 1000);
+        BackgroundCamera.SetBackgroundSpeed(1.2f, 1000);
         yield return new WaitForMillisecondFrames(9000); // Final Field (287s)
         
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
@@ -336,12 +336,12 @@ public class Stage5Manager : StageManager
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
         yield return new WaitForMillisecondFrames(7000); // 319s
 
-        SetBackgroundSpeed(7f, 2000);
+        BackgroundCamera.SetBackgroundSpeed(7f, 2000);
         yield return new WaitForMillisecondFrames(2000);
         period = new int[] { 5500, 2000, 1500 };
         StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 10000, period[(int) SystemManager.Difficulty]));
         yield return new WaitForMillisecondFrames(11000);
-        SetBackgroundSpeed(1f, 4000);
+        BackgroundCamera.SetBackgroundSpeed(1f, 4000);
         yield return new WaitForMillisecondFrames(5000);
         CreateEnemy(m_ItemHeliRed, new Vector2(-3.5f, 3f));
         CreateEnemy(m_ItemHeliRed, new Vector2(3.5f, 3f));
@@ -507,7 +507,7 @@ public class Stage5Manager : StageManager
     }
 
     private float GetBackgroundZ() {
-        return m_SystemManager.m_BackgroundCamera.transform.position.z;
+        return BackgroundCamera.Camera.transform.position.z;
     }
 
     private void CheckTrueLastBossState() {

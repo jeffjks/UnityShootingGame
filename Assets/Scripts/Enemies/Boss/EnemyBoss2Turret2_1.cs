@@ -38,8 +38,8 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
         while(true) {
             m_Shooting = true;
             for (int i = 0; i < 3; i++) {
-                pos1 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
-                pos2 = GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
+                pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
+                pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
                 CreateBullet(5, pos1, 6.1f, m_CurrentAngle, accel);
                 CreateBullet(5, pos2, 6.1f, m_CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(70);

@@ -45,7 +45,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         float init_speed = m_MoveVector.speed;
-        float target_speed = m_SystemManager.m_StageManager.m_BackgroundVector.z;
+        float target_speed = BackgroundCamera.GetBackgroundVector().z;
         int frame = 1000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
@@ -83,7 +83,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             return;
         }
         if (m_FollowingBackground) {
-            m_MoveVector.speed = m_SystemManager.m_StageManager.m_BackgroundVector.z; // 배경 속도에 맞추기
+            m_MoveVector.speed = BackgroundCamera.GetBackgroundVector().z; // 배경 속도에 맞추기
         }
     }
 
@@ -604,6 +604,6 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
         ScreenEffectService.ScreenWhiteEffect(true);
-        m_SystemManager.ShakeCamera(1f);
+        MainCamera.ShakeCamera(1f);
     }
 }

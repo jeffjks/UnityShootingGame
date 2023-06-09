@@ -24,7 +24,7 @@ public class PlayerShooter : PlayerShooterManager
 
     void Start()
     {
-        m_MainCamera = m_SystemManager.m_MainCamera.transform;
+        m_MainCamera = MainCamera.Camera.transform;
 
         for (int i = 0; i < PlayerWeapon.Length; i++) {
             m_PlayerWeaponName[i] = PlayerWeapon[i].GetComponent<PlayerWeapon>().m_ObjectName;

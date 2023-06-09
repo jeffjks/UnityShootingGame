@@ -35,43 +35,43 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
         while (true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++) {
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 6.4f - i*0.5f, m_CurrentAngle - 64 + i*8f, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 6.4f - i*0.5f, m_CurrentAngle + 64 - i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 6.4f - i*0.5f, m_CurrentAngle - 64 + i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 6.4f - i*0.5f, m_CurrentAngle + 64 - i*8f, accel);
                     yield return new WaitForMillisecondFrames(240);
                 }
                 StartCoroutine(m_EnemyMiddleBoss2Barrel.ShootAnimation());
                 for (int i = 0; i < 3; i++) {
                     float random_value = Random.Range(-2f, 2f);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 4.4f + i*1.1f, m_CurrentAngle + random_value, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 4.4f + i*1.1f, m_CurrentAngle - random_value, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 4.4f + i*1.1f, m_CurrentAngle + random_value, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 4.4f + i*1.1f, m_CurrentAngle - random_value, accel);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 7; i++) {
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 6.4f - i*0.3f, m_CurrentAngle - 64 + i*8f, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 6.4f - i*0.3f, m_CurrentAngle + 64 - i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 6.4f - i*0.3f, m_CurrentAngle - 64 + i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 6.4f - i*0.3f, m_CurrentAngle + 64 - i*8f, accel);
                     yield return new WaitForMillisecondFrames(170);
                 }
                 StartCoroutine(m_EnemyMiddleBoss2Barrel.ShootAnimation());
                 for (int i = 0; i < 6; i++) {
                     float random_value = Random.Range(-2f, 2f);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 4f + i*0.8f, m_CurrentAngle + random_value, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 4f + i*0.8f, m_CurrentAngle - random_value, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 4f + i*0.8f, m_CurrentAngle + random_value, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 4f + i*0.8f, m_CurrentAngle - random_value, accel);
                 }
             }
             else {
                 for (int i = 0; i < 7; i++) {
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 6.8f - i*0.3f, m_CurrentAngle - 66 + i*8f, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 6f - i*0.3f, m_CurrentAngle - 62 + i*8f, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 6.8f - i*0.3f, m_CurrentAngle + 66 - i*8f, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 6f - i*0.3f, m_CurrentAngle + 62 - i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 6.8f - i*0.3f, m_CurrentAngle - 66 + i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 6f - i*0.3f, m_CurrentAngle - 62 + i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 6.8f - i*0.3f, m_CurrentAngle + 66 - i*8f, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 6f - i*0.3f, m_CurrentAngle + 62 - i*8f, accel);
                     yield return new WaitForMillisecondFrames(170);
                 }
                 StartCoroutine(m_EnemyMiddleBoss2Barrel.ShootAnimation());
                 for (int i = 0; i < 6; i++) {
                     float random_value = Random.Range(-1f, 1f);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[0].position), 4f + i*0.8f, m_CurrentAngle + random_value, accel);
-                    CreateBullet(3, GetScreenPosition(m_FirePosition[1].position), 4f + i*0.8f, m_CurrentAngle - random_value, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[0].position), 4f + i*0.8f, m_CurrentAngle + random_value, accel);
+                    CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition[1].position), 4f + i*0.8f, m_CurrentAngle - random_value, accel);
                 }
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

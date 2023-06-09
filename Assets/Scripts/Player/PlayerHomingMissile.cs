@@ -28,7 +28,7 @@ public class PlayerHomingMissile : PlayerWeapon {
             return;
 
         if (m_SystemManager != null) {
-            m_MainCameraPosition = m_SystemManager.m_MainCamera.transform.position;
+            m_MainCameraPosition = MainCamera.Instance.transform.position;
             
             if (m_Target == null) {
                 m_Target = FindClosestEnemy();
@@ -59,13 +59,13 @@ public class PlayerHomingMissile : PlayerWeapon {
 
         foreach (GameObject target_temp in enemies) {
             EnemyUnit enemy = target_temp.GetComponentInParent<EnemyUnit>();
-            if (target_temp.transform.position.x < m_MainCameraPosition.x - Size.CAMERA_WIDTH*0.5f) // -6 (default)
+            if (target_temp.transform.position.x < m_MainCameraPosition.x - Size.MAIN_CAMERA_WIDTH/2) // -6 (default)
                 continue;
-            else if (target_temp.transform.position.x > m_MainCameraPosition.x + Size.CAMERA_WIDTH*0.5f) // 6 (default)
+            else if (target_temp.transform.position.x > m_MainCameraPosition.x + Size.MAIN_CAMERA_WIDTH/2) // 6 (default)
                 continue;
-            else if (target_temp.transform.position.y < m_MainCameraPosition.y - Size.CAMERA_HEIGHT*0.5f) // -16
+            else if (target_temp.transform.position.y < - Size.MAIN_CAMERA_HEIGHT) // -16
                 continue;
-            else if (target_temp.transform.position.y > m_MainCameraPosition.y + Size.CAMERA_HEIGHT*0.5f) // 0
+            else if (target_temp.transform.position.y > 0) // 0
                 continue;
             
             if (!enemy.IsInteractable()) {

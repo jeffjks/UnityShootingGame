@@ -7,13 +7,10 @@ using System;
 
 public class SystemManager : MonoBehaviour
 {
-    public Camera m_BackgroundCamera;
-    public MainCamera m_MainCamera;
     public OverviewHandler m_OverviewHandler;
     public PlayerManager m_PlayerManager;
 
     [HideInInspector] public StageManager m_StageManager;
-    [HideInInspector] public Vector2 m_BackgroundCameraSize;
     [HideInInspector] public int BulletsSortingLayer;
     [HideInInspector] public int m_BulletsEraseTimer;
     [HideInInspector] public int m_UsedCost;
@@ -48,6 +45,7 @@ public class SystemManager : MonoBehaviour
 
     public event Action Action_OnEnableSystemManager;
     public event Action Action_OnDisableSystemManager;
+    public event Action Action_OnNextStage;
 
     void Awake()
     {
@@ -60,10 +58,6 @@ public class SystemManager : MonoBehaviour
         m_GameManager = GameManager.instance_gm;
         //m_PlayerManager = PlayerManager.instance_pm;
         m_PoolingManager = PoolingManager.instance_op;
-
-        m_BackgroundCameraSize.x = m_BackgroundCamera.orthographicSize * 2 * ((float) Screen.width/(float) Screen.height); // 256/9 = 28.444..
-        m_BackgroundCameraSize.y = m_BackgroundCamera.orthographicSize * 2; // 16
-        m_BackgroundCameraDefaultLocalPos = m_BackgroundCamera.transform.localPosition;
         
         DontDestroyOnLoad(gameObject);
         
@@ -78,7 +72,6 @@ public class SystemManager : MonoBehaviour
     }
 
     void OnEnable() { // Start였음
-        InitCamera();
         Init();
         Action_OnEnableSystemManager?.Invoke();
         
@@ -95,7 +88,6 @@ public class SystemManager : MonoBehaviour
 
     void Update()
     {
-        MoveBackgroundCamera();
         BulletEraseTimer();
     }
 
@@ -114,15 +106,9 @@ public class SystemManager : MonoBehaviour
         m_OverviewHandler.gameObject.SetActive(false);
     }
 
-    private void MoveBackgroundCamera() {
-        if (m_StageManager != null) {
-            m_BackgroundCamera.transform.position += m_StageManager.m_BackgroundVector / Application.targetFrameRate * Time.timeScale;
-        }
-    }
-
     public IEnumerator MoveBackgroundCameraDuration(bool relative, float position_z, int duration) {
         int frame = duration * Application.targetFrameRate / 1000;
-        float init_position_z = m_BackgroundCamera.transform.position.z;
+        float init_position_z = BackgroundCamera.Instance.transform.position.z;
         float target_position_z;
 
         if (relative) {
@@ -136,22 +122,15 @@ public class SystemManager : MonoBehaviour
             float t_pos_z = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
             
             position_z = Mathf.Lerp(init_position_z, target_position_z, t_pos_z);
-            m_BackgroundCamera.transform.position = new Vector3(m_BackgroundCamera.transform.position.x, m_BackgroundCamera.transform.position.y, position_z);
+            Vector3 temp = BackgroundCamera.Instance.transform.position;
+            temp.z = position_z;
+            BackgroundCamera.Instance.transform.position = temp;
             yield return new WaitForMillisecondFrames(0);
         }
-    }
-
-    private void InitCamera() {
-        m_MainCamera.InitMainCamera();
-        m_BackgroundCamera.transform.localPosition = m_BackgroundCameraDefaultLocalPos;
     }
     
     public void SetPlayerController(PlayerController playerController) {
         m_PlayerController = playerController;
-    }
-
-    public void ShakeCamera(float duration) {
-        m_MainCamera.ShakeCamera(duration);
     }
 
 
@@ -176,7 +155,7 @@ public class SystemManager : MonoBehaviour
         m_PlayerManager.m_PlayerControlable = false;
         AudioService.PlayMusic("StageClear");
         yield return new WaitForMillisecondFrames(2000);
-        m_StageManager.SetBackgroundSpeed(0f);
+        BackgroundCamera.SetBackgroundSpeed(0f);
         m_StageManager.StopCoroutine("MainTimeline");
         m_OverviewHandler.gameObject.SetActive(true);
     }
@@ -201,7 +180,7 @@ public class SystemManager : MonoBehaviour
             m_OverviewHandler.gameObject.SetActive(false);
             Vector3 player_pos = m_PlayerController.transform.position;
             m_PlayerController.transform.position = new Vector3(0f, player_pos.y, player_pos.z);
-            InitCamera();
+            Action_OnNextStage?.Invoke();
             
             if (m_Stage < 4) {
                 string scene_name = "Stage" + (m_Stage + 2);

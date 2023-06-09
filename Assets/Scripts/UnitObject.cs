@@ -64,7 +64,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
     protected PoolingManager m_PoolingManager = null;
-    protected Vector2 m_PlayerPosition, m_BackgroundCameraSize;
+    protected Vector2 m_PlayerPosition;
     
     private const float SAFE_LINE = -11f;
 
@@ -75,17 +75,6 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
         m_PoolingManager = PoolingManager.instance_op;
 
         GetPlayerPosition2D();
-        m_BackgroundCameraSize = m_SystemManager.m_BackgroundCameraSize;
-    }
-
-    protected Vector2 GetScreenPosition(Vector3 pos) { // Only Ground Units
-        float main_camera_xpos = m_SystemManager.m_MainCamera.transform.position.x;
-        Vector3 screen_pos = m_SystemManager.m_BackgroundCamera.WorldToScreenPoint(pos);
-        Vector2 modified_pos = new Vector2(
-            screen_pos[0]*m_BackgroundCameraSize.x/Screen.width - m_BackgroundCameraSize.x/2 + main_camera_xpos,
-            screen_pos[1]*m_BackgroundCameraSize.y/Screen.height - m_BackgroundCameraSize.y
-            );
-        return modified_pos;
     }
 
 
@@ -175,7 +164,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
     }
 
     protected virtual bool BulletCondition(Vector3 pos) {
-        float camera_x = m_SystemManager.m_MainCamera.transform.position.x;
+        float camera_x = MainCamera.Camera.transform.position.x;
 
         if (!m_PlayerManager.m_PlayerIsAlive) {
             return false;
@@ -183,7 +172,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
         else if (!SystemManager.IsOnGamePlayState()) {
             return false;
         }
-        else if (2 * Mathf.Abs(pos.x - camera_x) > Size.CAMERA_WIDTH) {
+        else if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH) {
             return false;
         }
         else if (pos.y < SAFE_LINE || 0 < pos.y) {

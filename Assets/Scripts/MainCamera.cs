@@ -4,12 +4,34 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour {
     
+    public static Camera Camera;
+    
     private PlayerManager m_PlayerManager = null;
     private Vector2Int m_PlayerPosition;
-    private Vector2 m_ShakePosition;
-    private const float POSITION_Y = -Size.GAME_HEIGHT/2;
+    private Vector2 _shakePosition;
     private float m_CameraMoveRate, m_CameraMargin;
-    private IEnumerator m_ShakeCamera;
+    private const float POSITION_Y = -Size.GAME_HEIGHT/2;
+    
+    private static IEnumerator _shakeCamera;
+    
+    public static MainCamera Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null) {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        Camera = GetComponent<Camera>();
+        
+        DontDestroyOnLoad(gameObject);
+
+        InitCamera();
+
+        SystemManager.instance_sm.Action_OnNextStage += InitCamera;
+    }
 
     void Start()
     {
@@ -18,8 +40,6 @@ public class MainCamera : MonoBehaviour {
 
         m_CameraMargin = m_PlayerManager.m_CameraMargin;
         m_CameraMoveRate = m_CameraMargin / Size.CAMERA_MOVE_LIMIT;
-        
-        InitMainCamera();
     }
 
     void LateUpdate()
@@ -36,33 +56,32 @@ public class MainCamera : MonoBehaviour {
 
         camera_x = Mathf.Clamp(camera_x, - m_CameraMargin, m_CameraMargin);
         
-        transform.position = new Vector3(camera_x, POSITION_Y, Depth.CAMERA) + (Vector3) m_ShakePosition;
+        transform.position = new Vector3(camera_x, POSITION_Y, Depth.CAMERA) + (Vector3) _shakePosition;
     }
 
-    public void InitMainCamera() {
+    private void InitCamera() {
         transform.position = new Vector3(0f, POSITION_Y, Depth.CAMERA);
     }
 
-    public void ShakeCamera(float duration) {
-        if (m_ShakeCamera != null)
-            StopCoroutine(m_ShakeCamera);
-        m_ShakeCamera = ShakeCameraProcess(duration);
-        StartCoroutine(m_ShakeCamera);
+    public static void ShakeCamera(float duration) {
+        if (_shakeCamera != null)
+            Instance.StopCoroutine(_shakeCamera);
+        _shakeCamera = ShakeCameraProcess(duration);
+        Instance.StartCoroutine(_shakeCamera);
     }
 
-    private IEnumerator ShakeCameraProcess(float duration) {
+    private static IEnumerator ShakeCameraProcess(float duration) {
         float timer = 0, radius, radius_init;
         radius = Mathf.Clamp01(duration) * 1.5f;
         radius_init = radius;
 
         while(timer < duration) {
-            m_ShakePosition = Random.insideUnitCircle * radius;
+            Instance._shakePosition = Random.insideUnitCircle * radius;
     
             timer += Time.deltaTime;
             radius = Mathf.Lerp(radius_init, 0f, timer / duration);
             yield return null;
         }
-        m_ShakePosition = Vector2.zero;
-        yield break;
+        Instance._shakePosition = Vector2.zero;
     }
 }

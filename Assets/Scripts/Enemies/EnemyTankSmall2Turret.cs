@@ -36,13 +36,13 @@ public class EnemyTankSmall2Turret : EnemyUnit
             float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
 
             m_Shooting = true;
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);
             yield return new WaitForMillisecondFrames(130);
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);
             yield return new WaitForMillisecondFrames(130);
-            pos = GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);
             m_Shooting = false;
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

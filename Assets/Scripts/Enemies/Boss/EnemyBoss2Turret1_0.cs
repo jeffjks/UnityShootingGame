@@ -48,7 +48,7 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
             int[] num = { 1, 2, 3, 3};
             for (int k = 0; k < 3; k++) {
                 for (int i = 0; i < num[k]; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 7; j++) {
                         CreateBullet(0, pos, 13.7f, m_CurrentAngle - 18f*3.5f + j*18f, accel1, BulletType.ERASE_AND_CREATE, duration,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-6f, 6f), accel2);
@@ -62,7 +62,7 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
             int[] num = { 3, 5, 12 };
             for (int k = 0; k < 3; k++) {
                 for (int i = 0; i < num[k]; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 13; j++) {
                         CreateBullet(0, pos, 13.7f, m_CurrentAngle - 12f*6.5f + j*12f, accel1, BulletType.ERASE_AND_CREATE, duration,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-7f, 7f), accel2);
@@ -76,7 +76,7 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
             int[] num = { 3, 5, 12 };
             for (int k = 0; k < 3; k++) {
                 for (int i = 0; i < num[k]; i++) {
-                    pos = GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 15; j++) {
                         CreateBullet(0, pos, 13.7f, m_CurrentAngle - 10f*7.5f + j*10f, accel1, BulletType.ERASE_AND_CREATE, 1000,
                         3, 3f, BulletDirection.CURRENT, Random.Range(-8f, 8f), accel2);

@@ -240,7 +240,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     }
 
     protected override bool BulletCondition(Vector3 pos) {
-        Vector2 camera_pos = m_SystemManager.m_MainCamera.transform.position;
+        Vector2 camera_pos = MainCamera.Camera.transform.position;
 
         if (!m_PlayerManager.m_PlayerIsAlive) {
             return false;
@@ -248,10 +248,10 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         else if (!SystemManager.IsOnGamePlayState()) {
             return false;
         }
-        else if (2 * Mathf.Abs(pos.x - camera_pos.x) > Size.CAMERA_WIDTH) {
+        else if (2 * Mathf.Abs(pos.x - camera_pos.x) > Size.MAIN_CAMERA_WIDTH) {
             return false;
         }
-        else if (pos.y > 0 || pos.y < - Size.CAMERA_HEIGHT) {
+        else if (pos.y > 0 || pos.y < - Size.MAIN_CAMERA_HEIGHT) {
             return false;
         }
         else

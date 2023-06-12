@@ -1,26 +1,39 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreText : MonoBehaviour, IObjectPooling
 {
-    public TextMesh m_TextMesh;
+    private TextMesh _textUI;
     
     private IEnumerator m_BlinkEffect, m_FadeOutEffect;
-    private PoolingManager m_PoolingManager = null;
-    private float m_Hspeed;
+    private float _hSpeed;
+    private const float SPEED_START = 0.6f;
+    private const float SPEED_ACCEL = 4f;
 
     void Awake()
     {
-        m_PoolingManager = PoolingManager.instance_op;
+        _textUI = GetComponentInChildren<TextMesh>();
     }
 
-    public void OnStart() {
-        m_Hspeed = 0.6f;
-        m_TextMesh.color = new Color(0.3254902f, 0.8666667f, 0.9137255f, 1f);
+    public void OnStart(Vector3 pos, string text, bool dir)
+    {
+        transform.position = pos;
+        _textUI.text = text;
+        _hSpeed = SPEED_START;
+        
+        if (dir) {
+            _textUI.alignment = TextAlignment.Left;
+            _textUI.anchor = TextAnchor.LowerLeft;
+        }
+        else {
+            _textUI.alignment = TextAlignment.Right;
+            _textUI.anchor = TextAnchor.LowerRight;
+        }
+        
+        //m_TextMesh.color = new Color(0.3254902f, 0.8666667f, 0.9137255f, 1f);
 
-        m_BlinkEffect = BlinkEffect();
-        m_FadeOutEffect = FadeOutEffect();
+        //m_BlinkEffect = BlinkEffect();
+        //m_FadeOutEffect = FadeOutEffect();
         StartCoroutine(m_BlinkEffect);
         StartCoroutine(m_FadeOutEffect);
     }
@@ -28,10 +41,12 @@ public class ScoreText : MonoBehaviour, IObjectPooling
     void Update()
     {
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x + m_Hspeed*Time.deltaTime, pos.y, Depth.SCORE_TEXT);
-            m_Hspeed += 4f*Time.deltaTime;
-    }
+        pos.x += _hSpeed * Time.deltaTime;
+        transform.position = pos;
 
+        _hSpeed += SPEED_ACCEL * Time.deltaTime;
+    }
+/*
     private IEnumerator BlinkEffect() {
         while (true) {
             m_TextMesh.color = new Color(0.3254902f, 0.8666667f, 0.9137255f, m_TextMesh.color.a);
@@ -51,13 +66,13 @@ public class ScoreText : MonoBehaviour, IObjectPooling
         }
         ReturnToPool();
         yield break;
-    }
+    }*/
 
     public void ReturnToPool() {
         if (m_BlinkEffect != null)
             StopCoroutine(m_BlinkEffect);
         if (m_FadeOutEffect != null)
             StopCoroutine(m_FadeOutEffect);
-        m_PoolingManager.PushToPool("ScoreText", gameObject, PoolingParent.SCORE_TEXT);
+        PoolingManager.PushToPool("ScoreText", gameObject, PoolingParent.ScoreText);
     }
 }

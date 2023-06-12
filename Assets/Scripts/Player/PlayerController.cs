@@ -5,6 +5,8 @@ using System.Text;
 
 public class PlayerController : PlayerUnit
 {
+    public static bool IsControllable { get; set; }
+    
     [SerializeField] private GameObject m_PlayerShield = null;
     [SerializeField] private string m_Explosion = string.Empty;
 
@@ -29,6 +31,11 @@ public class PlayerController : PlayerUnit
     {
         m_SystemManager = SystemManager.instance_sm;
         base.Awake();
+
+        SystemManager.instance_sm.Action_OnBossClear += OnBossClear;
+        SystemManager.instance_sm.Action_OnStageClear += OnStageClear;
+        SystemManager.instance_sm.Action_OnNextStage += OnNextStage;
+        SystemManager.instance_sm.Action_OnQuitInGame += OnRemove;
     }
 
     void Start()
@@ -63,7 +70,7 @@ public class PlayerController : PlayerUnit
 
     void Update()
     {
-        if (m_PlayerManager.m_PlayerControlable) {
+        if (IsControllable) {
             if (SystemManager.GameMode != GameMode.Replay) {
                 m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
                 m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
@@ -74,7 +81,7 @@ public class PlayerController : PlayerUnit
             return;
         
         Vector2Int movement_vector = new Vector2Int(m_MoveRawHorizontal, m_MoveRawVertical);
-        if (m_PlayerManager.m_PlayerControlable) {
+        if (IsControllable) {
             m_MoveVector = new MoveVector(movement_vector);
             if (m_SlowMode) {
                 m_MoveVector.speed = m_SpeedIntSlow;
@@ -94,7 +101,7 @@ public class PlayerController : PlayerUnit
 
         OverviewPosition();
 
-        if (m_PlayerManager.m_PlayerControlable) {
+        if (IsControllable) {
             m_PositionInt2D = new Vector2Int
             (
                 Mathf.Clamp(m_PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
@@ -110,24 +117,24 @@ public class PlayerController : PlayerUnit
         m_Invincibility = true;
         m_HasCollided = false;
         m_SlowMode = false;
-        if (m_PlayerManager.m_PlayerControlable) { // 시작 이벤트가 아닐때만 방어막 켜기
+        if (IsControllable) { // 시작 이벤트가 아닐때만 방어막 켜기
             if (!m_SystemManager.GetInvincibleMod()) {
                 DisableInvincibility(m_ReviveInvincibleTime);
             }
         }
     }
 
-    private void ResetPosition() {
+    private void ResetPositionIntAfterDeath() {
         int playerReviveX = Mathf.Clamp(m_PositionInt2D.x, -m_MaxPlayerCamera, m_MaxPlayerCamera);
-        int playerReviveY = m_PlayerManager.m_RevivePositionY;
+        int playerReviveY = (int) PlayerManager.REVIVE_POSITION_Y * 256;
 
         m_PositionInt2D = new Vector2Int(playerReviveX, playerReviveY);
     }
 
     private void OverviewPosition() {
         Vector2Int target_pos;
-        if (m_SystemManager.GetCurrentStage() < 4) {
-            target_pos = new Vector2Int(0, m_PlayerManager.m_RevivePositionY);
+        if (SystemManager.Stage < 4) {
+            target_pos = new Vector2Int(0, (int) PlayerManager.REVIVE_POSITION_Y * 256);
             if (SystemManager.PlayState != PlayState.OnStageResult) {
                 m_OverviewSpeed = Mathf.Max(Mathf.Abs(m_PositionInt2D.x - target_pos.x), Mathf.Abs(m_PositionInt2D.y - target_pos.y));
                 m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
@@ -188,7 +195,7 @@ public class PlayerController : PlayerUnit
                         return;
                     }
                 }
-                OnPlayerDeath();
+                OnDeath();
             }
         }
 
@@ -196,33 +203,60 @@ public class PlayerController : PlayerUnit
             if (!m_Invincibility) {
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
 
-                if (CheckLayer(other.gameObject, Layer.AIR)) {
+                if (Utility.CheckLayer(other.gameObject, Layer.AIR)) {
                     DealDamage(enemyObject, m_Damage);
-                    OnPlayerDeath();
+                    OnDeath();
                 }
             }
         }
     }
     
-    private void OnPlayerDeath() { // Override
+    private void OnDeath() {
         if (!m_Invincibility) {
             if (!m_HasCollided) {
                 m_HasCollided = true;
-                GameObject obj = m_PoolingManager.PopFromPool(m_Explosion, PoolingParent.EXPLOSION); // 폭발 이펙트
+                GameObject obj = PoolingManager.PopFromPool(m_Explosion, PoolingParent.Explosion); // 폭발 이펙트
                 ExplosionEffecter explosionEffecter = obj.GetComponent<ExplosionEffecter>();
 
                 obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
                 
                 m_PlayerManager.PlayerDead(m_PositionInt2D);
-                ResetPosition();
+                ResetPositionIntAfterDeath();
                 transform.root.gameObject.SetActive(false);
             }
         }
     }
 
+    private void OnRemove()
+    {
+        Destroy(transform.root);
+    }
+
     public bool GetInvincibility() {
         return m_Invincibility;
+    }
+
+    private void OnBossClear()
+    {
+        DisableInvincibility(5000);
+    }
+
+    private void OnStageClear()
+    {
+        IsControllable = false;
+    }
+
+    private void OnNextStage(bool hasNextStage)
+    {
+        if (!hasNextStage)
+        {
+            OnRemove();
+            return;
+        }
+        m_PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
+        IsControllable = true;
+        DisableInvincibility(3000);
     }
 
     public int MoveRawHorizontal {

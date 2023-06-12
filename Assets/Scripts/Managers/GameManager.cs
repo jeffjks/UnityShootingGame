@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 public class GameManager : MonoBehaviour
 {
+    public GameSetting m_GameSetting;
+    public NetworkAccount m_NetworkAccount;
+    
     //[HideInInspector] public ShipAttribute m_CurrentAttributes;
     [HideInInspector] public byte m_ReplayNum;
     [HideInInspector] public string m_ReplayDirectory;
@@ -16,9 +19,6 @@ public class GameManager : MonoBehaviour
 
     public bool m_NetworkAvailable;
     public bool m_InvincibleMod;
-
-    public PlayerManager m_PlayerManager;
-    public SystemManager m_SystemManager;
 
     private string m_AccountID = string.Empty, m_EncryptedAccountID;
 
@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         
         //m_CurrentAttributes = new ShipAttribute(0, 0, 0, 0, 0, 0, 0);
-        DontDestroyOnLoad(m_PlayerManager.gameObject);
         
         m_ReplayDirectory = "";
         m_RankingDirectory = "";
@@ -50,6 +49,12 @@ public class GameManager : MonoBehaviour
         }
 
         DOTween.SetTweensCapacity(512, 64);
+    }
+
+    private void Start()
+    {
+        m_GameSetting.LoadSettings();
+        m_NetworkAccount.Init();
     }
 
     void Update()

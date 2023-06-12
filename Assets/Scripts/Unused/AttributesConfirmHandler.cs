@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class AttributesConfirmHandler : GameUI
 {
-    public AttributesSelectHandler m_SelectAttributesHandler;
+    //public AttributesSelectHandler m_SelectAttributesHandler;
 
     private Action Action_startStage;
     private bool m_Enable = false;
@@ -24,15 +24,15 @@ public class AttributesConfirmHandler : GameUI
     void Update()
 	{
         if (!m_Enable) {
-            if (m_SelectAttributesHandler.m_State == 0) {
+            //if (m_SelectAttributesHandler.m_State == 0) {
                 if (Input.GetButtonUp("Fire1")) {
                     m_Enable = true;
                 }
-            }
+           // }
             SetColorDeselected();
         }
         else {
-            if (m_SelectAttributesHandler.m_State == 0)
+            //if (m_SelectAttributesHandler.m_State == 0)
                 CheckInput();
             SetColor();
         }
@@ -51,14 +51,14 @@ public class AttributesConfirmHandler : GameUI
     }
 
     private void Confirm() { // Select Confirm (Sally)
-        m_SelectAttributesHandler.m_State = -1;
-        ScreenEffectService.ScreenFadeOut(2f, Action_startStage);
+        //m_SelectAttributesHandler.m_State = -1;
+        FadeScreenService.ScreenFadeOut(2f, Action_startStage);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
     }
 
     private void Back() {
-        m_SelectAttributesHandler.m_State = 1;
+        //m_SelectAttributesHandler.m_State = 1;
         m_Enable = false;
     }
 

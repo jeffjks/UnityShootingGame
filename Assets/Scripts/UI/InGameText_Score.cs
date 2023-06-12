@@ -10,7 +10,7 @@ public class InGameText_Score : MonoBehaviour
 
     private void Start()
     {
-        SystemManager.instance_sm.Action_OnUpdateScore += UpdateScoreText;
+        InGameDataManager.Instance.Action_OnUpdateScore += UpdateScoreText;
     }
 
     private void UpdateScoreText(long value)

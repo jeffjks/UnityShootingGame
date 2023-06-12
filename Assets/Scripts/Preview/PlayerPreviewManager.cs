@@ -8,13 +8,11 @@ public abstract class PlayerPreviewManager : MonoBehaviour
     public GameObject m_ModulePart;
     
     protected PlayerManager m_PlayerManager = null;
-    protected PoolingManager m_PoolingManager = null;
     protected abstract void SetPlayerPreviewColors();
     
     void Awake()
     {
         m_PlayerManager = PlayerManager.instance_pm;
-        m_PoolingManager = PoolingManager.instance_op;
         SpeedPart();
     }
 

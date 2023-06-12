@@ -13,17 +13,11 @@ public class PlayerShooter : PlayerShooterManager
     
     private PlayerManager m_PlayerManager = null;
     private SystemManager m_SystemManager = null;
-    private PoolingManager m_PoolingManager = null;
-
-    void Awake()
-    {
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_SystemManager = SystemManager.instance_sm;
-        m_PoolingManager = PoolingManager.instance_op;
-    }
 
     void Start()
     {
+        m_PlayerManager = PlayerManager.instance_pm;
+        m_SystemManager = SystemManager.instance_sm;
         m_MainCamera = MainCamera.Camera.transform;
 
         for (int i = 0; i < PlayerWeapon.Length; i++) {
@@ -33,13 +27,11 @@ public class PlayerShooter : PlayerShooterManager
         SetPreviewShooter();
         m_PlayerShotZ = Depth.PLAYER_MISSILE;
 
-        
-        
         if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Bomb) == 0) // 폭탄 개수
-            m_SystemManager.SetMaxBombNumber(2);
+            InGameDataManager.Instance.MaxBombNumber = 2;
         else
-            m_SystemManager.SetMaxBombNumber(3);
-        m_SystemManager.InitBombNumber();
+            InGameDataManager.Instance.MaxBombNumber = 3;
+        InGameDataManager.Instance.InitBombNumber();
 
         if (m_Module != 0) {
             SetModule();
@@ -75,7 +67,7 @@ public class PlayerShooter : PlayerShooterManager
     }
 
     public void PlayerShooterBehaviour() {
-        if (!m_PlayerManager.m_PlayerControlable) {
+        if (!PlayerController.IsControllable) {
             m_PlayerUnit.m_SlowMode = false;
             m_NowAttacking = false;
             m_ShotKeyPress = 0;
@@ -126,7 +118,7 @@ public class PlayerShooter : PlayerShooterManager
     }
 
     private void BombKeyPressed() {
-        if (m_SystemManager.GetBombNumber() <= 0) {
+        if (InGameDataManager.Instance.BombNumber <= 0) {
             return;
         }
         if (!m_PlayerBomb.GetEnableState()) {
@@ -138,7 +130,7 @@ public class PlayerShooter : PlayerShooterManager
         Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
         ((PlayerController) m_PlayerUnit).DisableInvincibility(4000);
         m_PlayerBomb.UseBomb();
-        m_SystemManager.AddBombNumber(-1);
+        InGameDataManager.Instance.BombNumber--;
     }
     
     void OnEnable()
@@ -148,7 +140,7 @@ public class PlayerShooter : PlayerShooterManager
         m_NowShooting = false;
         m_NowAttacking = false;
         m_AutoShot = 0;
-        m_SystemManager.InitBombNumber();
+        InGameDataManager.Instance.InitBombNumber();
         m_ShotKeyPressFrame = 0;
         m_PlayerLaserShooter.StopLaser();
         if (m_PlayerManager != null) {
@@ -187,7 +179,7 @@ public class PlayerShooter : PlayerShooterManager
 
     protected override void CreatePlayerAttacks(string name, Vector3 pos, float dir, byte type = 0) {
         if (!IsOutside(pos)) {
-            GameObject obj = m_PoolingManager.PopFromPool(name, PoolingParent.PLAYER_MISSILE);
+            GameObject obj = PoolingManager.PopFromPool(name, PoolingParent.PlayerMissile);
             PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
             obj.transform.position = pos;
             playerWeapon.m_MoveVector.direction = dir;
@@ -219,16 +211,16 @@ public class PlayerShooter : PlayerShooterManager
         UpdateShotNumber();
     }
 
-    public void PowerUp() {
+    public bool PowerUp() {
         if (m_ShotLevel < 4) {
             m_ShotLevel++;
             ResetLaser();
-            m_SystemManager.DisplayScoreText("POWER UP");
+            UpdateShotNumber();
+            return true;
         }
-        else {
-            m_SystemManager.AddScoreEffect(ItemScore.POWER_UP);
-        }
+
         UpdateShotNumber();
+        return false;
     }
     
     public void PowerDown() {
@@ -237,16 +229,6 @@ public class PlayerShooter : PlayerShooterManager
             ResetLaser();
         }
         UpdateShotNumber();
-    }
-
-    public void AddBomb() {
-        if (m_SystemManager.GetBombNumber() < m_SystemManager.GetMaxBombNumber()) {
-            m_SystemManager.AddBombNumber(1);
-            m_SystemManager.DisplayScoreText("BOMB");
-        }
-        else {
-            m_SystemManager.AddScoreEffect(ItemScore.BOMB);
-        }
     }
     
     public override void SetPreviewShooter() {

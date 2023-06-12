@@ -16,14 +16,12 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
 
     private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
-    private PoolingManager m_PoolingManager = null;
     private IEnumerator m_FadeOutAnimation;
 
     void Awake()
     {
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
-        m_PoolingManager = PoolingManager.instance_op;
         
         MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
         m_Materials = new Material[meshRenderers.Length];
@@ -89,7 +87,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         if (m_FadeOutAnimation != null) {
             StopCoroutine(m_FadeOutAnimation);
         }
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.DEBRIS);
+        PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.Debris);
     }
 
     private void DeactivateAllChildren() {

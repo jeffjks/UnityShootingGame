@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class Utility
 {
@@ -35,5 +36,16 @@ public static class Utility
     {
         var array = Enum.GetValues(typeof(T));
         return array.Length;
+    }
+    
+
+    public static bool CheckLayer(GameObject obj, int layerValue)
+    {
+        if ((1 << obj.layer & layerValue) != 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

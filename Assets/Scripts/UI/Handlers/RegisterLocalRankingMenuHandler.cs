@@ -22,10 +22,10 @@ public class RegisterLocalRankingMenuHandler : GameUI
 
     void Start()
     {
-        m_TotalScore = m_SystemManager.GetTotalScore();
+        m_TotalScore = InGameDataManager.Instance.TotalScore;
         m_ShipAttributes = PlayerManager.CurrentAttributes;
-        m_TotalMiss = m_SystemManager.GetTotalMiss();
-        m_ClearedTime = m_SystemManager.GetClearedTime();
+        m_TotalMiss = InGameDataManager.Instance.TotalMiss;
+        m_ClearedTime = InGameDataManager.Instance.GetElapsedTime();
 
         m_InputFieldID.text = PlayerPrefs.GetString("LastLoaclRankingID", string.Empty);
         m_InputFieldID.ActivateInputField();

@@ -709,7 +709,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_MoveVector = new MoveVector(0f, 0f);
         
         if (SystemManager.Difficulty < GameDifficulty.Hell) {
-            m_SystemManager.SaveClearedTime();
+            InGameDataManager.Instance.SaveElapsedTime();
         }
         
         yield break;
@@ -721,7 +721,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
-        ScreenEffectService.ScreenWhiteEffect(true);
+        InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1.5f);
         
         if (SystemManager.Difficulty == GameDifficulty.Hell) {

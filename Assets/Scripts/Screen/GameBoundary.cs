@@ -3,11 +3,11 @@ using UnityEditor;
 using System.Collections;
 
 
-public class GameOuterBoundary : MonoBehaviour
+public class GameBoundary : MonoBehaviour
 {
     // Enemy, EnemySpawner, ItemGem, Item 파괴
     #if UNITY_EDITOR
-        [CustomEditor(typeof(GameOuterBoundary))]
+        [CustomEditor(typeof(GameBoundary))]
         [CanEditMultipleObjects]
         public class InfoInspector : Editor {
             public override void OnInspectorGUI()
@@ -18,13 +18,18 @@ public class GameOuterBoundary : MonoBehaviour
         }
     #endif
 
-    private PoolingManager m_PoolingManager = null;
-    private SystemManager m_SystemManager = null;
+    private BoxCollider2D _boxCollider2D;
 
     void Start()
     {
-        m_PoolingManager = PoolingManager.instance_op;
-        m_SystemManager = SystemManager.instance_sm;
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        
+        SetColliderSize();
+    }
+
+    private void SetColliderSize()
+    {
+        _boxCollider2D.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
     }
 
     void OnTriggerExit2D(Collider2D other)

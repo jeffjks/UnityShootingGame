@@ -42,7 +42,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
             
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 if (m_IsPenetrate) { // 관통 공격이며
-                    if (CheckLayer(other.gameObject, Layer.SMALL)) { // 적이 소형이면
+                    if (Utility.CheckLayer(other.gameObject, Layer.SMALL)) { // 적이 소형이면
                         enemyObject.m_EnemyDeath.OnDying(); // 기냥 죽임
                     }
                 }
@@ -57,7 +57,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
 
     private void PlayHitAnimation() {
         if (m_HitEffectNumber != -1) {
-            GameObject obj = m_PoolingManager.PopFromPool("PlayerHitEffect", PoolingParent.EXPLOSION); // 히트 이펙트
+            GameObject obj = PoolingManager.PopFromPool("PlayerHitEffect", PoolingParent.Explosion); // 히트 이펙트
             HitEffect hitEffect = obj.GetComponent<HitEffect>();
             hitEffect.m_HitEffectType = m_HitEffectNumber;
             hitEffect.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.HIT_EFFECT);
@@ -68,7 +68,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
     }
 
     public void ReturnToPool() {
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.PLAYER_MISSILE);
+        PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.PlayerMissile);
     }
 
 

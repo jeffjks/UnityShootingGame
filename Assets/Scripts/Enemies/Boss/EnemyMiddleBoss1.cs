@@ -259,6 +259,6 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDeath() {
-        ScreenEffectService.ScreenWhiteEffect(false);
+        InGameScreenEffectService.WhiteEffect(false);
     }
 }

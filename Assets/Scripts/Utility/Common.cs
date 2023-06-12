@@ -50,15 +50,6 @@ public static class Layer // AirSmall(9), AirLarge(10), GroundSmall(11), GroundL
     public const int GROUND = 6144; // (1 << 11 | 1 << 12) LayerMask.GetMask("GroundSmallEnemy", "GroundLargeEnemy")
 }
 
-public static class ItemScore
-{
-    public const int GEM_GROUND = 200;
-    public const int GEM_AIR = 100;
-    public const int POWER_UP = 2000;
-    public const int BOMB = 5000;
-}
-
-
 public struct TrainingInfo
 {
     public int stage;
@@ -111,17 +102,6 @@ public class WaitForMillisecondFrames : CustomYieldInstruction
 public class AC_Ease
 {
     public static AnimationCurve[] ac_ease = new AnimationCurve[4];
-}
-
-[Serializable]
-public enum AttributeType
-{
-    Color,
-    Speed,
-    ShotLevel,
-    LaserLevel,
-    Module,
-    Bomb
 }
 
 [Serializable]
@@ -201,18 +181,6 @@ public struct ModuleDelay {
     }
 }
 
-public static class PoolingParent
-{
-    public const sbyte NONE = -1;
-    public const sbyte PLAYER_MISSILE = 0;
-    public const sbyte ENEMY_BULLET = 1;
-    public const sbyte EXPLOSION = 2;
-    public const sbyte ITEM_GEM_AIR = 3;
-    public const sbyte ITEM_GEM_GROUND = 4;
-    public const sbyte DEBRIS = 5;
-    public const sbyte SCORE_TEXT = 6;
-}
-
 public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
 {
     public float targetSpeed;
@@ -229,31 +197,6 @@ public static class BulletType
     public const byte NORMAL = 0; // 일반 총알
     public const byte CREATE = 1; // n초후 다른 총알 생성
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
-}
-
-public enum PlayState
-{
-    OutGame = -1,
-    OnField,
-    OnMiddleBoss,
-    OnBoss,
-    OnBossCleared,
-    OnStageResult,
-    OnStageTransition
-}
-
-public enum GameDifficulty
-{
-    Normal,
-    Expert,
-    Hell
-}
-
-public enum GameMode
-{
-    Normal = 0,
-    Training = 1,
-    Replay = 2
 }
 
 public interface IObjectPooling {
@@ -310,11 +253,6 @@ public class TweenData<T, TResult> {
         this.setter = setter;
     }
 }*/
-
-public enum UnitMovementType {
-    MoveVector,
-    MoveTarget
-}
 
 
 [Serializable]
@@ -414,106 +352,6 @@ public class TweenDataPosition
         this.easeType = easeType;
     }
 }*/
-
-public enum ScreenModeSetting
-{
-    Windowed,
-    FullScreen
-}
-
-public enum QualitySetting
-{
-    Ultra,
-    VeryHigh,
-    High,
-    Medium,
-    Low,
-    VeryLow
-}
-
-public enum AntiAliasingSetting
-{
-    Deactivated,
-    Activated
-}
-
-public enum Language {
-    English,
-    Korean
-}
-
-public enum EnemyType
-{
-    Zako,
-    MiddleBoss,
-    Boss
-}
-
-public enum DebrisType
-{
-    Small,
-    Medium,
-    Large
-};
-
-public enum PlayerDamageType
-{
-    Normal,
-    Laser,
-    LaserAura,
-    Bomb
-}
-
-public enum ExplType
-{
-    None = -1,
-    Ground_1,
-    Ground_2,
-    Ground_3,
-    Normal_1,
-    Normal_2,
-    Normal_3,
-    Simple_1,
-    Simple_2,
-    StarShape,
-    MineShape,
-};
-
-public enum ExplAudioType
-{
-    None = -1,
-
-    AirMedium_1,
-    AirMedium_2,
-    AirSmall,
-    GroundMedium,
-    GroundSmall,
-    Huge_1,
-    Huge_2,
-    Large,
-    Player = 11
-};
-
-public enum Explosion
-{
-    None,
-    ExplosionG_1,
-    ExplosionG_2,
-    ExplosionG_3,
-    Explosion_1,
-    Explosion_2,
-    Explosion_3,
-    ExplosionSimple_1,
-    ExplosionSimple_2,
-    ExplosionStar,
-    ExplosionMine
-};
-
-public enum HealthType {
-    None,
-    Independent,
-    Share
-}
 
 public struct JVector3
 {
@@ -790,7 +628,7 @@ public class EnemyBuilder {
     }
 
     public EnemyBuilder SetPosition(Vector3 pos) {
-        if ((1 << _prefab.layer & Layer.AIR) != 0) {
+        if (Utility.CheckLayer(_prefab, Layer.AIR)) {
             _spawnPosition = new Vector3(pos.x, pos.y, Depth.ENEMY);
         }
         else

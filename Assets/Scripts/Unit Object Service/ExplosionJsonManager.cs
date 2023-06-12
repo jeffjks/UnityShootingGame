@@ -10,8 +10,6 @@ public class ExplosionJsonManager : MonoBehaviour
     private string[] m_PoolingString;
     private Dictionary<string, List<ExplosionData>> m_ExplosionJsonData;
 
-    private PoolingManager m_PoolingManager = null;
-
     public static ExplosionJsonManager instance_jm = null;
 
     private void Start()
@@ -21,8 +19,6 @@ public class ExplosionJsonManager : MonoBehaviour
             return;
         }
         instance_jm = this;
-
-        m_PoolingManager = PoolingManager.instance_op;
         
         InitExplosionEffectString();
 
@@ -117,7 +113,7 @@ public class ExplosionJsonManager : MonoBehaviour
         MoveVector moveVector = new MoveVector(Random.Range(effect.speed[0], effect.speed[1]), Random.Range(effect.direction[0], effect.direction[1]));
 
         if (ExplType != ExplType.None) {
-            GameObject explosionObject = m_PoolingManager.PopFromPool(GetPoolingString(ExplType), PoolingParent.EXPLOSION);
+            GameObject explosionObject = PoolingManager.PopFromPool(GetPoolingString(ExplType), PoolingParent.Explosion);
             ExplosionEffecter explosion_effecter = explosionObject.GetComponent<ExplosionEffecter>();
 
             explosion_effecter.m_MoveVector = moveVector;
@@ -125,10 +121,10 @@ public class ExplosionJsonManager : MonoBehaviour
             Vector3 explosionPosition = enemyDeath.transform.TransformPoint(transformPosition);
             Vector2 randomPos = (radius == 0f) ? Vector2.zero : Random.insideUnitCircle * radius;
             
-            if ((1 << enemyDeath.gameObject.layer & Layer.AIR) != 0) { // 공중
+            if (Utility.CheckLayer(enemyDeath.gameObject, Layer.AIR)) {
                 explosionPosition = new Vector3(explosionPosition.x + randomPos.x, explosionPosition.y + randomPos.y, Depth.EXPLOSION);
             }
-            else { // 지상
+            else {
                 explosionPosition = new Vector3(explosionPosition.x + randomPos.x, explosionPosition.y, explosionPosition.z + randomPos.y);
             }
             

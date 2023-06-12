@@ -18,7 +18,6 @@ public abstract class StageManager : MonoBehaviour
 
     protected SystemManager m_SystemManager = null;
     protected PlayerManager m_PlayerManager = null;
-    protected PoolingManager m_PoolingManager = null;
     
     public static event Action Action_BossWarningSign;
     public static event Action<EnemyUnit> Action_BossHealthBar;
@@ -49,30 +48,18 @@ public abstract class StageManager : MonoBehaviour
     protected abstract IEnumerator BossTimeline();
     protected abstract IEnumerator TestTimeline();
 
-    void Awake()
+    void Start ()
     {
         m_SystemManager = SystemManager.instance_sm;
         m_PlayerManager = PlayerManager.instance_pm;
-        m_PoolingManager = PoolingManager.instance_op;
-
-        foreach (var value in m_EnemyUnitPrefabDatas.EnemyUnitPrefabs)
-        {
-            //m_EnemyBuilders[value.name] = new EnemyBuilder(value.prefab);
-        }
-
+        
         Init();
-
-        m_PlayerManager.gameObject.SetActive(true);
-        m_PoolingManager.PushToPoolAll();
-    }
-
-    void Start ()
-    {
+        
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
-        m_PoolingManager.transform.GetChild(PoolingParent.DEBRIS).position = new Vector3(0f, 0f, 0f);
-        m_PoolingManager.transform.GetChild(PoolingParent.ITEM_GEM_GROUND).position = new Vector3(0f, 0f, 0f);
+        PoolingManager.ResetPool();
+        
         m_SystemManager.m_StageManager = this;
-        ScreenEffectService.ScreenTransitionIn();
+        InGameScreenEffectService.TransitionIn();
 
         BackgroundCamera.SetBackgroundSpeed(0f);
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
@@ -91,7 +78,7 @@ public abstract class StageManager : MonoBehaviour
 
     protected void StartBossTimeline() {
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
-            int stage = m_SystemManager.GetCurrentStage();
+            int stage = SystemManager.Stage;
             BackgroundCamera.Camera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
             BackgroundCamera.SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
         }
@@ -106,7 +93,7 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected GameObject CreateEnemy(GameObject obj, Vector3 pos) {
-        if ((1 << obj.layer & Layer.AIR) != 0) {
+        if (Utility.CheckLayer(obj, Layer.AIR)) {
             pos = new Vector3(pos.x, pos.y, Depth.ENEMY);
         }
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);

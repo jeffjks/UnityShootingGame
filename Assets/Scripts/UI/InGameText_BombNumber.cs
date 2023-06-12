@@ -10,7 +10,7 @@ public class InGameText_BombNumber : MonoBehaviour
 
     private void Start()
     {
-        SystemManager.instance_sm.Action_OnUpdateBombNumber += UpdateBombNumber;
+        InGameDataManager.Instance.Action_OnUpdateBombNumber += UpdateBombNumber;
     }
 
     private void UpdateBombNumber(int value)

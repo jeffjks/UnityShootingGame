@@ -41,7 +41,7 @@ public class ItemGemAir : ItemGem
     }
 
     protected override void ItemEffect(Collider2D other) {
-        m_SystemManager.AddScoreEffect(ItemScore.GEM_AIR, false);
+        InGameDataManager.Instance.AddScore(m_ItemData.itemScore, true, m_ItemData.itemType);
         AudioService.PlaySound("ItemGem");
     }
 
@@ -50,6 +50,6 @@ public class ItemGemAir : ItemGem
     }
 
     public override void ReturnToPool() {
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ITEM_GEM_AIR);
+        PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.GemAir);
     }
 }

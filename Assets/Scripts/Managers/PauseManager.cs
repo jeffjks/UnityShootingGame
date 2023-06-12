@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject m_EventSystemUI;
     public PauseMenuHandler m_PauseMenuHandler;
     public GameObject m_PauseMenuUI;
     public IngameInputController m_InGameInputController;

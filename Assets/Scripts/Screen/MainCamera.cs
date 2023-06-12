@@ -9,8 +9,8 @@ public class MainCamera : MonoBehaviour {
     private PlayerManager m_PlayerManager = null;
     private Vector2Int m_PlayerPosition;
     private Vector2 _shakePosition;
-    private float m_CameraMoveRate, m_CameraMargin;
-    private const float POSITION_Y = -Size.GAME_HEIGHT/2;
+    private float m_CameraMoveRate;
+    private const float CAMERA_MARGIN = (Size.GAME_WIDTH - Size.MAIN_CAMERA_WIDTH) / 2; // 1.555
     
     private static IEnumerator _shakeCamera;
     
@@ -18,15 +18,9 @@ public class MainCamera : MonoBehaviour {
 
     private void Awake()
     {
-        if (Instance != null) {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
 
         Camera = GetComponent<Camera>();
-        
-        DontDestroyOnLoad(gameObject);
 
         InitCamera();
 
@@ -37,9 +31,8 @@ public class MainCamera : MonoBehaviour {
     {
         m_PlayerManager = PlayerManager.instance_pm;
         //m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
-
-        m_CameraMargin = m_PlayerManager.m_CameraMargin;
-        m_CameraMoveRate = m_CameraMargin / Size.CAMERA_MOVE_LIMIT;
+        
+        m_CameraMoveRate = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
     }
 
     void LateUpdate()
@@ -54,13 +47,18 @@ public class MainCamera : MonoBehaviour {
             camera_x = transform.position.x;
         }
 
-        camera_x = Mathf.Clamp(camera_x, - m_CameraMargin, m_CameraMargin);
+        camera_x = Mathf.Clamp(camera_x, - CAMERA_MARGIN, CAMERA_MARGIN);
         
-        transform.position = new Vector3(camera_x, POSITION_Y, Depth.CAMERA) + (Vector3) _shakePosition;
+        transform.position = new Vector3(camera_x, -Size.GAME_HEIGHT/2, Depth.CAMERA) + (Vector3) _shakePosition;
     }
 
-    private void InitCamera() {
-        transform.position = new Vector3(0f, POSITION_Y, Depth.CAMERA);
+    private void InitCamera(bool hasNextStage = true)
+    {
+        if (!hasNextStage)
+        {
+            return;
+        }
+        transform.position = new Vector3(0f, -Size.GAME_HEIGHT/2, Depth.CAMERA);
     }
 
     public static void ShakeCamera(float duration) {

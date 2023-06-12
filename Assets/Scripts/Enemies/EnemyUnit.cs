@@ -44,7 +44,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         
         m_EnemyDeath.Action_OnDying += HandleOnDying;
         m_EnemyDeath.Action_OnDying += DisableInteractable;
-        if (m_EnemyType != EnemyType.Zako || CheckLayer(Layer.AIR)) { // 지상 자코가 아닐 경우
+        if (m_EnemyType != EnemyType.Zako || Utility.CheckLayer(gameObject, Layer.AIR)) { // 지상 자코가 아닐 경우
             if (TryGetComponent<EnemyColorBlender>(out EnemyColorBlender enemyColorBlender)) {
                 Action_StartInteractable += enemyColorBlender.StartInteractableEffect;
             }
@@ -70,7 +70,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     }
 
     public void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
-        if (CheckLayer(Layer.AIR))
+        if (Utility.CheckLayer(gameObject, Layer.AIR))
             m_Position2D = transform.position;
         else {
             m_Position2D = BackgroundCamera.GetScreenPosition(transform.position);
@@ -78,7 +78,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     }
 
     private void SetColliderPosition() {
-        if (CheckLayer(Layer.AIR))
+        if (Utility.CheckLayer(gameObject, Layer.AIR))
         {
             return;
         }
@@ -145,7 +145,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
 
     private void HandleOnDying() {
         m_EnemyDeath.m_IsDead = true;
-        m_SystemManager.AddScore(m_Score);
+        InGameDataManager.Instance.AddScore(m_Score);
         StartCoroutine(DyingEffect());
     }
 
@@ -311,10 +311,10 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         
         float modelRotationAngle = m_CurrentAngle;
 
-        if (CheckLayer(Layer.AIR)) { // 공중
+        if (Utility.CheckLayer(gameObject, Layer.AIR)) {
             target_rotation = Quaternion.AngleAxis(modelRotationAngle, (transform == transform.root) ? m_AirEnemyAxis : Vector3.down);
         }
-        else { // 지상
+        else {
             target_rotation = Quaternion.AngleAxis(modelRotationAngle, Vector3.down);
         }
         transform.rotation = m_DefaultRotation * target_rotation;

@@ -9,12 +9,10 @@ public class ExplosionEffecter : MonoBehaviour, IObjectPooling
     [HideInInspector] public MoveVector m_MoveVector;
     
     private IEnumerator m_ExplosionTimer;
-    private PoolingManager m_PoolingManager = null;
 
     void Awake()
     {
         m_MoveVector = new MoveVector(0f, 0f);
-        m_PoolingManager = PoolingManager.instance_op;
     }
 
     void OnEnable() {
@@ -44,6 +42,6 @@ public class ExplosionEffecter : MonoBehaviour, IObjectPooling
         if (m_ExplosionTimer != null) {
             StopCoroutine(m_ExplosionTimer);
         }
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EXPLOSION);
+        PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.Explosion);
     }
 }

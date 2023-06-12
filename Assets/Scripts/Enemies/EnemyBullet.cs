@@ -235,8 +235,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void ReturnToPool() {
         StopAllCoroutines();
-        m_SystemManager.SubtractBullet();
-        m_PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.ENEMY_BULLET);
+        InGameDataManager.Instance.BulletNumber--;
+        PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
     }
 
     protected override bool BulletCondition(Vector3 pos) {

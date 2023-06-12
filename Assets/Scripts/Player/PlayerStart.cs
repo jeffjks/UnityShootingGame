@@ -24,7 +24,7 @@ public class PlayerStart : MonoBehaviour
         if (m_SystemManager.SpawnAtSpawnPointCondition()) {
             StartCoroutine(SpawnEvent());
         }
-        else if (m_SystemManager.GetCurrentStage() == 5) {
+        else if (SystemManager.Stage == -1) {
             transform.position = new Vector3(transform.position.x, 2f, Depth.PLAYER);
             enabled = false;
             return;
@@ -49,12 +49,11 @@ public class PlayerStart : MonoBehaviour
         }
         yield return new WaitForMillisecondFrames(500);
         EndSpawnEvent();
-        yield break;
     }
 
     private void EndSpawnEvent() {
         m_PlayerController.DisableInvincibility(m_PlayerController.m_ReviveInvincibleTime);
-        m_PlayerManager.m_PlayerControlable = true;
+        PlayerController.IsControllable = true;
         m_Vspeed = 0;
         enabled = false;
     }

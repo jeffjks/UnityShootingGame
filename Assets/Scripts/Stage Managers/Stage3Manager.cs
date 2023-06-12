@@ -11,7 +11,7 @@ public class Stage3Manager : StageManager
 
     protected override void Init()
     {
-        m_SystemManager.SetCurrentStage(2);
+        SystemManager.Stage = 2;
         
         AudioService.LoadMusics("Stage3");
         AudioService.PlayMusic("Stage3");

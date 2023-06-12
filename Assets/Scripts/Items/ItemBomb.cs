@@ -8,7 +8,16 @@ public class ItemBomb : ItemBox
         PlayerShooter playerShooter = other.GetComponentInParent<PlayerShooter>();
         if (playerShooter != null) {
             AudioService.PlaySound("ItemGet");
-            playerShooter.AddBomb();
+            
+            if (InGameDataManager.Instance.AddBomb())
+            {
+                InGameDataManager.Instance.DisplayTextEffect("BOMB");
+            }
+            else
+            {
+                InGameDataManager.Instance.AddScore(m_ItemData.itemScore, true, m_ItemData.itemType);
+                InGameDataManager.Instance.DisplayTextEffect(m_ItemData.itemScore);
+            }
         }
         else {
             Debug.LogAssertion("Can not find PlayerShooter Component.");

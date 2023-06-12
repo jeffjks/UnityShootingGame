@@ -604,7 +604,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_SystemManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.7f, 0f);
         
-        m_SystemManager.SaveClearedTime();
+        InGameDataManager.Instance.SaveElapsedTime();
         
         yield break;
     }
@@ -615,7 +615,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
-        ScreenEffectService.ScreenWhiteEffect(true);
+        InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(2f);
     }
 }

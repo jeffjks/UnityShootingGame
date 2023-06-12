@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerPreviewShooter : PlayerShooterManager
 {
     private PlayerManager m_PlayerManager = null;
-    private PoolingManager m_PoolingManager = null;
 
     private const int DEFAULT_SHOT_LEVEL = 4;
 
@@ -13,7 +12,6 @@ public class PlayerPreviewShooter : PlayerShooterManager
     {
         m_NowAttacking = true;
         m_PlayerManager = PlayerManager.instance_pm;
-        m_PoolingManager = PoolingManager.instance_op;
         InitShotLevel();
 
         for (int i = 0; i < PlayerWeapon.Length; i++) {
@@ -50,7 +48,7 @@ public class PlayerPreviewShooter : PlayerShooterManager
     }
 
     protected override void CreatePlayerAttacks(string name, Vector3 pos, float dir, byte type = 0) {
-        GameObject obj = m_PoolingManager.PopFromPool(name, PoolingParent.PLAYER_MISSILE);
+        GameObject obj = PoolingManager.PopFromPool(name, PoolingParent.PlayerMissile);
         PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
         obj.transform.position = pos;
         playerWeapon.m_MoveVector.direction = dir;

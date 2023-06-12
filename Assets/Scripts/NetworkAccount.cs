@@ -8,13 +8,9 @@ public class NetworkAccount : MonoBehaviour
 {
     public GameObject m_LoginPanel;
 
-    private GameManager m_GameManager = null;
-
-    void Start()
+    public void Init()
     {
         InitServer();
-
-        m_GameManager = GameManager.instance_gm;
         
         if (!m_LoginPanel.activeInHierarchy) {
             SceneManager.LoadScene("MainMenu");

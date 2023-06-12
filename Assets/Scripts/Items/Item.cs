@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class Item : MonoBehaviour
 {
-    public bool m_IsAir;
+    public ItemDatas m_ItemData;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
     public AudioClip m_AudioClip;
     public Transform m_Renderer;
@@ -31,7 +33,7 @@ public abstract class Item : MonoBehaviour
     }
 
     protected void GetCoordinates() {
-        if (m_IsAir)
+        if (m_ItemData.isAir)
             m_Position2D = transform.position;
         else {
             m_Position2D = BackgroundCamera.GetScreenPosition(transform.position);
@@ -42,7 +44,7 @@ public abstract class Item : MonoBehaviour
     private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
         float gap = 0.5f;
         Vector3 pos;
-        if (m_IsAir) {
+        if (m_ItemData.isAir) {
             pos = transform.position;
         }
         else {
@@ -70,13 +72,12 @@ public abstract class Item : MonoBehaviour
 
 public abstract class ItemBox : Item
 {
-    public int m_DisappearTime;
     protected MoveVector m_MoveVector;
     
     private float m_MinX, m_MaxX, m_MinY, m_MaxY;
-    private float m_Padding = 0.6f;
     private bool m_Disappear = false;
     private float m_Speed = 4f;
+    private const float PADDING = 0.6f;
 
     protected override void Awake()
     {
@@ -86,16 +87,15 @@ public abstract class ItemBox : Item
         m_MoveVector.direction = random_value;
 
         if (!m_Disappear) {
-            m_MinX = - (7.555f - m_Padding);
-            m_MaxX = 7.555f - m_Padding;
-            m_MinY = - (16f - m_Padding);
-            m_MaxY = - m_Padding;
-            transform.position = new Vector3 
-                (
-                    Mathf.Clamp(transform.position.x, m_MinX, m_MaxX), 
-                    Mathf.Clamp(transform.position.y, m_MinY, m_MaxY),
-                    Depth.ITEMS
-                );
+            m_MinX = - (7.555f - PADDING);
+            m_MaxX = 7.555f - PADDING;
+            m_MinY = - (16f - PADDING);
+            m_MaxY = - PADDING;
+            Vector3 newPos = transform.position;
+            newPos.x = Mathf.Clamp(newPos.x, m_MinX, m_MaxX);
+            newPos.y = Mathf.Clamp(newPos.y, m_MinY, m_MaxY);
+            newPos.z = Depth.ITEMS;
+            transform.position = newPos;
             StartCoroutine(Disappear());
         }
     }
@@ -105,21 +105,21 @@ public abstract class ItemBox : Item
         base.Update();
         MoveDirection(m_MoveVector);
 
-        if (!m_Disappear && m_IsAir) {
+        if (!m_Disappear && m_ItemData.isAir) {
             float angle;
-            if (transform.position.x <= MainCamera.Instance.transform.position.x - (Size.MAIN_CAMERA_WIDTH*0.5f - m_Padding)) { // left
+            if (transform.position.x <= MainCamera.Instance.transform.position.x - (Size.MAIN_CAMERA_WIDTH*0.5f - PADDING)) { // left
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 90f + angle;
             }
-            else if (transform.position.x >= MainCamera.Instance.transform.position.x + (Size.MAIN_CAMERA_WIDTH*0.5f - m_Padding)) { // right
+            else if (transform.position.x >= MainCamera.Instance.transform.position.x + (Size.MAIN_CAMERA_WIDTH*0.5f - PADDING)) { // right
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = -90f + angle;
             }
-            else if (transform.position.y <= MainCamera.Instance.transform.position.y - (Size.MAIN_CAMERA_HEIGHT*0.5f - m_Padding)) { // bottom
+            else if (transform.position.y <= MainCamera.Instance.transform.position.y - (Size.MAIN_CAMERA_HEIGHT*0.5f - PADDING)) { // bottom
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 180f + angle;
             }
-            else if (transform.position.y >= MainCamera.Instance.transform.position.y + (Size.MAIN_CAMERA_HEIGHT*0.5f - m_Padding)) { // top
+            else if (transform.position.y >= MainCamera.Instance.transform.position.y + (Size.MAIN_CAMERA_HEIGHT*0.5f - PADDING)) { // top
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 0f + angle;
             }
@@ -128,20 +128,19 @@ public abstract class ItemBox : Item
     }
 
     private void MoveDirection(MoveVector moveVector) {
-        if (m_IsAir) {
+        if (m_ItemData.isAir) {
             Vector2 vector2 = Quaternion.AngleAxis(moveVector.direction, Vector3.forward) * Vector2.down;
             transform.Translate(vector2 * moveVector.speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
     }
 
     private IEnumerator Disappear() {
-        yield return new WaitForMillisecondFrames(m_DisappearTime);
+        yield return new WaitForMillisecondFrames(m_ItemData.activeTimer);
         m_Disappear = true;
-        yield break;
     }
 
     private void RotateBox() {
-        m_Renderer.Rotate(Vector3.up * Time.deltaTime * 100f, Space.Self);
+        m_Renderer.Rotate(Vector3.up * (Time.deltaTime * 100f), Space.Self);
     }
 
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지
@@ -163,19 +162,11 @@ public abstract class ItemGem : Item, IObjectPooling
     public string m_ObjectName;
     public MeshRenderer m_MeshRenderer;
 
-    protected PoolingManager m_PoolingManager = null;
-
     private byte m_Shiness;
     private bool m_ShinessState;
 
     public abstract void ReturnToPool();
-
-    protected override void Awake()
-    {
-        base.Awake();
-        m_PoolingManager = PoolingManager.instance_op;
-    }
-
+    
     void OnEnable()
     {
         GetCoordinates();

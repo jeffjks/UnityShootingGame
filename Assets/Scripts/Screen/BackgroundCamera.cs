@@ -13,12 +13,15 @@ public class BackgroundCamera : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        
         Camera = GetComponent<Camera>();
         _backgroundCameraDefaultLocalPos = transform.localPosition;
 
         InitCamera();
 
         SystemManager.instance_sm.Action_OnNextStage += InitCamera;
+        SystemManager.instance_sm.Action_OnShowOverview += StopBackground;
     }
 
     private void Update()
@@ -30,8 +33,18 @@ public class BackgroundCamera : MonoBehaviour
         transform.position += _backgroundMoveVector / Application.targetFrameRate * Time.timeScale;
     }
 
-    private void InitCamera() {
+    private void InitCamera(bool hasNextStage = true)
+    {
+        if (!hasNextStage)
+        {
+            return;
+        }
         Instance.transform.localPosition = _backgroundCameraDefaultLocalPos;
+    }
+
+    private void StopBackground()
+    {
+        SetBackgroundSpeed(0f);
     }
 
     public static Vector3 GetBackgroundVector()
@@ -105,6 +118,7 @@ public class BackgroundCamera : MonoBehaviour
     }
 
     public static Vector2 GetScreenPosition(Vector3 pos) {
+        
         var mainCameraX = MainCamera.Camera.transform.position.x;
         Vector3 screenPos = Camera.WorldToScreenPoint(pos);
         Vector2 newPos = new Vector2(

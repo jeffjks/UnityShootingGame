@@ -34,7 +34,7 @@ public class GameSetting : MonoBehaviour
     
     private static GameSetting Instance { get; set; }
     
-    private void Start()
+    private void Awake()
     {
         if (Instance != null) {
             Destroy(this.gameObject);
@@ -43,11 +43,9 @@ public class GameSetting : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
-        
-        LoadSettings();
     }
 
-    private void LoadSettings() {
+    public void LoadSettings() {
         if (!PlayerPrefs.HasKey("SoundEffectVolume")) {
             PlayerPrefs.SetInt("ResolutionWidth", 1920);
             PlayerPrefs.SetInt("ResolutionHeight", 1080);

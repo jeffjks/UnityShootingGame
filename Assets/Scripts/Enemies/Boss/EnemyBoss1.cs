@@ -393,7 +393,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     public void OnBossDeath() {
         m_SystemManager.StartStageClearCoroutine();
-        ScreenEffectService.ScreenWhiteEffect(true);
+        InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);
     }
 }

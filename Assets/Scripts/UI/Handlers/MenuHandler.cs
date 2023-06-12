@@ -10,7 +10,7 @@ public abstract class MenuHandler : MonoBehaviour
     public bool m_PreserveLastSelection;
     
     protected static readonly Stack<GameObject> _previousMenuStack = new();
-    private static readonly Dictionary<GameObject, Selectable> _lastSelected = new();
+    protected static readonly Dictionary<GameObject, Selectable> _lastSelected = new();
 
     protected void GoToTargetMenu(MenuHandler targetMenu)
     {

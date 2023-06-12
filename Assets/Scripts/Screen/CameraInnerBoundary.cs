@@ -2,11 +2,11 @@
 using UnityEditor;
 using System.Collections;
 
-public class CameraBoundary : MonoBehaviour
+public class CameraInnerBoundary : MonoBehaviour
 {
     // PlayerWeapon
     #if UNITY_EDITOR
-        [CustomEditor(typeof(CameraBoundary))]
+        [CustomEditor(typeof(CameraInnerBoundary))]
         [CanEditMultipleObjects]
         public class InfoInspector : Editor {
             public override void OnInspectorGUI()
@@ -17,11 +17,18 @@ public class CameraBoundary : MonoBehaviour
         }
     #endif
 
-    private PoolingManager m_PoolingManager = null;
+    private BoxCollider2D _boxCollider2D;
 
     void Start()
     {
-        m_PoolingManager = PoolingManager.instance_op;
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        
+        SetColliderSize();
+    }
+
+    private void SetColliderSize()
+    {
+        _boxCollider2D.size = new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT);
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -29,7 +36,7 @@ public class CameraBoundary : MonoBehaviour
         if (other.CompareTag("PlayerWeapon")) {
             if (other.gameObject.activeSelf) {
                 PlayerWeapon playerWeapon = other.gameObject.GetComponent<PlayerWeapon>();
-                m_PoolingManager.PushToPool(playerWeapon.m_ObjectName, other.gameObject, PoolingParent.PLAYER_MISSILE);
+                PoolingManager.PushToPool(playerWeapon.m_ObjectName, other.gameObject, PoolingParent.PlayerMissile);
             }
         }
     }

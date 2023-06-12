@@ -14,7 +14,8 @@ public class Stage4Manager : StageManager
 
     protected override void Init()
     {
-        m_SystemManager.SetCurrentStage(3);
+        SystemManager.Stage = 3;
+        
         m_BossBackgroundSpeed = 3.12f / Application.targetFrameRate * Time.timeScale;
         
         AudioService.LoadMusics("Stage4");

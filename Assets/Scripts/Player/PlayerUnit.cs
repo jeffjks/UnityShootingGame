@@ -11,7 +11,7 @@ public class PlayerUnit : PlayerObject
         get { return positionInt2D; }
         set {
             positionInt2D = value;
-            transform.position = new Vector3((float) positionInt2D.x / 256, (float) positionInt2D.y / 256, transform.position.z);
+            transform.position = new Vector3((float) positionInt2D.x / 256, (float) positionInt2D.y / 256, Depth.PLAYER);
         }
     }
 }

@@ -40,6 +40,9 @@ public class OverviewFlowBuilder
 public class OverviewHandler : MonoBehaviour
 {
     public IngameInputController m_InGameInputController;
+    public ItemDatas m_GemGroundData;
+    public ItemDatas m_GemAirData;
+    
     [SerializeField] private GameObject[] m_OverviewContents;
 
     [SerializeField] private TextMeshProUGUI m_GemGroundNumberText;
@@ -159,7 +162,7 @@ public class OverviewHandler : MonoBehaviour
         {
             StopCoroutine(_calculateFinalBonusCoroutine);
         }
-        m_SystemManager.AddScore(_finalBonusScore);
+        InGameDataManager.Instance.AddScore(_finalBonusScore);
         FinalBonusScore = 0;
     }
 
@@ -174,7 +177,7 @@ public class OverviewHandler : MonoBehaviour
             long target_score = (long) Mathf.Pow(7, i);
             if (FinalBonusScore >= target_score) {
                 FinalBonusScore -= target_score;
-                m_SystemManager.AddScore(target_score);
+                InGameDataManager.Instance.AddScore(target_score);
                 yield return null;
             }
         }
@@ -299,10 +302,12 @@ public class OverviewHandler : MonoBehaviour
 
     private void SetOverviewText()
     {
-        long gemGroundScore = m_SystemManager.GemsGround * ItemScore.GEM_GROUND;
-        long gemAirScore = m_SystemManager.GemsAir * ItemScore.GEM_AIR;
-        int stageMiss = m_SystemManager.GetCurrentStageMiss();
-        long stageScore = m_SystemManager.GetCurrentStageScore();
+        int gemGroundCount = InGameDataManager.Instance.GetItemCount(ItemType.GemGround);
+        long gemGroundScore = m_GemGroundData.itemScore * gemGroundCount;
+        int gemAirCount = InGameDataManager.Instance.GetItemCount(ItemType.GemAir);
+        long gemAirScore = m_GemAirData.itemScore * gemAirCount;
+        int stageMiss = InGameDataManager.Instance.GetCurrentStageMiss();
+        long stageScore = InGameDataManager.Instance.GetCurrentStageScore();
         
         if (stageMiss < _missBonusPercents.Length)
         {
@@ -313,9 +318,9 @@ public class OverviewHandler : MonoBehaviour
             _missBonusPercent = 0;
         }
         
-        m_GemGroundNumberText.SetText($"X {m_SystemManager.GemsGround}");
+        m_GemGroundNumberText.SetText($"X {gemGroundCount}");
         m_GemGroundScoreText.SetText($"{gemGroundScore}");
-        m_GemAirNumberText.SetText($"X {m_SystemManager.GemsAir}");
+        m_GemAirNumberText.SetText($"X {gemAirCount}");
         m_GemAirScoreText.SetText($"{gemAirScore}");
         m_RemainText.SetText($"{stageScore - gemGroundScore - gemAirScore}");
         m_TotalStageText.SetText($"{stageScore}");

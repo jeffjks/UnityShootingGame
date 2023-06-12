@@ -637,7 +637,7 @@ public class ExplosionJsonWriter : MonoBehaviour
     
 
 
-    void Start()
+    private void Awake()
     {
         WriteJsonList1("EnemyBoss1");
         WriteJsonList2("EnemyBoss1_Part");

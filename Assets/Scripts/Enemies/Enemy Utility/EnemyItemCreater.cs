@@ -7,18 +7,16 @@ public class EnemyItemCreater : MonoBehaviour
     [SerializeField] private EnemyDeath m_EnemyDeath;
     [SerializeField] private GameObject m_ItemBox = null;
     [SerializeField] private byte m_GemNumber = 0;
-    private PoolingManager m_PoolingManager = null;
     
     void Start()
     {
-        m_PoolingManager = PoolingManager.instance_op;
         m_EnemyDeath.Action_OnDeath += CreateItems;
     }
 
     private void CreateItems() {
         if (m_ItemBox != null) { // 아이템 드랍
             Vector3 item_pos;
-            if ((1 << gameObject.layer & Layer.AIR) != 0) {
+            if (Utility.CheckLayer(gameObject, Layer.AIR)) {
                 item_pos = new Vector3(transform.position.x, transform.position.y, Depth.ITEMS);
             }
             else {
@@ -26,10 +24,10 @@ public class EnemyItemCreater : MonoBehaviour
             }
             Instantiate(m_ItemBox, item_pos, Quaternion.identity);
         }
-
-        if ((1 << gameObject.layer & Layer.AIR) != 0) {
+        
+        if (Utility.CheckLayer(gameObject, Layer.AIR)) {
             for (int i = 0; i < m_GemNumber; i++) {
-                GameObject obj = m_PoolingManager.PopFromPool("ItemGemAir", PoolingParent.ITEM_GEM_AIR);
+                GameObject obj = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir);
                 Vector3 pos = transform.position + (Vector3) UnityEngine.Random.insideUnitCircle * 0.8f;
                 obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
                 obj.SetActive(true);
@@ -38,7 +36,7 @@ public class EnemyItemCreater : MonoBehaviour
         else {
             GameObject[] obj = new GameObject[m_GemNumber];
             for (int i = 0; i < m_GemNumber; i++) {
-                obj[i] = m_PoolingManager.PopFromPool("ItemGemGround", 3);
+                obj[i] = PoolingManager.PopFromPool("ItemGemGround", PoolingParent.GemGround);
             }
             CreateGems(obj);
             for (int i = 0; i < m_GemNumber; i++) {

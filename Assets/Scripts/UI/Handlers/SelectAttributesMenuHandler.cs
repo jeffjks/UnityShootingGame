@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,10 +15,16 @@ public class SelectAttributesMenuHandler : MenuHandler
 
     public const int MAXIMUM_COST = 500;
 
-    private bool _isActive;
+    private bool _onConfirmSelected = false;
     private int _totalCost;
     private readonly Dictionary<AttributeType, int> _attributeCost = new();
+    
     private Action Action_startStage;
+
+    void Start()
+    {
+        Action_startStage += StartStage;
+    }
 
     public SelectAttributesMenuHandler()
     {
@@ -31,18 +36,6 @@ public class SelectAttributesMenuHandler : MenuHandler
         }
     }
 
-    void Start()
-    {
-        Action_startStage += StartStage;
-    }
-    
-    void OnEnable()
-    {
-        _isActive = true;
-        m_ConfirmButton.interactable = true;
-        AudioService.PlayMusic("Select");
-    }
-
     public void SetAttributeName(string typeName)
     {
         m_AttributesTypeText.SetText(typeName);
@@ -51,6 +44,39 @@ public class SelectAttributesMenuHandler : MenuHandler
     public void SetAttributesDetailsInfo(DetailsWindowElement data)
     {
         m_AttributesDetailsWindowController.SetWindow(data);
+    }
+
+    public void SelectDetail()
+    {
+        _lastSelected[gameObject] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+        m_ConfirmButton.Select();
+    }
+
+    public override void Back()
+    {
+        if (_onConfirmSelected)
+        {
+            _lastSelected[gameObject].Select();
+            return;
+        }
+        BackToMainMenu();
+    }
+
+    public void UpdateTotalCost(AttributeType attributeType, int cost)
+    {
+        _totalCost -= _attributeCost[attributeType];
+        _attributeCost[attributeType] = cost;
+        _totalCost += _attributeCost[attributeType];
+        m_AttributesCostWindowController.SetText(_totalCost);
+    }
+
+    public void Confirm()
+    {
+        EventSystem.current.currentInputModule.enabled = false;
+        m_ConfirmButton.interactable = false;
+        FadeScreenService.ScreenFadeOut(2f, Action_startStage);
+        AudioService.FadeOutMusic(2f);
+        AudioService.PlaySound("SallyUI");
     }
 
     private void StartStage()
@@ -65,37 +91,5 @@ public class SelectAttributesMenuHandler : MenuHandler
             int stageNum = SystemManager.TrainingInfo.stage + 1;
             SceneManager.LoadScene($"Stage{stageNum}");
         }
-    }
-
-    public override void Back()
-    {
-        if (!_isActive)
-        {
-            return;
-        }
-        BackToMainMenu();
-    }
-
-    public void Confirm()
-    {
-        if (!_isActive)
-        {
-            return;
-        }
-
-        _isActive = false;
-        EventSystem.current.currentInputModule.enabled = false;
-        m_ConfirmButton.interactable = false;
-        ScreenEffectService.ScreenFadeOut(2f, Action_startStage);
-        AudioService.FadeOutMusic(2f);
-        AudioService.PlaySound("SallyUI");
-    }
-
-    public void UpdateTotalCost(AttributeType attributeType, int cost)
-    {
-        _totalCost -= _attributeCost[attributeType];
-        _attributeCost[attributeType] = cost;
-        _totalCost += _attributeCost[attributeType];
-        m_AttributesCostWindowController.SetText(_totalCost);
     }
 }

@@ -10,11 +10,6 @@ public class MainMenuHandler : MenuHandler
     public MenuHandler m_KeyConfigPanel;
     public MenuHandler m_CreditPanel;
 
-    void Start()
-    {
-        Time.timeScale = 1;
-    }
-
     void OnEnable()
     {
         AudioService.LoadMusics("Main");

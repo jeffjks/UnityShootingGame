@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class CriticalStateSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static bool InCriticalState { get; private set; }
+    private static int _remainingFrame;
+    private static CriticalStateSystem Instance { get; set; }
+    
     void Start()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void SetCriticalState(int frame)
     {
-        
+        if (frame < _remainingFrame)
+        {
+            return;
+        }
+
+        InCriticalState = true;
+        Instance.StartCoroutine(RunCriticalState());
+    }
+
+    private static IEnumerator RunCriticalState()
+    {
+        while (_remainingFrame > 0)
+        {
+            _remainingFrame--;
+            yield return null;
+        }
+
+        InCriticalState = false;
     }
 }

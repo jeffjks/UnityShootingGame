@@ -21,7 +21,12 @@ public class SelectAttributesMenuHandler : MenuHandler
     
     private Action Action_startStage;
 
-    void Start()
+    private void OnEnable()
+    {
+        AudioService.PlayMusic("Select");
+    }
+
+    private void Start()
     {
         Action_startStage += StartStage;
     }
@@ -48,18 +53,22 @@ public class SelectAttributesMenuHandler : MenuHandler
 
     public void SelectDetail()
     {
+        _onConfirmSelected = true;
         _lastSelected[gameObject] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
         m_ConfirmButton.Select();
+        AudioService.PlaySound("ConfirmUI");
     }
 
     public override void Back()
     {
-        if (_onConfirmSelected)
+        if (!_onConfirmSelected)
         {
-            _lastSelected[gameObject].Select();
+            BackToMainMenu();
             return;
         }
-        BackToMainMenu();
+        _onConfirmSelected = false;
+        _lastSelected[gameObject].Select();
+        AudioService.PlaySound("CancelUI");
     }
 
     public void UpdateTotalCost(AttributeType attributeType, int cost)

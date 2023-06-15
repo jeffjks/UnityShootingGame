@@ -7,15 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuHandler : MenuHandler
 {
-    public MenuHandler m_SoundPanel;
+    public MenuHandler m_SoundMenuPanel;
+    public MenuHandler m_QuitMenuPanel;
     public IngameInputController m_InGameInputController;
     public PauseManager m_PauseManager;
 
-    private int _activateTimer;
-
     private void OnEnable()
     {
-        _activateTimer = 0;
         m_InGameInputController.Action_OnPause += Resume;
     }
 
@@ -24,29 +22,29 @@ public class PauseMenuHandler : MenuHandler
         m_InGameInputController.Action_OnPause -= Resume;
     }
 
-    private void Update()
-    {
-        _activateTimer++;
-    }
-
     public override void Back()
     {
     }
 
     public void SoundSettings() {
-        GoToTargetMenu(m_SoundPanel);
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        GoToTargetMenu(m_SoundMenuPanel);
+    }
+
+    public void QuitMenu() {
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        GoToTargetMenu(m_QuitMenuPanel);
     }
     
     public void Resume() {
-        if (_activateTimer < 10)
-        {
+        if (CriticalStateSystem.InCriticalState)
             return;
-        }
+        
         AudioService.PlaySound("CancelUI");
         m_PauseManager.Resume();
-    }
-
-    public void QuitGame() {
-        m_PauseManager.QuitGame();
     }
 }

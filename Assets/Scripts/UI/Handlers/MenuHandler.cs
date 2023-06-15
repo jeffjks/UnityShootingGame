@@ -14,6 +14,11 @@ public abstract class MenuHandler : MonoBehaviour
 
     protected void GoToTargetMenu(MenuHandler targetMenu)
     {
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        CriticalStateSystem.SetCriticalState(10);
+        
         targetMenu.gameObject.SetActive(true);
         _previousMenuStack.Push(gameObject);
 
@@ -26,10 +31,15 @@ public abstract class MenuHandler : MonoBehaviour
 
     public virtual void Apply()
     {
+        
         if (_previousMenuStack.Count == 0)
-        {
             return;
-        }
+        
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        CriticalStateSystem.SetCriticalState(10);
+        
         ReturnToPreviousMenu();
         AudioService.PlaySound("ConfirmUI");
         gameObject.SetActive(false);
@@ -38,9 +48,13 @@ public abstract class MenuHandler : MonoBehaviour
     public virtual void Back()
     {
         if (_previousMenuStack.Count == 0)
-        {
             return;
-        }
+        
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        CriticalStateSystem.SetCriticalState(10);
+        
         ReturnToPreviousMenu();
         AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
@@ -49,13 +63,16 @@ public abstract class MenuHandler : MonoBehaviour
     protected void BackToMainMenu()
     {
         if (_previousMenuStack.Count == 0)
-        {
             return;
-        }
+        
         while (_previousMenuStack.Count > 1)
-        {
             _previousMenuStack.Pop();
-        }
+        
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        CriticalStateSystem.SetCriticalState(10);
+        
         var previousMenu = _previousMenuStack.Peek();
         previousMenu.SetActive(true);
         _previousMenuStack.Pop();
@@ -69,6 +86,11 @@ public abstract class MenuHandler : MonoBehaviour
 
     private void ReturnToPreviousMenu()
     {
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        CriticalStateSystem.SetCriticalState(10);
+        
         var previousMenu = _previousMenuStack.Peek();
         previousMenu.SetActive(true);
         _previousMenuStack.Pop();

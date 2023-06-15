@@ -68,9 +68,11 @@ public class PauseManager : MonoBehaviour
         }
         
         IsGamePaused = false;
-        Time.timeScale = 1;
         _pauseEnabled = false;
         AudioService.UnpauseAudio();
+        Time.timeScale = 1;
+        
+        CriticalStateSystem.SetCriticalState(10);
         
         //m_EventSystemUI.SetActive(false);
         m_PauseMenuHandler.gameObject.SetActive(false);
@@ -85,7 +87,10 @@ public class PauseManager : MonoBehaviour
 
     public void QuitGame() {
         StopAllCoroutines();
+        
+        IsGamePaused = false;
         _pauseEnabled = true;
+        AudioService.UnpauseAudio();
 
         m_SystemManager.QuitGame();
     }

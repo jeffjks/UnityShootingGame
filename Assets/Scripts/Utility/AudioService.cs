@@ -259,6 +259,7 @@ public class AudioService : MonoBehaviour
     public static void StopMusic()
     {
         Instance.StopAllCoroutines();
+        IsMusicPaused = false;
         if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
         {
             audioSource.Stop();

@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class FadeScreenService : MonoBehaviour
 {
-	public enum FadeState
+	private enum FadeState
 	{
 		FadeIn,
 		FadeOut,
@@ -14,21 +12,22 @@ public class FadeScreenService : MonoBehaviour
 		FadingOut,
 	}
 	
-	private FadeState _currentState = FadeState.FadeIn;
+	public static event Action<float> Action_OnChangeScreenAlpha;
+	private static FadeState _currentState = FadeState.FadeIn;
     private static FadeScreenService Instance { get; set; }
 
-    private float _alpha;
-    private float Alpha
+    private static float _alpha;
+    private static float Alpha
     {
 	    get => _alpha;
 	    set
 	    {
 		    _alpha = value;
-		    SetTransitionsAlpha(_alpha);
+		    SetScreenAlpha(_alpha);
 	    }
     }
     
-    void Awake()
+    private void Awake()
     {
         if (Instance != null) {
 	        Destroy(this.gameObject);
@@ -41,19 +40,19 @@ public class FadeScreenService : MonoBehaviour
 
 	public static void ScreenFadeOut(float duration = 1f, Action callback = null)
 	{
-		Instance._currentState = FadeState.FadingOut;
+		_currentState = FadeState.FadingOut;
 		Instance.StopAllCoroutines();
-		Instance.StartCoroutine(Instance.FadeOut(duration, callback));
+		Instance.StartCoroutine(FadeOut(duration, callback));
 	}
 
 	public static void ScreenFadeIn(float duration = 1f)
 	{
-		Instance._currentState = FadeState.FadingIn;
+		_currentState = FadeState.FadingIn;
 		Instance.StopAllCoroutines();
-		Instance.StartCoroutine(Instance.FadeIn(duration));
+		Instance.StartCoroutine(FadeIn(duration));
 	}
 
-	private IEnumerator FadeOut(float duration, Action callback = null)
+	private static IEnumerator FadeOut(float duration, Action callback = null)
 	{
 		if (Mathf.Approximately(duration, 0f))
 		{
@@ -75,7 +74,7 @@ public class FadeScreenService : MonoBehaviour
 		callback?.Invoke();
 	}
 
-	private IEnumerator FadeIn(float duration)
+	private static IEnumerator FadeIn(float duration)
 	{
 		if (Mathf.Approximately(duration, 0))
 		{
@@ -95,22 +94,8 @@ public class FadeScreenService : MonoBehaviour
 		_currentState = FadeState.FadeOut;
 	}
 
-	private void SetTransitionsAlpha(float alpha)
+	private static void SetScreenAlpha(float alpha)
 	{
-		DrawQuad(alpha);
-	}
-
-	private void DrawQuad(float alpha)
-	{
-		GL.PushMatrix();
-		GL.LoadOrtho();
-		GL.Begin(GL.QUADS);
-		GL.Color(new Color(0f, 0f, 0f, alpha));   // moved here, needs to be inside begin/end
-		GL.Vertex3(0, 0, -1);
-		GL.Vertex3(0, 1, -1);
-		GL.Vertex3(1, 1, -1);
-		GL.Vertex3(1, 0, -1);
-		GL.End();
-		GL.PopMatrix();
+		Action_OnChangeScreenAlpha?.Invoke(alpha);
 	}
 }

@@ -126,6 +126,7 @@ public class SystemManager : MonoBehaviour
         Action_OnQuitInGame?.Invoke();
         StopAllCoroutines();
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 
 

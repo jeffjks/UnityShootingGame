@@ -8,11 +8,12 @@ public class FadeEffectImageController : MonoBehaviour
     private void Awake()
     {
         _fadeImage = GetComponent<Image>();
+        FadeScreenService.Action_OnChangeScreenAlpha += SetImageAlpha;
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        FadeScreenService.Action_OnChangeScreenAlpha += SetImageAlpha;
+        FadeScreenService.Action_OnChangeScreenAlpha -= SetImageAlpha;
     }
 
     private void SetImageAlpha(float alpha)

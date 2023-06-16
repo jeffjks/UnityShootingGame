@@ -62,12 +62,12 @@ public class FadeScreenService : MonoBehaviour
 		float timer = 0f;
 		while (timer < duration)
 		{
-			Alpha = 1f - timer / duration;
+			Alpha = timer / duration;
 			timer += Time.deltaTime;
 			yield return null;
 		}
 
-		Alpha = 0f;
+		Alpha = 1f;
 		yield return null;
 		_currentState = FadeState.FadeIn;
 
@@ -84,12 +84,12 @@ public class FadeScreenService : MonoBehaviour
 		float timer = 0f;
 		while (timer < duration)
 		{
-			Alpha = timer / duration;
+			Alpha = 1f - timer / duration;
 			timer += Time.deltaTime;
 			yield return null;
 		}
 
-		Alpha = 1f;
+		Alpha = 0f;
 		yield return null;
 		_currentState = FadeState.FadeOut;
 	}

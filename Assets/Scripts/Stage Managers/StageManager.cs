@@ -57,6 +57,7 @@ public abstract class StageManager : MonoBehaviour
         
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         PoolingManager.ResetPool();
+        FadeScreenService.ScreenFadeIn(0f);
         
         m_SystemManager.m_StageManager = this;
         InGameScreenEffectService.TransitionIn();

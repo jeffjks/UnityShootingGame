@@ -8,37 +8,44 @@ public abstract class MenuHandler : MonoBehaviour
 {
     public int m_InitialSelection;
     public bool m_PreserveLastSelection;
-    
-    protected static readonly Stack<GameObject> _previousMenuStack = new();
-    protected static readonly Dictionary<GameObject, Selectable> _lastSelected = new();
 
-    protected void GoToTargetMenu(MenuHandler targetMenu)
+    protected bool _isActive;
+    protected static readonly Stack<MenuHandler> _previousMenuStack = new();
+
+    public bool IsActive => _isActive;
+    
+    private static readonly Dictionary<MenuHandler, Selectable> _lastSelected = new();
+
+    protected void GoToTargetMenu(MenuHandler targetMenu, bool activateNewPanel = true)
     {
         if (CriticalStateSystem.InCriticalState)
             return;
         
         CriticalStateSystem.SetCriticalState(10);
         
-        targetMenu.gameObject.SetActive(true);
-        _previousMenuStack.Push(gameObject);
+        if (activateNewPanel)
+            targetMenu.gameObject.SetActive(true);
+        
+        _previousMenuStack.Push(this);
 
-        SaveLastSelection();
-        FindNextSelection(targetMenu.gameObject);
+        SaveLastSelection(activateNewPanel);
+        FindNextSelection(targetMenu);
         
         AudioService.PlaySound("ConfirmUI");
-        gameObject.SetActive(false);
+        if (activateNewPanel)
+            gameObject.SetActive(false);
+        
+        _isActive = false;
+        targetMenu._isActive = true;
     }
 
     public virtual void Apply()
     {
-        
         if (_previousMenuStack.Count == 0)
             return;
         
         if (CriticalStateSystem.InCriticalState)
             return;
-        
-        CriticalStateSystem.SetCriticalState(10);
         
         ReturnToPreviousMenu();
         AudioService.PlaySound("ConfirmUI");
@@ -53,11 +60,24 @@ public abstract class MenuHandler : MonoBehaviour
         if (CriticalStateSystem.InCriticalState)
             return;
         
-        CriticalStateSystem.SetCriticalState(10);
-        
         ReturnToPreviousMenu();
         AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
+    }
+
+    public virtual void Back(bool activateNewPanel)
+    {
+        if (_previousMenuStack.Count == 0)
+            return;
+        
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        ReturnToPreviousMenu();
+        AudioService.PlaySound("CancelUI");
+        
+        if (activateNewPanel)
+            gameObject.SetActive(false);
     }
 
     protected void BackToMainMenu()
@@ -71,10 +91,8 @@ public abstract class MenuHandler : MonoBehaviour
         if (CriticalStateSystem.InCriticalState)
             return;
         
-        CriticalStateSystem.SetCriticalState(10);
-        
         var previousMenu = _previousMenuStack.Peek();
-        previousMenu.SetActive(true);
+        previousMenu.gameObject.SetActive(true);
         _previousMenuStack.Pop();
 
         SaveLastSelection();
@@ -82,30 +100,43 @@ public abstract class MenuHandler : MonoBehaviour
         
         AudioService.PlaySound("CancelUI");
         gameObject.SetActive(false);
+        
+        CriticalStateSystem.SetCriticalState(10);
+        
+        _isActive = false;
+        previousMenu._isActive = true;
     }
 
     private void ReturnToPreviousMenu()
     {
-        if (CriticalStateSystem.InCriticalState)
-            return;
-        
         CriticalStateSystem.SetCriticalState(10);
         
         var previousMenu = _previousMenuStack.Peek();
-        previousMenu.SetActive(true);
+        previousMenu.gameObject.SetActive(true);
         _previousMenuStack.Pop();
 
         SaveLastSelection();
         FindNextSelection(previousMenu);
+        
+        _isActive = false;
+        previousMenu._isActive = true;
     }
 
-    private void SaveLastSelection()
+    private void SaveLastSelection(bool activateNewPanel = true)
     {
+        if (!activateNewPanel)
+        {
+            _lastSelected[this] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+            return;
+        }
+
         if (m_PreserveLastSelection)
-            _lastSelected[gameObject] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+            _lastSelected[this] = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+        else
+            _lastSelected.Remove(this);
     }
 
-    private void FindNextSelection(GameObject menu)
+    private void FindNextSelection(MenuHandler menu)
     {
         if (_lastSelected.TryGetValue(menu, out Selectable selectable))
         {

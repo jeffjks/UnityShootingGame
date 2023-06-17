@@ -157,6 +157,6 @@ public class RankingDataLoader : MonoBehaviour
         }
 
         DisplayRanking();
-        AudioService.PlaySound("ConfirmUI");
+        //AudioService.PlaySound("ConfirmUI");
     }
 }

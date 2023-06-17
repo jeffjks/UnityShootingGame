@@ -17,7 +17,7 @@ public class NetworkAccount : MonoBehaviour
             return;
         }
 
-        m_LoginPanel.SetActive(true);
+        //m_LoginPanel.SetActive(true);
     }
 
     public void InitServer() {

@@ -19,8 +19,13 @@ public class CriticalStateSystem : MonoBehaviour
         {
             return;
         }
+        if (frame == 0)
+        {
+            return;
+        }
 
         InCriticalState = true;
+        _remainingFrame = frame;
         Instance.StartCoroutine(RunCriticalState());
     }
 

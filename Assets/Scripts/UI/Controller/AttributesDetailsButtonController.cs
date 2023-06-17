@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,24 +9,29 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
     public AttributesDetailsWindowDatas m_AttributesDetailsWindowDatas;
 
     private int _currentSelection;
+    private readonly Dictionary<Language, string> _textContainer = new();
 
     private int CurrentSelection
     {
         get => _currentSelection;
         set
         {
-            _currentSelection = Mathf.Clamp(value, 0, _attributesMaxNumber - 1);
-            OnSelection();
+            var clampedValue = Mathf.Clamp(value, 0, _attributesMaxNumber - 1);
+            if (clampedValue == value)
+            {
+                _currentSelection = clampedValue;
+                OnSelection();
+            }
         }
     }
 
     private int _attributesMaxNumber;
-    private PlayerManager m_PlayerManager;
 
     private void Awake()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
         _attributesMaxNumber = m_AttributesDetailsWindowDatas.DetailsWindowElements.Length;
+        _textContainer[Language.English] = m_AttributesDetailsWindowDatas.AttributeName;
+        _textContainer[Language.Korean] = m_AttributesDetailsWindowDatas.NativeAttributeName;
     }
 
     private void OnEnable()
@@ -37,17 +43,6 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
     public void OnSelect(BaseEventData eventData)
     {
         OnSelection();
-        
-        string attributeName;
-        if (GameSetting.m_Language == Language.Korean)
-        {
-            attributeName = m_AttributesDetailsWindowDatas.NativeAttributeName;
-        }
-        else
-        {
-            attributeName = m_AttributesDetailsWindowDatas.AttributeName;
-        }
-        m_SelectAttributesMenuHandler.SetAttributeName(attributeName);
     }
 
     public void OnMove(AxisEventData axisEventData)
@@ -58,14 +53,19 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
         }
 
         var moveInputX = (int) axisEventData.moveVector.x;
-        CurrentSelection += moveInputX;
+        if (moveInputX != 0)
+        {
+            CurrentSelection += moveInputX;
+        }
     }
 
     private void OnSelection()
     {
         AttributeType attributeType = m_AttributesDetailsWindowDatas.AttributeType;
         DetailsWindowElement data = m_AttributesDetailsWindowDatas.DetailsWindowElements[CurrentSelection];
+        string attributeName = _textContainer[GameSetting.m_Language];
         m_SelectAttributesMenuHandler.SetAttributesDetailsInfo(data);
         m_SelectAttributesMenuHandler.UpdateTotalCost(attributeType, data.cost);
+        m_SelectAttributesMenuHandler.SetAttributeName(attributeName);
     }
 }

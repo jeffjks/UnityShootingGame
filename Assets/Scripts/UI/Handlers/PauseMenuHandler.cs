@@ -46,5 +46,7 @@ public class PauseMenuHandler : MenuHandler
         
         AudioService.PlaySound("CancelUI");
         m_PauseManager.Resume();
+        
+        _isActive = false;
     }
 }

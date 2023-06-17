@@ -7,6 +7,9 @@ public class AttributesDetailsWindowController : MonoBehaviour
 {
     public Image m_DetailsIconImage;
     public TextMeshProUGUI m_DetailsWindowText;
+    public Animator m_WindowAnimator;
+
+    private readonly int _animationTransition = Animator.StringToHash("Transition");
     
     public void SetWindow(DetailsWindowElement data)
     {
@@ -21,5 +24,10 @@ public class AttributesDetailsWindowController : MonoBehaviour
             text = $"{data.name}\n[ 비용: {data.cost} ]\n\n{data.description}";
         }
         m_DetailsWindowText.SetText(text);
+    }
+
+    public void PlayTransitionAnimation()
+    {
+        m_WindowAnimator.SetTrigger(_animationTransition);
     }
 }

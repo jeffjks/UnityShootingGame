@@ -17,7 +17,7 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
     {
         base.Update();
         
-        if (m_PlayerManager.m_PlayerIsAlive)
+        if (PlayerManager.IsPlayerAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);
@@ -38,7 +38,7 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
         Vector3 pos;
         float target_angle, random_value;
         pos = m_FirePosition.position;
-        target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+        target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
         random_value = Random.Range(-2f, 2f);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {

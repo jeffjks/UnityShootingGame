@@ -76,14 +76,6 @@ public class OverviewHandler : MonoBehaviour
 
     private readonly int[] _missBonusPercents = { 50, 30, 10 };
 
-    private SystemManager m_SystemManager = null;
-
-    void Awake()
-    {
-        m_SystemManager = SystemManager.instance_sm;
-        //transform.position = new Vector3(transform.position.x, transform.position.y, Depth.OVERVIEW);
-    }
-
     private void OnEnable()
     {
         m_InGameInputController.Action_OnFireInput += SkipOverviewPhase;
@@ -297,7 +289,7 @@ public class OverviewHandler : MonoBehaviour
     }
     
     private void GoToNextStage() {
-        m_SystemManager.StartNextStageCoroutine();
+        SystemManager.Instance.StartNextStageCoroutine();
     }
 
     private void SetOverviewText()

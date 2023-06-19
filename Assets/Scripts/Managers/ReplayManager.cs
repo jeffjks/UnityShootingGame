@@ -21,15 +21,13 @@ public class ReplayManager : MonoBehaviour
     private bool m_StageOverview = false;
     
     private GameManager m_GameManager = null;
-    private SystemManager m_SystemManager = null;
     private PlayerManager m_PlayerManager = null;
     
     private StringBuilder m_TotalContext = new StringBuilder();
 
     public void Init() {
         m_GameManager = GameManager.instance_gm;
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerManager = PlayerManager.instance_pm;
+        m_PlayerManager = PlayerManager.Instance;
 
         m_RandomSeed = System.Environment.TickCount; // Generate Random Seed
 
@@ -73,17 +71,21 @@ public class ReplayManager : MonoBehaviour
                 m_PlayerManager.SpawnPlayer();
             }
             finally {
-                Random.InitState(m_RandomSeed);
-                m_PlayerController = m_PlayerManager.m_PlayerController;
-                m_PlayerShooter = m_PlayerManager.m_PlayerShooter;
+                InitPlayerState();
             }
         }
         else {
             m_PlayerManager.SpawnPlayer();
-            Random.InitState(m_RandomSeed);
-            m_PlayerController = m_PlayerManager.m_PlayerController;
-            m_PlayerShooter = m_PlayerManager.m_PlayerShooter;
+            InitPlayerState();
         }
+    }
+
+    private void InitPlayerState()
+    {
+        Random.InitState(m_RandomSeed);
+        GameObject player = m_PlayerManager.Player;
+        m_PlayerController = player.GetComponent<PlayerController>();
+        m_PlayerShooter = player.GetComponent<PlayerShooter>();
     }
 
     void Update()

@@ -13,6 +13,10 @@ public class BackgroundCamera : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null) {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
         
         Camera = GetComponent<Camera>();
@@ -20,8 +24,8 @@ public class BackgroundCamera : MonoBehaviour
 
         InitCamera();
 
-        SystemManager.instance_sm.Action_OnNextStage += InitCamera;
-        SystemManager.instance_sm.Action_OnShowOverview += StopBackground;
+        SystemManager.Action_OnNextStage += InitCamera;
+        SystemManager.Action_OnShowOverview += StopBackground;
     }
 
     private void Update()

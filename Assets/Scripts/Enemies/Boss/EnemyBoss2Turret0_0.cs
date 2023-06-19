@@ -20,7 +20,7 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
     {
         base.Update();
         
-        if (m_PlayerManager.m_PlayerIsAlive)
+        if (PlayerManager.IsPlayerAlive)
             RotateImmediately(m_PlayerPosition);
         else
             RotateSlightly(m_PlayerPosition, 100f);

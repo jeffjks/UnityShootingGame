@@ -93,7 +93,7 @@ public class EnemyPlaneMedium4 : EnemyUnit
             if (SystemManager.Difficulty <= GameDifficulty.Expert) {
                 for (int i = 0; i < 10; i++) {
                     pos = transform.position;
-                    target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                    target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                     random_value = Random.Range(-1f, 1f);
                     CreateBullet(2, pos, 7.2f+i*0.7f, target_angle + random_value, accel);
                     yield return new WaitForMillisecondFrames(60);
@@ -103,7 +103,7 @@ public class EnemyPlaneMedium4 : EnemyUnit
             else {
                 for (int i = 0; i < 15; i++) {
                     pos = transform.position;
-                    target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                    target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                     random_value = Random.Range(-1f, 1f);
                     CreateBulletsSector(0, pos, 6.8f+i*0.7f, target_angle + random_value, accel, 2, 24f);
                     CreateBullet(2, pos, 6.6f+i*0.7f, target_angle + random_value, accel);

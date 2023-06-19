@@ -170,7 +170,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_SystemManager.BulletsToGems(2500);
+        BulletManager.BulletsToGems(2500);
         m_MoveVector = new MoveVector(1.5f, 0f);
         
         m_Phase = -1;
@@ -179,7 +179,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.MiddleBossClear();
+        SystemManager.MiddleBossClear();
     }
 
     public void OnBossDeath() {

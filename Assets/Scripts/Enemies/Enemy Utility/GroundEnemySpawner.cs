@@ -12,12 +12,8 @@ public class GroundEnemySpawner : MonoBehaviour
     public bool m_Expert;
     public bool m_Hell;
 
-    private SystemManager m_SystemManager;
-
     void Start()
     {
-        m_SystemManager = SystemManager.instance_sm;
-
         m_EnemyUnits = m_EnemySpawnerDatas.EnemyUnits;
         m_MovePattern = m_EnemySpawnerDatas.MovePatterns;
         

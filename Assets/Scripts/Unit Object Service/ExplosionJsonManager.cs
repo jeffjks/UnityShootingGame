@@ -15,7 +15,7 @@ public class ExplosionJsonManager : MonoBehaviour
     private void Start()
     {
         if (instance_jm != null) {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         instance_jm = this;

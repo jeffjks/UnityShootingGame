@@ -66,7 +66,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 for (int i = 0; i < m_Part1_Turrets.Length; i++) {
                     m_Part1_Turrets[i].m_EnemyDeath.OnDying();
                 }
-                m_SystemManager.EraseBullets(2000);
+                BulletManager.SetBulletFreeState(2000);
                 ToNextPhase(NEXT_PHASE_DELAY);
             }
         }
@@ -75,7 +75,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 for (int i = 0; i < m_Part2_Turrets.Length; i++) {
                     m_Part2_Turrets[i].m_EnemyDeath.OnDying();
                 }
-                m_SystemManager.EraseBullets(2000);
+                BulletManager.SetBulletFreeState(2000);
                 ToNextPhase(NEXT_PHASE_DELAY);
             }
         }
@@ -226,7 +226,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator Pattern2A() {
         m_InPattern = true;
         ((EnemyBoss2Turret1_1) m_Part2_Turrets[1]).StartPattern(1);
-        if (m_PlayerManager.GetPlayerPosition().x < 0f) {
+        if (PlayerManager.GetPlayerPosition().x < 0f) {
             ((EnemyBoss2Turret1_2) m_Part2_Turrets[2]).StartPattern(1, true);
            ((EnemyBoss2Turret1_2) m_Part2_Turrets[3]).StartPattern(1, false);
         }
@@ -273,7 +273,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
             StopCoroutine(m_CurrentPattern);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0f, 0f);
 
         for (int i = 0; i < m_Part3_Turrets.Length; i++) {
@@ -284,11 +284,11 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.BossClear();
+        SystemManager.BossClear();
     }
 
     public void OnBossDeath() {
-        m_SystemManager.StartStageClearCoroutine();
+        SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);
     }

@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class PlayerPreviewShooter : PlayerShooterManager
 {
-    private PlayerManager m_PlayerManager = null;
-
     private const int DEFAULT_SHOT_LEVEL = 4;
 
     void Awake()
     {
         m_NowAttacking = true;
-        m_PlayerManager = PlayerManager.instance_pm;
         InitShotLevel();
 
         for (int i = 0; i < PlayerWeapon.Length; i++) {

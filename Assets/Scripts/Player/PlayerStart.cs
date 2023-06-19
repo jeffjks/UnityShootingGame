@@ -8,20 +8,14 @@ public class PlayerStart : MonoBehaviour
     public GameObject m_DronePart; // Shot Spawner
     public GameObject[] m_SpeedPart = new GameObject[3];
     public GameObject m_ModulePart;
-    public GameObject m_PlayerShield;
 
-    private int m_Vspeed;
-    private PlayerManager m_PlayerManager = null;
-    private SystemManager m_SystemManager = null;
+    private int _verticalSpeed;
 
     void Start()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerController.DisableInvincible();
         SetAttributes();
 
-        if (m_SystemManager.SpawnAtSpawnPointCondition()) {
+        if (SystemManager.Instance.SpawnAtSpawnPointCondition()) {
             StartCoroutine(SpawnEvent());
         }
         else if (SystemManager.Stage == -1) {
@@ -35,16 +29,16 @@ public class PlayerStart : MonoBehaviour
     }
 
     void Update() {
-        //m_PlayerController.m_MoveVector = new MoveVector(m_Vspeed / Application.targetFrameRate * Time.timeScale, 180f);
+        //m_PlayerController.m_MoveVector = new MoveVector(_verticalSpeed / Application.targetFrameRate * Time.timeScale, 180f);
         Vector2Int posInt2D = m_PlayerController.m_PositionInt2D;
-        m_PlayerController.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (m_Vspeed / Application.targetFrameRate * Time.timeScale));
+        m_PlayerController.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed / Application.targetFrameRate * Time.timeScale));
     }
 
     private IEnumerator SpawnEvent() {
         yield return new WaitForMillisecondFrames(2500);
-        m_Vspeed = 2523;
-        while (m_Vspeed > -1024) {
-            m_Vspeed -= 77;
+        _verticalSpeed = 2523;
+        while (_verticalSpeed > -1024) {
+            _verticalSpeed -= 77;
             yield return new WaitForMillisecondFrames(100);
         }
         yield return new WaitForMillisecondFrames(500);
@@ -52,9 +46,9 @@ public class PlayerStart : MonoBehaviour
     }
 
     private void EndSpawnEvent() {
-        m_PlayerController.DisableInvincibility(m_PlayerController.m_ReviveInvincibleTime);
+        PlayerInvincibility.SetInvincibility(PlayerInvincibility.REVIVE_TIME);
         PlayerController.IsControllable = true;
-        m_Vspeed = 0;
+        _verticalSpeed = 0;
         enabled = false;
     }
 
@@ -74,7 +68,7 @@ public class PlayerStart : MonoBehaviour
         SetPlayerColors();
         
         m_DronePart.SetActive(true);
-        m_PlayerShield.SetActive(true);
+        //m_PlayerShield.SetActive(true);
         //transform.GetChild(0).GetChild(11).gameObject.SetActive(true);
     }
 

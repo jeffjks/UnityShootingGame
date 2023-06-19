@@ -24,12 +24,8 @@ public class GameBoundary : MonoBehaviour
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
         
-        SetColliderSize();
-    }
-
-    private void SetColliderSize()
-    {
         _boxCollider2D.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
+        transform.position = new Vector3(0f, -Size.GAME_HEIGHT/2, Depth.CAMERA);
     }
 
     void OnTriggerExit2D(Collider2D other)

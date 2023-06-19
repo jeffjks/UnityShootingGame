@@ -22,7 +22,8 @@ public class EnemyHealth : MonoBehaviour
     private int m_CurrentHealth;
     private Dictionary<PlayerDamageType, bool> m_IsTakingDamage = new Dictionary<PlayerDamageType, bool>(); // 중복 데미지 방지
     private bool m_IsLowHealthState = false;
-    private bool m_Invincibility = false;
+    private bool _isInvincible;
+    private int _remainingFrame;
 
     public int CurrentHealth {
         get { return m_CurrentHealth; }
@@ -44,7 +45,23 @@ public class EnemyHealth : MonoBehaviour
 
         ResetIsTakingDamage();
     }
-    
+
+    private void Update()
+    {
+        if (_remainingFrame == -1)
+        {
+            return;
+        }
+        if (_remainingFrame > 0)
+        {
+            _remainingFrame--;
+        }
+        else if (_isInvincible)
+        {
+            _isInvincible = false;
+        }
+    }
+
     void LateUpdate()
     {
         ResetIsTakingDamage();
@@ -74,7 +91,7 @@ public class EnemyHealth : MonoBehaviour
             UpdateColorBlend();
         }
 
-        if (m_Invincibility) {
+        if (_isInvincible) {
             return;
         }
         if (IsDuplicatedDamage(damage_type)) {
@@ -115,23 +132,26 @@ public class EnemyHealth : MonoBehaviour
             m_Collider2D[i].transform.rotation = screenRotation;
         }
     }
-
-
-    public void DisableInvincibility(int millisecond = -1) { // millisecond간 무적. 0이면 미적용. -1이면 무기한 무적
-        if (millisecond == 0)
-            return;
+    
+    public void SetInvincibility(int millisecond = -1)
+    {
+        int frame = (millisecond == -1) ? -1 : millisecond * Application.targetFrameRate / 1000;
+        
         if (m_Collider2D.Length == 0)
             return;
-        m_Invincibility = true;
+        if (frame < _remainingFrame && frame != -1)
+            return;
+        if (frame == 0)
+            return;
 
-        if (millisecond != -1)
-            StartCoroutine(DisableInvincibilityTimer(millisecond));
+        _isInvincible = true;
+        _remainingFrame = frame;
     }
-    
-    private IEnumerator DisableInvincibilityTimer(int millisecond) {
-        yield return new WaitForMillisecondFrames(millisecond);
-        m_Invincibility = false;
-        yield break;
+
+    public void DisableInvincibility()
+    {
+        _isInvincible = false;
+        _remainingFrame = 0;
     }
 
     private void UpdateColorBlend() {

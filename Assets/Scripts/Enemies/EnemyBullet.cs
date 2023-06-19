@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class EnemyBullet : EnemyObject, IObjectPooling
@@ -17,6 +19,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public MoveVector m_NewMoveVector;
     public EnemyBulletAccel m_EnemyBulletAccel;
     public EnemyBulletAccel m_NewEnemyBulletAccel;
+    public int ImageDepth { get; set; }
 
     private bool m_RotateBullet = false; // 자동 회전
     private GameObject m_BulletExplosion;
@@ -48,6 +51,16 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     {
         base.Awake();
         m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+    }
+
+    private void OnEnable()
+    {
+        BulletManager.BulletNumber++;
+    }
+
+    private void OnDisable()
+    {
+        BulletManager.BulletNumber--;
     }
 
     public void OnStart() {
@@ -92,7 +105,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
                 break;
         }
 
-        if (m_SystemManager.m_BulletsEraseTimer > 0) {
+        if (BulletManager.InBulletFreeState) {
             PlayEraseAnimation();
         }
 
@@ -109,7 +122,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         CheckDeath();
         CheckOutside();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        //m_PlayerPosition = m_PlayerManager.GetPlayerPosition();
+        //m_PlayerPosition = PlayerManager.GetPlayerPosition();
     }
     
     void LateUpdate()
@@ -119,8 +132,10 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         }
     }
 
-    private void SetSortingLayer() {
-        m_SpriteRenderers[m_ImageType].sortingOrder = m_SystemManager.BulletsSortingLayer++;
+    private void SetSortingLayer()
+    {
+        ImageDepth = BulletManager.BulletsSortingLayer++;
+        m_SpriteRenderers[m_ImageType].sortingOrder = ImageDepth;
     }
 
     private IEnumerator ChangeBulletSpeed(float targetSpeed, int duration) {
@@ -155,7 +170,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
                     m_NewMoveVector.direction = 0f;
                     break;
                 case BulletDirection.PLAYER:
-                    m_NewMoveVector.direction = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
+                    m_NewMoveVector.direction = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
                     break;
                 case BulletDirection.CURRENT:
                     m_NewMoveVector.direction = m_MoveVector.direction;
@@ -207,7 +222,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     }
 
     private void CheckDeath() { // 탄 소거시 Bullet 파괴
-        if (m_SystemManager.m_BulletsEraseTimer > 0) {
+        if (BulletManager.InBulletFreeState) {
             if (m_BulletTypeObject[m_ImageType].activeSelf) {
                 PlayEraseAnimation();
             }
@@ -235,14 +250,13 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void ReturnToPool() {
         StopAllCoroutines();
-        InGameDataManager.Instance.BulletNumber--;
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
     }
 
     protected override bool BulletCondition(Vector3 pos) {
         Vector2 camera_pos = MainCamera.Camera.transform.position;
 
-        if (!m_PlayerManager.m_PlayerIsAlive) {
+        if (!PlayerManager.IsPlayerAlive) {
             return false;
         }
         else if (!SystemManager.IsOnGamePlayState()) {

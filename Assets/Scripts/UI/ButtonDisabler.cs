@@ -18,7 +18,7 @@ public class ButtonDisabler : MonoBehaviour
     
     void OnEnable()
     {
-        if (m_GameManager.m_NetworkAvailable)
+        if (GameManager.NetworkAvailable)
         {
             SetButtonInteractable(m_GameManager.m_IsOnline);
         }

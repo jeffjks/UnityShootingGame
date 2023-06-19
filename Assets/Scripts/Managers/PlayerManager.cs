@@ -8,37 +8,35 @@ public class PlayerManager : MonoBehaviour
     public GameObject m_PlayerPrefab;
     public GameObject m_ItemPowerUp;
     public ReplayManager m_ReplayManager;
-
-    [HideInInspector] public bool m_PlayerIsAlive;
-
-    private GameManager m_GameManager = null;
-    private SystemManager m_SystemManager = null;
-    private GameObject m_Player = null;
-
-    [HideInInspector] public PlayerShooter m_PlayerShooter;
-    [HideInInspector] public PlayerController m_PlayerController;
+    
+    public GameObject Player { get; private set; }
+    private PlayerShooter _playerShooter;
+    
     public const float REVIVE_POSITION_Y = -13f;
 
     private readonly Vector3 m_SpawnPoint = new (0, -20, Depth.PLAYER);
     
     public static ShipAttributes CurrentAttributes = new (0, 0, 0, 0, 0, 0, 0);
+    public static bool IsPlayerAlive;
     
     private const int REVIVE_DELAY = 1200;
 
-    public static PlayerManager instance_pm = null;
+    public static Action Action_OnStartStartNewGame;
+
+    public static PlayerManager Instance { get; set; }
     
     private void Awake()
     {
-        if (instance_pm != null) {
+        if (Instance != null) {
             Destroy(gameObject);
             return;
         }
-        instance_pm = this;
+        Instance = this;
         
         DontDestroyOnLoad(gameObject);
-        
-        m_GameManager = GameManager.instance_gm;
-        m_SystemManager = SystemManager.instance_sm;
+
+        SystemManager.Action_OnQuitInGame += DestroyPlayerManager;
+        Action_OnStartStartNewGame?.Invoke();
         
         m_ReplayManager.Init();
         BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
@@ -51,15 +49,14 @@ public class PlayerManager : MonoBehaviour
     public void SpawnPlayer(ShipAttributes attributes)
     {
         CurrentAttributes = attributes;
-        m_PlayerIsAlive = true;
-        if (m_SystemManager.SpawnAtSpawnPointCondition()) {
-            m_Player = Instantiate(m_PlayerPrefab, m_SpawnPoint, Quaternion.identity);
+        IsPlayerAlive = true;
+        if (SystemManager.Instance.SpawnAtSpawnPointCondition()) {
+            Player = Instantiate(m_PlayerPrefab, m_SpawnPoint, Quaternion.identity);
         }
         else {
-            m_Player = Instantiate(m_PlayerPrefab, new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER), Quaternion.identity);
+            Player = Instantiate(m_PlayerPrefab, new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER), Quaternion.identity);
         }
-        m_PlayerShooter = m_Player.GetComponentInChildren<PlayerShooter>();
-        m_PlayerController = m_Player.GetComponentInChildren<PlayerController>();
+        _playerShooter = Player.GetComponentInChildren<PlayerShooter>();
 
         if (SystemManager.GameMode == GameMode.Training) {
             int power;
@@ -84,21 +81,21 @@ public class PlayerManager : MonoBehaviour
                     power = 4;
                     break;
             }
-            m_PlayerShooter.PowerSet(power);
+            _playerShooter.PowerSet(power);
         }
     }
 
     public void PlayerDead(Vector2Int dead_position) {
-        m_PlayerIsAlive = false;
+        IsPlayerAlive = false;
         StartCoroutine(RevivePlayer());
         Vector3 item_pos = new Vector3(dead_position.x / 256, dead_position.y / 256, Depth.ITEMS);
         int item_num;
 
         if (InGameDataManager.Instance.TotalMiss == 0) {
-            item_num = Mathf.Min(m_PlayerShooter.m_ShotLevel, 2);
+            item_num = Mathf.Min(_playerShooter.m_ShotLevel, 2);
         }
         else if (InGameDataManager.Instance.TotalMiss == 1) {
-            item_num = Mathf.Min(m_PlayerShooter.m_ShotLevel, 1);
+            item_num = Mathf.Min(_playerShooter.m_ShotLevel, 1);
         }
         else {
             item_num = 0;
@@ -110,24 +107,25 @@ public class PlayerManager : MonoBehaviour
             Item m_Item = item.GetComponent<Item>();
             m_Item.InitPosition(dead_position);
         }
-        m_PlayerShooter.m_ShotLevel -= item_num;
+        _playerShooter.m_ShotLevel -= item_num;
     }
     
     private IEnumerator RevivePlayer() {
         yield return new WaitForMillisecondFrames(REVIVE_DELAY);
-        m_PlayerIsAlive = true;
-        m_Player.SetActive(true);
-        yield break;
+        IsPlayerAlive = true;
+        Player.SetActive(true);
+        PlayerInvincibility.SetInvincibility(PlayerInvincibility.REVIVE_TIME);
     }
 
-    public Vector3 GetPlayerPosition() {
-        if (!m_PlayerIsAlive || m_PlayerController == null) {
+    public static Vector3 GetPlayerPosition() {
+        if (Instance.Player == null || !IsPlayerAlive) {
             return new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
         }
-        return m_PlayerController.transform.position;
+        return Instance.Player.transform.position;
     }
 
-    public void DestroyPlayer() {
-        Destroy(m_Player);
+    private void DestroyPlayerManager()
+    {
+        Destroy(gameObject);
     }
 }

@@ -10,33 +10,33 @@ public class CriticalStateSystem : MonoBehaviour
     
     void Start()
     {
+        if (Instance != null) {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
     public static void SetCriticalState(int frame)
     {
-        if (frame < _remainingFrame)
-        {
-            return;
-        }
-        if (frame == 0)
+        if (frame < _remainingFrame || frame <= 0)
         {
             return;
         }
 
         InCriticalState = true;
         _remainingFrame = frame;
-        Instance.StartCoroutine(RunCriticalState());
     }
 
-    private static IEnumerator RunCriticalState()
+    private void Update()
     {
-        while (_remainingFrame > 0)
+        if (_remainingFrame > 0)
         {
             _remainingFrame--;
-            yield return null;
         }
-
-        InCriticalState = false;
+        else if (InCriticalState)
+        {
+            InCriticalState = false;
+        }
     }
 }

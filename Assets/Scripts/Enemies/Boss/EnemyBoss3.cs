@@ -145,7 +145,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         int duration = 2000;
         m_Phase++;
         if (m_Phase >= 2) {
-            m_SystemManager.EraseBullets(1000);
+            BulletManager.SetBulletFreeState(1000);
             
             if (m_CurrentPattern1 != null)
                 StopCoroutine(m_CurrentPattern1);
@@ -162,7 +162,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 m_CurrentPhase = Phase2();
                 StartCoroutine(m_CurrentPhase);
                 m_Part.m_EnemyDeath.OnDying();
-                m_EnemyHealth.DisableInvincibility(duration);
+                m_EnemyHealth.SetInvincibility(duration);
                 NextPhaseExplosion();
             }
         }
@@ -261,7 +261,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         for (int i = 0; i < 3; i++) {
             pos = m_FirePosition[0].position;
-            m_Direction = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition()) - 45f*m_RotateDirection;
+            m_Direction = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition()) - 45f*m_RotateDirection;
             m_CurrentPattern2 = Pattern1A1(i);
             m_CurrentPattern3 = Pattern1A2(i);
             StartCoroutine(m_CurrentPattern2);
@@ -526,7 +526,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         
         while (true) {
             pos = m_FirePosition[0].position;
-            target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
             CreateBulletsSector(4, pos, 8f, target_angle + Random.Range(-40f, 40f), accel, 2, 8f);
             yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
         }
@@ -548,7 +548,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
             if (m_Turret[i] != null)
                 m_Turret[i].m_EnemyDeath.OnDying();
         }
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
         
         yield return new WaitForMillisecondFrames(1600);
@@ -558,11 +558,11 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.BossClear();
+        SystemManager.BossClear();
     }
 
     public void OnBossDeath() {
-        m_SystemManager.StartStageClearCoroutine();
+        SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);
     }

@@ -17,7 +17,7 @@ public class EnemyShipSmall2Turret : EnemyUnit
     {
         base.Update();
         
-        if (m_PlayerManager.m_PlayerIsAlive)
+        if (PlayerManager.IsPlayerAlive)
             RotateSlightly(m_PlayerPosition, 60f);
         else
             RotateSlightly(m_PlayerPosition, 100f);

@@ -14,15 +14,10 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     private Material[] m_Materials;
     private int m_DebrisIndex = -1;
 
-    private SystemManager m_SystemManager = null;
-    private PlayerManager m_PlayerManager = null;
     private IEnumerator m_FadeOutAnimation;
 
     void Awake()
     {
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerManager = PlayerManager.instance_pm;
-        
         MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
         m_Materials = new Material[meshRenderers.Length];
         

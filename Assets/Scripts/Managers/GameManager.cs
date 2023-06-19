@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public GameSetting m_GameSetting;
     public NetworkAccount m_NetworkAccount;
+    [SerializeField] private bool _networkAvailable;
+    [SerializeField] private bool _invincibleMod;
     
     //[HideInInspector] public ShipAttribute m_CurrentAttributes;
     [HideInInspector] public byte m_ReplayNum;
@@ -17,8 +19,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public string m_RankingDirectory;
     [HideInInspector] public bool m_IsOnline = false;
 
-    public bool m_NetworkAvailable;
-    public bool m_InvincibleMod;
+    public static bool NetworkAvailable { get; set; }
+    public static bool InvincibleMod { get; set; }
 
     private string m_AccountID = string.Empty, m_EncryptedAccountID;
 
@@ -29,12 +31,15 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         if (instance_gm != null) {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         instance_gm = this;
         
         DontDestroyOnLoad(gameObject);
+
+        NetworkAvailable = _networkAvailable;
+        InvincibleMod = _invincibleMod;
         
         Application.targetFrameRate = 60;
         Cursor.visible = false;
@@ -59,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!m_NetworkAvailable) {
+        if (!NetworkAvailable) {
             return;
         }
         if (m_IsOnline) {

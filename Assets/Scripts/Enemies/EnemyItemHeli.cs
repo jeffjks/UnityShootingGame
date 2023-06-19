@@ -96,8 +96,8 @@ public class EnemyItemHeli : EnemyUnit {
 
             pos1 = m_FirePosition[0].position;
             pos2 = m_FirePosition[1].position;
-            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.GetPlayerPosition());
-            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.GetPlayerPosition());
+            target_angle1 = GetAngleToTarget(pos1, PlayerManager.GetPlayerPosition());
+            target_angle2 = GetAngleToTarget(pos2, PlayerManager.GetPlayerPosition());
 
             for (int i = 0; i < 3; i++) {
                 pos1 = m_FirePosition[0].position;

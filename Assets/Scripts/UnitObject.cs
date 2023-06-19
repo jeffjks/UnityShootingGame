@@ -44,19 +44,14 @@ public interface IRotatable
 
 // ================ 적 ================ //
 
-public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
-
-    protected SystemManager m_SystemManager = null;
-    protected PlayerManager m_PlayerManager = null;
+public abstract class EnemyObject : UnitObject // 적 개체 + 총알
+{
     protected Vector2 m_PlayerPosition;
     
     private const float SAFE_LINE = -11f;
 
     protected virtual void Awake()
     {
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerManager = PlayerManager.instance_pm;
-
         GetPlayerPosition2D();
     }
 
@@ -102,8 +97,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
 
             enemyBullet.m_Type = 0;
             enemyBullet.m_Timer = 0;
-
-            InGameDataManager.Instance.BulletNumber++;
+            
             obj.SetActive(true);
             enemyBullet.OnStart();
         }
@@ -138,8 +132,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
             enemyBullet.m_SecondTimer = second_timer;
             enemyBullet.m_NewNumber = new_num;
             enemyBullet.m_NewInterval = new_interval;
-
-            InGameDataManager.Instance.BulletNumber++;
+            
             obj.SetActive(true);
             enemyBullet.OnStart();
         }
@@ -149,7 +142,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
     protected virtual bool BulletCondition(Vector3 pos) {
         float camera_x = MainCamera.Camera.transform.position.x;
 
-        if (!m_PlayerManager.m_PlayerIsAlive) {
+        if (!PlayerManager.IsPlayerAlive) {
             return false;
         }
         else if (!SystemManager.IsOnGamePlayState()) {
@@ -165,7 +158,7 @@ public abstract class EnemyObject : UnitObject { // 적 개체 + 총알
     }
 
     protected void GetPlayerPosition2D() {
-        m_PlayerPosition = m_PlayerManager.GetPlayerPosition();
+        m_PlayerPosition = PlayerManager.GetPlayerPosition();
     }
 }
 
@@ -180,12 +173,10 @@ public abstract class PlayerObject : UnitObject
     [Header("단위: %")]
     public int[] m_DamageScale = new int[3];
     
-    protected PlayerManager m_PlayerManager = null;
     protected int m_DefaultDamage;
 
     protected virtual void Awake()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
         m_DefaultDamage = m_Damage;
 
         //m_PositionInt2D = Vector2Int.RoundToInt(transform.position*256);

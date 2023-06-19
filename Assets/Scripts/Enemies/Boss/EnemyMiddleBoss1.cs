@@ -134,7 +134,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 
     private void ToNextPhase() {
         m_Phase++;
-        m_SystemManager.EraseBullets(1000);
+        BulletManager.SetBulletFreeState(1000);
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
         
@@ -240,14 +240,14 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1800);
         while(true) {
-            float target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
+            float target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
             CreateBulletsSector(0, transform.position, 7f, target_angle, accel, 8, 13f);
             yield return new WaitForMillisecondFrames(2000);
         }
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
         m_Phase = -1;
         
@@ -255,7 +255,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.MiddleBossClear();
+        SystemManager.MiddleBossClear();
     }
 
     public void OnBossDeath() {

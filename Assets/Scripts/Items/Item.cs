@@ -16,16 +16,6 @@ public abstract class Item : MonoBehaviour
     protected Vector2 m_Position2D;
     protected Vector2Int m_Position;
     
-    protected SystemManager m_SystemManager = null;
-    protected PlayerManager m_PlayerManager = null;
-    
-
-    protected virtual void Awake()
-    {
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerManager = PlayerManager.instance_pm;
-    }
-    
     protected virtual void Update()
     {
         GetCoordinates();
@@ -79,9 +69,8 @@ public abstract class ItemBox : Item
     private float m_Speed = 4f;
     private const float PADDING = 0.6f;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         m_MoveVector.speed = m_Speed;
         float random_value = Random.Range(-45f, 45f);
         m_MoveVector.direction = random_value;

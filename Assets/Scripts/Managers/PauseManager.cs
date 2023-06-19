@@ -28,11 +28,6 @@ public class PauseManager : MonoBehaviour
         m_InGameInputController.Action_OnPause -= Pause;
     }
 
-    private void Start()
-    {
-        m_SystemManager = SystemManager.instance_sm;
-    }
-
     private void Pause() {
         if (!_pauseEnabled)
         {

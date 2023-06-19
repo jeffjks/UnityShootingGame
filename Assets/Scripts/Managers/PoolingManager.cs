@@ -9,7 +9,7 @@ m_PoolQueue : 오브젝트들을 담은 Queue. PooledObject 클래스 안에 존
 
 public class PoolingManager : MonoBehaviour
 {
-    protected Dictionary<string, PooledObject> m_ObjectPoolDictionary = new Dictionary<string, PooledObject>(); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
+    protected Dictionary<string, PooledObject> m_ObjectPoolDictionary = new (); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
     [SerializeField] protected GameObject[] m_PooledPrefabs;
 
     private static PoolingManager Instance = null;
@@ -17,7 +17,7 @@ public class PoolingManager : MonoBehaviour
     void Awake()
     {
         if (Instance != null) {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
@@ -28,29 +28,21 @@ public class PoolingManager : MonoBehaviour
 
     void Start()
     {
-        //m_Module = m_GameManager.m_CurrentAttributes.GetAttributes(AttributeType.Module); // 모듈 종류
+        InitOutGame();
+        PlayerManager.Action_OnStartStartNewGame += InitInGame;
+    }
 
+    private void InitOutGame()
+    {
         m_ObjectPoolDictionary.Add("PlayerShot", new PooledObject(m_PooledPrefabs[0], 30, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
 
         m_ObjectPoolDictionary.Add("PlayerHomingMissile", new PooledObject(m_PooledPrefabs[1], 8, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
         m_ObjectPoolDictionary.Add("PlayerRocket", new PooledObject(m_PooledPrefabs[2], 6, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
         m_ObjectPoolDictionary.Add("PlayerAddShot", new PooledObject(m_PooledPrefabs[3], 8, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
+    }
 
-        /*
-        switch(m_Module) {
-            case 1: // Homing
-                m_ObjectPoolDictionary.Add("PlayerHomingMissile", new PooledObject(m_PooledPrefabs[1], 6, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
-                break;
-            case 2: // Rocket
-                m_ObjectPoolDictionary.Add("PlayerRocket", new PooledObject(m_PooledPrefabs[2], 6, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
-                break;
-            case 3: // AddShot
-                m_ObjectPoolDictionary.Add("PlayerAddShot", new PooledObject(m_PooledPrefabs[3], 8, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
-                break;
-            default:
-                break;
-        }*/
-
+    private void InitInGame()
+    {
         m_ObjectPoolDictionary.Add("EnemyBullet", new PooledObject(m_PooledPrefabs[4], 1024, GetChildByPoolingParent(PoolingParent.EnemyBullet)));
 
         m_ObjectPoolDictionary.Add("ExplosionGround_1", new PooledObject(m_PooledPrefabs[5], 15, GetChildByPoolingParent(PoolingParent.Explosion)));

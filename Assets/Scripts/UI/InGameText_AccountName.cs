@@ -19,7 +19,7 @@ public class InGameText_AccountName : MonoBehaviour
     }
 
     private void SetAccountText() {
-        if (!m_GameManager.m_NetworkAvailable) {
+        if (!GameManager.NetworkAvailable) {
             return;
         }
         if (m_GameManager.m_IsOnline) {

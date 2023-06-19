@@ -8,14 +8,14 @@ public class OverviewManager : MonoBehaviour
     
     private void OnEnable()
     {
-        SystemManager.instance_sm.Action_OnShowOverview += OpenWindow;
-        SystemManager.instance_sm.Action_OnNextStage += CloseWindow;
+        SystemManager.Action_OnShowOverview += OpenWindow;
+        SystemManager.Action_OnNextStage += CloseWindow;
     }
 
     private void OnDisable()
     {
-        SystemManager.instance_sm.Action_OnShowOverview -= OpenWindow;
-        SystemManager.instance_sm.Action_OnNextStage -= CloseWindow;
+        SystemManager.Action_OnShowOverview -= OpenWindow;
+        SystemManager.Action_OnNextStage -= CloseWindow;
     }
 
     private void OpenWindow()

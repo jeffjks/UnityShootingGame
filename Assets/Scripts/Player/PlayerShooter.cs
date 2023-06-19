@@ -10,14 +10,9 @@ public class PlayerShooter : PlayerShooterManager
     private int m_ShotKeyPressFrame;
     private bool m_ShotKeyPrevious = false, m_NowShooting;
     private int m_AutoShot, m_ShotKeyPress = 0, m_BombKeyPress = 0;
-    
-    private PlayerManager m_PlayerManager = null;
-    private SystemManager m_SystemManager = null;
 
     void Start()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_SystemManager = SystemManager.instance_sm;
         m_MainCamera = MainCamera.Camera.transform;
 
         for (int i = 0; i < PlayerWeapon.Length; i++) {
@@ -128,7 +123,7 @@ public class PlayerShooter : PlayerShooterManager
             return;
         }
         Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
-        ((PlayerController) m_PlayerUnit).DisableInvincibility(4000);
+        PlayerInvincibility.SetInvincibility(4000);
         m_PlayerBomb.UseBomb();
         InGameDataManager.Instance.BombNumber--;
     }
@@ -143,9 +138,7 @@ public class PlayerShooter : PlayerShooterManager
         InGameDataManager.Instance.InitBombNumber();
         m_ShotKeyPressFrame = 0;
         m_PlayerLaserShooter.StopLaser();
-        if (m_PlayerManager != null) {
-            StartCoroutine(ModuleShot());
-        }
+        StartCoroutine(ModuleShot());
     }
     
     protected override IEnumerator Shot() {

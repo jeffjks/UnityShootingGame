@@ -16,9 +16,7 @@ public abstract class StageManager : MonoBehaviour
     
     [SerializeField] private EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
 
-    protected SystemManager m_SystemManager = null;
-    protected PlayerManager m_PlayerManager = null;
-    
+    public static Action<Vector3> Action_OnTrueBossStart;
     public static event Action Action_BossWarningSign;
     public static event Action<EnemyUnit> Action_BossHealthBar;
 
@@ -38,7 +36,7 @@ public abstract class StageManager : MonoBehaviour
         new (0f, 0f, 1f)
     };
 
-    private bool m_FinalBossAvailable = false; // 일반 스테이지는 시작시 false, Hell 난이도 최종 스테이지는 시작시 true
+    public static bool IsTrueBossEnabled { get; set; } // 일반 스테이지는 시작시 false, Hell 난이도 최종 스테이지는 시작시 true
 
     private Dictionary<string, EnemyBuilder> m_EnemyBuilders = default;
 
@@ -50,16 +48,14 @@ public abstract class StageManager : MonoBehaviour
 
     void Start ()
     {
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerManager = PlayerManager.instance_pm;
-        
         Init();
         
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         PoolingManager.ResetPool();
         FadeScreenService.ScreenFadeIn(0f);
+        SystemManager.Action_OnStageClear += StopAllCoroutines;
+        Action_OnTrueBossStart += StartTrueLastBoss;
         
-        m_SystemManager.m_StageManager = this;
         InGameScreenEffectService.TransitionIn();
 
         BackgroundCamera.SetBackgroundSpeed(0f);
@@ -155,16 +151,14 @@ public abstract class StageManager : MonoBehaviour
             m_EnemyPreloaded[i].SetActive(true);
     }
 
+    protected void StartTrueLastBoss(Vector3 pos) {
+        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
+        AudioService.PlayMusic("FinalBoss");
+        StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
+    }
+
     void OnDestroy() {
         StopAllCoroutines();
-    }
-
-    public bool GetTrueLastBossState() {
-        return m_FinalBossAvailable;
-    }
-
-    public void SetTrueLastBossState(bool state) {
-        m_FinalBossAvailable = state;
     }
 
     protected EnemyBuilder GetEnemyBuilder(string key)

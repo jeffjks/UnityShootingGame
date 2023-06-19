@@ -21,7 +21,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
         
         switch (m_RotatePattern) {
             case 10:
-                if (m_PlayerManager.m_PlayerIsAlive)
+                if (PlayerManager.IsPlayerAlive)
                     RotateSlightly(m_PlayerPosition, 120f);
                 else
                     RotateSlightly(m_PlayerPosition, 100f);

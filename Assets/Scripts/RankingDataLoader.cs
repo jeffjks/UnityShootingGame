@@ -40,7 +40,7 @@ public class RankingDataLoader : MonoBehaviour
         string id = m_GameManager.GetAccountID();
         CurrentPage = 0;
 
-        if (m_GameManager.m_NetworkAvailable) {
+        if (GameManager.NetworkAvailable) {
             if (id == string.Empty) {
                 //DisplayRanking("OfflineException");
             }

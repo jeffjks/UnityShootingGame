@@ -61,7 +61,10 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
-        m_SystemManager.m_StageManager.SetTrueLastBossState(false);
+        StageManager.IsTrueBossEnabled = false;
+        
+        PlayerInvincibility.Instance.Action_OnInvincibilityChanged += SetBombBarrier;
+        SetBombBarrier(PlayerInvincibility.IsInvincible);
 
         EnableInteractableAll();
     }
@@ -96,7 +99,6 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
         
         Rotate();
-        BombBarrier();
 
         for (int i = 0; i < m_Direction.Length; i++) {
             m_Direction[i] += m_DirectionDelta[i] / Application.targetFrameRate * Time.timeScale;
@@ -132,21 +134,24 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_RotateAngle += 360f;
     }
 
-    private void BombBarrier() {
-        if (m_SystemManager.GetInvincibleMod())
+    private void SetBombBarrier(bool state) {
+        if (GameManager.InvincibleMod)
             return;
-        if (m_Phase > 0) {
-            if (m_PlayerManager.m_PlayerController.GetInvincibility()) {
-                m_EnemyHealth.DisableInvincibility();
-                m_BombBarrier.SetActive(true);
-            }
+        if (state)
+        {
+            m_EnemyHealth.SetInvincibility();
         }
+        else
+        {
+            m_EnemyHealth.DisableInvincibility();
+        }
+        m_BombBarrier.SetActive(state);
     }
 
     public void ToNextPhase() {
         m_Phase++;
         StopAllPatterns();
-        m_SystemManager.EraseBullets(2000);
+        BulletManager.SetBulletFreeState(2000);
 
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
@@ -601,7 +606,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         StopAllPatterns();
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.7f, 0f);
         
         InGameDataManager.Instance.SaveElapsedTime();
@@ -610,11 +615,11 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.BossClear();
+        SystemManager.BossClear();
     }
 
     public void OnBossDeath() {
-        m_SystemManager.StartStageClearCoroutine();
+        SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(2f);
     }

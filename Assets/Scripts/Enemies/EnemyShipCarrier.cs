@@ -106,7 +106,7 @@ public class EnemyShipCarrier : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_SystemManager.EraseBullets(2000);
+        BulletManager.SetBulletFreeState(2000);
 
         for (int i = 0; i < m_EnemyUnits.Length; i++) {
             if (m_EnemyUnits[i] != null)

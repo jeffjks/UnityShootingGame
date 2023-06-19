@@ -8,13 +8,6 @@ public class GroundEnemySpawnerDifficultyModifier : MonoBehaviour
 
     public bool m_Normal, m_Expert, m_Hell;
     public int m_SpawnPeriod_Normal, m_SpawnPeriod_Expert;
-
-    private SystemManager m_SystemManager;
-
-    void Awake()
-    {
-        m_SystemManager = SystemManager.instance_sm;
-    }
     
     void Start()
     {

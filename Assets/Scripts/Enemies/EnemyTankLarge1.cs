@@ -75,7 +75,7 @@ public class EnemyTankLarge1 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int j = 0; j < 2; j++) {
                     pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
-                    target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
+                    target_angle[j] = GetAngleToTarget(pos[j], PlayerManager.GetPlayerPosition());
 
                     float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
                     if (delta_angle < -45f) {
@@ -93,7 +93,7 @@ public class EnemyTankLarge1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 2; j++) {
                         pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
-                        target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
+                        target_angle[j] = GetAngleToTarget(pos[j], PlayerManager.GetPlayerPosition());
 
                         float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
                         if (delta_angle < -45f) {
@@ -113,7 +113,7 @@ public class EnemyTankLarge1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 2; j++) {
                         pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
-                        target_angle[j] = GetAngleToTarget(pos[j], m_PlayerManager.GetPlayerPosition());
+                        target_angle[j] = GetAngleToTarget(pos[j], PlayerManager.GetPlayerPosition());
 
                         float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
                         if (delta_angle < -45f) {

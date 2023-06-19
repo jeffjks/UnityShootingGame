@@ -6,11 +6,8 @@ using UnityEngine;
 
 public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
 {
-    private PlayerManager m_PlayerManager = null;
-
     void Awake()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
         SetLaserType();
     }
 

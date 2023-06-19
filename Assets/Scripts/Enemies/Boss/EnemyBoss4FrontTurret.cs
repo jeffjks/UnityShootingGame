@@ -24,7 +24,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         base.Update();
         
         if (m_RotatePattern == 10) {
-            if (m_PlayerManager.m_PlayerIsAlive)
+            if (PlayerManager.IsPlayerAlive)
                 RotateSlightly(m_PlayerPosition, 180f);
             else
                 RotateSlightly(m_PlayerPosition, 100f);

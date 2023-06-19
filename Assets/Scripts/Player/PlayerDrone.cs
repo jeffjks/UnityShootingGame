@@ -23,29 +23,19 @@ public class PlayerDrone : MonoBehaviour
     protected float m_DefaultDepth;
 
     private PlayerShooterManager m_PlayerShooter;
-    
-    private PlayerManager m_PlayerManager = null;
 
     void Awake()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
-
         m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
         m_PlayerController = GetComponentInParent<PlayerUnit>();
     }
 
     void Start()
     {
-        int laser_damage;
-        if (m_PlayerManager != null) {
-            m_ShotForm = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
-        }
+        m_ShotForm = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
         m_DefaultDepth = transform.localPosition.y;
 
-        if (m_PlayerManager == null)
-            laser_damage = 0;
-        else
-            laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
+        var laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
 
         if (laser_damage == 0)
             m_ShockWaveNumber = 0;

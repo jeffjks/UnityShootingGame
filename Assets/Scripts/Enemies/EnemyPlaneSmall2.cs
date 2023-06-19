@@ -30,7 +30,7 @@ public class EnemyPlaneSmall2 : EnemyUnit
                 m_TargetPlayer = false;
             }
         }
-        if (m_PlayerManager.m_PlayerIsAlive)
+        if (PlayerManager.IsPlayerAlive)
             RotateImmediately(m_MoveVector.direction);
         else
             RotateSlightly(m_MoveVector.direction, 100f);

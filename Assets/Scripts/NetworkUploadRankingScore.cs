@@ -8,14 +8,10 @@ public class NetworkUploadRankingScore : MonoBehaviour
     public TextErrorMessage m_ErrorMessage;
 
     private GameManager m_GameManager = null;
-    private SystemManager m_SystemManager = null;
-    private PlayerManager m_PlayerManager = null;
 
     void Start()
     {
         m_GameManager = GameManager.instance_gm;
-        m_SystemManager = SystemManager.instance_sm;
-        m_PlayerManager = PlayerManager.instance_pm;
 
         string id = m_GameManager.GetAccountID();
         long totalScore = InGameDataManager.Instance.TotalScore;
@@ -23,7 +19,7 @@ public class NetworkUploadRankingScore : MonoBehaviour
         int totalMiss = InGameDataManager.Instance.TotalMiss;
         string pcID = SystemInfo.deviceUniqueIdentifier;
 
-        if (m_GameManager.m_NetworkAvailable) {
+        if (GameManager.NetworkAvailable) {
             StartCoroutine(UploadScore(id, totalScore, shipAttributes, totalMiss, pcID));
         }
     }

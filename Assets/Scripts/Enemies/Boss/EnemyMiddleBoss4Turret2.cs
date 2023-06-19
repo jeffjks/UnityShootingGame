@@ -17,7 +17,7 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
     {
         base.Update();
         
-        if (m_PlayerManager.m_PlayerIsAlive)
+        if (PlayerManager.IsPlayerAlive)
             RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
         else
             RotateSlightly(m_PlayerPosition + new Vector2(0f, 1.5f), 100f);

@@ -9,8 +9,7 @@ public class InGameDataManager : MonoBehaviour
 {
     public Action<long> Action_OnUpdateScore;
     public Action<int> Action_OnUpdateBombNumber;
-
-    public int BulletNumber { get; set; }
+    
     public long TotalScore { get; private set; }
     public int TotalMiss { get; private set; }
     private readonly long[] m_StageScore;
@@ -40,7 +39,6 @@ public class InGameDataManager : MonoBehaviour
         m_StageScore = new long[5] {0, 0, 0, 0, 0};
         TotalMiss = 0;
         m_StageMiss = new int[5] {0, 0, 0, 0, 0};
-        BulletNumber = 0;
         
         foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
         {
@@ -51,7 +49,7 @@ public class InGameDataManager : MonoBehaviour
     void Awake()
     {
         if (Instance != null) {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
@@ -91,7 +89,7 @@ public class InGameDataManager : MonoBehaviour
     }
 
     public void DisplayTextEffect(string text) {
-        Vector3 pos = PlayerManager.instance_pm.m_PlayerController.transform.position;
+        Vector3 pos = PlayerManager.GetPlayerPosition();
         
         GameObject obj = PoolingManager.PopFromPool("ScoreText", PoolingParent.ScoreText);
         bool dir = (pos.x > 0f);

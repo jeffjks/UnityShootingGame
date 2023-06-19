@@ -7,13 +7,7 @@ public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효�
 {
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;
 
-    private SystemManager m_SystemManager = null;
-
     private float m_Delta;
-
-    void Start() {
-        m_SystemManager = SystemManager.instance_sm;
-    }
     
     void Update()
     {

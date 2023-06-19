@@ -21,7 +21,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
         
         switch (m_RotatePattern) {
             case 10:
-                if (m_PlayerManager.m_PlayerIsAlive) {
+                if (PlayerManager.IsPlayerAlive) {
                     RotateSlightly(m_PlayerPosition, 150f);
                 }
                 else {
@@ -29,7 +29,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
                 }
                 break;
             case 20:
-                if (m_PlayerManager.m_PlayerIsAlive) {
+                if (PlayerManager.IsPlayerAlive) {
                     RotateSlightly(m_PlayerPosition, 160f);
                 }
                 else {

@@ -6,8 +6,6 @@ public class MainCamera : MonoBehaviour {
     
     public static Camera Camera;
     
-    private PlayerManager m_PlayerManager = null;
-    private Vector2Int m_PlayerPosition;
     private Vector2 _shakePosition;
     private float m_CameraMoveRate;
     private const float CAMERA_MARGIN = (Size.GAME_WIDTH - Size.MAIN_CAMERA_WIDTH) / 2; // 1.555
@@ -24,12 +22,11 @@ public class MainCamera : MonoBehaviour {
 
         InitCamera();
 
-        SystemManager.instance_sm.Action_OnNextStage += InitCamera;
+        SystemManager.Action_OnNextStage += InitCamera;
     }
 
     void Start()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
         //m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
         
         m_CameraMoveRate = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
@@ -37,11 +34,11 @@ public class MainCamera : MonoBehaviour {
 
     void LateUpdate()
     {
-        m_PlayerPosition = m_PlayerManager.m_PlayerController.m_PositionInt2D;
+        var playerPosition = PlayerManager.GetPlayerPosition();
         
         float camera_x;
         try {
-            camera_x = ((float) m_PlayerPosition.x) / 256  * m_CameraMoveRate;
+            camera_x = playerPosition.x  * m_CameraMoveRate;
         }
         catch {
             camera_x = transform.position.x;

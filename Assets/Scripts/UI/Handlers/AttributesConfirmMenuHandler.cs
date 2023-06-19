@@ -1,25 +1,17 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AttributesConfirmMenuHandler : MenuHandler
 {
     public Button m_ConfirmButton;
     
-    private Action _action_startStage;
-
-    private void Start()
-    {
-        _action_startStage += StartStage;
-    }
-    
     public void Confirm()
     {
         EventSystem.current.currentInputModule.enabled = false;
         m_ConfirmButton.interactable = false;
-        FadeScreenService.ScreenFadeOut(2f, _action_startStage);
+        FadeScreenService.ScreenFadeOut(2f, StartInGame);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
     }
@@ -29,17 +21,11 @@ public class AttributesConfirmMenuHandler : MenuHandler
         base.Back(false);
     }
 
-    private void StartStage()
+    private void StartInGame()
     {
         _previousMenuStack.Clear();
-        if (SystemManager.GameMode == GameMode.Normal)
-        {
-            SceneManager.LoadScene("Stage1");
-        }
-        else if (SystemManager.GameMode == GameMode.Training)
-        {
-            int stageNum = SystemManager.TrainingInfo.stage + 1;
-            SceneManager.LoadScene($"Stage{stageNum}");
-        }
+        
+        var stage = (SystemManager.GameMode == GameMode.Training) ? SystemManager.TrainingInfo.stage : 0;
+        SystemManager.Instance.StartStage(stage);
     }
 }

@@ -85,7 +85,7 @@ public class EnemyPlaneMedium3 : EnemyUnit
 
         while(!m_TimeLimitState) {
             pos = transform.position;
-            target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
             random_value = Random.Range(-2f, 2f);
             if (m_Turret[0] != null) {
                 m_Turret[0].StartPattern();

@@ -36,7 +36,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 12; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(4, pos, 10f, target_angle, accel, 2, 115f - i*4.8f);
@@ -45,7 +45,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             }
             else {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 12; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(4, pos, 9.5f, target_angle, accel, 2, 120f - i*5.3f);
@@ -63,7 +63,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             if (m_Turret[i] != null)
                 m_Turret[i].m_EnemyDeath.OnDying();
         }
-        m_SystemManager.EraseBullets(1000);
+        BulletManager.SetBulletFreeState(1000);
         
         yield break;
     }

@@ -52,12 +52,12 @@ public class EnemyBoss1Part : EnemyUnit
 
     private void DestroyBonus() {
         if (m_EnemyHealth.CurrentHealth == 0) {
-            m_SystemManager.BulletsToGems(0);
+            BulletManager.BulletsToGems(0);
         }
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_SystemManager.EraseBullets(500);
+        BulletManager.SetBulletFreeState(500);
         yield break;
     }
 }

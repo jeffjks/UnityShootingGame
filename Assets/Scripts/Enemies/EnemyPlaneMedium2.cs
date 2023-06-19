@@ -90,7 +90,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(1000);
-                target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
                 pos[0] = m_FirePosition[0].position;
                 CreateBullet(3, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
                 CreateBullet(5, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
@@ -105,7 +105,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(800);
-                target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
                 pos[0] = m_FirePosition[0].position;
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(3, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
@@ -145,7 +145,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
             yield return new WaitForMillisecondFrames(Random.Range(0, 1500));
 
             if (SystemManager.Difficulty == GameDifficulty.Hell) {
-                target_angle = GetAngleToTarget(transform.position, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
                 pos = m_FirePosition[0].position;
                 for (int i = 0; i < 5; i++) {
                     CreateBullet(3, pos, 5f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);

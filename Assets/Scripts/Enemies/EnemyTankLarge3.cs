@@ -27,7 +27,7 @@ public class EnemyTankLarge3 : EnemyUnit
         while(true) {
             for (int i = 0; i < 2; i++) {
                 pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i].position);
-                target_angle[i] = GetAngleToTarget(pos[i], m_PlayerManager.GetPlayerPosition());
+                target_angle[i] = GetAngleToTarget(pos[i], PlayerManager.GetPlayerPosition());
                 for (int j = 0; j < 5; j++) {
                     pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i].position);
                     CreateBullet(4, pos[i], 8f, target_angle[i], accel);

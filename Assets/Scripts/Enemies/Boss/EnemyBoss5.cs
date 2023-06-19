@@ -188,7 +188,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
         else if (m_Phase == 2) {
             NextPhaseExplosion();
-            m_SystemManager.EraseBullets(2000);
+            BulletManager.SetBulletFreeState(2000);
             StartCoroutine(OpenWings());
 
             if (m_CurrentPhase != null)
@@ -705,7 +705,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_EnemyBoss5Wings[i].m_EnemyDeath.OnDeath();
         }
         Destroy(m_Wings);
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0f, 0f);
         
         if (SystemManager.Difficulty < GameDifficulty.Hell) {
@@ -716,21 +716,19 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.BossClear();
+        SystemManager.BossClear();
     }
 
     public void OnBossDeath() {
-        m_SystemManager.StartStageClearCoroutine();
+        SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1.5f);
         
-        if (SystemManager.Difficulty == GameDifficulty.Hell) {
-            try {
-                ((Stage5Manager) m_SystemManager.m_StageManager).TrueLastBoss(new Vector3(transform.position.x, transform.position.y, Depth.ENEMY)); // True Last Boss
-            }
-            catch {
-                Debug.LogAssertion("Cannot cast StageManager to Stage5Manager!");
-            }
+        if (SystemManager.Difficulty == GameDifficulty.Hell)
+        {
+            Vector3 bossPos = transform.position;
+            bossPos.z = Depth.ENEMY;
+            StageManager.Action_OnTrueBossStart?.Invoke(bossPos);
         }
     }
 }

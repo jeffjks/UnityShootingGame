@@ -7,14 +7,9 @@ using System;
 
 public class SystemManager : MonoBehaviour
 {
-    [HideInInspector] public StageManager m_StageManager;
-    [HideInInspector] public int BulletsSortingLayer;
-    [HideInInspector] public int m_BulletsEraseTimer;
     [HideInInspector] public int m_UsedCost;
     
     public bool m_DebugMod;
-    
-    private GameManager m_GameManager = null;
     
     private Vector3 m_BackgroundCameraDefaultLocalPos;
 
@@ -25,52 +20,42 @@ public class SystemManager : MonoBehaviour
     public static PlayState PlayState = PlayState.OutGame;
     public static int Stage = -1;
     
-    public static SystemManager instance_sm = null;
+    public static SystemManager Instance { get; set; }
     
-    public event Action Action_OnBossClear;
-    public event Action Action_OnStageClear;
-    public event Action Action_OnShowOverview;
-    public event Action<bool> Action_OnNextStage;
-    public event Action Action_OnQuitInGame;
+    public static event Action Action_OnBossClear;
+    public static event Action Action_OnStageClear;
+    public static event Action Action_OnShowOverview;
+    public static event Action<bool> Action_OnNextStage;
+    public static event Action Action_OnQuitInGame;
 
     void Awake()
     {
-        if (instance_sm != null) {
+        if (Instance != null) {
             Destroy(gameObject);
             return;
         }
-        instance_sm = this;
-
-        m_GameManager = GameManager.instance_gm;
+        Instance = this;
         
         DontDestroyOnLoad(gameObject);
-        
-        PlayState = PlayState.OnField;
 
         //gameObject.SetActive(false);
     }
 
-    void Update()
-    {
-        BulletEraseTimer();
-    }
-
-
-    public void MiddleBossClear() {
+    public static void MiddleBossClear() {
         PlayState = PlayState.OnField;
     }
 
-    public void BossClear()
+    public static void BossClear()
     {
         AudioService.StopMusic();
-        if (m_StageManager.GetTrueLastBossState())
+        if (StageManager.IsTrueBossEnabled)
             return;
         Action_OnBossClear?.Invoke();
         PlayState = PlayState.OnBossCleared;
     }
 
     private IEnumerator StageClear() {
-        if (m_StageManager.GetTrueLastBossState())
+        if (StageManager.IsTrueBossEnabled)
             yield break;
         yield return new WaitForMillisecondFrames(3000);
         PlayState = PlayState.OnStageResult;
@@ -79,7 +64,6 @@ public class SystemManager : MonoBehaviour
         
         yield return new WaitForMillisecondFrames(2000);
         Action_OnShowOverview?.Invoke();
-        m_StageManager.StopCoroutine("MainTimeline");
     }
 
     public void StartStageClearCoroutine() {
@@ -90,12 +74,19 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(NextStage());
     }
 
+    public void StartStage(int stage)
+    {
+        SceneManager.LoadScene($"Stage{(stage + 1)}");
+        PlayState = PlayState.OnField;
+        Stage = stage;
+    }
+
     private IEnumerator NextStage() { // 2스테이지 부터
         PlayState = PlayState.OnStageTransition;
         InGameScreenEffectService.TransitionOut();
         yield return new WaitForMillisecondFrames(2000);
 
-        if (GameMode == GameMode.Training && !m_GameManager.m_InvincibleMod) {
+        if (GameMode == GameMode.Training && !GameManager.InvincibleMod) {
             QuitGame();
         }
         
@@ -130,53 +121,8 @@ public class SystemManager : MonoBehaviour
     }
 
 
-    private void BulletEraseTimer() {
-        if (m_BulletsEraseTimer > 0) {
-            m_BulletsEraseTimer--;
-        }
-        else {
-            m_BulletsEraseTimer = 0;
-        }
-    }
 
-    public void BulletsToGems(int millisecond) {
-        List<GameObject> bullet_list = new List<GameObject>();
-        bullet_list.AddRange(GameObject.FindGameObjectsWithTag("EnemyBulletParent"));
-        int index, num = 0, count = bullet_list.Count;
-
-        while (count > 0) {
-            index = UnityEngine.Random.Range(0, count);
-            if (num < 50) {
-                Vector3 pos = bullet_list[index].transform.position;
-                if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {
-                    if (Size.GAME_BOUNDARY_BOTTOM < pos.y && pos.y < Size.GAME_BOUNDARY_TOP) {
-                        GameObject gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
-                        gem.transform.position = new Vector3(bullet_list[index].transform.position.x, bullet_list[index].transform.position.y, Depth.ITEMS);
-                        gem.SetActive(true);
-                        num++;
-                    }
-                }
-            }
-            EnemyBullet enemy_bullet = bullet_list[index].GetComponent<EnemyBullet>();
-            enemy_bullet.ReturnToPool();
-            bullet_list.RemoveAt(index);
-
-            count--;
-        }
-        EraseBullets(millisecond);
-    }
-
-    public void EraseBullets(int millisecond) {
-        int frame = millisecond * Application.targetFrameRate / 1000;
-        if (m_BulletsEraseTimer < frame) {
-            m_BulletsEraseTimer = frame;
-        }
-    }
-
-
-    public bool GetInvincibleMod() {
-        return m_GameManager.m_InvincibleMod;
-    }
+    
 
     public bool SpawnAtSpawnPointCondition() {
         if (Stage == 0) {

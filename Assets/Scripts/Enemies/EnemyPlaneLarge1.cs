@@ -133,7 +133,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 4; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(3, pos, 5.6f + i*0.32f, target_angle + (random_value + i*2f)*state, accel, 5, 20f);
@@ -144,7 +144,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 6; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(3, pos, 6f + i*0.4f, target_angle + (random_value + i*2f)*state, accel, 5, 20f);
@@ -155,7 +155,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             else {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 for (int i = 0; i < 8; i++) {
                     pos = m_FirePosition.position;
                     CreateBulletsSector(3, pos, 5.6f + i*0.4f, target_angle + (random_value + i*2f)*state, accel, 5, 20f);
@@ -219,13 +219,13 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 6, 16f);
                 CreateBulletsSector(5, pos, 6.4f, target_angle + random_value, accel, 6, 16f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 6, 12f);
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 12, 6f);
                 CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 6, 12f);
@@ -233,7 +233,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             }
             else {
                 pos = m_FirePosition.position;
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(5, pos, 5.6f, target_angle + random_value, accel, 8, 12f);
                 CreateBulletsSector(5, pos, 6.1f, target_angle + random_value, accel, 14, 6f);
                 CreateBulletsSector(5, pos, 6.6f, target_angle + random_value, accel, 8, 12f);

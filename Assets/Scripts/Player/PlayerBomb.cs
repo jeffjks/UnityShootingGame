@@ -10,19 +10,9 @@ public class PlayerBomb : MonoBehaviour
 
     //private Vector3 m_FixedPosition;
 
-    private SystemManager m_SystemManager = null;
-
     private const int TARGET_TIMER = 400;
     private const int REMOVE_TIMER = 2600; // TARGET_TIMER 이후
     private bool m_Enable = true;
-
-    void Start()
-    {
-        m_SystemManager = SystemManager.instance_sm;
-
-        //m_FixedPosition = new Vector3(0f, -Size.GAME_HEIGHT/2, Depth.PLAYER_MISSILE);
-        //transform.position = m_FixedPosition;
-    }
 
     public void UseBomb()
     {
@@ -60,7 +50,7 @@ public class PlayerBomb : MonoBehaviour
         }
         m_Explosion.transform.position = target_position;
         
-        m_SystemManager.EraseBullets(2000);
+        BulletManager.SetBulletFreeState(2000);
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(true);
         m_BombDamage.SetActive(true);

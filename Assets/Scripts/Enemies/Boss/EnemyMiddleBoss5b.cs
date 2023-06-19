@@ -88,7 +88,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
             }
         }
 
-        if (m_PlayerManager.m_PlayerIsAlive)
+        if (PlayerManager.IsPlayerAlive)
             RotateSlightly(m_PlayerPosition, 40f);
         else
             RotateSlightly(m_PlayerPosition, 100f);
@@ -212,7 +212,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
         m_MoveVector = new MoveVector(1.2f, 0f);
-        m_SystemManager.BulletsToGems(3000);
+        BulletManager.BulletsToGems(3000);
         m_Phase = 2;
         if (m_CurrentPattern1 != null)
             StopCoroutine(m_CurrentPattern1);
@@ -233,7 +233,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.MiddleBossClear();
+        SystemManager.MiddleBossClear();
     }
 
     public void OnBossDeath() {

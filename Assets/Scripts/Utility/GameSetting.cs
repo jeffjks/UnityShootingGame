@@ -37,7 +37,7 @@ public class GameSetting : MonoBehaviour
     private void Awake()
     {
         if (Instance != null) {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;

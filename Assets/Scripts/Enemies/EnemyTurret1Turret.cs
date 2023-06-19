@@ -19,7 +19,7 @@ public class EnemyTurret1Turret : EnemyUnit
     {
         base.Update();
         
-        if (m_PlayerManager.m_PlayerIsAlive) {
+        if (PlayerManager.IsPlayerAlive) {
             if (!m_Shooting)
                 RotateSlightly(m_PlayerPosition, 90f);
         }

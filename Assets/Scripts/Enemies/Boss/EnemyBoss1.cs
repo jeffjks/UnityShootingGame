@@ -318,8 +318,8 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         for (int i = 0; i < fire_number[(int) SystemManager.Difficulty]; i++) {
             pos1 = m_FirePosition[2].position;
             pos2 = m_FirePosition[3].position;
-            target_angle1 = GetAngleToTarget(pos1, m_PlayerManager.GetPlayerPosition());
-            target_angle2 = GetAngleToTarget(pos2, m_PlayerManager.GetPlayerPosition());
+            target_angle1 = GetAngleToTarget(pos1, PlayerManager.GetPlayerPosition());
+            target_angle2 = GetAngleToTarget(pos2, PlayerManager.GetPlayerPosition());
             
             CreateBullet(4, pos1, 4.8f, target_angle1 + Random.Range(-52f, 52f), accel);
             CreateBullet(4, pos2, 4.8f, target_angle2 + Random.Range(-52f, 52f), accel);
@@ -379,7 +379,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
             StopCoroutine(m_CurrentPattern);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.6f, 0f);
         m_Turret0.m_EnemyDeath.OnDying();
 
@@ -388,11 +388,11 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.BossClear();
+        SystemManager.BossClear();
     }
 
     public void OnBossDeath() {
-        m_SystemManager.StartStageClearCoroutine();
+        SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);
     }

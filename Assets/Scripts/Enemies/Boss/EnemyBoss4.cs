@@ -99,7 +99,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                     if (m_FrontTurrets[i] != null)
                         m_FrontTurrets[i].m_EnemyDeath.OnDying();
                 }
-                m_SystemManager.EraseBullets(2000);
+                BulletManager.SetBulletFreeState(2000);
                 NextPhaseExplosion();
                 
                 for (int i = 0; i < m_SmallTurrets.Length; i++) {
@@ -592,17 +592,17 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             if (m_SmallTurrets[i] != null)
                 m_SmallTurrets[i].m_EnemyDeath.OnDying();
         }
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         
         yield break;
     }
 
     public void OnBossDying() {
-        m_SystemManager.BossClear();
+        SystemManager.BossClear();
     }
 
     public void OnBossDeath() {
-        m_SystemManager.StartStageClearCoroutine();
+        SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);
     }

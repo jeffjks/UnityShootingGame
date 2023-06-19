@@ -322,7 +322,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector.speed = 0f;
         m_Phase = -1;
         
@@ -330,7 +330,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.MiddleBossClear();
+        SystemManager.MiddleBossClear();
     }
 
     public void OnBossDeath() {

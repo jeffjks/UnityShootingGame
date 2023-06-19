@@ -132,7 +132,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         
         //m_Collider2D[0].gameObject.SetActive(true);
         EnableInteractableAll();
-        m_SystemManager.EraseBullets(500);
+        BulletManager.SetBulletFreeState(500);
     }
 
 
@@ -211,7 +211,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 random_value = Random.Range(0f, 360f);
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition0.position);
-                target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                 CreateBulletsSector(4, pos, 6f, random_value + target_angle, accel, 20, 18f);
                 yield return new WaitForMillisecondFrames(1800);
             }
@@ -219,7 +219,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition0.position);
-                    target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                    target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 24, 15f);
                     yield return new WaitForMillisecondFrames(80);
                 }
@@ -229,7 +229,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
                 random_value = Random.Range(0f, 360f);
                 for (int i = 0; i < 3; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition0.position);
-                    target_angle = GetAngleToTarget(pos, m_PlayerManager.GetPlayerPosition());
+                    target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
                     CreateBulletsSector(4, pos, 6f + i*0.6f, random_value + target_angle, accel, 30, 12f);
                     yield return new WaitForMillisecondFrames(80);
                 }
@@ -240,7 +240,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_SystemManager.BulletsToGems(2000);
+        BulletManager.BulletsToGems(2000);
         m_MoveVector.speed = 0f;
         m_Phase = -1;
 
@@ -252,7 +252,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        m_SystemManager.MiddleBossClear();
+        SystemManager.MiddleBossClear();
     }
 
     public void OnBossDeath() {

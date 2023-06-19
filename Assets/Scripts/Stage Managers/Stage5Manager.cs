@@ -37,7 +37,7 @@ public class Stage5Manager : StageManager
         ShowBossWarningSign();
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
-        TrueLastBoss(new Vector3(0f, -10f, Depth.ENEMY));
+        StartTrueLastBoss(new Vector3(0f, -10f, Depth.ENEMY));
     }
 
     protected override IEnumerator MainTimeline()
@@ -70,12 +70,6 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(6000);
         AudioService.PlayMusic("Boss2");
         yield break;
-    }
-
-    public void TrueLastBoss(Vector3 pos) {
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
-        AudioService.PlayMusic("FinalBoss");
-        StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
     }
 
     private IEnumerator DarkEffect()
@@ -511,8 +505,9 @@ public class Stage5Manager : StageManager
     }
 
     private void CheckTrueLastBossState() {
-        if (SystemManager.Difficulty == GameDifficulty.Hell) {
-            SetTrueLastBossState(true);
+        if (SystemManager.Difficulty == GameDifficulty.Hell)
+        {
+            IsTrueBossEnabled = true;
         }
     }
 }

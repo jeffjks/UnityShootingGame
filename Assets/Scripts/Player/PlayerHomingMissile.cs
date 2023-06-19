@@ -8,11 +8,9 @@ public class PlayerHomingMissile : PlayerWeapon {
     private float m_RotationSpeed = 324f;
     private GameObject m_Target;
     private Vector2 m_MainCameraPosition;
-    private SystemManager m_SystemManager = null;
     
     public override void OnStart() {
         base.OnStart();
-        m_SystemManager = SystemManager.instance_sm;
         m_Target = null;
         
         RotateImmediately(m_MoveVector.direction);
@@ -27,7 +25,7 @@ public class PlayerHomingMissile : PlayerWeapon {
         if (Time.timeScale == 0)
             return;
 
-        if (m_SystemManager != null) {
+        if (SystemManager.PlayState != PlayState.OutGame) {
             m_MainCameraPosition = MainCamera.Instance.transform.position;
             
             if (m_Target == null) {

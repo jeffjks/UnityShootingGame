@@ -15169,6 +15169,7 @@ GameObject:
   - component: {fileID: 198436407873266500}
   - component: {fileID: 4119192146902084646}
   - component: {fileID: 8056332426195801104}
+  - component: {fileID: 3721787756364860043}
   m_Layer: 17
   m_Name: PlayerObject
   m_TagString: Player
@@ -15233,9 +15234,7 @@ MonoBehaviour:
   m_Damage: 1500
   m_DamageScale: 640000006400000064000000
   m_SlowMode: 0
-  m_PlayerShield: {fileID: 3661508672885173497}
   m_Explosion: PlayerExplosion
-  m_ReviveInvincibleTime: 3000
 --- !u!114 &8577496210613791664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15301,7 +15300,6 @@ MonoBehaviour:
   - {fileID: 7636626367001920745}
   - {fileID: 7636626367001950191}
   m_ModulePart: {fileID: 5294619554845179976}
-  m_PlayerShield: {fileID: 3661508672885173497}
 --- !u!114 &4119192146902084646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15335,6 +15333,19 @@ MonoBehaviour:
   m_MaxRoll: 30
   m_RollSpeed: 120
   m_RelativeToCurrentAngle: 1
+--- !u!114 &3721787756364860043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057626060238595911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4cc8cafe38dd5447b9b9086b53eefa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerShield: {fileID: 3661508672885173497}
 --- !u!1 &6750267487288296091
 GameObject:
   m_ObjectHideFlags: 0

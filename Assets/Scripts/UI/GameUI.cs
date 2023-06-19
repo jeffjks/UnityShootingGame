@@ -27,7 +27,6 @@ public abstract class GameUI : MonoBehaviour {
 
     protected GameManager m_GameManager = null;
     protected PlayerManager m_PlayerManager = null;
-    protected SystemManager m_SystemManager = null;
 
     void Awake()
     {
@@ -46,8 +45,6 @@ public abstract class GameUI : MonoBehaviour {
         m_Selection = m_InitialSelection;
 
         m_GameManager = GameManager.instance_gm;
-        m_PlayerManager = PlayerManager.instance_pm;
-        m_SystemManager = SystemManager.instance_sm;
     }
 
     protected virtual void MoveCursorVertical(int move) {

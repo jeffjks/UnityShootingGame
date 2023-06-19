@@ -17,7 +17,7 @@ public class EnemyTankLarge2Turret : EnemyUnit
     {
         base.Update();
         
-        if (m_PlayerManager.m_PlayerIsAlive) {
+        if (PlayerManager.IsPlayerAlive) {
             if (!m_Shooting)
                 RotateSlightly(m_PlayerPosition, 64f);
             }

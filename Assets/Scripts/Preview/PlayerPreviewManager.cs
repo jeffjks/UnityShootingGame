@@ -12,7 +12,6 @@ public abstract class PlayerPreviewManager : MonoBehaviour
     
     void Awake()
     {
-        m_PlayerManager = PlayerManager.instance_pm;
         SpeedPart();
     }
 

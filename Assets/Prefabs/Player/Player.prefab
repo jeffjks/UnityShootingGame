@@ -15165,9 +15165,9 @@ GameObject:
   - component: {fileID: 7007784690338842168}
   - component: {fileID: 1144166123301243134}
   - component: {fileID: 5591376453271951338}
+  - component: {fileID: 784749452946423656}
   - component: {fileID: 8577496210613791664}
   - component: {fileID: 198436407873266500}
-  - component: {fileID: 4119192146902084646}
   - component: {fileID: 8056332426195801104}
   - component: {fileID: 3721787756364860043}
   m_Layer: 17
@@ -15234,6 +15234,18 @@ MonoBehaviour:
   m_Damage: 1500
   m_DamageScale: 640000006400000064000000
   m_SlowMode: 0
+--- !u!114 &784749452946423656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057626060238595911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e032bdc7810954aafd3e3dc6b95a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Explosion: PlayerExplosion
 --- !u!114 &8577496210613791664
 MonoBehaviour:
@@ -15294,28 +15306,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerController: {fileID: 5591376453271951338}
+  m_PlayerColorData: {fileID: 11400000, guid: 4c45a853efa342a43805e8cd0a18f48f, type: 2}
   m_DronePart: {fileID: 7537849260897006903}
-  m_SpeedPart:
+  m_SpeedParts:
   - {fileID: 7636626367002178889}
   - {fileID: 7636626367001920745}
   - {fileID: 7636626367001950191}
   m_ModulePart: {fileID: 5294619554845179976}
---- !u!114 &4119192146902084646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6057626060238595911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fb67660f0be09d4987cc76216d62a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Materials:
-  - {fileID: 2100000, guid: 326f095dbea31d24aab5ae63ee232556, type: 2}
-  - {fileID: 2100000, guid: a381416783e5f3940907eccd003d4d9d, type: 2}
-  - {fileID: 2100000, guid: c52baa72a328f5d4fbac2f609050633d, type: 2}
 --- !u!114 &8056332426195801104
 MonoBehaviour:
   m_ObjectHideFlags: 0

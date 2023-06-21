@@ -6,28 +6,34 @@ using System.Text;
 public class PlayerController : PlayerUnit
 {
     public static bool IsControllable { get; set; }
-    
-    [SerializeField] private string m_Explosion = string.Empty;
 
     private const int MAX_PLAYER_CAMERA = (int) (Size.CAMERA_MOVE_LIMIT * 256);
     private float m_DefaultRotation;
-    private bool m_HasCollided = false; // A
     private int m_SpeedIntDefault, m_SpeedIntSlow, m_OverviewSpeed;
-    private int m_MoveRawHorizontal = 0, m_MoveRawVertical = 0;
+    private int _moveRawHorizontal, _moveRawVertical;
+    private PlayerCollisionDetector _playerCollisionDetector;
 
     private const int BOUNDARY_PLAYER_X_MIN = -1792; // -7f
     private const int BOUNDARY_PLAYER_X_MAX = 1792; // 7f
     private const int BOUNDARY_PLAYER_Y_MIN = -3789; // -14.8f
     private const int BOUNDARY_PLAYER_Y_MAX = -256; // -1f
 
+    public int MoveRawHorizontal { get; set; }
+    public int MoveRawVertical { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
+        _playerCollisionDetector = GetComponent<PlayerCollisionDetector>();
 
         SystemManager.Action_OnBossClear += OnBossClear;
         SystemManager.Action_OnStageClear += OnStageClear;
         SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnQuitInGame += OnRemove;
+        
+        _playerCollisionDetector.Action_OnCollideWithEnemy += DealCollisionDamage;
+        _playerCollisionDetector.Action_OnDeath += KillPlayer;
+        _playerCollisionDetector.Action_OnDeath += ResetPosition;
     }
 
     void Start()
@@ -63,15 +69,15 @@ public class PlayerController : PlayerUnit
     {
         if (IsControllable) {
             if (SystemManager.GameMode != GameMode.Replay) {
-                m_MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
-                m_MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
+                _moveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
+                _moveRawVertical = (int) Input.GetAxisRaw ("Vertical");
             }
         }
 
         if (Time.timeScale == 0)
             return;
         
-        Vector2Int movement_vector = new Vector2Int(m_MoveRawHorizontal, m_MoveRawVertical);
+        Vector2Int movement_vector = new Vector2Int(_moveRawHorizontal, _moveRawVertical);
         if (IsControllable) {
             m_MoveVector = new MoveVector(movement_vector);
             if (m_SlowMode) {
@@ -86,8 +92,8 @@ public class PlayerController : PlayerUnit
             m_PositionInt2D = m_PositionInt2D + movement_vector;
         }
         else {
-            m_MoveRawHorizontal = 0;
-            m_MoveRawVertical = 0;
+            _moveRawHorizontal = 0;
+            _moveRawVertical = 0;
         }
 
         OverviewPosition();
@@ -103,11 +109,21 @@ public class PlayerController : PlayerUnit
 
     void OnEnable()
     {
-        m_HasCollided = false;
         m_SlowMode = false;
     }
 
-    private void ResetPositionIntAfterDeath() {
+    private void DealCollisionDamage(EnemyUnit enemyUnit)
+    {
+        DealDamage(enemyUnit, m_Damage);
+    }
+
+    private void KillPlayer()
+    {
+        PlayerManager.Instance.PlayerDead(m_PositionInt2D);
+    }
+
+    private void ResetPosition()
+    {
         int playerReviveX = Mathf.Clamp(m_PositionInt2D.x, -MAX_PLAYER_CAMERA, MAX_PLAYER_CAMERA);
         int playerReviveY = (int) PlayerManager.REVIVE_POSITION_Y * 256;
 
@@ -135,52 +151,6 @@ public class PlayerController : PlayerUnit
         //m_Vector2 = Vector2Int.zero;
         m_PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(m_PositionInt2D, target_pos, m_OverviewSpeed / Application.targetFrameRate * Time.timeScale));
     }
-    
-    
-    void OnTriggerEnter2D(Collider2D other) // 충돌 감지
-    {
-        if (other.gameObject.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상과 자신 파괴
-            if (!PlayerInvincibility.IsInvincible) {
-                if (!m_HasCollided) {
-                    try {
-                        EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                        enemyBullet.PlayEraseAnimation();
-                    }
-                    catch {
-                        return;
-                    }
-                }
-                OnDeath();
-            }
-        }
-
-        else if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
-            if (!PlayerInvincibility.IsInvincible) {
-                EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-
-                if (Utility.CheckLayer(other.gameObject, Layer.AIR)) {
-                    DealDamage(enemyObject, m_Damage);
-                    OnDeath();
-                }
-            }
-        }
-    }
-    
-    private void OnDeath() {
-        if (!PlayerInvincibility.IsInvincible) {
-            if (!m_HasCollided) {
-                m_HasCollided = true;
-                GameObject obj = PoolingManager.PopFromPool(m_Explosion, PoolingParent.Explosion); // 폭발 이펙트
-
-                obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
-                obj.SetActive(true);
-                
-                PlayerManager.Instance.PlayerDead(m_PositionInt2D);
-                ResetPositionIntAfterDeath();
-                transform.root.gameObject.SetActive(false);
-            }
-        }
-    }
 
     private void OnRemove()
     {
@@ -207,15 +177,5 @@ public class PlayerController : PlayerUnit
         m_PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
         IsControllable = true;
         PlayerInvincibility.SetInvincibility(3000);
-    }
-
-    public int MoveRawHorizontal {
-        get { return m_MoveRawHorizontal; }
-        set { m_MoveRawHorizontal = value; }
-    }
-
-    public int MoveRawVertical {
-        get { return m_MoveRawVertical; }
-        set { m_MoveRawVertical = value; }
     }
 }

@@ -5,7 +5,7 @@ public class ScoreText : MonoBehaviour, IObjectPooling
 {
     private TextMesh _textUI;
     
-    private IEnumerator m_BlinkEffect, m_FadeOutEffect;
+    //private IEnumerator m_BlinkEffect, m_FadeOutEffect;
     private float _hSpeed;
     private const float SPEED_START = 0.6f;
     private const float SPEED_ACCEL = 4f;
@@ -34,8 +34,8 @@ public class ScoreText : MonoBehaviour, IObjectPooling
 
         //m_BlinkEffect = BlinkEffect();
         //m_FadeOutEffect = FadeOutEffect();
-        StartCoroutine(m_BlinkEffect);
-        StartCoroutine(m_FadeOutEffect);
+        //StartCoroutine(m_BlinkEffect);
+        //StartCoroutine(m_FadeOutEffect);
     }
 
     void Update()
@@ -69,10 +69,10 @@ public class ScoreText : MonoBehaviour, IObjectPooling
     }*/
 
     public void ReturnToPool() {
-        if (m_BlinkEffect != null)
-            StopCoroutine(m_BlinkEffect);
-        if (m_FadeOutEffect != null)
-            StopCoroutine(m_FadeOutEffect);
+        //if (m_BlinkEffect != null)
+        //    StopCoroutine(m_BlinkEffect);
+        //if (m_FadeOutEffect != null)
+        //    StopCoroutine(m_FadeOutEffect);
         PoolingManager.PushToPool("ScoreText", gameObject, PoolingParent.ScoreText);
     }
 }

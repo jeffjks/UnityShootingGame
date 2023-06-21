@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     public static Action Action_OnStartStartNewGame;
 
-    public static PlayerManager Instance { get; set; }
+    public static PlayerManager Instance { get; private set; }
     
     private void Awake()
     {
@@ -118,14 +118,15 @@ public class PlayerManager : MonoBehaviour
     }
 
     public static Vector3 GetPlayerPosition() {
-        if (Instance.Player == null || !IsPlayerAlive) {
+        if (!IsPlayerAlive) {
             return new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
         }
-        return Instance.Player.transform.position;
+        return Instance._playerShooter.transform.position;
     }
 
     private void DestroyPlayerManager()
     {
+        IsPlayerAlive = false;
         Destroy(gameObject);
     }
 }

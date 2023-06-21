@@ -34,15 +34,7 @@ public class MainCamera : MonoBehaviour {
 
     void LateUpdate()
     {
-        var playerPosition = PlayerManager.GetPlayerPosition();
-        
-        float camera_x;
-        try {
-            camera_x = playerPosition.x  * m_CameraMoveRate;
-        }
-        catch {
-            camera_x = transform.position.x;
-        }
+        var camera_x = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x : transform.position.x;
 
         camera_x = Mathf.Clamp(camera_x, - CAMERA_MARGIN, CAMERA_MARGIN);
         

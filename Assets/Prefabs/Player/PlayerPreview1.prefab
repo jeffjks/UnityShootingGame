@@ -41,7 +41,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4476741379894191680}
-  - component: {fileID: 7764462487831255088}
   - component: {fileID: 1622906773}
   m_Layer: 17
   m_Name: PlayerPreview1
@@ -66,22 +65,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7764462487831255088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4476741379894299300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fb67660f0be09d4987cc76216d62a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Materials:
-  - {fileID: 2100000, guid: 326f095dbea31d24aab5ae63ee232556, type: 2}
-  - {fileID: 2100000, guid: a381416783e5f3940907eccd003d4d9d, type: 2}
-  - {fileID: 2100000, guid: c52baa72a328f5d4fbac2f609050633d, type: 2}
 --- !u!114 &1622906773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d836b4f9ceaded409b36b0720b96c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerColorData: {fileID: 11400000, guid: 4c45a853efa342a43805e8cd0a18f48f, type: 2}
   m_SpeedPart:
   - {fileID: 5838124850408528902}
   - {fileID: 5838124850408385958}

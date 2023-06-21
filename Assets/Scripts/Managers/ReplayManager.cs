@@ -84,8 +84,8 @@ public class ReplayManager : MonoBehaviour
     {
         Random.InitState(m_RandomSeed);
         GameObject player = m_PlayerManager.Player;
-        m_PlayerController = player.GetComponent<PlayerController>();
-        m_PlayerShooter = player.GetComponent<PlayerShooter>();
+        m_PlayerController = player.GetComponentInChildren<PlayerController>();
+        m_PlayerShooter = player.GetComponentInChildren<PlayerShooter>();
     }
 
     void Update()

@@ -26,14 +26,15 @@ public class PlayerPreview2 : PlayerPreviewManager
         m_DronePart.SetActive(false);
         // m_PreviewPoolingManager.SetActive(false);
         MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
-        PlayerColors playerColors = GetComponent<PlayerColors>();
         int max_meshRenderer = meshRenderer.Length;
         
         // Color
         for (int i = 0; i < 3; i++) {
-            if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Color) == i)
-                for (int j = 0; j < max_meshRenderer; j++) {
-                meshRenderer[j].material = playerColors.m_Materials[i];
+            if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Color) == i) {
+                for (int j = 0; j < max_meshRenderer; j++)
+                {
+                    meshRenderer[j].material = m_PlayerColorData.playerColorMaterial[i];
+                }
             }
         }
         m_DronePart.SetActive(true);

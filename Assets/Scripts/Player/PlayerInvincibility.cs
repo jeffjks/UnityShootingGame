@@ -10,7 +10,7 @@ public class PlayerInvincibility : MonoBehaviour
     public const int REVIVE_TIME = 3000;
     
     private static bool _isInvincible;
-    public static PlayerInvincibility Instance { get; set; }
+    public static PlayerInvincibility Instance { get; private set; }
 
     public Action<bool> Action_OnInvincibilityChanged;
 

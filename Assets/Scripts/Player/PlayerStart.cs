@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerStart : MonoBehaviour
 {
     public PlayerController m_PlayerController;
+    public PlayerColorDatas m_PlayerColorData;
     public GameObject m_DronePart; // Shot Spawner
-    public GameObject[] m_SpeedPart = new GameObject[3];
+    public GameObject[] m_SpeedParts = new GameObject[3];
     public GameObject m_ModulePart;
 
     private int _verticalSpeed;
@@ -21,7 +22,6 @@ public class PlayerStart : MonoBehaviour
         else if (SystemManager.Stage == -1) {
             transform.position = new Vector3(transform.position.x, 2f, Depth.PLAYER);
             enabled = false;
-            return;
         }
         else {
             EndSpawnEvent();
@@ -31,7 +31,7 @@ public class PlayerStart : MonoBehaviour
     void Update() {
         //m_PlayerController.m_MoveVector = new MoveVector(_verticalSpeed / Application.targetFrameRate * Time.timeScale, 180f);
         Vector2Int posInt2D = m_PlayerController.m_PositionInt2D;
-        m_PlayerController.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed / Application.targetFrameRate * Time.timeScale));
+        m_PlayerController.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed * Time.timeScale / Application.targetFrameRate));
     }
 
     private IEnumerator SpawnEvent() {
@@ -60,7 +60,7 @@ public class PlayerStart : MonoBehaviour
     private void SetAttributes() {
         m_DronePart.SetActive(false);
         
-        m_SpeedPart[PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
+        m_SpeedParts[PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
 
         if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Module) != 0)
             m_ModulePart.SetActive(true);
@@ -74,14 +74,15 @@ public class PlayerStart : MonoBehaviour
 
     private void SetPlayerColors() {
         MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
-        PlayerColors playerColors = GetComponentInChildren<PlayerColors>();
         int max_meshRenderer = meshRenderer.Length;
         
         // Color
         for (int i = 0; i < 3; i++) {
-            if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Color) == i)
-                for (int j = 0; j < max_meshRenderer; j++) {
-                meshRenderer[j].material = playerColors.m_Materials[i];
+            if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Color) == i) {
+                for (int j = 0; j < max_meshRenderer; j++)
+                {
+                    meshRenderer[j].material = m_PlayerColorData.playerColorMaterial[i];
+                }
             }
         }
     }

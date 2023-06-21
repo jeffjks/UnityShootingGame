@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class PlayerPreviewManager : MonoBehaviour
 {
+    public PlayerColorDatas m_PlayerColorData;
     public GameObject[] m_SpeedPart = new GameObject[3];
     public GameObject m_ModulePart;
     

@@ -6,12 +6,13 @@ public class PlayerUnit : PlayerObject
 {
     [HideInInspector] public bool m_SlowMode = false;
 
-    private Vector2Int positionInt2D;
-    public Vector2Int m_PositionInt2D {
-        get { return positionInt2D; }
+    private Vector2Int _positionInt2D;
+    public Vector2Int m_PositionInt2D
+    {
+        get => _positionInt2D;
         set {
-            positionInt2D = value;
-            transform.position = new Vector3((float) positionInt2D.x / 256, (float) positionInt2D.y / 256, Depth.PLAYER);
+            _positionInt2D = value;
+            transform.position = new Vector3((float) _positionInt2D.x / 256, (float) _positionInt2D.y / 256, Depth.PLAYER);
         }
     }
 }

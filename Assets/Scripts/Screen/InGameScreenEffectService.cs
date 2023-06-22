@@ -19,12 +19,10 @@ public class InGameScreenEffectService : MonoBehaviour
 	public GameObject m_WhiteEffectController;
 	
 	public TransitionState CurrentState { get; set; }
-
-	public const int TRANSITION_BLOCK_WIDTH = 135;
-	public const int TRANSITION_BLOCK_HEIGHT = 135;
-	private const int TRANSITION_BLOCK_COLUMN = 6;
+	
+	private const int TRANSITION_NUMBER = 48;
 	private const int TRANSITION_BLOCK_ROW = 8;
-	private const int DELAY_INTERVAL = 100;
+	private const int DELAY_INTERVAL = 160;
 	
 	private WhiteEffectController _whiteEffectController;
 	private readonly List<InGameScreenTransitionEffect> _transitionList = new ();
@@ -46,18 +44,17 @@ public class InGameScreenEffectService : MonoBehaviour
     private void Init()
     {
 	    CurrentState = TransitionState.TransitionIn;
+	    const int COLUMN = TRANSITION_NUMBER / TRANSITION_BLOCK_ROW;
 	    
-	    for (int i = 0; i < TRANSITION_BLOCK_ROW; i++) {
-		    for (int j = 0; j < TRANSITION_BLOCK_COLUMN; j++)
+	    for (int i = 0; i < TRANSITION_NUMBER; ++i) {
+		    GameObject obj = Instantiate(m_TransitionBlock, m_TransitionEffectController.transform);
+		    InGameScreenTransitionEffect screenTransitionEffect = obj.GetComponent<InGameScreenTransitionEffect>();
+		    screenTransitionEffect.Delay = i / TRANSITION_BLOCK_ROW * DELAY_INTERVAL;
+		    if ((i + i / COLUMN) % 2 == 1)
 		    {
-			    Vector3 pos = new Vector3(j * TRANSITION_BLOCK_WIDTH, i * TRANSITION_BLOCK_HEIGHT, Depth.TRANSITION);
-			    GameObject obj = Instantiate(m_TransitionBlock, pos, Quaternion.identity);
-			    obj.transform.SetParent(m_TransitionEffectController.transform);
-			    InGameScreenTransitionEffect screenTransitionEffect = obj.GetComponent<InGameScreenTransitionEffect>();
-			    screenTransitionEffect.Delay = (TRANSITION_BLOCK_ROW - i - 1) * DELAY_INTERVAL;
-			    screenTransitionEffect.SetRotationState((i + j) % 2 == 1);
-			    _transitionList.Add(screenTransitionEffect);
+			    screenTransitionEffect.SetRotationState();
 		    }
+		    _transitionList.Add(screenTransitionEffect);
 	    }
 	    
 	    //m_TransitionEffectController.SetActive(true);
@@ -70,7 +67,7 @@ public class InGameScreenEffectService : MonoBehaviour
 		
 		foreach (var transition in Instance._transitionList)
 		{
-			transition.gameObject.SetActive(true);
+			//transition.gameObject.SetActive(true);
 			transition.PlayFadeOut(duration, Instance.SetTransitionOut);
 		}
 	}

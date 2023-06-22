@@ -6,11 +6,12 @@ using Random = UnityEngine.Random;
 
 public class InGameScreenTransitionEffect : MonoBehaviour
 {
-    public GameObject m_Transition;
     public Image m_TransitionImage;
     public int Delay { get; set; }
     
     private RectTransform _rectTransform;
+    private const int WIDTH = 135;
+    private const int HEIGHT = 135;
 
     private float _alpha;
     private float Alpha
@@ -26,8 +27,7 @@ public class InGameScreenTransitionEffect : MonoBehaviour
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _rectTransform.sizeDelta = new Vector2(InGameScreenEffectService.TRANSITION_BLOCK_WIDTH,
-            InGameScreenEffectService.TRANSITION_BLOCK_HEIGHT);
+        _rectTransform.sizeDelta = new Vector2(WIDTH, HEIGHT);
     }
 
     private void OnEnable()
@@ -91,7 +91,7 @@ public class InGameScreenTransitionEffect : MonoBehaviour
             yield return new WaitForMillisecondFrames(0);
         }
         callback?.Invoke();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     private void SetTransitionsAlpha(float alpha)
@@ -101,12 +101,8 @@ public class InGameScreenTransitionEffect : MonoBehaviour
         m_TransitionImage.color = newColor;
     }
 
-    public void SetRotationState(bool state)
+    public void SetRotationState()
     {
-        if (state)
-        {
-            return;
-        }
-        m_Transition.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+        transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
     }
 }

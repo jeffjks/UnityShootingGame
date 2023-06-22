@@ -34,11 +34,12 @@ public class PlayerManager : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
+        
+        m_ReplayManager.Init();
 
         SystemManager.Action_OnQuitInGame += DestroyPlayerManager;
         Action_OnStartStartNewGame?.Invoke();
         
-        m_ReplayManager.Init();
         BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
 
@@ -118,8 +119,10 @@ public class PlayerManager : MonoBehaviour
     }
 
     public static Vector3 GetPlayerPosition() {
-        if (!IsPlayerAlive) {
-            return new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
+        var defaultVector = new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
+        if (SystemManager.PlayState == PlayState.OutGame)
+        {
+            return defaultVector;
         }
         return Instance._playerShooter.transform.position;
     }

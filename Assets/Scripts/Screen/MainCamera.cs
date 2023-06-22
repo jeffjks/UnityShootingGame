@@ -7,7 +7,7 @@ public class MainCamera : MonoBehaviour {
     public static Camera Camera;
     
     private Vector2 _shakePosition;
-    private float m_CameraMoveRate;
+    private const float CAMERA_MOVE_RATE = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
     private const float CAMERA_MARGIN = (Size.GAME_WIDTH - Size.MAIN_CAMERA_WIDTH) / 2; // 1.555
     
     private static IEnumerator _shakeCamera;
@@ -25,16 +25,9 @@ public class MainCamera : MonoBehaviour {
         SystemManager.Action_OnNextStage += InitCamera;
     }
 
-    void Start()
-    {
-        //m_PlayerPosition = m_PlayerManager.m_PlayerController.m_Position;
-        
-        m_CameraMoveRate = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
-    }
-
     void LateUpdate()
     {
-        var camera_x = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x : transform.position.x;
+        var camera_x = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x * CAMERA_MOVE_RATE : transform.position.x;
 
         camera_x = Mathf.Clamp(camera_x, - CAMERA_MARGIN, CAMERA_MARGIN);
         
@@ -57,10 +50,11 @@ public class MainCamera : MonoBehaviour {
         Instance.StartCoroutine(_shakeCamera);
     }
 
-    private static IEnumerator ShakeCameraProcess(float duration) {
-        float timer = 0, radius, radius_init;
-        radius = Mathf.Clamp01(duration) * 1.5f;
-        radius_init = radius;
+    private static IEnumerator ShakeCameraProcess(float duration)
+    {
+        var timer = 0f;
+        var radius = Mathf.Clamp01(duration) * 1.5f;
+        var radius_init = radius;
 
         while(timer < duration) {
             Instance._shakePosition = Random.insideUnitCircle * radius;

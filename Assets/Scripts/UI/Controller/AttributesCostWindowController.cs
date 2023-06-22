@@ -18,26 +18,25 @@ public class AttributesCostWindowController : MonoBehaviour
         _defaultTextColor = _costWindowText.color;
     }
 
-    public void SetText(int costText)
+    public bool SetCostText(int cost)
     {
-        int maximumCost = SelectAttributesMenuHandler.MAXIMUM_COST;
+        const int maximumCost = SelectAttributesMenuHandler.MAXIMUM_COST;
         
         if (GameSetting.m_Language == Language.Korean)
         {
-            _costWindowText.SetText($"비용\n{costText} / {maximumCost}");
+            _costWindowText.SetText($"비용\n{cost} / {maximumCost}");
         }
         else
         {
-            _costWindowText.SetText($"Cost\n{costText} / {maximumCost}");
+            _costWindowText.SetText($"Cost\n{cost} / {maximumCost}");
         }
 
-        if (costText > maximumCost)
-        {
-            _costWindowText.color = _exceedTextColor;
-        }
-        else
-        {
-            _costWindowText.color = _defaultTextColor;
-        }
+        return SetCostColor(cost, maximumCost);
+    }
+
+    private bool SetCostColor(int cost, int maximumCost)
+    {
+        _costWindowText.color = cost > maximumCost ? _exceedTextColor : _defaultTextColor;
+        return cost > maximumCost;
     }
 }

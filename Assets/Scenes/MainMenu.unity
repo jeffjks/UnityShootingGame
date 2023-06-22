@@ -1381,7 +1381,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectDetail
+      value: AttributeConfirmMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -2196,7 +2196,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectDetail
+      value: AttributeConfirmMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -2955,26 +2955,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-        type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
@@ -2986,16 +2966,6 @@ PrefabInstance:
     - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1314187946552073078, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
@@ -4485,7 +4455,7 @@ MonoBehaviour:
   m_AttributesDetailsWindowController: {fileID: 1859914548}
   m_AttributesCostWindowController: {fileID: 2117938321}
   m_AttributesTypeText: {fileID: 1009455932}
-  m_AttributeConfirmPanel: {fileID: 1074893953}
+  m_AttributeConfirmMenuHandler: {fileID: 1074893953}
 --- !u!1001 &496637542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4999,7 +4969,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectDetail
+      value: AttributeConfirmMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -5230,7 +5200,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectDetail
+      value: AttributeConfirmMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -6457,7 +6427,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectDetail
+      value: AttributeConfirmMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -13544,7 +13514,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectDetail
+      value: AttributeConfirmMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}

@@ -11,12 +11,13 @@ public class SelectAttributesMenuHandler : MenuHandler
     public AttributesDetailsWindowController m_AttributesDetailsWindowController;
     public AttributesCostWindowController m_AttributesCostWindowController;
     public TextMeshProUGUI m_AttributesTypeText;
-    public MenuHandler m_AttributeConfirmPanel;
+    public AttributesConfirmMenuHandler m_AttributeConfirmMenuHandler;
     //public Button m_ConfirmButton;
 
     public const int MAXIMUM_COST = 500;
     
     private int _totalCost;
+    private bool _isExceedMaximumCost;
     private readonly Dictionary<AttributeType, int> _attributeCost = new();
 
     private void OnEnable()
@@ -46,9 +47,14 @@ public class SelectAttributesMenuHandler : MenuHandler
             m_AttributesDetailsWindowController.PlayTransitionAnimation();
     }
 
-    public void SelectDetail()
+    public void AttributeConfirmMenu()
     {
-        GoToTargetMenu(m_AttributeConfirmPanel, false);
+        if (_isExceedMaximumCost)
+        {
+            AudioService.PlaySound("CancelUI");
+            return;
+        }
+        GoToTargetMenu(m_AttributeConfirmMenuHandler, false);
     }
 
     public override void Back()
@@ -62,6 +68,7 @@ public class SelectAttributesMenuHandler : MenuHandler
         _totalCost -= _attributeCost[attributeType];
         _attributeCost[attributeType] = cost;
         _totalCost += _attributeCost[attributeType];
-        m_AttributesCostWindowController.SetText(_totalCost);
+        _isExceedMaximumCost = m_AttributesCostWindowController.SetCostText(_totalCost);
+        m_AttributeConfirmMenuHandler.m_ConfirmButton.interactable = !_isExceedMaximumCost;
     }
 }

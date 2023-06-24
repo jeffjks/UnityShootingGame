@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStart : MonoBehaviour
 {
-    public PlayerController m_PlayerController;
+    public PlayerMovement m_PlayerMovement;
     public PlayerColorDatas m_PlayerColorData;
     public GameObject m_DronePart; // Shot Spawner
     public GameObject[] m_SpeedParts = new GameObject[3];
@@ -29,9 +29,9 @@ public class PlayerStart : MonoBehaviour
     }
 
     void Update() {
-        //m_PlayerController.m_MoveVector = new MoveVector(_verticalSpeed / Application.targetFrameRate * Time.timeScale, 180f);
-        Vector2Int posInt2D = m_PlayerController.m_PositionInt2D;
-        m_PlayerController.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed * Time.timeScale / Application.targetFrameRate));
+        //m_PlayerMovement.m_MoveVector = new MoveVector(_verticalSpeed / Application.targetFrameRate * Time.timeScale, 180f);
+        Vector2Int posInt2D = m_PlayerMovement.m_PositionInt2D;
+        m_PlayerMovement.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed * Time.timeScale / Application.targetFrameRate));
     }
 
     private IEnumerator SpawnEvent() {
@@ -47,7 +47,7 @@ public class PlayerStart : MonoBehaviour
 
     private void EndSpawnEvent() {
         PlayerInvincibility.SetInvincibility(PlayerInvincibility.REVIVE_TIME);
-        PlayerController.IsControllable = true;
+        PlayerMovement.IsControllable = true;
         _verticalSpeed = 0;
         enabled = false;
     }
@@ -62,7 +62,7 @@ public class PlayerStart : MonoBehaviour
         
         m_SpeedParts[PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
 
-        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Module) != 0)
+        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex) != 0)
             m_ModulePart.SetActive(true);
         
         SetPlayerColors();

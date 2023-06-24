@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerUnit : PlayerObject
 {
-    [HideInInspector] public bool m_SlowMode = false;
+    public bool m_IsPreviewObject;
+    
+    public bool SlowMode { get; set; }
+    public bool IsAttacking { get; set; }
+    public bool IsShooting { get; set; }
 
     private Vector2Int _positionInt2D;
     public Vector2Int m_PositionInt2D

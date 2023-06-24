@@ -11,7 +11,7 @@ public class EnemyTurret2Turret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -19,9 +19,9 @@ public class EnemyTurret2Turret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateSlightly(m_PlayerPosition, 90f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 90f);
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {

@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemBomb : ItemBox
 {
     protected override void ItemEffect(Collider2D other) {
-        PlayerShooter playerShooter = other.GetComponentInParent<PlayerShooter>();
-        if (playerShooter != null) {
+        PlayerController playerController = other.GetComponentInParent<PlayerController>();
+        if (playerController != null) {
             AudioService.PlaySound("ItemGet");
             
             if (InGameDataManager.Instance.AddBomb())
@@ -20,7 +20,7 @@ public class ItemBomb : ItemBox
             }
         }
         else {
-            Debug.LogAssertion("Can not find PlayerShooter Component.");
+            Debug.LogAssertion("Can not find PlayerController Component.");
         }
     }
 }

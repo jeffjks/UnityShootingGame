@@ -56,9 +56,9 @@ public class RankingDataSlotImage : RankingDataSlot
         }
 
         SetSprite(0, shipAttributes.GetAttributes(AttributeType.Speed));
-        SetSprite(1, shipAttributes.GetAttributes(AttributeType.ShotLevel));
-        SetSprite(2, shipAttributes.GetAttributes(AttributeType.LaserLevel));
-        SetSprite(3, shipAttributes.GetAttributes(AttributeType.Module));
+        SetSprite(1, shipAttributes.GetAttributes(AttributeType.ShotIndex));
+        SetSprite(2, shipAttributes.GetAttributes(AttributeType.LaserIndex));
+        SetSprite(3, shipAttributes.GetAttributes(AttributeType.ModuleIndex));
     }
 
     private void SetSprite(int attributeType, int attribute)

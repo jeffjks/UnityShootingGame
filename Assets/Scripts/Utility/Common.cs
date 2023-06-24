@@ -113,13 +113,13 @@ public class ShipAttributes
     {
     }
     
-    public ShipAttributes(int color, int speed, int shot_form, int shotLevel, int laserLevel, int module, int bomb)
+    public ShipAttributes(int color, int speed, int shot_form, int shotIndex, int laserIndex, int module, int bomb)
     {
         _attributes[AttributeType.Color] = color;
         _attributes[AttributeType.Speed] = speed;
-        _attributes[AttributeType.ShotLevel] = shotLevel;
-        _attributes[AttributeType.LaserLevel] = laserLevel;
-        _attributes[AttributeType.Module] = module;
+        _attributes[AttributeType.ShotIndex] = shotIndex;
+        _attributes[AttributeType.LaserIndex] = laserIndex;
+        _attributes[AttributeType.ModuleIndex] = module;
         _attributes[AttributeType.Bomb] = bomb;
     }
 
@@ -166,18 +166,6 @@ public class ShipAttributes
     public override int GetHashCode()
     {
         return base.GetHashCode();
-    }
-}
-
-
-[Serializable]
-public struct ModuleDelay {
-    public int max_delay;
-    public int min_delay;
-
-    public ModuleDelay(int max_delay, int min_delay) {
-        this.max_delay = max_delay;
-        this.min_delay = min_delay;
     }
 }
 

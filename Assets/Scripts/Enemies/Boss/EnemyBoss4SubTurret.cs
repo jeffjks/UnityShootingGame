@@ -11,7 +11,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -21,10 +21,10 @@ public class EnemyBoss4SubTurret : EnemyUnit
         switch (m_RotatePattern) {
             case 10:
                 if (PlayerManager.IsPlayerAlive) {
-                    RotateSlightly(m_PlayerPosition, 130f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 130f);
                 }
                 else {
-                    RotateSlightly(m_PlayerPosition, 100f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
                 }
                 break;
             
@@ -41,10 +41,10 @@ public class EnemyBoss4SubTurret : EnemyUnit
                 RotateSlightly(90f, 150f);
                 break;
             case 41:
-                RotateSlightly(m_PlayerPosition, 180f, -70f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 180f, -70f);
                 break;
             case 42:
-                RotateSlightly(m_PlayerPosition, 180f, 70f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 180f, 70f);
                 break;
             case 43:
                 RotateSlightly(m_CurrentAngle + 90f, 280f);

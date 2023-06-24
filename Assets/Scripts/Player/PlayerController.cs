@@ -1,181 +1,209 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Text;
 
-public class PlayerController : PlayerUnit
+public class PlayerController : MonoBehaviour
 {
-    public static bool IsControllable { get; set; }
+    public PlayerBomb m_PlayerBomb;
+    public PlayerLaserShooterManager m_PlayerLaserShooterManager;
 
-    private const int MAX_PLAYER_CAMERA = (int) (Size.CAMERA_MOVE_LIMIT * 256);
-    private float m_DefaultRotation;
-    private int m_SpeedIntDefault, m_SpeedIntSlow, m_OverviewSpeed;
-    private int _moveRawHorizontal, _moveRawVertical;
-    private PlayerCollisionDetector _playerCollisionDetector;
+    private PlayerShootHandler _playerShootHandler;
+    private PlayerUnit _playerUnit;
+    private IngameInputController _inGameInputController;
 
-    private const int BOUNDARY_PLAYER_X_MIN = -1792; // -7f
-    private const int BOUNDARY_PLAYER_X_MAX = 1792; // 7f
-    private const int BOUNDARY_PLAYER_Y_MIN = -3789; // -14.8f
-    private const int BOUNDARY_PLAYER_Y_MAX = -256; // -1f
-
-    public int MoveRawHorizontal { get; set; }
-    public int MoveRawVertical { get; set; }
-
-    protected override void Awake()
+    private bool _isFirePress;
+    private int _firePressFrame;
+    
+    void Awake()
     {
-        base.Awake();
-        _playerCollisionDetector = GetComponent<PlayerCollisionDetector>();
-
-        SystemManager.Action_OnBossClear += OnBossClear;
-        SystemManager.Action_OnStageClear += OnStageClear;
-        SystemManager.Action_OnNextStage += OnNextStage;
-        SystemManager.Action_OnQuitInGame += OnRemove;
+        _playerShootHandler = GetComponent<PlayerShootHandler>();
+        _playerUnit = GetComponent<PlayerUnit>();
         
-        _playerCollisionDetector.Action_OnCollideWithEnemy += DealCollisionDamage;
-        _playerCollisionDetector.Action_OnDeath += KillPlayer;
-        _playerCollisionDetector.Action_OnDeath += ResetPosition;
+        if (!_playerUnit.m_IsPreviewObject)
+        {
+            _inGameInputController = IngameInputController.Instance;
+
+            _inGameInputController.Action_OnFireInput += OnFireInvoked;
+            _inGameInputController.Action_OnBombInput += OnBombInvoked;
+        }
     }
 
+    
     void Start()
     {
-        m_DefaultRotation = transform.eulerAngles[0];
-        m_CurrentAngle = 180f;
-        m_MoveVector.direction = 180f;
-        transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward); // Vector3.forward
+        /*
+        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Bomb) == 0) // 폭탄 개수
+            InGameDataManager.Instance.MaxBombNumber = 2;
+        else
+            InGameDataManager.Instance.MaxBombNumber = 3;
+        InGameDataManager.Instance.InitBombNumber();
 
-        switch(PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)) {
-            case 0:
-                m_SpeedIntDefault = 26; // 6f * 256;
-                m_SpeedIntSlow = 17; // 4f * 256;
-                break;
-            case 1:
-                m_SpeedIntDefault = 29; // 6.75f * 256;
-                m_SpeedIntSlow = 18; // 4.2f * 256;
-                break;
-            case 2:
-                m_SpeedIntDefault = 32; // 7.5f; * 256 / 60
-                m_SpeedIntSlow = 19; // 4.4f * 256;
-                break;
-            default:
-                break;
+        if (m_Module != 0) {
+            SetModule();
+            UpdateShotNumber();
+            StartCoroutine(ModuleShot());
         }
-        
-        m_PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
-        
-        DontDestroyOnLoad(transform.parent);
+        else
+            UpdateShotNumber();*/
     }
 
     void Update()
     {
-        if (IsControllable) {
-            if (SystemManager.GameMode != GameMode.Replay) {
-                _moveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
-                _moveRawVertical = (int) Input.GetAxisRaw ("Vertical");
-            }
-        }
-
         if (Time.timeScale == 0)
             return;
-        
-        Vector2Int movement_vector = new Vector2Int(_moveRawHorizontal, _moveRawVertical);
-        if (IsControllable) {
-            m_MoveVector = new MoveVector(movement_vector);
-            if (m_SlowMode) {
-                m_MoveVector.speed = m_SpeedIntSlow;
-                movement_vector *= m_SpeedIntSlow;
-            }
-            else {
-                m_MoveVector.speed = m_SpeedIntDefault;
-                movement_vector *= m_SpeedIntDefault;
-            }
 
-            m_PositionInt2D = m_PositionInt2D + movement_vector;
-        }
-        else {
-            _moveRawHorizontal = 0;
-            _moveRawVertical = 0;
-        }
-
-        OverviewPosition();
-
-        if (IsControllable) {
-            m_PositionInt2D = new Vector2Int
-            (
-                Mathf.Clamp(m_PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
-                Mathf.Clamp(m_PositionInt2D.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX)
-            );
-        }
-    }
-
-    void OnEnable()
-    {
-        m_SlowMode = false;
-    }
-
-    private void DealCollisionDamage(EnemyUnit enemyUnit)
-    {
-        DealDamage(enemyUnit, m_Damage);
-    }
-
-    private void KillPlayer()
-    {
-        PlayerManager.Instance.PlayerDead(m_PositionInt2D);
-    }
-
-    private void ResetPosition()
-    {
-        int playerReviveX = Mathf.Clamp(m_PositionInt2D.x, -MAX_PLAYER_CAMERA, MAX_PLAYER_CAMERA);
-        int playerReviveY = (int) PlayerManager.REVIVE_POSITION_Y * 256;
-
-        m_PositionInt2D = new Vector2Int(playerReviveX, playerReviveY);
-    }
-
-    private void OverviewPosition() {
-        Vector2Int target_pos;
-        if (SystemManager.Stage < 4) {
-            target_pos = new Vector2Int(0, (int) PlayerManager.REVIVE_POSITION_Y * 256);
-            if (SystemManager.PlayState != PlayState.OnStageResult) {
-                m_OverviewSpeed = Mathf.Max(Mathf.Abs(m_PositionInt2D.x - target_pos.x), Mathf.Abs(m_PositionInt2D.y - target_pos.y));
-                m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
-                return;
-            }
-        }
-        else {
-            target_pos = new Vector2Int(m_PositionInt2D.x, 2*256);
-            if (SystemManager.PlayState != PlayState.OnStageResult) {
-                m_OverviewSpeed = 12*256;
-                return;
-            }
-        }
-        // m_PlayState가 3일때만 이하 내용 실행
-        //m_Vector2 = Vector2Int.zero;
-        m_PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(m_PositionInt2D, target_pos, m_OverviewSpeed / Application.targetFrameRate * Time.timeScale));
-    }
-
-    private void OnRemove()
-    {
-        Destroy(transform.root);
-    }
-
-    private void OnBossClear()
-    {
-        PlayerInvincibility.SetInvincibility(5000);
-    }
-
-    private void OnStageClear()
-    {
-        IsControllable = false;
-    }
-
-    private void OnNextStage(bool hasNextStage)
-    {
-        if (!hasNextStage)
+        if (_isFirePress)
         {
-            OnRemove();
+            _firePressFrame++;
+        }
+    }
+
+    private void OnFireInvoked(bool isPressed)
+    {
+        _isFirePress = isPressed;
+
+        if (isPressed)
+        {
+            if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
+                if (_playerShootHandler.AutoShot < 2) {
+                    _playerShootHandler.AutoShot++;
+                }
+            }
+        }
+        else
+        {
+            _firePressFrame = 0;
+            _playerUnit.SlowMode = false;
+            m_PlayerLaserShooterManager.StopLaser();
+            _playerUnit.IsAttacking = false;
+        }
+        
+        if (!_playerUnit.SlowMode) {
+            if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
+                _playerUnit.SlowMode = true;
+                m_PlayerLaserShooterManager.StartLaser();
+                _playerUnit.IsAttacking = true;
+                _playerShootHandler.AutoShot = 0;
+            }
+        }
+
+        if (_playerShootHandler.AutoShot > 0) {
+            if (!_playerUnit.IsShooting) {
+                _playerUnit.IsShooting = true;
+                _playerShootHandler.FireShot();
+            }
+            _playerUnit.IsAttacking = true;
+        }
+    }
+
+    public void PlayerControllerBehaviour() {
+        if (!PlayerMovement.IsControllable) {
+            _playerUnit.SlowMode = false;
+            _playerUnit.IsAttacking = false;
+            //m_ShotKeyPress = 0;
+            _playerShootHandler.AutoShot = 0;
+            m_PlayerLaserShooterManager.StopLaser();
             return;
         }
-        m_PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
-        IsControllable = true;
-        PlayerInvincibility.SetInvincibility(3000);
+        
+        
+        /*
+        if (m_ShotKeyPress == 1) {
+            _firePressFrame++;
+            if (!m_ShotKeyPrevious) {
+                m_ShotKeyPrevious = true;
+                if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
+                    if (_playerShootHandler.AutoShot <= 1) {
+                        _playerShootHandler.AutoShot++;
+                    }
+                }
+            }
+        }
+        else {
+            m_ShotKeyPrevious = false;
+            _firePressFrame = 0;
+            _playerUnit.SlowMode = false;
+            m_PlayerLaserShooterManager.StopLaser();
+            _playerUnit.IsAttacking = false;
+        }
+        
+        if (!_playerUnit.SlowMode) {
+            if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
+                _playerUnit.SlowMode = true;
+                m_PlayerLaserShooterManager.StartLaser();
+                _playerUnit.IsAttacking = true;
+                _playerShootHandler.AutoShot = 0;
+            }
+        }
+
+        if (_playerShootHandler.AutoShot > 0) {
+            if (!_playerUnit.IsShooting) {
+                _playerUnit.IsShooting = true;
+                StartCoroutine(Shot());
+            }
+            _playerUnit.IsAttacking = true;
+        }
+
+        if (m_BombKeyPress == 1) {
+            BombKeyPressed();
+        }*/
+    }
+
+    private void OnBombInvoked() {
+        if (InGameDataManager.Instance.BombNumber <= 0) {
+            return;
+        }
+        if (!m_PlayerBomb.GetEnableState()) {
+            return;
+        }
+        if (!SystemManager.IsOnGamePlayState()) {
+            return;
+        }
+        Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
+        PlayerInvincibility.SetInvincibility(4000);
+        m_PlayerBomb.UseBomb();
+        InGameDataManager.Instance.BombNumber--;
+    }
+    
+    void OnEnable()
+    {
+        _isFirePress = false;
+        _firePressFrame = 0;
+        
+        _playerUnit.SlowMode = false;
+        _playerUnit.IsShooting = false;
+        _playerUnit.IsAttacking = false;
+        _playerShootHandler.AutoShot = 0;
+        m_PlayerLaserShooterManager.StopLaser();
+        
+        if (!_playerUnit.m_IsPreviewObject)
+            InGameDataManager.Instance.InitBombNumber();
+    }
+
+    public void PowerSet(int power) {/*
+        PlayerAttackLevel = Mathf.Clamp(power, 0, 4);
+        ResetLaser();
+        UpdateShotNumber();*/
+    }
+
+    public bool PowerUp() {/*
+        if (PlayerAttackLevel < 4) {
+            PlayerAttackLevel++;
+            ResetLaser();
+            UpdateShotNumber();
+            return true;
+        }
+
+        UpdateShotNumber();*/
+        return false;
+    }
+    
+    public void PowerDown() {/*
+        if (PlayerAttackLevel > 0) {
+            PlayerAttackLevel--;
+            ResetLaser();
+        }
+        UpdateShotNumber();*/
     }
 }

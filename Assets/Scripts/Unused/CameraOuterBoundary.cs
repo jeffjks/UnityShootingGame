@@ -2,21 +2,21 @@
 using UnityEditor;
 using System.Collections;
 
-public class CameraInnerBoundary : MonoBehaviour
+public class CameraOuterBoundary : MonoBehaviour
 {
-    // PlayerWeapon
+    // PlayerShot 파괴
     #if UNITY_EDITOR
-        [CustomEditor(typeof(CameraInnerBoundary))]
+        [CustomEditor(typeof(CameraOuterBoundary))]
         [CanEditMultipleObjects]
         public class InfoInspector : Editor {
             public override void OnInspectorGUI()
             {
-                EditorGUILayout.HelpBox("화면 바깥으로 나가는 PlayerWeapon 파괴", MessageType.Info);
+                EditorGUILayout.HelpBox("PlayerShot 파괴", MessageType.Info);
                 base.OnInspectorGUI();
             }
         }
     #endif
-
+    
     private BoxCollider2D _boxCollider2D;
 
     void Start()

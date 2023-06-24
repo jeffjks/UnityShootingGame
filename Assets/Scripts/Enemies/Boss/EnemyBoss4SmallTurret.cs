@@ -11,7 +11,7 @@ public class EnemyBoss4SmallTurret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
         m_KillScore = m_Score;
         m_Score = 0;
         
@@ -23,9 +23,9 @@ public class EnemyBoss4SmallTurret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_PlayerPosition);
+            RotateImmediately(PlayerManager.GetPlayerPosition());
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
 
     public void StartPattern(byte num) {

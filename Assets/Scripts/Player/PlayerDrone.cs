@@ -12,7 +12,7 @@ public class PlayerDrone : MonoBehaviour
     public Vector3 m_TargetLocalP; // 레이저 모드 위치
     public float m_TargetLocalR; // 레이저 모드 회전
 
-    protected PlayerUnit m_PlayerController;
+    protected PlayerUnit m_PlayerMovement;
     protected Vector3 m_CurrentTargetLocalP; // 현재 위치 타겟
     protected Vector3 m_CurrentLocalP; // 현재 위치
     protected float m_CurrentTargetLocalR; // 현재 회전 타겟
@@ -22,20 +22,20 @@ public class PlayerDrone : MonoBehaviour
     protected byte m_ShockWaveNumber;
     protected float m_DefaultDepth;
 
-    private PlayerShooterManager m_PlayerShooter;
+    private PlayerShootHandler m_PlayerController;
 
     void Awake()
     {
-        m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
-        m_PlayerController = GetComponentInParent<PlayerUnit>();
+        m_PlayerController = GetComponentInParent<PlayerShootHandler>();
+        m_PlayerMovement = GetComponentInParent<PlayerUnit>();
     }
 
     void Start()
     {
-        m_ShotForm = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
+        m_ShotForm = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
         m_DefaultDepth = transform.localPosition.y;
 
-        var laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
+        var laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
 
         if (laser_damage == 0)
             m_ShockWaveNumber = 0;
@@ -47,7 +47,7 @@ public class PlayerDrone : MonoBehaviour
 
     public void PreviewStart()
     {
-        ((PlayerPreviewShooter) m_PlayerShooter).InitShotLevel();
+        //((PlayerPreviewShooter) m_PlayerController).InitShotLevel();
         m_DefaultDepth = transform.localPosition.y;
         SetPreviewDrones();
     }
@@ -62,7 +62,7 @@ public class PlayerDrone : MonoBehaviour
     }
 
     private void DisplayParticles() {
-        if (!m_PlayerController.m_SlowMode) { // 샷 모드
+        if (!m_PlayerMovement.SlowMode) { // 샷 모드
             m_CurrentTargetLocalP = m_InitialLocalP[m_ShotForm];
             m_CurrentTargetLocalR = m_InitialLocalR[m_ShotForm];
             if (m_ParticleSystem[m_ShockWaveNumber].isPlaying)
@@ -87,11 +87,11 @@ public class PlayerDrone : MonoBehaviour
 
     public void SetPreviewDrones() {
         int laser_damage;
-        m_ShotForm = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotLevel);
+        m_ShotForm = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
 
-        laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
+        laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
         
-        SetShotLevel(m_PlayerShooter.m_ShotLevel);
+        SetShotLevel(m_PlayerController.PlayerAttackLevel);
 
         if (laser_damage == 0)
             m_ShockWaveNumber = 0;

@@ -46,14 +46,7 @@ public interface IRotatable
 
 public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 {
-    protected Vector2 m_PlayerPosition;
-    
     private const float SAFE_LINE = -11f;
-
-    protected virtual void Awake()
-    {
-        GetPlayerPosition2D();
-    }
 
 
     // Type 0 총알
@@ -155,10 +148,6 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
             return false;
         }
         return true;
-    }
-
-    protected void GetPlayerPosition2D() {
-        m_PlayerPosition = PlayerManager.GetPlayerPosition();
     }
 }
 

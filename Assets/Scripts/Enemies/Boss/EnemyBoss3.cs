@@ -350,7 +350,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 duration += fire_delay[(int) SystemManager.Difficulty];
                 pos = m_FirePosition[0].position;
                 for (int i = 0; i <= j; i++) {
-                    CreateBullet(3, pos, 7f + i*0.6f, GetAngleToTarget(pos, m_PlayerPosition), accel);
+                    CreateBullet(3, pos, 7f + i*0.6f, GetAngleToTarget(pos, PlayerManager.GetPlayerPosition()), accel);
                     if (SystemManager.Difficulty == GameDifficulty.Normal) {
                         break;
                     }

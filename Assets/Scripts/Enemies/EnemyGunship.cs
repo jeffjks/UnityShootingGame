@@ -11,7 +11,7 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
     void Start()
     {
         StartCoroutine(Pattern1());
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -21,9 +21,9 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_PlayerPosition);
+            RotateImmediately(PlayerManager.GetPlayerPosition());
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
 
     public void MoveTowardsToTarget(Vector2 target_vec2, int duration) {

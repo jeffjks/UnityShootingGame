@@ -6,22 +6,18 @@ using UnityEngine;
 
 public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
 {
-    void Awake()
-    {
-        SetLaserType();
-    }
-
-    public void SetLaserType() {
+/*
+    public void SetLaserType(int laserIndex) {
         StopLaser();
-        m_LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserLevel);
-        m_LaserInstance = m_LaserObjects[m_LaserIndex];
+        m_LaserIndex = laserIndex;
+        _laserInstance = m_LaserObjects[m_LaserIndex];
         m_LaserFireLight.SetLightColor(m_LaserIndex);
 
-        m_LaserInstance.SetActive(true);
-        m_PlayerLaserCreater = m_LaserInstance.GetComponent<PlayerLaserCreater>();
-        m_LaserInstance.SetActive(false);
+        _laserInstance.SetActive(true);
+        _playerLaserRenderer = _laserInstance.GetComponent<PlayerLaserRenderer>();
+        _laserInstance.SetActive(false);
 
-        if (m_PlayerController.m_SlowMode)
+        if (m_PlayerUnit.SlowMode)
             StartLaser();
     }
 
@@ -30,10 +26,10 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
     }
 
     public override void StopLaser() {
-        if (m_PlayerLaserCreater != null) {
-            m_LaserInstance.SetActive(false);
+        if (_playerLaserRenderer != null) {
+            _laserInstance.SetActive(false);
             m_LaserFireLight.gameObject.SetActive(false);
-            m_PlayerLaserCreater.DisablePrepare();
+            _playerLaserRenderer.DisablePrepare();
         }
         m_MaxLaserLength = 0f;
     }
@@ -43,14 +39,15 @@ public class PlayerPreviewLaserShooter : PlayerLaserShooterManager
         if (Time.timeScale == 0)
             return;
         
-        if (m_PlayerController.m_SlowMode) {
+        if (m_PlayerUnit.SlowMode) {
             m_MaxLaserLength += m_LaserSpeed / Application.targetFrameRate * Time.timeScale;
         }
         else {
             m_MaxLaserLength = 0f;
         }
         m_MaxLaserLength = Mathf.Clamp(m_MaxLaserLength, 0f, 4f);
-        if (m_PlayerLaserCreater != null)
-            m_PlayerLaserCreater.m_MaxLaserLength = m_MaxLaserLength;
+        if (_playerLaserRenderer != null)
+            _playerLaserRenderer.m_MaxLaserLength = m_MaxLaserLength;
     }
+*/
 }

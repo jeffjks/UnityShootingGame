@@ -15,7 +15,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
     {
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -24,7 +24,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
 
         if (m_RotateState == 0) {
             if (!m_Shooting) {
-                RotateSlightly(m_PlayerPosition, 90f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 90f);
             }
         }
         else if (m_RotateState == 1) {

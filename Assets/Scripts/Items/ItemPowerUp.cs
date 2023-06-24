@@ -5,10 +5,10 @@ using UnityEngine;
 public class ItemPowerUp : ItemBox
 {
     protected override void ItemEffect(Collider2D other) {
-        PlayerShooter playerShooter = other.GetComponentInParent<PlayerShooter>();
-        if (playerShooter != null) {
+        PlayerController playerController = other.GetComponentInParent<PlayerController>();
+        if (playerController != null) {
             AudioService.PlaySound("ItemGet");
-            if (playerShooter.PowerUp())
+            if (playerController.PowerUp())
             {
                 InGameDataManager.Instance.DisplayTextEffect("POWER UP");
             }
@@ -19,7 +19,7 @@ public class ItemPowerUp : ItemBox
             }
         }
         else {
-            Debug.LogAssertion("Can not find PlayerShooter Component.");
+            Debug.LogAssertion("Can not find PlayerController Component.");
         }
     }
 }

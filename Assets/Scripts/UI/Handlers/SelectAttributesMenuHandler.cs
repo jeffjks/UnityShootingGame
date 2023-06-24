@@ -12,13 +12,12 @@ public class SelectAttributesMenuHandler : MenuHandler
     public AttributesCostWindowController m_AttributesCostWindowController;
     public TextMeshProUGUI m_AttributesTypeText;
     public AttributesConfirmMenuHandler m_AttributeConfirmMenuHandler;
-    //public Button m_ConfirmButton;
 
     public const int MAXIMUM_COST = 500;
     
+    private readonly Dictionary<AttributeType, int> _attributeCost = new();
     private int _totalCost;
     private bool _isExceedMaximumCost;
-    private readonly Dictionary<AttributeType, int> _attributeCost = new();
 
     private void OnEnable()
     {

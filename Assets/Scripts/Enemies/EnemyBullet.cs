@@ -47,9 +47,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     second_timer : Vector(a, b) : a~b 사이 랜덤한 시간 간격으로 반복
     =========================== */
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
     }
 
@@ -122,7 +121,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         CheckDeath();
         CheckOutside();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        //m_PlayerPosition = PlayerManager.GetPlayerPosition();
+        //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();
     }
     
     void LateUpdate()

@@ -7,9 +7,22 @@ using UnityEngine.InputSystem;
 public class IngameInputController : MonoBehaviour
 {
     public event Action Action_OnPause;
-    public event Action Action_OnFireInput;
+    public event Action<bool> Action_OnFireInput;
     public event Action Action_OnBombInput;
     
+    public static IngameInputController Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null) {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void OnPause(InputValue inputValue)
     {
         if (!inputValue.isPressed)
@@ -21,19 +34,11 @@ public class IngameInputController : MonoBehaviour
     
     public void OnFire(InputValue inputValue)
     {
-        if (!inputValue.isPressed)
-        {
-            return;
-        }
-        Action_OnFireInput?.Invoke();
+        Action_OnFireInput?.Invoke(inputValue.isPressed);
     }
     
-    public void OnBomb(InputValue inputValue)
+    public void OnBomb()
     {
-        if (!inputValue.isPressed)
-        {
-            return;
-        }
         Action_OnBombInput?.Invoke();
     }
 }

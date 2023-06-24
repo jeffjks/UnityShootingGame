@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters;
 using System;
 using UnityEngine;
 
-public class PlayerLaserCreater : MonoBehaviour
+public class PlayerLaserRenderer : MonoBehaviour
 {
     public GameObject m_FireEffect;
     public GameObject m_StormEffect;
@@ -17,10 +17,8 @@ public class PlayerLaserCreater : MonoBehaviour
     public ParticleSystem[] m_HitParticles;
 
     private BoxCollider2D m_Collider2D;
-    private PlayerLaserShooterManager m_LaserShooter;
-    private PlayerShooterManager m_PlayerShooter;
-
-    [HideInInspector] public float m_MaxLaserLength;
+    private PlayerLaserShooterManager m_LaserShooterManager;
+    private PlayerShootHandler m_PlayerController;
     
     private LineRenderer m_LineRenderer;
     private Vector3 m_LaserHitBoxWidth;
@@ -35,12 +33,12 @@ public class PlayerLaserCreater : MonoBehaviour
     void Awake ()
     {
         m_Collider2D = GetComponentInParent<BoxCollider2D>();
-        m_LaserShooter = GetComponentInParent<PlayerLaserShooterManager>();
-        m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
+        m_LaserShooterManager = GetComponentInParent<PlayerLaserShooterManager>();
+        m_PlayerController = GetComponentInParent<PlayerShootHandler>();
 
         m_LineRenderer = GetComponent<LineRenderer>();
-        m_HitOffset = m_LaserShooter.m_HitOffset;
-        m_EndPointAlpha = m_LaserShooter.m_EndPointAlpha;
+        m_HitOffset = PlayerLaserShooterManager.HIT_OFFSET;
+        m_EndPointAlpha = PlayerLaserShooterManager.ENDPOINT_ALPHA;
 
         if (m_StormParticles.Length > 0) {
             m_ParticleMainModule = m_StormParticles[0].main;
@@ -54,16 +52,16 @@ public class PlayerLaserCreater : MonoBehaviour
         m_LineRenderer.SetPosition(0, transform.position);
         m_LineRenderer.SetPosition(1, transform.position);
 
-        float fire_local_scale = 1f + (float) m_PlayerShooter.m_ShotLevel*0.25f;
+        float fire_local_scale = 1f + (float) m_PlayerController.PlayerAttackLevel*0.25f;
         m_FireEffect.transform.localScale = new Vector3(fire_local_scale, fire_local_scale, 1.5f);
 
-        float rush_local_scale = 1f + (float) m_PlayerShooter.m_ShotLevel*0.25f;
+        float rush_local_scale = 1f + (float) m_PlayerController.PlayerAttackLevel*0.25f;
         m_RushEffect.transform.localScale = new Vector3(rush_local_scale, rush_local_scale, rush_local_scale);
 
-        float hit_local_scale = 1f + (float) m_PlayerShooter.m_ShotLevel*0.25f;
+        float hit_local_scale = 1f + (float) m_PlayerController.PlayerAttackLevel*0.25f;
         m_HitEffect.transform.localScale = new Vector3(hit_local_scale, hit_local_scale, hit_local_scale);
 
-        float laser_width = 1f + (float) m_PlayerShooter.m_ShotLevel*0.5f;
+        float laser_width = 1f + (float) m_PlayerController.PlayerAttackLevel*0.5f;
         m_LineRenderer.startWidth = laser_width;
         m_LineRenderer.endWidth = laser_width;
         float hitbox_width = laser_width*0.9f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
@@ -77,18 +75,21 @@ public class PlayerLaserCreater : MonoBehaviour
     void Update()
     {
         if (m_LineRenderer != null) {
-            m_LineRenderer.SetPosition(0, transform.position);
-            //Debug.DrawRay(transform.position + width, transform.forward, Color.red, 0.1f);
+            var curPos = transform.position;
+            var maxLaserLength = m_LaserShooterManager.MaxLaserLength;
+            
+            m_LineRenderer.SetPosition(0, curPos);
+            //Debug.DrawRay(curPos + width, transform.forward, Color.red, 0.1f);
 
-            RaycastHit2D hit1 = Physics2D.Raycast(transform.position - m_LaserHitBoxWidth, Vector3.up, m_MaxLaserLength, m_LayerMask);
-            RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector3.up, m_MaxLaserLength, m_LayerMask);
-            RaycastHit2D hit3 = Physics2D.Raycast(transform.position + m_LaserHitBoxWidth, Vector3.up, m_MaxLaserLength, m_LayerMask);
+            RaycastHit2D hit1 = Physics2D.Raycast(curPos - m_LaserHitBoxWidth, Vector3.up, maxLaserLength, m_LayerMask);
+            RaycastHit2D hit2 = Physics2D.Raycast(curPos, Vector3.up, maxLaserLength, m_LayerMask);
+            RaycastHit2D hit3 = Physics2D.Raycast(curPos + m_LaserHitBoxWidth, Vector3.up, maxLaserLength, m_LayerMask);
 
             if ((hit1.collider != null) || (hit2.collider != null) || (hit3.collider != null)) { // 하나라도 충돌하면
 
                 float min_y = Mathf.Min(hit1.point.y, hit2.point.y, hit3.point.y);
                 Vector3 end_point = new Vector3(transform.position.x, min_y, Depth.PLAYER); // 가장 작은 y좌표를 endpoint로
-                m_LaserShooter.m_MaxLaserLength = Mathf.Max(min_y - m_LaserShooter.transform.position.y + m_EndPointAlpha, 0.1f);
+                maxLaserLength = Mathf.Max(min_y - m_LaserShooterManager.transform.position.y + m_EndPointAlpha, 0.1f);
                 
                 m_LineRenderer.SetPosition(1, end_point);
                 m_HitEffect.transform.position = end_point + Vector3.up * m_HitOffset;
@@ -100,7 +101,7 @@ public class PlayerLaserCreater : MonoBehaviour
                 PlayParticles(m_RushParticles);
             }
             else { // 아무 충돌이 없으면
-                var end_point = transform.position + Vector3.up * m_MaxLaserLength;
+                var end_point = transform.position + Vector3.up * maxLaserLength;
                 m_LineRenderer.SetPosition(1, end_point);
                 m_HitEffect.transform.position = end_point;
                 m_RushEffect.transform.position = end_point;
@@ -117,10 +118,10 @@ public class PlayerLaserCreater : MonoBehaviour
             }
 
             if (m_StormParticles.Length > 0)
-                m_ParticleMainModule.startLifetime = - m_LaserShooter.m_MaxLaserLength / m_StormSpeed * 0.6f;
+                m_ParticleMainModule.startLifetime = - maxLaserLength / m_StormSpeed * 0.6f;
 
-            m_Collider2D.offset = new Vector2(m_Collider2D.offset.x, - m_LaserShooter.m_MaxLaserLength / 2f);
-            m_Collider2D.size = new Vector2(m_Collider2D.size.x, m_LaserShooter.m_MaxLaserLength);
+            m_Collider2D.offset = new Vector2(m_Collider2D.offset.x, - maxLaserLength / 2f);
+            m_Collider2D.size = new Vector2(m_Collider2D.size.x, maxLaserLength);
 
             //Insurance against the appearance of a laser in the center of coordinates!
             if (!m_LineRenderer.enabled && !LaserSaver)

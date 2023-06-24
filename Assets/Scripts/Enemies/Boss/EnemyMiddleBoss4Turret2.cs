@@ -10,7 +10,7 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
+        RotateImmediately((Vector2) PlayerManager.GetPlayerPosition() + new Vector2(0f, 1.5f));
     }
 
     protected override void Update()
@@ -18,9 +18,9 @@ public class EnemyMiddleBoss4Turret2 : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_PlayerPosition + new Vector2(0f, 1.5f));
+            RotateImmediately((Vector2) PlayerManager.GetPlayerPosition() + new Vector2(0f, 1.5f));
         else
-            RotateSlightly(m_PlayerPosition + new Vector2(0f, 1.5f), 100f);
+            RotateSlightly((Vector2) PlayerManager.GetPlayerPosition() + new Vector2(0f, 1.5f), 100f);
     }
 
     public void StartPattern(byte num) {

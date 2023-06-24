@@ -24,7 +24,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
         
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
 
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
@@ -89,9 +89,9 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         }
 
         if (PlayerManager.IsPlayerAlive)
-            RotateSlightly(m_PlayerPosition, 40f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 40f);
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
 
     public void ToNextPhase() {

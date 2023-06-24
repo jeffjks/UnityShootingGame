@@ -221,7 +221,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
 
         while (true) {
-            dir = GetAngleToTarget(transform.position, m_PlayerPosition);
+            dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
             CreateBulletsSector(2, transform.position, 5.4f, dir - 40f, accel, 6, 6f);
             CreateBulletsSector(2, transform.position, 4.8f, dir, accel, 6, 6f);
             CreateBulletsSector(2, transform.position, 5.4f, dir + 40f, accel, 6, 6f);
@@ -276,7 +276,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         float dir;
 
         while (true) {
-            dir = GetAngleToTarget(transform.position, m_PlayerPosition);
+            dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
             for (int i = 0; i < 3; i++) {
                 CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, BulletType.CREATE, 600,
                 5, 3f, BulletDirection.CURRENT, 0f, accel2);
@@ -393,7 +393,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         float dir;
 
         while (true) {
-            dir = GetAngleToTarget(transform.position, m_PlayerPosition);
+            dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
             CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, BulletType.ERASE_AND_CREATE, 700,
             4, 6.4f, BulletDirection.PLAYER, 0f, accel);
             yield return new WaitForMillisecondFrames(1000);
@@ -583,7 +583,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator PatternFinal2() {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        float dir = GetAngleToTarget(transform.position, m_PlayerPosition);
+        float dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
         while (true) {
             CreateBulletsSector(1, transform.position, 5f, dir + Random.Range(-2f, 2f), accel, 26, 13.8461f);
             yield return new WaitForMillisecondFrames(400);

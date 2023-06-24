@@ -9,7 +9,7 @@ public class EnemyPlaneMedium5Turret0 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
     }
@@ -19,9 +19,9 @@ public class EnemyPlaneMedium5Turret0 : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_PlayerPosition);
+            RotateImmediately(PlayerManager.GetPlayerPosition());
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
 
     public void StopPattern() {

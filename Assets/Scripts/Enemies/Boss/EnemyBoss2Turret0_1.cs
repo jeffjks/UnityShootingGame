@@ -15,7 +15,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -24,7 +24,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
         
         if (m_Pattern2Rotate) {
             if (m_RoateState == -1)
-                RotateSlightly(m_PlayerPosition, 180f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 180f);
             if (m_RoateState == 0)
                 RotateSlightly(90f + 90f*transform.localScale.x*m_Side, 180f); // Prepare 1
             if (m_RoateState == 1)
@@ -36,9 +36,9 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
         }
         else {
             if (PlayerManager.IsPlayerAlive)
-                RotateImmediately(m_PlayerPosition);
+                RotateImmediately(PlayerManager.GetPlayerPosition());
             else
-                RotateSlightly(m_PlayerPosition, 100f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
         }
     }
 
@@ -81,7 +81,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         Vector3 pos = m_FirePosition.position;
         while (m_Phase == 1) {
-            if (m_PlayerPosition.y >= -5.8f) {
+            if (PlayerManager.GetPlayerPosition().y >= -5.8f) {
                 if (!m_Pattern2Rotate) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 8, 2.5f);

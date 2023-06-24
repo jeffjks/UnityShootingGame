@@ -1,0 +1,316 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+
+public class PlayerShootHandler : MonoBehaviour
+{
+    public Transform[] m_PlayerShotPosition = new Transform[7];
+    public PlayerDrone[] m_PlayerDrone = new PlayerDrone[4];
+    public PlayerUnit m_PlayerUnit;
+    public Transform m_PlayerBody;
+    
+    private const int FIRE_RATE = 50; // 50
+
+    public PlayerDamageDatas m_PlayerShotData;
+    public PlayerDamageDatas[] m_PlayerModuleDamageData;
+    
+    private const int MAX_PLAYER_ATTACK_LEVEL = 4;
+
+    private int _playerAttackLevel;
+    public int PlayerAttackLevel
+    {
+        get => _playerAttackLevel;
+        set => OnUpdatePlayerAttackLevel(value);
+    }
+    public int AutoShot { get; set; }
+
+    private const string PLAYER_SHOT = "PlayerShot";
+    protected int m_ShotDamage;
+    
+    private List<int> _currentModuleDelay = new();
+    private PlayerModuleManager _playerModuleManager;
+
+    private readonly List<IModule> _modules = new()
+    {
+        new PlayerModuleNone(),
+        new PlayerModuleHomingMissile(),
+        new PlayerModuleRocket(),
+        new PlayerModuleAddShot()
+    };
+    
+    private IModule _currentModule;
+
+    private int _shotIndex;
+    private int _moduleIndex;
+
+    public int ShotIndex
+    {
+        get => _shotIndex;
+        set => _shotIndex = value;
+    }
+
+    public int ModuleIndex
+    {
+        get => _moduleIndex;
+        set
+        {
+            _moduleIndex = value;
+            SetModuleIndex();
+        }
+    }
+    
+    private readonly int[] _shotNumbers = { 3, 4, 4, 5, 5 };
+
+    private void Awake()
+    {
+        ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex);
+        ShotIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
+
+        if (m_PlayerUnit.m_IsPreviewObject)
+        {
+            PlayerAttackLevel = MAX_PLAYER_ATTACK_LEVEL;
+        }
+    }
+    
+    private void OnEnable()
+    {
+        m_PlayerUnit.SlowMode = false;
+        m_PlayerUnit.IsAttacking = false;
+        m_PlayerUnit.IsShooting = false;
+        AutoShot = 0;
+        StartCoroutine(ModuleShot());
+    }
+
+    private IEnumerator ModuleShot() {
+        while(true) {
+            if (_moduleIndex > 0 && m_PlayerUnit.IsAttacking) {
+                _currentModule.Shoot(this, m_PlayerModuleDamageData[_moduleIndex - 1], PlayerAttackLevel);
+                yield return new WaitForMillisecondFrames(_currentModuleDelay[PlayerAttackLevel]);
+            }
+            yield return new WaitForFrames(0);
+        }
+    }
+
+    public void FireShot()
+    {
+        StartCoroutine(Shot());
+    }
+    
+    private IEnumerator Shot() {
+        if (AutoShot > 0)
+            AutoShot--;
+        var shotNumber = _shotNumbers[PlayerAttackLevel];
+        for (int i = 0; i < shotNumber; i++) { // FIRE_RATE초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
+            if (m_ShotDamage == 0)
+                CreateShotNormal(PlayerAttackLevel);
+            else if (m_ShotDamage == 1)
+                CreateShotStrong(PlayerAttackLevel);
+            else if (m_ShotDamage == 2)
+                CreateShotVeryStrong(PlayerAttackLevel);
+            else {
+                m_ShotDamage = 0;
+            }
+            if (!m_PlayerUnit.m_IsPreviewObject)
+                AudioService.PlaySound("PlayerShot1");
+            yield return new WaitForMillisecondFrames(FIRE_RATE);
+        }
+        yield return new WaitForMillisecondFrames(m_PlayerShotData.cooldownByLevel[0] - FIRE_RATE*shotNumber);
+
+        m_PlayerUnit.IsShooting = false;
+        CheckNowShooting();
+    }
+
+    private void CheckNowShooting() { // m_PlayerUnit.IsAttacking : 현재 공격 중 (모듈 공격을 위한 변수)
+        if (AutoShot == 0) { // m_PlayerUnit.IsShooting : 현재 샷 중 (샷 딜레이를 위한 변수)
+            if (!m_PlayerUnit.SlowMode && !m_PlayerUnit.IsShooting)
+                m_PlayerUnit.IsAttacking = false;
+        }
+    }
+
+    public void CreatePlayerAttack(string objectName, PlayerDamageDatas playerDamage, Vector3 pos, float dir, int damageLevel) {
+        GameObject obj = PoolingManager.PopFromPool(objectName, PoolingParent.PlayerMissile);
+        PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
+        obj.transform.position = pos;
+        playerWeapon.m_MoveVector.direction = dir;
+        playerWeapon.m_Damage = playerDamage.damageByLevel[damageLevel];
+        obj.SetActive(true);
+        playerWeapon.OnStart();
+    }
+
+    protected void CreateShotNormal(int level) {
+        Vector3[] shotPosition = new Vector3[5];
+        float[] shotDirection = new float[5];
+        //Quaternion[] shotDirection = new Quaternion[5];
+
+        for (int i = 0; i < 5; i++) {
+            //shotDirection[i] = m_PlayerShotPosition[i].rotation * Quaternion.Euler(90f, 0f, 0f);
+            if (i == 0) {
+                shotDirection[i] = 180f;
+            }
+            else {
+                shotDirection[i] = 180f - m_PlayerDrone[i - 1].GetCurrentLocalRotation();
+            }
+            shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
+        }
+
+        if (level <= 1) { // ----------------------------------[ 0 0 0 0 0 ]
+            for (int i = 0; i < 5; i++) {
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 0);
+            }
+        }
+        else if (level <= 3) { // ---------------------------------- [ 0 1 0 1 0 ]
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 0);
+            for (int i = 1; i < 3; i++) {
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i+2], shotDirection[i+2], 0);
+            }
+        }
+        else { // ---------------------------------- [ 0 1 2 1 0 ]
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[1], shotDirection[1], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[2], shotDirection[2], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+        }
+    }
+    
+    protected void CreateShotStrong(int level) {
+        Vector3[] shotPosition = new Vector3[5];
+        float[] shotDirection = new float[5];
+        //Quaternion[] shotDirection = new Quaternion[5];
+
+        for (int i = 0; i < 5; i++) {
+            //shotDirection[i] = m_PlayerShotPosition[i].rotation * Quaternion.Euler(90f, 0f, 0f);
+            if (i == 0) {
+                shotDirection[i] = 180f;
+            }
+            else {
+                shotDirection[i] = 180f - m_PlayerDrone[i - 1].GetCurrentLocalRotation();
+            }
+            shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
+        }
+        if (level <= 1) { // ---------------------------------- [ 0 1 0 1 0 ]
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 0);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[1], shotDirection[1], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[2], shotDirection[2], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+        }
+        else if (level <= 3) { // ---------------------------------- [ 0 1 2 1 0 ]
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[1], shotDirection[1], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[2], shotDirection[2], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+        }
+        else { // ---------------------------------- [ 1 1 2 1 1 ]
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
+            for (int i = 1; i < 5; i++) {
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+            }
+        }
+    }
+
+    protected void CreateShotVeryStrong(int level) {
+        Vector3[] shotPosition = new Vector3[5];
+        float[] shotDirection = new float[5];
+        //Quaternion[] shotDirection = new Quaternion[5];
+
+        for (int i = 0; i < 5; i++) {
+            //shotDirection[i] = m_PlayerShotPosition[i].rotation * Quaternion.Euler(90f, 0f, 0f);
+            if (i == 0) {
+                shotDirection[i] = 180f;
+            }
+            else {
+                shotDirection[i] = 180f - m_PlayerDrone[i - 1].GetCurrentLocalRotation();
+            }
+            shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
+        }
+
+        if (level <= 1) { // ---------------------------------- [ 0 1 1 1 0 ]
+            for (int i = 0; i < 3; i++) {
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+            }
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+        }
+        else if (level <= 3) { // ---------------------------------- [ 1 1 2 1 1 ]
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
+            for (int i = 1; i < 5; i++) {
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+            }
+        }
+        else { // ---------------------------------- [ 1 2 2 2 1 ]
+            for (int i = 0; i < 3; i++) {
+                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 2);
+            }
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 1);
+            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 1);
+        }
+    }
+    /*
+    private void CreateHomingMissile() {
+        Vector3[] shotPosition = new Vector3[2];
+        shotPosition[0] = m_PlayerShotPosition[5].position;
+        shotPosition[1] = m_PlayerShotPosition[6].position;
+        CreatePlayerAttack(m_PlayerWeaponName[1], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f - 15f);
+        CreatePlayerAttack(m_PlayerWeaponName[1], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), 180f + 15f);
+    }
+
+    private void CreateRocket() {
+        Vector3[] shotPosition = new Vector3[2];
+        byte damage_level = (byte) m_ShotLevelToType[PlayerAttackLevel];
+        shotPosition[0] = m_PlayerShotPosition[5].position;
+        shotPosition[1] = m_PlayerShotPosition[6].position;
+        CreatePlayerAttack(m_PlayerWeaponName[2], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f, damage_level);
+        CreatePlayerAttack(m_PlayerWeaponName[2], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), 180f, damage_level);
+    }
+
+    private void CreateAddShot() {
+        Vector3[] shotPosition = new Vector3[2];
+        byte damage_level = (byte) m_ShotLevelToType[PlayerAttackLevel];
+        float rot = m_PlayerBody.eulerAngles.y;
+        shotPosition[0] = m_PlayerShotPosition[5].position;
+        shotPosition[1] = m_PlayerShotPosition[6].position;
+        CreatePlayerAttack(m_PlayerWeaponName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f + rot, damage_level);
+        CreatePlayerAttack(m_PlayerWeaponName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), 180f + rot, damage_level);
+    }
+
+    /*
+    protected void UpdateShotNumber() {
+        for (int i = 0; i < m_PlayerDrone.Length; i++)
+            m_PlayerDrone[i].SetShotLevel(PlayerAttackLevel);
+
+        if (PlayerAttackLevel <= -1) {
+            m_PlayerDrone[2].gameObject.SetActive(false);
+            m_PlayerDrone[3].gameObject.SetActive(false);
+        }
+        else {
+            m_PlayerDrone[2].gameObject.SetActive(true);
+            m_PlayerDrone[3].gameObject.SetActive(true);
+            m_PlayerDrone[2].transform.localPosition = new Vector2(0f, -1f);
+            m_PlayerDrone[3].transform.localPosition = new Vector2(0f, -1f);
+        }
+    }*/
+
+    private void SetModuleIndex()
+    {
+        _currentModule = _modules[_moduleIndex];
+
+        if (_moduleIndex == 0)
+        {
+            return;
+        }
+        
+        _currentModuleDelay = m_PlayerModuleDamageData[_moduleIndex - 1].cooldownByLevel;
+        _playerModuleManager.ChangeModule(_currentModule);
+    }
+
+    private void OnUpdatePlayerAttackLevel(int level) {
+        _playerAttackLevel = Mathf.Clamp(level, 0, MAX_PLAYER_ATTACK_LEVEL);
+        //ResetLaser();
+        //UpdateShotNumber();
+    }
+}

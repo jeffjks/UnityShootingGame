@@ -158,7 +158,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
             random_value1 = Random.Range(-3f, 3f);
             random_value2 = Random.Range(-70f, 70f);
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
@@ -181,7 +181,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
             random_value = Random.Range(0f, 360f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -214,7 +214,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
         for (int i = 0; i < 3; i++) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(0, pos, 7.1f, target_angle, accel1, 7, 18f);
@@ -243,7 +243,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(3, pos, 5.3f, target_angle + Random.Range(-45f, 45f), accel);
@@ -268,7 +268,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(5, pos, 6.2f, -m_Direction1, accel, 4, 90f);
@@ -293,7 +293,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-            target_angle = GetAngleToTarget(pos, m_PlayerPosition);
+            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 speed = 1f;

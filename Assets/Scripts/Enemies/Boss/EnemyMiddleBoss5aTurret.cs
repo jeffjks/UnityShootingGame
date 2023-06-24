@@ -12,7 +12,7 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -22,10 +22,10 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
         switch (m_RotatePattern) {
             case 10:
                 if (PlayerManager.IsPlayerAlive) {
-                    RotateSlightly(m_PlayerPosition, 120f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 120f);
                 }
                 else {
-                    RotateSlightly(m_PlayerPosition, 100f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
                 }
                 break;
             case 21:

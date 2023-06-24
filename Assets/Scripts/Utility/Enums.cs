@@ -9,9 +9,9 @@ public enum AttributeType
 {
     Color,
     Speed,
-    ShotLevel,
-    LaserLevel,
-    Module,
+    ShotIndex,
+    LaserIndex,
+    ModuleIndex,
     Bomb
 }
 

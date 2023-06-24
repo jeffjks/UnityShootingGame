@@ -79,14 +79,12 @@ public class OverviewHandler : MonoBehaviour
     private void OnEnable()
     {
         m_InGameInputController.Action_OnFireInput += SkipOverviewPhase;
-        m_InGameInputController.Action_OnBombInput += SkipOverviewPhase;
         StartOverview();
     }
 
     private void OnDisable()
     {
         m_InGameInputController.Action_OnFireInput -= SkipOverviewPhase;
-        m_InGameInputController.Action_OnBombInput -= SkipOverviewPhase;
     }
 
     private void StartOverview() {
@@ -186,8 +184,12 @@ public class OverviewHandler : MonoBehaviour
         //m_OverviewPhase = 0;
     }
 
-    private void SkipOverviewPhase()
+    private void SkipOverviewPhase(bool isPressed)
     {
+        if (!isPressed)
+        {
+            return;
+        }
         _inputSkip = true;
         /*
         switch(m_OverviewPhase) {

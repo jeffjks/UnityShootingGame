@@ -45,10 +45,10 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         
         
         if (!m_TimeLimitState && m_Phase > 0) {
-            if (transform.position.x >= m_PlayerPosition.x * 0.14f + 1.2f) {
+            if (transform.position.x >= PlayerManager.GetPlayerPosition().x * 0.14f + 1.2f) {
                 m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
             }
-            if (transform.position.x <= m_PlayerPosition.x * 0.14f - 1.2f) {
+            if (transform.position.x <= PlayerManager.GetPlayerPosition().x * 0.14f - 1.2f) {
                 m_MoveVector = new MoveVector(new Vector2(Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
             }
             

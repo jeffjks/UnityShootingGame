@@ -13,7 +13,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     void Start()
     {
         StartCoroutine(Pattern1());
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -23,9 +23,9 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_PlayerPosition);
+            RotateImmediately(PlayerManager.GetPlayerPosition());
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
         
         RotateFan();
     }
@@ -55,7 +55,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        m_MoveVector.direction = GetAngleToTarget(m_Position2D, m_PlayerPosition);
+        m_MoveVector.direction = GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
         
         float init_speed = m_MoveVector.speed;
         int frame = 800 * Application.targetFrameRate / 1000;

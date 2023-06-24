@@ -12,7 +12,7 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -21,9 +21,9 @@ public class EnemyBoss1Turret1 : EnemyUnit
         
         if (m_Phase == 1) {
             if (PlayerManager.IsPlayerAlive)
-                RotateImmediately(m_PlayerPosition);
+                RotateImmediately(PlayerManager.GetPlayerPosition());
             else
-                RotateSlightly(m_PlayerPosition, 100f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
         }
         else {
             RotateSlightly(0f, 100f);

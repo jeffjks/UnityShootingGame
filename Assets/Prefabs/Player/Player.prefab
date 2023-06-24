@@ -14796,7 +14796,7 @@ GameObject:
   - component: {fileID: 8822412310277666794}
   - component: {fileID: 8689824218996545568}
   - component: {fileID: 2559162095799568032}
-  - component: {fileID: 6392157074977288014}
+  - component: {fileID: 5187105040290786053}
   m_Layer: 17
   m_Name: LaserShooter
   m_TagString: PlayerLaser
@@ -14876,21 +14876,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3907003548164574881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f08bdedf2e3c824ca6b249fd9902695, type: 3}
+  m_Script: {fileID: 11500000, guid: dca172693e880bf449eb945d604304ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerController: {fileID: 5591376453271951338}
+  m_PlayerUnit: {fileID: 5591376453271951338}
   m_LaserObjects:
   - {fileID: 6978663717174203894}
   - {fileID: 3473480465843754199}
   - {fileID: 6327936855893537515}
   m_LaserFireLight: {fileID: 5931890872066740997}
-  m_HitOffset: 0.01
-  m_EndPointAlpha: 0.2
-  m_MaxLaserLength: 0
-  m_LaserIndex: 0
-  m_PlayerLaser: {fileID: 6392157074977288014}
---- !u!114 &6392157074977288014
+--- !u!114 &5187105040290786053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14899,7 +14894,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3907003548164574881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c704ceeead337f047a01893cbecf0758, type: 3}
+  m_Script: {fileID: 11500000, guid: 823ca3a908eac08409652957d314b89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Position2D: {x: 0, y: 0}
@@ -14907,12 +14902,13 @@ MonoBehaviour:
   m_ObjectName: LaserBeam
   m_Damage: 0
   m_DamageScale: 640000006400000064000000
-  m_PlayerLaserShooter: {fileID: 2559162095799568032}
-  m_LaserDamage: 0
-  m_PlayerShooter: {fileID: 8577496210613791664}
-  m_PlayerController: {fileID: 5591376453271951338}
-  m_MinDamage: 100000001200000014000000
-  m_MaxDamage: 1a0000001c0000001e000000
+  m_PlayerLaserShooterManager: {fileID: 2559162095799568032}
+  m_PlayerShootHandler: {fileID: 0}
+  m_PlayerUnit: {fileID: 5591376453271951338}
+  m_PlayerDamageData:
+  - {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
+  - {fileID: 11400000, guid: 322bde3078da3284383fee041c5fece9, type: 2}
+  - {fileID: 11400000, guid: 03826495dee18ce4d9038b60c18cc547, type: 2}
 --- !u!1 &4180450511839748019
 GameObject:
   m_ObjectHideFlags: 0
@@ -15166,7 +15162,8 @@ GameObject:
   - component: {fileID: 1144166123301243134}
   - component: {fileID: 5591376453271951338}
   - component: {fileID: 784749452946423656}
-  - component: {fileID: 8577496210613791664}
+  - component: {fileID: 7589513650664605256}
+  - component: {fileID: 6348255091704733013}
   - component: {fileID: 198436407873266500}
   - component: {fileID: 8056332426195801104}
   - component: {fileID: 3721787756364860043}
@@ -15233,7 +15230,7 @@ MonoBehaviour:
   m_ObjectName: Player
   m_Damage: 1500
   m_DamageScale: 640000006400000064000000
-  m_SlowMode: 0
+  m_IsPreviewObject: 0
 --- !u!114 &784749452946423656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15247,7 +15244,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Explosion: PlayerExplosion
---- !u!114 &8577496210613791664
+--- !u!114 &7589513650664605256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057626060238595911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c1d8f1143d4784d9c5b5227b0fc051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerShotPosition:
+  - {fileID: 8382905369484674121}
+  - {fileID: 6230939845379144072}
+  - {fileID: 2614014714347822905}
+  - {fileID: 4840113807778879222}
+  - {fileID: 5995704966026180525}
+  - {fileID: 3405106494710659425}
+  - {fileID: 4017856822890975867}
+  m_PlayerDrone:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_PlayerUnit: {fileID: 5591376453271951338}
+  m_PlayerBody: {fileID: 456417361034259206}
+  m_PlayerShotData: {fileID: 11400000, guid: 6fb393b4425b69648a4d139f24e0ffde, type: 2}
+  m_PlayerModuleDamageData:
+  - {fileID: 11400000, guid: 16e19650059f5184193d0757994307a6, type: 2}
+  - {fileID: 11400000, guid: 69d903e24be4e364a99c5241e6fc0048, type: 2}
+  - {fileID: 11400000, guid: 851519de260758246b86ac59c8d7804e, type: 2}
+--- !u!114 &6348255091704733013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15259,40 +15288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719c1effe42e25b4fbf33043620063b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerWeapon:
-  - {fileID: 7308936934683739909, guid: 30b392808faeedc4c9c0bcd3bc220249, type: 3}
-  - {fileID: 1505355089897114, guid: 6bb61dcf10331eb42bcaff10ba470e8f, type: 3}
-  - {fileID: 1255836958617472, guid: 94ad4902bc99afe49a95a6e9a1521a6b, type: 3}
-  - {fileID: 1475708882005642, guid: 22b7e2985e2cbda4cbbb9d50d8537c79, type: 3}
-  m_PlayerShotPosition:
-  - {fileID: 8382905369484674121}
-  - {fileID: 6230939845379144072}
-  - {fileID: 2614014714347822905}
-  - {fileID: 4840113807778879222}
-  - {fileID: 5995704966026180525}
-  - {fileID: 3405106494710659425}
-  - {fileID: 4017856822890975867}
-  m_PlayerDrone:
-  - {fileID: 4510018261899002543}
-  - {fileID: 5523854026723943454}
-  - {fileID: 3154202735830298065}
-  - {fileID: 4313171456594562186}
-  m_PlayerLaserShooter: {fileID: 2559162095799568032}
-  m_PlayerUnit: {fileID: 5591376453271951338}
-  m_PlayerBody: {fileID: 456417361034259206}
-  m_FireRate: 50
-  m_FireDelay: 320
-  m_HomingMissileDelay:
-    max_delay: 400
-    min_delay: 300
-  m_RocketDelay:
-    max_delay: 1000
-    min_delay: 1000
-  m_AddShotDelay:
-    max_delay: 200
-    min_delay: 100
-  m_ShotLevel: 0
-  m_PlayerBomb: {fileID: 3449286039611303941}
+  m_PlayerBomb: {fileID: 0}
+  m_PlayerLaserShooterManager: {fileID: 2559162095799568032}
 --- !u!114 &198436407873266500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15305,7 +15302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c25c24c0ac22294296bf35a4334c79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerController: {fileID: 5591376453271951338}
+  m_PlayerMovement: {fileID: 5591376453271951338}
   m_PlayerColorData: {fileID: 11400000, guid: 4c45a853efa342a43805e8cd0a18f48f, type: 2}
   m_DronePart: {fileID: 7537849260897006903}
   m_SpeedParts:
@@ -15325,7 +15322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b9e9aa8afaa6441bd2cfea3d5209ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UnitObject: {fileID: 5591376453271951338}
+  m_UnitObject: {fileID: 0}
   m_Rotator: {fileID: 6584175958807724471}
   m_MaxRoll: 30
   m_RollSpeed: 120
@@ -25465,18 +25462,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2156185294410391387}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3154202735830298065 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3902850340516164234, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2156185294410391387}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa27221dccf5d87488a51e68ad5e3cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &3405106494710659425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3651593878917228090, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
@@ -25489,30 +25474,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2156185294410391387}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4313171456594562186 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2753732985700013009, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2156185294410391387}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa27221dccf5d87488a51e68ad5e3cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4510018261899002543 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2556499427158351348, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2156185294410391387}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa27221dccf5d87488a51e68ad5e3cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4840113807778879222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6829645908643088813, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
@@ -25525,18 +25486,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2156185294410391387}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5523854026723943454 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5856057072969153349, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2156185294410391387}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa27221dccf5d87488a51e68ad5e3cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5995704966026180525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5681654866285013238, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
@@ -25622,7 +25571,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerShooter
       value: 
-      objectReference: {fileID: 8577496210613791664}
+      objectReference: {fileID: 0}
     - target: {fileID: 4251991824945596987, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_SortingLayer
@@ -25647,12 +25596,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerShooter
       value: 
-      objectReference: {fileID: 8577496210613791664}
+      objectReference: {fileID: 0}
     - target: {fileID: 4387938694964648131, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerLaser
       value: 
-      objectReference: {fileID: 6392157074977288014}
+      objectReference: {fileID: 0}
     - target: {fileID: 4387938694964648131, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerController
@@ -25682,7 +25631,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerShooter
       value: 
-      objectReference: {fileID: 8577496210613791664}
+      objectReference: {fileID: 0}
     - target: {fileID: 6693229303636649497, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_SortingLayer
@@ -25697,7 +25646,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerLaser
       value: 
-      objectReference: {fileID: 6392157074977288014}
+      objectReference: {fileID: 0}
     - target: {fileID: 7876806086751633021, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerController
@@ -25727,7 +25676,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerLaser
       value: 
-      objectReference: {fileID: 6392157074977288014}
+      objectReference: {fileID: 0}
     - target: {fileID: 8006922509833079758, guid: 066192e0fb677da4b99442b4d00352db,
         type: 3}
       propertyPath: m_PlayerController

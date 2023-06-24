@@ -23,9 +23,9 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateSlightly(m_PlayerPosition, 24f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 24f);
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
     
     

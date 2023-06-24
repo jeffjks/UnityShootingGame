@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerPreviewDrone : PlayerDrone
 {
-    private PlayerShooterManager m_PlayerShooter;
+    private PlayerShootHandler m_PlayerController;
     private GameManager m_GameManager = null;
 
     void Awake()
     {
         m_GameManager = GameManager.instance_gm;
-        m_PlayerShooter = GetComponentInParent<PlayerShooterManager>();
-        m_PlayerController = GetComponentInParent<PlayerUnit>();
-        ((PlayerPreviewShooter) m_PlayerShooter).InitShotLevel();
+        m_PlayerController = GetComponentInParent<PlayerShootHandler>();
+        m_PlayerMovement = GetComponentInParent<PlayerUnit>();
+        //((PlayerPreviewShooter) m_PlayerController).InitShotLevel();
     }
 
     void Start()

@@ -16,8 +16,8 @@ public class ReplayManager : MonoBehaviour
 
     private string m_FilePath = string.Empty;
     private FileStream m_FileStream;
+    private PlayerMovement m_PlayerMovement;
     private PlayerController m_PlayerController;
-    private PlayerShooter m_PlayerShooter;
     private bool m_StageOverview = false;
     
     private GameManager m_GameManager = null;
@@ -84,8 +84,8 @@ public class ReplayManager : MonoBehaviour
     {
         Random.InitState(m_RandomSeed);
         GameObject player = m_PlayerManager.Player;
+        m_PlayerMovement = player.GetComponentInChildren<PlayerMovement>();
         m_PlayerController = player.GetComponentInChildren<PlayerController>();
-        m_PlayerShooter = player.GetComponentInChildren<PlayerShooter>();
     }
 
     void Update()
@@ -94,16 +94,16 @@ public class ReplayManager : MonoBehaviour
             return;
         
         
-        if (m_PlayerShooter.gameObject.activeInHierarchy) {
+        if (m_PlayerController.gameObject.activeInHierarchy) {
             if (SystemManager.GameMode == GameMode.Replay) { // 리플레이
                 ReadUserInput();
-                m_PlayerShooter.PlayerShooterBehaviour();
+                m_PlayerController.PlayerControllerBehaviour();
             }
             else {
-                m_PlayerShooter.PlayerShooterBehaviour();
+                m_PlayerController.PlayerControllerBehaviour();
                 WriteUserInput();
             }
-            m_PlayerShooter.ResetKeyPress();
+            //m_PlayerController.ResetKeyPress();
         }
     }
 
@@ -130,10 +130,10 @@ public class ReplayManager : MonoBehaviour
             m_TotalContext.Append(context.ToString());
         }
 
-        m_PlayerController.MoveRawHorizontal = (context & 0b0000_0011) - 1;
-        m_PlayerController.MoveRawVertical = ((context & 0b0000_1100) >> 2) - 1;
-        m_PlayerShooter.ShotKeyPress = (context & 0b0001_0000) >> 4;
-        m_PlayerShooter.BombKeyPress = (context & 0b0010_0000) >> 5;
+        m_PlayerMovement.MoveRawHorizontal = (context & 0b0000_0011) - 1;
+        m_PlayerMovement.MoveRawVertical = ((context & 0b0000_1100) >> 2) - 1;
+        //m_PlayerController.ShotKeyPress = (context & 0b0001_0000) >> 4;
+        //m_PlayerController.BombKeyPress = (context & 0b0010_0000) >> 5;
     }
 
     private void WriteUserInput() {
@@ -150,9 +150,9 @@ public class ReplayManager : MonoBehaviour
         }
         else {
             m_StageOverview = false;
-            movement = (m_PlayerController.MoveRawHorizontal + 1) + 4*(m_PlayerController.MoveRawVertical + 1);
-            shot = m_PlayerShooter.ShotKeyPress;
-            bomb = m_PlayerShooter.BombKeyPress;
+            movement = (m_PlayerMovement.MoveRawHorizontal + 1) + 4*(m_PlayerMovement.MoveRawVertical + 1);
+            shot = 0; //m_PlayerController.ShotKeyPress;
+            bomb = 0; //m_PlayerController.BombKeyPress;
 
             context = (byte) (movement + (shot << 4) + (bomb << 5));
 

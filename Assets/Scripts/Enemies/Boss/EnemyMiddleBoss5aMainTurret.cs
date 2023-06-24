@@ -12,7 +12,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -22,30 +22,30 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
         switch (m_RotatePattern) {
             case 10:
                 if (PlayerManager.IsPlayerAlive) {
-                    RotateSlightly(m_PlayerPosition, 150f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 150f);
                 }
                 else {
-                    RotateSlightly(m_PlayerPosition, 100f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
                 }
                 break;
             case 20:
                 if (PlayerManager.IsPlayerAlive) {
-                    RotateSlightly(m_PlayerPosition, 160f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 160f);
                 }
                 else {
-                    RotateSlightly(m_PlayerPosition, 100f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
                 }
                 break;
             case 21:
-                RotateSlightly(m_PlayerPosition, 100f, -70f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, -70f);
                 break;
             case 22:
-                RotateSlightly(m_PlayerPosition, 100f, 70f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, 70f);
                 break;
         }
 
         if (m_RotatePattern / 10 == 2) {
-            float angle = Mathf.DeltaAngle(GetAngleToTarget(m_FirePosition.position, m_PlayerPosition), m_CurrentAngle);
+            float angle = Mathf.DeltaAngle(GetAngleToTarget(m_FirePosition.position, PlayerManager.GetPlayerPosition()), m_CurrentAngle);
             if (Mathf.Abs(angle) >= 120f) {
                 m_RotatePattern = 20;
             }

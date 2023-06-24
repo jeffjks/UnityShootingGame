@@ -24,10 +24,8 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     
     public event Action Action_StartInteractable;
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
-
         Transform root = transform.root;
         if (transform == root)
         {
@@ -60,7 +58,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     {
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         SetPosition2D();
-        GetPlayerPosition2D();
     }
 
     private void LateUpdate()

@@ -12,7 +12,7 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
     void Start()
     {
         StartCoroutine(Pattern1(1000));
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
     }
@@ -23,9 +23,9 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
         
         if (!m_TimeLimitState) {
             if (PlayerManager.IsPlayerAlive)
-                RotateImmediately(m_PlayerPosition);
+                RotateImmediately(PlayerManager.GetPlayerPosition());
             else
-                RotateSlightly(m_PlayerPosition, 100f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
         }
     }
 
@@ -50,7 +50,7 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        m_MoveVector.direction = GetAngleToTarget(m_Position2D, m_PlayerPosition);
+        m_MoveVector.direction = GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
 
         float init_speed = m_MoveVector.speed;
         int frame = 800 * Application.targetFrameRate / 1000;

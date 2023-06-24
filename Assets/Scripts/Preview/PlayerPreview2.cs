@@ -5,39 +5,32 @@ using UnityEngine;
 public class PlayerPreview2 : PlayerPreviewManager
 {
     public PlayerDrone[] m_PlayerDrone = new PlayerDrone[4];
-    public PlayerPreviewLaserShooter m_PlayerPreviewLaserShooter;
-    public PlayerPreviewShooter m_PlayerPreviewShooter;
+    public PlayerLaserShooterManager m_PlayerLaserShooterManager;
+    public PlayerShootHandler m_PlayerShootHandler;
     public GameObject m_DronePart; // Shot Spawner
-
-    public override void SetPreviewDesign() {
-        base.SetPreviewDesign();
+    
+    private void Awake()
+    {
+        m_PreviewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
         
-        SetPreviewWeapons();
-    }
-
-    private void SetPreviewWeapons() {
-        for (int i = 0; i < m_PlayerDrone.Length; i++)
-            m_PlayerDrone[i].SetPreviewDrones();
-        m_PlayerPreviewLaserShooter.SetLaserType();
-        m_PlayerPreviewShooter.SetPreviewShooter();
-    }
-
-    protected override void SetPlayerPreviewColors() {
         m_DronePart.SetActive(false);
-        // m_PreviewPoolingManager.SetActive(false);
-        MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
-        int max_meshRenderer = meshRenderer.Length;
-        
-        // Color
-        for (int i = 0; i < 3; i++) {
-            if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Color) == i) {
-                for (int j = 0; j < max_meshRenderer; j++)
-                {
-                    meshRenderer[j].material = m_PlayerColorData.playerColorMaterial[i];
-                }
-            }
-        }
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
         m_DronePart.SetActive(true);
-        // m_PreviewPoolingManager.SetActive(true);
+    }
+    
+    protected override void SetPreviewDesign(ShipAttributes shipAttributes) {
+        base.SetPreviewDesign(shipAttributes);
+        
+        SetPreviewWeapons(shipAttributes);
+    }
+
+    private void SetPreviewWeapons(ShipAttributes shipAttributes) {
+        foreach (var drone in m_PlayerDrone)
+        {
+            drone.SetPreviewDrones();
+        }
+        m_PlayerLaserShooterManager.LaserIndex = shipAttributes.GetAttributes(AttributeType.LaserIndex);
+        m_PlayerShootHandler.ShotIndex = shipAttributes.GetAttributes(AttributeType.ShotIndex);
+        m_PlayerShootHandler.ModuleIndex = shipAttributes.GetAttributes(AttributeType.ModuleIndex);
     }
 }

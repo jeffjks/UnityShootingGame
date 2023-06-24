@@ -14,7 +14,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     {
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
         m_KillScore = m_Score;
         m_Score = 0;
         
@@ -26,9 +26,9 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_PlayerPosition);
+            RotateImmediately(PlayerManager.GetPlayerPosition());
         else
-            RotateSlightly(m_PlayerPosition, 100f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
 
     private IEnumerator Pattern1()

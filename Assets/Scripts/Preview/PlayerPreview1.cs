@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerPreview1 : PlayerPreviewManager
 {
+    private void Awake()
+    {
+        m_PreviewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
+        
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+    }
+    
     void Update()
     {
         RotateSelf();
@@ -11,20 +18,5 @@ public class PlayerPreview1 : PlayerPreviewManager
 
     private void RotateSelf() {
         transform.Rotate(Vector3.up * (48f * Time.deltaTime));
-    }
-
-    protected override void SetPlayerPreviewColors() {
-        MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
-        int max_meshRenderer = meshRenderer.Length;
-        
-        // Color
-        for (int i = 0; i < 3; i++) {
-            if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Color) == i) {
-                for (int j = 0; j < max_meshRenderer; j++)
-                {
-                    meshRenderer[j].material = m_PlayerColorData.playerColorMaterial[i];
-                }
-            }
-        }
     }
 }

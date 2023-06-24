@@ -13,8 +13,8 @@ public class EnemyPlaneSmall1 : EnemyUnit
     void Start()
     {
         StartCoroutine(Pattern1(800));
-        RotateImmediately(m_PlayerPosition);
-        float target_angle = GetAngleToTarget(m_Position2D, m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
+        float target_angle = GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
         m_MoveVector = new MoveVector(m_Speed, target_angle);
     }
 
@@ -24,9 +24,10 @@ public class EnemyPlaneSmall1 : EnemyUnit
         
         RotateImmediately(m_MoveVector.direction);
 
-        if (m_TargetPlayer) {
-            float player_distance = ((Vector2) transform.position - m_PlayerPosition).magnitude;
-            m_MoveVector.direction = GetAngleToTarget(m_Position2D, m_PlayerPosition);
+        if (m_TargetPlayer)
+        {
+            float player_distance = Vector2.Distance(transform.position, PlayerManager.GetPlayerPosition());
+            m_MoveVector.direction = GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
 
             if (player_distance < 5f) {
                 m_TargetPlayer = false;

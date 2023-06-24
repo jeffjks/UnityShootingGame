@@ -305,7 +305,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (m_CurrentFireDelay2 > m_FireDelay2[1, (int) SystemManager.Difficulty]) {
             pos = m_FirePosition.position;
-            dir = GetAngleToTarget(pos, m_PlayerPosition) + Random.Range(-6f, 6f);
+            dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition()) + Random.Range(-6f, 6f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(1, pos, 5f, dir, accel, 6, 20f, BulletType.ERASE_AND_CREATE, 600,
                 1, 2f, BulletDirection.CURRENT, 0f, accel2, 2, 20f + Random.Range(0f, 24f));
@@ -332,7 +332,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             pos = m_FirePosition.position;
-            dir = GetAngleToTarget(pos, m_PlayerPosition) + Random.Range(-5f, 5f);
+            dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition()) + Random.Range(-5f, 5f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(1, pos, 5.2f, dir - 2f, accel, 7, 19f);
                 CreateBulletsSector(1, pos, 5.4f, dir, accel, 7, 19f);
@@ -387,7 +387,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             pos = m_FirePosition.position;
-            dir = GetAngleToTarget(pos, m_PlayerPosition);
+            dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 dir += Random.Range(-10f, 10f);
                 CreateBulletsSector(3, pos, 4f, dir, accel, 7, 17f);
@@ -416,7 +416,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             pos = m_FirePosition.position;
-            dir = GetAngleToTarget(pos, m_PlayerPosition);
+            dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
             if (SystemManager.Difficulty <= GameDifficulty.Expert) {
                 break;
             }
@@ -430,7 +430,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator Pattern1_D1(int fire_position, int duration, float dir_delta) {
         Vector3 pos = m_FirePositionsWing[fire_position].position;
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        float dir = GetAngleToTarget(pos, m_PlayerPosition);
+        float dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
         int time = 0;
         int[] time_add = { 120, 120, 100 };
         int[] period = { 1200, 700, 500 };
@@ -468,7 +468,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             pos = m_FirePosition.position;
-            dir = GetAngleToTarget(pos, m_PlayerPosition);
+            dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(5, pos, 3.6f, dir, accel);
                 yield return new WaitForMillisecondFrames(1500);

@@ -1425,6 +1425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SelectAttributesMenuHandler: {fileID: 491034792}
+  m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 4ccf13dd51735094f8466cc3206ff90c,
     type: 2}
 --- !u!1001 &149966326
@@ -2240,6 +2241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SelectAttributesMenuHandler: {fileID: 491034792}
+  m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 4efdd73c95bd2f9459a0c1128245a3e4,
     type: 2}
 --- !u!1 &227012836
@@ -5013,6 +5015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SelectAttributesMenuHandler: {fileID: 491034792}
+  m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 65ae9e93e95bfa943a80a38710cf1b1a,
     type: 2}
 --- !u!1 &521130664
@@ -5244,6 +5247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SelectAttributesMenuHandler: {fileID: 491034792}
+  m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: dd282727b9df4f54bab648375dd5547e,
     type: 2}
 --- !u!1001 &524579901
@@ -6471,6 +6475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SelectAttributesMenuHandler: {fileID: 491034792}
+  m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 0e42e0aed1aa613439bb13baaf8c8f65,
     type: 2}
 --- !u!1001 &662424683
@@ -7498,6 +7503,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 8091778663055835291, guid: 49791a7af10e8eb4aa2c4ffe45630c08,
+        type: 3}
+      propertyPath: m_PreviewScreen
+      value: 
+      objectReference: {fileID: 1830424808}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49791a7af10e8eb4aa2c4ffe45630c08, type: 3}
 --- !u!1 &740557857
@@ -7605,7 +7615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755607216}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalPosition: {x: 30, y: 0, z: -47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12766,6 +12776,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755607219}
     m_Modifications:
+    - target: {fileID: 1622906773, guid: d0f646bda4b605c4896cbca71c6237b2, type: 3}
+      propertyPath: m_PreviewScreen
+      value: 
+      objectReference: {fileID: 1830424808}
     - target: {fileID: 2541452370055774220, guid: d0f646bda4b605c4896cbca71c6237b2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13277,7 +13291,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 112, y: 0}
-  m_SizeDelta: {x: 256, y: 256}
+  m_SizeDelta: {x: 340, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1651551589
 MonoBehaviour:
@@ -13342,7 +13356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657329940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40, y: 0, z: 0}
+  m_LocalPosition: {x: 40, y: 0, z: -47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13373,7 +13387,7 @@ Camera:
     x: 0
     y: 0
     width: 1
-    height: 1
+    height: 0.75
   near clip plane: 0.3
   far clip plane: 4
   field of view: 60
@@ -13558,6 +13572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SelectAttributesMenuHandler: {fileID: 491034792}
+  m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 74d24a396b7dfb14583a1640db656919,
     type: 2}
 --- !u!1 &1670451774

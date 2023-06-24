@@ -17,10 +17,10 @@ public class EnemyBoss2Turret2_1 : EnemyUnit
         if (m_Activate) {
             if (PlayerManager.IsPlayerAlive) {
                 if (m_Shooting)
-                    RotateSlightly(m_PlayerPosition, 60f);
+                    RotateSlightly(PlayerManager.GetPlayerPosition(), 60f);
                 }
             else
-                RotateSlightly(m_PlayerPosition, 100f);
+                RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
         }
     }
 

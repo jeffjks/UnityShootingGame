@@ -9,7 +9,7 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
         StartCoroutine(Pattern1());
     }
 

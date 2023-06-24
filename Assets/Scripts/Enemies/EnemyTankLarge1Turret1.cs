@@ -12,7 +12,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(m_PlayerPosition);
+        RotateImmediately(PlayerManager.GetPlayerPosition());
     }
 
     protected override void Update()
@@ -20,19 +20,19 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
         base.Update();
 
         if (m_State == 0) {
-            RotateSlightly(m_PlayerPosition, 100f, -48f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, -48f);
         }
         else if (m_State == 1) {
             RotateSlightly(m_CurrentAngle + 20f, 90f);
         }
         else if (m_State == 2) {
-            RotateSlightly(m_PlayerPosition, 100f, 48f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, 48f);
         }
         else if (m_State == 3) {
             RotateSlightly(m_CurrentAngle - 20f, 90f);
         }
         else {
-            RotateSlightly(m_PlayerPosition, 100f, -48f);
+            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, -48f);
         }
     }
 

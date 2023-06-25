@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e0f46cddd03b542a191bc0413a399e, type: 3}
   m_Name: PlayerDamageShot SO
   m_EditorClassIdentifier: 
+  playerDamageType: 0
   damageScale:
-    smallEnemy: 100
-    largeEnemy: 100
+    zakoEnemy: 100
+    middleBossEnemy: 100
     bossEnemy: 100
   cooldownByLevel: 4001000040010000400100004001000040010000
   damageByLevel: 0c0000001200000019000000

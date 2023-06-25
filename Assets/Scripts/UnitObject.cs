@@ -158,26 +158,36 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 public abstract class PlayerObject : UnitObject
 {
     public string m_ObjectName;
-    public int m_Damage;
-    [Header("단위: %")]
-    public int[] m_DamageScale = new int[3];
+    public int Damage { get; protected set; }
     
-    protected int m_DefaultDamage;
+    [SerializeField] protected PlayerDamageDatas _playerDamageData;
+    
+    protected int _maxDamageLevel;
+    protected int _damageLevel;
+    public int DamageLevel {
+        set
+        {
+            _damageLevel = value;
+            OnDamageLevelChanged();
+        }
+    }
 
-    protected virtual void Awake()
+    private void Awake()
     {
-        m_DefaultDamage = m_Damage;
+        _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
+    }
 
-        //m_PositionInt2D = Vector2Int.RoundToInt(transform.position*256);
+    protected virtual void OnDamageLevelChanged()
+    {
+        Damage = _playerDamageData.damageByLevel[_damageLevel];
     }
     
-    protected void DealDamage(EnemyUnit enemyObject, int damage, PlayerDamageType damage_type = PlayerDamageType.Normal) {
-        try {
-            enemyObject.m_EnemyHealth.TakeDamage(damage * m_DamageScale[(int) enemyObject.m_EnemyType] / 100, damage_type);
-        }
-        catch (System.IndexOutOfRangeException) {
-            enemyObject.m_EnemyHealth.TakeDamage(damage, damage_type);
-        }
+    protected void DealDamage(EnemyUnit enemyObject)
+    {
+        var damageScale = _playerDamageData.damageScale[enemyObject.m_EnemyType];
+        var finalDamage = Damage * damageScale / 100;
+        var damage_type = _playerDamageData.playerDamageType;
+        enemyObject.m_EnemyHealth.TakeDamage(finalDamage, damage_type);
     }
 }
 

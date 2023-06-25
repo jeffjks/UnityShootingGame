@@ -22,11 +22,11 @@ public class PlayerDrone : MonoBehaviour
     protected byte m_ShockWaveNumber;
     protected float m_DefaultDepth;
 
-    private PlayerShootHandler m_PlayerController;
+    private PlayerUnit _playerUnit;
 
     void Awake()
     {
-        m_PlayerController = GetComponentInParent<PlayerShootHandler>();
+        _playerUnit = GetComponentInParent<PlayerUnit>();
         m_PlayerMovement = GetComponentInParent<PlayerUnit>();
     }
 
@@ -91,7 +91,7 @@ public class PlayerDrone : MonoBehaviour
 
         laser_damage = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
         
-        SetShotLevel(m_PlayerController.PlayerAttackLevel);
+        SetShotLevel(_playerUnit.PlayerAttackLevel);
 
         if (laser_damage == 0)
             m_ShockWaveNumber = 0;

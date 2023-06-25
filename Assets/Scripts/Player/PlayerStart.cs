@@ -47,7 +47,7 @@ public class PlayerStart : MonoBehaviour
 
     private void EndSpawnEvent() {
         PlayerInvincibility.SetInvincibility(PlayerInvincibility.REVIVE_TIME);
-        PlayerMovement.IsControllable = true;
+        PlayerUnit.IsControllable = true;
         _verticalSpeed = 0;
         enabled = false;
     }

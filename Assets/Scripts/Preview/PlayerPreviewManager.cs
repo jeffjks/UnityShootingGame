@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class PlayerPreviewManager : MonoBehaviour
 {
-    public PreviewScreen m_PreviewScreen;
     public PlayerColorDatas m_PlayerColorData;
     public GameObject[] m_SpeedPart = new GameObject[3];
     public GameObject m_ModulePart;
 
+    protected PreviewScreen _previewScreen;
     protected MeshRenderer[] _meshRenderers;
 
     protected virtual void SetPreviewDesign(ShipAttributes shipAttributes) {

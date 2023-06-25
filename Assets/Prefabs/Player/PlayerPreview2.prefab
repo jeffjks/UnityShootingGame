@@ -96,10 +96,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerUnit: {fileID: 989022632222629200}
+  m_PlayerLaser: {fileID: 1706938960081096862}
   m_LaserObjects:
   - {fileID: 8753410759735690052}
   - {fileID: 2996904814045266533}
   - {fileID: 5652637740367438937}
+  m_PlayerDamageData:
+  - {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
+  - {fileID: 11400000, guid: 322bde3078da3284383fee041c5fece9, type: 2}
+  - {fileID: 11400000, guid: 03826495dee18ce4d9038b60c18cc547, type: 2}
   m_LaserFireLight: {fileID: 5472192721673782711}
 --- !u!114 &1706938960081096862
 MonoBehaviour:
@@ -116,15 +121,8 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
   m_ObjectName: LaserBeam
-  m_Damage: 0
-  m_DamageScale: 000000000000000000000000
-  m_PlayerLaserShooterManager: {fileID: 6140773252724510464}
-  m_PlayerShootHandler: {fileID: 1525603388574638372}
+  _playerDamageData: {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
   m_PlayerUnit: {fileID: 989022632222629200}
-  m_PlayerDamageData:
-  - {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
-  - {fileID: 11400000, guid: 322bde3078da3284383fee041c5fece9, type: 2}
-  - {fileID: 11400000, guid: 03826495dee18ce4d9038b60c18cc547, type: 2}
 --- !u!1 &4476741379894299300
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +135,6 @@ GameObject:
   - component: {fileID: 989022632222629200}
   - component: {fileID: 1525603388574638372}
   - component: {fileID: 8091778663055835291}
-  - component: {fileID: 1043484178273143191}
   - component: {fileID: 2766692622926604186}
   m_Layer: 17
   m_Name: PlayerPreview2
@@ -178,8 +175,7 @@ MonoBehaviour:
   m_Position2D: {x: 0, y: 0}
   m_CurrentAngle: 0
   m_ObjectName: PlayerPreview2
-  m_Damage: 0
-  m_DamageScale: 000000000000000000000000
+  _playerDamageData: {fileID: 11400000, guid: 046a40f2cdbcec944be2538c2b20b547, type: 2}
   m_IsPreviewObject: 1
 --- !u!114 &1525603388574638372
 MonoBehaviour:
@@ -237,23 +233,9 @@ MonoBehaviour:
   - {fileID: 6422212546319104597}
   - {fileID: 4489272018456228762}
   - {fileID: 3338175742595404481}
-  m_PlayerLaserShooterManager: {fileID: 6140773252724510464}
+  m_PlayerLaserHandler: {fileID: 6140773252724510464}
   m_PlayerShootHandler: {fileID: 1525603388574638372}
   m_DronePart: {fileID: 9012602562047716220}
---- !u!114 &1043484178273143191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4476741379894299300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 719c1effe42e25b4fbf33043620063b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PlayerBomb: {fileID: 0}
-  m_PlayerLaserShooterManager: {fileID: 6140773252724510464}
 --- !u!114 &2766692622926604186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerUnit: {fileID: 989022632222629200}
-  m_PlayerLaserShooterManager: {fileID: 6140773252724510464}
+  m_PlayerLaserHandler: {fileID: 6140773252724510464}
 --- !u!1001 &604798092995543312
 PrefabInstance:
   m_ObjectHideFlags: 0

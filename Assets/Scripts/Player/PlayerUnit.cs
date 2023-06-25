@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,71 @@ public class PlayerUnit : PlayerObject
     public bool IsAttacking { get; set; }
     public bool IsShooting { get; set; }
 
-    private Vector2Int _positionInt2D;
-    public Vector2Int m_PositionInt2D
+    private int _playerAttackLevel;
+    public int PlayerAttackLevel
     {
-        get => _positionInt2D;
+        get => _playerAttackLevel;
         set {
-            _positionInt2D = value;
-            transform.position = new Vector3((float) _positionInt2D.x / 256, (float) _positionInt2D.y / 256, Depth.PLAYER);
+            _playerAttackLevel = Mathf.Clamp(value, 0, MAX_PLAYER_ATTACK_LEVEL);
+            Action_OnUpdatePlayerAttackLevel?.Invoke(_playerAttackLevel);
         }
+    }
+
+    private static bool _isControllable;
+
+    public static bool IsControllable
+    {
+        get => _isControllable;
+        set
+        {
+            _isControllable = value;
+            Instance.Action_OnControllableChanged?.Invoke();
+        }
+    }
+    
+    private static PlayerUnit Instance { get; set; }
+    
+    private const int MAX_PLAYER_ATTACK_LEVEL = 4;
+
+    public event Action<int> Action_OnUpdatePlayerAttackLevel;
+    public event Action Action_OnControllableChanged;
+
+    private void Start()
+    {
+        if (m_IsPreviewObject)
+        {
+            PlayerAttackLevel = MAX_PLAYER_ATTACK_LEVEL;
+        }
+        else
+        {
+            if (Instance != null) {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            
+            DontDestroyOnLoad(transform.parent);
+
+            Action_OnControllableChanged += () =>
+            {
+                SlowMode = false;
+                IsAttacking = false;
+            };
+        }
+    }
+    
+    public void DealCollisionDamage(EnemyUnit enemyUnit)
+    {
+        DealDamage(enemyUnit);
+    }
+
+    public bool PowerUp()
+    {
+        if (PlayerAttackLevel < MAX_PLAYER_ATTACK_LEVEL)
+        {
+            PlayerAttackLevel++;
+            return true;
+        }
+        return false;
     }
 }

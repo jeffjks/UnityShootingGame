@@ -6,7 +6,8 @@ public class PlayerPreview1 : PlayerPreviewManager
 {
     private void Awake()
     {
-        m_PreviewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
+        _previewScreen = FindObjectOfType<PreviewScreen>();
+        _previewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
         
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
     }

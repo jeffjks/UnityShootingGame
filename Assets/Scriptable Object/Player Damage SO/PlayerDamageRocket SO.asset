@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e0f46cddd03b542a191bc0413a399e, type: 3}
   m_Name: PlayerDamageRocket SO
   m_EditorClassIdentifier: 
+  playerDamageType: 0
   damageScale:
-    smallEnemy: 50
-    largeEnemy: 100
+    zakoEnemy: 50
+    middleBossEnemy: 100
     bossEnemy: 100
   cooldownByLevel: e8030000e8030000e8030000e8030000e8030000
   damageByLevel: 28000000280000003c0000003c00000050000000

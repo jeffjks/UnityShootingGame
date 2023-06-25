@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerBomb m_PlayerBomb;
-    public PlayerLaserShooterManager m_PlayerLaserShooterManager;
-
+    public GameObject m_PlayerBomb;
+    
+    private PlayerBombHandler _playerBombHandler;
+    private PlayerLaserHandler _playerLaserHandler;
     private PlayerShootHandler _playerShootHandler;
     private PlayerUnit _playerUnit;
     private IngameInputController _inGameInputController;
@@ -17,6 +19,9 @@ public class PlayerController : MonoBehaviour
     
     void Awake()
     {
+        var bombObject = Instantiate(m_PlayerBomb);
+        _playerBombHandler = bombObject.GetComponent<PlayerBombHandler>();
+        _playerLaserHandler = GetComponentInChildren<PlayerLaserHandler>();
         _playerShootHandler = GetComponent<PlayerShootHandler>();
         _playerUnit = GetComponent<PlayerUnit>();
         
@@ -57,13 +62,16 @@ public class PlayerController : MonoBehaviour
         {
             _firePressFrame++;
         }
+
+        FireShot();
+        FireLaser();
     }
 
-    private void OnFireInvoked(bool isPressed)
+    private void OnFireInvoked(InputValue inputValue)
     {
-        _isFirePress = isPressed;
+        _isFirePress = inputValue.isPressed;
 
-        if (isPressed)
+        if (inputValue.isPressed) // 누르는 순간
         {
             if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
                 if (_playerShootHandler.AutoShot < 2) {
@@ -71,43 +79,39 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else
+        else // 떼는 순간
         {
             _firePressFrame = 0;
             _playerUnit.SlowMode = false;
-            m_PlayerLaserShooterManager.StopLaser();
+            _playerLaserHandler.StopLaser();
             _playerUnit.IsAttacking = false;
         }
-        
-        if (!_playerUnit.SlowMode) {
-            if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
-                _playerUnit.SlowMode = true;
-                m_PlayerLaserShooterManager.StartLaser();
-                _playerUnit.IsAttacking = true;
-                _playerShootHandler.AutoShot = 0;
-            }
-        }
+    }
 
+    private void FireShot()
+    {
         if (_playerShootHandler.AutoShot > 0) {
             if (!_playerUnit.IsShooting) {
                 _playerUnit.IsShooting = true;
-                _playerShootHandler.FireShot();
+                _playerShootHandler.StartShotCoroutine();
             }
             _playerUnit.IsAttacking = true;
         }
     }
 
-    public void PlayerControllerBehaviour() {
-        if (!PlayerMovement.IsControllable) {
-            _playerUnit.SlowMode = false;
-            _playerUnit.IsAttacking = false;
-            //m_ShotKeyPress = 0;
-            _playerShootHandler.AutoShot = 0;
-            m_PlayerLaserShooterManager.StopLaser();
-            return;
+    private void FireLaser()
+    {
+        if (!_playerUnit.SlowMode) {
+            if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
+                _playerUnit.SlowMode = true;
+                _playerLaserHandler.StartLaser();
+                _playerUnit.IsAttacking = true;
+                _playerShootHandler.AutoShot = 0;
+            }
         }
-        
-        
+    }
+
+    public void PlayerControllerBehaviour() {
         /*
         if (m_ShotKeyPress == 1) {
             _firePressFrame++;
@@ -124,14 +128,14 @@ public class PlayerController : MonoBehaviour
             m_ShotKeyPrevious = false;
             _firePressFrame = 0;
             _playerUnit.SlowMode = false;
-            m_PlayerLaserShooterManager.StopLaser();
+            _playerLaserHandler.StopLaser();
             _playerUnit.IsAttacking = false;
         }
         
         if (!_playerUnit.SlowMode) {
             if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
                 _playerUnit.SlowMode = true;
-                m_PlayerLaserShooterManager.StartLaser();
+                _playerLaserHandler.StartLaser();
                 _playerUnit.IsAttacking = true;
                 _playerShootHandler.AutoShot = 0;
             }
@@ -154,15 +158,14 @@ public class PlayerController : MonoBehaviour
         if (InGameDataManager.Instance.BombNumber <= 0) {
             return;
         }
-        if (!m_PlayerBomb.GetEnableState()) {
+        if (_playerBombHandler.IsBombInUse) {
             return;
         }
         if (!SystemManager.IsOnGamePlayState()) {
             return;
         }
-        Vector3 bomb_pos = new Vector3(transform.position.x, transform.position.y, Depth.PLAYER_MISSILE);
         PlayerInvincibility.SetInvincibility(4000);
-        m_PlayerBomb.UseBomb();
+        _playerBombHandler.UseBomb(transform.position);
         InGameDataManager.Instance.BombNumber--;
     }
     
@@ -175,35 +178,9 @@ public class PlayerController : MonoBehaviour
         _playerUnit.IsShooting = false;
         _playerUnit.IsAttacking = false;
         _playerShootHandler.AutoShot = 0;
-        m_PlayerLaserShooterManager.StopLaser();
+        _playerLaserHandler.StopLaser();
         
         if (!_playerUnit.m_IsPreviewObject)
             InGameDataManager.Instance.InitBombNumber();
-    }
-
-    public void PowerSet(int power) {/*
-        PlayerAttackLevel = Mathf.Clamp(power, 0, 4);
-        ResetLaser();
-        UpdateShotNumber();*/
-    }
-
-    public bool PowerUp() {/*
-        if (PlayerAttackLevel < 4) {
-            PlayerAttackLevel++;
-            ResetLaser();
-            UpdateShotNumber();
-            return true;
-        }
-
-        UpdateShotNumber();*/
-        return false;
-    }
-    
-    public void PowerDown() {/*
-        if (PlayerAttackLevel > 0) {
-            PlayerAttackLevel--;
-            ResetLaser();
-        }
-        UpdateShotNumber();*/
     }
 }

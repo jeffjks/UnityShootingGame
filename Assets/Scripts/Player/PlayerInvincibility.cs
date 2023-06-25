@@ -25,7 +25,7 @@ public class PlayerInvincibility : MonoBehaviour
     
     private static int _remainingFrame;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null) {
             Destroy(gameObject);

@@ -22,7 +22,7 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
             if (0 <= value && value < _attributesMaxNumber)
             {
                 _currentSelection = value;
-                OnSelection();
+                OnSelection(false);
                 return;
             }
             _currentSelection = Mathf.Clamp(value, 0, _attributesMaxNumber - 1);
@@ -40,12 +40,12 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
     private void OnEnable()
     {
         _currentSelection = PlayerManager.CurrentAttributes.GetAttributes(m_AttributesDetailsWindowDatas.AttributeType);
-        OnSelection();
+        OnSelection(true);
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        OnSelection();
+        OnSelection(true);
     }
 
     public void OnMove(AxisEventData axisEventData)
@@ -62,14 +62,14 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
         }
     }
 
-    private void OnSelection()
+    private void OnSelection(bool transition)
     {
         AttributeType attributeType = m_AttributesDetailsWindowDatas.AttributeType;
         DetailsWindowElement data = m_AttributesDetailsWindowDatas.DetailsWindowElements[CurrentSelection];
         string attributeName = _textContainer[GameSetting.m_Language];
         
         m_PreviewScreen.UpdateTempAttributes(attributeType, CurrentSelection);
-        m_SelectAttributesMenuHandler.SetAttributesDetailsInfo(data);
+        m_SelectAttributesMenuHandler.SetAttributesDetailsInfo(data, transition);
         m_SelectAttributesMenuHandler.UpdateTotalCost(attributeType, data.cost);
         m_SelectAttributesMenuHandler.SetAttributeName(attributeName);
     }

@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerPreview2 : PlayerPreviewManager
 {
     public PlayerDrone[] m_PlayerDrone = new PlayerDrone[4];
-    public PlayerLaserShooterManager m_PlayerLaserShooterManager;
+    public PlayerLaserHandler m_PlayerLaserHandler;
     public PlayerShootHandler m_PlayerShootHandler;
     public GameObject m_DronePart; // Shot Spawner
     
     private void Awake()
     {
-        m_PreviewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
+        _previewScreen = FindObjectOfType<PreviewScreen>();
+        _previewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
         
         m_DronePart.SetActive(false);
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
@@ -29,7 +30,7 @@ public class PlayerPreview2 : PlayerPreviewManager
         {
             drone.SetPreviewDrones();
         }
-        m_PlayerLaserShooterManager.LaserIndex = shipAttributes.GetAttributes(AttributeType.LaserIndex);
+        m_PlayerLaserHandler.LaserIndex = shipAttributes.GetAttributes(AttributeType.LaserIndex);
         m_PlayerShootHandler.ShotIndex = shipAttributes.GetAttributes(AttributeType.ShotIndex);
         m_PlayerShootHandler.ModuleIndex = shipAttributes.GetAttributes(AttributeType.ModuleIndex);
     }

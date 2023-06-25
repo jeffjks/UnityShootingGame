@@ -5,10 +5,10 @@ using UnityEngine;
 public class ItemPowerUp : ItemBox
 {
     protected override void ItemEffect(Collider2D other) {
-        PlayerController playerController = other.GetComponentInParent<PlayerController>();
-        if (playerController != null) {
+        PlayerUnit playerUnit = other.GetComponentInParent<PlayerUnit>();
+        if (playerUnit != null) {
             AudioService.PlaySound("ItemGet");
-            if (playerController.PowerUp())
+            if (playerUnit.PowerUp())
             {
                 InGameDataManager.Instance.DisplayTextEffect("POWER UP");
             }

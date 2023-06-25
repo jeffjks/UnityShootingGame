@@ -205,6 +205,7 @@ Sci-Fi Texture Pack
 
 <size=56><b>Effects</b></size>
 Effect textures and prefabs
+Ground crack
 Quality Explosion SpriteKit
 Shockwave Effects
 Waf FX

@@ -7,8 +7,6 @@ public class PlayerBombDamage : PlayerObject
     public int m_BombDuration;
     [SerializeField] private BoxCollider2D m_BoxCollider2D = null;
 
-    private PlayerDamageType m_PlayerDamageType = PlayerDamageType.Bomb;
-
     void Start()
     {
         m_BoxCollider2D.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
@@ -27,7 +25,7 @@ public class PlayerBombDamage : PlayerObject
     {
         if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-            DealDamage(enemyObject, m_Damage, m_PlayerDamageType);
+            DealDamage(enemyObject);
         }
     }
 

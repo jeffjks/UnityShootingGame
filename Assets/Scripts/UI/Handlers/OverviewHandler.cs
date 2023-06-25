@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OverviewFlow
 {
@@ -184,9 +185,9 @@ public class OverviewHandler : MonoBehaviour
         //m_OverviewPhase = 0;
     }
 
-    private void SkipOverviewPhase(bool isPressed)
+    private void SkipOverviewPhase(InputValue inputValue)
     {
-        if (!isPressed)
+        if (!inputValue.isPressed)
         {
             return;
         }

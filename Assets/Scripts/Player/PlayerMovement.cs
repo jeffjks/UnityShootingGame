@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 
-public class PlayerMovement : PlayerUnit
+public class PlayerMovement : MonoBehaviour
 {
-    public static bool IsControllable { get; set; }
-
+    public PlayerUnit m_PlayerUnit;
+    
     private const int MAX_PLAYER_CAMERA = (int) (Size.CAMERA_MOVE_LIMIT * 256);
     private float m_DefaultRotation;
     private int m_SpeedIntDefault, m_SpeedIntSlow, m_OverviewSpeed;
@@ -18,12 +18,20 @@ public class PlayerMovement : PlayerUnit
     private const int BOUNDARY_PLAYER_Y_MIN = -3789; // -14.8f
     private const int BOUNDARY_PLAYER_Y_MAX = -256; // -1f
 
+    private Vector2Int _positionInt2D;
+    public Vector2Int m_PositionInt2D
+    {
+        get => _positionInt2D;
+        set {
+            _positionInt2D = value;
+            transform.position = new Vector3((float) _positionInt2D.x / 256, (float) _positionInt2D.y / 256, Depth.PLAYER);
+        }
+    }
     public int MoveRawHorizontal { get; set; }
     public int MoveRawVertical { get; set; }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _playerCollisionDetector = GetComponent<PlayerCollisionDetector>();
 
         SystemManager.Action_OnBossClear += OnBossClear;
@@ -31,7 +39,7 @@ public class PlayerMovement : PlayerUnit
         SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnQuitInGame += OnRemove;
         
-        _playerCollisionDetector.Action_OnCollideWithEnemy += DealCollisionDamage;
+        _playerCollisionDetector.Action_OnCollideWithEnemy += m_PlayerUnit.DealCollisionDamage;
         _playerCollisionDetector.Action_OnDeath += KillPlayer;
         _playerCollisionDetector.Action_OnDeath += ResetPosition;
     }
@@ -39,9 +47,9 @@ public class PlayerMovement : PlayerUnit
     void Start()
     {
         m_DefaultRotation = transform.eulerAngles[0];
-        m_CurrentAngle = 180f;
-        m_MoveVector.direction = 180f;
-        transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward); // Vector3.forward
+        m_PlayerUnit.m_CurrentAngle = 180f;
+        m_PlayerUnit.m_MoveVector.direction = 180f;
+        transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.m_CurrentAngle, Vector3.forward); // Vector3.forward
 
         switch(PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)) {
             case 0:
@@ -56,18 +64,14 @@ public class PlayerMovement : PlayerUnit
                 m_SpeedIntDefault = 32; // 7.5f; * 256 / 60
                 m_SpeedIntSlow = 19; // 4.4f * 256;
                 break;
-            default:
-                break;
         }
         
         m_PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
-        
-        DontDestroyOnLoad(transform.parent);
     }
 
     void Update()
     {
-        if (IsControllable) {
+        if (PlayerUnit.IsControllable) {
             if (SystemManager.GameMode != GameMode.Replay) {
                 _moveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
                 _moveRawVertical = (int) Input.GetAxisRaw ("Vertical");
@@ -78,14 +82,14 @@ public class PlayerMovement : PlayerUnit
             return;
         
         Vector2Int movement_vector = new Vector2Int(_moveRawHorizontal, _moveRawVertical);
-        if (IsControllable) {
-            m_MoveVector = new MoveVector(movement_vector);
-            if (SlowMode) {
-                m_MoveVector.speed = m_SpeedIntSlow;
+        if (PlayerUnit.IsControllable) {
+            m_PlayerUnit.m_MoveVector = new MoveVector(movement_vector);
+            if (m_PlayerUnit.SlowMode) {
+                m_PlayerUnit.m_MoveVector.speed = m_SpeedIntSlow;
                 movement_vector *= m_SpeedIntSlow;
             }
             else {
-                m_MoveVector.speed = m_SpeedIntDefault;
+                m_PlayerUnit.m_MoveVector.speed = m_SpeedIntDefault;
                 movement_vector *= m_SpeedIntDefault;
             }
 
@@ -98,7 +102,7 @@ public class PlayerMovement : PlayerUnit
 
         OverviewPosition();
 
-        if (IsControllable) {
+        if (PlayerUnit.IsControllable) {
             m_PositionInt2D = new Vector2Int
             (
                 Mathf.Clamp(m_PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
@@ -109,12 +113,7 @@ public class PlayerMovement : PlayerUnit
 
     void OnEnable()
     {
-        SlowMode = false;
-    }
-
-    private void DealCollisionDamage(EnemyUnit enemyUnit)
-    {
-        DealDamage(enemyUnit, m_Damage);
+        m_PlayerUnit.SlowMode = false;
     }
 
     private void KillPlayer()
@@ -164,7 +163,7 @@ public class PlayerMovement : PlayerUnit
 
     private void OnStageClear()
     {
-        IsControllable = false;
+        PlayerUnit.IsControllable = false;
     }
 
     private void OnNextStage(bool hasNextStage)
@@ -175,7 +174,7 @@ public class PlayerMovement : PlayerUnit
             return;
         }
         m_PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
-        IsControllable = true;
+        PlayerUnit.IsControllable = true;
         PlayerInvincibility.SetInvincibility(3000);
     }
 }

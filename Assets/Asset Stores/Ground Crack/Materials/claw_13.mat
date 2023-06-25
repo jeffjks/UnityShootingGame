@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: claw_13
+  m_Shader: {fileID: 4800000, guid: 2598bfe77a6182d47ae5b3e2e264eb7c, type: 3}
+  m_ShaderKeywords: _SPECULARTOGGLE_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Cubmap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmiTex:
+        m_Texture: {fileID: 2800000, guid: a9ea73e2797a69a48ac47c8e2bd3fcfa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 52ca307c1b1e64e4581213cd06d4f5fd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: bb6a20b08653f3f4bb9399c254334c1d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _dissolve:
+        m_Texture: {fileID: 2800000, guid: 90b4616452714ae47bcdd719d84be0a4, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _mask:
+        m_Texture: {fileID: 2800000, guid: 9fa65f925e3382d4d92f0df7b7eebec3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CubemapMip: 3.66
+    - _CufOffSoft: 0.168
+    - _CutOffIntensity: 0
+    - _EmitInt: 0.64
+    - _EnvDiffInt: 1
+    - _EnvSpecInt: 1.39
+    - _FresnelPow: 10
+    - _NormalScale: 0.878
+    - _SpecPow: 26.57
+    - _Test: 1.12
+    - _Zwrite: 0
+    - _specularToggle: 1
+    m_Colors:
+    - _EmiCol: {r: 3.528999, g: 0.61678183, b: 0.116523616, a: 1}
+    - _EnvDownCol: {r: 0.3301887, g: 0.29918388, b: 0.26944643, a: 1}
+    - _EnvSideCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EnvUpCol: {r: 1, g: 0.8675617, b: 0.6556604, a: 1}
+    - _Light: {r: 0.44, g: 0.9, b: 0.26, a: 0}
+    - _MainCol: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

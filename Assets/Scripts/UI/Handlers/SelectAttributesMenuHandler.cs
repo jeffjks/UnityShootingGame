@@ -39,10 +39,10 @@ public class SelectAttributesMenuHandler : MenuHandler
         m_AttributesTypeText.SetText(typeName);
     }
 
-    public void SetAttributesDetailsInfo(DetailsWindowElement data)
+    public void SetAttributesDetailsInfo(DetailsWindowElement data, bool transition)
     {
         m_AttributesDetailsWindowController.SetWindow(data);
-        if (!CriticalStateSystem.InCriticalState)
+        if (!CriticalStateSystem.InCriticalState && transition)
             m_AttributesDetailsWindowController.PlayTransitionAnimation();
     }
 

@@ -4,25 +4,17 @@ using UnityEngine;
 
 public class PlayerLaserAura : PlayerObject
 {
-    private PlayerLaserManager m_PlayerLaser = null;
+    private PlayerLaser m_PlayerLaser = null;
     private PlayerUnit m_PlayerMovement = null;
     private int m_MinDamage, m_MaxDamage;
 
-    private int m_LaserDamage;
     private int m_ShotLevelBonus;
     private int m_LaserIndex;
-    private PlayerDamageType m_PlayerDamageType = PlayerDamageType.LaserAura;
-
-    void OnEnable() {
-        if (m_PlayerLaser != null)
-            m_LaserDamage = m_PlayerLaser.m_Damage;
-    }
-
-    void Start()
+    
+    private void Awake()
     {
-        m_PlayerLaser = GetComponentInParent<PlayerLaserManager>();
+        m_PlayerLaser = GetComponentInParent<PlayerLaser>();
         m_PlayerMovement = GetComponentInParent<PlayerUnit>();
-        m_LaserDamage = m_PlayerLaser.m_Damage;
     }
 
     void OnTriggerStay2D(Collider2D other) // 닿을 때
@@ -32,7 +24,7 @@ public class PlayerLaserAura : PlayerObject
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
                 if (Utility.CheckLayer(other.gameObject, Layer.LARGE)) { // 대형이면
-                    DealDamage(enemyObject, m_LaserDamage, m_PlayerDamageType); // 데미지 줌
+                    DealDamage(enemyObject); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
                     enemyObject.m_EnemyDeath.OnDying();

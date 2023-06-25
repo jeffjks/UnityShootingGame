@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public ReplayManager m_ReplayManager;
     
     public GameObject Player { get; private set; }
-    private PlayerShootHandler _playerShootHandler;
+    private PlayerUnit _playerUnit;
     
     public const float REVIVE_POSITION_Y = -13f;
 
@@ -57,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         else {
             Player = Instantiate(m_PlayerPrefab, new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER), Quaternion.identity);
         }
-        _playerShootHandler = Player.GetComponentInChildren<PlayerShootHandler>();
+        _playerUnit = Player.GetComponentInChildren<PlayerUnit>();
 
         if (SystemManager.GameMode == GameMode.Training) {
             int power;
@@ -82,7 +82,7 @@ public class PlayerManager : MonoBehaviour
                     power = 4;
                     break;
             }
-            _playerShootHandler.PlayerAttackLevel = power;
+            _playerUnit.PlayerAttackLevel = power;
         }
     }
 
@@ -93,10 +93,10 @@ public class PlayerManager : MonoBehaviour
         int item_num;
 
         if (InGameDataManager.Instance.TotalMiss == 0) {
-            item_num = Mathf.Min(_playerShootHandler.PlayerAttackLevel, 2);
+            item_num = Mathf.Min(_playerUnit.PlayerAttackLevel, 2);
         }
         else if (InGameDataManager.Instance.TotalMiss == 1) {
-            item_num = Mathf.Min(_playerShootHandler.PlayerAttackLevel, 1);
+            item_num = Mathf.Min(_playerUnit.PlayerAttackLevel, 1);
         }
         else {
             item_num = 0;
@@ -108,7 +108,7 @@ public class PlayerManager : MonoBehaviour
             Item m_Item = item.GetComponent<Item>();
             m_Item.InitPosition(dead_position);
         }
-        _playerShootHandler.PlayerAttackLevel -= item_num;
+        _playerUnit.PlayerAttackLevel -= item_num;
     }
     
     private IEnumerator RevivePlayer() {
@@ -124,7 +124,7 @@ public class PlayerManager : MonoBehaviour
         {
             return defaultVector;
         }
-        return Instance._playerShootHandler.transform.position;
+        return Instance._playerUnit.transform.position;
     }
 
     private void DestroyPlayerManager()

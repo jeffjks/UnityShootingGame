@@ -15,19 +15,9 @@ public class PlayerShootHandler : MonoBehaviour
 
     public PlayerDamageDatas m_PlayerShotData;
     public PlayerDamageDatas[] m_PlayerModuleDamageData;
-    
-    private const int MAX_PLAYER_ATTACK_LEVEL = 4;
-
-    private int _playerAttackLevel;
-    public int PlayerAttackLevel
-    {
-        get => _playerAttackLevel;
-        set => OnUpdatePlayerAttackLevel(value);
-    }
     public int AutoShot { get; set; }
 
     private const string PLAYER_SHOT = "PlayerShot";
-    protected int m_ShotDamage;
     
     private List<int> _currentModuleDelay = new();
     private PlayerModuleManager _playerModuleManager;
@@ -44,16 +34,13 @@ public class PlayerShootHandler : MonoBehaviour
 
     private int _shotIndex;
     private int _moduleIndex;
+    private int _shotAttackLevel;
 
-    public int ShotIndex
-    {
-        get => _shotIndex;
-        set => _shotIndex = value;
-    }
+    public int ShotIndex { private get; set; }
 
     public int ModuleIndex
     {
-        get => _moduleIndex;
+        private get => _moduleIndex;
         set
         {
             _moduleIndex = value;
@@ -65,13 +52,11 @@ public class PlayerShootHandler : MonoBehaviour
 
     private void Awake()
     {
+        _playerModuleManager = new PlayerModuleManager();
         ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex);
         ShotIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
-
-        if (m_PlayerUnit.m_IsPreviewObject)
-        {
-            PlayerAttackLevel = MAX_PLAYER_ATTACK_LEVEL;
-        }
+        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += value => _shotAttackLevel = value;
+        m_PlayerUnit.Action_OnControllableChanged += () => AutoShot = 0;
     }
     
     private void OnEnable()
@@ -86,14 +71,14 @@ public class PlayerShootHandler : MonoBehaviour
     private IEnumerator ModuleShot() {
         while(true) {
             if (_moduleIndex > 0 && m_PlayerUnit.IsAttacking) {
-                _currentModule.Shoot(this, m_PlayerModuleDamageData[_moduleIndex - 1], PlayerAttackLevel);
-                yield return new WaitForMillisecondFrames(_currentModuleDelay[PlayerAttackLevel]);
+                _currentModule.Shoot(this, m_PlayerModuleDamageData[_moduleIndex - 1], _shotAttackLevel);
+                yield return new WaitForMillisecondFrames(_currentModuleDelay[_shotAttackLevel]);
             }
             yield return new WaitForFrames(0);
         }
     }
 
-    public void FireShot()
+    public void StartShotCoroutine()
     {
         StartCoroutine(Shot());
     }
@@ -101,17 +86,15 @@ public class PlayerShootHandler : MonoBehaviour
     private IEnumerator Shot() {
         if (AutoShot > 0)
             AutoShot--;
-        var shotNumber = _shotNumbers[PlayerAttackLevel];
+        var shotNumber = _shotNumbers[_shotAttackLevel];
         for (int i = 0; i < shotNumber; i++) { // FIRE_RATE초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
-            if (m_ShotDamage == 0)
-                CreateShotNormal(PlayerAttackLevel);
-            else if (m_ShotDamage == 1)
-                CreateShotStrong(PlayerAttackLevel);
-            else if (m_ShotDamage == 2)
-                CreateShotVeryStrong(PlayerAttackLevel);
-            else {
-                m_ShotDamage = 0;
-            }
+            if (ShotIndex == 0)
+                CreateShotNormal(_shotAttackLevel);
+            else if (ShotIndex == 1)
+                CreateShotStrong(_shotAttackLevel);
+            else if (ShotIndex == 2)
+                CreateShotVeryStrong(_shotAttackLevel);
+            
             if (!m_PlayerUnit.m_IsPreviewObject)
                 AudioService.PlaySound("PlayerShot1");
             yield return new WaitForMillisecondFrames(FIRE_RATE);
@@ -123,6 +106,10 @@ public class PlayerShootHandler : MonoBehaviour
     }
 
     private void CheckNowShooting() { // m_PlayerUnit.IsAttacking : 현재 공격 중 (모듈 공격을 위한 변수)
+        if (m_PlayerUnit.m_IsPreviewObject)
+        {
+            return;
+        }
         if (AutoShot == 0) { // m_PlayerUnit.IsShooting : 현재 샷 중 (샷 딜레이를 위한 변수)
             if (!m_PlayerUnit.SlowMode && !m_PlayerUnit.IsShooting)
                 m_PlayerUnit.IsAttacking = false;
@@ -134,9 +121,9 @@ public class PlayerShootHandler : MonoBehaviour
         PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
         obj.transform.position = pos;
         playerWeapon.m_MoveVector.direction = dir;
-        playerWeapon.m_Damage = playerDamage.damageByLevel[damageLevel];
         obj.SetActive(true);
         playerWeapon.OnStart();
+        playerWeapon.DamageLevel = damageLevel;
     }
 
     protected void CreateShotNormal(int level) {
@@ -261,7 +248,7 @@ public class PlayerShootHandler : MonoBehaviour
 
     private void CreateRocket() {
         Vector3[] shotPosition = new Vector3[2];
-        byte damage_level = (byte) m_ShotLevelToType[PlayerAttackLevel];
+        byte damage_level = (byte) m_ShotLevelToType[_shotAttackLevel];
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
         CreatePlayerAttack(m_PlayerWeaponName[2], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f, damage_level);
@@ -270,7 +257,7 @@ public class PlayerShootHandler : MonoBehaviour
 
     private void CreateAddShot() {
         Vector3[] shotPosition = new Vector3[2];
-        byte damage_level = (byte) m_ShotLevelToType[PlayerAttackLevel];
+        byte damage_level = (byte) m_ShotLevelToType[_shotAttackLevel];
         float rot = m_PlayerBody.eulerAngles.y;
         shotPosition[0] = m_PlayerShotPosition[5].position;
         shotPosition[1] = m_PlayerShotPosition[6].position;
@@ -281,9 +268,9 @@ public class PlayerShootHandler : MonoBehaviour
     /*
     protected void UpdateShotNumber() {
         for (int i = 0; i < m_PlayerDrone.Length; i++)
-            m_PlayerDrone[i].SetShotLevel(PlayerAttackLevel);
+            m_PlayerDrone[i].SetShotLevel(_shotAttackLevel);
 
-        if (PlayerAttackLevel <= -1) {
+        if (_shotAttackLevel <= -1) {
             m_PlayerDrone[2].gameObject.SetActive(false);
             m_PlayerDrone[3].gameObject.SetActive(false);
         }
@@ -306,11 +293,5 @@ public class PlayerShootHandler : MonoBehaviour
         
         _currentModuleDelay = m_PlayerModuleDamageData[_moduleIndex - 1].cooldownByLevel;
         _playerModuleManager.ChangeModule(_currentModule);
-    }
-
-    private void OnUpdatePlayerAttackLevel(int level) {
-        _playerAttackLevel = Mathf.Clamp(level, 0, MAX_PLAYER_ATTACK_LEVEL);
-        //ResetLaser();
-        //UpdateShotNumber();
     }
 }

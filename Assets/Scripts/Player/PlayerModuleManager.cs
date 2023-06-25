@@ -75,7 +75,7 @@ public class PlayerModuleManager
 {
     PlayerModule m_PlayerModule;
 
-    PlayerModuleManager() {
+    public PlayerModuleManager() {
         m_PlayerModule = new PlayerModule();
         m_PlayerModule.SetModule(null);
     }

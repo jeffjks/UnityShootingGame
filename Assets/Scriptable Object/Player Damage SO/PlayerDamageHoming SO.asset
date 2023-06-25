@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e0f46cddd03b542a191bc0413a399e, type: 3}
   m_Name: PlayerDamageHoming SO
   m_EditorClassIdentifier: 
-  objectName: PlayerHomingMissile
   playerDamageType: 0
   damageScale:
-    smallEnemy: 100
-    largeEnemy: 75
+    zakoEnemy: 100
+    middleBossEnemy: 75
     bossEnemy: 50
   cooldownByLevel: 90010000770100005e010000450100002c010000
   damageByLevel: 0a0000000a0000000a0000000a0000000a000000

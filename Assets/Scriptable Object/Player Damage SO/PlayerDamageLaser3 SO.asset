@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDamageType: 1
   damageScale:
-    smallEnemy: 100
-    largeEnemy: 100
+    zakoEnemy: 100
+    middleBossEnemy: 100
     bossEnemy: 100
   cooldownByLevel: 0000000000000000000000000000000000000000
   damageByLevel: 1400000016000000190000001b0000001e000000

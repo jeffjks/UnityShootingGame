@@ -17,8 +17,8 @@ public class PlayerLaserRenderer : MonoBehaviour
     public ParticleSystem[] m_HitParticles;
 
     private BoxCollider2D m_Collider2D;
-    private PlayerLaserShooterManager m_LaserShooterManager;
-    private PlayerShootHandler m_PlayerController;
+    private PlayerLaserHandler m_LaserShooterManager;
+    private PlayerUnit _playerUnit;
     
     private LineRenderer m_LineRenderer;
     private Vector3 m_LaserHitBoxWidth;
@@ -33,12 +33,12 @@ public class PlayerLaserRenderer : MonoBehaviour
     void Awake ()
     {
         m_Collider2D = GetComponentInParent<BoxCollider2D>();
-        m_LaserShooterManager = GetComponentInParent<PlayerLaserShooterManager>();
-        m_PlayerController = GetComponentInParent<PlayerShootHandler>();
+        m_LaserShooterManager = GetComponentInParent<PlayerLaserHandler>();
+        _playerUnit = GetComponentInParent<PlayerUnit>();
 
         m_LineRenderer = GetComponent<LineRenderer>();
-        m_HitOffset = PlayerLaserShooterManager.HIT_OFFSET;
-        m_EndPointAlpha = PlayerLaserShooterManager.ENDPOINT_ALPHA;
+        m_HitOffset = PlayerLaserHandler.HIT_OFFSET;
+        m_EndPointAlpha = PlayerLaserHandler.ENDPOINT_ALPHA;
 
         if (m_StormParticles.Length > 0) {
             m_ParticleMainModule = m_StormParticles[0].main;
@@ -52,16 +52,16 @@ public class PlayerLaserRenderer : MonoBehaviour
         m_LineRenderer.SetPosition(0, transform.position);
         m_LineRenderer.SetPosition(1, transform.position);
 
-        float fire_local_scale = 1f + (float) m_PlayerController.PlayerAttackLevel*0.25f;
+        float fire_local_scale = 1f + (float) _playerUnit.PlayerAttackLevel*0.25f;
         m_FireEffect.transform.localScale = new Vector3(fire_local_scale, fire_local_scale, 1.5f);
 
-        float rush_local_scale = 1f + (float) m_PlayerController.PlayerAttackLevel*0.25f;
+        float rush_local_scale = 1f + (float) _playerUnit.PlayerAttackLevel*0.25f;
         m_RushEffect.transform.localScale = new Vector3(rush_local_scale, rush_local_scale, rush_local_scale);
 
-        float hit_local_scale = 1f + (float) m_PlayerController.PlayerAttackLevel*0.25f;
+        float hit_local_scale = 1f + (float) _playerUnit.PlayerAttackLevel*0.25f;
         m_HitEffect.transform.localScale = new Vector3(hit_local_scale, hit_local_scale, hit_local_scale);
 
-        float laser_width = 1f + (float) m_PlayerController.PlayerAttackLevel*0.5f;
+        float laser_width = 1f + (float) _playerUnit.PlayerAttackLevel*0.5f;
         m_LineRenderer.startWidth = laser_width;
         m_LineRenderer.endWidth = laser_width;
         float hitbox_width = laser_width*0.9f; // 레이저 히트박스 크기 (Raycast도 자동 조절)

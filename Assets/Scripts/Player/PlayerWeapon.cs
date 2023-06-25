@@ -4,18 +4,18 @@ using UnityEngine;
 
 public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
 {
-    [SerializeField] private int[] m_DamageBonus = {0, 0, 0};
-    [SerializeField] protected float m_Speed = 0;
-    [SerializeField] private bool m_IsPenetrate = false;
-    [SerializeField] private GameObject[] m_ActivatedObject = null;
+    [SerializeField] protected float m_Speed;
+    [SerializeField] private bool m_IsPenetrate;
+    [SerializeField] private GameObject[] m_ActivatedObject;
     [Header("-1 : None / 0 : Shot(fire) / 1 : Homing(purple) / 2 : Rocket(metal)")]
-    [SerializeField] private int m_HitEffectNumber = -1;
+    [SerializeField] private int m_HitEffectNumber = -1; // TODO. Enum화
 
-    [HideInInspector] public int m_DamageLevel;
+    private int _currentForm;
     
-    protected bool m_HasDamaged = false;
+    private bool _appliedDamage;
     
     public virtual void OnStart() {
+        /*
         try {
             m_Damage = m_DefaultDamage + m_DamageBonus[m_DamageLevel];
         }
@@ -27,8 +27,20 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
         }
         if (m_ActivatedObject.Length > 0) {
             m_ActivatedObject[m_DamageLevel].SetActive(true);
+        }*/
+        _appliedDamage = false;
+    }
+
+    protected override void OnDamageLevelChanged()
+    {
+        base.OnDamageLevelChanged();
+        if (m_ActivatedObject.Length == 0)
+        {
+            return;
         }
-        m_HasDamaged = false;
+        m_ActivatedObject[_currentForm].SetActive(false);
+        _currentForm = _damageLevel * (m_ActivatedObject.Length - 1) / _maxDamageLevel;
+        m_ActivatedObject[_currentForm].SetActive(true);
     }
 
     public void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
@@ -37,7 +49,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!m_HasDamaged) {
+        if (!_appliedDamage) {
             if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 유닛이고
             
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
@@ -47,15 +59,15 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
                     }
                 }
                 else { // 그 이외의 경우에는
-                    DealDamage(enemyObject, m_Damage); // 데미지 주고
-                    m_HasDamaged = true;
-                    PlayHitAnimation(); // 자신 파괴
+                    DealDamage(enemyObject); // 데미지 주고
+                    _appliedDamage = true;
+                    OnDeath(); // 자신 파괴
                 }
             }
         }
     }
 
-    private void PlayHitAnimation() {
+    private void OnDeath() {
         if (m_HitEffectNumber != -1) {
             GameObject obj = PoolingManager.PopFromPool("PlayerHitEffect", PoolingParent.Explosion); // 히트 이펙트
             HitEffect hitEffect = obj.GetComponent<HitEffect>();
@@ -68,6 +80,10 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
     }
 
     public void ReturnToPool() {
+        if (m_ActivatedObject.Length > 0)
+        {
+            m_ActivatedObject[_currentForm].SetActive(false);
+        }
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.PlayerMissile);
     }
 

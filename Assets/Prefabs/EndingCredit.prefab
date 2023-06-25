@@ -30,6 +30,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6082484739395593787}
   m_RootOrder: 2
@@ -56,17 +57,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1959548674935226974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
   m_Color: {r: 0.8396226, g: 0.18614274, b: 0.18614274, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
     m_FontSize: 56
@@ -90,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1959548674935226974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -108,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552ef10e82afe8c409ae8751174c4a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Text: {fileID: 2730510306067962431}
+  m_Text: {fileID: 0}
   m_DisplayTime: 7
 --- !u!1 &6082484737872741715
 GameObject:
@@ -139,6 +140,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6082484739395593787}
   m_RootOrder: 1
@@ -165,17 +167,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6082484737872741715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
   m_Color: {r: 0.3254902, g: 0.8666667, b: 0.9137255, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
     m_FontSize: 48
@@ -199,7 +201,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6082484737872741715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -235,6 +237,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6082484739395593787}
   m_RootOrder: 0
@@ -261,17 +264,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6082484739083451319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6a61334f314cff643992dd6e8966dd04, type: 3}
   m_Color: {r: 0.3254902, g: 0.8666667, b: 0.9137255, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4507f9671f1c79f46aa3201ee5c7cc49, type: 3}
     m_FontSize: 48
@@ -295,7 +298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6082484739083451319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -312,9 +315,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -326,6 +332,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -338,6 +345,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6082484739395593780
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +375,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6082484739083451318}
   - {fileID: 6082484737872741714}
@@ -413,10 +422,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RegisterRecordMenu: {fileID: 0}
+  m_SpriteRenderer: {fileID: 0}
   m_EndingScroll:
   - {fileID: 6082484739083451323}
   - {fileID: 6082484737872741716}
-  m_AudioEnding: {fileID: 4703350099431108974}
   m_Date: 2020/07/10
   m_EndingText:
   - "<size=56><b>Producer</b></size>\r\n\uAC15\uB0AD\uB545\uCF69 (Bean Peanut)\r\njeff_jks@naver.com\r\nhttps://blog.naver.com/jeff_jks\r\n\r\nMade
@@ -424,36 +433,37 @@ MonoBehaviour:
     Turret\r\nChainlink Fences\r\nEnergyShieldEffect\r\nFuturistic Aircrafts\r\nFree
     SF Fighter\r\nHyper Falcon Modular Spaceship\r\nLow poly combat drone\r\nMilitary
     Helicopter\r\nModular Space Platform Kit\r\nPBR RPG/FPS Game Assets (Industrial
-    Set v1.0)\r\nPowerup Crate\r\nRock and Boulders 2\r\nRPG/FPS Game Assets for PCbile
-    (Industrial Set v2.0)\r\nScifi RTS Series Mega Pack I\r\nScifi RTS Series Mega
-    Pack II\r\nSimple Gems Ultimate Animated Customizable Pack\r\nSimple Sci-Fi Turret\r\nSpaceship+Fighter+Set
-    of...+\r\nSpace Missiles\r\nSpaceships Fleet III Mega Pack I\r\nUXR Tetrahedron
-    (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>Images / Textures</b></size>\r\n50+
-    Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nhttps://www.freepik.com/\nSci Fi
-    UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
+    Set v1.0)\r\nPowerup Crate\r\nRock and Boulders 2\r\nRPG/FPS Game Assets for
+    PCbile (Industrial Set v2.0)\r\nScifi RTS Series Mega Pack I\r\nScifi RTS Series
+    Mega Pack II\r\nSimple Gems Ultimate Animated Customizable Pack\r\nSimple Sci-Fi
+    Turret\r\nSpaceship+Fighter+Set of...+\r\nSpace Missiles\r\nSpaceships Fleet
+    III Mega Pack I\r\nUXR Tetrahedron (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>Images
+    / Textures</b></size>\r\n50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nhttps://www.freepik.com/\nSci
+    Fi UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
     textures and prefabs\r\nQuality Explosion SpriteKit\r\nShockwave Effects\r\nWaf
-    FX\r\n\r\n<size=56><b>Sounds / Musics</b></size>\r\nCAVE Interactive CO. LTD (Ketsui
-    Arrange)\r\nFantasy Menu SFX\r\n\r\n<size=56><b>Terrains</b></size>\r\nCity Highways
-    Construction Kit\r\nCity Street Props\r\nGrass And Flowers Pack 1\r\nLowPoly Trees
-    and Rocks\nRace Tracks\r\nSeamless Textures\r\nStandard Asset\r\nWindridge City\r\nWorld
-    Space Trees (FREE)\r\n\r\n<size=56><b>Other</b></size>\r\nAsset Usage Detector\r\nAuto
-    Letterbox\r\nDOTween\r\n\r\n\r\n\n\n\n\n\n\r\n<size=56><b>Dead Planet 2</b></size>\r"
+    FX\r\n\r\n<size=56><b>Sounds / Musics</b></size>\r\nCAVE Interactive CO. LTD
+    (Ketsui Arrange)\r\nFantasy Menu SFX\r\n\r\n<size=56><b>Terrains</b></size>\r\nCity
+    Highways Construction Kit\r\nCity Street Props\r\nGrass And Flowers Pack 1\r\nLowPoly
+    Trees and Rocks\nRace Tracks\r\nSeamless Textures\r\nStandard Asset\r\nWindridge
+    City\r\nWorld Space Trees (FREE)\r\n\r\n<size=56><b>Other</b></size>\r\nAsset
+    Usage Detector\r\nAuto Letterbox\r\nDOTween\r\n\r\n\r\n\n\n\n\n\n\r\n<size=56><b>Dead
+    Planet 2</b></size>\r"
   - "<size=56><b>\uC81C\uC791</b></size>\r\n\uAC15\uB0AD\uB545\uCF69 (Bean Peanut)\r\njeff_jks@naver.com\r\nhttps://blog.naver.com/jeff_jks\r\n\r\nMade
     with Unity 2019.1.8f1\r\n\r\n\r\n\r\n<size=56><b>\uC0AC\uC6A9\uD55C \uC5D0\uC14B
     (\uC720\uB2C8\uD2F0 \uC5D0\uC14B \uC2A4\uD1A0\uC5B4)</b></size>\r\n\r\n<size=56><b>\uBAA8\uB378\uB9C1</b></size>\r\nBallistic
     Turret\r\nChainlink Fences\r\nEnergyShieldEffect\r\nFuturistic Aircrafts\r\nFree
     SF Fighter\r\nHyper Falcon Modular Spaceship\r\nLow poly combat drone\r\nMilitary
     Helicopter\r\nModular Space Platform Kit\r\nPBR RPG/FPS Game Assets (Industrial
-    Set v1.0)\r\nPowerup Crate\r\nRock and Boulders 2\r\nRPG/FPS Game Assets for PCbile
-    (Industrial Set v2.0)\r\nScifi RTS Series Mega Pack I\r\nScifi RTS Series Mega
-    Pack II\r\nSimple Gems Ultimate Animated Customizable Pack\r\nSimple Sci-Fi Turret\r\nSpaceship+Fighter+Set
-    of...+\r\nSpace Missiles\r\nSpaceships Fleet III Mega Pack I\r\nUXR Tetrahedron
-    (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>\uC774\uBBF8\uC9C0 / \uD14D\uC2A4\uCCD0</b></size>\r\n50+
-    Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nhttps://www.freepik.com/\nSci Fi
-    UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
-    textures and prefabs\r\nQuality Explosion SpriteKit\r\nShockwave Effects\r\nWaf
-    FX\r\n\r\n<size=56><b>\uD6A8\uACFC\uC74C / \uC74C\uC545</b></size>\r\nCAVE Interactive
-    CO. LTD (Ketsui Arrange)\r\nFantasy Menu SFX\r\n\r\n<size=56><b>\uC9C0\uD615</b></size>\r\nCity
+    Set v1.0)\r\nPowerup Crate\r\nRock and Boulders 2\r\nRPG/FPS Game Assets for
+    PCbile (Industrial Set v2.0)\r\nScifi RTS Series Mega Pack I\r\nScifi RTS Series
+    Mega Pack II\r\nSimple Gems Ultimate Animated Customizable Pack\r\nSimple Sci-Fi
+    Turret\r\nSpaceship+Fighter+Set of...+\r\nSpace Missiles\r\nSpaceships Fleet
+    III Mega Pack I\r\nUXR Tetrahedron (by ENEA LE FONS, Sketchfab)\r\n\r\n<size=56><b>\uC774\uBBF8\uC9C0
+    / \uD14D\uC2A4\uCCD0</b></size>\r\n50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS\r\nhttps://www.freepik.com/\nSci
+    Fi UI Pack\r\nSci-Fi Skill Icon Pack\r\nSci-Fi Texture Pack\r\n\r\n<size=56><b>Effects</b></size>\r\nEffect
+    textures and prefabs\r\r\nGround crack\nQuality Explosion SpriteKit\r\nShockwave
+    Effects\r\nWaf FX\r\n\r\n<size=56><b>\uD6A8\uACFC\uC74C / \uC74C\uC545</b></size>\r\nCAVE
+    Interactive CO. LTD (Ketsui Arrange)\r\nFantasy Menu SFX\r\n\r\n<size=56><b>\uC9C0\uD615</b></size>\r\nCity
     Highways Construction Kit\r\nCity Street Props\r\nGrass And Flowers Pack 1\r\nLowPoly
     Trees and Rocks\nRace Tracks\r\nSeamless Textures\r\nStandard Asset\r\nWindridge
     City\r\nWorld Space Trees (FREE)\r\n\r\n<size=56><b>\uAE30\uD0C0</b></size>\r\nAsset

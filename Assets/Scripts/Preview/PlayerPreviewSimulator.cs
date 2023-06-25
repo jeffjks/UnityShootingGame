@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class PlayerPreviewSimulator : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
-    public PlayerLaserShooterManager m_PlayerLaserShooterManager;
+    public PlayerLaserHandler m_PlayerLaserHandler;
     
     private PlayerShootHandler _playerShootHandler;
     private bool _shotMode;
@@ -44,20 +44,20 @@ public class PlayerPreviewSimulator : MonoBehaviour
     private void SetShotMode()
     {
         m_PlayerUnit.SlowMode = false;
-        m_PlayerLaserShooterManager.StopLaser();
+        m_PlayerLaserHandler.StopLaser();
     }
 
     private void SetLaserMode()
     {
         m_PlayerUnit.SlowMode = true;
-        m_PlayerLaserShooterManager.StartLaser();
+        m_PlayerLaserHandler.StartLaser();
     }
 
     private void SimulateShotMode()
     {
         if (_shotMode && !m_PlayerUnit.IsShooting)
         {
-            _playerShootHandler.FireShot();
+            _playerShootHandler.StartShotCoroutine();
             m_PlayerUnit.IsShooting = true;
         }
     }

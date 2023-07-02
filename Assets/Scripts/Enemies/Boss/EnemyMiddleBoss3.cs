@@ -60,6 +60,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         StartCoroutine(m_CurrentPhase);
 
         EnableInteractableAll();
+
+        SystemManager.OnMiddleBossStart();
     }
 
     protected override void Update()
@@ -330,7 +332,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.MiddleBossClear();
+        SystemManager.OnMiddleBossClear();
     }
 
     public void OnBossDeath() {

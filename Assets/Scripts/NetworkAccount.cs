@@ -12,12 +12,11 @@ public class NetworkAccount : MonoBehaviour
     {
         InitServer();
         
-        if (!m_LoginPanel.activeInHierarchy) {
+        if (!DebugOption.NetworkAvailable) {
             SceneManager.LoadScene("MainMenu");
-            return;
         }
 
-        //m_LoginPanel.SetActive(true);
+        m_LoginPanel.SetActive(true);
     }
 
     public void InitServer() {

@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 public class ExplosionJsonManager : MonoBehaviour
 {
-    private string[] m_PoolingString;
-    private Dictionary<string, List<ExplosionData>> m_ExplosionJsonData;
+    private string[] _poolingString;
+    private Dictionary<string, List<ExplosionData>> _explosionJsonData;
 
-    public static ExplosionJsonManager instance_jm = null;
+    public static ExplosionJsonManager Instance { get; private set; }
 
     private void Start()
     {
-        if (instance_jm != null) {
+        if (Instance != null) {
             Destroy(gameObject);
             return;
         }
-        instance_jm = this;
+        Instance = this;
         
         InitExplosionEffectString();
 
@@ -27,12 +27,12 @@ public class ExplosionJsonManager : MonoBehaviour
 
     private void OnEnable()
     {
-        OpenJsonFile();
+        _explosionJsonData = Utility.LoadDataFile<Dictionary<string, List<ExplosionData>>>(Application.dataPath, "resources1").jsonData;
     }
 
     private void InitExplosionEffectString()
     {
-        m_PoolingString = new[] {
+        _poolingString = new[] {
             "ExplosionGround_1",
             "ExplosionGround_2",
             "ExplosionGround_3",
@@ -47,22 +47,7 @@ public class ExplosionJsonManager : MonoBehaviour
     }
 
     private string GetPoolingString(ExplType ExplType) {
-        return m_PoolingString[(int) ExplType];
-    }
-
-
-    private void OpenJsonFile() {
-        m_ExplosionJsonData = LoadJsonFile<Dictionary<string, List<ExplosionData>>>(Application.dataPath, "resources1");
-    }
-    
-    private T LoadJsonFile<T>(string filePath, string fileName) {
-        FileStream fileStream = new FileStream($"{filePath}/{fileName}.dat", FileMode.Open);
-        byte[] data = new byte[fileStream.Length];
-        fileStream.Read(data, 0, data.Length);
-        fileStream.Close();
-        string encryptedStr = Encoding.UTF8.GetString(data);
-        string jsonData = AESEncrypter.AESDecrypt128(encryptedStr);
-        return JsonConvert.DeserializeObject<T>(jsonData);
+        return _poolingString[(int) ExplType];
     }
 
 
@@ -72,9 +57,9 @@ public class ExplosionJsonManager : MonoBehaviour
     }
 
     private IEnumerator ExplosionEffectSequence(string enemyKey, EnemyDeath enemyDeath) {
-        List<ExplosionData> list = new List<ExplosionData>();
+        List<ExplosionData> list = new ();
         try {
-            list = m_ExplosionJsonData[enemyKey];
+            list = _explosionJsonData[enemyKey];
         }
         catch (System.Exception e) {
             Debug.Log(e);
@@ -91,7 +76,7 @@ public class ExplosionJsonManager : MonoBehaviour
                 CreateExplosionEffect(enemyDeath, value.effect);
             }
             else {
-                StartCoroutine(CreateExplosionSequnce(enemyDeath, value.effect, value.coroutine));
+                StartCoroutine(CreateExplosionSequence(enemyDeath, value.effect, value.coroutine));
             }
             if (value.waitAfter > 0) {
                 yield return new WaitForMillisecondFrames(value.waitAfter);
@@ -138,10 +123,9 @@ public class ExplosionJsonManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CreateExplosionSequnce(EnemyDeath enemyDeath, Effect effect, Coroutine coroutine) {
+    private IEnumerator CreateExplosionSequence(EnemyDeath enemyDeath, Effect effect, Coroutine coroutine) {
         int duration = coroutine.duration;
         int timer = 0;
-        int timer_add = Random.Range(coroutine.timer_add[0], coroutine.timer_add[1]);
         int number = coroutine.number;
 
         while (timer < duration || duration == -1) {
@@ -151,6 +135,7 @@ public class ExplosionJsonManager : MonoBehaviour
             for (int i = 0; i < number; ++i) {
                 CreateExplosionEffect(enemyDeath, effect, i);
             }
+            var timer_add = Random.Range(coroutine.timer_add[0], coroutine.timer_add[1]);
             timer += timer_add;
             yield return new WaitForMillisecondFrames(timer_add);
         }

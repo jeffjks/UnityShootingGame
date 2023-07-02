@@ -328,10 +328,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 400
-  m_DefaultExplosion: 2
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 1
   m_FirePosition:
   - {fileID: 1125923927610817067}
   - {fileID: 4818967407035481534}

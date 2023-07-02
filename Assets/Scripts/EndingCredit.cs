@@ -1,84 +1,89 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
+using UnityEngine.InputSystem;
 
 public class EndingCredit : MonoBehaviour
 {
-    public GameObject m_RegisterRecordMenu;
-    public SpriteRenderer m_SpriteRenderer;
-    public Text[] m_EndingScroll = new Text[2];
-    [Space(10)]
-    public string m_Date;
-    [TextArea(10, 100)]
-    public string[] m_EndingText = new string[2];
+    public MenuHandler m_RegisterLocalRankingMenuHandler;
+    public TextMeshProUGUI m_CreditText;
+    public RectTransform m_ParentRectTransform;
 
-    private float m_ScrollSpeed, m_DefaultScrollSpeed = 0.8f;
-    private int m_Language;
-    private float m_Scale;
+    private Dictionary<Language, string> _creditJsonData = new();
+
+    private const float DEFAULT_SCROLL_SPEED = 0.8f;
+    private const float FAST_SCROLL_SPEED = 6.4f;
+    private float _currentScrollSpeed;
     private bool m_Quitting = false;
-    
-    private GameManager m_GameManager = null;
+    private bool _isFirePress;
+    private IngameInputController _inGameInputController;
 
-    void Start()
+    private void Awake()
     {
-        //m_SystemManager = SystemManager.instance_sm;
-        m_GameManager = GameManager.instance_gm;
-        //transform.position = new Vector3(transform.position.x, transform.position.y, Depth.CAMERA);
-        //m_SystemManager.SetCurrentStage(5);
-        //m_SystemManager.m_PlayState = 3;
-
-        for (int i = 0; i < m_EndingScroll.Length; i++) {
-            m_EndingScroll[i].text = m_EndingText[i] + "\nver " + Application.version + "\n" + m_Date;
-        }
-
-        m_Language = (int) GameSetting.m_Language;
+        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.dataPath, "resources1").jsonData;
+        m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
         
+        _inGameInputController = IngameInputController.Instance;
+        _inGameInputController.Action_OnFireInput += OnFireInvoked;
+        _inGameInputController.Action_OnBombInput += QuitEndingCredit;
+        _inGameInputController.Action_OnEscape += QuitEndingCredit;
+    }
+
+    private void OnEnable()
+    {
         AudioService.LoadMusics("Main");
         AudioService.PlayMusic("Ending");
-        
-        m_Scale = m_EndingScroll[m_Language].rectTransform.localScale.x;
-        m_EndingScroll[m_Language].gameObject.SetActive(true);
-        m_ScrollSpeed = m_DefaultScrollSpeed;
     }
-    
-    void Update ()
+
+    private void OnFireInvoked(InputValue inputValue)
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (!m_Quitting)
-                StartCoroutine(QuitEnding());
-        }
-        
-        if (m_EndingScroll[m_Language].rectTransform.anchoredPosition.y < Size.MAIN_CAMERA_HEIGHT*0.5f + m_EndingScroll[m_Language].preferredHeight*m_Scale) {
-            if (Input.GetButton("Fire1")) {
-                m_ScrollSpeed = m_DefaultScrollSpeed*8f;
-            }
-            else {
-                m_ScrollSpeed = m_DefaultScrollSpeed;
-            }
-        }
-        else {
-            m_ScrollSpeed = 0f;
-            if (!m_Quitting)
-                StartCoroutine(QuitEnding());
-        }
-        
-        Vector3 pos = m_EndingScroll[m_Language].rectTransform.anchoredPosition;
-        m_EndingScroll[m_Language].rectTransform.anchoredPosition = new Vector3(pos.x, pos.y + m_ScrollSpeed*Time.deltaTime, pos.z);
+        _isFirePress = inputValue.isPressed;
     }
 
-    private IEnumerator QuitEnding() {
-        m_Quitting = true;
-        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
-        Debug.Log("Quitting");
+    private void Update ()
+    {
+        if (transform.localPosition.y >= m_CreditText.flexibleHeight + m_ParentRectTransform.rect.height / 2)
+        {
+            _currentScrollSpeed = 0f;
+            QuitEndingCredit(3f);
+            return;
+        }
+        
+        _currentScrollSpeed = _isFirePress ? FAST_SCROLL_SPEED : DEFAULT_SCROLL_SPEED;
 
-        m_SpriteRenderer.DOFade(1f, 2f);
+        Vector3 newLocalPos = transform.localPosition;
+        newLocalPos.y += _currentScrollSpeed*Time.deltaTime;
+        transform.localPosition = newLocalPos;
+    }
+
+    private void QuitEndingCredit()
+    {
+        QuitEndingCredit(0f);
+    }
+
+    private void QuitEndingCredit(float delay)
+    {
+        if (m_Quitting)
+            return;
+        m_Quitting = true;
+        StartCoroutine(QuitEnding(delay));
+    }
+
+    private IEnumerator QuitEnding(float delay) {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Quitting");
+        
+        FadeScreenService.ScreenFadeOut(2f);
         AudioService.FadeOutMusic(2f);
         yield return new WaitForSeconds(3f);
         
-        m_SpriteRenderer.color = new Color(0f, 0f, 0f, 0f);
+        FadeScreenService.ScreenFadeIn(0f);
         AudioService.StopMusic();
-        m_RegisterRecordMenu.SetActive(true);
+        m_RegisterLocalRankingMenuHandler.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 }

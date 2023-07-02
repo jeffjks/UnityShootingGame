@@ -12,7 +12,7 @@ public class PlayerPreview2 : PlayerPreviewManager
     private void Awake()
     {
         _previewScreen = FindObjectOfType<PreviewScreen>();
-        _previewScreen.Action_OnChangedTempAttributes += SetPreviewDesign;
+        _previewScreen.Action_OnTempAttributesChanged += SetPreviewDesign;
         
         m_DronePart.SetActive(false);
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();

@@ -8,18 +8,13 @@ public class PlayerLaserHandler : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
     public PlayerLaser m_PlayerLaser;
-    public GameObject[] m_LaserObjects = new GameObject[3];
+    public PlayerLaserRenderer[] m_LaserRenderers;
     public PlayerDamageDatas[] m_PlayerDamageData;
-    public PlayerLaserFireLight m_LaserFireLight;
-
-    public const float HIT_OFFSET = 0.01f;
-    public const float ENDPOINT_ALPHA = 0.2f;
-    
-    private const float LASER_SPEED = 30f;
-
-    public float MaxLaserLength { get; private set; }
+    public PlayerLaserFireLight m_PlayerLaserFireLight;
     
     private int _laserIndex;
+    //private int _laserAttackLevel;
+    
     public int LaserIndex {
         get => _laserIndex;
         set
@@ -28,75 +23,55 @@ public class PlayerLaserHandler : MonoBehaviour
             SetLaserIndex();
         }
     }
+
+    public event Action Action_OnStartLaser;
+    public event Action Action_OnStopLaser;
     
-    private PlayerLaserRenderer _playerLaserRenderer;
-    private GameObject _laserInstance; // Laser Object
+    private GameObject _currentLaserInstance; // Laser Object
 
     private void Start()
     {
         LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
+        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => m_PlayerLaser.DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += RestartLaser;
         m_PlayerUnit.Action_OnControllableChanged += StopLaser;
     }
     
     private void SetLaserIndex() {
         StopLaser();
         
-        _laserInstance = m_LaserObjects[LaserIndex];
+        _currentLaserInstance = m_LaserRenderers[LaserIndex].gameObject;
         m_PlayerLaser.SetPlayerDamageData(m_PlayerDamageData[LaserIndex]);
-        m_LaserFireLight.SetLightColor(LaserIndex);
+        m_PlayerLaserFireLight.SetLightColor(LaserIndex);
+        m_PlayerLaser.DamageLevel = m_PlayerUnit.PlayerAttackLevel;
 
-        _laserInstance.SetActive(true);
-        _playerLaserRenderer = _laserInstance.GetComponent<PlayerLaserRenderer>();
-        _laserInstance.SetActive(false);
+        _currentLaserInstance.SetActive(true);
+        _currentLaserInstance.SetActive(false);
 
         if (m_PlayerUnit.SlowMode)
             StartLaser();
     }
 
     public void StartLaser() {
-        UpdateLaser();
-        //if (transform.root.gameObject.activeInHierarchy)
+        _currentLaserInstance.SetActive(true);
+        m_PlayerLaserFireLight.gameObject.SetActive(true);
+        Action_OnStartLaser?.Invoke();
+        
         if (!m_PlayerUnit.m_IsPreviewObject)
-            AudioService.PlaySound("PlayerLaser");
+            AudioService.PlaySound("PlayerLaser", true);
     }
 
     public void StopLaser() {
-        if (_playerLaserRenderer != null) {
-            _laserInstance.SetActive(false);
-            m_LaserFireLight.gameObject.SetActive(false);
-            _playerLaserRenderer.DisablePrepare();
-        }
-        MaxLaserLength = 0f;
+        if (_currentLaserInstance != null)
+            _currentLaserInstance.SetActive(false);
+        m_PlayerLaserFireLight.gameObject.SetActive(false);
+        Action_OnStopLaser?.Invoke();
+
         if (!m_PlayerUnit.m_IsPreviewObject)
             AudioService.StopSound("PlayerLaser");
     }
 
-    private void UpdateLaser() {
-        _laserInstance.SetActive(true);
-        m_LaserFireLight.gameObject.SetActive(true);
-        //_playerLaserRenderer.MaxLaserLength = MaxLaserLength;
-        // _playerLaserRenderer.InitLaser();
-    }
-
-    private void Update()
-    {
-        if (Time.timeScale == 0)
-            return;
-        
-        if (m_PlayerUnit.SlowMode) {
-            MaxLaserLength += LASER_SPEED / Application.targetFrameRate * Time.timeScale;
-        }
-        else {
-            MaxLaserLength = 0f;
-        }
-
-        var maxClampLength = m_PlayerUnit.m_IsPreviewObject ? 4f : -transform.position.y;
-        MaxLaserLength = Mathf.Clamp(MaxLaserLength, 0f, maxClampLength);
-        //if (_playerLaserRenderer != null)
-        //    _playerLaserRenderer.MaxLaserLength = MaxLaserLength;
-    }
-
-    public void RestartLaser() {
+    private void RestartLaser() {
         if (m_PlayerUnit.SlowMode) {
             StopLaser();
             StartLaser();

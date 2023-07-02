@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
         
         m_ReplayManager.Init();
 
-        SystemManager.Action_OnQuitInGame += DestroyPlayerManager;
+        SystemManager.Action_OnQuitInGame += DestroySelf;
         Action_OnStartStartNewGame?.Invoke();
         
         BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
@@ -106,7 +106,6 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < item_num; i++) { // item_num 만큼 파워업 아이템 드랍
             GameObject item = Instantiate(m_ItemPowerUp, item_pos, Quaternion.identity);
             Item m_Item = item.GetComponent<Item>();
-            m_Item.InitPosition(dead_position);
         }
         _playerUnit.PlayerAttackLevel -= item_num;
     }
@@ -127,8 +126,9 @@ public class PlayerManager : MonoBehaviour
         return Instance._playerUnit.transform.position;
     }
 
-    private void DestroyPlayerManager()
+    private void DestroySelf()
     {
+        Instance = null;
         IsPlayerAlive = false;
         Destroy(gameObject);
     }

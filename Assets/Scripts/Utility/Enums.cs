@@ -84,7 +84,15 @@ public enum DebrisType
     Small,
     Medium,
     Large
-};
+}
+
+public enum HitEffectType
+{
+    None = -1,
+    Flame,
+    Purple,
+    Metal
+}
 
 public enum PlayerDamageType
 {

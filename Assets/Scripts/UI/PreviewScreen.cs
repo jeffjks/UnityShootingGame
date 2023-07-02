@@ -9,7 +9,7 @@ public class PreviewScreen : MonoBehaviour
     
     private ShipAttributes _tempAttributes;
 
-    public event Action<ShipAttributes> Action_OnChangedTempAttributes;
+    public event Action<ShipAttributes> Action_OnTempAttributesChanged;
     
     private void OnEnable()
     {
@@ -27,6 +27,6 @@ public class PreviewScreen : MonoBehaviour
     public void UpdateTempAttributes(AttributeType attributeType, int selection)
     {
         _tempAttributes.SetAttributes(attributeType, selection);
-        Action_OnChangedTempAttributes?.Invoke(_tempAttributes);
+        Action_OnTempAttributesChanged?.Invoke(_tempAttributes);
     }
 }

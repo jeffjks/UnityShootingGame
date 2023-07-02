@@ -726,16 +726,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0bc231e5e01e14bbd6f1fa8acf5439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1200
-  m_DefaultExplosion: 5
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 04000000
-  m_AudioClip: []
+  m_IsRoot: 1
   m_FirePosition:
   - {fileID: 9181704700929114736}
   - {fileID: 1447721513138851343}

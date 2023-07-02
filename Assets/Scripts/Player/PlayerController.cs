@@ -69,9 +69,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnFireInvoked(InputValue inputValue)
     {
+        if (!PlayerUnit.IsControllable)
+        {
+            _isFirePress = false;
+        }
+        
         _isFirePress = inputValue.isPressed;
 
-        if (inputValue.isPressed) // 누르는 순간
+        if (_isFirePress) // 누르는 순간
         {
             if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
                 if (_playerShootHandler.AutoShot < 2) {
@@ -154,16 +159,17 @@ public class PlayerController : MonoBehaviour
         }*/
     }
 
-    private void OnBombInvoked() {
-        if (InGameDataManager.Instance.BombNumber <= 0) {
+    private void OnBombInvoked()
+    {
+        if (!PlayerUnit.IsControllable)
             return;
-        }
-        if (_playerBombHandler.IsBombInUse) {
+        if (InGameDataManager.Instance.BombNumber <= 0)
             return;
-        }
-        if (!SystemManager.IsOnGamePlayState()) {
+        if (_playerBombHandler.IsBombInUse)
             return;
-        }
+        if (!SystemManager.IsOnGamePlayState())
+            return;
+        
         PlayerInvincibility.SetInvincibility(4000);
         _playerBombHandler.UseBomb(transform.position);
         InGameDataManager.Instance.BombNumber--;

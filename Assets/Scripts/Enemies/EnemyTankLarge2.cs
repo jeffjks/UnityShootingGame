@@ -38,21 +38,21 @@ public class EnemyTankLarge2 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-                CreateBulletsSector(3, pos[0], 6f, m_CurrentAngle + m_Direction, accel, 3, 120f);
-                CreateBulletsSector(3, pos[1], 6f, m_CurrentAngle - m_Direction, accel, 3, 120f);
+                CreateBulletsSector(3, pos[0], 6f, CurrentAngle + m_Direction, accel, 3, 120f);
+                CreateBulletsSector(3, pos[1], 6f, CurrentAngle - m_Direction, accel, 3, 120f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-                CreateBulletsSector(3, pos[0], 6.8f, m_CurrentAngle + m_Direction, accel, 4, 90f);
-                CreateBulletsSector(3, pos[1], 6.8f, m_CurrentAngle - m_Direction, accel, 4, 90f);
+                CreateBulletsSector(3, pos[0], 6.8f, CurrentAngle + m_Direction, accel, 4, 90f);
+                CreateBulletsSector(3, pos[1], 6.8f, CurrentAngle - m_Direction, accel, 4, 90f);
             }
             else {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                 for (int i = 0; i < 3; i++) {
-                    CreateBulletsSector(3, pos[0], 6.3f + 0.5f*i, m_CurrentAngle + m_Direction, accel, 4, 90f);
-                    CreateBulletsSector(3, pos[1], 6.3f + 0.5f*i, m_CurrentAngle - m_Direction, accel, 4, 90f);
+                    CreateBulletsSector(3, pos[0], 6.3f + 0.5f*i, CurrentAngle + m_Direction, accel, 4, 90f);
+                    CreateBulletsSector(3, pos[1], 6.3f + 0.5f*i, CurrentAngle - m_Direction, accel, 4, 90f);
                 }
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

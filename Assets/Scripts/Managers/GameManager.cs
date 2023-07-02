@@ -1,45 +1,35 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
-using Newtonsoft.Json;
-
 
 public class GameManager : MonoBehaviour
 {
     public GameSetting m_GameSetting;
     public NetworkAccount m_NetworkAccount;
-    [SerializeField] private bool _networkAvailable;
-    [SerializeField] private bool _invincibleMod;
     
     //[HideInInspector] public ShipAttribute m_CurrentAttributes;
     [HideInInspector] public byte m_ReplayNum;
     [HideInInspector] public string m_ReplayDirectory;
     [HideInInspector] public string m_RankingDirectory;
-    [HideInInspector] public bool m_IsOnline = false;
 
-    public static bool NetworkAvailable { get; set; }
-    public static bool InvincibleMod { get; set; }
-
-    private string m_AccountID = string.Empty, m_EncryptedAccountID;
+    private static string m_AccountID = string.Empty;
+    private static string m_EncryptedAccountID;
 
     public AnimationCurve[] m_AnimationCurve = new AnimationCurve[3];
 
-    public static GameManager instance_gm = null;
+    public static bool isOnline;
+
+    public static GameManager Instance { get; private set; }
 
     void Awake()
     {
-        if (instance_gm != null) {
+        if (Instance != null) {
             Destroy(gameObject);
             return;
         }
-        instance_gm = this;
+        Instance = this;
         
         DontDestroyOnLoad(gameObject);
-
-        NetworkAvailable = _networkAvailable;
-        InvincibleMod = _invincibleMod;
         
         Application.targetFrameRate = 60;
         Cursor.visible = false;
@@ -58,49 +48,67 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (DebugOption.GenerateJsonFile)
+        {
+            GetComponent<ExplosionJsonWriter>().GenerateJsonFile();
+            GetComponent<EndingCreditJsonWriter>().GenerateJsonFile();
+            Debug.Log("A");
+        }
+
+        if (!TestIntegrity())
+        {
+            Utility.QuitGame();
+        }
+        ValidateAccount();
         m_GameSetting.LoadSettings();
         m_NetworkAccount.Init();
     }
 
-    void Update()
+    private void ValidateAccount()
     {
-        if (!NetworkAvailable) {
+        if (!DebugOption.NetworkAvailable) {
             return;
         }
-        if (m_IsOnline) {
-            if (Md5Sum(m_AccountID) != m_EncryptedAccountID) {
-                m_IsOnline = false;
+        if (isOnline) {
+            if (Utility.Md5Sum(m_AccountID) != m_EncryptedAccountID) {
+                isOnline = false;
                 Debug.LogAssertion("ID Falsification Detected.");
-                Application.Quit(); // 에디터에서는 무시됨
+                Utility.QuitGame();
             }
         }
     }
 
-    public string GetAccountID() {
+    private void Update()
+    {
+    }
+
+    public static string GetAccountID() {
         return m_AccountID;
     }
 
-    public void SetAccountID(string id) {
+    public static void SetAccountID(string id) {
         m_AccountID = id;
-        m_IsOnline = true;
-        m_EncryptedAccountID = Md5Sum(m_AccountID);
+        isOnline = true;
+        m_EncryptedAccountID = Utility.Md5Sum(m_AccountID);
     }
 
-    private string Md5Sum(string strToEncrypt) {
-        System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
-        byte[] bytes = ue.GetBytes(strToEncrypt);
-    
-        // encrypt bytes
-        System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-        byte[] hashBytes = md5.ComputeHash(bytes);
-    
-        // Convert the encrypted bytes back to a string (base 16)
-        string hashString = "";
-    
-        for (int i = 0; i < hashBytes.Length; i++) {
-            hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+    private bool TestIntegrity()
+    {
+        try
+        {
+            var (jsonData, hash) = Utility.LoadDataFileString(Application.dataPath, "resources1");
+            if (Utility.Md5Sum(jsonData) == hash)
+            {
+                Debug.Log("무결성 검사가 완료되었습니다.");
+                return true;
+            }
+            Debug.LogError("무결성 검사에 실패하였습니다.");
+            return false;
         }
-    
-        return hashString.PadLeft(32, '0');
+        catch (Exception e)
+        {
+            Debug.LogError($"무결성 검사 중 오류가 발생하였습니다:\n{e}");
+        }
+        return false;
     }
 }

@@ -30,11 +30,11 @@ public class EnemyShipLargeTurret1 : EnemyUnit
         while(true) {
             if (SystemManager.Difficulty <= GameDifficulty.Expert) {
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(2, pos, 6.2f, m_CurrentAngle, accel, 3, 20f);
+                CreateBulletsSector(2, pos, 6.2f, CurrentAngle, accel, 3, 20f);
             }
             else {
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(2, pos, 6.6f, m_CurrentAngle, accel, 5, 13f);
+                CreateBulletsSector(2, pos, 6.6f, CurrentAngle, accel, 5, 13f);
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }

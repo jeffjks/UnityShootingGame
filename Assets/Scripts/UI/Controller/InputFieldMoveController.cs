@@ -35,12 +35,14 @@ public class InputFieldMoveController : MonoBehaviour
                 
             if (moveInput == Vector2.up)
             {
-                (_inputField.navigation.selectOnUp)?.Select();
+                if (_inputField.navigation.selectOnUp != null)
+                    _inputField.navigation.selectOnUp.Select();
                 EventSystem.current.currentInputModule.enabled = true;
             }
             else if (moveInput == Vector2.down)
             {
-                (_inputField.navigation.selectOnDown)?.Select();
+                if (_inputField.navigation.selectOnDown != null)
+                    _inputField.navigation.selectOnDown.Select();
                 EventSystem.current.currentInputModule.enabled = true;
             }
         }

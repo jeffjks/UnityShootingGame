@@ -39,7 +39,7 @@ public class DrawIfPropertyDrawer : PropertyDrawer
  
         if (comparedField == null)
         {
-            Debug.LogError("Cannot find property with name: " + path);
+            //Debug.LogError("Cannot find property with name: " + path);
             return true;
         }
 

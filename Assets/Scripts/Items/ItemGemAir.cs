@@ -45,7 +45,7 @@ public class ItemGemAir : ItemGem
         AudioService.PlaySound("ItemGem");
     }
 
-    public override void OnItemRemoved() {
+    protected override void OnItemRemoved() {
         ReturnToPool();
     }
 

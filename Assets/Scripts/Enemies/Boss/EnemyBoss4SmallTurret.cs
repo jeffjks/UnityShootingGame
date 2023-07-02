@@ -49,15 +49,15 @@ public class EnemyBoss4SmallTurret : EnemyUnit
         while(true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
+                CreateBullet(2, pos, 4f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(3000);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
+                CreateBullet(2, pos, 4f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(2000);
             }
             else {
-                CreateBullet(2, pos, 4f, m_CurrentAngle, accel);
+                CreateBullet(2, pos, 4f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(1000);
             }
         }

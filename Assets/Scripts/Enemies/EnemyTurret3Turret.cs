@@ -48,16 +48,16 @@ public class EnemyTurret3Turret : EnemyUnit
             if (BulletCondition((pos1 + pos2)/2)) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int i = 0; i < 4; i++) {
-                        CreateBullet(4, pos1, 4.8f + i*0.3f, m_CurrentAngle, accel);
-                        CreateBullet(4, pos2, 4.8f + i*0.3f, m_CurrentAngle, accel);
+                        CreateBullet(4, pos1, 4.8f + i*0.3f, CurrentAngle, accel);
+                        CreateBullet(4, pos2, 4.8f + i*0.3f, CurrentAngle, accel);
                     }
                 }
                 else {
                     for (int i = 0; i < 4; i++) {
-                        CreateBullet(4, pos1, 4.6f + i*0.3f, m_CurrentAngle + 2f, accel);
-                        CreateBullet(4, pos2, 4.6f + i*0.3f, m_CurrentAngle - 2f, accel);
-                        CreateBullet(4, pos1, 5f + i*0.3f, m_CurrentAngle - 1.5f, accel);
-                        CreateBullet(4, pos2, 5f + i*0.3f, m_CurrentAngle + 1.5f, accel);
+                        CreateBullet(4, pos1, 4.6f + i*0.3f, CurrentAngle + 2f, accel);
+                        CreateBullet(4, pos2, 4.6f + i*0.3f, CurrentAngle - 2f, accel);
+                        CreateBullet(4, pos1, 5f + i*0.3f, CurrentAngle - 1.5f, accel);
+                        CreateBullet(4, pos2, 5f + i*0.3f, CurrentAngle + 1.5f, accel);
                     }
                 }
                 PlayFireAnimation();

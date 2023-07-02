@@ -6,7 +6,7 @@ public class LanguageMenuHandler : MenuHandler
 
     void OnEnable()
     {
-        _oldLanguage = GameSetting.m_Language;
+        _oldLanguage = GameSetting.CurrentLanguage;
     }
 
     public override void Apply()
@@ -19,7 +19,7 @@ public class LanguageMenuHandler : MenuHandler
     
     public override void Back()
     {
-        GameSetting.m_Language = _oldLanguage;
+        GameSetting.CurrentLanguage = _oldLanguage;
         
         base.Back();
     }

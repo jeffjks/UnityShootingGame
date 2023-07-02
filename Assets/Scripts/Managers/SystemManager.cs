@@ -9,8 +9,6 @@ public class SystemManager : MonoBehaviour
 {
     [HideInInspector] public int m_UsedCost;
     
-    public bool m_DebugMod;
-    
     private Vector3 m_BackgroundCameraDefaultLocalPos;
 
     public static GameMode GameMode  { get; private set; }
@@ -41,11 +39,21 @@ public class SystemManager : MonoBehaviour
         //gameObject.SetActive(false);
     }
 
-    public static void MiddleBossClear() {
+    public static void OnMiddleBossStart()
+    {
+        PlayState = PlayState.OnMiddleBoss;
+    }
+
+    public static void OnBossStart()
+    {
+        PlayState = PlayState.OnBoss;
+    }
+
+    public static void OnMiddleBossClear() {
         PlayState = PlayState.OnField;
     }
 
-    public static void BossClear()
+    public static void OnBossClear()
     {
         AudioService.StopMusic();
         if (StageManager.IsTrueBossEnabled)
@@ -86,7 +94,7 @@ public class SystemManager : MonoBehaviour
         InGameScreenEffectService.TransitionOut();
         yield return new WaitForMillisecondFrames(2000);
 
-        if (GameMode == GameMode.Training && !GameManager.InvincibleMod) {
+        if (GameMode == GameMode.Training && !DebugOption.InvincibleMod) {
             QuitGame();
         }
         

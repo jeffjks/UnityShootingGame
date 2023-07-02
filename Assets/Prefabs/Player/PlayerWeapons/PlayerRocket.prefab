@@ -62,14 +62,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c6333a2d8b0f4eaff4913a4c75909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_ObjectName: PlayerRocket
   _playerDamageData: {fileID: 11400000, guid: 69d903e24be4e364a99c5241e6fc0048, type: 2}
   m_Speed: 5
   m_IsPenetrate: 0
   m_ActivatedObject: []
-  m_HitEffectNumber: 2
+  _hitEffectType: 2
   m_MaxSpeed: 25
   m_Accel: 12
 --- !u!1 &3414835178675415102

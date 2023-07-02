@@ -13,15 +13,11 @@ public class TextErrorMessage : MonoBehaviour
     private Color m_DefaultColor_0;
     private IEnumerator m_TextAnimation;
     private string m_XML = "textData";
-    
-    private GameManager m_GameManager = null;
 
     void Start()
     {
         m_DefaultColor = m_Text.color;
         m_DefaultColor_0 = new Color(m_DefaultColor.r, m_DefaultColor.g, m_DefaultColor.b, 0f);
-
-        m_GameManager = GameManager.instance_gm;
     }
 
     private string GetErrorMessage(string errorCode)
@@ -29,8 +25,8 @@ public class TextErrorMessage : MonoBehaviour
         string errorMessage = string.Empty;
 
         if (errorCode == "BlockedUserException" || errorCode == "BlockedPCException") {
-            m_GameManager.SetAccountID(string.Empty);
-            m_GameManager.m_IsOnline = false;
+            GameManager.SetAccountID(string.Empty);
+            GameManager.isOnline = false;
         }
 
         try {
@@ -39,7 +35,7 @@ public class TextErrorMessage : MonoBehaviour
             XmlNode xNode;
             xmlDoc.LoadXml(textAsset.text);
 
-            if (GameSetting.m_Language == Language.English) {
+            if (GameSetting.CurrentLanguage == Language.English) {
                 xNode = xmlDoc.SelectSingleNode("ErrorMessage").SelectSingleNode(errorCode).SelectSingleNode("Eng");
             }
             else {
@@ -50,7 +46,7 @@ public class TextErrorMessage : MonoBehaviour
             Resources.UnloadAsset(textAsset);
         }
         catch {
-            if (GameSetting.m_Language == Language.English) {
+            if (GameSetting.CurrentLanguage == Language.English) {
                 errorMessage = "Unknown error has occured.";
             }
             else {
@@ -63,7 +59,7 @@ public class TextErrorMessage : MonoBehaviour
     public void DisplayText(string errorCode, string errorDetails = "") {
         m_Text.text = GetErrorMessage(errorCode);
         if (errorDetails != "") {
-            if (GameSetting.m_Language == Language.English)
+            if (GameSetting.CurrentLanguage == Language.English)
                 m_Text.text += "\nError Code : "+errorDetails;
             else
                 m_Text.text += "\n에러 코드 : "+errorDetails;

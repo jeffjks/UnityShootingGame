@@ -104,10 +104,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 7021008997697841483}
   m_Position: 1
 --- !u!114 &4450760002710729640
@@ -227,10 +224,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 3444663183974911546}
   m_Position: -1
 --- !u!114 &1686895223111532974
@@ -637,10 +631,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 2500
-  m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 4862007706350544916}
 --- !u!114 &292107961841412729
 MonoBehaviour:
@@ -755,10 +746,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 2500
-  m_DefaultExplosion: 2
-  m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 109533634783990533}
 --- !u!114 &6552932599282503610
 MonoBehaviour:
@@ -1377,10 +1365,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 2500
-  m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 4628570922968981107}
 --- !u!114 &2671401052856329017
 MonoBehaviour:
@@ -1495,10 +1480,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 2500
-  m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 6585013472877613492}
 --- !u!114 &5469240398995098365
 MonoBehaviour:
@@ -1862,10 +1844,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_EnemyBoss4MainTurretBarrel: {fileID: 4737815172762983701}
   m_FirePosition: {fileID: 6059859442607796135}
   m_RotatePattern: 10
@@ -2467,10 +2446,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 2
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 8258282674371013236}
   m_RotatePattern: 10
 --- !u!114 &215864085475969502
@@ -2554,10 +2530,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 2
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 3206545656578198555}
   m_RotatePattern: 10
 --- !u!114 &7620463052331929337
@@ -3148,10 +3121,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 5000
-  m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 4701576049642114937}
   m_RotatePattern: 10
 --- !u!114 &6607992162665462031
@@ -3267,10 +3237,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 5000
-  m_DefaultExplosion: 3
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 7902654878378707055}
   m_RotatePattern: 10
 --- !u!114 &1769992302779647881
@@ -4015,15 +3982,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 50000
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 0500000006000000080000000200000003000000
-  m_AudioClip:
-  - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
-  - {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
-  - {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  - {fileID: 8300000, guid: ace7f34e586dba844970439075790e1b, type: 3}
-  - {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
+  m_IsRoot: 1
   m_SmallTurrets:
   - {fileID: 3099317777960356510}
   - {fileID: 5198913023227780101}

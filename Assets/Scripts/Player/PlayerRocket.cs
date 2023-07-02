@@ -14,24 +14,21 @@ public class PlayerRocket : PlayerWeapon
         
         RotateImmediately(m_MoveVector.direction);
         m_MoveVector.speed = m_Speed;
-        
-        UpdateTransform();
-        SetPosition2D();
     }
 
     private void Update()
     {
         if (Time.timeScale == 0)
             return;
-        if (m_MoveVector.speed < m_MaxSpeed) {
+        if (m_MoveVector.speed < m_MaxSpeed)
+        {
             m_MoveVector.speed += m_Accel / Application.targetFrameRate * Time.timeScale;
         }
-        else {
+        else
+        {
             m_MoveVector.speed = m_MaxSpeed;
         }
-        
+
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        UpdateTransform();
-        SetPosition2D();
     }
 }

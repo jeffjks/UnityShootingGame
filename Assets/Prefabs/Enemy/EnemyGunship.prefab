@@ -104,12 +104,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebaf2274f2f565440958603537c6f915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 500
+  m_IsRoot: 1
   m_FirePosition:
   - {fileID: 4387495230332487639}
   - {fileID: 2918483274064422037}

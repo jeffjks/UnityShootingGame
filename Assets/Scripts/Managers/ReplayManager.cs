@@ -26,7 +26,7 @@ public class ReplayManager : MonoBehaviour
     private StringBuilder m_TotalContext = new StringBuilder();
 
     public void Init() {
-        m_GameManager = GameManager.instance_gm;
+        m_GameManager = GameManager.Instance;
         m_PlayerManager = PlayerManager.Instance;
 
         m_RandomSeed = System.Environment.TickCount; // Generate Random Seed

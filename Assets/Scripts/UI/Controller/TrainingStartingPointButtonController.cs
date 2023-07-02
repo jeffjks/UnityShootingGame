@@ -45,7 +45,7 @@ public class TrainingStartingPointButtonController : MonoBehaviour, IMoveHandler
         {
             int index = -1;
             index = SystemManager.TrainingInfo.bossOnly ? 0 : 1;
-            _textUI.SetText(_textContainer[GameSetting.m_Language][index]);
+            _textUI.SetText(_textContainer[GameSetting.CurrentLanguage][index]);
         }
         catch (Exception e)
         {

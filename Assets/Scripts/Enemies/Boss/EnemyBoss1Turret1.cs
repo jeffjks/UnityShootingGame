@@ -53,34 +53,34 @@ public class EnemyBoss1Turret1 : EnemyUnit
         pos = m_FirePosition.position;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 5, 16f);
+            CreateBulletsSector(3, pos, 6.4f, CurrentAngle, accel, 5, 16f);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             if (random_value == 0) {
-                CreateBulletsSector(3, pos, 6.6f, m_CurrentAngle - 1.2f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.2f, m_CurrentAngle + 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.6f, CurrentAngle - 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.4f, CurrentAngle, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.2f, CurrentAngle + 1.2f, accel, 7, 12f);
             }
             else {
-                CreateBulletsSector(3, pos, 6.6f, m_CurrentAngle + 1.2f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.2f, m_CurrentAngle - 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.6f, CurrentAngle + 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.4f, CurrentAngle, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.2f, CurrentAngle - 1.2f, accel, 7, 12f);
             }
         }
         else {
             if (random_value == 0) {
-                CreateBulletsSector(3, pos, 6.8f, m_CurrentAngle + 2.4f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.6f, m_CurrentAngle + 1.2f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.2f, m_CurrentAngle - 1.2f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.0f, m_CurrentAngle - 2.4f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.8f, CurrentAngle + 2.4f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.6f, CurrentAngle + 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.4f, CurrentAngle, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.2f, CurrentAngle - 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.0f, CurrentAngle - 2.4f, accel, 7, 12f);
             }
             else {
-                CreateBulletsSector(3, pos, 6.8f, m_CurrentAngle - 2.4f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.6f, m_CurrentAngle - 1.2f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.4f, m_CurrentAngle, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.2f, m_CurrentAngle + 1.2f, accel, 7, 12f);
-                CreateBulletsSector(3, pos, 6.0f, m_CurrentAngle + 2.4f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.8f, CurrentAngle - 2.4f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.6f, CurrentAngle - 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.4f, CurrentAngle, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.2f, CurrentAngle + 1.2f, accel, 7, 12f);
+                CreateBulletsSector(3, pos, 6.0f, CurrentAngle + 2.4f, accel, 7, 12f);
             }
         }
         yield break;
@@ -94,44 +94,44 @@ public class EnemyBoss1Turret1 : EnemyUnit
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             pos = m_FirePosition.position;
-            CreateBulletsSector(1, pos, 6.1f, m_CurrentAngle, accel, 3, 25f);
+            CreateBulletsSector(1, pos, 6.1f, CurrentAngle, accel, 3, 25f);
             yield return new WaitForMillisecondFrames(540);
             pos = m_FirePosition.position;
-            CreateBulletsSector(1, pos, 6.1f, m_CurrentAngle, accel, 3, 25f);
+            CreateBulletsSector(1, pos, 6.1f, CurrentAngle, accel, 3, 25f);
             yield return new WaitForMillisecondFrames(540);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             pos = m_FirePosition.position;
-            CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
+            CreateBulletsSector(1, pos, 6.5f, CurrentAngle, accel, 4, 17f);
             yield return new WaitForMillisecondFrames(270);
             pos = m_FirePosition.position;
-            CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
+            CreateBulletsSector(1, pos, 6.5f, CurrentAngle, accel, 4, 17f);
             yield return new WaitForMillisecondFrames(270);
             pos = m_FirePosition.position;
-            CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
+            CreateBulletsSector(1, pos, 6.5f, CurrentAngle, accel, 4, 17f);
             yield return new WaitForMillisecondFrames(270);
             pos = m_FirePosition.position;
-            CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle, accel, 4, 17f);
+            CreateBulletsSector(1, pos, 6.5f, CurrentAngle, accel, 4, 17f);
             yield return new WaitForMillisecondFrames(270);
         }
         else {
             if (right) {
                 for (int i = 0; i < 2; i++) {
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 4, 17f);
+                    CreateBulletsSector(1, pos, 6.7f, CurrentAngle, accel, 4, 17f);
                     yield return new WaitForMillisecondFrames(270);
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 5, 17f);
+                    CreateBulletsSector(1, pos, 6.7f, CurrentAngle, accel, 5, 17f);
                     yield return new WaitForMillisecondFrames(270);
                 }
             }
             else {
                 for (int i = 0; i < 2; i++) {
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 5, 17f);
+                    CreateBulletsSector(1, pos, 6.7f, CurrentAngle, accel, 5, 17f);
                     yield return new WaitForMillisecondFrames(270);
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(1, pos, 6.7f, m_CurrentAngle, accel, 4, 17f);
+                    CreateBulletsSector(1, pos, 6.7f, CurrentAngle, accel, 4, 17f);
                     yield return new WaitForMillisecondFrames(270);
                 }
             }

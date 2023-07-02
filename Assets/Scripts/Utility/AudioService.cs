@@ -27,7 +27,8 @@ public class AudioService : MonoBehaviour
     private static string currentScene = String.Empty;
     private static Dictionary<string, AudioSource> m_AudioSourceMusicDict = new Dictionary<string, AudioSource>();
     private static string currentMusic = String.Empty;
-    private static bool IsMusicPaused = false;
+    private static bool IsMusicPaused;
+    private static bool IsMusicPlaying;
     
     private static Dictionary<string, AudioSource> m_AudioSourceSoundDict = new Dictionary<string, AudioSource>();
     private static Dictionary<ExplAudioType, AudioSource> m_AudioSourceExplosionDict = new Dictionary<ExplAudioType, AudioSource>();
@@ -189,6 +190,8 @@ public class AudioService : MonoBehaviour
         {
             Debug.LogError($"There is no music name such as '{musicName}' in dictionary.");
         }
+
+        IsMusicPlaying = true;
     }
 
     public static void PauseAudio()
@@ -207,20 +210,22 @@ public class AudioService : MonoBehaviour
     {
         IsMusicPaused = true;
         Instance.DOPause();
-        if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
-        {
-            audioSource.Pause();
-        }
+        var audioSource = GetCurrentMusic();
+        if (!audioSource)
+            return;
+        audioSource.Pause();
+        IsMusicPlaying = false;
     }
 
     private static void UnpauseMusic()
     {
         IsMusicPaused = false;
         Instance.DOPlay();
-        if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
-        {
-            audioSource.UnPause();
-        }
+        var audioSource = GetCurrentMusic();
+        if (!audioSource)
+            return;
+        audioSource.UnPause();
+        IsMusicPlaying = true;
     }
 
     private static void PauseSound()
@@ -258,13 +263,17 @@ public class AudioService : MonoBehaviour
 
     public static void StopMusic()
     {
+        if (!IsMusicPlaying)
+            return;
+        
         Instance.StopAllCoroutines();
         IsMusicPaused = false;
-        if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
-        {
-            audioSource.Stop();
-        }
+        var audioSource = GetCurrentMusic();
+        if (!audioSource)
+            return;
+        audioSource.Stop();
         currentMusic = string.Empty;
+        IsMusicPlaying = false;
     }
 
     public static void FadeOutMusic(float seconds = 3.3f)
@@ -274,18 +283,24 @@ public class AudioService : MonoBehaviour
     }
 
     private IEnumerator FadingOut(float seconds) {
-        m_AudioSourceMusicDict[currentMusic].DOFade(0f, seconds);
+        var audioSource = GetCurrentMusic();
+        if (!audioSource)
+            yield break;
+        audioSource.DOFade(0f, seconds);
 
         yield return new WaitForSeconds(seconds);
-        DOTween.Kill(m_AudioSourceMusicDict[currentMusic]);
-        m_AudioSourceMusicDict[currentMusic].Stop();
+        DOTween.Kill(audioSource);
+        StopMusic();
     }
+    
+    
 
-    public static void PlaySound(string soundName)
+    public static void PlaySound(string soundName, bool loop = false)
     {
         if (m_AudioSourceSoundDict.TryGetValue(soundName, out AudioSource audioSource))
         {
             audioSource.Play();
+            audioSource.loop = loop;
         }
         else
         {
@@ -327,5 +342,15 @@ public class AudioService : MonoBehaviour
             }
             audioSource.Stop();
         }
+    }
+
+    private static AudioSource GetCurrentMusic()
+    {
+        if (m_AudioSourceMusicDict.TryGetValue(currentMusic, out AudioSource audioSource))
+        {
+            return audioSource;
+        }
+        Debug.LogError($"Can't find current music (Current Music : {currentMusic})");
+        return null;
     }
 }

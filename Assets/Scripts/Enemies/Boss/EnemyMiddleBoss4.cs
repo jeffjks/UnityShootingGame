@@ -9,7 +9,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int m_Phase;
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -5f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 40000;
 
@@ -18,8 +18,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
     void Start()
     {
-        m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);
-
         DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
@@ -30,7 +28,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARANCE_TIME).SetEase(Ease.OutQuad));*/
+        .Append(transform.DOMoveY(TARGET_POSITION.y, APPEARANCE_TIME).SetEase(Ease.OutQuad));*/
     }
 
     protected override void Update()
@@ -52,13 +50,13 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 m_MoveVector = new MoveVector(new Vector2(Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
             }
             
-            if (transform.position.y > m_TargetPosition.y + 0.5f) {
+            if (transform.position.y > TARGET_POSITION.y + 0.5f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
-                transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.5f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, TARGET_POSITION.y + 0.5f, transform.position.z);
             }
-            if (transform.position.y < m_TargetPosition.y - 0.5f) {
+            if (transform.position.y < TARGET_POSITION.y - 0.5f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
-                transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.5f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, TARGET_POSITION.y - 0.5f, transform.position.z);
             }
         }
     }
@@ -70,13 +68,12 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         for (int i = 0; i < frame; ++i) {
             float t_pos_y = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
-            float position_y = Mathf.Lerp(init_position_y, m_TargetPosition.y, t_pos_y);
+            float position_y = Mathf.Lerp(init_position_y, TARGET_POSITION.y, t_pos_y);
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
             yield return new WaitForMillisecondFrames(0);
         }
 
         OnAppearanceComplete();
-        yield break;
     }
 
     public void OnAppearanceComplete() {
@@ -89,6 +86,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         StartCoroutine(m_SubPattern);
 
         EnableInteractableAll();
+
+        SystemManager.OnMiddleBossStart();
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -214,7 +213,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = m_Turret1.m_FirePosition.position;
-            target_angle = m_Turret1.m_CurrentAngle + Random.Range(-1.5f, 1.5f);
+            target_angle = m_Turret1.CurrentAngle + Random.Range(-1.5f, 1.5f);
             random_value = Random.Range(0.5f,14f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -245,7 +244,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int i = 0; i < 5; i++) {
                         pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.m_CurrentAngle;
+                        target_angle = m_Turret2.CurrentAngle;
                         CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 7, 14f);
                         yield return new WaitForMillisecondFrames(70);
                     }
@@ -254,7 +253,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     for (int i = 0; i < 5; i++) {
                         pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.m_CurrentAngle;
+                        target_angle = m_Turret2.CurrentAngle;
                         CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 9, 11f);
                         yield return new WaitForMillisecondFrames(70);
                     }
@@ -263,7 +262,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 else {
                     for (int i = 0; i < 5; i++) {
                         pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.m_CurrentAngle;
+                        target_angle = m_Turret2.CurrentAngle;
                         CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 11, 8f);
                         yield return new WaitForMillisecondFrames(70);
                     }
@@ -274,7 +273,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int i = 0; i < 3; i++) {
                         pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.m_CurrentAngle;
+                        target_angle = m_Turret2.CurrentAngle;
                         CreateBulletsSector(2, pos, 8.4f, target_angle - 2f, accel, 5, 17f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 5, 17f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle + 2f, accel, 5, 17f);
@@ -285,7 +284,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     for (int i = 0; i < 3; i++) {
                         pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.m_CurrentAngle;
+                        target_angle = m_Turret2.CurrentAngle;
                         CreateBulletsSector(2, pos, 8.4f, target_angle - 1.5f, accel, 7, 13f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 7, 15f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle + 1.5f, accel, 7, 13f);
@@ -296,7 +295,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 else {
                     for (int i = 0; i < 3; i++) {
                         pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.m_CurrentAngle;
+                        target_angle = m_Turret2.CurrentAngle;
                         CreateBulletsSector(2, pos, 8.4f, target_angle - 1.5f, accel, 7, 13f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 7, 15f);
                         CreateBulletsSector(2, pos, 8.4f, target_angle + 1.5f, accel, 7, 13f);
@@ -318,7 +317,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 6; i++) {
-                    target_angle = m_Turret1.m_CurrentAngle;
+                    target_angle = m_Turret1.CurrentAngle;
                     CreateBullet(4, pos, 3.5f + i*1.2f, target_angle, accel);
                     yield return new WaitForMillisecondFrames(70);
                 }
@@ -326,7 +325,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 8; i++) {
-                    target_angle = m_Turret1.m_CurrentAngle;
+                    target_angle = m_Turret1.CurrentAngle;
                     CreateBullet(4, pos, 3.5f + i*1.2f, target_angle, accel);
                     yield return new WaitForMillisecondFrames(70);
                 }
@@ -334,7 +333,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             }
             else {
                 for (int i = 0; i < 10; i++) {
-                    target_angle = m_Turret1.m_CurrentAngle;
+                    target_angle = m_Turret1.CurrentAngle;
                     CreateBulletsSector(4, pos, 3.5f + i*1.2f, target_angle, accel, 3, 3f);
                     yield return new WaitForMillisecondFrames(70);
                 }
@@ -350,7 +349,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
         while (m_Pattern1B) {
             pos = m_Turret2.m_FirePosition.position;
-            target_angle = m_Turret2.m_CurrentAngle;
+            target_angle = m_Turret2.CurrentAngle;
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBulletsSector(0, pos, 7.3f, target_angle, accel, 2, 80f);
@@ -422,7 +421,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = m_Turret1.m_FirePosition.position;
-            target_angle = m_Turret1.m_CurrentAngle;
+            target_angle = m_Turret1.CurrentAngle;
             random_value = Random.Range(-12f, 12f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -458,7 +457,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
         while (true) {
             pos = m_Turret1.m_FirePosition.position;
-            target_angle = m_Turret1.m_CurrentAngle;
+            target_angle = m_Turret1.CurrentAngle;
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 3; i++) {
@@ -501,7 +500,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.MiddleBossClear();
+        SystemManager.OnMiddleBossClear();
     }
 
     public void OnBossDeath() {

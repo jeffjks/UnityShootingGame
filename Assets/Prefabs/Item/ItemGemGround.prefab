@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000013454152412}
   - component: {fileID: 2174750725071441294}
   - component: {fileID: 7898624762947922464}
-  m_Layer: 19
+  m_Layer: 20
   m_Name: ItemGemGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,9 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_IsAir: 0
   m_ItemData: {fileID: 11400000, guid: 2288ae9ea4d0b9047a21e2c8adaea0a1, type: 2}
   m_Collider2D: {fileID: 3366174822769475971}
-  m_AudioClip: {fileID: 8300000, guid: e6601203e638e2d46a0decd08613bb61, type: 3}
   m_Renderer: {fileID: 3150842622778784455}
   m_ObjectName: ItemGemGround
   m_MeshRenderer: {fileID: 1216906698411757149}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 3150842622778784455}
   - component: {fileID: 7971844161584567618}
   - component: {fileID: 1216906698411757149}
-  m_Layer: 19
+  m_Layer: 20
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4245819964342738811}
   - component: {fileID: 3366174822769475971}
-  m_Layer: 19
+  m_Layer: 20
   m_Name: Collider
   m_TagString: ItemGem
   m_Icon: {fileID: 0}

@@ -46,6 +46,7 @@ public class BulletManager : MonoBehaviour
     {
         List<GameObject> bulletList = GameObject.FindGameObjectsWithTag("EnemyBulletParent").ToList();
         int index, num = 0, count = bulletList.Count;
+        Debug.Log(count);
 
         while (count > 0) {
             index = UnityEngine.Random.Range(0, count);
@@ -54,7 +55,8 @@ public class BulletManager : MonoBehaviour
                 if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {
                     if (Size.GAME_BOUNDARY_BOTTOM < pos.y && pos.y < Size.GAME_BOUNDARY_TOP) {
                         GameObject gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
-                        gem.transform.position = new Vector3(bulletList[index].transform.position.x, bulletList[index].transform.position.y, Depth.ITEMS);
+                        pos.z = Depth.ITEMS;
+                        gem.transform.position = pos;
                         gem.SetActive(true);
                         num++;
                     }

@@ -25,9 +25,6 @@ public abstract class GameUI : MonoBehaviour {
     protected Image[] m_Image;
     protected Text[] m_Text;
 
-    protected GameManager m_GameManager = null;
-    protected PlayerManager m_PlayerManager = null;
-
     void Awake()
     {
         if (m_IsEnabled.Length == 0) {
@@ -43,8 +40,6 @@ public abstract class GameUI : MonoBehaviour {
             m_Text[i] = transform.GetChild(i).GetComponentInChildren<Text>();
         }
         m_Selection = m_InitialSelection;
-
-        m_GameManager = GameManager.instance_gm;
     }
 
     protected virtual void MoveCursorVertical(int move) {

@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
+  m_IsRoot: 1
 --- !u!114 &4450760002710729640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +259,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 125
+  m_IsRoot: 0
   m_FirePosition: {fileID: 655516768711985845}
 --- !u!114 &3621631335853086481
 MonoBehaviour:

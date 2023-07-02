@@ -48,38 +48,38 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 3; i++) {
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 5, 22.5f);
-                CreateBulletsSector(5, pos, 5.8f, m_CurrentAngle, accel, 6, 22.5f);
+                CreateBulletsSector(5, pos, 5f, CurrentAngle, accel, 5, 22.5f);
+                CreateBulletsSector(5, pos, 5.8f, CurrentAngle, accel, 6, 22.5f);
                 if (i > 0)
-                    CreateBulletsSector(5, pos, 6.6f, m_CurrentAngle, accel, 5, 22.5f);
+                    CreateBulletsSector(5, pos, 6.6f, CurrentAngle, accel, 5, 22.5f);
                 yield return new WaitForMillisecondFrames(1200);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 4; i++) {
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 8, 15f);
-                CreateBulletsSector(5, pos, 5.6f, m_CurrentAngle, accel, 7, 15f);
+                CreateBulletsSector(5, pos, 5f, CurrentAngle, accel, 8, 15f);
+                CreateBulletsSector(5, pos, 5.6f, CurrentAngle, accel, 7, 15f);
                 if (i > 0)
-                    CreateBulletsSector(5, pos, 6.2f, m_CurrentAngle, accel, 8, 15f);
+                    CreateBulletsSector(5, pos, 6.2f, CurrentAngle, accel, 8, 15f);
                 if (i > 1)
-                    CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 7, 15f);
+                    CreateBulletsSector(5, pos, 6.8f, CurrentAngle, accel, 7, 15f);
                 if (i > 2)
-                    CreateBulletsSector(5, pos, 7.4f, m_CurrentAngle, accel, 8, 15f);
+                    CreateBulletsSector(5, pos, 7.4f, CurrentAngle, accel, 8, 15f);
                 yield return new WaitForMillisecondFrames(900 + 100*i);
             }
         }
         else {
             for (int i = 0; i < 4; i++) {
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                CreateBulletsSector(5, pos, 5f, m_CurrentAngle, accel, 13, 10f);
-                CreateBulletsSector(5, pos, 5.6f, m_CurrentAngle, accel, 12, 10f);
+                CreateBulletsSector(5, pos, 5f, CurrentAngle, accel, 13, 10f);
+                CreateBulletsSector(5, pos, 5.6f, CurrentAngle, accel, 12, 10f);
                 if (i > 0)
-                    CreateBulletsSector(5, pos, 6.2f, m_CurrentAngle, accel, 13, 10f);
+                    CreateBulletsSector(5, pos, 6.2f, CurrentAngle, accel, 13, 10f);
                 if (i > 1)
-                    CreateBulletsSector(5, pos, 6.8f, m_CurrentAngle, accel, 12, 10f);
+                    CreateBulletsSector(5, pos, 6.8f, CurrentAngle, accel, 12, 10f);
                 if (i > 2)
-                    CreateBulletsSector(5, pos, 7.4f, m_CurrentAngle, accel, 13, 10f);
+                    CreateBulletsSector(5, pos, 7.4f, CurrentAngle, accel, 13, 10f);
                 yield return new WaitForMillisecondFrames(900 + 100*i);
             }
         }
@@ -97,9 +97,9 @@ public class EnemyBoss2Turret0_0 : EnemyUnit
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 pos3 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                CreateBullet(0, pos1, 5.3f, m_CurrentAngle, accel);
-                CreateBullet(0, pos2, 5.3f, m_CurrentAngle, accel);
-                CreateBullet(0, pos3, 5.3f, m_CurrentAngle, accel);
+                CreateBullet(0, pos1, 5.3f, CurrentAngle, accel);
+                CreateBullet(0, pos2, 5.3f, CurrentAngle, accel);
+                CreateBullet(0, pos3, 5.3f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(90);
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

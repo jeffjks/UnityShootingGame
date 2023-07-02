@@ -70,7 +70,7 @@ public class ReplayMenuHandler : GameUI
     private void SetFilePath()
     {
         for (int i = 0; i < MAX_REPLAY_NUMBER; i++) {
-            m_FilePath[i] = m_GameManager.m_ReplayDirectory + "replay" + i + ".rep";
+            m_FilePath[i] = GameManager.Instance.m_ReplayDirectory + "replay" + i + ".rep";
         }
     }
 
@@ -81,7 +81,7 @@ public class ReplayMenuHandler : GameUI
         }
         m_State = false;
         SystemManager.SetGameMode(GameMode.Replay);
-        m_GameManager.m_ReplayNum = (byte) num;
+        GameManager.Instance.m_ReplayNum = (byte) num;
         FadeScreenService.ScreenFadeOut();
         AudioService.PlaySound("SallyUI");
     }

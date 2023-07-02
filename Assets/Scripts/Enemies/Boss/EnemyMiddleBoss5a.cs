@@ -8,7 +8,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     public EnemyMissile[] m_Missiles = new EnemyMissile[8];
     private int m_Phase;
     
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -4f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2500;
     private const int TIME_LIMIT = 38000;
 
@@ -17,17 +17,17 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
 
     void Start()
     {
-        m_TargetPosition = new Vector3(0f, -4f, Depth.ENEMY);
-
         StartCoroutine(AppearanceSequence());
 
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDying;
+
+        SystemManager.OnMiddleBossStart();
         
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARANCE_TIME).SetEase(Ease.OutQuad));*/
+        .Append(transform.DOMoveY(TARGET_POSITION.y, APPEARANCE_TIME).SetEase(Ease.OutQuad));*/
     }
 
     protected override void Update()
@@ -35,16 +35,16 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         base.Update();
         
         if (!m_TimeLimitState && m_Phase > 0) {
-            if (transform.position.x >= m_TargetPosition.x + 0.6f) {
+            if (transform.position.x >= TARGET_POSITION.x + 0.6f) {
                 m_MoveVector.direction = Random.Range(-100f, -80f);
             }
-            else if (transform.position.x <= m_TargetPosition.x - 0.6f) {
+            else if (transform.position.x <= TARGET_POSITION.x - 0.6f) {
                 m_MoveVector.direction = Random.Range(80f, 100f);
             }
-            else if (transform.position.y >= m_TargetPosition.y + 0.3f) {
+            else if (transform.position.y >= TARGET_POSITION.y + 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
-            else if (transform.position.y <= m_TargetPosition.y - 0.3f) {
+            else if (transform.position.y <= TARGET_POSITION.y - 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
         }
@@ -57,12 +57,11 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         for (int i = 0; i < frame; ++i) {
             float t_pos_y = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
-            float position_y = Mathf.Lerp(init_position_y, m_TargetPosition.y, t_pos_y);
+            float position_y = Mathf.Lerp(init_position_y, TARGET_POSITION.y, t_pos_y);
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
             yield return new WaitForMillisecondFrames(0);
         }
         OnAppearanceComplete();
-        yield break;
     }
 
     public void OnAppearanceComplete() {
@@ -179,7 +178,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.MiddleBossClear();
+        SystemManager.OnMiddleBossClear();
     }
 
     public void OnBossDeath() {

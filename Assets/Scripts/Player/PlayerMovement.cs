@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private const int BOUNDARY_PLAYER_Y_MAX = -256; // -1f
 
     private Vector2Int _positionInt2D;
-    public Vector2Int m_PositionInt2D
+    public Vector2Int PositionInt2D
     {
         get => _positionInt2D;
         set {
@@ -47,9 +47,9 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_DefaultRotation = transform.eulerAngles[0];
-        m_PlayerUnit.m_CurrentAngle = 180f;
+        m_PlayerUnit.CurrentAngle = 180f;
         m_PlayerUnit.m_MoveVector.direction = 180f;
-        transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.m_CurrentAngle, Vector3.forward); // Vector3.forward
+        transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.CurrentAngle, Vector3.forward); // Vector3.forward
 
         switch(PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)) {
             case 0:
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         
-        m_PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
+        PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
     }
 
     void Update()
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
                 movement_vector *= m_SpeedIntDefault;
             }
 
-            m_PositionInt2D = m_PositionInt2D + movement_vector;
+            PositionInt2D = PositionInt2D + movement_vector;
         }
         else {
             _moveRawHorizontal = 0;
@@ -103,10 +103,10 @@ public class PlayerMovement : MonoBehaviour
         OverviewPosition();
 
         if (PlayerUnit.IsControllable) {
-            m_PositionInt2D = new Vector2Int
+            PositionInt2D = new Vector2Int
             (
-                Mathf.Clamp(m_PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
-                Mathf.Clamp(m_PositionInt2D.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX)
+                Mathf.Clamp(PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
+                Mathf.Clamp(PositionInt2D.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX)
             );
         }
     }
@@ -118,15 +118,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void KillPlayer()
     {
-        PlayerManager.Instance.PlayerDead(m_PositionInt2D);
+        PlayerManager.Instance.PlayerDead(PositionInt2D);
     }
 
     private void ResetPosition()
     {
-        int playerReviveX = Mathf.Clamp(m_PositionInt2D.x, -MAX_PLAYER_CAMERA, MAX_PLAYER_CAMERA);
+        int playerReviveX = Mathf.Clamp(PositionInt2D.x, -MAX_PLAYER_CAMERA, MAX_PLAYER_CAMERA);
         int playerReviveY = (int) PlayerManager.REVIVE_POSITION_Y * 256;
 
-        m_PositionInt2D = new Vector2Int(playerReviveX, playerReviveY);
+        PositionInt2D = new Vector2Int(playerReviveX, playerReviveY);
     }
 
     private void OverviewPosition() {
@@ -134,13 +134,13 @@ public class PlayerMovement : MonoBehaviour
         if (SystemManager.Stage < 4) {
             target_pos = new Vector2Int(0, (int) PlayerManager.REVIVE_POSITION_Y * 256);
             if (SystemManager.PlayState != PlayState.OnStageResult) {
-                m_OverviewSpeed = Mathf.Max(Mathf.Abs(m_PositionInt2D.x - target_pos.x), Mathf.Abs(m_PositionInt2D.y - target_pos.y));
+                m_OverviewSpeed = Mathf.Max(Mathf.Abs(PositionInt2D.x - target_pos.x), Mathf.Abs(PositionInt2D.y - target_pos.y));
                 m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
                 return;
             }
         }
         else {
-            target_pos = new Vector2Int(m_PositionInt2D.x, 2*256);
+            target_pos = new Vector2Int(PositionInt2D.x, 2*256);
             if (SystemManager.PlayState != PlayState.OnStageResult) {
                 m_OverviewSpeed = 12*256;
                 return;
@@ -148,12 +148,12 @@ public class PlayerMovement : MonoBehaviour
         }
         // m_PlayState가 3일때만 이하 내용 실행
         //m_Vector2 = Vector2Int.zero;
-        m_PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(m_PositionInt2D, target_pos, m_OverviewSpeed / Application.targetFrameRate * Time.timeScale));
+        PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(PositionInt2D, target_pos, m_OverviewSpeed / Application.targetFrameRate * Time.timeScale));
     }
 
     private void OnRemove()
     {
-        Destroy(transform.root);
+        Destroy(transform.root.gameObject);
     }
 
     private void OnBossClear()
@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             OnRemove();
             return;
         }
-        m_PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
+        PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
         PlayerUnit.IsControllable = true;
         PlayerInvincibility.SetInvincibility(3000);
     }

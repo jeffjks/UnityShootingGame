@@ -33,17 +33,17 @@ public class EnemyShipLargeTurret0 : EnemyUnit
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
-                CreateBullet(0, pos[0], 5.6f, m_CurrentAngle, accel);
-                CreateBullet(0, pos[1], 5.6f, m_CurrentAngle, accel);
-                CreateBullet(0, pos[2], 5.6f, m_CurrentAngle, accel);
+                CreateBullet(0, pos[0], 5.6f, CurrentAngle, accel);
+                CreateBullet(0, pos[1], 5.6f, CurrentAngle, accel);
+                CreateBullet(0, pos[2], 5.6f, CurrentAngle, accel);
             }
             else {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
-                CreateBulletsSector(0, pos[0], 5.6f, m_CurrentAngle, accel, 3, 2f);
-                CreateBulletsSector(0, pos[1], 5.6f, m_CurrentAngle - 3f, accel, 2, 2f);
-                CreateBulletsSector(0, pos[2], 5.6f, m_CurrentAngle + 3f, accel, 2, 2f);
+                CreateBulletsSector(0, pos[0], 5.6f, CurrentAngle, accel, 3, 2f);
+                CreateBulletsSector(0, pos[1], 5.6f, CurrentAngle - 3f, accel, 2, 2f);
+                CreateBulletsSector(0, pos[2], 5.6f, CurrentAngle + 3f, accel, 2, 2f);
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }

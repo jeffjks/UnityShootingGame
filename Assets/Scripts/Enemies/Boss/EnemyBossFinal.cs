@@ -11,7 +11,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     private float[] m_Direction = new float[2], m_DirectionDelta = new float[2];
     private int m_DirectionSide = 1;
     private float m_BulletSpeed;
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -3.8f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 1600;
     private bool m_InPattern = false;
 
@@ -24,7 +24,6 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     void Start()
     {
-        m_TargetPosition = new Vector3(0f, -3.8f, Depth.ENEMY);
         //m_RotateAxisSide = 2*Random.Range(0, 2) - 1;
         
         DisableInteractableAll();
@@ -45,13 +44,12 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             float t_pos = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
             float t_scale = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
-            transform.position = Vector3.Lerp(init_position, m_TargetPosition, t_pos);
+            transform.position = Vector3.Lerp(init_position, TARGET_POSITION, t_pos);
             transform.localScale = Vector3.Lerp(init_scale, new Vector3(1f, 1f, 1f), t_pos);
             yield return new WaitForMillisecondFrames(0);
         }
 
         OnAppearanceComplete();
-        yield break;
     }
 
     public void OnAppearanceComplete() {
@@ -67,6 +65,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         SetBombBarrier(PlayerInvincibility.IsInvincible);
 
         EnableInteractableAll();
+        
+        SystemManager.OnBossStart();
     }
 
     protected override void Update()
@@ -80,21 +80,21 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
 
         if (m_Phase > 0) {
-            if (transform.position.x > m_TargetPosition.x + 1.5f) {
+            if (transform.position.x > TARGET_POSITION.x + 1.5f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
-                transform.position = new Vector3(m_TargetPosition.x + 1.5f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(TARGET_POSITION.x + 1.5f, transform.position.y, transform.position.z);
             }
-            if (transform.position.x < m_TargetPosition.x - 1.5f) {
+            if (transform.position.x < TARGET_POSITION.x - 1.5f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.right));
-                transform.position = new Vector3(m_TargetPosition.x - 1.5f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(TARGET_POSITION.x - 1.5f, transform.position.y, transform.position.z);
             }
-            if (transform.position.y > m_TargetPosition.y + 0.4f) {
+            if (transform.position.y > TARGET_POSITION.y + 0.4f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
-                transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.4f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, TARGET_POSITION.y + 0.4f, transform.position.z);
             }
-            if (transform.position.y < m_TargetPosition.y - 0.4f) {
+            if (transform.position.y < TARGET_POSITION.y - 0.4f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
-                transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.4f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, TARGET_POSITION.y - 0.4f, transform.position.z);
             }
         }
         
@@ -135,7 +135,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private void SetBombBarrier(bool state) {
-        if (GameManager.InvincibleMod)
+        if (DebugOption.InvincibleMod)
             return;
         if (state)
         {
@@ -615,7 +615,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.BossClear();
+        SystemManager.OnBossClear();
     }
 
     public void OnBossDeath() {

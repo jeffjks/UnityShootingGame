@@ -49,7 +49,7 @@ public class QualityButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsQuality]);
+            _textUI.SetText(_textContainer[GameSetting.CurrentLanguage][(int) GameSetting.GraphicsQuality]);
         }
         catch (Exception e)
         {

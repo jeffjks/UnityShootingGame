@@ -15,9 +15,6 @@ public class PlayerHomingMissile : PlayerWeapon {
         
         RotateImmediately(m_MoveVector.direction);
         m_MoveVector.speed = m_Speed;
-        
-        UpdateTransform();
-        SetPosition2D();
     }
 
     private void Update()
@@ -40,11 +37,9 @@ public class PlayerHomingMissile : PlayerWeapon {
         //transform.up = new Vector2(transform.up.x, transform.up.y);
         //m_MoveVector = new MoveVector(transform.up);
 
-        MoveDirection(m_Speed, m_CurrentAngle);
+        MoveDirection(m_Speed, CurrentAngle);
         
         //RotateImmediately(m_MoveVector.direction);
-        UpdateTransform();
-        SetPosition2D();
     }
 
     private GameObject FindClosestEnemy()

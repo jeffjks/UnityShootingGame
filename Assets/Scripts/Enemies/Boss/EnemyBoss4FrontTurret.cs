@@ -57,16 +57,16 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         Vector3 pos;
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 4f, m_CurrentAngle, accel);
+            CreateBullet(0, pos, 4f, CurrentAngle, accel);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 4.1f, m_CurrentAngle, accel, 3, 14f);
+            CreateBulletsSector(0, pos, 4.1f, CurrentAngle, accel, 3, 14f);
         }
         else {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 3.5f, m_CurrentAngle, accel, 2, 9f);
-            CreateBulletsSector(0, pos, 4.1f, m_CurrentAngle, accel, 3, 14f);
+            CreateBulletsSector(0, pos, 3.5f, CurrentAngle, accel, 2, 9f);
+            CreateBulletsSector(0, pos, 4.1f, CurrentAngle, accel, 3, 14f);
         }
         yield break;
     }
@@ -81,9 +81,9 @@ public class EnemyBoss4FrontTurret : EnemyUnit
                 pos0 = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                CreateBullet(1, pos0, 5.4f, m_CurrentAngle, accel);
-                CreateBullet(1, pos1, 5.4f, m_CurrentAngle, accel);
-                CreateBullet(1, pos2, 5.4f, m_CurrentAngle, accel);
+                CreateBullet(1, pos0, 5.4f, CurrentAngle, accel);
+                CreateBullet(1, pos1, 5.4f, CurrentAngle, accel);
+                CreateBullet(1, pos2, 5.4f, CurrentAngle, accel);
         }
         else {
             for (int i = 0; i < 5; i++) {
@@ -91,18 +91,18 @@ public class EnemyBoss4FrontTurret : EnemyUnit
                     pos0 = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                     pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                    CreateBullet(1, pos0, 5f+i*0.8f, m_CurrentAngle, accel);
-                    CreateBullet(1, pos1, 5f+i*0.8f, m_CurrentAngle, accel);
-                    CreateBullet(1, pos2, 5f+i*0.8f, m_CurrentAngle, accel);
+                    CreateBullet(1, pos0, 5f+i*0.8f, CurrentAngle, accel);
+                    CreateBullet(1, pos1, 5f+i*0.8f, CurrentAngle, accel);
+                    CreateBullet(1, pos2, 5f+i*0.8f, CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(50);
                 }
                 else {
                     pos0 = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                     pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                    CreateBullet(1, pos0, 5f+i*0.8f, m_CurrentAngle, accel);
-                    CreateBullet(1, pos1, 5f+i*0.8f, m_CurrentAngle, accel);
-                    CreateBullet(1, pos2, 5f+i*0.8f, m_CurrentAngle, accel);
+                    CreateBullet(1, pos0, 5f+i*0.8f, CurrentAngle, accel);
+                    CreateBullet(1, pos1, 5f+i*0.8f, CurrentAngle, accel);
+                    CreateBullet(1, pos2, 5f+i*0.8f, CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(20);
                 }
             }
@@ -116,18 +116,18 @@ public class EnemyBoss4FrontTurret : EnemyUnit
         Vector3 pos;
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 6.5f, m_CurrentAngle, accel);
+            CreateBullet(0, pos, 6.5f, CurrentAngle, accel);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 6.3f, m_CurrentAngle, accel);
-            CreateBullet(0, pos, 6.9f, m_CurrentAngle, accel);
+            CreateBullet(0, pos, 6.3f, CurrentAngle, accel);
+            CreateBullet(0, pos, 6.9f, CurrentAngle, accel);
         }
         else {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBullet(0, pos, 6f, m_CurrentAngle, accel);
-            CreateBullet(0, pos, 6.6f, m_CurrentAngle, accel);
-            CreateBullet(0, pos, 7.2f, m_CurrentAngle, accel);
+            CreateBullet(0, pos, 6f, CurrentAngle, accel);
+            CreateBullet(0, pos, 6.6f, CurrentAngle, accel);
+            CreateBullet(0, pos, 7.2f, CurrentAngle, accel);
         }
         yield break;
     }

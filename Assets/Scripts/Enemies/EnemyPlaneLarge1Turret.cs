@@ -36,23 +36,23 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 6; i++) {
                 pos = m_FirePosition.position;
-                CreateBullet(3, pos, 7.5f, m_CurrentAngle, accel);
+                CreateBullet(3, pos, 7.5f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(80);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 10; i++) {
                 pos = m_FirePosition.position;
-                CreateBullet(3, pos, 8.5f, m_CurrentAngle, accel);
-                CreateBulletsSector(4, pos, 8.5f, m_CurrentAngle, accel, 2, 28f);
+                CreateBullet(3, pos, 8.5f, CurrentAngle, accel);
+                CreateBulletsSector(4, pos, 8.5f, CurrentAngle, accel, 2, 28f);
                 yield return new WaitForMillisecondFrames(80);
             }
         }
         else {
             for (int i = 0; i < 12; i++) {
                 pos = m_FirePosition.position;
-                CreateBullet(3, pos, 8.5f, m_CurrentAngle, accel);
-                CreateBulletsSector(4, pos, 8.5f, m_CurrentAngle, accel, 2, 28f);
+                CreateBullet(3, pos, 8.5f, CurrentAngle, accel);
+                CreateBulletsSector(4, pos, 8.5f, CurrentAngle, accel, 2, 28f);
                 yield return new WaitForMillisecondFrames(80);
             }
         }

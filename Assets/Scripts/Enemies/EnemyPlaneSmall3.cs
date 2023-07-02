@@ -75,23 +75,23 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
                     Vector3 pos1 = m_FirePosition.TransformPoint(Vector3.right * gap);
                     Vector3 pos2 = m_FirePosition.TransformPoint(Vector3.left * gap);
 
-                    CreateBullet(3, pos1, 4f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos2, 4f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos1, 6f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos2, 6f, m_CurrentAngle, accel);
+                    CreateBullet(3, pos1, 4f, CurrentAngle, accel);
+                    CreateBullet(3, pos2, 4f, CurrentAngle, accel);
+                    CreateBullet(3, pos1, 6f, CurrentAngle, accel);
+                    CreateBullet(3, pos2, 6f, CurrentAngle, accel);
                 }
                 else {
                     Vector3 pos1 = m_FirePosition.TransformPoint(Vector3.right * gap);
                     Vector3 pos2 = m_FirePosition.TransformPoint(Vector3.left * gap);
 
-                    CreateBullet(3, pos1, 4f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos2, 4f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos1, 5f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos2, 5f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos1, 6f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos2, 6f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos1, 7f, m_CurrentAngle, accel);
-                    CreateBullet(3, pos2, 7f, m_CurrentAngle, accel);
+                    CreateBullet(3, pos1, 4f, CurrentAngle, accel);
+                    CreateBullet(3, pos2, 4f, CurrentAngle, accel);
+                    CreateBullet(3, pos1, 5f, CurrentAngle, accel);
+                    CreateBullet(3, pos2, 5f, CurrentAngle, accel);
+                    CreateBullet(3, pos1, 6f, CurrentAngle, accel);
+                    CreateBullet(3, pos2, 6f, CurrentAngle, accel);
+                    CreateBullet(3, pos1, 7f, CurrentAngle, accel);
+                    CreateBullet(3, pos2, 7f, CurrentAngle, accel);
                 }
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

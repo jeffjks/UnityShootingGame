@@ -19,10 +19,10 @@ public class EnemyBoss3Turret : EnemyUnit
     {
         base.Update();
         
-        if (80f < m_CurrentAngle && m_CurrentAngle < 180f) {
+        if (80f < CurrentAngle && CurrentAngle < 180f) {
             m_RandomValue = 1;
         }
-        else if (180f < m_CurrentAngle && m_CurrentAngle < 280f) {
+        else if (180f < CurrentAngle && CurrentAngle < 280f) {
             m_RandomValue = -1;
         }
 
@@ -34,7 +34,7 @@ public class EnemyBoss3Turret : EnemyUnit
                 RotateSlightly(80f*m_RandomValue, 240f);
                 break;
             case 2:
-                RotateSlightly(m_CurrentAngle - 10f*m_RandomValue, 100f);
+                RotateSlightly(CurrentAngle - 10f*m_RandomValue, 100f);
                 break;
         }
     }
@@ -68,15 +68,15 @@ public class EnemyBoss3Turret : EnemyUnit
         while(true) {
             pos = m_FirePosition.position;
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-1f, 1f), accel, 8, 20.6f);
+                CreateBulletsSector(1, pos, 6.5f, CurrentAngle + Random.Range(-1f, 1f), accel, 8, 20.6f);
                 yield return new WaitForMillisecondFrames(640);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 15f);
+                CreateBulletsSector(1, pos, 6.5f, CurrentAngle + Random.Range(-3f, 3f), accel, 11, 15f);
                 yield return new WaitForMillisecondFrames(320);
             }
             else {
-                CreateBulletsSector(1, pos, 6.5f, m_CurrentAngle + Random.Range(-5f, 5f), accel, 13, 13f);
+                CreateBulletsSector(1, pos, 6.5f, CurrentAngle + Random.Range(-5f, 5f), accel, 13, 13f);
                 yield return new WaitForMillisecondFrames(270);
             }
         }
@@ -98,17 +98,17 @@ public class EnemyBoss3Turret : EnemyUnit
             random_value = Random.Range(-3f, 3f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++)
-                    CreateBullet(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel);
+                    CreateBullet(4, pos, 6f + i*0.7f, CurrentAngle + random_value, accel);
                 yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++)
-                    CreateBullet(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel);
+                    CreateBullet(4, pos, 6f + i*0.7f, CurrentAngle + random_value, accel);
                 yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
             }
             else {
                 for (int i = 0; i < 4; i++)
-                    CreateBulletsSector(4, pos, 6f + i*0.7f, m_CurrentAngle + random_value, accel, 3, 18f);
+                    CreateBulletsSector(4, pos, 6f + i*0.7f, CurrentAngle + random_value, accel, 3, 18f);
                 yield return new WaitForMillisecondFrames(fire_delay[(int) SystemManager.Difficulty]);
             }
         }

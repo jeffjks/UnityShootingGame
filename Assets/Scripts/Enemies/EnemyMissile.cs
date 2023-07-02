@@ -21,7 +21,6 @@ public class EnemyMissile : EnemyUnit
     {
         transform.parent = null;
         m_MoveVector = new MoveVector(1f, 0f);
-        UpdateTransform();
         m_Renderer.rotation = m_Rotation;
         StartCoroutine(AppearanceSequence());
 

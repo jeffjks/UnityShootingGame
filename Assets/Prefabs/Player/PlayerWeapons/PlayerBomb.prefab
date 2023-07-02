@@ -5032,7 +5032,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1e476030e7ce74893a99cbd6033834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerTransform: {fileID: 0}
   m_Bomb: {fileID: 4745315900511269222}
   m_Explosion: {fileID: 5075908940287875810}
   m_BombDamage: {fileID: 8759294813227080287}
@@ -24521,8 +24520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fed1440cf60a344aac0c189a5d7c9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_ObjectName: PlayerBomb
   _playerDamageData: {fileID: 11400000, guid: f155fe93d170ddc46b8da169b6b33266, type: 2}
   m_BombDuration: 2000

@@ -25,7 +25,7 @@ public class TextStyling : MonoBehaviour
     {
         if (!m_GameManager)
         {
-            m_GameManager = GameManager.instance_gm;
+            m_GameManager = GameManager.Instance;
         }
         SetText();
     }
@@ -45,11 +45,11 @@ public class TextStyling : MonoBehaviour
         {
             return;
         }
-        if (GameSetting.m_Language == Language.English)
+        if (GameSetting.CurrentLanguage == Language.English)
         {
             _textUI.text = _englishText;
         }
-        else if (GameSetting.m_Language == Language.Korean)
+        else if (GameSetting.CurrentLanguage == Language.Korean)
         {
             _textUI.text = m_NativeText;
         }

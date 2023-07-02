@@ -33,6 +33,8 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnRemoved += OnBossDying;
         m_Turret0.m_EnemyDeath.Action_OnDying += ToNextPhase;
 
+        SystemManager.OnMiddleBossStart();
+
         /*
         m_Sequence = DOTween.Sequence()
         .AppendInterval(4f)
@@ -69,16 +71,6 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         yield return MovementPattern(new MoveVector(m_MoveVector.speed, 240f + 180f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 240f
         yield return new WaitForMillisecondFrames(6500);
         m_EnemyDeath.OnRemoved();
-        yield break;
-
-        /*
-        init_moveVector = m_MoveVector;
-        int frame = 1000 * Application.targetFrameRate / 1000;
-        for (int i = 0; i < frame; ++i) {
-            float t_spd = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
-            m_MoveVector.speed = Mathf.Lerp(init_moveVector.speed, 0f, t_spd);
-            yield return new WaitForMillisecondFrames(0);
-        }*/
     }
 
     private IEnumerator MovementPattern(MoveVector target_moveVector, int speed_ease, int direction_ease, int duration) {
@@ -252,7 +244,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.MiddleBossClear();
+        SystemManager.OnMiddleBossClear();
     }
 
     public void OnBossDeath() {

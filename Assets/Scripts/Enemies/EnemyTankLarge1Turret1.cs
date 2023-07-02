@@ -23,13 +23,13 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
             RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, -48f);
         }
         else if (m_State == 1) {
-            RotateSlightly(m_CurrentAngle + 20f, 90f);
+            RotateSlightly(CurrentAngle + 20f, 90f);
         }
         else if (m_State == 2) {
             RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, 48f);
         }
         else if (m_State == 3) {
-            RotateSlightly(m_CurrentAngle - 20f, 90f);
+            RotateSlightly(CurrentAngle - 20f, 90f);
         }
         else {
             RotateSlightly(PlayerManager.GetPlayerPosition(), 100f, -48f);
@@ -54,7 +54,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 m_State = 1;
                 for (int i = 0; i < 7; i++) {
                     pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                    CreateBullet(5, pos[0], 6.5f, m_CurrentAngle, accel1);
+                    CreateBullet(5, pos[0], 6.5f, CurrentAngle, accel1);
                     yield return new WaitForMillisecondFrames(137);
                 }
                 m_State = 2;
@@ -69,7 +69,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 m_State = 3;
                 for (int i = 0; i < 7; i++) {
                     pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                    CreateBullet(5, pos[0], 6.5f, m_CurrentAngle, accel1);
+                    CreateBullet(5, pos[0], 6.5f, CurrentAngle, accel1);
                     yield return new WaitForMillisecondFrames(137);
                 }
                 m_State = 0;
@@ -88,7 +88,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 5; j++) {
                         pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4.2f + j*0.8f, m_CurrentAngle - j*3f, accel1);
+                        CreateBullet(5, pos[0], 4.2f + j*0.8f, CurrentAngle - j*3f, accel1);
                     }
                     yield return new WaitForMillisecondFrames(96);
                 }
@@ -107,7 +107,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 5; j++) {
                         pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4.2f + j*0.8f, m_CurrentAngle + j*3f, accel1);
+                        CreateBullet(5, pos[0], 4.2f + j*0.8f, CurrentAngle + j*3f, accel1);
                     }
                     yield return new WaitForMillisecondFrames(96);
                 }
@@ -129,7 +129,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 12; i++) {
                     for (int j = 0; j < 6; j++) {
                         pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4f + j*0.8f, m_CurrentAngle - j*3f, accel1);
+                        CreateBullet(5, pos[0], 4f + j*0.8f, CurrentAngle - j*3f, accel1);
                     }
                     yield return new WaitForMillisecondFrames(80);
                 }
@@ -148,7 +148,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int i = 0; i < 12; i++) {
                     for (int j = 0; j < 6; j++) {
                         pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                        CreateBullet(5, pos[0], 4f + j*0.8f, m_CurrentAngle + j*3f, accel1);
+                        CreateBullet(5, pos[0], 4f + j*0.8f, CurrentAngle + j*3f, accel1);
                     }
                     yield return new WaitForMillisecondFrames(80);
                 }

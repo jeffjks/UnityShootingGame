@@ -12,7 +12,7 @@ public class EnemyExplosionCreater : MonoBehaviour, IExplosionCreater
 
     private void Awake()
     {
-        m_ExplosionJsonManager = ExplosionJsonManager.instance_jm;
+        m_ExplosionJsonManager = ExplosionJsonManager.Instance;
 
         if (m_RunOnDying) {
             m_EnemyDeath.Action_OnDying += StartExplosion;

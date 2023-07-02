@@ -8,7 +8,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int m_Phase;
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -5f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2000;
     private const int TIME_LIMIT = 17000;
     private const float ROLLING_ANGLE_MAX = 30f;
@@ -17,7 +17,6 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 
     void Start()
     {
-        m_TargetPosition = new Vector3(0f, -5f, Depth.ENEMY);
         m_Rotator.rotation = Quaternion.Euler(0f, 36f, 20f);
 
         DisableInteractableAll();
@@ -46,24 +45,24 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         if (m_TimeLimitState) {
             return;
         }
-        if (m_Phase != 1) {
+        if (m_Phase < 1) {
             return;
         }
-        if (transform.position.x > m_TargetPosition.x + 2f) {
+        if (transform.position.x > TARGET_POSITION.x + 2f) {
             m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
-            transform.position = new Vector3(m_TargetPosition.x + 2f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(TARGET_POSITION.x + 2f, transform.position.y, transform.position.z);
         }
-        if (transform.position.x < m_TargetPosition.x - 2f) {
+        if (transform.position.x < TARGET_POSITION.x - 2f) {
             m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.right));
-            transform.position = new Vector3(m_TargetPosition.x - 2f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(TARGET_POSITION.x - 2f, transform.position.y, transform.position.z);
         }
-        if (transform.position.y > m_TargetPosition.y + 0.6f) {
+        if (transform.position.y > TARGET_POSITION.y + 0.6f) {
             m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.down));
-            transform.position = new Vector3(transform.position.x, m_TargetPosition.y + 0.6f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, TARGET_POSITION.y + 0.6f, transform.position.z);
         }
-        if (transform.position.y < m_TargetPosition.y - 0.6f) {
+        if (transform.position.y < TARGET_POSITION.y - 0.6f) {
             m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.up));
-            transform.position = new Vector3(transform.position.x, m_TargetPosition.y - 0.6f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, TARGET_POSITION.y - 0.6f, transform.position.z);
         }
     }
 
@@ -71,22 +70,18 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         Vector3 init_vector = transform.position;
-        Quaternion init_quarternion = m_Rotator.rotation;
+        Quaternion init_quaternion = m_Rotator.rotation;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
-            transform.position = Vector3.Lerp(init_vector, m_TargetPosition, t_pos);
-            m_Rotator.rotation = Quaternion.Lerp(init_quarternion, Quaternion.identity, t_rot);
+            transform.position = Vector3.Lerp(init_vector, TARGET_POSITION, t_pos);
+            m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.identity, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
-        OnAppearanceComplete();
         
-        //m_Sequence = DOTween.Sequence()
-        //.Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad))
-        //.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARANCE_TIME).SetEase(Ease.InQuad));
-        yield break;
+        OnAppearanceComplete();
     }
 
     public void OnAppearanceComplete() {
@@ -99,6 +94,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         
         EnableInteractableAll();
 
+        SystemManager.OnMiddleBossStart();
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
 
@@ -108,7 +104,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 
         int frame = 3500 * Application.targetFrameRate / 1000;
 
-        Quaternion init_quarternion = m_Rotator.rotation;
+        Quaternion init_quaternion = m_Rotator.rotation;
         float target_xspeed;
 
         if (Mathf.DeltaAngle(0f, m_MoveVector.direction) < 180f) {
@@ -123,7 +119,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
             float t_rot = (i+1) / frame;
             
             transform.Translate(new Vector3(Mathf.Lerp(0f, target_xspeed / Application.targetFrameRate, t_pos), 0f, 0f));
-            m_Rotator.rotation = Quaternion.Lerp(init_quarternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
 
@@ -255,7 +251,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.MiddleBossClear();
+        SystemManager.OnMiddleBossClear();
     }
 
     public void OnBossDeath() {

@@ -288,16 +288,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59fd930860836e4285c690c6deb9c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
 --- !u!114 &3061002104077901386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,20 +525,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24abedeebd7d5547b53efe2e8c4416d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 100000
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 040000000500000006000000
-  m_AudioClip:
-  - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
-  - {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
-  - {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  - {fileID: 8300000, guid: ace7f34e586dba844970439075790e1b, type: 3}
+  m_IsRoot: 1
   m_Core: {fileID: 1161593236161121628}
   m_Wings: {fileID: 8024313439898444883}
   m_WingsForAppearance: {fileID: 6161929909053796587}
@@ -958,16 +946,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59fd930860836e4285c690c6deb9c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
 --- !u!114 &2440039974565747813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,16 +1027,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59fd930860836e4285c690c6deb9c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
 --- !u!114 &6594443677645485074
 MonoBehaviour:
   m_ObjectHideFlags: 0

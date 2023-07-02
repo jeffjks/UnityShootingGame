@@ -32,15 +32,15 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
             
-                CreateBulletsSector(5, pos1, 7f, m_CurrentAngle, accel, 4, 20f);
+                CreateBulletsSector(5, pos1, 7f, CurrentAngle, accel, 4, 20f);
                 yield return new WaitForMillisecondFrames(2000);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
             
-                CreateBulletsSector(5, pos1, 6f, m_CurrentAngle, accel, 3, 20f);
-                CreateBulletsSector(5, pos1, 7.1f, m_CurrentAngle, accel, 4, 20f);
+                CreateBulletsSector(5, pos1, 6f, CurrentAngle, accel, 3, 20f);
+                CreateBulletsSector(5, pos1, 7.1f, CurrentAngle, accel, 4, 20f);
                 yield return new WaitForMillisecondFrames(800);
             }
             else {
@@ -49,8 +49,8 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
                 
                 for (int i = -1; i < 2; i++) {
-                    CreateBulletsSector(5, pos0, 6.1f, m_CurrentAngle + 3f*i, accel, 3, 20f);
-                    CreateBulletsSector(5, pos1, 7.2f, m_CurrentAngle + 3f*i, accel, 4, 20f);
+                    CreateBulletsSector(5, pos0, 6.1f, CurrentAngle + 3f*i, accel, 3, 20f);
+                    CreateBulletsSector(5, pos1, 7.2f, CurrentAngle + 3f*i, accel, 4, 20f);
                 }
                 yield return new WaitForMillisecondFrames(800);
             }
@@ -59,8 +59,8 @@ public class EnemyTankMedium1Turret : EnemyUnit
                 for (int i = 0; i < 6; i++) {
                     pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
                     pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
-                    CreateBullet(1, pos1, 5f + i, m_CurrentAngle + Random.Range(-1f, 0f), accel);
-                    CreateBullet(1, pos2, 5f + i, m_CurrentAngle + Random.Range(0f, 1f), accel);
+                    CreateBullet(1, pos1, 5f + i, CurrentAngle + Random.Range(-1f, 0f), accel);
+                    CreateBullet(1, pos2, 5f + i, CurrentAngle + Random.Range(0f, 1f), accel);
                     yield return new WaitForMillisecondFrames(70);
                 }
                 yield return new WaitForMillisecondFrames(1000);

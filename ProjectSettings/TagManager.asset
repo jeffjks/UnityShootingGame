@@ -19,6 +19,7 @@ TagManager:
   - Debris
   - PlayerLaser
   - PlayerLaserAura
+  - PlayerMissile
   layers:
   - Default
   - TransparentFX
@@ -39,9 +40,9 @@ TagManager:
   - VFX_Ground
   - Player
   - Player'sAttack
-  - Items
+  - Item_Air
+  - Item_Ground
   - GameBoundary
-  - 
   - 
   - 
   - 

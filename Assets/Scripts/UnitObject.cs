@@ -5,13 +5,22 @@ using UnityEngine;
 public abstract class UnitObject : MonoBehaviour
 {
     public MoveVector m_MoveVector;
+    [DrawIf("m_IsRoot", true, ComparisonType.Equals)]
+    public bool m_IsAir;
 
-	[HideInInspector] public Vector2 m_Position2D;
-	[HideInInspector] public float m_CurrentAngle; // 현재 회전 각도
+	//[HideInInspector] public Vector2 m_Position2D;
+	protected float _currentAngle; // 현재 회전 각도
+
+    public virtual float CurrentAngle
+    {
+        get => _currentAngle;
+        set => _currentAngle = value;
+    }
+    public Vector2 m_Position2D => GetPosition2d();
 
     protected void MoveDirection(float speed, float direction) // speed 속도로 direction 방향으로 이동. 0도는 아래, 90도는 오른쪽
     {
-        if (Utility.CheckLayer(gameObject, Layer.GROUND)) {
+        if (!m_IsAir) {
             Vector3 vector3 = Quaternion.AngleAxis(direction, Vector3.down) * Vector3.back;
             transform.Translate(vector3 * speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
@@ -27,16 +36,23 @@ public abstract class UnitObject : MonoBehaviour
         float target_player = Vector2.SignedAngle(Vector2.down, point_direction_vector);
         return target_player;
     }
+
+    private Vector2 GetPosition2d()
+    {
+        if (m_IsAir)
+        {
+            return transform.position;
+        }
+        return BackgroundCamera.GetScreenPosition(transform.position);
+    }
 }
 
 public interface IRotatable
 {
-    void RotateSlightly(Vector2 target, float speed, float rot = 0f);
-    void RotateSlightly(float target_angle, float speed, float rot = 0f);
-    void RotateImmediately(Vector2 target, float rot = 0f);
-    void RotateImmediately(float target_angle, float rot = 0f);
-    void UpdateTransform();
-    void SetPosition2D();
+    public void RotateSlightly(Vector2 target, float speed, float rot = 0f);
+    public void RotateSlightly(float target_angle, float speed, float rot = 0f);
+    public void RotateImmediately(Vector2 target, float rot = 0f);
+    public void RotateImmediately(float target_angle, float rot = 0f);
 }
 
 

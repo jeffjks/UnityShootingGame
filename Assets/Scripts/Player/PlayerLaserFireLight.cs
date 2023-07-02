@@ -7,18 +7,15 @@ public class PlayerLaserFireLight : MonoBehaviour {
     public Light m_Light;
     public Color[] m_Color = new Color[3];
 
-    void Start()
+    private void Start()
     {
-        GameManager gameManager = GameManager.instance_gm;
-
-        if (gameManager != null) {
-            if (GameSetting.GraphicsQuality > QualitySetting.VeryHigh) {
-                m_Light.enabled = false;
-            }
+        if (GameSetting.GraphicsQuality > QualitySetting.VeryHigh)
+        {
+            m_Light.enabled = false;
         }
     }
 
-    void Update()
+    private void Update()
     {
         m_Light.intensity = Random.Range(8f, 16f);
     }

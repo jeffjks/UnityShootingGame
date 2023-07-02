@@ -15,7 +15,7 @@ public class AttributesDetailsWindowController : MonoBehaviour
     {
         m_DetailsIconImage.sprite = data.sprite;
         string text;
-        if (GameSetting.m_Language == Language.Korean)
+        if (GameSetting.CurrentLanguage == Language.Korean)
         {
             text = $"{data.nativeName}\n[ 비용: {data.cost} ]\n\n{data.nativeDescription}";
         }

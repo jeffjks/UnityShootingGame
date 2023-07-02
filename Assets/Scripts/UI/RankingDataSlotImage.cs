@@ -6,33 +6,10 @@ using System.Text;
 using UnityEditor;
 
 [System.Serializable]
-public struct RankingAttributeData
+public class RankingAttributeData
 {
     public Image attributesImage;
     public Sprite[] attributesSprites;
-}
-
-[CustomEditor(typeof(AttributesDataList))]
-public class AttributesDataEditor : Editor
-{
-    private SerializedProperty _attributesDataList;
-
-    private void OnEnable()
-    {
-        _attributesDataList = serializedObject.FindProperty("m_AttributesData");
-    }
-
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-        EditorGUILayout.PropertyField(_attributesDataList, true);
-        serializedObject.ApplyModifiedProperties();
-    }
-}
-
-public class AttributesDataList : MonoBehaviour
-{
-    public List<RankingAttributeData> m_AttributesData = new List<RankingAttributeData>();
 }
 
 public class RankingDataSlotImage : RankingDataSlot

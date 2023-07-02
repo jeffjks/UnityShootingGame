@@ -15,11 +15,13 @@ public class PauseMenuHandler : MenuHandler
     private void OnEnable()
     {
         m_InGameInputController.Action_OnPause += Resume;
+        m_InGameInputController.Action_OnEscape += Resume;
     }
 
     private void OnDisable()
     {
         m_InGameInputController.Action_OnPause -= Resume;
+        m_InGameInputController.Action_OnEscape -= Resume;
     }
 
     public override void Back()

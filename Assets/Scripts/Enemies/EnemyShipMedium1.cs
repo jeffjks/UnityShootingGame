@@ -33,7 +33,7 @@ public class EnemyShipMedium1 : EnemyUnit
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 5; j++) {
                     pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
-                    CreateBullet(1, pos[j], 4.3f, m_CurrentAngle - target_angle[j], accel);
+                    CreateBullet(1, pos[j], 4.3f, CurrentAngle - target_angle[j], accel);
                 }
                 yield return new WaitForMillisecondFrames(100);
             }

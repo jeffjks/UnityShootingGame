@@ -1,5 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
+
+public class IntegrityTestFailedException : Exception
+{
+    public IntegrityTestFailedException(string message) : base(message)
+    {
+    }
+}
 
 public static class Utility
 {
@@ -47,5 +58,104 @@ public static class Utility
         }
 
         return false;
+    }
+
+    public static string Md5Sum(string strToEncrypt) {
+        UTF8Encoding ue = new UTF8Encoding();
+        byte[] bytes = ue.GetBytes(strToEncrypt);
+    
+        // encrypt bytes
+        System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+        byte[] hashBytes = md5.ComputeHash(bytes);
+    
+        // Convert the encrypted bytes back to a string (base 16)
+        string hashString = String.Empty;
+    
+        for (int i = 0; i < hashBytes.Length; i++) {
+            hashString += Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+        }
+    
+        return hashString.PadLeft(32, '0');
+    }
+
+    public static void SaveDataFile<T>(string filePath, string fileName, T gameData)
+    {
+        string str = JsonConvert.SerializeObject(gameData, Formatting.None);
+        string md5 = Md5Sum(str);
+        str += md5;
+        string encryptedStr = AESEncrypter.AESEncrypt128(str);
+        
+        FileStream fileStream = new FileStream($"{filePath}/{fileName}.dat", FileMode.Create);
+        byte[] data = Encoding.UTF8.GetBytes(encryptedStr);
+        
+        #if UNITY_EDITOR
+        Debug.Log($"파일 생성이 완료되었습니다: {fileName}, {data.Length} Bytes, 해쉬값 : {md5}");
+        #endif
+        
+        fileStream.Write(data, 0, data.Length);
+        fileStream.Close();
+    }
+
+    public static (T jsonData, string hash) LoadDataFile<T>(string filePath, string fileName)
+    {
+        #if UNITY_EDITOR
+        //Debug.Log($"파일 열기를 시도합니다: {fileName}");
+        #endif
+        try
+        {
+            var (jsonData, hash) = LoadDataFileString(filePath, fileName);
+            if (!TestIntegrity(jsonData, hash))
+            {
+                throw new IntegrityTestFailedException("무결성 검사 실패");
+            }
+            var deserializedData = JsonConvert.DeserializeObject<T>(jsonData);
+            Debug.Log($"파일 열기에 성공했습니다: {fileName}");
+            return (deserializedData, hash);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"파일 열기에 실패했습니다: {fileName}\n{e}");
+            return (default, string.Empty);
+        }
+    }
+
+    public static (string, string) LoadDataFileString(string filePath, string fileName) {
+        FileStream fileStream = new FileStream($"{filePath}/{fileName}.dat", FileMode.Open);
+        byte[] data = new byte[fileStream.Length];
+        fileStream.Read(data, 0, data.Length);
+        fileStream.Close();
+        string encryptedStr = Encoding.UTF8.GetString(data);
+        string decryptedStr = AESEncrypter.AESDecrypt128(encryptedStr);
+        var jsonData = decryptedStr.Substring(0, decryptedStr.Length - 32);
+        var hash = decryptedStr.Substring(decryptedStr.Length - 32);
+        return (jsonData, hash);
+    }
+
+    private static bool TestIntegrity(string jsonData, string hash)
+    {
+        try
+        {
+            if (Md5Sum(jsonData) == hash)
+            {
+                Debug.Log("무결성 검사가 완료되었습니다.");
+                return true;
+            }
+            Debug.LogError("무결성 검사에 실패하였습니다.");
+            return false;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"무결성 검사 중 오류가 발생하였습니다:\n{e}");
+        }
+        return false;
+    }
+
+    public static void QuitGame()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #else
+        Application.Quit();
+    #endif
     }
 }

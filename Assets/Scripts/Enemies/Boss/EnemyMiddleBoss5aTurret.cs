@@ -29,10 +29,10 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
                 }
                 break;
             case 21:
-                RotateSlightly(m_CurrentAngle + 90f, 240f);
+                RotateSlightly(CurrentAngle + 90f, 240f);
                 break;
             case 22:
-                RotateSlightly(m_CurrentAngle - 90f, 240f);
+                RotateSlightly(CurrentAngle - 90f, 240f);
                 break;
             case 31:
                 RotateSlightly(0f, 120f);
@@ -64,22 +64,22 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
-                CreateBullet(4, m_FirePosition[0].position, 2f, m_CurrentAngle, accel);
-                CreateBullet(4, m_FirePosition[1].position, 2f, m_CurrentAngle + 180f, accel);
+                CreateBullet(4, m_FirePosition[0].position, 2f, CurrentAngle, accel);
+                CreateBullet(4, m_FirePosition[1].position, 2f, CurrentAngle + 180f, accel);
                 yield return new WaitForFrames(7);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
-                CreateBulletsSector(4, m_FirePosition[0].position, 2f, m_CurrentAngle, accel, 2, 9f);
-                CreateBulletsSector(4, m_FirePosition[1].position, 2f, m_CurrentAngle + 180f, accel, 2, 9f);
+                CreateBulletsSector(4, m_FirePosition[0].position, 2f, CurrentAngle, accel, 2, 9f);
+                CreateBulletsSector(4, m_FirePosition[1].position, 2f, CurrentAngle + 180f, accel, 2, 9f);
                 yield return new WaitForFrames(3);
             }
         }
         else {
             while(true) {
-                CreateBulletsSector(4, m_FirePosition[0].position, 2f, m_CurrentAngle, accel, 2, 6f);
-                CreateBulletsSector(4, m_FirePosition[1].position, 2f, m_CurrentAngle + 180f, accel, 2, 6f);
+                CreateBulletsSector(4, m_FirePosition[0].position, 2f, CurrentAngle, accel, 2, 6f);
+                CreateBulletsSector(4, m_FirePosition[1].position, 2f, CurrentAngle + 180f, accel, 2, 6f);
                 yield return new WaitForFrames(2);
             }
         }
@@ -97,19 +97,19 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
             m_RotatePattern = 0;
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++) {
-                    CreateBullet(4, m_FirePosition[0].position, 5.5f, m_CurrentAngle, accel);
+                    CreateBullet(4, m_FirePosition[0].position, 5.5f, CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(40);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
-                    CreateBullet(4, m_FirePosition[0].position, 5.5f, m_CurrentAngle, accel);
+                    CreateBullet(4, m_FirePosition[0].position, 5.5f, CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(40);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
-                    CreateBullet(4, m_FirePosition[0].position, 5.5f, m_CurrentAngle, accel);
+                    CreateBullet(4, m_FirePosition[0].position, 5.5f, CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(40);
                 }
             }
@@ -124,25 +124,25 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
-                CreateBullet(0, m_FirePosition[0].position, 5f, m_CurrentAngle, accel);
-                CreateBullet(0, m_FirePosition[0].position, 6.4f, m_CurrentAngle, accel);
+                CreateBullet(0, m_FirePosition[0].position, 5f, CurrentAngle, accel);
+                CreateBullet(0, m_FirePosition[0].position, 6.4f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(100);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
-                CreateBullet(0, m_FirePosition[0].position, 5f, m_CurrentAngle, accel);
-                CreateBullet(0, m_FirePosition[0].position, 6.4f, m_CurrentAngle, accel);
-                CreateBullet(2, m_FirePosition[1].position, 6f, m_CurrentAngle + 180f, accel);
+                CreateBullet(0, m_FirePosition[0].position, 5f, CurrentAngle, accel);
+                CreateBullet(0, m_FirePosition[0].position, 6.4f, CurrentAngle, accel);
+                CreateBullet(2, m_FirePosition[1].position, 6f, CurrentAngle + 180f, accel);
                 yield return new WaitForMillisecondFrames(60);
             }
         }
         else {
             while(true) {
-                CreateBulletsSector(0, m_FirePosition[0].position, 5f, m_CurrentAngle, accel, 2, 8f);
-                CreateBulletsSector(0, m_FirePosition[0].position, 6.4f, m_CurrentAngle, accel, 2, 8f);
-                CreateBullet(2, m_FirePosition[1].position, 5f, m_CurrentAngle + 180f, accel);
-                CreateBullet(2, m_FirePosition[1].position, 6.4f, m_CurrentAngle + 180f, accel);
+                CreateBulletsSector(0, m_FirePosition[0].position, 5f, CurrentAngle, accel, 2, 8f);
+                CreateBulletsSector(0, m_FirePosition[0].position, 6.4f, CurrentAngle, accel, 2, 8f);
+                CreateBullet(2, m_FirePosition[1].position, 5f, CurrentAngle + 180f, accel);
+                CreateBullet(2, m_FirePosition[1].position, 6.4f, CurrentAngle + 180f, accel);
                 yield return new WaitForMillisecondFrames(60);
             }
         }

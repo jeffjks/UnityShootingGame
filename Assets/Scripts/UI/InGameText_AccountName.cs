@@ -5,11 +5,8 @@ public class InGameText_AccountName : MonoBehaviour
 {
     public Text m_Text;
 
-    private GameManager m_GameManager = null;
-
     void Start()
     {
-        m_GameManager = GameManager.instance_gm;
         SetAccountText();
     }
 
@@ -19,11 +16,11 @@ public class InGameText_AccountName : MonoBehaviour
     }
 
     private void SetAccountText() {
-        if (!GameManager.NetworkAvailable) {
+        if (!DebugOption.NetworkAvailable) {
             return;
         }
-        if (m_GameManager.m_IsOnline) {
-            m_Text.text = m_GameManager.GetAccountID();
+        if (GameManager.isOnline) {
+            m_Text.text = GameManager.GetAccountID();
         }
         else {
             m_Text.text = "(offline)";

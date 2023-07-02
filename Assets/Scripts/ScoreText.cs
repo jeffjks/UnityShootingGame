@@ -1,33 +1,36 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ScoreText : MonoBehaviour, IObjectPooling
 {
-    private TextMesh _textUI;
+    private TextMeshProUGUI _textUI;
+    private Animator _animator;
     
     //private IEnumerator m_BlinkEffect, m_FadeOutEffect;
-    private float _hSpeed;
-    private const float SPEED_START = 0.6f;
-    private const float SPEED_ACCEL = 4f;
+    //private float _hSpeed;
+    //private const float SPEED_START = 0.6f;
+    //private const float SPEED_ACCEL = 4f;
+    private readonly int _textLeft = Animator.StringToHash("Text_Left");
+    private readonly int _textRight = Animator.StringToHash("Text_Right");
 
     void Awake()
     {
-        _textUI = GetComponentInChildren<TextMesh>();
+        _textUI = GetComponentInChildren<TextMeshProUGUI>();
+        _animator = GetComponent<Animator>();
     }
 
     public void OnStart(Vector3 pos, string text, bool dir)
     {
         transform.position = pos;
         _textUI.text = text;
-        _hSpeed = SPEED_START;
+        //_hSpeed = SPEED_START;
         
         if (dir) {
-            _textUI.alignment = TextAlignment.Left;
-            _textUI.anchor = TextAnchor.LowerLeft;
+            _animator.SetTrigger(_textLeft);
         }
         else {
-            _textUI.alignment = TextAlignment.Right;
-            _textUI.anchor = TextAnchor.LowerRight;
+            _animator.SetTrigger(_textRight);
         }
         
         //m_TextMesh.color = new Color(0.3254902f, 0.8666667f, 0.9137255f, 1f);
@@ -36,15 +39,6 @@ public class ScoreText : MonoBehaviour, IObjectPooling
         //m_FadeOutEffect = FadeOutEffect();
         //StartCoroutine(m_BlinkEffect);
         //StartCoroutine(m_FadeOutEffect);
-    }
-
-    void Update()
-    {
-        Vector3 pos = transform.position;
-        pos.x += _hSpeed * Time.deltaTime;
-        transform.position = pos;
-
-        _hSpeed += SPEED_ACCEL * Time.deltaTime;
     }
 /*
     private IEnumerator BlinkEffect() {

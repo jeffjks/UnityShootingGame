@@ -55,7 +55,7 @@ public class PlayerShootHandler : MonoBehaviour
         _playerModuleManager = new PlayerModuleManager();
         ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex);
         ShotIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
-        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += value => _shotAttackLevel = value;
+        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => _shotAttackLevel = m_PlayerUnit.PlayerAttackLevel;
         m_PlayerUnit.Action_OnControllableChanged += () => AutoShot = 0;
     }
     

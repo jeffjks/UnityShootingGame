@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000011148536180}
-  - component: {fileID: -4236653689785038940}
   - component: {fileID: 8443037383033269228}
-  - component: {fileID: 6113428378056944020}
+  - component: {fileID: -4236653689785038940}
   m_Layer: 19
   m_Name: ItemGemAir
   m_TagString: ItemGem
@@ -35,25 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &-4236653689785038940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013105924406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70127b54803428d45b40c1d076cd9679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemData: {fileID: 11400000, guid: 414306d6290df594180c53fd39689ca6, type: 2}
-  m_Collider2D: {fileID: 8443037383033269228}
-  m_AudioClip: {fileID: 8300000, guid: e6601203e638e2d46a0decd08613bb61, type: 3}
-  m_Renderer: {fileID: 4000011148536180}
-  m_ObjectName: ItemGemAir
-  m_MeshRenderer: {fileID: 8147460482884559363}
-  m_RandomScale: 0.04
 --- !u!58 &8443037383033269228
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -70,27 +50,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!50 &6113428378056944020
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &-4236653689785038940
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000013105924406}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70127b54803428d45b40c1d076cd9679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsAir: 1
+  m_ItemData: {fileID: 11400000, guid: 414306d6290df594180c53fd39689ca6, type: 2}
+  m_Collider2D: {fileID: 8443037383033269228}
+  m_Renderer: {fileID: 4000011148536180}
+  m_ObjectName: ItemGemAir
+  m_MeshRenderer: {fileID: 8147460482884559363}
+  m_RandomScale: 0.04
 --- !u!1 &8792303882414952586
 GameObject:
   m_ObjectHideFlags: 0

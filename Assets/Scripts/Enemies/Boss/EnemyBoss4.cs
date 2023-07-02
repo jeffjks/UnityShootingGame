@@ -15,7 +15,6 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private int m_Phase;
     private float m_Direction;
     
-    private Vector3 m_TargetPosition;
     private const int APPEARANCE_TIME = 8000;
     private bool m_InPattern = false;
     //private int m_MoveDirection;
@@ -27,7 +26,6 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     void Start()
     {
-        m_TargetPosition = transform.position;
         m_MoveVector = new MoveVector(0f, 180f); // new MoveVector(-4.5f, 180f);
         
         DisableInteractableAll();
@@ -70,6 +68,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_FollowingBackground = true;
         
         EnableInteractableAll();
+        
+        SystemManager.OnBossStart();
     }
 
     private void ControlSpeed() {
@@ -598,7 +598,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.BossClear();
+        SystemManager.OnBossClear();
     }
 
     public void OnBossDeath() {

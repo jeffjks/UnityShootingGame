@@ -76,19 +76,19 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
                 Vector3 pos1 = m_FirePosition[0].position;
                 Vector3 pos2 = m_FirePosition[1].position;
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    CreateBullet(4, pos1, 6.7f, m_CurrentAngle + 2.5f, accel);
-                    CreateBullet(4, pos2, 6.7f, m_CurrentAngle - 2.5f, accel);
+                    CreateBullet(4, pos1, 6.7f, CurrentAngle + 2.5f, accel);
+                    CreateBullet(4, pos2, 6.7f, CurrentAngle - 2.5f, accel);
                     break;
                 }
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    CreateBullet(4, pos1, 8f, m_CurrentAngle + 2.5f, accel);
-                    CreateBullet(4, pos2, 8f, m_CurrentAngle - 2.5f, accel);
+                    CreateBullet(4, pos1, 8f, CurrentAngle + 2.5f, accel);
+                    CreateBullet(4, pos2, 8f, CurrentAngle - 2.5f, accel);
                 }
                 else {
-                    CreateBullet(4, pos1, 8.5f, m_CurrentAngle + 2.5f, accel);
-                    CreateBullet(4, pos1, 8.5f, m_CurrentAngle + 9f, accel);
-                    CreateBullet(4, pos2, 8.5f, m_CurrentAngle - 9f, accel);
-                    CreateBullet(4, pos2, 8.5f, m_CurrentAngle - 2.5f, accel);
+                    CreateBullet(4, pos1, 8.5f, CurrentAngle + 2.5f, accel);
+                    CreateBullet(4, pos1, 8.5f, CurrentAngle + 9f, accel);
+                    CreateBullet(4, pos2, 8.5f, CurrentAngle - 9f, accel);
+                    CreateBullet(4, pos2, 8.5f, CurrentAngle - 2.5f, accel);
                 }
                 yield return new WaitForMillisecondFrames(140);
             }

@@ -44,6 +44,6 @@ public class ServerMenuHandler : GameUI
 
     private void ExitGame() {
         AudioService.PlaySound("CancelUI");
-        Application.Quit(); // 에디터에서는 무시됨
+        Utility.QuitGame();
     }
 }

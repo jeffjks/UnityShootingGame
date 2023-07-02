@@ -14,7 +14,7 @@ public class EnemyShipCarrier : EnemyUnit
     {
         RotateImmediately(m_MoveVector.direction);
         m_Direction1 = Random.Range(0f, 360f);
-        if (m_CurrentAngle >= 180f) {
+        if (CurrentAngle >= 180f) {
             m_Pattern1Direction = -1;
         }
         StartCoroutine(Pattern1());
@@ -46,7 +46,7 @@ public class EnemyShipCarrier : EnemyUnit
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 2, 180f);
+                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + CurrentAngle, accel, 2, 180f);
                 yield return new WaitForMillisecondFrames(160);
             }
 
@@ -54,7 +54,7 @@ public class EnemyShipCarrier : EnemyUnit
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 3, 120f);
+                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + CurrentAngle, accel, 3, 120f);
                 yield return new WaitForMillisecondFrames(110);
             }
 
@@ -62,7 +62,7 @@ public class EnemyShipCarrier : EnemyUnit
         else {
             while(true) {
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + m_CurrentAngle, accel, 4, 90f);
+                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + CurrentAngle, accel, 4, 90f);
                 yield return new WaitForMillisecondFrames(70);
             }
         }
@@ -76,8 +76,8 @@ public class EnemyShipCarrier : EnemyUnit
             while(true) {
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBullet(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle, accel);
-                CreateBullet(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle, accel);
+                CreateBullet(3, pos[1], 6.2f, m_Direction2 + CurrentAngle, accel);
+                CreateBullet(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(200);
             }
 
@@ -86,8 +86,8 @@ public class EnemyShipCarrier : EnemyUnit
             while(true) {
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle, accel, 2, 180f);
-                CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle, accel, 2, 180f);
+                CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + CurrentAngle, accel, 2, 180f);
+                CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle, accel, 2, 180f);
                 yield return new WaitForMillisecondFrames(120);
             }
 
@@ -96,10 +96,10 @@ public class EnemyShipCarrier : EnemyUnit
             while(true) {
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle, accel, 2, 30f);
-                CreateBullet(3, pos[1], 6.2f, m_Direction2 + m_CurrentAngle + 180f, accel);
-                CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle, accel, 2, 30f);
-                CreateBullet(3, pos[2], 6.2f, -m_Direction2 + m_CurrentAngle + 180f, accel);
+                CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + CurrentAngle, accel, 2, 30f);
+                CreateBullet(3, pos[1], 6.2f, m_Direction2 + CurrentAngle + 180f, accel);
+                CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle, accel, 2, 30f);
+                CreateBullet(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle + 180f, accel);
                 yield return new WaitForMillisecondFrames(100);
             }
         }

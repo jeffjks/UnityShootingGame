@@ -51,7 +51,7 @@ public class TrainingStageButtonController : MonoBehaviour, IMoveHandler
         try
         {
             int index = SystemManager.TrainingInfo.stage;
-            _textUI.SetText(_textContainer[GameSetting.m_Language][index]);
+            _textUI.SetText(_textContainer[GameSetting.CurrentLanguage][index]);
         }
         catch (Exception e)
         {

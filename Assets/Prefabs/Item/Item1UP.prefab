@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c94c3e69c3cc1c4c8ca8304afc30fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_IsAir: 1
   m_ItemData: {fileID: 11400000, guid: e6b7d474e3516ab498fb6f7da4bf4a8c, type: 2}
   m_Collider2D: {fileID: 1608746193201346141}
-  m_AudioClip: {fileID: 8300000, guid: bcbcaf76aa102ac4dae7406601900a79, type: 3}
   m_Renderer: {fileID: 400000}

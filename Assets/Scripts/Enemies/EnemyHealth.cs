@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+public interface IHasGroundCollider
+{
+    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation);
+}
+
 [RequireComponent(typeof(EnemyColorBlender))]
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 {
     private EnemyDeath m_EnemyDeath;
     [Tooltip("None: 독립적인 Blend, 자체 체력이 있지만 본체에도 데미지 전달\nIndependent: 독립적인 Blend, 독립적인 자체 체력\nShare: 본체와 Blend와 체력 모두 공유")]
@@ -127,9 +132,10 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation) {
-        for (int i = 0; i < m_Collider2D.Length; i++) {
-            m_Collider2D[i].transform.position = screenPosition;
-            m_Collider2D[i].transform.rotation = screenRotation;
+        foreach (var colliderItem in m_Collider2D)
+        {
+            colliderItem.transform.position = screenPosition;
+            colliderItem.transform.rotation = screenRotation;
         }
     }
     

@@ -49,7 +49,7 @@ public class AntiAliasingButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsAntiAliasing]);
+            _textUI.SetText(_textContainer[GameSetting.CurrentLanguage][(int) GameSetting.GraphicsAntiAliasing]);
         }
         catch (Exception e)
         {

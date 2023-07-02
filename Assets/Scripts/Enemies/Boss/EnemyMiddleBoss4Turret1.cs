@@ -43,7 +43,7 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
-                CreateBullet(4, m_FirePosition.position, 4f, m_CurrentAngle, accel);
+                CreateBullet(4, m_FirePosition.position, 4f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(2000 + Random.Range(0, 1000));
             }
         }
@@ -64,7 +64,7 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
             while(true) {
-                CreateBullet(4, m_FirePosition.position, 2f, m_CurrentAngle, accel);
+                CreateBullet(4, m_FirePosition.position, 2f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(200);
             }
         }

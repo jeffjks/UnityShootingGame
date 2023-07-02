@@ -45,7 +45,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             if (!m_ParentEnemy.m_IsUnattackable) {
                 if (PlayerManager.GetPlayerPosition().y >= -7f) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(0, pos, 6.6f, m_CurrentAngle, accel, 12, 2.5f);
+                    CreateBulletsSector(0, pos, 6.6f, CurrentAngle, accel, 12, 2.5f);
                 }
             }
             yield return new WaitForMillisecondFrames(500);
@@ -61,39 +61,39 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
             yield return new WaitForMillisecondFrames(1500);
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle, accel, 3, 32f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle, accel, 3, 32f);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 20f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 20f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 40f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 40f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 20f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 20f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 40f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 40f, accel, 8, 0.8f);
             yield return new WaitForMillisecondFrames(3000);
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 10f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 10f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 30f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 30f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 50f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 50f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 10f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 10f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 30f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 30f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 50f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 50f, accel, 8, 0.8f);
         }
         else {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle, accel, 10, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 20f, accel, 10, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 20f, accel, 10, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 40f, accel, 10, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 40f, accel, 10, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle, accel, 10, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 20f, accel, 10, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 20f, accel, 10, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 40f, accel, 10, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 40f, accel, 10, 0.8f);
             yield return new WaitForMillisecondFrames(3000);
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 10f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 10f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 30f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 30f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle - 50f, accel, 8, 0.8f);
-            CreateBulletsSector(0, pos, 2f, m_CurrentAngle + 50f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 10f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 10f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 30f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 30f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle - 50f, accel, 8, 0.8f);
+            CreateBulletsSector(0, pos, 2f, CurrentAngle + 50f, accel, 8, 0.8f);
         }
         yield break;
     }

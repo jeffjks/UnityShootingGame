@@ -123,6 +123,12 @@ public class ShipAttributes
         _attributes[AttributeType.Bomb] = bomb;
     }
 
+    public override string ToString()
+    {
+        return
+            $"{_attributes[AttributeType.Color]}, {_attributes[AttributeType.Speed]}, {_attributes[AttributeType.ShotIndex]}, {_attributes[AttributeType.LaserIndex]}, {_attributes[AttributeType.ModuleIndex]}, {_attributes[AttributeType.Bomb]}";
+    }
+
     public ShipAttributes(string jsonCode)
     {
         _attributes = JsonConvert.DeserializeObject<Dictionary<AttributeType, int>>(jsonCode);
@@ -535,7 +541,7 @@ public struct PairFloat {
     }
 }
 
-public struct LocalRankingData {
+public class LocalRankingData : IComparable<LocalRankingData> {
     public string id;
     public long score;
     public ShipAttributes shipAttributes;
@@ -550,6 +556,20 @@ public struct LocalRankingData {
         this.date = date;
     }
 
+    public int CompareTo(LocalRankingData other) {
+        if (score == other.score) {
+            if (date < other.date) {
+                return 1;
+            }
+            return -1;
+        }
+        if (score > other.score) {
+            return 1;
+        }
+        return -1;
+    }
+
+    // 자신 기록과 비교
     public bool isBetter(LocalRankingData localRankingData) {
         if (id != localRankingData.id) {
             return false;

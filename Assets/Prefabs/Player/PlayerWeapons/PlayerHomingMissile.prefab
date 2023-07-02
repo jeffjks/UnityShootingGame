@@ -62,14 +62,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6597d1dcd7e261a49a038120b823375d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_ObjectName: PlayerHomingMissile
   _playerDamageData: {fileID: 11400000, guid: 16e19650059f5184193d0757994307a6, type: 2}
   m_Speed: 20
   m_IsPenetrate: 0
   m_ActivatedObject: []
-  m_HitEffectNumber: 1
+  _hitEffectType: 1
 --- !u!1 &1067027769915147066
 GameObject:
   m_ObjectHideFlags: 0

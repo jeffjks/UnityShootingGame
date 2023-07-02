@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44300547, g: 0.49219686, b: 0.57192594, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 45222992}
   - component: {fileID: 45222991}
   - component: {fileID: 45222990}
+  - component: {fileID: 45222993}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -221,6 +222,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45222993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45222987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &197814455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,6 +1740,7 @@ GameObject:
   - component: {fileID: 1577670866}
   - component: {fileID: 1577670865}
   - component: {fileID: 1577670864}
+  - component: {fileID: 1577670868}
   - component: {fileID: 1577670867}
   m_Layer: 0
   m_Name: Game Manager
@@ -1732,8 +1767,6 @@ MonoBehaviour:
   m_ReplayDirectory: 
   m_RankingDirectory: 
   m_IsOnline: 0
-  m_NetworkAvailable: 0
-  m_InvincibleMod: 0
   m_AnimationCurve:
   - serializedVersion: 2
     m_Curve:
@@ -1879,9 +1912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0c77aaf3e185a4ab804be2664ed0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StageManager: {fileID: 0}
-  BulletsSortingLayer: 0
-  m_BulletsEraseTimer: 0
   m_UsedCost: 0
   m_DebugMod: 0
 --- !u!114 &1577670867
@@ -1896,6 +1926,119 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87efaff9a3e5247985cedb206ca271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1577670868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577670859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e44cbce129aa78408cd54ce2a873264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  credit: "\uAC15\uB0AD\uB545\uCF69 (Bean Peanut)\r\njeff_jks@naver.com\r\nhttps://blog.naver.com/jeff_jks"
+  assetLists:
+  - 'Ballistic Turret
+
+    Chainlink Fences
+
+    EnergyShieldEffect
+
+    Futuristic
+    Aircrafts
+
+    Free SF Fighter
+
+    Hyper Falcon Modular Spaceship
+
+    Low poly
+    combat drone
+
+    Military Helicopter
+
+    Modular Space Platform Kit
+
+    PBR
+    RPG/FPS Game Assets (Industrial Set v1.0)
+
+    Powerup Crate
+
+    Rock and Boulders
+    2
+
+    RPG/FPS Game Assets for PCbile (Industrial Set v2.0)
+
+    Scifi RTS Series
+    Mega Pack I
+
+    Scifi RTS Series Mega Pack II
+
+    Simple Gems Ultimate Animated
+    Customizable Pack
+
+    Simple Sci-Fi Turret
+
+    Spaceship+Fighter+Set of...+
+
+    Space
+    Missiles
+
+    Spaceships Fleet III Mega Pack I
+
+    UXR Tetrahedron (by ENEA
+    LE FONS, Sketchfab)'
+  - '50+ Progress Bars [Pack 4] - DANGEROUS PROGRESS
+
+    https://www.freepik.com/
+
+    Sci
+    Fi UI Pack
+
+    Sci-Fi Skill Icon Pack
+
+    Sci-Fi Texture Pack'
+  - 'Effect textures and prefabs
+
+    Ground Crack
+
+    Quality Explosion SpriteKit
+
+    Shockwave
+    Effects
+
+    Waf FX'
+  - 'CAVE Interactive CO. LTD (Ketsui Arrange)
+
+    Fantasy Menu SFX'
+  - 'City Highways Construction Kit
+
+    City Street Props
+
+    Grass And Flowers
+    Pack 1
+
+    LowPoly Trees and Rocks
+
+    Race Tracks
+
+    Seamless Textures
+
+    Simple
+    Water Shader URP
+
+    Standard Asset
+
+    Windridge City
+
+    World Space Trees'
+  - 'Asset Usage Detector
+
+    Auto Letterbox
+
+    DOTween'
+  creditDate: 2023/06/29
 --- !u!1001 &1619976108
 PrefabInstance:
   m_ObjectHideFlags: 0

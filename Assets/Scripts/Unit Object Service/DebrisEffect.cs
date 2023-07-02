@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class DebrisEffect : MonoBehaviour, IObjectPooling
 {
-    public GameObject[] m_DebrisObject;
+    public GameObject[] m_DebrisLarge;
+    public GameObject[] m_DebrisMedium;
+    public GameObject[] m_DebrisSmall;
     public string m_ObjectName;
     public int m_LifeTime;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
@@ -13,6 +15,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     private Vector2 m_Position2D;
     private Material[] m_Materials;
     private int m_DebrisIndex = -1;
+    private readonly Dictionary<DebrisType, GameObject[]> _debrisDict = new();
 
     private IEnumerator m_FadeOutAnimation;
 
@@ -24,6 +27,10 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         for (int i = 0; i < meshRenderers.Length; i++) {
             m_Materials[i] = meshRenderers[i].material;
         }
+
+        _debrisDict[DebrisType.Small] = m_DebrisSmall;
+        _debrisDict[DebrisType.Medium] = m_DebrisMedium;
+        _debrisDict[DebrisType.Large] = m_DebrisLarge;
     }
     
     void Update()
@@ -39,27 +46,13 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     public void OnStart(DebrisType debrisType)
     {
         DeactivateAllChildren();
-        
-        m_DebrisIndex = GetDebrisIndex(debrisType);
-        m_DebrisObject[m_DebrisIndex].SetActive(true);
+
+        m_DebrisIndex = Random.Range(0, _debrisDict[debrisType].Length);
+        _debrisDict[debrisType][m_DebrisIndex].SetActive(true);
         m_Materials[m_DebrisIndex].color = Color.white;
         
         m_FadeOutAnimation = FadeOutAnimation();
         StartCoroutine(m_FadeOutAnimation);
-    }
-
-    private int GetDebrisIndex(DebrisType debrisType) {
-        System.Random rand = new System.Random();
-        switch(debrisType) {
-            case DebrisType.Small:
-                return rand.Next(3); // 0, 1, 2
-            case DebrisType.Medium:
-                return rand.Next(2) + 2; // 3, 4
-            case DebrisType.Large:
-                return rand.Next(2) + 5; // 5, 6
-            default:
-                return -1;
-        }
     }
 
     private IEnumerator FadeOutAnimation() {
@@ -75,7 +68,6 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         }
         
         ReturnToPool();
-        yield break;
     }
 
     public void ReturnToPool() {
@@ -86,8 +78,12 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     }
 
     private void DeactivateAllChildren() {
-        for (int i = 0; i < m_DebrisObject.Length; i++) {
-            m_DebrisObject[i].SetActive(false);
+        foreach (var keyValuePair in _debrisDict)
+        {
+            foreach (var debrisObj in keyValuePair.Value)
+            {
+                debrisObj.SetActive(false);
+            }
         }
     }
 }

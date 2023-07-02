@@ -18,20 +18,19 @@ public class EnemyPlaneLarge1 : EnemyUnit
     private const int APPEARANCE_TIME = 2800;
     private const int TIME_LIMIT = 20000;
     private const float ROLLING_ANGLE_MAX = 30f;
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -5.2f, Depth.ENEMY);
     private int m_Phase;
 
     void Start ()
     {
         m_Rotator.rotation = Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f);
-        m_TargetPosition = new Vector3(0f, -5.2f, Depth.ENEMY);
 
         DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
         
         /*
-        m_Sequence.Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad));
+        m_Sequence.Append(transform.DOMove(TARGET_POSITION, APPEARANCE_TIME).SetEase(Ease.OutQuad));
         m_Sequence.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARANCE_TIME).SetEase(Ease.InQuad));
         */
     }
@@ -47,7 +46,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
-            transform.position = Vector3.Lerp(init_position, m_TargetPosition, t_pos);
+            transform.position = Vector3.Lerp(init_position, TARGET_POSITION, t_pos);
             m_Rotator.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }

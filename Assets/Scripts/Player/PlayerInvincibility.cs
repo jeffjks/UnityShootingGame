@@ -36,7 +36,7 @@ public class PlayerInvincibility : MonoBehaviour
         
         Instance.Action_OnInvincibilityChanged += Instance.SetPlayerShield;
 
-        if (GameManager.InvincibleMod)
+        if (DebugOption.InvincibleMod)
         {
             SetInvincibility();
         }
@@ -66,7 +66,7 @@ public class PlayerInvincibility : MonoBehaviour
             return;
         if (frame == 0)
             return;
-        if (GameManager.InvincibleMod)
+        if (DebugOption.InvincibleMod)
             return;
 
         IsInvincible = true;

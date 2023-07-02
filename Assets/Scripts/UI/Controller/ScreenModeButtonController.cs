@@ -49,7 +49,7 @@ public class ScreenModeButtonController : MonoBehaviour, IMoveHandler
     {
         try
         {
-            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) GameSetting.GraphicsScreenMode]);
+            _textUI.SetText(_textContainer[GameSetting.CurrentLanguage][(int) GameSetting.GraphicsScreenMode]);
         }
         catch (Exception e)
         {

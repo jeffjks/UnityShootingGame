@@ -85,8 +85,8 @@ public class EnemyPlaneMedium2 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++) {
                     SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
-                    CreateBullet(4, pos[1], 6.2f, m_CurrentAngle, accel);
-                    CreateBullet(4, pos[2], 6.2f, m_CurrentAngle, accel);
+                    CreateBullet(4, pos[1], 6.2f, CurrentAngle, accel);
+                    CreateBullet(4, pos[2], 6.2f, CurrentAngle, accel);
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(1000);

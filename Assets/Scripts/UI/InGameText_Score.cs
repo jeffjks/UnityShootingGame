@@ -8,9 +8,9 @@ public class InGameText_Score : MonoBehaviour
 {
     public TextMeshProUGUI m_ScoreText;
 
-    private void Start()
+    private void Awake()
     {
-        InGameDataManager.Instance.Action_OnUpdateScore += UpdateScoreText;
+        FindObjectOfType<InGameDataManager>().Action_OnUpdateScore += UpdateScoreText;
     }
 
     private void UpdateScoreText(long value)

@@ -742,19 +742,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628ffc2bc12445a4ea6eded9ad421f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 10000
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 080000000500000006000000
-  m_AudioClip:
-  - {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
-  - {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
-  - {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
+  m_IsRoot: 1
   m_Turret1: {fileID: 8222217728715106486}
   m_Turret2: {fileID: 22921206767153171}
   m_Part:
@@ -880,16 +873,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7df22ff02a63354ebcd563823d6e345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 0
-  m_DefaultExplosion: 9
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 669105014784677143}
 --- !u!114 &3818346168264498747
 MonoBehaviour:
@@ -5861,16 +5850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e748800eba5bb241aad6f847d8f5a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 4000
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 0500000006000000
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 662745243422472866}
   m_EnemyItemCreater: {fileID: 4173229431830863216}
 --- !u!114 &8101644495367498339
@@ -6426,16 +6411,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e748800eba5bb241aad6f847d8f5a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 4000
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: 2c75b427286761a4dbb85b5022ca6596, type: 3}
-  m_Explosion: 0500000006000000
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 1837222700635009042}
   m_EnemyItemCreater: {fileID: 8101009540537406445}
 --- !u!114 &5750560266306257331
@@ -6703,16 +6684,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4717128463b884081acc9297b4f4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
   m_Score: 0
-  m_DefaultExplosion: 9
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 5870584973789005791}
 --- !u!114 &6841039354936679017
 MonoBehaviour:

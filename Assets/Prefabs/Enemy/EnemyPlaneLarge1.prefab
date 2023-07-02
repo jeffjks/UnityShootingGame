@@ -358,18 +358,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb0e2d9a5dcea74aa6e9bfa949b4050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 6000
-  m_DefaultExplosion: 0
-  m_DefaultAudioClip: {fileID: 8300000, guid: 5ff7eef3a88417f44ac530c81616a9f9, type: 3}
-  m_Explosion: 04000000050000000600000008000000
-  m_AudioClip:
-  - {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
-  - {fileID: 8300000, guid: 54d802db7c9c1bc48821040335413919, type: 3}
+  m_IsRoot: 1
   m_Part:
   - {fileID: 100056}
   - {fileID: 100058}
@@ -378,6 +372,7 @@ MonoBehaviour:
   - {fileID: 2648873804081044708}
   m_FirePosition: {fileID: 1504743510185496889}
   m_Rotator: {fileID: 1226915237743321332}
+  m_NextPhaseExplosionCreater: {fileID: 0}
 --- !u!114 &6914176658240159056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,16 +607,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92dcbf92d544c4940abbb9ba4c1198d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_DefaultExplosion: 9
-  m_DefaultAudioClip: {fileID: 8300000, guid: daeea94a13ff1644eb661caf80970e72, type: 3}
-  m_Explosion: 04000000
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 7124454433497280003}
 --- !u!114 &7107204278880466803
 MonoBehaviour:
@@ -729,16 +720,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92dcbf92d544c4940abbb9ba4c1198d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
-  m_DefaultExplosion: 9
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 04000000
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 3773888749601695656}
 --- !u!114 &164899519064879896
 MonoBehaviour:

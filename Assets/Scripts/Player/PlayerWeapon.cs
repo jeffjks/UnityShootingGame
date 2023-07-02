@@ -7,27 +7,23 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
     [SerializeField] protected float m_Speed;
     [SerializeField] private bool m_IsPenetrate;
     [SerializeField] private GameObject[] m_ActivatedObject;
-    [Header("-1 : None / 0 : Shot(fire) / 1 : Homing(purple) / 2 : Rocket(metal)")]
-    [SerializeField] private int m_HitEffectNumber = -1; // TODO. Enum화
+    [SerializeField] private HitEffectType _hitEffectType;
+
+    public override float CurrentAngle
+    {
+        get => _currentAngle;
+        set
+        {
+            _currentAngle = value;
+            OnCurrentAngleChanged(_currentAngle);
+        }
+    }
 
     private int _currentForm;
     
     private bool _appliedDamage;
     
     public virtual void OnStart() {
-        /*
-        try {
-            m_Damage = m_DefaultDamage + m_DamageBonus[m_DamageLevel];
-        }
-        catch {
-            Debug.LogAssertion("Damage Level Index Out Of Bound: "+m_DamageLevel);
-        }
-        for(int i = 0; i < m_ActivatedObject.Length; i++) {
-            m_ActivatedObject[i].SetActive(false);
-        }
-        if (m_ActivatedObject.Length > 0) {
-            m_ActivatedObject[m_DamageLevel].SetActive(true);
-        }*/
         _appliedDamage = false;
     }
 
@@ -41,10 +37,6 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
         m_ActivatedObject[_currentForm].SetActive(false);
         _currentForm = _damageLevel * (m_ActivatedObject.Length - 1) / _maxDamageLevel;
         m_ActivatedObject[_currentForm].SetActive(true);
-    }
-
-    public void SetPosition2D() { // m_Position2D 변수의 좌표를 계산
-        m_Position2D = transform.position;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -68,10 +60,10 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
     }
 
     private void OnDeath() {
-        if (m_HitEffectNumber != -1) {
+        if (_hitEffectType != HitEffectType.None) {
             GameObject obj = PoolingManager.PopFromPool("PlayerHitEffect", PoolingParent.Explosion); // 히트 이펙트
             HitEffect hitEffect = obj.GetComponent<HitEffect>();
-            hitEffect.m_HitEffectType = m_HitEffectNumber;
+            hitEffect.SetHitEffectType(_hitEffectType);
             hitEffect.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.HIT_EFFECT);
             obj.SetActive(true);
             hitEffect.OnStart();
@@ -93,35 +85,31 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
 
     public void RotateSlightly(Vector2 target, float speed, float rot = 0f) {
         float target_angle = GetAngleToTarget(m_Position2D, target);
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-        UpdateTransform();
+        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
     }
 
     public void RotateSlightly(float target_angle, float speed, float rot = 0f) {
-        m_CurrentAngle = Mathf.MoveTowardsAngle(m_CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-        UpdateTransform();
+        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
     }
 
     public void RotateImmediately(Vector2 target, float rot = 0f) {
         float target_angle = GetAngleToTarget(m_Position2D, target);
-        m_CurrentAngle = target_angle + rot;
-        UpdateTransform();
+        CurrentAngle = target_angle + rot;
     }
 
     public void RotateImmediately(float target_angle, float rot = 0f) {
-        m_CurrentAngle = target_angle + rot;
-        UpdateTransform();
+        CurrentAngle = target_angle + rot;
     }
 
-    public void UpdateTransform()
+    private void OnCurrentAngleChanged(float value)
     {
-        if (m_CurrentAngle > 360f) {
-            m_CurrentAngle -= 360f;
+        if (CurrentAngle > 360f) {
+            CurrentAngle -= 360f;
         }
-        else if (m_CurrentAngle < 0f) {
-            m_CurrentAngle += 360f;
+        else if (CurrentAngle < 0f) {
+            CurrentAngle += 360f;
         }
 
-        transform.rotation = Quaternion.AngleAxis(m_CurrentAngle, Vector3.forward); // Vector3.forward
+        transform.rotation = Quaternion.AngleAxis(CurrentAngle, Vector3.forward); // Vector3.forward
     }
 }

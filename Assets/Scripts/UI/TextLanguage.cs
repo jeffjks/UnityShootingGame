@@ -13,9 +13,9 @@ public class TextLanguage : MonoBehaviour
     void OnEnable()
     {
         try {
-            m_Text.font = m_Font[(int) GameSetting.m_Language];
+            m_Text.font = m_Font[(int) GameSetting.CurrentLanguage];
             if (m_String.Length > 0)
-                m_Text.text = m_String[(int) GameSetting.m_Language];
+                m_Text.text = m_String[(int) GameSetting.CurrentLanguage];
         }
         catch (System.NullReferenceException) {
         }

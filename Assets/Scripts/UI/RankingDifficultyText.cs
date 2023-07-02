@@ -31,7 +31,7 @@ public class RankingDifficultyText : MonoBehaviour
     {
         try
         {
-            _textUI.SetText(_textContainer[GameSetting.m_Language][(int) _gameDifficulty]);
+            _textUI.SetText(_textContainer[GameSetting.CurrentLanguage][(int) _gameDifficulty]);
         }
         catch (Exception e)
         {

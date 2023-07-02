@@ -12,13 +12,9 @@ public class LoginMenuHandler : MenuHandler
     public NetworkAccount m_NetworkAccount;
     public TextErrorMessage m_TextErrorMessage;
 
-    private GameManager m_GameManager = null;
-
     void Start()
     {
         m_InputFieldID.SetTextWithoutNotify(PlayerPrefs.GetString("LastLoginID", string.Empty));
-
-        m_GameManager = GameManager.instance_gm;
     }
 
     public void Login()
@@ -40,7 +36,7 @@ public class LoginMenuHandler : MenuHandler
 
     public void ExitGame() {
         AudioService.PlaySound("CancelUI");
-        Application.Quit(); // 에디터에서는 무시됨
+        Utility.QuitGame();
     }
 
     public void TryLogin(string id, string code) {
@@ -48,7 +44,7 @@ public class LoginMenuHandler : MenuHandler
         if (code == "UserLoginSucceed" || code == "UserRegisterSucceed") {
             AudioService.PlaySound("ConfirmUI");
             PlayerPrefs.SetString("LastLoginID", id);
-            m_GameManager.SetAccountID(id);
+            GameManager.SetAccountID(id);
             SceneManager.LoadScene("MainMenu");
         }
         else {

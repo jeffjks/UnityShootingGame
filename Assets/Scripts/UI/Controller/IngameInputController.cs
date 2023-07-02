@@ -9,6 +9,7 @@ public class IngameInputController : MonoBehaviour
     public event Action Action_OnPause;
     public event Action<InputValue> Action_OnFireInput;
     public event Action Action_OnBombInput;
+    public event Action Action_OnEscape;
     
     public static IngameInputController Instance { get; private set; }
 
@@ -30,16 +31,17 @@ public class IngameInputController : MonoBehaviour
     
     public void OnFire(InputValue inputValue)
     {
-        if (!PlayerUnit.IsControllable)
-            return;
         Action_OnFireInput?.Invoke(inputValue);
         //Debug.Log($"{inputValue.isPressed}, {inputValue.Get<float>()}");
     }
     
     public void OnBomb()
     {
-        if (!PlayerUnit.IsControllable)
-            return;
         Action_OnBombInput?.Invoke();
+    }
+    
+    public void OnEscape()
+    {
+        Action_OnEscape?.Invoke();
     }
 }

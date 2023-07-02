@@ -17,7 +17,7 @@ public class PlayerUnit : PlayerObject
         get => _playerAttackLevel;
         set {
             _playerAttackLevel = Mathf.Clamp(value, 0, MAX_PLAYER_ATTACK_LEVEL);
-            Action_OnUpdatePlayerAttackLevel?.Invoke(_playerAttackLevel);
+            Action_OnUpdatePlayerAttackLevel?.Invoke();
         }
     }
 
@@ -37,7 +37,7 @@ public class PlayerUnit : PlayerObject
     
     private const int MAX_PLAYER_ATTACK_LEVEL = 4;
 
-    public event Action<int> Action_OnUpdatePlayerAttackLevel;
+    public event Action Action_OnUpdatePlayerAttackLevel;
     public event Action Action_OnControllableChanged;
 
     private void Start()

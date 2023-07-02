@@ -13,14 +13,12 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     private IEnumerator m_MovementPattern;
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
     
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -3.8f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2000;
     private int m_Phase;
 
     void Start()
     {
-        m_TargetPosition = new Vector3(0f, -3.8f, Depth.ENEMY);
-
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
         
@@ -29,9 +27,11 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDying;
+
+        SystemManager.OnMiddleBossStart();
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMove(m_TargetPosition, APPEARANCE_TIME).SetEase(Ease.OutQuad))
+        .Append(transform.DOMove(TARGET_POSITION, APPEARANCE_TIME).SetEase(Ease.OutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
         .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
@@ -49,7 +49,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         if (random_sign == 0)
             random_sign = 1;
 
-        yield return MovementPattern(m_TargetPosition, EaseType.OutQuad, APPEARANCE_TIME);
+        yield return MovementPattern(TARGET_POSITION, EaseType.OutQuad, APPEARANCE_TIME);
         m_CurrentPattern1 = Pattern1();
         StartCoroutine(m_CurrentPattern1);
         
@@ -62,7 +62,6 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         yield return MovementPattern(new Vector3(-3f*random_sign, -3.8f, Depth.ENEMY), EaseType.InOutQuad, duration);
         yield return MovementPattern(new Vector3(0f, -3.8f, Depth.ENEMY), EaseType.InOutQuad, 2000);
         yield return MovementPattern(new Vector3(0f, 10f, Depth.ENEMY), EaseType.InQuad, 3000);
-        yield break;
     }
 
     private IEnumerator MovementPattern(Vector3 target_position, int position_ease, int duration) {
@@ -75,7 +74,6 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
             transform.position = Vector3.Lerp(init_position, target_position, t_pos);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     protected override void Update()
@@ -139,23 +137,23 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
             for (int i = 0; i < 2; i++) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int j = 0; j < bulletInfo1.GetLength(1); ++j) {
-                        CreateBullet(0, pos[i], bulletInfo1[0,j], m_CurrentAngle + bulletInfo1[1,j], accel);
+                        CreateBullet(0, pos[i], bulletInfo1[0,j], CurrentAngle + bulletInfo1[1,j], accel);
                     }
                 }
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     for (int j = 0; j < bulletInfo2a.GetLength(1); ++j) {
-                        CreateBullet(2, pos[i], bulletInfo2a[0,j], m_CurrentAngle + bulletInfo2a[1,j], accel);
+                        CreateBullet(2, pos[i], bulletInfo2a[0,j], CurrentAngle + bulletInfo2a[1,j], accel);
                     }
                     for (int j = 0; j < bulletInfo2b.GetLength(1); ++j) {
-                        CreateBullet(0, pos[i], bulletInfo2b[0,j], m_CurrentAngle + bulletInfo2b[1,j], accel);
+                        CreateBullet(0, pos[i], bulletInfo2b[0,j], CurrentAngle + bulletInfo2b[1,j], accel);
                     }
                 }
                 else {
                     for (int j = 0; j < bulletInfo3a.GetLength(1); ++j) {
-                        CreateBullet(2, pos[i], bulletInfo3a[0,j], m_CurrentAngle + bulletInfo3a[1,j], accel);
+                        CreateBullet(2, pos[i], bulletInfo3a[0,j], CurrentAngle + bulletInfo3a[1,j], accel);
                     }
                     for (int j = 0; j < bulletInfo3b.GetLength(1); ++j) {
-                        CreateBullet(0, pos[i], bulletInfo3b[0,j], m_CurrentAngle + bulletInfo3b[1,j], accel);
+                        CreateBullet(0, pos[i], bulletInfo3b[0,j], CurrentAngle + bulletInfo3b[1,j], accel);
                     }
                 }
             }
@@ -172,21 +170,21 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 4; i++) {
                 pos = m_FirePosition[2].position;
-                CreateBulletsSector(4, pos, 6.7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 5, 25f);
+                CreateBulletsSector(4, pos, 6.7f - 0.2f*i, CurrentAngle + random_value + 4.8f*i*state, accel, 5, 25f);
                 yield return new WaitForMillisecondFrames(260);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 5; i++) {
                 pos = m_FirePosition[2].position;
-                CreateBulletsSector(4, pos, 7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
+                CreateBulletsSector(4, pos, 7f - 0.2f*i, CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
                 yield return new WaitForMillisecondFrames(210);
             }
         }
         else {
             for (int i = 0; i < 7; i++) {
                 pos = m_FirePosition[2].position;
-                CreateBulletsSector(4, pos, 7f - 0.2f*i, m_CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
+                CreateBulletsSector(4, pos, 7f - 0.2f*i, CurrentAngle + random_value + 4.8f*i*state, accel, 7, 19f);
                 yield return new WaitForMillisecondFrames(150);
             }
         }
@@ -233,7 +231,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.MiddleBossClear();
+        SystemManager.OnMiddleBossClear();
     }
 
     public void OnBossDeath() {

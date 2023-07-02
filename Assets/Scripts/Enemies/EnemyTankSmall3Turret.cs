@@ -32,18 +32,18 @@ public class EnemyTankSmall3Turret : EnemyUnit
                 pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                 pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                 pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBullet(1, pos[0], 7.7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                CreateBullet(1, pos[1], 7.7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                CreateBullet(1, pos[2], 7.7f, m_CurrentAngle + Random.Range(-1f, 1f), accel);
+                CreateBullet(1, pos[0], 7.7f, CurrentAngle + Random.Range(-1f, 1f), accel);
+                CreateBullet(1, pos[1], 7.7f, CurrentAngle + Random.Range(-1f, 1f), accel);
+                CreateBullet(1, pos[2], 7.7f, CurrentAngle + Random.Range(-1f, 1f), accel);
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                     pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                     pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                    CreateBullet(1, pos[0], 10f + Random.Range(-1f, 1f), m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                    CreateBullet(1, pos[1], 10f + Random.Range(-1f, 1f), m_CurrentAngle + Random.Range(-1f, 1f), accel);
-                    CreateBullet(1, pos[2], 10f + Random.Range(-1f, 1f), m_CurrentAngle + Random.Range(-1f, 1f), accel);
+                    CreateBullet(1, pos[0], 10f + Random.Range(-1f, 1f), CurrentAngle + Random.Range(-1f, 1f), accel);
+                    CreateBullet(1, pos[1], 10f + Random.Range(-1f, 1f), CurrentAngle + Random.Range(-1f, 1f), accel);
+                    CreateBullet(1, pos[2], 10f + Random.Range(-1f, 1f), CurrentAngle + Random.Range(-1f, 1f), accel);
                     yield return new WaitForMillisecondFrames(100);
                 }
             }

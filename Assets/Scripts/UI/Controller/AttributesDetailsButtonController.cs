@@ -66,7 +66,7 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
     {
         AttributeType attributeType = m_AttributesDetailsWindowDatas.AttributeType;
         DetailsWindowElement data = m_AttributesDetailsWindowDatas.DetailsWindowElements[CurrentSelection];
-        string attributeName = _textContainer[GameSetting.m_Language];
+        string attributeName = _textContainer[GameSetting.CurrentLanguage];
         
         m_PreviewScreen.UpdateTempAttributes(attributeType, CurrentSelection);
         m_SelectAttributesMenuHandler.SetAttributesDetailsInfo(data, transition);

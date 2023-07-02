@@ -42,7 +42,7 @@ public class EnemyPlaneSmall1 : EnemyUnit
         while (true) {
             Vector3 pos = m_FirePosition.position;
             EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-            CreateBullet(1, pos, speed[(int) SystemManager.Difficulty], m_CurrentAngle, accel);
+            CreateBullet(1, pos, speed[(int) SystemManager.Difficulty], CurrentAngle, accel);
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }
     }

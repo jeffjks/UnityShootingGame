@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemyPlaneLarge3 : EnemyUnit
 {
     public EnemyPlaneLarge3Turret m_Turret;
-    public Transform[] m_FirePosition = new Transform[2];
-    private int[] m_FireDelay = { 1900, 1400, 1100 };
+    public Transform[] m_FirePositionBarrel = new Transform[2];
+    public Transform m_FirePosition;
+    private readonly int[] m_FireDelay = { 1600, 1200, 1000 };
     
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 14000;
@@ -44,13 +45,12 @@ public class EnemyPlaneLarge3 : EnemyUnit
         }
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
-        yield break;
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        m_Turret.StopPattern1();
+        //m_Turret.StopPattern1();
 
         float init_speed = m_MoveVector.speed;
         int frame = 1000 * Application.targetFrameRate / 1000;
@@ -61,7 +61,6 @@ public class EnemyPlaneLarge3 : EnemyUnit
             m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     protected override void Update()
@@ -80,41 +79,106 @@ public class EnemyPlaneLarge3 : EnemyUnit
     }
 
     
-    private IEnumerator Pattern1() {
+    private IEnumerator Pattern1()
+    {
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        Vector3[] pos = new Vector3[2];
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
+        yield return new WaitForMillisecondFrames(2300);
 
-        while(!m_TimeLimitState) {
+        while(true) {
+            Vector3 pos;
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                for (int i = 0; i < 3; i++) {
-                    pos[0] = m_FirePosition[0].position;
-                    pos[1] = m_FirePosition[1].position;
-                    CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 3, 29f);
-                    CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 3, 29f);
-                    yield return new WaitForMillisecondFrames(400);
+                for (int i = 0; i < 2; i++)
+                {
+                    pos = m_Turret.m_FirePosition.position;
+                    CreateBulletsSector(3, pos, 7.2f, CurrentAngle, accel, 6, 25f);
+                    pos = m_FirePosition.position;
+                    CreateBulletsSector(3, pos, 6.0f, CurrentAngle + Random.Range(-8f, 8f), accel, 7, 23f);
+                    CreateBulletsSector(3, pos, 7.2f, CurrentAngle + Random.Range(-8f, 8f), accel, 6, 23f);
+                    yield return new WaitForMillisecondFrames(800);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                for (int i = 0; i < 4; i++) {
-                    pos[0] = m_FirePosition[0].position;
-                    pos[1] = m_FirePosition[1].position;
-                    CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 5, 21f);
-                    CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 5, 21f);
-                    yield return new WaitForMillisecondFrames(300);
+                for (int i = 0; i < 3; i++)
+                {
+                    pos = m_Turret.m_FirePosition.position;
+                    CreateBulletsSector(3, pos, 7.2f, CurrentAngle, accel, 8, 20f);
+                    pos = m_FirePosition.position;
+                    CreateBulletsSector(3, pos, 6.0f, CurrentAngle + Random.Range(-5f, 5f), accel, 9, 17f);
+                    CreateBulletsSector(5, pos, 7.2f, CurrentAngle + Random.Range(-5f, 5f), accel, 8, 17f);
+                    yield return new WaitForMillisecondFrames(500);
                 }
             }
             else {
-                for (int i = 0; i < 5; i++) {
-                    pos[0] = m_FirePosition[0].position;
-                    pos[1] = m_FirePosition[1].position;
-                    CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 5, 21f);
-                    CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 5, 21f);
-                    yield return new WaitForMillisecondFrames(240);
+                for (int i = 0; i < 3; i++)
+                {
+                    pos = m_Turret.m_FirePosition.position;
+                    CreateBulletsSector(3, pos, 6.0f, CurrentAngle, accel, 11, 16f);
+                    CreateBulletsSector(5, pos, 7.2f, CurrentAngle, accel, 10, 16f);
+                    pos = m_FirePosition.position;
+                    CreateBulletsSector(3, pos, 6.0f, CurrentAngle + Random.Range(-5f, 5f), accel, 11, 14f);
+                    CreateBulletsSector(5, pos, 7.2f, CurrentAngle + Random.Range(-5f, 5f), accel, 10, 14f);
+                    yield return new WaitForMillisecondFrames(500);
                 }
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
+
+            bool rand = Random.Range(0, 2) == 0;
+            
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
+                for (int i = 0; i < 4; i++)
+                {
+                    CreateBulletsSector(1, m_FirePositionBarrel[0].position, 7.5f, CurrentAngle, accel, rand ? 5 : 6, 19f);
+                    CreateBulletsSector(1, m_FirePositionBarrel[1].position, 7.5f, CurrentAngle, accel, rand ? 5 : 6, 19f);
+                    yield return new WaitForMillisecondFrames(180);
+                }
+            }
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+                for (int i = 0; i < 6; i++)
+                {
+                    CreateBulletsSector(1, m_FirePositionBarrel[0].position, 8f, CurrentAngle, accel, rand ? 7 : 8, 12f);
+                    CreateBulletsSector(1, m_FirePositionBarrel[1].position, 8f, CurrentAngle, accel, rand ? 7 : 8, 12f);
+                    yield return new WaitForMillisecondFrames(150);
+                }
+            }
+            else {
+                for (int i = 0; i < 8; i++)
+                {
+                    CreateBulletsSector(1, m_FirePositionBarrel[0].position, 8.3f, CurrentAngle, accel, rand ? 7 : 8, 12f);
+                    CreateBulletsSector(1, m_FirePositionBarrel[1].position, 8.3f, CurrentAngle, accel, rand ? 7 : 8, 12f);
+                    yield return new WaitForMillisecondFrames(100);
+                }
+            }
+            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty] + 500);
         }
-        yield break;
     }
 }
+
+            
+/*
+if (SystemManager.Difficulty == GameDifficulty.Normal) {
+    for (int i = 0; i < 3; i++) {
+        pos[0] = m_FirePosition[0].position;
+        pos[1] = m_FirePosition[1].position;
+        CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 3, 29f);
+        CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 3, 29f);
+        yield return new WaitForMillisecondFrames(400);
+    }
+}
+else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+    for (int i = 0; i < 4; i++) {
+        pos[0] = m_FirePosition[0].position;
+        pos[1] = m_FirePosition[1].position;
+        CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 5, 21f);
+        CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 5, 21f);
+        yield return new WaitForMillisecondFrames(300);
+    }
+}
+else {
+    for (int i = 0; i < 5; i++) {
+        pos[0] = m_FirePosition[0].position;
+        pos[1] = m_FirePosition[1].position;
+        CreateBulletsSector(4, pos[0], 5.4f, 0f, accel, 5, 21f);
+        CreateBulletsSector(4, pos[1], 5.4f, 0f, accel, 5, 21f);
+        yield return new WaitForMillisecondFrames(240);
+    }
+}*/

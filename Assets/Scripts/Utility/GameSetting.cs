@@ -12,7 +12,7 @@ public class GameSetting : MonoBehaviour
     public static int MusicVolume;
     public static int SoundEffectVolume;
     
-    public static Language m_Language;
+    public static Language CurrentLanguage;
 
     public AudioMixer m_AudioMixer = null;
 
@@ -69,7 +69,7 @@ public class GameSetting : MonoBehaviour
         MusicVolume = PlayerPrefs.GetInt("MusicVolume", 80);
         SoundEffectVolume = PlayerPrefs.GetInt("SoundEffectVolume", 80);
 
-        m_Language = (Language) PlayerPrefs.GetInt("Language", 1);
+        CurrentLanguage = (Language) PlayerPrefs.GetInt("Language", 1);
 
         SetGraphicSettings();
         SetSoundSettings();
@@ -198,7 +198,7 @@ public class GameSetting : MonoBehaviour
 
     public static void SaveLanguageSetting()
     {
-        var language = m_Language;
+        var language = CurrentLanguage;
         PlayerPrefs.SetInt("Language", (int) language);
     }
 }

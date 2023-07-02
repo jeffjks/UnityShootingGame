@@ -13,20 +13,19 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private int m_Phase;
     
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -4.2f, Depth.ENEMY);
     private Vector3 m_DefaultScale;
     private const int APPEARANCE_TIME = 1200;
+    private const float MAX_ROTATION = 11f;
     private byte m_DirectionState;
     private float m_Direction;
     private int m_RotateDirection;
     private bool m_InPattern = false;
-    private float m_MaxRotation = 11f;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2, m_CurrentPattern3;
 
     void Start()
     {
-        m_TargetPosition = new Vector2(0f, -4.2f);
         m_DefaultScale = transform.localScale;
         transform.localScale = new Vector3(2f, 2f, 2f);
         m_MoveVector = new MoveVector(1f, -125f);
@@ -52,16 +51,16 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
 
         if (m_Phase > 0) {
-            if (transform.position.x > m_TargetPosition.x + 0.7f) {
+            if (transform.position.x > TARGET_POSITION.x + 0.7f) {
                 m_MoveVector.direction = Random.Range(-105f, -75f);
             }
-            if (transform.position.x < m_TargetPosition.x - 0.7f) {
+            if (transform.position.x < TARGET_POSITION.x - 0.7f) {
                 m_MoveVector.direction = Random.Range(75f, 105f);
             }
-            if (transform.position.y > m_TargetPosition.y + 0.2f) {
+            if (transform.position.y > TARGET_POSITION.y + 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
-            if (transform.position.y < m_TargetPosition.y - 0.2f) {
+            if (transform.position.y < TARGET_POSITION.y - 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
         }
@@ -77,11 +76,11 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 m_Direction += 19f * m_RotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
             case 4:
-                m_Direction += m_MaxRotation * m_RotateDirection / Application.targetFrameRate * Time.timeScale;
+                m_Direction += MAX_ROTATION * m_RotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
         }
 
-        m_Part.m_CurrentAngle = m_CurrentAngle;
+        m_Part.CurrentAngle = CurrentAngle;
         
         if (m_Direction > 360f)
             m_Direction -= 360f;
@@ -121,7 +120,6 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
 
         OnAppearanceComplete();
-        yield break;
     }
 
     public void OnAppearanceComplete() {
@@ -132,6 +130,8 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         StartCoroutine(m_CurrentPhase);
 
         EnableInteractableAll();
+        
+        SystemManager.OnBossStart();
     }
 
     private int RandomValue() {
@@ -488,7 +488,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         
         m_DirectionState = 4;
         m_RotateDirection = RandomValue();
-        m_Direction = - m_RotateDirection * m_MaxRotation * 0.7f;
+        m_Direction = - m_RotateDirection * MAX_ROTATION * 0.7f;
 
         while (true) {
             for (int i = 0; i < 3; i++) {
@@ -558,7 +558,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.BossClear();
+        SystemManager.OnBossClear();
     }
 
     public void OnBossDeath() {

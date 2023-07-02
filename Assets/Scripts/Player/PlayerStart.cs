@@ -30,8 +30,8 @@ public class PlayerStart : MonoBehaviour
 
     void Update() {
         //m_PlayerMovement.m_MoveVector = new MoveVector(_verticalSpeed / Application.targetFrameRate * Time.timeScale, 180f);
-        Vector2Int posInt2D = m_PlayerMovement.m_PositionInt2D;
-        m_PlayerMovement.m_PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed * Time.timeScale / Application.targetFrameRate));
+        Vector2Int posInt2D = m_PlayerMovement.PositionInt2D;
+        m_PlayerMovement.PositionInt2D = new Vector2Int(posInt2D.x, posInt2D.y + (int) (_verticalSpeed * Time.timeScale / Application.targetFrameRate));
     }
 
     private IEnumerator SpawnEvent() {

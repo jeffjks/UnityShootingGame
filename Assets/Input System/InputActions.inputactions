@@ -328,6 +328,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "63f8f1aa-3aad-4f20-96ab-0b32147fc7cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -597,12 +606,12 @@
                 },
                 {
                     "name": "",
-                    "id": "7842e69d-c321-489b-9ba6-37ad86739415",
+                    "id": "8b391d8c-bcdb-4ebf-8171-dc05b69e4b82",
                     "path": "*/{Back}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard;Gamepad;Joystick",
-                    "action": "Pause",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

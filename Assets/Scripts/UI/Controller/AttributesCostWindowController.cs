@@ -22,7 +22,7 @@ public class AttributesCostWindowController : MonoBehaviour
     {
         const int maximumCost = SelectAttributesMenuHandler.MAXIMUM_COST;
         
-        if (GameSetting.m_Language == Language.Korean)
+        if (GameSetting.CurrentLanguage == Language.Korean)
         {
             _costWindowText.SetText($"비용\n{cost} / {maximumCost}");
         }

@@ -8,13 +8,13 @@ public class InGameText_BombNumber : MonoBehaviour
 {
     public TextMeshProUGUI m_BombNumberText;
 
-    private void Start()
+    private void Awake()
     {
-        InGameDataManager.Instance.Action_OnUpdateBombNumber += UpdateBombNumber;
+        FindObjectOfType<InGameDataManager>().Action_OnUpdateBombNumber += UpdateBombNumber;
     }
 
-    private void UpdateBombNumber(int value)
+    private void UpdateBombNumber(int currentValue, int maxValue)
     {
-        m_BombNumberText.SetText(value.ToString());
+        m_BombNumberText.SetText($"{currentValue} / {maxValue}");
     }
 }

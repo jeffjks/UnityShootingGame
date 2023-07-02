@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class OverviewFlow
@@ -40,7 +41,6 @@ public class OverviewFlowBuilder
 
 public class OverviewHandler : MonoBehaviour
 {
-    public IngameInputController m_InGameInputController;
     public ItemDatas m_GemGroundData;
     public ItemDatas m_GemAirData;
     
@@ -58,8 +58,8 @@ public class OverviewHandler : MonoBehaviour
     public event Action<long> Action_OnUpdateFinalBonus;
 
     private readonly Queue<OverviewFlow> _overviewFlowQueue = new();
+    private IngameInputController _inGameInputController;
     private bool _inputSkip;
-    
     private int _missBonusPercent;
     private long _finalBonusScore;
 
@@ -77,19 +77,15 @@ public class OverviewHandler : MonoBehaviour
 
     private readonly int[] _missBonusPercents = { 50, 30, 10 };
 
-    private void OnEnable()
+    private void Awake()
     {
-        m_InGameInputController.Action_OnFireInput += SkipOverviewPhase;
+        _inGameInputController = EventSystem.current.gameObject.GetComponent<IngameInputController>();
+        _inGameInputController.Action_OnFireInput += SkipOverviewPhase;
         StartOverview();
     }
 
-    private void OnDisable()
-    {
-        m_InGameInputController.Action_OnFireInput -= SkipOverviewPhase;
-    }
-
     private void StartOverview() {
-        Init();
+        SetOverviewText();
 
         EnqueueOverviewFlow(new OverviewFlowBuilder(1f) // Gem 점수
             .AddAction(OverviewFlowAction1)
@@ -172,17 +168,6 @@ public class OverviewHandler : MonoBehaviour
                 yield return null;
             }
         }
-    }
-
-    private void Init() {
-        SetOverviewText();
-        
-        foreach (var overviewContent in m_OverviewContents)
-        {
-            overviewContent.SetActive(false);
-        }
-        //m_OverviewTimer = 0f;
-        //m_OverviewPhase = 0;
     }
 
     private void SkipOverviewPhase(InputValue inputValue)
@@ -297,6 +282,11 @@ public class OverviewHandler : MonoBehaviour
 
     private void SetOverviewText()
     {
+        foreach (var overviewContent in m_OverviewContents)
+        {
+            overviewContent.SetActive(false);
+        }
+        
         int gemGroundCount = InGameDataManager.Instance.GetItemCount(ItemType.GemGround);
         long gemGroundScore = m_GemGroundData.itemScore * gemGroundCount;
         int gemAirCount = InGameDataManager.Instance.GetItemCount(ItemType.GemAir);

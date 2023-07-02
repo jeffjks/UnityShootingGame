@@ -45,7 +45,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
         }
 
         if (m_RotatePattern / 10 == 2) {
-            float angle = Mathf.DeltaAngle(GetAngleToTarget(m_FirePosition.position, PlayerManager.GetPlayerPosition()), m_CurrentAngle);
+            float angle = Mathf.DeltaAngle(GetAngleToTarget(m_FirePosition.position, PlayerManager.GetPlayerPosition()), CurrentAngle);
             if (Mathf.Abs(angle) >= 120f) {
                 m_RotatePattern = 20;
             }
@@ -81,19 +81,19 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle + Random.Range(-4f, 4f), accel, 10, 13f);
+                CreateBulletsSector(3, m_FirePosition.position, 5f, CurrentAngle + Random.Range(-4f, 4f), accel, 10, 13f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(3, m_FirePosition.position, 3.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 12f);
+                CreateBulletsSector(3, m_FirePosition.position, 3.5f, CurrentAngle + Random.Range(-3f, 3f), accel, 11, 12f);
                 for (int i = 0; i < 4; i++) {
-                    CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle - 2.25f + i*1.5f, accel, 7, 15f);
+                    CreateBulletsSector(3, m_FirePosition.position, 5f, CurrentAngle - 2.25f + i*1.5f, accel, 7, 15f);
                 }
             }
             else {
-                CreateBulletsSector(3, m_FirePosition.position, 3f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 11, 12f);
+                CreateBulletsSector(3, m_FirePosition.position, 3f, CurrentAngle + Random.Range(-3f, 3f), accel, 11, 12f);
                 for (int i = 0; i < 4; i++) {
-                    CreateBulletsSector(3, m_FirePosition.position, 4.5f, m_CurrentAngle - 2.25f + i*1.5f, accel, 9, 12f);
-                    CreateBulletsSector(3, m_FirePosition.position, 6f, m_CurrentAngle - 2.25f + i*1.5f, accel, 10, 12f);
+                    CreateBulletsSector(3, m_FirePosition.position, 4.5f, CurrentAngle - 2.25f + i*1.5f, accel, 9, 12f);
+                    CreateBulletsSector(3, m_FirePosition.position, 6f, CurrentAngle - 2.25f + i*1.5f, accel, 10, 12f);
                 }
             }
             yield return new WaitForMillisecondFrames(1000);
@@ -105,26 +105,26 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
-                CreateBullet(3, m_FirePosition.position, 3.8f, m_CurrentAngle, accel);
-                CreateBullet(3, m_FirePosition.position, 4.6f, m_CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 3.8f, CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 4.6f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(210);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
-                CreateBullet(3, m_FirePosition.position, 3.4f, m_CurrentAngle, accel);
-                CreateBullet(3, m_FirePosition.position, 4.2f, m_CurrentAngle - 3.7f, accel);
-                CreateBullet(3, m_FirePosition.position, 4.2f, m_CurrentAngle + 3.7f, accel);
-                CreateBullet(3, m_FirePosition.position, 5f, m_CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 3.4f, CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 4.2f, CurrentAngle - 3.7f, accel);
+                CreateBullet(3, m_FirePosition.position, 4.2f, CurrentAngle + 3.7f, accel);
+                CreateBullet(3, m_FirePosition.position, 5f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(150);
             }
         }
         else {
             while(true) {
-                CreateBullet(3, m_FirePosition.position, 3.4f, m_CurrentAngle, accel);
-                CreateBullet(3, m_FirePosition.position, 4.2f, m_CurrentAngle - 3.7f, accel);
-                CreateBullet(3, m_FirePosition.position, 4.2f, m_CurrentAngle + 3.7f, accel);
-                CreateBullet(3, m_FirePosition.position, 5f, m_CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 3.4f, CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 4.2f, CurrentAngle - 3.7f, accel);
+                CreateBullet(3, m_FirePosition.position, 4.2f, CurrentAngle + 3.7f, accel);
+                CreateBullet(3, m_FirePosition.position, 5f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(100);
             }
         }
@@ -135,19 +135,19 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
         EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
-                CreateBullet(3, m_FirePosition.position, 5.7f, m_CurrentAngle, accel);
+                CreateBullet(3, m_FirePosition.position, 5.7f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(1500);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
-                CreateBulletsSector(3, m_FirePosition.position, 5.7f, m_CurrentAngle, accel, 4, 1.2f);
+                CreateBulletsSector(3, m_FirePosition.position, 5.7f, CurrentAngle, accel, 4, 1.2f);
                 yield return new WaitForMillisecondFrames(1000);
             }
         }
         else {
             while(true) {
-                CreateBulletsSector(3, m_FirePosition.position, 5.7f, m_CurrentAngle, accel, 6, 1.2f);
+                CreateBulletsSector(3, m_FirePosition.position, 5.7f, CurrentAngle, accel, 6, 1.2f);
                 yield return new WaitForMillisecondFrames(800);
             }
         }
@@ -159,13 +159,13 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(3, m_FirePosition.position, 5f, m_CurrentAngle + Random.Range(-4f, 4f), accel, 10, 14f);
+                CreateBulletsSector(3, m_FirePosition.position, 5f, CurrentAngle + Random.Range(-4f, 4f), accel, 10, 14f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(3, m_FirePosition.position, 5.5f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
+                CreateBulletsSector(3, m_FirePosition.position, 5.5f, CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
             }
             else {
-                CreateBulletsSector(3, m_FirePosition.position, 6f, m_CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
+                CreateBulletsSector(3, m_FirePosition.position, 6f, CurrentAngle + Random.Range(-3f, 3f), accel, 15, 9f);
             }
             yield return new WaitForMillisecondFrames(1000);
         }

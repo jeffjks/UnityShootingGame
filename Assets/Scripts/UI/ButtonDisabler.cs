@@ -9,18 +9,11 @@ public class ButtonDisabler : MonoBehaviour
 {
     public Button m_Button;
     
-    private GameManager m_GameManager;
-
-    void Awake()
-    {
-        m_GameManager = GameManager.instance_gm;
-    }
-    
     void OnEnable()
     {
-        if (GameManager.NetworkAvailable)
+        if (DebugOption.NetworkAvailable)
         {
-            SetButtonInteractable(m_GameManager.m_IsOnline);
+            SetButtonInteractable(GameManager.isOnline);
         }
     }
 

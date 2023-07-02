@@ -47,7 +47,7 @@ public class EnemyTankLarge1 : EnemyUnit
         base.Update();
         
         RotateImmediately(m_MoveVector.direction);
-        m_Turret2.RotateImmediately(m_CurrentAngle);
+        m_Turret2.RotateImmediately(CurrentAngle);
 
         if (m_Phase == 0) {
             if (m_Position2D.y < - 1f) {
@@ -77,15 +77,15 @@ public class EnemyTankLarge1 : EnemyUnit
                     pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
                     target_angle[j] = GetAngleToTarget(pos[j], PlayerManager.GetPlayerPosition());
 
-                    float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
+                    float delta_angle = Mathf.DeltaAngle(target_angle[j], CurrentAngle); // ~-45, -45~45, 45~
                     if (delta_angle < -45f) {
-                        target_angle[j] = m_CurrentAngle + 45f;
+                        target_angle[j] = CurrentAngle + 45f;
                     }
                     else if (delta_angle > 45f) {
-                        target_angle[j] = m_CurrentAngle - 45f;
+                        target_angle[j] = CurrentAngle - 45f;
                     }
 
-                    //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
+                    //target_angle[j] = Mathf.Clamp(target_angle[j], CurrentAngle - 45f, CurrentAngle + 45f);
                     CreateBulletsSector(0, pos[j], 7f, target_angle[j], accel, 3, 22f);
                 }
             }
@@ -95,15 +95,15 @@ public class EnemyTankLarge1 : EnemyUnit
                         pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
                         target_angle[j] = GetAngleToTarget(pos[j], PlayerManager.GetPlayerPosition());
 
-                        float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
+                        float delta_angle = Mathf.DeltaAngle(target_angle[j], CurrentAngle); // ~-45, -45~45, 45~
                         if (delta_angle < -45f) {
-                            target_angle[j] = m_CurrentAngle + 45f;
+                            target_angle[j] = CurrentAngle + 45f;
                         }
                         else if (delta_angle > 45f) {
-                            target_angle[j] = m_CurrentAngle - 45f;
+                            target_angle[j] = CurrentAngle - 45f;
                         }
                         
-                        //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
+                        //target_angle[j] = Mathf.Clamp(target_angle[j], CurrentAngle - 45f, CurrentAngle + 45f);
                         CreateBulletsSector(0, pos[j], 6f + i*0.8f, target_angle[j], accel, 3, 22f);
                     }
                     yield return new WaitForMillisecondFrames(60);
@@ -115,15 +115,15 @@ public class EnemyTankLarge1 : EnemyUnit
                         pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
                         target_angle[j] = GetAngleToTarget(pos[j], PlayerManager.GetPlayerPosition());
 
-                        float delta_angle = Mathf.DeltaAngle(target_angle[j], m_CurrentAngle); // ~-45, -45~45, 45~
+                        float delta_angle = Mathf.DeltaAngle(target_angle[j], CurrentAngle); // ~-45, -45~45, 45~
                         if (delta_angle < -45f) {
-                            target_angle[j] = m_CurrentAngle + 45f;
+                            target_angle[j] = CurrentAngle + 45f;
                         }
                         else if (delta_angle > 45f) {
-                            target_angle[j] = m_CurrentAngle - 45f;
+                            target_angle[j] = CurrentAngle - 45f;
                         }
 
-                        //target_angle[j] = Mathf.Clamp(target_angle[j], m_CurrentAngle - 45f, m_CurrentAngle + 45f);
+                        //target_angle[j] = Mathf.Clamp(target_angle[j], CurrentAngle - 45f, CurrentAngle + 45f);
                         CreateBulletsSector(2, pos[j], 6f + i*0.8f, target_angle[j], accel, 2, 22f);
                         CreateBulletsSector(0, pos[j], 6f + i*0.8f, target_angle[j], accel, 3, 22f);
                     }

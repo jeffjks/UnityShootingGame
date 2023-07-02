@@ -779,8 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06f3496ba189f54cb03b7446a3f9dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_ObjectName: PlayerShot
   _playerDamageData: {fileID: 11400000, guid: 6fb393b4425b69648a4d139f24e0ffde, type: 2}
   m_Speed: 40
@@ -789,7 +788,7 @@ MonoBehaviour:
   - {fileID: 3260524993774626272}
   - {fileID: 1536011838519171717}
   - {fileID: 2428570251482540705}
-  m_HitEffectNumber: 0
+  _hitEffectType: 0
 --- !u!1 &7794458827251315895
 GameObject:
   m_ObjectHideFlags: 0

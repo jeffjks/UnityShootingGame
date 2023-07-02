@@ -18,7 +18,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
     }
     
-    private Vector3 m_TargetPosition;
+    private Vector3 TARGET_POSITION;
     private const int APPEARANCE_TIME = 11000;
     private const int NEXT_PHASE_DELAY = 4000;
 
@@ -28,10 +28,10 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     void Start()
     {
-        m_CurrentAngle = 180f;
-        RotateImmediately(m_CurrentAngle);
+        CurrentAngle = 180f;
+        RotateImmediately(CurrentAngle);
 
-        m_TargetPosition = transform.position;
+        TARGET_POSITION = transform.position;
 
         StartCoroutine(AppearanceSequence());
         
@@ -47,16 +47,16 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
         base.Update();
         
         if (m_Phase > 0) {
-            if (transform.position.x >= m_TargetPosition.x + 1f) {
+            if (transform.position.x >= TARGET_POSITION.x + 1f) {
                 m_MoveVector.direction = Random.Range(-110f, -70f);
             }
-            else if (transform.position.x <= m_TargetPosition.x - 1f) {
+            else if (transform.position.x <= TARGET_POSITION.x - 1f) {
                 m_MoveVector.direction = Random.Range(70f, 110f);
             }
-            else if (transform.position.z >= m_TargetPosition.z + 0.3f) {
+            else if (transform.position.z >= TARGET_POSITION.z + 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
-            else if (transform.position.z <= m_TargetPosition.z - 0.3f) {
+            else if (transform.position.z <= TARGET_POSITION.z - 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
         }
@@ -97,6 +97,8 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
         for (int i = 0; i < m_Part1_Turrets.Length; i++) {
             m_Part1_Turrets[i].EnableInteractable();
         }
+        
+        SystemManager.OnBossStart();
     }
 
     public void ToNextPhase(int duration) {
@@ -284,7 +286,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.BossClear();
+        SystemManager.OnBossClear();
     }
 
     public void OnBossDeath() {

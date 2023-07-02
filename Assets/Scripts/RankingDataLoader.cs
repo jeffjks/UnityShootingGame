@@ -29,26 +29,20 @@ public class RankingDataLoader : MonoBehaviour
     private bool _isLoaded;
     private readonly Dictionary<GameDifficulty, List<LocalRankingData>> _localRankingDataList = new();
 
-    private GameManager m_GameManager = null;
-
-    void Awake()
-    {
-        m_GameManager = GameManager.instance_gm;
-    }
-
     private void OnEnable() {
-        string id = m_GameManager.GetAccountID();
+        string id = GameManager.GetAccountID();
         CurrentPage = 0;
 
-        if (GameManager.NetworkAvailable) {
+        if (DebugOption.NetworkAvailable) {
             if (id == string.Empty) {
                 //DisplayRanking("OfflineException");
             }
             else {
-                StartCoroutine(DisplayOnlineRanking(m_GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
+                StartCoroutine(DisplayOnlineRanking(GameManager.GetAccountID(), SystemInfo.deviceUniqueIdentifier));
             }
         }
-        else {
+        else
+        {
             LoadLocalRanking();
         }
     }
@@ -61,53 +55,20 @@ public class RankingDataLoader : MonoBehaviour
     private void LoadLocalRanking() {
         if (!_localRankingDataList.ContainsKey(m_GameDifficulty))
         {
-            _localRankingDataList[m_GameDifficulty] = new List<LocalRankingData>();
-
-            BinaryReader br = OpenBinaryFile(Application.dataPath, $"ranking{(int)m_GameDifficulty}");
-            
-            while (true){
-                try {
-                    string id = br.ReadString();
-                    long score = br.ReadInt64();
-                    ShipAttributes shipAttributes = new ShipAttributes(br.ReadString());
-                    int miss = br.ReadInt32();
-                    long date = br.ReadInt64();
-
-                    //int attributesCode = shipAttributes.GetAttributesCode();
-                    //Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
-
-                    LocalRankingData record = new LocalRankingData(id, score, shipAttributes, miss, date);
-                    _localRankingDataList[m_GameDifficulty].Add(record);
-                    //Console.WriteLine("{0} {1}", var1, var2);
-                }
-                catch (EndOfStreamException) { // 파일 끝에 도달한 예외 처리
-                    br.Close();
-                    break;
-                }
+            var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(Application.dataPath, $"ranking{(int)m_GameDifficulty}").jsonData;
+            if (rankingData == null)
+            {
+                m_ErrorMessage.DisplayText("FileLoadException");
+                rankingData = new List<LocalRankingData>();
             }
-
-            _localRankingDataList[m_GameDifficulty].Sort(new Comparison<LocalRankingData>((n1, n2) => CompareListElement(n1, n2)));
+            else
+            {
+                rankingData.Sort();
+            }
+            _localRankingDataList[m_GameDifficulty] = rankingData;
         }
 
         DisplayRanking();
-    }
-
-    private BinaryReader OpenBinaryFile(string filePath, string fileName)
-    {
-        return new BinaryReader(File.Open($"{filePath}/{fileName}.dat", FileMode.OpenOrCreate, FileAccess.Read));
-    }
-
-    private int CompareListElement(LocalRankingData n1, LocalRankingData n2) {
-        if (n1.score == n2.score) {
-            if (n1.date < n2.date) {
-                return 1;
-            }
-            return -1;
-        }
-        if (n1.score > n2.score) {
-            return 1;
-        }
-        return -1;
     }
 
     private IEnumerator DisplayOnlineRanking(string id, string pcID) {

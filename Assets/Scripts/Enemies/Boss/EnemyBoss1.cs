@@ -94,7 +94,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         int frame2 = 900 * Application.targetFrameRate / 1000;
 
         Vector3 init_vector = transform.position;
-        Quaternion init_quarternion = transform.rotation;
+        Quaternion init_quaternion = transform.rotation;
         Quaternion tilt_quaternion = Quaternion.Euler(0f, ROLLING_ANGLE_MID, 0f);
 
         for (int i = 0; i < frame1; ++i) {
@@ -105,12 +105,12 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
             float position_x = Mathf.Lerp(init_vector.x, 3f, t_posx);
             float position_y = Mathf.Lerp(init_vector.y, -2f, t_posy);
             transform.position = new Vector3(position_x, position_y, transform.position.z);
-            m_Rotator.rotation = Quaternion.Lerp(init_quarternion, tilt_quaternion, t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_quaternion, tilt_quaternion, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
 
         init_vector = transform.position;
-        init_quarternion = m_Rotator.rotation;
+        init_quaternion = m_Rotator.rotation;
 
         for (int i = 0; i < frame2; ++i) {
             float t_posx = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame2);
@@ -120,7 +120,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
             float position_x = Mathf.Lerp(init_vector.x, 0f, t_posx);
             float position_y = Mathf.Lerp(init_vector.y, -4.5f, t_posy);
             transform.position = new Vector3(position_x, position_y, transform.position.z);
-            m_Rotator.rotation = Quaternion.Lerp(init_quarternion, Quaternion.identity, t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.identity, t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
         
@@ -137,14 +137,8 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_MoveVector = new MoveVector(1f, 90f + 180f*rand);
 
         EnableInteractableAll();
-        /*
-        m_Sequence.Kill();
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveX(-1f, 2f).SetEase(Ease.Linear))
-        .Append(transform.DOMoveX(1f, 4f).SetEase(Ease.Linear))
-        .Append(transform.DOMoveX(0f, 2f).SetEase(Ease.Linear))
-        .SetLoops(-1, LoopType.Restart);
-        yield break;*/
+
+        SystemManager.OnBossStart();
     }
 
     private void OnPhase1() {
@@ -163,7 +157,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         int frame = 1500 * Application.targetFrameRate / 1000;
         Vector3 init_vector;
         Vector3 target_vector;
-        Quaternion init_quarternion;
+        Quaternion init_quaternion;
         Quaternion quaternion_rightTurn = Quaternion.Euler(0f, -ROLLING_ANGLE_MAX, 0f);
         Quaternion quaternion_leftTurn = Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f);
 
@@ -173,30 +167,30 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
             if (transform.position.x < 0f) {
                 init_vector = transform.position;
                 target_vector = new Vector3(Random.Range(1f, 2f), Random.Range(-4.5f, -5.5f), Depth.ENEMY);
-                init_quarternion = m_Rotator.rotation;
+                init_quaternion = m_Rotator.rotation;
 
                 for (int i = 0; i < frame; ++i) {
                     float t_pos = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
                     float t_rot = m_AnimationCurve_Turn.Evaluate((float) (i+1) / frame);
                     
                     transform.position = Vector3.Lerp(init_vector, target_vector, t_pos);
-                    m_Rotator.rotation = Quaternion.Lerp(init_quarternion, quaternion_rightTurn, t_rot);
-                    //m_Rotator.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion[0], t_rot);
+                    m_Rotator.rotation = Quaternion.Lerp(init_quaternion, quaternion_rightTurn, t_rot);
+                    //m_Rotator.rotation = Quaternion.Lerp(init_quaternion, m_TargetQuaternion[0], t_rot);
                     yield return new WaitForMillisecondFrames(0);
                 }
             }
             else {
                 init_vector = transform.position;
                 target_vector = new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f), Depth.ENEMY);
-                init_quarternion = m_Rotator.rotation;
+                init_quaternion = m_Rotator.rotation;
 
                 for (int i = 0; i < frame; ++i) {
                     float t_pos = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
                     float t_rot = m_AnimationCurve_Turn.Evaluate((float) (i+1) / frame);
                     
                     transform.position = Vector3.Lerp(init_vector, target_vector, t_pos);
-                    m_Rotator.rotation = Quaternion.Lerp(init_quarternion, quaternion_leftTurn, t_rot);
-                    //m_Rotator.rotation = Quaternion.Lerp(init_quarternion, m_TargetQuaternion[0], t_rot);
+                    m_Rotator.rotation = Quaternion.Lerp(init_quaternion, quaternion_leftTurn, t_rot);
+                    //m_Rotator.rotation = Quaternion.Lerp(init_quaternion, m_TargetQuaternion[0], t_rot);
                     yield return new WaitForMillisecondFrames(0);
                 }
             }
@@ -388,7 +382,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.BossClear();
+        SystemManager.OnBossClear();
     }
 
     public void OnBossDeath() {

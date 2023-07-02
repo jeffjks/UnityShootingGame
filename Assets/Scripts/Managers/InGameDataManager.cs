@@ -7,38 +7,55 @@ using System;
 
 public class InGameDataManager : MonoBehaviour
 {
-    public Action<long> Action_OnUpdateScore;
-    public Action<int> Action_OnUpdateBombNumber;
-    
-    public long TotalScore { get; private set; }
-    public int TotalMiss { get; private set; }
-    private readonly long[] m_StageScore;
+    public event Action<long> Action_OnUpdateScore;
+    public event Action<int, int> Action_OnUpdateBombNumber;
 
+    private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
+    private long m_ElapsedTime;
+    
+    private readonly long[] m_StageScore;
+    private readonly int[] m_StageMiss;
+    private readonly Dictionary<ItemType, int> _itemCount = new();
+    
+    public long TotalScore
+    {
+        get => _totalScore;
+        private set
+        {
+            _totalScore = value;
+            Action_OnUpdateScore?.Invoke(value);
+        }
+    }
+    public int TotalMiss { get; private set; }
     public int BombNumber
     {
         get => _bombNumber;
         set
         {
             _bombNumber = value;
-            UpdateBombNumber();
+            Action_OnUpdateBombNumber?.Invoke(value, MaxBombNumber);
         }
     }
-    public int MaxBombNumber { private get; set; }
-    
-    private readonly int[] m_StageMiss;
-    private long m_ElapsedTime;
-    private readonly Dictionary<ItemType, int> _itemCount = new();
+    private int MaxBombNumber
+    {
+        get => _maxBombNumber;
+        set
+        {
+            _maxBombNumber = value;
+            Action_OnUpdateBombNumber?.Invoke(BombNumber, value);
+        }
+    }
     
     public static InGameDataManager Instance { get; private set; }
 
     private InGameDataManager()
     {
         TotalScore = 0;
-        m_StageScore = new long[5] {0, 0, 0, 0, 0};
+        m_StageScore = new long[] {0, 0, 0, 0, 0};
         TotalMiss = 0;
-        m_StageMiss = new int[5] {0, 0, 0, 0, 0};
+        m_StageMiss = new int[] {0, 0, 0, 0, 0};
         
         foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
         {
@@ -46,7 +63,7 @@ public class InGameDataManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null) {
             Destroy(gameObject);
@@ -56,8 +73,14 @@ public class InGameDataManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         
-        UpdateBombNumber();
-        UpdateScore();
+        SystemManager.Action_OnQuitInGame += DestroySelf;
+    }
+
+    private void Start()
+    {
+        TotalScore = 0;
+        MaxBombNumber = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Bomb) + 2;
+        InitBombNumber();
     }
 
     public void AddScore(long score, bool effect, ItemType itemType)
@@ -70,17 +93,11 @@ public class InGameDataManager : MonoBehaviour
     public void AddScore(long score, bool effect = false) {
         TotalScore += score;
         m_StageScore[SystemManager.Stage] += score;
-        UpdateScore();
 
         if (effect)
         {
             DisplayTextEffect(score);
         }
-    }
-
-    private void UpdateScore()
-    {
-        Action_OnUpdateScore?.Invoke(TotalScore);
     }
 
     public void DisplayTextEffect(long score)
@@ -107,11 +124,6 @@ public class InGameDataManager : MonoBehaviour
 
     public void InitBombNumber() {
         BombNumber = _maxBombNumber;
-    }
-
-    private void UpdateBombNumber()
-    {
-        Action_OnUpdateBombNumber?.Invoke(_bombNumber);
     }
 
     public bool AddBomb() {
@@ -153,5 +165,11 @@ public class InGameDataManager : MonoBehaviour
 
     public long GetElapsedTime() {
         return m_ElapsedTime;
+    }
+
+    private void DestroySelf()
+    {
+        Instance = null;
+        Destroy(gameObject);
     }
 }

@@ -123,16 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ae22403ade7d1478aa71b02b757050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 1
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
-  m_DefaultExplosion: 7
-  m_DefaultAudioClip: {fileID: 8300000, guid: ac91dd4fc6733de4692c8cdae4205b93, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 1
   m_FirePosition: {fileID: 4041665380838663998}
   m_FanU: {fileID: 2610135649203121189}
   m_FanB: {fileID: 2610135649203121187}

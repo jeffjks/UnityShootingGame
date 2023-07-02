@@ -12,7 +12,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private int m_Phase;
     private float m_Direction;
-    private Vector3 m_TargetPosition;
+    private readonly Vector3 TARGET_POSITION = new (0f, -4f);
     private const int APPEARANCE_TIME = 10000;
     private float m_WingsAngle;
     private int m_MoveDirection;
@@ -29,7 +29,6 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     void Start()
     {
-        m_TargetPosition = new Vector2(0f, -4f);
         m_WingsAngle = Random.Range(0f, 360f);
        
         for (int i = 0; i < m_WingMeshRenderers.Length; i++) {
@@ -41,7 +40,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         
         /*
         m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(m_TargetPosition.y, APPEARANCE_TIME).SetEase(Ease.Linear));*/
+        .Append(transform.DOMoveY(TARGET_POSITION.y, APPEARANCE_TIME).SetEase(Ease.Linear));*/
 
         StartCoroutine(AppearanceSequence());
 
@@ -57,13 +56,12 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         for (int i = 0; i < frame; ++i) {
             float t_posy = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
 
-            float position_y = Mathf.Lerp(init_position_y, m_TargetPosition.y, t_posy);
+            float position_y = Mathf.Lerp(init_position_y, TARGET_POSITION.y, t_posy);
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
             yield return new WaitForMillisecondFrames(0);
         }
 
         OnAppearanceComplete();
-        yield break;
     }
 
     public void OnAppearanceComplete() {
@@ -74,6 +72,8 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         StartCoroutine(InitMaterial());
 
         EnableInteractableAll();
+        
+        SystemManager.OnBossStart();
     }
 
     protected override void Update()
@@ -90,16 +90,16 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_MoveVector.speed += 0.72f / Application.targetFrameRate * Time.timeScale;
         }
         else if (m_Phase > 0) {
-            if (transform.position.x >= m_TargetPosition.x + 0.7f) {
+            if (transform.position.x >= TARGET_POSITION.x + 0.7f) {
                 m_MoveDirection = -1;
             }
-            else if (transform.position.x <= m_TargetPosition.x - 0.7f) {
+            else if (transform.position.x <= TARGET_POSITION.x - 0.7f) {
                 m_MoveDirection = 1;
             }
-            else if (transform.position.y >= m_TargetPosition.y + 0.2f) {
+            else if (transform.position.y >= TARGET_POSITION.y + 0.2f) {
                 m_MoveVector.direction = 0f;
             }
-            else if (transform.position.y <= m_TargetPosition.y - 0.2f) {
+            else if (transform.position.y <= TARGET_POSITION.y - 0.2f) {
                 m_MoveVector.direction = 180f;
             }
 
@@ -716,7 +716,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     public void OnBossDying() {
-        SystemManager.BossClear();
+        SystemManager.OnBossClear();
     }
 
     public void OnBossDeath() {

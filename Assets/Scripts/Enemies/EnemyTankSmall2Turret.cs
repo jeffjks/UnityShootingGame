@@ -33,7 +33,7 @@ public class EnemyTankSmall2Turret : EnemyUnit
         float[] speed = {6.6f, 7.8f, 7.8f};
         yield return new WaitForMillisecondFrames(millisecond);
         while(true) {
-            float target_angle = Mathf.Floor((m_CurrentAngle + 5f)/10f) * 10f;
+            float target_angle = Mathf.Floor((CurrentAngle + 5f)/10f) * 10f;
 
             m_Shooting = true;
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);

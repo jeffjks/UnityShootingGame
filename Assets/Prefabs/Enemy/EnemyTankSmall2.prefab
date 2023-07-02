@@ -162,10 +162,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 60
-  m_DefaultExplosion: 1
-  m_DefaultAudioClip: {fileID: 8300000, guid: 33bc8482db449884b9dcfc7f5a591469, type: 3}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 1
   m_Turret: {fileID: 3112153527212686602}
   m_HasDestroyableTurret: 1
 --- !u!114 &7074582856146585833
@@ -707,10 +704,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 70
-  m_DefaultExplosion: 7
-  m_DefaultAudioClip: {fileID: 0}
-  m_Explosion: 
-  m_AudioClip: []
+  m_IsRoot: 0
   m_FirePosition: {fileID: 3918467306904601275}
 --- !u!114 &2202371597217946102
 MonoBehaviour:

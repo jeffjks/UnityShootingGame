@@ -99,9 +99,9 @@ public class ExplosionJsonManager : MonoBehaviour
 
         if (ExplType != ExplType.None) {
             GameObject explosionObject = PoolingManager.PopFromPool(GetPoolingString(ExplType), PoolingParent.Explosion);
-            ExplosionEffecter explosion_effecter = explosionObject.GetComponent<ExplosionEffecter>();
+            ExplosionEffecter explosionEffecter = explosionObject.GetComponent<ExplosionEffecter>();
 
-            explosion_effecter.m_MoveVector = moveVector;
+            explosionEffecter.m_MoveVector = moveVector;
             
             Vector3 explosionPosition = enemyDeath.transform.TransformPoint(transformPosition);
             Vector2 randomPos = (radius == 0f) ? Vector2.zero : Random.insideUnitCircle * radius;

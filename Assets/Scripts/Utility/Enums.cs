@@ -162,6 +162,23 @@ public enum ItemType
     GemAir
 }
 
+public enum BulletType
+{
+    PinkLarge,
+    PinkNeedle,
+    PinkSmall,
+    BlueLarge,
+    BlueNeedle,
+    BlueSmall
+}
+
+public enum OldBulletType
+{
+    Normal = 0,
+    CREATE,
+    ERASE_AND_CREATE
+}
+
 public enum PoolingParent
 {
     None = -1,

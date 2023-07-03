@@ -89,7 +89,7 @@ public static class Utility
         byte[] data = Encoding.UTF8.GetBytes(encryptedStr);
         
         #if UNITY_EDITOR
-        Debug.Log($"파일 생성이 완료되었습니다: {fileName}, {data.Length} Bytes, 해쉬값 : {md5}");
+        Debug.Log($"파일 생성이 완료되었습니다: {fileName}.dat, {data.Length} Bytes, 해쉬값 : {md5}");
         #endif
         
         fileStream.Write(data, 0, data.Length);
@@ -99,22 +99,22 @@ public static class Utility
     public static (T jsonData, string hash) LoadDataFile<T>(string filePath, string fileName)
     {
         #if UNITY_EDITOR
-        //Debug.Log($"파일 열기를 시도합니다: {fileName}");
+        //Debug.Log($"파일 열기를 시도합니다: {fileName}.dat");
         #endif
         try
         {
             var (jsonData, hash) = LoadDataFileString(filePath, fileName);
-            if (!TestIntegrity(jsonData, hash))
+            if (Md5Sum(jsonData) != hash)
             {
-                throw new IntegrityTestFailedException("무결성 검사 실패");
+                throw new IntegrityTestFailedException($"무결성 검사 실패: {fileName}.dat");
             }
             var deserializedData = JsonConvert.DeserializeObject<T>(jsonData);
-            Debug.Log($"파일 열기에 성공했습니다: {fileName}");
+            Debug.Log($"파일 열기에 성공했습니다: {fileName}.dat");
             return (deserializedData, hash);
         }
         catch (Exception e)
         {
-            Debug.LogError($"파일 열기에 실패했습니다: {fileName}\n{e}");
+            Debug.LogError($"파일 열기에 실패했습니다: {fileName}.dat\n{e}");
             return (default, string.Empty);
         }
     }
@@ -125,29 +125,17 @@ public static class Utility
         fileStream.Read(data, 0, data.Length);
         fileStream.Close();
         string encryptedStr = Encoding.UTF8.GetString(data);
+
+        if (encryptedStr == string.Empty)
+        {
+            return (null, null);
+        }
+        
+        
         string decryptedStr = AESEncrypter.AESDecrypt128(encryptedStr);
         var jsonData = decryptedStr.Substring(0, decryptedStr.Length - 32);
         var hash = decryptedStr.Substring(decryptedStr.Length - 32);
         return (jsonData, hash);
-    }
-
-    private static bool TestIntegrity(string jsonData, string hash)
-    {
-        try
-        {
-            if (Md5Sum(jsonData) == hash)
-            {
-                Debug.Log("무결성 검사가 완료되었습니다.");
-                return true;
-            }
-            Debug.LogError("무결성 검사에 실패하였습니다.");
-            return false;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"무결성 검사 중 오류가 발생하였습니다:\n{e}");
-        }
-        return false;
     }
 
     public static void QuitGame()

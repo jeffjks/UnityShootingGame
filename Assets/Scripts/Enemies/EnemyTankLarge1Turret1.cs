@@ -62,7 +62,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int j = 0; j < 3; j++) {
                     pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                     CreateBullet(0, pos[1], UnityEngine.Random.Range(5f, 12f), Func_GetDirection.Invoke() + UnityEngine.Random.Range(-20f, 20f), accel2,
-                    2, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
+                        OldBulletType.ERASE_AND_CREATE, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
                     yield return new WaitForMillisecondFrames(320);
                 }
                 yield return new WaitForMillisecondFrames(750);
@@ -77,7 +77,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                 for (int j = 0; j < 3; j++) {
                     pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                     CreateBullet(0, pos[1], UnityEngine.Random.Range(5f, 12f), Func_GetDirection.Invoke() + UnityEngine.Random.Range(-20f, 20f), accel2,
-                    2, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
+                        OldBulletType.ERASE_AND_CREATE, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
                     yield return new WaitForMillisecondFrames(320);
                 }
                 yield return new WaitForMillisecondFrames(900);
@@ -98,7 +98,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                     for (int k = 0; k < 3; k++) {
                         pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                         CreateBullet(0, pos[1], UnityEngine.Random.Range(5f, 12f), Func_GetDirection.Invoke() + UnityEngine.Random.Range(-20f, 20f), accel2,
-                        2, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
+                            OldBulletType.ERASE_AND_CREATE, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
                     }
                     yield return new WaitForMillisecondFrames(240);
                 }
@@ -117,7 +117,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                     for (int k = 0; k < 3; k++) {
                         pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                         CreateBullet(0, pos[1], UnityEngine.Random.Range(5f, 12f), Func_GetDirection.Invoke() + UnityEngine.Random.Range(-20f, 20f), accel2,
-                        2, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
+                            OldBulletType.ERASE_AND_CREATE, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
                     }
                     yield return new WaitForMillisecondFrames(240);
                 }
@@ -139,7 +139,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                     for (int k = 0; k < 3; k++) {
                         pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                         CreateBullet(0, pos[1], UnityEngine.Random.Range(5f, 12f), Func_GetDirection.Invoke() + UnityEngine.Random.Range(-20f, 20f), accel2,
-                        2, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
+                            OldBulletType.ERASE_AND_CREATE, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
                     }
                     yield return new WaitForMillisecondFrames(240);
                 }
@@ -158,7 +158,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
                     for (int k = 0; k < 3; k++) {
                         pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
                         CreateBullet(0, pos[1], UnityEngine.Random.Range(5f, 12f), Func_GetDirection.Invoke() + UnityEngine.Random.Range(-20f, 20f), accel2,
-                        2, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
+                            OldBulletType.ERASE_AND_CREATE, 500, 0, 0.1f, BulletDirection.PLAYER, UnityEngine.Random.Range(-25f, 25f), accel3);
                     }
                     yield return new WaitForMillisecondFrames(240);
                 }

@@ -44,7 +44,7 @@ public class EnemyShipLarge : EnemyUnit
         while(true) {
             for (int i = 0; i < 2; i++) {
                 pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i].position);
-                CreateBullet(0, pos[i], 3.6f, Random.Range(0f, 360f), accel1, 2, 600,
+                CreateBullet(0, pos[i], 3.6f, Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 600,
                 4, 8f, BulletDirection.PLAYER, Random.Range(-18f, 18f), accel2);
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

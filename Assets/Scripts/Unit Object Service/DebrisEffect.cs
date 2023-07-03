@@ -11,6 +11,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     public string m_ObjectName;
     public int m_LifeTime;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
+    public Transform m_DebrisTransform;
 
     private Vector2 m_Position2D;
     private Material[] m_Materials;
@@ -47,8 +48,11 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     {
         DeactivateAllChildren();
 
-        m_DebrisIndex = Random.Range(0, _debrisDict[debrisType].Length);
-        _debrisDict[debrisType][m_DebrisIndex].SetActive(true);
+        m_DebrisIndex = new System.Random().Next(0, _debrisDict[debrisType].Length);
+        var rotationRandom = new System.Random().Next(0, 360);
+        GameObject debrisObject = _debrisDict[debrisType][m_DebrisIndex];
+        m_DebrisTransform.rotation = Quaternion.Euler(0f, rotationRandom, 0f);
+        debrisObject.SetActive(true);
         m_Materials[m_DebrisIndex].color = Color.white;
         
         m_FadeOutAnimation = FadeOutAnimation();

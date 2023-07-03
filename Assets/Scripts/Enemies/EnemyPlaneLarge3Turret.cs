@@ -40,17 +40,17 @@ public class EnemyPlaneLarge3Turret : EnemyUnit
             for (int i = 0; i < 3; i++) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     pos = m_FirePosition.position;
-                    CreateBullet(3, pos, 8.3f, CurrentAngle, accel1, 2, 600,
+                    CreateBullet(3, pos, 8.3f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 600,
                     5, 4.3f, BulletDirection.PLAYER, 0f, accel2);
                 }
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, 2, 600,
+                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, OldBulletType.ERASE_AND_CREATE, 600,
                     5, 4.3f, BulletDirection.PLAYER, 0f, accel2, 3, 16f);
                 }
                 else {
                     pos = m_FirePosition.position;
-                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, 2, 600,
+                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, OldBulletType.ERASE_AND_CREATE, 600,
                     5, 4.3f, BulletDirection.PLAYER, 0f, accel2, 3, 16f);
                 }
                 yield return new WaitForMillisecondFrames(280);

@@ -278,7 +278,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         while (true) {
             dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
             for (int i = 0; i < 3; i++) {
-                CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, BulletType.CREATE, 600,
+                CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, OldBulletType.CREATE, 600,
                 5, 3f, BulletDirection.CURRENT, 0f, accel2);
             }
             yield return new WaitForFrames(5);
@@ -290,7 +290,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         for (int i = 0; i < 10; i++) {
             accel2 = new EnemyBulletAccel(7f+i*0.86f, 400);
-            CreateBulletsSector(0, transform.position, 10f, 0f, accel1, 4, 90f, BulletType.ERASE_AND_CREATE, 500,
+            CreateBulletsSector(0, transform.position, 10f, 0f, accel1, 4, 90f, OldBulletType.ERASE_AND_CREATE, 500,
             0, 0.1f, BulletDirection.PLAYER, 0f, accel2);
             yield return new WaitForFrames(4);
         }
@@ -334,7 +334,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_DirectionDelta[1] = 43f;
 
         while (true) {
-            CreateBulletsSector(3, transform.position, 5.3f, m_Direction[0], accel, 4, 90f, BulletType.ERASE_AND_CREATE, 600,
+            CreateBulletsSector(3, transform.position, 5.3f, m_Direction[0], accel, 4, 90f, OldBulletType.ERASE_AND_CREATE, 600,
             4, 6.4f, BulletDirection.FIXED, m_Direction[1], accel, 6, 60f);
             yield return new WaitForFrames(9);
         }
@@ -394,7 +394,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-            CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, BulletType.ERASE_AND_CREATE, 700,
+            CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, OldBulletType.ERASE_AND_CREATE, 700,
             4, 6.4f, BulletDirection.PLAYER, 0f, accel);
             yield return new WaitForMillisecondFrames(1000);
         }
@@ -430,7 +430,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 3; i++) {
-            CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
+            CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
             0, 1f, BulletDirection.CURRENT, 30f, accel2);
             yield return new WaitForFrames(7);
         }
@@ -438,7 +438,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 5; i++) {
-            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
+            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
             3, 1f, BulletDirection.CURRENT, -60f, accel2);
             yield return new WaitForFrames(7);
         }
@@ -446,7 +446,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 7; i++) {
-            CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
+            CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
             0, 1f, BulletDirection.CURRENT, 90f, accel2);
             yield return new WaitForFrames(7);
         }
@@ -456,7 +456,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         float dir = 0f;
         for (int i = 0; i < 9; i++) {
             CreateBulletsSector(3, transform.position, 10f, dir + Random.Range(3.5f, 6.5f), accel3, 36, 10f);
-            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletType.ERASE_AND_CREATE, 1000,
+            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
             //3, 1f, BulletDirection.CURRENT, -140f, accel2);
             yield return new WaitForFrames(10);
         }
@@ -489,9 +489,9 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         StartCoroutine(m_CurrentPattern[3]);
 
         while (true) {
-            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, BulletType.ERASE_AND_CREATE, bullet_delay,
+            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, OldBulletType.ERASE_AND_CREATE, bullet_delay,
             3, 7.5f, BulletDirection.FIXED, m_Direction[1], accel2, 2, 48f);
-            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, BulletType.ERASE_AND_CREATE, bullet_delay,
+            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, OldBulletType.ERASE_AND_CREATE, bullet_delay,
             5, 5.4f, BulletDirection.FIXED, m_Direction[1] + 180f, accel2);
             yield return new WaitForFrames(4); // 62ms
         }

@@ -52,8 +52,8 @@ public class BulletManager : MonoBehaviour
             index = UnityEngine.Random.Range(0, count);
             if (num < 50) {
                 Vector3 pos = bulletList[index].transform.position;
-                if (Size.GAME_BOUNDARY_LEFT < pos.x && pos.x < Size.GAME_BOUNDARY_RIGHT) {
-                    if (Size.GAME_BOUNDARY_BOTTOM < pos.y && pos.y < Size.GAME_BOUNDARY_TOP) {
+                if (pos.x is > Size.GAME_BOUNDARY_LEFT and < Size.GAME_BOUNDARY_RIGHT) {
+                    if (pos.y is > Size.GAME_BOUNDARY_BOTTOM and < Size.GAME_BOUNDARY_TOP) {
                         GameObject gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
                         pos.z = Depth.ITEMS;
                         gem.transform.position = pos;

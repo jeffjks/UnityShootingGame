@@ -19,7 +19,7 @@ public static class Size
     public const float GAME_BOUNDARY_LEFT = - GAME_WIDTH / 2;
     public const float GAME_BOUNDARY_RIGHT = GAME_WIDTH / 2;
     public const float GAME_BOUNDARY_BOTTOM = -GAME_HEIGHT;
-    public const float GAME_BOUNDARY_TOP = -GAME_HEIGHT;
+    public const float GAME_BOUNDARY_TOP = 0f;
 
     public const float BACKGROUND_CAMERA_ANGLE = 25f;
 }
@@ -186,11 +186,21 @@ public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
     }
 }
 
+/*
 public static class BulletType
 {
     public const byte NORMAL = 0; // 일반 총알
     public const byte CREATE = 1; // n초후 다른 총알 생성
     public const byte ERASE_AND_CREATE = 2; // n초후 파괴 후 다른 총알 생성
+}*/
+
+[Serializable]
+public class Bullet
+{
+    public BulletType bulletType;
+    public Sprite sprite;
+    public Animator animator;
+    public int[] colliderSize;
 }
 
 public interface IObjectPooling {

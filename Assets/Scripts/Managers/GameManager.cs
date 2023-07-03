@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using DG.Tweening;
 
@@ -48,14 +50,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        #if UNITY_EDITOR
         if (DebugOption.GenerateJsonFile)
         {
             GetComponent<ExplosionJsonWriter>().GenerateJsonFile();
             GetComponent<EndingCreditJsonWriter>().GenerateJsonFile();
             Debug.Log("A");
         }
+        #endif
 
-        if (!TestIntegrity())
+        if (!TestIntegrityAll())
         {
             Utility.QuitGame();
         }
@@ -92,18 +96,29 @@ public class GameManager : MonoBehaviour
         m_EncryptedAccountID = Utility.Md5Sum(m_AccountID);
     }
 
-    private bool TestIntegrity()
+    private static bool TestIntegrityAll()
     {
         try
         {
-            var (jsonData, hash) = Utility.LoadDataFileString(Application.dataPath, "resources1");
-            if (Utility.Md5Sum(jsonData) == hash)
+            List<string> fileList = new () { "resources1", "resources2", "ranking0", "ranking1", "ranking2" };
+            string filePath = Application.dataPath;
+
+            foreach (var fileName in fileList)
             {
-                Debug.Log("무결성 검사가 완료되었습니다.");
-                return true;
+                if (!File.Exists($"{filePath}/{fileName}.dat"))
+                {
+                    continue;
+                }
+                var (jsonData, hash) = Utility.LoadDataFileString(filePath, fileName);
+                
+                if (jsonData != null && Utility.Md5Sum(jsonData) != hash)
+                {
+                    Debug.LogError("무결성 검사에 실패하였습니다.");
+                    return false;
+                }
             }
-            Debug.LogError("무결성 검사에 실패하였습니다.");
-            return false;
+            Debug.Log("무결성 검사가 완료되었습니다.");
+            return true;
         }
         catch (Exception e)
         {

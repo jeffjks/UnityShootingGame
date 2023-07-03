@@ -41,7 +41,7 @@ public class PlayerBombHandler : MonoBehaviour
             float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
             m_Bomb.transform.position = Vector3.Lerp(startPos, destPos, t_pos);
-            yield return new WaitForMillisecondFrames(0);
+            yield return null;
         }
         m_Explosion.transform.position = destPos;
         
@@ -49,9 +49,9 @@ public class PlayerBombHandler : MonoBehaviour
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(true);
         m_BombDamage.SetActive(true);
+        AudioService.PlaySound("PlayerBomb2");
 
         yield return new WaitForMillisecondFrames(REMOVE_TIMER);
-        AudioService.PlaySound("PlayerBomb2");
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(false);
         m_BombDamage.SetActive(false);

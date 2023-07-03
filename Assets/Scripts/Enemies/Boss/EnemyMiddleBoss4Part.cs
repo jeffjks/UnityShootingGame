@@ -64,7 +64,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
 
         while (true) {
             pos = m_FirePosition.position;
-            CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, 2, timer,
+            CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, timer,
             4, 8f, 0, 0f, accel2);
             yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty]);
         }

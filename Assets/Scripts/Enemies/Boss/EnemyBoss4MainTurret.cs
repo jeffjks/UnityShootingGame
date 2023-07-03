@@ -224,15 +224,15 @@ public class EnemyBoss4MainTurret : EnemyUnit
         pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
         StartCoroutine(m_EnemyBoss4MainTurretBarrel.ShootAnimation());
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, BulletType.ERASE_AND_CREATE, 500,
+            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, OldBulletType.ERASE_AND_CREATE, 500,
             1, 4.5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 30, 12f);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, BulletType.CREATE, 200,
+            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, OldBulletType.CREATE, 200,
             1, 5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 45, 8f, new Vector2Int(170, 170));
         }
         else {
-            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, BulletType.CREATE, 200,
+            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, OldBulletType.CREATE, 200,
             1, 5.4f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2Int(125, 125));
         }
         yield break;

@@ -78,7 +78,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 
     // Type (0), 1, 2 총알
     protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval,
-    byte type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
+        OldBulletType type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
     int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int()) {
         GameObject[] objs = new GameObject[num];
         if (BulletCondition(pos)) {
@@ -115,7 +115,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 
     // Type (0), 1, 2 총알
     protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel,
-    byte type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
+        OldBulletType type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
     int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int())
     {
         GameObject obj = null;

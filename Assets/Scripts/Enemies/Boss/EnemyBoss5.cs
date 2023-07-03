@@ -307,17 +307,17 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             pos = m_FirePosition.position;
             dir = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition()) + Random.Range(-6f, 6f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(1, pos, 5f, dir, accel, 6, 20f, BulletType.ERASE_AND_CREATE, 600,
+                CreateBulletsSector(1, pos, 5f, dir, accel, 6, 20f, OldBulletType.ERASE_AND_CREATE, 600,
                 1, 2f, BulletDirection.CURRENT, 0f, accel2, 2, 20f + Random.Range(0f, 24f));
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay2);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(1, pos, 5.3f, dir, accel, 10, 12f, BulletType.ERASE_AND_CREATE, 600,
+                CreateBulletsSector(1, pos, 5.3f, dir, accel, 10, 12f, OldBulletType.ERASE_AND_CREATE, 600,
                 1, 2f, BulletDirection.CURRENT, 0f, accel2, 2, 20f + Random.Range(0f, 24f));
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay2);
             }
             else {
-                CreateBulletsSector(1, pos, 5.6f, dir, accel, 12, 10f, BulletType.ERASE_AND_CREATE, 600,
+                CreateBulletsSector(1, pos, 5.6f, dir, accel, 12, 10f, OldBulletType.ERASE_AND_CREATE, 600,
                 1, 2f, BulletDirection.CURRENT, 0f, accel2, 2, 20f + Random.Range(0f, 24f));
                 yield return new WaitForMillisecondFrames(m_CurrentFireDelay2);
             }

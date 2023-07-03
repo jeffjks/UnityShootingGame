@@ -274,21 +274,21 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         for (int i = 0; i < 2; i++) {
             random_dir = Random.Range(0f, 360f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
+                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 15, 24f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
+                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 20, 18f);
-                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
+                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
                 5, 4.2f, BulletDirection.FIXED, random_dir + 9f, accel2, 20, 18f);
             }
             else {
-                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
+                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
                 3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 24, 15f);
-                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
+                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
                 5, 4.6f, BulletDirection.FIXED, random_dir + 7.5f, accel2, 24, 15f);
-                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletType.ERASE_AND_CREATE, 800,
+                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
                 5, 3.8f, BulletDirection.FIXED, random_dir, accel2, 24, 15f);
             }
             pos = m_FirePosition[1 - random_value].position;

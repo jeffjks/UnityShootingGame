@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _mask:
-        m_Texture: {fileID: 2800000, guid: 3322a3d60662cb44d8b4164465563df4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2378db9f52c174a44a6c5fa081603ee9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -64,7 +64,7 @@ Material:
     - _Zwrite: 0
     - _specularToggle: 1
     m_Colors:
-    - _EmiCol: {r: 3.5289996, g: 0.5727696, b: 0.16628794, a: 1}
+    - _EmiCol: {r: 3.0669143, g: 1.5821023, b: 0.47739708, a: 1}
     - _EnvDownCol: {r: 0.3301887, g: 0.29918388, b: 0.26944643, a: 1}
     - _EnvSideCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EnvUpCol: {r: 0.9245283, g: 0.88450146, b: 0.8242257, a: 1}

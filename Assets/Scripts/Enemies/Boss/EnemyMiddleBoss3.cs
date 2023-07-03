@@ -164,12 +164,12 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
-                BulletType.ERASE_AND_CREATE, timer, 4, 6f, BulletDirection.PLAYER, random_value1, accel2);
+                OldBulletType.ERASE_AND_CREATE, timer, 4, 6f, BulletDirection.PLAYER, random_value1, accel2);
             }
             else if (SystemManager.Difficulty >= GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
-                    BulletType.ERASE_AND_CREATE, timer, 4, 5.6f + i*0.4f, BulletDirection.PLAYER, random_value1, accel2);
+                    OldBulletType.ERASE_AND_CREATE, timer, 4, 5.6f + i*0.4f, BulletDirection.PLAYER, random_value1, accel2);
                 }
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

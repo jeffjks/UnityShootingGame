@@ -8,10 +8,12 @@ using Random = UnityEngine.Random;
 public class EnemyBullet : EnemyObject, IObjectPooling
 {
     public string m_ObjectName;
+    public BulletDatas m_BulletData;
 
     [HideInInspector] public byte m_ImageType;
     [HideInInspector] public int m_Timer;
-    [HideInInspector] public byte m_Type, m_NewImageType, m_NewDirectionType;
+    [HideInInspector] public OldBulletType m_Type;
+    [HideInInspector] public byte m_NewImageType, m_NewDirectionType;
     [HideInInspector] public float m_NewDirectionAdder;
     [HideInInspector] public Vector2Int m_SecondTimer;
     [HideInInspector] public int m_NewNumber;
@@ -19,9 +21,9 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public MoveVector m_NewMoveVector;
     public EnemyBulletAccel m_EnemyBulletAccel;
     public EnemyBulletAccel m_NewEnemyBulletAccel;
-    public int ImageDepth { get; set; }
+    private int _imageDepth;
 
-    private bool m_RotateBullet = false; // 자동 회전
+    private bool _rotateBullet; // 자동 회전
     private GameObject m_BulletExplosion;
     private SpriteRenderer[] m_SpriteRenderers;
     //private Tween m_Tween = null;
@@ -64,7 +66,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void OnStart() {
         //m_Position = Vector2Int.RoundToInt(transform.position*256);
-        m_RotateBullet = false;
+        _rotateBullet = false;
         
         for (int i = 0; i < m_BulletTypeObject.Length; i++) {
             m_BulletTypeObject[i].SetActive(false);
@@ -81,7 +83,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             m_BulletTypeObject[m_ImageType].transform.eulerAngles = new Vector3(0f, 0f, m_MoveVector.direction);
         }
         else if (m_ImageType == 3 || m_ImageType == 5) { // Blue Normal Form
-            m_RotateBullet = true;
+            _rotateBullet = true;
         }
         else {
             m_BulletTypeObject[m_ImageType].transform.rotation = Quaternion.identity;
@@ -90,13 +92,13 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         SetSortingLayer();
 
         switch(m_Type) {
-            case BulletType.CREATE: // n초후 다른 총알 생성
+            case OldBulletType.CREATE: // n초후 다른 총알 생성
                 if (m_SecondTimer == Vector2Int.zero)
                     StartCoroutine(CreateSubBullet(m_Timer));
                 else
                     StartCoroutine(CreateSubBullet(m_Timer, Random.Range(m_SecondTimer.x, m_SecondTimer.y)));
                 break;
-            case BulletType.ERASE_AND_CREATE: // n초후 다른 총알 생성 후 파괴
+            case OldBulletType.ERASE_AND_CREATE: // n초후 다른 총알 생성 후 파괴
                 StartCoroutine(CreateSubBullet(m_Timer));
                 StartCoroutine(StopAndDeath(m_Timer));
                 break;
@@ -126,15 +128,15 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     
     void LateUpdate()
     {
-        if (m_RotateBullet) {
+        if (_rotateBullet) {
             m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, 200 / Application.targetFrameRate * Time.timeScale, Space.Self);
         }
     }
 
     private void SetSortingLayer()
     {
-        ImageDepth = BulletManager.BulletsSortingLayer++;
-        m_SpriteRenderers[m_ImageType].sortingOrder = ImageDepth;
+        _imageDepth = BulletManager.BulletsSortingLayer++;
+        m_SpriteRenderers[m_ImageType].sortingOrder = _imageDepth;
     }
 
     private IEnumerator ChangeBulletSpeed(float targetSpeed, int duration) {

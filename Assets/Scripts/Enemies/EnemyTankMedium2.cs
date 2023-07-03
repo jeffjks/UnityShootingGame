@@ -48,7 +48,7 @@ public class EnemyTankMedium2 : EnemyUnit
                 yield return new WaitForMillisecondFrames(1000);
                 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                 CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 10, 36f,
-                2, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                    OldBulletType.ERASE_AND_CREATE, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                 yield return new WaitForMillisecondFrames(1000);
             }
 
@@ -62,7 +62,7 @@ public class EnemyTankMedium2 : EnemyUnit
                 for (int i = 0; i < 3; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 24, 15f,
-                    2, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                        OldBulletType.ERASE_AND_CREATE, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
@@ -78,7 +78,7 @@ public class EnemyTankMedium2 : EnemyUnit
                 for (int i = 0; i < 3; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     CreateBulletsSector(2, pos, 7.5f, Random.Range(0f, 360f), accel, 30, 12f,
-                    2, 200, 1, 6.5f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                        OldBulletType.ERASE_AND_CREATE, 200, 1, 6.5f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);

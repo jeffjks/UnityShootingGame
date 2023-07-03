@@ -431,25 +431,25 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         pos2 = m_FirePosition[2].position;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            CreateBullet(3, pos1, 10f, 0f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos1, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(200, 300));
-            CreateBullet(3, pos2, 10f, 0f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos2, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(200, 300));
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            CreateBullet(3, pos1, 10f, 0f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos1, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos2, 10f, 0f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos2, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
         }
         else {
-            CreateBullet(3, pos1, 10f, 0f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos1, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos2, 10f, 0f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos2, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos1, 10f, 40f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos1, 10f, 40f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos2, 10f, -40f, accel, BulletType.CREATE, Random.Range(0, 100),
+            CreateBullet(3, pos2, 10f, -40f, accel, OldBulletType.CREATE, Random.Range(0, 100),
             1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
         }
         
@@ -469,13 +469,13 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             pos = m_FirePosition[0].position;
-            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, BulletType.ERASE_AND_CREATE, 1200,
+            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
             0, 3.2f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PL
-            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, BulletType.ERASE_AND_CREATE, 1200,
+            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
             0, 3.2f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PL
-            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, BulletType.ERASE_AND_CREATE, 1200,
+            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
             2, 2.1f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PS
-            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, BulletType.ERASE_AND_CREATE, 1200,
+            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
             2, 2.1f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PS
             yield return new WaitForFrames(fire_delay[(int) SystemManager.Difficulty]);
         }

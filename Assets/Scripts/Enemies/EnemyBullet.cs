@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 
 public class EnemyBullet : EnemyObject, IObjectPooling
 {
     public string m_ObjectName;
+    public BulletType m_BulletType;
     public BulletDatas m_BulletData;
-
-    [HideInInspector] public byte m_ImageType;
+    public CircleCollider2D m_CircleCollider;
+    public CapsuleCollider2D m_CapsuleCollider;
+    
     [HideInInspector] public int m_Timer;
     [HideInInspector] public OldBulletType m_Type;
     [HideInInspector] public byte m_NewImageType, m_NewDirectionType;
@@ -24,13 +27,18 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     private int _imageDepth;
 
     private bool _rotateBullet; // 자동 회전
+    private GameObject _bulletImage;
+    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
     private GameObject m_BulletExplosion;
-    private SpriteRenderer[] m_SpriteRenderers;
+    private Collider2D _currentCollider;
+    private Bullet _currentBullet;
     //private Tween m_Tween = null;
 
     [SerializeField] private GameObject[] m_BulletTypeObject = null;
-    [SerializeField] private GameObject[] m_BulletEraseObject = null;
-    [SerializeField] private Animator[] m_EraseAnimator = null;
+    
+    [SerializeField] private GameObject[] _bulletEraseObject = null;
+    [SerializeField] private Animator[] _eraseAnimator = null;
 
     /* m_Type ====================
     deltaValue가 0이면 속도 변화 X
@@ -51,7 +59,9 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private void Awake()
     {
-        m_SpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _animator = _bulletImage.GetComponent<Animator>();
+        _bulletImage = _spriteRenderer.gameObject;
     }
 
     private void OnEnable()
@@ -64,32 +74,44 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         BulletManager.BulletNumber--;
     }
 
-    public void OnStart() {
+    public void OnStart(BulletType bulletType, UnityAction<int, OldBulletType> subBullet) {
         //m_Position = Vector2Int.RoundToInt(transform.position*256);
+        m_BulletType = bulletType;
         _rotateBullet = false;
-        
-        for (int i = 0; i < m_BulletTypeObject.Length; i++) {
-            m_BulletTypeObject[i].SetActive(false);
-        }
-        for (int i = 0; i < m_BulletEraseObject.Length; i++) {
-            m_BulletEraseObject[i].SetActive(false);
-        }
 
-        if (m_BulletTypeObject.Length > 0) {
-            m_BulletTypeObject[m_ImageType].SetActive(true);
-        }
+        _currentBullet = m_BulletData.bullets[(int)m_BulletType];
+        _spriteRenderer.sprite = _currentBullet.sprite;
+        _animator.runtimeAnimatorController = _currentBullet.animatorController;
 
-        if (m_ImageType == 1 || m_ImageType == 4) { // Needle Form
-            m_BulletTypeObject[m_ImageType].transform.eulerAngles = new Vector3(0f, 0f, m_MoveVector.direction);
+        if (_currentBullet.colliderSize.Length == 1)
+        {
+            m_CircleCollider.radius = _currentBullet.colliderSize[0];
+            _currentCollider = m_CircleCollider;
         }
-        else if (m_ImageType == 3 || m_ImageType == 5) { // Blue Normal Form
+        else
+        {
+            m_CapsuleCollider.size = new Vector2(_currentBullet.colliderSize[0], _currentBullet.colliderSize[1]);
+            _currentCollider = m_CapsuleCollider;
+        }
+        _currentCollider.gameObject.SetActive(true);
+
+        if (m_BulletType is BulletType.PinkNeedle or BulletType.BlueNeedle) { // Needle Form
+            transform.eulerAngles = new Vector3(0f, 0f, m_MoveVector.direction);
+        }
+        else if (m_BulletType is BulletType.BlueSmall or BulletType.BlueLarge) { // Blue Circle Form
+            _bulletImage.transform.rotation = Quaternion.identity;
             _rotateBullet = true;
         }
         else {
-            m_BulletTypeObject[m_ImageType].transform.rotation = Quaternion.identity;
+            _bulletImage.transform.rotation = Quaternion.identity;
         }
 
         SetSortingLayer();
+
+        if (BulletManager.InBulletFreeState) {
+            PlayEraseAnimation();
+            return;
+        }
 
         switch(m_Type) {
             case OldBulletType.CREATE: // n초후 다른 총알 생성
@@ -106,10 +128,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
                 break;
         }
 
-        if (BulletManager.InBulletFreeState) {
-            PlayEraseAnimation();
-        }
-
         float targetSpeed = m_EnemyBulletAccel.targetSpeed;
         int duration = m_EnemyBulletAccel.duration;
 
@@ -120,7 +138,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     void Update()
     {
-        CheckDeath();
         CheckOutside();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();
@@ -129,14 +146,14 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     void LateUpdate()
     {
         if (_rotateBullet) {
-            m_BulletTypeObject[m_ImageType].transform.Rotate(Vector3.back, 200 / Application.targetFrameRate * Time.timeScale, Space.Self);
+            _bulletImage.transform.Rotate(Vector3.back, 200f / Application.targetFrameRate * Time.timeScale, Space.Self);
         }
     }
 
     private void SetSortingLayer()
     {
         _imageDepth = BulletManager.BulletsSortingLayer++;
-        m_SpriteRenderers[m_ImageType].sortingOrder = _imageDepth;
+        _spriteRenderer.sortingOrder = _imageDepth;
     }
 
     private IEnumerator ChangeBulletSpeed(float targetSpeed, int duration) {
@@ -208,26 +225,13 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void PlayEraseAnimation() {
         StopAllCoroutines();
-        m_BulletTypeObject[m_ImageType].SetActive(false);
+        _bulletImage.SetActive(false);
+        _currentCollider.gameObject.SetActive(false);
 
-        byte erase_type;
-        if (m_ImageType <= 2) {
-            erase_type = 0;
-        }
-        else {
-            erase_type = 1;
-        }
-        m_BulletEraseObject[erase_type].SetActive(true);
-        m_EraseAnimator[erase_type].Play("Erase", -1, 0f);
+        var eraseIndex = (m_BulletType is BulletType.BlueLarge or BulletType.BlueNeedle or BulletType.BlueSmall) ? 0 : 1;
+        _bulletEraseObject[eraseIndex].SetActive(true);
+        _eraseAnimator[eraseIndex].Play("Erase", -1, 0f);
         StartCoroutine(ReturnToPoolDelayed(1000));
-    }
-
-    private void CheckDeath() { // 탄 소거시 Bullet 파괴
-        if (BulletManager.InBulletFreeState) {
-            if (m_BulletTypeObject[m_ImageType].activeSelf) {
-                PlayEraseAnimation();
-            }
-        }
     }
 
     private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
@@ -246,7 +250,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             yield return new WaitForMillisecondFrames(millisecond);
         }
         ReturnToPool();
-        yield break;
     }
 
     public void ReturnToPool() {
@@ -254,22 +257,18 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
     }
 
-    protected override bool BulletCondition(Vector3 pos) {
-        Vector2 camera_pos = MainCamera.Camera.transform.position;
+    protected override bool CanCreateBullet(Vector3 pos) {
+        float camera_x = MainCamera.Camera.transform.position.x;
 
-        if (!PlayerManager.IsPlayerAlive) {
+        if (!PlayerManager.IsPlayerAlive)
             return false;
-        }
-        else if (!SystemManager.IsOnGamePlayState()) {
+        if (!SystemManager.IsOnGamePlayState())
             return false;
-        }
-        else if (2 * Mathf.Abs(pos.x - camera_pos.x) > Size.MAIN_CAMERA_WIDTH) {
+        if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH)
             return false;
-        }
-        else if (pos.y > 0 || pos.y < - Size.MAIN_CAMERA_HEIGHT) {
+        if (pos.y is > 0 or < - Size.MAIN_CAMERA_HEIGHT)
             return false;
-        }
-        else
-            return true;
+        
+        return true;
     }
 }

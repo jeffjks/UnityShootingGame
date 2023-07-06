@@ -19,7 +19,7 @@ public class EnemyMissile : EnemyUnit
 
     void OnEnable()
     {
-        transform.parent = null;
+        transform.SetParent(null);
         m_MoveVector = new MoveVector(1f, 0f);
         m_Renderer.rotation = m_Rotation;
         StartCoroutine(AppearanceSequence());

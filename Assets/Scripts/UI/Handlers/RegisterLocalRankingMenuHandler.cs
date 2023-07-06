@@ -25,7 +25,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
         m_TotalScore = InGameDataManager.Instance.TotalScore;
         m_ShipAttributes = PlayerManager.CurrentAttributes;
         m_TotalMiss = InGameDataManager.Instance.TotalMiss;
-        m_ClearedTime = InGameDataManager.Instance.GetElapsedTime();
+        m_ClearedTime = InGameDataManager.Instance.ElapsedTime;
 
         m_InputFieldID.text = PlayerPrefs.GetString("LastLocalRankingID", string.Empty);
         m_InputFieldID.ActivateInputField();

@@ -45,7 +45,7 @@ public class EnemyTurret3Turret : EnemyUnit
             pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
             
-            if (BulletCondition((pos1 + pos2)/2)) {
+            if (CanCreateBullet((pos1 + pos2)/2)) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     for (int i = 0; i < 4; i++) {
                         CreateBullet(4, pos1, 4.8f + i*0.3f, CurrentAngle, accel);

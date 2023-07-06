@@ -10,13 +10,14 @@ public class InGameDataManager : MonoBehaviour
     public event Action<long> Action_OnUpdateScore;
     public event Action<int, int> Action_OnUpdateBombNumber;
 
+    private Transform _scoreTextParentTransform;
     private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
-    private long m_ElapsedTime;
+    private long _elapsedTime;
     
-    private readonly long[] m_StageScore;
-    private readonly int[] m_StageMiss;
+    private readonly long[] _stageScore;
+    private readonly int[] _stageMiss;
     private readonly Dictionary<ItemType, int> _itemCount = new();
     
     public long TotalScore
@@ -38,6 +39,16 @@ public class InGameDataManager : MonoBehaviour
             Action_OnUpdateBombNumber?.Invoke(value, MaxBombNumber);
         }
     }
+
+    public long ElapsedTime
+    {
+        get => _elapsedTime;
+        private set
+        {
+            _elapsedTime = value;
+        }
+    }
+    
     private int MaxBombNumber
     {
         get => _maxBombNumber;
@@ -53,9 +64,9 @@ public class InGameDataManager : MonoBehaviour
     private InGameDataManager()
     {
         TotalScore = 0;
-        m_StageScore = new long[] {0, 0, 0, 0, 0};
+        _stageScore = new long[] {0, 0, 0, 0, 0};
         TotalMiss = 0;
-        m_StageMiss = new int[] {0, 0, 0, 0, 0};
+        _stageMiss = new int[] {0, 0, 0, 0, 0};
         
         foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
         {
@@ -72,6 +83,7 @@ public class InGameDataManager : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
+        _scoreTextParentTransform = PauseManager.Instance.m_InGameTransform;
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
     }
@@ -92,7 +104,7 @@ public class InGameDataManager : MonoBehaviour
 
     public void AddScore(long score, bool effect = false) {
         TotalScore += score;
-        m_StageScore[SystemManager.Stage] += score;
+        _stageScore[SystemManager.Stage] += score;
 
         if (effect)
         {
@@ -109,6 +121,7 @@ public class InGameDataManager : MonoBehaviour
         Vector3 pos = PlayerManager.GetPlayerPosition();
         
         GameObject obj = PoolingManager.PopFromPool("ScoreText", PoolingParent.ScoreText);
+        obj.transform.SetParent(_scoreTextParentTransform);
         bool dir = (pos.x > 0f);
         if (dir)
             pos.x += 1f;
@@ -136,16 +149,16 @@ public class InGameDataManager : MonoBehaviour
     }
 
     public long GetCurrentStageScore() {
-        return m_StageScore[SystemManager.Stage];
+        return _stageScore[SystemManager.Stage];
     }
 
     public void AddMiss() {
         TotalMiss++;
-        m_StageMiss[SystemManager.Stage]++;
+        _stageMiss[SystemManager.Stage]++;
     }
 
     public int GetCurrentStageMiss() {
-        return m_StageMiss[SystemManager.Stage];
+        return _stageMiss[SystemManager.Stage];
     }
 
     public int GetItemCount(ItemType itemType)
@@ -160,11 +173,7 @@ public class InGameDataManager : MonoBehaviour
     
 
     public void SaveElapsedTime() {
-        m_ElapsedTime = DateTime.Now.Ticks;
-    }
-
-    public long GetElapsedTime() {
-        return m_ElapsedTime;
+        ElapsedTime = DateTime.Now.Ticks;
     }
 
     private void DestroySelf()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,20 @@ public class BulletManager : MonoBehaviour
             ResetSortingLayer();
         }
     }
-    
-    public static bool InBulletFreeState { get; private set; }
+
+    public static event Action Action_OnBulletFreeStateStart;
+
+    private static bool _inBulletFreeState;
+    public static bool InBulletFreeState
+    {
+        get => _inBulletFreeState;
+        private set
+        {
+            _inBulletFreeState = value;
+            if (_inBulletFreeState)
+                Action_OnBulletFreeStateStart?.Invoke();
+        }
+    }
     private static int _remainingFrame;
     private static BulletManager Instance { get; set; }
     
@@ -38,7 +51,7 @@ public class BulletManager : MonoBehaviour
             return;
         }
 
-        InBulletFreeState = true;
+        _inBulletFreeState = true;
         _remainingFrame = frame;
     }
 
@@ -77,9 +90,9 @@ public class BulletManager : MonoBehaviour
         {
             _remainingFrame--;
         }
-        else if (InBulletFreeState)
+        else if (_inBulletFreeState)
         {
-            InBulletFreeState = false;
+            _inBulletFreeState = false;
         }
     }
 

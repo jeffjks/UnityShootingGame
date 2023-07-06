@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
+using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -197,10 +198,9 @@ public static class BulletType
 [Serializable]
 public class Bullet
 {
-    public BulletType bulletType;
     public Sprite sprite;
-    public Animator animator;
-    public int[] colliderSize;
+    public AnimatorController animatorController;
+    public float[] colliderSize;
 }
 
 public interface IObjectPooling {

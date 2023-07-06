@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         {
             GetComponent<ExplosionJsonWriter>().GenerateJsonFile();
             GetComponent<EndingCreditJsonWriter>().GenerateJsonFile();
-            Debug.Log("A");
+            GetComponent<RankingJsonWriter>().GenerateJsonFile();
         }
         #endif
 

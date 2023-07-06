@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PauseMenuHandler: {fileID: 4079609951581173488}
   m_PauseMenuUI: {fileID: 4079609951269132258}
-  m_InGameInputController: {fileID: 0}
+  m_InGameTransform: {fileID: 4079609951991084315}
 --- !u!1 &4079609950240590111
 GameObject:
   m_ObjectHideFlags: 0

@@ -164,6 +164,7 @@ public enum ItemType
 
 public enum BulletType
 {
+    None = -1,
     PinkLarge,
     PinkNeedle,
     PinkSmall,

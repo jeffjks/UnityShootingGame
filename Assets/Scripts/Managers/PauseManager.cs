@@ -10,13 +10,14 @@ public class PauseManager : MonoBehaviour
 {
     public PauseMenuHandler m_PauseMenuHandler;
     public GameObject m_PauseMenuUI;
+    public Transform m_InGameTransform;
     
     private IngameInputController _inGameInputController;
     private bool _pauseEnabled = true;
     private const float PAUSE_DELAY = 2f;
 
     public static bool IsGamePaused = false;
-    private static PauseManager Instance { get; set; }
+    public static PauseManager Instance { get; private set; }
 
     private void Awake()
     {

@@ -68,7 +68,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
     // Type 0 총알
     protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval) {
         GameObject[] objs = new GameObject[num];
-        if (BulletCondition(pos)) {
+        if (CanCreateBullet(pos)) {
             for (int i = 0; i < num; i++) {
                 objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel);
             }
@@ -81,7 +81,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
         OldBulletType type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
     int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int()) {
         GameObject[] objs = new GameObject[num];
-        if (BulletCondition(pos)) {
+        if (CanCreateBullet(pos)) {
             for (int i = 0; i < num; i++) {
                 objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel,
                 type, timer, new_image, new_speed, new_direction, direction_add, new_accel, new_num, new_interval, second_timer);
@@ -94,12 +94,12 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
     protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel)
     {
         GameObject obj = null;
-        if (BulletCondition(pos)) {
+        if (CanCreateBullet(pos)) {
             pos.z = Depth.ENEMY_BULLET;
             
             obj = PoolingManager.PopFromPool("EnemyBullet", PoolingParent.EnemyBullet);
             EnemyBullet enemyBullet = obj.GetComponent<EnemyBullet>();
-            enemyBullet.m_ImageType = image;
+            BulletType bulletType = (BulletType) image;
             enemyBullet.transform.position = pos;
             enemyBullet.m_MoveVector = new MoveVector(speed, direction);
             enemyBullet.m_EnemyBulletAccel = accel;
@@ -108,7 +108,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
             enemyBullet.m_Timer = 0;
             
             obj.SetActive(true);
-            enemyBullet.OnStart();
+            enemyBullet.OnStart(bulletType, null);
         }
         return obj;
     }
@@ -119,12 +119,12 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
     int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int())
     {
         GameObject obj = null;
-        if (BulletCondition(pos)) {
+        if (CanCreateBullet(pos)) {
             pos.z = Depth.ENEMY_BULLET;
             
             obj = PoolingManager.PopFromPool("EnemyBullet", PoolingParent.EnemyBullet);
             EnemyBullet enemyBullet = obj.GetComponent<EnemyBullet>();
-            enemyBullet.m_ImageType = image;
+            BulletType bulletType = (BulletType) image;
             enemyBullet.transform.position = pos;
             enemyBullet.m_MoveVector = new MoveVector(speed, direction);
             enemyBullet.m_EnemyBulletAccel = accel;
@@ -143,26 +143,23 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
             enemyBullet.m_NewInterval = new_interval;
             
             obj.SetActive(true);
-            enemyBullet.OnStart();
+            enemyBullet.OnStart(bulletType, null);
         }
         return obj;
     }
 
-    protected virtual bool BulletCondition(Vector3 pos) {
+    protected virtual bool CanCreateBullet(Vector3 pos) {
         float camera_x = MainCamera.Camera.transform.position.x;
 
-        if (!PlayerManager.IsPlayerAlive) {
+        if (!PlayerManager.IsPlayerAlive)
             return false;
-        }
-        else if (!SystemManager.IsOnGamePlayState()) {
+        if (!SystemManager.IsOnGamePlayState())
             return false;
-        }
-        else if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH) {
+        if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH)
             return false;
-        }
-        else if (pos.y < SAFE_LINE || 0 < pos.y) {
+        if (pos.y is > 0 or < SAFE_LINE)
             return false;
-        }
+        
         return true;
     }
 }

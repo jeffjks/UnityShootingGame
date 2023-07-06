@@ -40,7 +40,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         {
             if (transform.parent)
             {
-                transform.parent = null;
+                transform.SetParent(null);
             }
         }
         else
@@ -168,11 +168,11 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
 
 
 
-    protected override bool BulletCondition(Vector3 pos) {
+    protected override bool CanCreateBullet(Vector3 pos) {
         if (!IsInteractable()) {
             return false;
         }
-        return base.BulletCondition(pos);
+        return base.CanCreateBullet(pos);
     }
 
     public void StartPlayTweenData() {

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
 {
-    public Transform m_FirePosition;
     private int[] m_FireDelay = { 4000, 2000, 1700 };
     
     private IEnumerator m_TimeLimit;
@@ -66,14 +65,14 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
 
     private IEnumerator Pattern1(int millisecond) {
         float gap = 0.3f;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(millisecond);
         
         while (true) {
             if (!m_TimeLimitState) {
                 if (SystemManager.Difficulty <= GameDifficulty.Expert) {
-                    Vector3 pos1 = m_FirePosition.TransformPoint(Vector3.right * gap);
-                    Vector3 pos2 = m_FirePosition.TransformPoint(Vector3.left * gap);
+                    Vector3 pos1 = m_FirePosition[0].TransformPoint(Vector3.right * gap);
+                    Vector3 pos2 = m_FirePosition[0].TransformPoint(Vector3.left * gap);
 
                     CreateBullet(3, pos1, 4f, CurrentAngle, accel);
                     CreateBullet(3, pos2, 4f, CurrentAngle, accel);
@@ -81,8 +80,8 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
                     CreateBullet(3, pos2, 6f, CurrentAngle, accel);
                 }
                 else {
-                    Vector3 pos1 = m_FirePosition.TransformPoint(Vector3.right * gap);
-                    Vector3 pos2 = m_FirePosition.TransformPoint(Vector3.left * gap);
+                    Vector3 pos1 = m_FirePosition[0].TransformPoint(Vector3.right * gap);
+                    Vector3 pos2 = m_FirePosition[0].TransformPoint(Vector3.left * gap);
 
                     CreateBullet(3, pos1, 4f, CurrentAngle, accel);
                     CreateBullet(3, pos2, 4f, CurrentAngle, accel);

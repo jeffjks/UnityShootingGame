@@ -247,16 +247,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf33f82730c91e34083a4af406c361cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 1494443869040272853}
+  - {fileID: 8398562093700003551}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 2200
   m_IsRoot: 1
-  m_FirePosition:
-  - {fileID: 1494443869040272853}
-  - {fileID: 8398562093700003551}
 --- !u!114 &130714804824804284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,8 +1198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498bb7f16d66af84ba827f77bf817467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 1610580103404080784}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0

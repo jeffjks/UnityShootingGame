@@ -37,9 +37,9 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
     private IEnumerator Pattern1()
     {
         int duration = 600;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, duration);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(6.1f, 500); // Normal
-        EnemyBulletAccel accel3 = new EnemyBulletAccel(7f, 500); // Expert, Hell
+        BulletAccel accel1 = new BulletAccel(3f, duration);
+        BulletAccel accel2 = new BulletAccel(6.1f, 500); // Normal
+        BulletAccel accel3 = new BulletAccel(7f, 500); // Expert, Hell
         Vector3 pos;
         int side = Random.Range(0, 2);
         m_InPattern = true;
@@ -51,24 +51,24 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 7; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 10, 36f, OldBulletType.ERASE_AND_CREATE, duration,
-                    1, 3f, BulletDirection.CURRENT, 30f*side, accel2);
+                    CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 10, 36f, BulletSpawnType.EraseAndCreate, duration,
+                    1, 3f, BulletPivot.Current, 30f*side, accel2);
                     yield return new WaitForMillisecondFrames(600);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 9; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 20, 18f, OldBulletType.ERASE_AND_CREATE, duration,
-                    1, 3f, BulletDirection.CURRENT, 30f*side, accel3);
+                    CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 20, 18f, BulletSpawnType.EraseAndCreate, duration,
+                    1, 3f, BulletPivot.Current, 30f*side, accel3);
                     yield return new WaitForMillisecondFrames(300);
                 }
             }
             else {
                 for (int i = 0; i < 11; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 24, 15f, OldBulletType.ERASE_AND_CREATE, duration,
-                    1, 3f, BulletDirection.CURRENT, 30f*side, accel3);
+                    CreateBulletsSector(0, pos, 13f, m_Direction*side, accel1, 24, 15f, BulletSpawnType.EraseAndCreate, duration,
+                    1, 3f, BulletPivot.Current, 30f*side, accel3);
                     yield return new WaitForMillisecondFrames(220);
                 }
             }
@@ -79,8 +79,8 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
     private IEnumerator Pattern2()
     {
         int duration = 600;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, duration);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(6.7f, 500);
+        BulletAccel accel1 = new BulletAccel(3f, duration);
+        BulletAccel accel2 = new BulletAccel(6.7f, 500);
         Vector3 pos;
         int side = Random.Range(0, 2);
         m_InPattern = true;
@@ -92,24 +92,24 @@ public class EnemyBoss2Turret2_0 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 7; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 12, 30f, OldBulletType.ERASE_AND_CREATE, duration,
-                    4, 3f, BulletDirection.CURRENT, 30f*side, accel2);
+                    CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 12, 30f, BulletSpawnType.EraseAndCreate, duration,
+                    4, 3f, BulletPivot.Current, 30f*side, accel2);
                     yield return new WaitForMillisecondFrames(480);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 9; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 24, 15f, OldBulletType.ERASE_AND_CREATE, duration,
-                    4, 3f, BulletDirection.CURRENT, 30f*side, accel2);
+                    CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 24, 15f, BulletSpawnType.EraseAndCreate, duration,
+                    4, 3f, BulletPivot.Current, 30f*side, accel2);
                     yield return new WaitForMillisecondFrames(240);
                 }
             }
             else {
                 for (int i = 0; i < 11; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                    CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, duration,
-                    4, 3f, BulletDirection.CURRENT, 30f*side, accel2);
+                    CreateBulletsSector(2, pos, 13f, m_Direction*side, accel1, 30, 12f, BulletSpawnType.EraseAndCreate, duration,
+                    4, 3f, BulletPivot.Current, 30f*side, accel2);
                     yield return new WaitForMillisecondFrames(180);
                 }
             }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTankLarge2Turret : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[2];
     private bool m_Shooting = false;
 
     void Start()
@@ -27,7 +26,7 @@ public class EnemyTankLarge2Turret : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int[] number1 = {1, 1, 1, 1, 1};
         int[] number2 = {3, 3, 5, 5, 5, 3, 3};
         int[] number3 = {5, 5, 7, 7, 7, 5, 5};

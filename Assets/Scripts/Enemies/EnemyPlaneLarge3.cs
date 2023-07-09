@@ -6,7 +6,6 @@ public class EnemyPlaneLarge3 : EnemyUnit
 {
     public EnemyPlaneLarge3Turret m_Turret;
     public Transform[] m_FirePositionBarrel = new Transform[2];
-    public Transform m_FirePosition;
     private readonly int[] m_FireDelay = { 1600, 1200, 1000 };
     
     private const int APPEARANCE_TIME = 1500;
@@ -81,7 +80,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
     
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(2300);
 
         while(true) {
@@ -89,9 +88,9 @@ public class EnemyPlaneLarge3 : EnemyUnit
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 2; i++)
                 {
-                    pos = m_Turret.m_FirePosition.position;
+                    pos = m_Turret.m_FirePosition[0].position;
                     CreateBulletsSector(3, pos, 7.2f, CurrentAngle, accel, 6, 25f);
-                    pos = m_FirePosition.position;
+                    pos = m_FirePosition[0].position;
                     CreateBulletsSector(3, pos, 6.0f, CurrentAngle + Random.Range(-8f, 8f), accel, 7, 23f);
                     CreateBulletsSector(3, pos, 7.2f, CurrentAngle + Random.Range(-8f, 8f), accel, 6, 23f);
                     yield return new WaitForMillisecondFrames(800);
@@ -100,9 +99,9 @@ public class EnemyPlaneLarge3 : EnemyUnit
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 3; i++)
                 {
-                    pos = m_Turret.m_FirePosition.position;
+                    pos = m_Turret.m_FirePosition[0].position;
                     CreateBulletsSector(3, pos, 7.2f, CurrentAngle, accel, 8, 20f);
-                    pos = m_FirePosition.position;
+                    pos = m_FirePosition[0].position;
                     CreateBulletsSector(3, pos, 6.0f, CurrentAngle + Random.Range(-5f, 5f), accel, 9, 17f);
                     CreateBulletsSector(5, pos, 7.2f, CurrentAngle + Random.Range(-5f, 5f), accel, 8, 17f);
                     yield return new WaitForMillisecondFrames(500);
@@ -111,10 +110,10 @@ public class EnemyPlaneLarge3 : EnemyUnit
             else {
                 for (int i = 0; i < 3; i++)
                 {
-                    pos = m_Turret.m_FirePosition.position;
+                    pos = m_Turret.m_FirePosition[0].position;
                     CreateBulletsSector(3, pos, 6.0f, CurrentAngle, accel, 11, 16f);
                     CreateBulletsSector(5, pos, 7.2f, CurrentAngle, accel, 10, 16f);
-                    pos = m_FirePosition.position;
+                    pos = m_FirePosition[0].position;
                     CreateBulletsSector(3, pos, 6.0f, CurrentAngle + Random.Range(-5f, 5f), accel, 11, 14f);
                     CreateBulletsSector(5, pos, 7.2f, CurrentAngle + Random.Range(-5f, 5f), accel, 10, 14f);
                     yield return new WaitForMillisecondFrames(500);

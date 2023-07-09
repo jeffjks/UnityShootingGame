@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTankLarge3 : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 1000, 550, 250 };
     
     void Start()
@@ -21,7 +20,7 @@ public class EnemyTankLarge3 : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float[] target_angle = new float[2];
 
         while(true) {

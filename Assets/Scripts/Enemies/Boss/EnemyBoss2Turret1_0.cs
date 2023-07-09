@@ -39,8 +39,8 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
     private IEnumerator Pattern1()
     {
         int duration = 800;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, duration);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(7.6f, 600);
+        BulletAccel accel1 = new BulletAccel(3f, duration);
+        BulletAccel accel2 = new BulletAccel(7.6f, 600);
         Vector3 pos;
         m_InPattern = true;
 
@@ -50,8 +50,8 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                 for (int i = 0; i < num[k]; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 7; j++) {
-                        CreateBullet(0, pos, 13.7f, CurrentAngle - 18f*3.5f + j*18f, accel1, OldBulletType.ERASE_AND_CREATE, duration,
-                        3, 3f, BulletDirection.CURRENT, Random.Range(-6f, 6f), accel2);
+                        CreateBullet(0, pos, 13.7f, CurrentAngle - 18f*3.5f + j*18f, accel1, BulletSpawnType.EraseAndCreate, duration,
+                        3, 3f, BulletPivot.Current, Random.Range(-6f, 6f), accel2);
                     }
                     yield return new WaitForMillisecondFrames(300);
                 }
@@ -64,8 +64,8 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                 for (int i = 0; i < num[k]; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 13; j++) {
-                        CreateBullet(0, pos, 13.7f, CurrentAngle - 12f*6.5f + j*12f, accel1, OldBulletType.ERASE_AND_CREATE, duration,
-                        3, 3f, BulletDirection.CURRENT, Random.Range(-7f, 7f), accel2);
+                        CreateBullet(0, pos, 13.7f, CurrentAngle - 12f*6.5f + j*12f, accel1, BulletSpawnType.EraseAndCreate, duration,
+                        3, 3f, BulletPivot.Current, Random.Range(-7f, 7f), accel2);
                     }
                     yield return new WaitForMillisecondFrames(200);
                 }
@@ -78,8 +78,8 @@ public class EnemyBoss2Turret1_0 : EnemyUnit
                 for (int i = 0; i < num[k]; i++) {
                     pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
                     for (int j = 0; j < 15; j++) {
-                        CreateBullet(0, pos, 13.7f, CurrentAngle - 10f*7.5f + j*10f, accel1, OldBulletType.ERASE_AND_CREATE, 1000,
-                        3, 3f, BulletDirection.CURRENT, Random.Range(-8f, 8f), accel2);
+                        CreateBullet(0, pos, 13.7f, CurrentAngle - 10f*7.5f + j*10f, accel1, BulletSpawnType.EraseAndCreate, 1000,
+                        3, 3f, BulletPivot.Current, Random.Range(-8f, 8f), accel2);
                     }
                     yield return new WaitForMillisecondFrames(200);
                 }

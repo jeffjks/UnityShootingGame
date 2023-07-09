@@ -38,7 +38,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
 
     private IEnumerator Pattern0() {
         yield break;
-        //EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        //BulletAccel accel = new BulletAccel(0f, 0);
         //Vector3 pos = m_FirePosition.position;
         /*
         while (true) {
@@ -54,7 +54,7 @@ public class EnemyBoss2Turret1_2 : EnemyUnit
 
     private IEnumerator Pattern1(bool side)
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(5f, 500);
+        BulletAccel accel = new BulletAccel(5f, 500);
         Vector3 pos = m_FirePosition.position;
         
         if (side)

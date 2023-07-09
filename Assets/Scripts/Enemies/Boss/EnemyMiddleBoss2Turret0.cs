@@ -6,7 +6,6 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
 {
     public EnemyMiddleBoss2Barrel m_EnemyMiddleBoss2Barrel;
     private int[] m_FireDelay = { 3000, 2400, 1800 };
-    public Transform[] m_FirePosition = new Transform[2];
     
     private IEnumerator m_CurrentPattern;
 
@@ -29,7 +28,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(2500);
 
         while (true) {

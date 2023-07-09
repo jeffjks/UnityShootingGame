@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyGunship : EnemyUnit, ITargetPosition
 {
-    public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 2000, 1500, 1000 };
     
     private const int TIME_LIMIT = 8000;
@@ -68,7 +67,7 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
     }
 
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1200);
         
         while (!m_TimeLimitState) {

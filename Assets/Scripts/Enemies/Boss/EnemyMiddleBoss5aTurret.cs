@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyMiddleBoss5aTurret : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[2];
-    
     private IEnumerator m_CurrentPattern;
 
     [HideInInspector] public byte m_RotatePattern = 10;
@@ -60,7 +58,7 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
@@ -87,7 +85,7 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
     private IEnumerator Pattern2(int rand)
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int[] delay = {3000, 1500, 1000};
         if (rand == 1) {
             yield return new WaitForMillisecondFrames(delay[(int) SystemManager.Difficulty] / 2);
@@ -120,7 +118,7 @@ public class EnemyMiddleBoss5aTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {

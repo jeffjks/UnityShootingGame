@@ -124,12 +124,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition:
+  - {fileID: 4041665380838663998}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 100
   m_IsRoot: 1
-  m_FirePosition: {fileID: 4041665380838663998}
   m_FanU: {fileID: 2610135649203121189}
   m_FanB: {fileID: 2610135649203121187}
   m_FanRotationSpeed: 1200

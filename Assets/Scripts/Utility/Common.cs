@@ -176,17 +176,6 @@ public class ShipAttributes
     }
 }
 
-public struct EnemyBulletAccel // Target Value는 0이면 적용 안됨
-{
-    public float targetSpeed;
-    public int duration;
-
-    public EnemyBulletAccel(float targetSpeed, int duration) {
-        this.targetSpeed = targetSpeed;
-        this.duration = duration;
-    }
-}
-
 /*
 public static class BulletType
 {
@@ -200,6 +189,7 @@ public class Bullet
 {
     public Sprite sprite;
     public AnimatorController animatorController;
+    public int eraseIndex;
     public float[] colliderSize;
 }
 
@@ -209,13 +199,6 @@ public interface IObjectPooling {
 
 public interface IExplosionCreater {
     public void StartExplosion();
-}
-
-public class BulletDirection
-{
-    public const byte FIXED = 0;
-    public const byte PLAYER = 1;
-    public const byte CURRENT = 2;
 }
 
 public struct MoveVector

@@ -3,8 +3,6 @@ using System.Collections;
 
 public class EnemyPlaneMedium1 : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[3];
-    
     private const int APPEARANCE_TIME = 1600;
     private const int TIME_LIMIT = 10000;
     //private float m_PositionY, m_AddPositionY;
@@ -75,8 +73,8 @@ public class EnemyPlaneMedium1 : EnemyUnit
     }
 
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(7.2f, 1000);
+        BulletAccel accel = new BulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(7.2f, 1000);
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         while(!m_TimeLimitState) {

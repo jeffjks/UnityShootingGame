@@ -7,10 +7,11 @@ using System;
 
 public class InGameDataManager : MonoBehaviour
 {
+    public Transform m_InGameWorldCanvasTransform;
+    
     public event Action<long> Action_OnUpdateScore;
     public event Action<int, int> Action_OnUpdateBombNumber;
-
-    private Transform _scoreTextParentTransform;
+    
     private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
@@ -83,7 +84,6 @@ public class InGameDataManager : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
-        _scoreTextParentTransform = PauseManager.Instance.m_InGameTransform;
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
     }
@@ -117,11 +117,11 @@ public class InGameDataManager : MonoBehaviour
         DisplayTextEffect(score.ToString());
     }
 
-    public void DisplayTextEffect(string text) {
+    public void DisplayTextEffect(string text, float timeScale = 1f) {
         Vector3 pos = PlayerManager.GetPlayerPosition();
         
         GameObject obj = PoolingManager.PopFromPool("ScoreText", PoolingParent.ScoreText);
-        obj.transform.SetParent(_scoreTextParentTransform);
+        obj.transform.SetParent(m_InGameWorldCanvasTransform);
         bool dir = (pos.x > 0f);
         if (dir)
             pos.x += 1f;
@@ -132,7 +132,7 @@ public class InGameDataManager : MonoBehaviour
         
         obj.SetActive(true);
         ScoreText score_text = obj.GetComponent<ScoreText>();
-        score_text.OnStart(pos, text, dir);
+        score_text.OnStart(pos, text, timeScale, dir);
     }
 
     public void InitBombNumber() {

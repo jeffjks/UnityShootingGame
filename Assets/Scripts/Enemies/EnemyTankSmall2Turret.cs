@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTankSmall2Turret : EnemyUnit
 {
-    public Transform m_FirePosition;
     private int[] m_FireDelay = { 2400, 1200, 600 };
 
     private bool m_Shooting = false;
@@ -29,20 +28,20 @@ public class EnemyTankSmall2Turret : EnemyUnit
 
     private IEnumerator Pattern1(int millisecond) {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float[] speed = {6.6f, 7.8f, 7.8f};
         yield return new WaitForMillisecondFrames(millisecond);
         while(true) {
             float target_angle = Mathf.Floor((CurrentAngle + 5f)/10f) * 10f;
 
             m_Shooting = true;
-            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);
             yield return new WaitForMillisecondFrames(130);
-            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);
             yield return new WaitForMillisecondFrames(130);
-            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], target_angle, accel);
             m_Shooting = false;
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);

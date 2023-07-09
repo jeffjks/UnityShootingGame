@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneMedium3Turret : EnemyUnit
 {
-    public Transform m_FirePosition;
-    
     private IEnumerator m_CurrentPattern;
 
     void Start()
@@ -34,30 +32,30 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         float target_angle, random_value;
-        pos = m_FirePosition.position;
+        pos = m_FirePosition[0].position;
         target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
         random_value = Random.Range(-2f, 2f);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 3; i++) {
-                pos = m_FirePosition.position;
+                pos = m_FirePosition[0].position;
                 CreateBullet(4, pos, 6f, target_angle + random_value, accel);
                 yield return new WaitForMillisecondFrames(47);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 4; i++) {
-                pos = m_FirePosition.position;
+                pos = m_FirePosition[0].position;
                 CreateBullet(4, pos, 7f, target_angle + random_value, accel);
                 yield return new WaitForMillisecondFrames(40);
             }
         }
         else {
             for (int i = 0; i < 4; i++) {
-                pos = m_FirePosition.position;
+                pos = m_FirePosition[0].position;
                 CreateBulletsSector(4, pos, 8f, target_angle + random_value, accel, 3, 12f);
                 yield return new WaitForMillisecondFrames(35);
             }

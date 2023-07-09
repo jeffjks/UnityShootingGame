@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyShipCarrier : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[3];
     public EnemyUnit[] m_EnemyUnits;
 
     private float m_Direction1, m_Direction2;
@@ -41,7 +40,7 @@ public class EnemyShipCarrier : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
@@ -70,7 +69,7 @@ public class EnemyShipCarrier : EnemyUnit
     
     private IEnumerator Pattern2() {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {

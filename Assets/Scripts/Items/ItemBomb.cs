@@ -11,7 +11,7 @@ public class ItemBomb : ItemBox
             
             if (InGameDataManager.Instance.AddBomb())
             {
-                InGameDataManager.Instance.DisplayTextEffect("BOMB");
+                InGameDataManager.Instance.DisplayTextEffect("BOMB", 0.8f);
             }
             else
             {

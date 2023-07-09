@@ -68,7 +68,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern1A()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.64f, rand;
         
@@ -100,7 +100,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern1B()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         float rand;
         
@@ -124,7 +124,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         float rand;
 
@@ -154,7 +154,7 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         
         while (true) {
@@ -218,22 +218,22 @@ public class EnemyBoss4MainTurret : EnemyUnit
 
     private IEnumerator Pattern4()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         
         pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
         StartCoroutine(m_EnemyBoss4MainTurretBarrel.ShootAnimation());
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, OldBulletType.ERASE_AND_CREATE, 500,
-            1, 4.5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 30, 12f);
+            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, BulletSpawnType.EraseAndCreate, 500,
+            1, 4.5f, BulletPivot.Fixed, Random.Range(0f, 360f), accel, 30, 12f);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, OldBulletType.CREATE, 200,
-            1, 5f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 45, 8f, new Vector2Int(170, 170));
+            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, BulletSpawnType.Create, 200,
+            1, 5f, BulletPivot.Fixed, Random.Range(0f, 360f), accel, 45, 8f, new Vector2Int(170, 170));
         }
         else {
-            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, OldBulletType.CREATE, 200,
-            1, 5.4f, BulletDirection.FIXED, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2Int(125, 125));
+            CreateBullet(0, pos, 5.1f, CurrentAngle, accel, BulletSpawnType.Create, 200,
+            1, 5.4f, BulletPivot.Fixed, Random.Range(0f, 360f), accel, 50, 7.2f, new Vector2Int(125, 125));
         }
         yield break;
     }

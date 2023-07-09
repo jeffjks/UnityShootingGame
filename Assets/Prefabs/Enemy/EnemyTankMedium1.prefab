@@ -72,14 +72,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0960a3217f5e12459e7af371c19da88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 350
   m_IsRoot: 1
-  m_Turret: {fileID: 0}
+  m_Turret: {fileID: 7750816736371111347}
   m_HasDestroyableTurret: 0
 --- !u!114 &7924027591515508201
 MonoBehaviour:
@@ -649,14 +649,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f180319ce840554e90b346230b5abc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 2795246010226298155}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 2795246010226298155}
 --- !u!114 &1938508205301454329
 MonoBehaviour:
   m_ObjectHideFlags: 0

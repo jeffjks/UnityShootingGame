@@ -55,96 +55,111 @@ public interface IRotatable
     public void RotateImmediately(float target_angle, float rot = 0f);
 }
 
-
+public interface IEnemySubAttacker
+{
+    public void StartPattern(string key);
+    public void StopPattern();
+}
 
 
 // ================ 적 ================ //
 
 public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 {
+    public Transform[] m_FirePosition;
+    protected bool _isInteractable = true;
     private const float SAFE_LINE = -11f;
+
+    public bool IsRotatable { get; set; } = true;
+    
+    public bool IsInteractable() {
+        return _isInteractable;
+    }
 
 
     // Type 0 총알
-    protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval) {
+    protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, BulletAccel accel, int num, float interval) {
         GameObject[] objs = new GameObject[num];
+        /*
         if (CanCreateBullet(pos)) {
             for (int i = 0; i < num; i++) {
                 objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel);
             }
-        }
+        }*/
         return objs;
     }
 
     // Type (0), 1, 2 총알
-    protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel, int num, float interval,
-        OldBulletType type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
+    protected GameObject[] CreateBulletsSector(byte image, Vector3 pos, float speed, float direction, BulletAccel accel, int num, float interval,
+        BulletSpawnType spawnType, int timer, byte new_image, float new_speed, BulletPivot pivot, float direction_add, BulletAccel new_accel,
     int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int()) {
         GameObject[] objs = new GameObject[num];
+        /*
         if (CanCreateBullet(pos)) {
             for (int i = 0; i < num; i++) {
                 objs[i] = CreateBullet(image, pos, speed, direction - interval*(num - i*2 - 1)/2, accel,
-                type, timer, new_image, new_speed, new_direction, direction_add, new_accel, new_num, new_interval, second_timer);
+                    spawnType, timer, new_image, new_speed, pivot, direction_add, new_accel, new_num, new_interval, second_timer);
             }
-        }
+        }*/
         return objs;
     }
 
     // Type 0 총알
-    protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel)
+    protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, BulletAccel accel)
     {
-        GameObject obj = null;
+        GameObject obj = null;/*
         if (CanCreateBullet(pos)) {
             pos.z = Depth.ENEMY_BULLET;
             
             obj = PoolingManager.PopFromPool("EnemyBullet", PoolingParent.EnemyBullet);
             EnemyBullet enemyBullet = obj.GetComponent<EnemyBullet>();
-            BulletType bulletType = (BulletType) image;
+            BulletImage bulletImage = (BulletImage) image;
             enemyBullet.transform.position = pos;
             enemyBullet.m_MoveVector = new MoveVector(speed, direction);
-            enemyBullet.m_EnemyBulletAccel = accel;
+            //enemyBullet.m_BulletAccel = accel;
 
-            enemyBullet.m_Type = 0;
-            enemyBullet.m_Timer = 0;
+            //enemyBullet.m_Type = 0;
+            //enemyBullet.m_Timer = 0;
             
             obj.SetActive(true);
-            enemyBullet.OnStart(bulletType, null);
-        }
+            //enemyBullet.OnStart(bulletImage, null);
+        }*/
         return obj;
     }
 
     // Type (0), 1, 2 총알
-    protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, EnemyBulletAccel accel,
-        OldBulletType type, int timer, byte new_image, float new_speed, byte new_direction, float direction_add, EnemyBulletAccel new_accel,
+    protected GameObject CreateBullet(byte image, Vector3 pos, float speed, float direction, BulletAccel accel,
+        BulletSpawnType spawnType, int timer, byte new_image, float new_speed, BulletPivot pivot, float direction_add, BulletAccel new_accel,
     int new_num = 0, float new_interval = 0f, Vector2Int second_timer = new Vector2Int())
     {
         GameObject obj = null;
+        /*
         if (CanCreateBullet(pos)) {
             pos.z = Depth.ENEMY_BULLET;
             
             obj = PoolingManager.PopFromPool("EnemyBullet", PoolingParent.EnemyBullet);
             EnemyBullet enemyBullet = obj.GetComponent<EnemyBullet>();
-            BulletType bulletType = (BulletType) image;
+            BulletImage bulletImage = (BulletImage) image;
             enemyBullet.transform.position = pos;
             enemyBullet.m_MoveVector = new MoveVector(speed, direction);
-            enemyBullet.m_EnemyBulletAccel = accel;
+            enemyBullet.m_BulletAccel = accel;
 
-            enemyBullet.m_Type = type;
+            enemyBullet.m_Type = spawnType;
             enemyBullet.m_Timer = timer;
 
             enemyBullet.m_NewImageType = new_image;
             enemyBullet.m_NewMoveVector = new MoveVector(new_speed, 0);
-            enemyBullet.m_NewDirectionType = new_direction;
+            enemyBullet.m_NewDirectionType = pivot;
             enemyBullet.m_NewDirectionAdder = direction_add;
-            enemyBullet.m_NewEnemyBulletAccel = new_accel;
+            enemyBullet.m_NewBulletAccel = new_accel;
 
             enemyBullet.m_SecondTimer = second_timer;
             enemyBullet.m_NewNumber = new_num;
             enemyBullet.m_NewInterval = new_interval;
             
             obj.SetActive(true);
-            enemyBullet.OnStart(bulletType, null);
-        }
+            enemyBullet.OnStart(bulletImage, null);
+        }*/
         return obj;
     }
 

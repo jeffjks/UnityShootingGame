@@ -10,7 +10,7 @@ public class ItemPowerUp : ItemBox
             AudioService.PlaySound("ItemGet");
             if (playerUnit.PowerUp())
             {
-                InGameDataManager.Instance.DisplayTextEffect("POWER UP");
+                InGameDataManager.Instance.DisplayTextEffect("POWER UP", 0.8f);
             }
             else
             {

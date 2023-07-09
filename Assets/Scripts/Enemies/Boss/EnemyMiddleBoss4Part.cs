@@ -35,7 +35,7 @@ public class EnemyMiddleBoss4Part : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -57,14 +57,14 @@ public class EnemyMiddleBoss4Part : EnemyUnit
     private IEnumerator Pattern2()
     {
         int timer = 300;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, timer);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(0f, timer);
+        BulletAccel accel2 = new BulletAccel(0f, 0);
         Vector3 pos;
         int[] period = { 300, 200, 100 };
 
         while (true) {
             pos = m_FirePosition.position;
-            CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, timer,
+            CreateBullet(5, pos, 2.2f, Random.Range(0f, 360f), accel1, BulletSpawnType.EraseAndCreate, timer,
             4, 8f, 0, 0f, accel2);
             yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty]);
         }

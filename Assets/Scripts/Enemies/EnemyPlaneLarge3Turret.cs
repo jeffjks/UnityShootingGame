@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneLarge3Turret : EnemyUnit
 {
-    public Transform m_FirePosition;
     private int[] m_FireDelay = { 600, 600, 500 };
     private IEnumerator m_CurrentPattern;
 
@@ -31,27 +30,27 @@ public class EnemyPlaneLarge3Turret : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 800);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(0.1f, 800);
+        BulletAccel accel2 = new BulletAccel(0f, 0);
         Vector3 pos;
         yield return new WaitForMillisecondFrames(2300);
 
         while(true) {
             for (int i = 0; i < 3; i++) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    pos = m_FirePosition.position;
-                    CreateBullet(3, pos, 8.3f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 600,
-                    5, 4.3f, BulletDirection.PLAYER, 0f, accel2);
+                    pos = m_FirePosition[0].position;
+                    CreateBullet(3, pos, 8.3f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 600,
+                    5, 4.3f, BulletPivot.Player, 0f, accel2);
                 }
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    pos = m_FirePosition.position;
-                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, OldBulletType.ERASE_AND_CREATE, 600,
-                    5, 4.3f, BulletDirection.PLAYER, 0f, accel2, 3, 16f);
+                    pos = m_FirePosition[0].position;
+                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, BulletSpawnType.EraseAndCreate, 600,
+                    5, 4.3f, BulletPivot.Player, 0f, accel2, 3, 16f);
                 }
                 else {
-                    pos = m_FirePosition.position;
-                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, OldBulletType.ERASE_AND_CREATE, 600,
-                    5, 4.3f, BulletDirection.PLAYER, 0f, accel2, 3, 16f);
+                    pos = m_FirePosition[0].position;
+                    CreateBulletsSector(3, pos, 8.3f, CurrentAngle, accel1, 2, 100f, BulletSpawnType.EraseAndCreate, 600,
+                    5, 4.3f, BulletPivot.Player, 0f, accel2, 3, 16f);
                 }
                 yield return new WaitForMillisecondFrames(280);
             }

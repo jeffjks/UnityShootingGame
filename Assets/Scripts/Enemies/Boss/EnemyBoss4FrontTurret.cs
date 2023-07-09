@@ -53,7 +53,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
@@ -73,7 +73,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f;
         
@@ -112,7 +112,7 @@ public class EnemyBoss4FrontTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);

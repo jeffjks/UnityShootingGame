@@ -267,6 +267,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition:
+  - {fileID: 6198974166331824447}
+  - {fileID: 6155251564605104993}
+  - {fileID: 747809586268101702}
+  - {fileID: 1647796258182680312}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -280,11 +285,6 @@ MonoBehaviour:
   - {fileID: 803866027355164162}
   - {fileID: 6938611304771158681}
   m_Part: {fileID: 6008979672011824061}
-  m_FirePosition:
-  - {fileID: 6198974166331824447}
-  - {fileID: 6155251564605104993}
-  - {fileID: 747809586268101702}
-  - {fileID: 1647796258182680312}
   m_Rotator: {fileID: 1521779718265855556}
   m_AnimationCurve_Turn:
     serializedVersion: 2
@@ -1074,6 +1074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 5422302557399437400}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -1518,6 +1520,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 450619147110160440}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -2894,6 +2898,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 2775689256702845394}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -3025,6 +3031,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3258065114507138636}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -3287,6 +3295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -3663,6 +3672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3004855640862697177}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2

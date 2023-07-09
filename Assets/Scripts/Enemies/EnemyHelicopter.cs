@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyHelicopter : EnemyUnit, ITargetPosition
 {
-    public Transform m_FirePosition;
 	public GameObject m_FanU, m_FanB;
 	public float m_FanRotationSpeed;
 
@@ -70,10 +69,10 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
 
     private IEnumerator Pattern1() {
         while (!m_TimeLimitState) {
-            Vector3 pos = m_FirePosition.position;
+            Vector3 pos = m_FirePosition[0].position;
             float[] speed = {7f, 8.3f, 8.3f};
             
-            EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+            BulletAccel accel = new BulletAccel(0f, 0);
             CreateBullet(1, pos, speed[(int) SystemManager.Difficulty], CurrentAngle, accel);
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }

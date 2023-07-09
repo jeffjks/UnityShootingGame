@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneMedium5Turret0 : EnemyUnit
 {
-    public Transform m_FirePosition;
     private IEnumerator m_CurrentPattern;
 
     void Start()
@@ -30,27 +29,27 @@ public class EnemyPlaneMedium5Turret0 : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         yield return new WaitForMillisecondFrames(1000);
 
         while (true) {
             for (int i = 0; i < 3; i++) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    pos = m_FirePosition.position;
+                    pos = m_FirePosition[0].position;
                     CreateBulletsSector(0, pos, 6.1f, CurrentAngle - 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 6.1f, CurrentAngle + 6f, accel, 4, 30f);
                     break;
                 }
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    pos = m_FirePosition.position;
+                    pos = m_FirePosition[0].position;
                     CreateBulletsSector(0, pos, 6.2f, CurrentAngle - 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 6.2f, CurrentAngle + 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 7.5f, CurrentAngle - 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 7.5f, CurrentAngle + 6f, accel, 4, 30f);
                 }
                 else {
-                    pos = m_FirePosition.position;
+                    pos = m_FirePosition[0].position;
                     CreateBulletsSector(0, pos, 6.8f, CurrentAngle - 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 6.8f, CurrentAngle + 6f, accel, 4, 30f);
                     CreateBulletsSector(0, pos, 8.2f, CurrentAngle - 6f, accel, 4, 30f);

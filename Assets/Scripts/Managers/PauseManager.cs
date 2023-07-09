@@ -32,13 +32,6 @@ public class PauseManager : MonoBehaviour
         _inGameInputController = EventSystem.current.gameObject.GetComponent<IngameInputController>();
         _inGameInputController.Action_OnPause += Pause;
         _inGameInputController.Action_OnEscape += Pause;
-        SystemManager.Action_OnQuitInGame += DestroySelf;
-    }
-
-    private void DestroySelf()
-    {
-        Instance = null;
-        Destroy(gameObject);
     }
 
     private void Pause() {

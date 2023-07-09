@@ -129,7 +129,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
 
 
     private IEnumerator Pattern1A() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(2500);
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -174,7 +174,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
     }
 
     private IEnumerator Pattern2A() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(3, BackgroundCamera.GetScreenPosition(m_FirePosition2[0].position), 6.4f, m_Direction, accel);
@@ -196,7 +196,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
 
     private IEnumerator Pattern2B() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float random_value, target_angle;
         yield return new WaitForMillisecondFrames(1000);
         while(true) {

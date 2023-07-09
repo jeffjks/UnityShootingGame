@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyDeath))]
 public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 (적 총알 제외)
 {
-    [HideInInspector] public EnemyHealth m_EnemyHealth; // Can bu null
+    [HideInInspector] public EnemyHealth m_EnemyHealth; // Can be null
     [HideInInspector] public EnemyDeath m_EnemyDeath;
 
     public override float CurrentAngle
@@ -27,10 +27,10 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     public Queue<TweenData> m_TweenDataQueue = new ();
     
     protected bool m_TimeLimitState = false;
+    protected readonly Dictionary<string, IBulletPattern> _bulletPatterns = new();
 
     private readonly Vector3 _airEnemyAxis = new (0f, -0.4f, 1f);
     private Quaternion _defaultRotation;
-    private bool _isInteractable = true;
     
     public event Action Action_StartInteractable;
 
@@ -144,10 +144,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
     }
 
-    public bool IsInteractable() {
-        return _isInteractable;
-    }
-
     private IEnumerator InteractableTimer(int millisecond = -1) {
         if (millisecond != -1) {
             yield return new WaitForMillisecondFrames(millisecond);
@@ -168,12 +164,6 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
 
 
 
-    protected override bool CanCreateBullet(Vector3 pos) {
-        if (!IsInteractable()) {
-            return false;
-        }
-        return base.CanCreateBullet(pos);
-    }
 
     public void StartPlayTweenData() {
         StartCoroutine(PlayTweenData());
@@ -253,33 +243,41 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
 
     // IRotatable Methods ----------------------------------
 
-    public void RotateSlightly(Vector2 target, float speed, float rot = 0f) {
-        if (m_EnemyDeath.m_IsDead) {
+    public void RotateSlightly(Vector2 target, float speed, float rot = 0f)
+    {
+        if (!IsRotatable)
             return;
-        }
+        if (m_EnemyDeath.m_IsDead)
+            return;
         float target_angle = GetAngleToTarget(m_Position2D, target);
         CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
     }
 
     public void RotateSlightly(float target_angle, float speed, float rot = 0f) {
-        if (m_EnemyDeath.m_IsDead) {
+        
+        if (!IsRotatable)
             return;
-        }
+        if (m_EnemyDeath.m_IsDead)
+            return;
         CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
     }
 
     public void RotateImmediately(Vector2 target, float rot = 0f) {
-        if (m_EnemyDeath.m_IsDead) {
+        
+        if (!IsRotatable)
             return;
-        }
+        if (m_EnemyDeath.m_IsDead)
+            return;
         float target_angle = GetAngleToTarget(m_Position2D, target);
         CurrentAngle = target_angle + rot;
     }
 
     public void RotateImmediately(float target_angle, float rot = 0f) {
-        if (m_EnemyDeath.m_IsDead) {
+        
+        if (!IsRotatable)
             return;
-        }
+        if (m_EnemyDeath.m_IsDead)
+            return;
         CurrentAngle = target_angle + rot;
     }
 

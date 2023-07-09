@@ -39,7 +39,7 @@ public class EnemyBoss2Turret1_1 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         m_InPattern = true;
 

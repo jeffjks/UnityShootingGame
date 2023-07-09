@@ -34,7 +34,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     private IEnumerator Pattern1()
     {
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float gap = 0.25f;
         yield return new WaitForMillisecondFrames(2500);
 

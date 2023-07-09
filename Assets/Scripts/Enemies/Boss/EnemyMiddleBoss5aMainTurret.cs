@@ -77,7 +77,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -102,7 +102,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
                 CreateBullet(3, m_FirePosition.position, 3.8f, CurrentAngle, accel);
@@ -132,7 +132,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
                 CreateBullet(3, m_FirePosition.position, 5.7f, CurrentAngle, accel);
@@ -155,7 +155,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
     private IEnumerator Pattern4()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneSmall1 : EnemyUnit
 {
-    public Transform m_FirePosition;
     private int[] m_FireDelay = { 2000, 1000, 500 };
 
     private bool m_TargetPlayer = true;
@@ -40,8 +39,8 @@ public class EnemyPlaneSmall1 : EnemyUnit
         yield return new WaitForMillisecondFrames(millisecond);
         
         while (true) {
-            Vector3 pos = m_FirePosition.position;
-            EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+            Vector3 pos = m_FirePosition[0].position;
+            BulletAccel accel = new BulletAccel(0f, 0);
             CreateBullet(1, pos, speed[(int) SystemManager.Difficulty], CurrentAngle, accel);
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }

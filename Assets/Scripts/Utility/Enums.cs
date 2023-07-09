@@ -162,7 +162,7 @@ public enum ItemType
     GemAir
 }
 
-public enum BulletType
+public enum BulletImage
 {
     None = -1,
     PinkLarge,
@@ -173,11 +173,18 @@ public enum BulletType
     BlueSmall
 }
 
-public enum OldBulletType
+public enum BulletPivot
 {
-    Normal = 0,
-    CREATE,
-    ERASE_AND_CREATE
+    Fixed,
+    Player,
+    Current
+}
+
+public enum BulletSpawnType
+{
+    None,
+    Create,
+    EraseAndCreate
 }
 
 public enum PoolingParent

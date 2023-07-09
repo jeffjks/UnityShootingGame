@@ -82,7 +82,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f, rand = Random.Range(-3f, 3f);
         m_RotatePattern = 0;
@@ -120,7 +120,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f;
         
@@ -156,7 +156,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern3()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f;
         
@@ -187,7 +187,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern4()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f, rand = Random.Range(-3f, 3f);
         m_RotatePattern = 0;
@@ -225,7 +225,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern5()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos0, pos1, pos2;
         float gap = 0.6f;
         int frame = 0;
@@ -262,7 +262,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern6()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         float rand;
         
@@ -292,7 +292,7 @@ public class EnemyBoss4SubTurret : EnemyUnit
 
     private IEnumerator Pattern7()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         
         pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);

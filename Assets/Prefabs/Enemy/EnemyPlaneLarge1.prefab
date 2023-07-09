@@ -359,6 +359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition:
+  - {fileID: 1504743510185496889}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -370,7 +372,6 @@ MonoBehaviour:
   m_Turret:
   - {fileID: 6238359599992607867}
   - {fileID: 2648873804081044708}
-  m_FirePosition: {fileID: 1504743510185496889}
   m_Rotator: {fileID: 1226915237743321332}
   m_NextPhaseExplosionCreater: {fileID: 0}
 --- !u!114 &6914176658240159056
@@ -608,12 +609,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 7124454433497280003}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
   m_IsRoot: 0
-  m_FirePosition: {fileID: 7124454433497280003}
 --- !u!114 &7107204278880466803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,12 +723,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3773888749601695656}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 1000
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3773888749601695656}
 --- !u!114 &164899519064879896
 MonoBehaviour:
   m_ObjectHideFlags: 0

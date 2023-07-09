@@ -46,7 +46,7 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
     
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(7.4f, 900);
+        BulletAccel accel = new BulletAccel(7.4f, 900);
         Vector3 pos;
         
         while(true) {
@@ -66,7 +66,7 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
     
     
     private IEnumerator Pattern2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {

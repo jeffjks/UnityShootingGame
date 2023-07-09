@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTankMedium3 : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 400, 200, 150 };
     private float m_Direction;
 
@@ -29,7 +28,7 @@ public class EnemyTankMedium3 : EnemyUnit
 
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[2];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         while(true) {
             pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);

@@ -84,7 +84,7 @@ public class EnemyBoss4Launcher : EnemyUnit
 
     private IEnumerator Pattern1() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -104,7 +104,7 @@ public class EnemyBoss4Launcher : EnemyUnit
 
     private IEnumerator Pattern2() {
         Vector3 pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-        EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 500);
+        BulletAccel accel = new BulletAccel(4.8f, 500);
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             CreateBulletsSector(2, pos, 7f, UnityEngine.Random.Range(0f, 360f), accel, 24, 15f);
@@ -120,7 +120,7 @@ public class EnemyBoss4Launcher : EnemyUnit
 
     private IEnumerator Pattern3(int dir) {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int rotate;
         m_Direction = UnityEngine.Random.Range(0f, 360f);
         if (dir == 0)

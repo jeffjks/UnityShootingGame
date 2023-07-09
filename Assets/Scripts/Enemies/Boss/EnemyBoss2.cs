@@ -137,7 +137,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
         yield return new WaitForMillisecondFrames(1000);
         int[] side = {-1, 1};
         int random_value;
-        while(m_Phase == 1) {
+        while (m_Phase == 1) {
             random_value = Random.Range(0, 2);
             m_CurrentPattern = Pattern1A();
             StartCoroutine(m_CurrentPattern);
@@ -209,7 +209,7 @@ public class EnemyBoss2 : EnemyUnit, IHasAppearance, IEnemyBossMain
         ((EnemyBoss2Turret1_2) m_Part2_Turrets[2]).StartPattern(0);
         ((EnemyBoss2Turret1_2) m_Part2_Turrets[3]).StartPattern(0);
         yield return new WaitForMillisecondFrames(5000);
-        while(m_Phase == 2) {
+        while (m_Phase == 2) {
             m_CurrentPattern = Pattern2A();
             StartCoroutine(m_CurrentPattern);
             while (m_InPattern)

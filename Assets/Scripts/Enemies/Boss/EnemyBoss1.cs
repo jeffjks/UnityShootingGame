@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // 파괴 후 Quaternion.identity 상태로 돌아가는 용도
 
@@ -8,20 +9,18 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public EnemyBoss1Turret1[] m_Turret1 = new EnemyBoss1Turret1[2];
     public EnemyBoss1Turret2[] m_Turret2 = new EnemyBoss1Turret2[2];
     public EnemyBoss1Part m_Part;
-    public Transform[] m_FirePosition = new Transform[4];
     public Transform m_Rotator;
     public AnimationCurve m_AnimationCurve_Turn;
 
     private int m_Phase;
 
-    private Vector3[] m_TargetPosition = new Vector3[2];
+    private readonly Vector3[] m_TargetPosition = new Vector3[2];
     private const int APPEARANCE_TIME = 2000;
     private const float ROLLING_ANGLE_START = -35f;
     private const float ROLLING_ANGLE_MID = 20f;
     private const float ROLLING_ANGLE_MAX = 15f;
 
-    private IEnumerator m_CurrentPhase, m_CurrentPattern, m_CurrentMovement;
-    private bool m_InPattern = false;
+    private IEnumerator m_CurrentPhase, m_CurrentMovement;
 
     void Start()
     {
@@ -39,6 +38,9 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_EnemyDeath.Action_OnRemoved += OnBossDeath;
         m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
         m_Part.m_EnemyDeath.Action_OnDying += ToNextPhase;
+
+        _bulletPatterns.Add("1B", new BulletPattern_EnemyBoss1_1B(this));
+        _bulletPatterns.Add("1C", new BulletPattern_EnemyBoss1_1C(this));
     }
 
     protected override void Update()
@@ -59,8 +61,6 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public void ToNextPhase() {
         m_Phase++;
         m_MoveVector = new MoveVector(0f, 0f);
-        if (m_CurrentPattern != null)
-            StopCoroutine(m_CurrentPattern);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         m_Turret0.StopPattern();
@@ -202,111 +202,100 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while(m_Phase == 1) {
-            m_CurrentPattern = Pattern1A();
-            StartCoroutine(m_CurrentPattern);
-            while (m_InPattern)
-                yield return new WaitForMillisecondFrames(0);
+        while (m_Phase == 1) {
+            yield return Phase1_PatternA();
                 
-            m_CurrentPattern = Pattern1B();
-            StartCoroutine(m_CurrentPattern);
-            while (m_InPattern)
-                yield return new WaitForMillisecondFrames(0);
+            //m_CurrentPattern = Pattern1B();
+            //StartCoroutine(m_CurrentPattern);
+            yield return _bulletPatterns["1B"].ExecutePattern(); // Blue Bomb
+            //while (m_InPattern)
+            //    yield return new WaitForMillisecondFrames(0);
 
             m_Part.SetOpenState(true);
-            m_CurrentPattern = Pattern1C();
-            StartCoroutine(m_CurrentPattern);
-            while (m_InPattern)
-                yield return new WaitForMillisecondFrames(0);
+            yield return _bulletPatterns["1C"].ExecutePattern(); // 청침탄 흩뿌리기
+            
             m_Part.SetOpenState(false);
             yield return new WaitForMillisecondFrames(2000);
         }
-        yield break;
     }
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while(m_Phase == 2) {
-            m_CurrentPattern = Pattern2A();
-            StartCoroutine(m_CurrentPattern);
-            while (m_InPattern)
-                yield return new WaitForMillisecondFrames(0);
+        while (m_Phase == 2) {
+            yield return Pattern2A();
         }
-        yield break;
     }
 
 
-    private IEnumerator Pattern1A() {
+    private IEnumerator Phase1_PatternA() {
         int random_value = Random.Range(0, 2);
-        m_InPattern = true;
-        m_Turret2[0].StartPattern(1);
-        m_Turret2[1].StartPattern(1);
+        
+        m_Turret2[0].StartPattern("1A");
+        m_Turret2[1].StartPattern("1A");
         yield return new WaitForMillisecondFrames(300);
 
-        m_Turret1[random_value].StartPattern(1);
+        m_Turret1[random_value].StartPattern("1A");
         yield return new WaitForMillisecondFrames(1700);
-        m_Turret1[1 - random_value].StartPattern(1);
+        m_Turret1[1 - random_value].StartPattern("1A");
         yield return new WaitForMillisecondFrames(1700);
-        m_Turret1[random_value].StartPattern(1);
+        m_Turret1[random_value].StartPattern("1A");
         yield return new WaitForMillisecondFrames(1700);
-        m_Turret1[1 - random_value].StartPattern(1);
+        m_Turret1[1 - random_value].StartPattern("1A");
         
         m_Turret2[0].StopPattern();
         m_Turret2[1].StopPattern();
         yield return new WaitForMillisecondFrames(1700);
-        m_Turret0.StartPattern(1);
+        
+        m_Turret0.StartPattern("1A");
         if (SystemManager.Difficulty <= GameDifficulty.Expert)
             yield return new WaitForMillisecondFrames(3000);
-
-        m_InPattern = false;
-        yield break;
     }
 
     private IEnumerator Pattern1B() { // Blue Bomb
         Vector3 pos;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 800);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(0.1f, 800);
+        BulletAccel accel2 = new BulletAccel(0f, 0);
         int random_value = Random.Range(0, 2);
         float random_dir;
-        m_InPattern = true;
+        //m_InPattern = true;
         
         pos = m_FirePosition[random_value].position;
         for (int i = 0; i < 2; i++) {
             random_dir = Random.Range(0f, 360f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
-                3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 15, 24f);
+                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletSpawnType.EraseAndCreate, 800,
+                3, 5.4f, BulletPivot.Fixed, random_dir, accel2, 15, 24f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
-                3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 20, 18f);
-                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
-                5, 4.2f, BulletDirection.FIXED, random_dir + 9f, accel2, 20, 18f);
+                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletSpawnType.EraseAndCreate, 800,
+                3, 5.4f, BulletPivot.Fixed, random_dir, accel2, 20, 18f);
+                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletSpawnType.EraseAndCreate, 800,
+                5, 4.2f, BulletPivot.Fixed, random_dir + 9f, accel2, 20, 18f);
             }
             else {
-                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
-                3, 5.4f, BulletDirection.FIXED, random_dir, accel2, 24, 15f);
-                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
-                5, 4.6f, BulletDirection.FIXED, random_dir + 7.5f, accel2, 24, 15f);
-                CreateBullet(3, pos, 8.2f, 0f, accel1, OldBulletType.ERASE_AND_CREATE, 800,
-                5, 3.8f, BulletDirection.FIXED, random_dir, accel2, 24, 15f);
+                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletSpawnType.EraseAndCreate, 800,
+                3, 5.4f, BulletPivot.Fixed, random_dir, accel2, 24, 15f);
+                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletSpawnType.EraseAndCreate, 800,
+                5, 4.6f, BulletPivot.Fixed, random_dir + 7.5f, accel2, 24, 15f);
+                CreateBullet(3, pos, 8.2f, 0f, accel1, BulletSpawnType.EraseAndCreate, 800,
+                5, 3.8f, BulletPivot.Fixed, random_dir, accel2, 24, 15f);
             }
             pos = m_FirePosition[1 - random_value].position;
             yield return new WaitForMillisecondFrames(500);
         }
         yield return new WaitForMillisecondFrames(2000);
 
-        m_InPattern = false;
+        //m_InPattern = false;
         yield break;
     }
 
-    private IEnumerator Pattern1C() { // 청침탄 흩뿌리기
+    private IEnumerator Phase1_PatternC() { // 청침탄 흩뿌리기
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float target_angle1, target_angle2;
         int[] fire_delay = { 150, 100, 83 };
         int[] fire_number = { 20, 30, 36 };
-        m_InPattern = true;
+        //m_InPattern = true;
         yield return new WaitForMillisecondFrames(1000);
         
         for (int i = 0; i < fire_number[(int) SystemManager.Difficulty]; i++) {
@@ -322,45 +311,41 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
         yield return new WaitForMillisecondFrames(500);
 
-        m_InPattern = false;
+        //m_InPattern = false;
         yield break;
     }
 
     private IEnumerator Pattern2A() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
         int random_value;
-        m_InPattern = true;
+        
         int difficulty_timer = 0;
         if (SystemManager.Difficulty == GameDifficulty.Normal)
             difficulty_timer = 400;
         
-        m_Turret0.StartPattern(2);
+        m_Turret0.StartPattern("2A");
         yield return new WaitForMillisecondFrames(900 + difficulty_timer);
 
         random_value = Random.Range(0, 2);
         if (random_value == 0) {
-            m_Turret1[0].StartPattern(2, true);
-            m_Turret1[1].StartPattern(2, false);
+            m_Turret1[0].StartPattern("2A", 1);
+            m_Turret1[1].StartPattern("2A", 0);
         }
         else {
-            m_Turret1[0].StartPattern(2, false);
-            m_Turret1[1].StartPattern(2, true);
+            m_Turret1[0].StartPattern("2A", 0);
+            m_Turret1[1].StartPattern("2A", 1);
         }
         yield return new WaitForMillisecondFrames(2000);
 
-        m_Turret0.StartPattern(2);
+        m_Turret0.StartPattern("2A");
         yield return new WaitForMillisecondFrames(600);
-        m_Turret1[0].StartPattern(3);
-        m_Turret1[1].StartPattern(3);
+        m_Turret1[0].StartPattern("2B");
+        m_Turret1[1].StartPattern("2B");
 
         random_value = Random.Range(0, 2);
-        m_Turret2[random_value].StartPattern(2);
+        m_Turret2[random_value].StartPattern("2A");
         yield return new WaitForMillisecondFrames(500 + difficulty_timer);
-        m_Turret2[1 - random_value].StartPattern(2);
+        m_Turret2[1 - random_value].StartPattern("2A");
         yield return new WaitForMillisecondFrames(1800);
-
-        m_InPattern = false;
-        yield break;
     }
 
 
@@ -369,8 +354,6 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_Phase = -1;
         if (m_CurrentMovement != null)
             StopCoroutine(m_CurrentMovement);
-        if (m_CurrentPattern != null)
-            StopCoroutine(m_CurrentPattern);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         BulletManager.BulletsToGems(2000);

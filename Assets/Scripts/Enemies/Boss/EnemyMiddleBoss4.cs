@@ -209,7 +209,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern1A1() {
         Vector2 pos;
         float target_angle, random_value;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             pos = m_Turret1.m_FirePosition.position;
@@ -235,7 +235,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         Vector2 pos;
         float target_angle;
         int random_value;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             random_value = Random.Range(0, 2);
@@ -310,7 +310,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern1B1() {
         Vector2 pos;
         float target_angle;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (m_Pattern1B) {
             pos = m_Turret1.m_FirePosition.position;
@@ -345,7 +345,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern1B2() {
         Vector2 pos;
         float target_angle;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (m_Pattern1B) {
             pos = m_Turret2.m_FirePosition.position;
@@ -399,7 +399,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while(m_Phase == 2) {
+        while (m_Phase == 2) {
             m_CurrentPattern1 = Pattern2A1();
             m_CurrentPattern2 = Pattern2A2();
             StartCoroutine(m_CurrentPattern1);
@@ -417,7 +417,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern2A1() {
         Vector2 pos;
         float target_angle, random_value;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             pos = m_Turret1.m_FirePosition.position;
@@ -453,7 +453,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern2A2() {
         Vector2 pos;
         float target_angle;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             pos = m_Turret1.m_FirePosition.position;

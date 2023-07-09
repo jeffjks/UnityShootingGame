@@ -38,7 +38,7 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1500);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -62,7 +62,7 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
     private IEnumerator Pattern2()
     {
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
+            BulletAccel accel = new BulletAccel(5.5f, 1000);
             while(true) {
                 CreateBullet(4, m_FirePosition.position, 2f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(200);

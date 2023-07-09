@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneMedium4Turret : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[2];
     private IEnumerator m_CurrentPattern;
 
     void Start()
@@ -29,7 +28,7 @@ public class EnemyPlaneMedium4Turret : EnemyUnit
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3[] pos = new Vector3[2];
         float factor;
 

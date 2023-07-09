@@ -6,7 +6,6 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public EnemyBoss3Turret[] m_Turret = new EnemyBoss3Turret[2];
     public EnemyBoss3Part m_Part;
-    public Transform[] m_FirePosition = new Transform[3];
     public EnemyBoss3Barrel[] m_EnemyBoss3Barrel = new EnemyBoss3Barrel[2];
     public GameObject[] m_PartOnDeath = new GameObject[2];
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
@@ -175,7 +174,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator Phase1() { // 페이즈 1 패턴 =================
         int side;
         yield return new WaitForMillisecondFrames(1000);
-        while(m_Phase == 1) {
+        while (m_Phase == 1) {
             m_CurrentPattern1 = Pattern1A();
             StartCoroutine(m_CurrentPattern1);
             while (m_InPattern)
@@ -251,7 +250,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1A() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float[] fire_delay = { 0.18f, 0.13f, 0.1f };
 
         m_RotateDirection = RandomValue();
@@ -280,7 +279,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1A1(int level) {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int duration = 0;
         int[] fire_delay = { 180, 130, 100 };
 
@@ -307,7 +306,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1A2(int level) {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int duration = 0;
         int[] fire_delay = { 300, 220, 170 };
 
@@ -337,7 +336,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1B() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int duration;
         int[] fire_delay = { 1000, 500, 330 };
 
@@ -364,7 +363,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1C1() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int[] fire_delay = { 210, 120, 70 };
         int duration = 0;
         
@@ -383,7 +382,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1C2() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         
         m_RotateDirection = RandomValue();
         yield return new WaitForMillisecondFrames(1000);
@@ -422,8 +421,8 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1D() {
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        EnemyBulletAccel new_accel = new EnemyBulletAccel(7.3f, 1500);
+        BulletAccel accel = new BulletAccel(0f, 0);
+        BulletAccel new_accel = new BulletAccel(7.3f, 1500);
         
         m_RotateDirection = RandomValue();
         
@@ -431,26 +430,26 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         pos2 = m_FirePosition[2].position;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            CreateBullet(3, pos1, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(200, 300));
-            CreateBullet(3, pos2, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(200, 300));
+            CreateBullet(3, pos1, 10f, 0f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(200, 300));
+            CreateBullet(3, pos2, 10f, 0f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(200, 300));
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            CreateBullet(3, pos1, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos2, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
+            CreateBullet(3, pos1, 10f, 0f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
+            CreateBullet(3, pos2, 10f, 0f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
         }
         else {
-            CreateBullet(3, pos1, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos2, 10f, 0f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos1, 10f, 40f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
-            CreateBullet(3, pos2, 10f, -40f, accel, OldBulletType.CREATE, Random.Range(0, 100),
-            1, 0.1f, BulletDirection.CURRENT, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
+            CreateBullet(3, pos1, 10f, 0f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
+            CreateBullet(3, pos2, 10f, 0f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
+            CreateBullet(3, pos1, 10f, 40f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
+            CreateBullet(3, pos2, 10f, -40f, accel, BulletSpawnType.Create, Random.Range(0, 100),
+            1, 0.1f, BulletPivot.Current, 0f, new_accel, 2, 180f, new Vector2Int(100, 150));
         }
         
         StartCoroutine(m_EnemyBoss3Barrel[0].ShootAnimation());
@@ -460,8 +459,8 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern2A() {
         Vector3 pos;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.5f, 1200);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(0.5f, 1200);
+        BulletAccel accel2 = new BulletAccel(0f, 0);
         int[] fire_delay = { 6, 2, 1 };
 
         m_InPattern = true;
@@ -469,21 +468,21 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             pos = m_FirePosition[0].position;
-            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
-            0, 3.2f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PL
-            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
-            0, 3.2f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PL
-            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
-            2, 2.1f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PS
-            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, OldBulletType.ERASE_AND_CREATE, 1200,
-            2, 2.1f, BulletDirection.FIXED, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PS
+            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, BulletSpawnType.EraseAndCreate, 1200,
+            0, 3.2f, BulletPivot.Fixed, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PL
+            CreateBullet(4, pos, Random.Range(8f, 9f), Random.Range(0f, 360f), accel1, BulletSpawnType.EraseAndCreate, 1200,
+            0, 3.2f, BulletPivot.Fixed, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PL
+            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, BulletSpawnType.EraseAndCreate, 1200,
+            2, 2.1f, BulletPivot.Fixed, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PS
+            CreateBullet(4, pos, Random.Range(9f, 10f), Random.Range(0f, 360f), accel1, BulletSpawnType.EraseAndCreate, 1200,
+            2, 2.1f, BulletPivot.Fixed, Random.Range(0f, 360f), accel2, 2, Random.Range(0f, 360f)); // PS
             yield return new WaitForFrames(fire_delay[(int) SystemManager.Difficulty]);
         }
     }
 
     private IEnumerator Pattern2B1() {
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int total_duration = 1400, duration, fire_delay = 80;
         
         m_DirectionState = 4;
@@ -520,7 +519,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern2B2() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(4.2f, 900);
+        BulletAccel accel = new BulletAccel(4.2f, 900);
         int[] fire_delay = { 100, 64, 50 };
         float target_angle;
         

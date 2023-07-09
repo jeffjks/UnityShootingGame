@@ -182,7 +182,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         StopAllPatterns();
 
-        while(m_Phase == 1) {
+        while (m_Phase == 1) {
             m_SubTurrets[0].m_RotatePattern = 20;
             m_SubTurrets[1].m_RotatePattern = 20;
             m_FrontTurrets[0].m_RotatePattern = 20;
@@ -341,7 +341,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator Pattern1C1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(4.8f, 500);
+        BulletAccel accel = new BulletAccel(4.8f, 500);
 
         while (true) {
             int rand = Random.Range(0, 2);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 {
-    public Transform[] m_FirePosition = new Transform[3];
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int[] m_FireDelay = { 1150, 500, 300 };
@@ -153,8 +152,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         Vector2 pos;
         int timer = 1250;
         float target_angle, random_value1, random_value2;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, timer);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(0.1f, timer);
+        BulletAccel accel2 = new BulletAccel(0f, 0);
 
         while (true) {
             random_value1 = Random.Range(-3f, 3f);
@@ -164,12 +163,12 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
-                OldBulletType.ERASE_AND_CREATE, timer, 4, 6f, BulletDirection.PLAYER, random_value1, accel2);
+                BulletSpawnType.EraseAndCreate, timer, 4, 6f, BulletPivot.Player, random_value1, accel2);
             }
             else if (SystemManager.Difficulty >= GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
                     CreateBullet(3, pos, 10f, target_angle + random_value2, accel1,
-                    OldBulletType.ERASE_AND_CREATE, timer, 4, 5.6f + i*0.4f, BulletDirection.PLAYER, random_value1, accel2);
+                    BulletSpawnType.EraseAndCreate, timer, 4, 5.6f + i*0.4f, BulletPivot.Player, random_value1, accel2);
                 }
             }
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
@@ -179,7 +178,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern1A2() {
         Vector2 pos;
         float target_angle, random_value;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
@@ -211,8 +210,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern1B1() {
         Vector2 pos;
         float target_angle;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0f, 0);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(8.7f, 1200);
+        BulletAccel accel1 = new BulletAccel(0f, 0);
+        BulletAccel accel2 = new BulletAccel(8.7f, 1200);
 
         for (int i = 0; i < 3; i++) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
@@ -241,7 +240,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern1B2() {
         Vector2 pos;
         float target_angle;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             pos = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
@@ -265,7 +264,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern2A1() {
         Vector2 pos;
         float target_angle;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1500);
 
         while (true) {
@@ -290,7 +289,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     private IEnumerator Pattern2A2() {
         Vector2 pos;
         float target_angle, speed;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(1500);
 
         while (true) {

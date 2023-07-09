@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
 {
-    public Transform[] m_FirePosition = new Transform[3];
     public GameObject m_Hull;
     public EnemyMiddleBoss5bTurret m_Turret;
     public Transform m_Renderer;
@@ -108,7 +107,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     }
 
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3[] pos = new Vector3[2];
         int state = 1;
         float[,] bulletInfo1 = { {5.4f, 6.6f, 7.5f, 6.6f, 5.4f}, {-56.3f, -24.3f, 0f, 24.3f, 56.3f} };
@@ -162,7 +161,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     }
 
     private IEnumerator Pattern2(int state) {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(2000);
         Vector3 pos;
         float random_value = Random.Range(-6f, 6f);

@@ -218,7 +218,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1_A1() {
         float dir;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while (true) {
             dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
@@ -233,7 +233,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Pattern1_A2() {
         float dir = Random.Range(0f, 360f);
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         int timer, t_add = 110;
         float random_distribution = 2f;
         int bulletNum1 = 20, bulletNum2 = 25;
@@ -272,26 +272,26 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
 
     private IEnumerator Pattern1_B1() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(3f, 1000), accel2 = new EnemyBulletAccel(6f, 400);
+        BulletAccel accel1 = new BulletAccel(3f, 1000), accel2 = new BulletAccel(6f, 400);
         float dir;
 
         while (true) {
             dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
             for (int i = 0; i < 3; i++) {
-                CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, OldBulletType.CREATE, 600,
-                5, 3f, BulletDirection.CURRENT, 0f, accel2);
+                CreateBullet(2, transform.position, 6f, dir + Random.Range(-45f, 45f), accel1, BulletSpawnType.Create, 600,
+                5, 3f, BulletPivot.Current, 0f, accel2);
             }
             yield return new WaitForFrames(5);
         }
     }
 
     private IEnumerator Pattern1_B2() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, 1000), accel2;
+        BulletAccel accel1 = new BulletAccel(0.1f, 1000), accel2;
 
         for (int i = 0; i < 10; i++) {
-            accel2 = new EnemyBulletAccel(7f+i*0.86f, 400);
-            CreateBulletsSector(0, transform.position, 10f, 0f, accel1, 4, 90f, OldBulletType.ERASE_AND_CREATE, 500,
-            0, 0.1f, BulletDirection.PLAYER, 0f, accel2);
+            accel2 = new BulletAccel(7f+i*0.86f, 400);
+            CreateBulletsSector(0, transform.position, 10f, 0f, accel1, 4, 90f, BulletSpawnType.EraseAndCreate, 500,
+            0, 0.1f, BulletPivot.Player, 0f, accel2);
             yield return new WaitForFrames(4);
         }
         yield break;
@@ -300,7 +300,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
 
     private IEnumerator Pattern1_C1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 29f;
 
@@ -313,7 +313,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator Pattern1_C2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[1] = 67f;
 
@@ -327,15 +327,15 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
 
     private IEnumerator Pattern1_D1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 23f*m_DirectionSide;
         m_DirectionDelta[1] = 43f;
 
         while (true) {
-            CreateBulletsSector(3, transform.position, 5.3f, m_Direction[0], accel, 4, 90f, OldBulletType.ERASE_AND_CREATE, 600,
-            4, 6.4f, BulletDirection.FIXED, m_Direction[1], accel, 6, 60f);
+            CreateBulletsSector(3, transform.position, 5.3f, m_Direction[0], accel, 4, 90f, BulletSpawnType.EraseAndCreate, 600,
+            4, 6.4f, BulletPivot.Fixed, m_Direction[1], accel, 6, 60f);
             yield return new WaitForFrames(9);
         }
     }
@@ -377,7 +377,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
 
     private IEnumerator Pattern1_E1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = -79f*m_DirectionSide;
 
@@ -389,13 +389,13 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator Pattern1_E2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float dir;
 
         while (true) {
             dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-            CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, OldBulletType.ERASE_AND_CREATE, 700,
-            4, 6.4f, BulletDirection.PLAYER, 0f, accel);
+            CreateBulletsSector(0, transform.position, 7.5f, dir, accel, 10, 36f, BulletSpawnType.EraseAndCreate, 700,
+            4, 6.4f, BulletPivot.Player, 0f, accel);
             yield return new WaitForMillisecondFrames(1000);
         }
     }
@@ -424,30 +424,30 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
 
     private IEnumerator Pattern2_A() {
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(1f, 1000), accel2 = new EnemyBulletAccel(9.2f, 500), accel3 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(1f, 1000), accel2 = new BulletAccel(9.2f, 500), accel3 = new BulletAccel(0f, 0);
         m_DirectionDelta[0] = 31f;
         m_InPattern = true;
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 3; i++) {
-            CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
-            0, 1f, BulletDirection.CURRENT, 30f, accel2);
+            CreateBulletsSector(0, transform.position, 8f, m_Direction[0], accel1, 30, 12f, BulletSpawnType.EraseAndCreate, 1000,
+            0, 1f, BulletPivot.Current, 30f, accel2);
             yield return new WaitForFrames(7);
         }
         yield return new WaitForMillisecondFrames(400);
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 5; i++) {
-            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
-            3, 1f, BulletDirection.CURRENT, -60f, accel2);
+            CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletSpawnType.EraseAndCreate, 1000,
+            3, 1f, BulletPivot.Current, -60f, accel2);
             yield return new WaitForFrames(7);
         }
         yield return new WaitForMillisecondFrames(400);
 
         m_Direction[0] = Random.Range(0f, 360f);
         for (int i = 0; i < 7; i++) {
-            CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
-            0, 1f, BulletDirection.CURRENT, 90f, accel2);
+            CreateBulletsSector(0, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletSpawnType.EraseAndCreate, 1000,
+            0, 1f, BulletPivot.Current, 90f, accel2);
             yield return new WaitForFrames(7);
         }
         yield return new WaitForMillisecondFrames(1400);
@@ -456,8 +456,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         float dir = 0f;
         for (int i = 0; i < 9; i++) {
             CreateBulletsSector(3, transform.position, 10f, dir + Random.Range(3.5f, 6.5f), accel3, 36, 10f);
-            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, OldBulletType.ERASE_AND_CREATE, 1000,
-            //3, 1f, BulletDirection.CURRENT, -140f, accel2);
+            //CreateBulletsSector(3, transform.position, 8f, -m_Direction[0], accel1, 30, 12f, BulletSpawnType.EraseAndCreate, 1000,
+            //3, 1f, BulletPivot.Current, -140f, accel2);
             yield return new WaitForFrames(10);
         }
         m_InPattern = false;
@@ -472,7 +472,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator PatternFinal1_1() {
         int bullet_delay = 1100;
         float max_speed = 10f, min_speed = 5.6f;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(0.1f, bullet_delay), accel2 = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel1 = new BulletAccel(0.1f, bullet_delay), accel2 = new BulletAccel(0f, 0);
         m_Direction[0] = Random.Range(0f, 360f);
         m_Direction[1] = Random.Range(0f, 360f);
         m_DirectionDelta[0] = 109f;
@@ -489,10 +489,10 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         StartCoroutine(m_CurrentPattern[3]);
 
         while (true) {
-            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, OldBulletType.ERASE_AND_CREATE, bullet_delay,
-            3, 7.5f, BulletDirection.FIXED, m_Direction[1], accel2, 2, 48f);
-            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, OldBulletType.ERASE_AND_CREATE, bullet_delay,
-            5, 5.4f, BulletDirection.FIXED, m_Direction[1] + 180f, accel2);
+            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, BulletSpawnType.EraseAndCreate, bullet_delay,
+            3, 7.5f, BulletPivot.Fixed, m_Direction[1], accel2, 2, 48f);
+            CreateBulletsSector(0, transform.position, m_BulletSpeed, m_Direction[0], accel1, 3, 120f, BulletSpawnType.EraseAndCreate, bullet_delay,
+            5, 5.4f, BulletPivot.Fixed, m_Direction[1] + 180f, accel2);
             yield return new WaitForFrames(4); // 62ms
         }
     }
@@ -582,7 +582,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator PatternFinal2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
         while (true) {
             CreateBulletsSector(1, transform.position, 5f, dir + Random.Range(-2f, 2f), accel, 26, 13.8461f);

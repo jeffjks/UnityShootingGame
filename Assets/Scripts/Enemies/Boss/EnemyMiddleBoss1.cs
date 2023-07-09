@@ -13,7 +13,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     private const int TIME_LIMIT = 17000;
     private const float ROLLING_ANGLE_MAX = 30f;
 
-    private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
+    private IEnumerator m_CurrentPhase;
 
     void Start()
     {
@@ -26,6 +26,9 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDying;
+
+        _bulletPatterns.Add("1A", new BulletPattern_EnemyMiddleBoss1_1A(this));
+        _bulletPatterns.Add("2A", new BulletPattern_EnemyMiddleBoss1_2A(this));
     }
 
     protected override void Update()
@@ -88,9 +91,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_Phase = 1;
-
-        m_CurrentPattern1 = PatternA((int) SystemManager.Difficulty);
-        StartCoroutine(m_CurrentPattern1);
+        m_CurrentPhase = Phase1();
+        StartCoroutine(m_CurrentPhase);
         
         EnableInteractableAll();
 
@@ -116,130 +118,53 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
-            float t_rot = (i+1) / frame;
+            float t_rot = (float) (i+1) / frame;
             
             transform.Translate(new Vector3(Mathf.Lerp(0f, target_xspeed / Application.targetFrameRate, t_pos), 0f, 0f));
             m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
+    }
+    
+    private IEnumerator Phase1() { // 페이즈1 패턴 ============================
+        m_Turret[0].StartPattern("1A");
+        m_Turret[1].StartPattern("1A");
+        while (m_Phase == 1) {
+            yield return _bulletPatterns["1A"].ExecutePattern();
+        }
+    }
 
-        //transform.DOMoveX(-20f, 4f).SetEase(Ease.InQuad);
-        //transform.DORotateQuaternion(Quaternion.Euler(0f, 30f, 0f), 3f).SetEase(Ease.Linear);
-        yield break;
+    private IEnumerator Phase2() { // 페이즈2 패턴 ============================
+        yield return new WaitForMillisecondFrames(1800);
+        m_Turret[0].StartPattern("2A");
+        m_Turret[1].StartPattern("2A");
+        while (m_Phase == 2)
+        {
+            if (SystemManager.Difficulty == GameDifficulty.Hell)
+                yield return _bulletPatterns["2A"].ExecutePattern();
+            else
+                yield return null;
+        }
     }
 
     private void ToNextPhase() {
         m_Phase++;
         BulletManager.SetBulletFreeState(1000);
-        if (m_CurrentPattern1 != null)
-            StopCoroutine(m_CurrentPattern1);
         
-        m_CurrentPattern2 = PatternB();
-        if (SystemManager.Difficulty == GameDifficulty.Hell)
-            StartCoroutine(m_CurrentPattern2);
+        if (m_CurrentPhase != null)
+            StopCoroutine(m_CurrentPhase);
+        
+        m_CurrentPhase = Phase2();
+        StartCoroutine(m_CurrentPhase);
 
         m_Turret[0].StopPattern();
         m_Turret[1].StopPattern();
-
-        m_Turret[0].StartPattern();
-        m_Turret[1].StartPattern();
 
         NextPhaseExplosion();
     }
 
     private void NextPhaseExplosion() {
         m_NextPhaseExplosionCreater.StartExplosion();
-    }
-
-    private IEnumerator PatternA(int difficulty) {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(600);
-        if (difficulty == 0) {
-            while(true) {
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 5, 17f);
-                yield return new WaitForMillisecondFrames(1520);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 6, 17f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 6, 17f);
-                yield return new WaitForMillisecondFrames(1520);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 7, 17f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 7, 17f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 7, 17f);
-                yield return new WaitForMillisecondFrames(3120); // --------------------------
-                CreateBulletsSector(0, transform.position, 5f, 0f, accel, 24, 15f);
-                yield return new WaitForMillisecondFrames(1200);
-                CreateBulletsSector(0, transform.position, 5f, 0f, accel, 24, 15f);
-                yield return new WaitForMillisecondFrames(3600);
-            }
-        }
-        else if (difficulty == 1) {
-            while(true) {
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 8, 10f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 8, 10f);
-                yield return new WaitForMillisecondFrames(1400);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 9, 10f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 9, 10f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 9, 10f);
-                yield return new WaitForMillisecondFrames(1400);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 10, 10f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 10, 10f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 10, 10f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 10, 10f);
-                yield return new WaitForMillisecondFrames(2200); // --------------------------
-                CreateBulletsSector(0, transform.position, 5f, 0f, accel, 40, 9f);
-                yield return new WaitForMillisecondFrames(600);
-                CreateBulletsSector(0, transform.position, 5f, 0f, accel, 40, 9f);
-                yield return new WaitForMillisecondFrames(600);
-                CreateBulletsSector(0, transform.position, 5f, 0f, accel, 40, 9f);
-                yield return new WaitForMillisecondFrames(2400);
-            }
-        }
-        else {
-            while(true) {
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 10, 8f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 10, 8f);
-                yield return new WaitForMillisecondFrames(1400);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 11, 8f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 11, 8f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 11, 8f);
-                yield return new WaitForMillisecondFrames(1400);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 12, 8f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 12, 8f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 12, 8f);
-                yield return new WaitForMillisecondFrames(120);
-                CreateBulletsSector(5, transform.position, 5f, 0f, accel, 12, 8f);
-                yield return new WaitForMillisecondFrames(2000); // --------------------------
-                CreateBulletsSector(0, transform.position, 6.6f, 0f, accel, 45, 8f);
-                yield return new WaitForMillisecondFrames(600);
-                CreateBulletsSector(0, transform.position, 6.6f, 0f, accel, 45, 8f);
-                yield return new WaitForMillisecondFrames(600);
-                CreateBulletsSector(0, transform.position, 6.6f, 0f, accel, 45, 8f);
-                yield return new WaitForMillisecondFrames(2200);
-            }
-        }
-    }
-
-    private IEnumerator PatternB() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(1800);
-        while(true) {
-            float target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-            CreateBulletsSector(0, transform.position, 7f, target_angle, accel, 8, 13f);
-            yield return new WaitForMillisecondFrames(2000);
-        }
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정

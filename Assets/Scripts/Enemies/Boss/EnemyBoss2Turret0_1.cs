@@ -78,7 +78,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     }
 
     private IEnumerator Pattern0() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos = m_FirePosition.position;
         while (m_Phase == 1) {
             if (PlayerManager.GetPlayerPosition().y >= -5.8f) {
@@ -93,7 +93,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos = m_FirePosition.position;
         if (transform.localScale.x == -1f)
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty] * 500);
@@ -114,7 +114,7 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         m_RoateState = 2;
 
@@ -145,8 +145,8 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
     private IEnumerator Pattern3()
     {
         float speed1 = 1.5f, speed2 = 7f;
-        EnemyBulletAccel accel1 = new EnemyBulletAccel(speed1, 400);
-        EnemyBulletAccel accel2 = new EnemyBulletAccel(speed2, 700);
+        BulletAccel accel1 = new BulletAccel(speed1, 400);
+        BulletAccel accel2 = new BulletAccel(speed2, 700);
         Vector3 pos1, pos2;
         m_RoateState = 3;
         float gap = 0.14f;
@@ -159,10 +159,10 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
             for (int i = 0; i < 18; i++) {
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                CreateBullet(1, pos1, 8f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 400,
-                1, speed1, BulletDirection.CURRENT, 15f, accel2);
-                CreateBullet(1, pos2, 8f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 400,
-                1, speed1, BulletDirection.CURRENT, 15f, accel2);
+                CreateBullet(1, pos1, 8f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 400,
+                1, speed1, BulletPivot.Current, 15f, accel2);
+                CreateBullet(1, pos2, 8f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 400,
+                1, speed1, BulletPivot.Current, 15f, accel2);
                 yield return new WaitForFrames(2);
             }
         }
@@ -170,10 +170,10 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
             for (int i = 0; i < 36; i++) {
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                CreateBullet(1, pos1, 8f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 400,
-                1, speed1, BulletDirection.CURRENT, 15f, accel2, 2, 6f);
-                CreateBullet(1, pos2, 8f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 400,
-                1, speed1, BulletDirection.CURRENT, 15f, accel2, 2, 6f);
+                CreateBullet(1, pos1, 8f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 400,
+                1, speed1, BulletPivot.Current, 15f, accel2, 2, 6f);
+                CreateBullet(1, pos2, 8f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 400,
+                1, speed1, BulletPivot.Current, 15f, accel2, 2, 6f);
                 yield return new WaitForFrames(1);
             }
         }
@@ -181,14 +181,14 @@ public class EnemyBoss2Turret0_1 : EnemyUnit
             for (int i = 0; i < 36; i++) {
                 pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(gap, 0f, 0f)));
                 pos2 = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(new Vector3(-gap, 0f, 0f)));
-                CreateBullet(1, pos1, 10f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 360,
-                1, speed1, BulletDirection.CURRENT, 15f, accel2, 2, 6f);
-                CreateBullet(1, pos1, 10f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 560,
-                1, speed1, BulletDirection.CURRENT, 9f, accel2, 2, 6f);
-                CreateBullet(1, pos2, 10f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 360,
-                1, speed1, BulletDirection.CURRENT, 15f, accel2, 2, 6f);
-                CreateBullet(1, pos2, 10f, CurrentAngle, accel1, OldBulletType.ERASE_AND_CREATE, 560,
-                1, speed1, BulletDirection.CURRENT, 9f, accel2, 2, 6f);
+                CreateBullet(1, pos1, 10f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 360,
+                1, speed1, BulletPivot.Current, 15f, accel2, 2, 6f);
+                CreateBullet(1, pos1, 10f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 560,
+                1, speed1, BulletPivot.Current, 9f, accel2, 2, 6f);
+                CreateBullet(1, pos2, 10f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 360,
+                1, speed1, BulletPivot.Current, 15f, accel2, 2, 6f);
+                CreateBullet(1, pos2, 10f, CurrentAngle, accel1, BulletSpawnType.EraseAndCreate, 560,
+                1, speed1, BulletPivot.Current, 9f, accel2, 2, 6f);
                 yield return new WaitForFrames(1);
             }
         }

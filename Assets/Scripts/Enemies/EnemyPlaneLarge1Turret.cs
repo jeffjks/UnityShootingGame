@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneLarge1Turret : EnemyUnit
 {
-    public Transform m_FirePosition;
     private IEnumerator m_CurrentPattern;
 
     public void StartPattern() {
@@ -30,19 +29,19 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
     
     
     private IEnumerator PatternA() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 6; i++) {
-                pos = m_FirePosition.position;
+                pos = m_FirePosition[0].position;
                 CreateBullet(3, pos, 7.5f, CurrentAngle, accel);
                 yield return new WaitForMillisecondFrames(80);
             }
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             for (int i = 0; i < 10; i++) {
-                pos = m_FirePosition.position;
+                pos = m_FirePosition[0].position;
                 CreateBullet(3, pos, 8.5f, CurrentAngle, accel);
                 CreateBulletsSector(4, pos, 8.5f, CurrentAngle, accel, 2, 28f);
                 yield return new WaitForMillisecondFrames(80);
@@ -50,7 +49,7 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         }
         else {
             for (int i = 0; i < 12; i++) {
-                pos = m_FirePosition.position;
+                pos = m_FirePosition[0].position;
                 CreateBullet(3, pos, 8.5f, CurrentAngle, accel);
                 CreateBulletsSector(4, pos, 8.5f, CurrentAngle, accel, 2, 28f);
                 yield return new WaitForMillisecondFrames(80);

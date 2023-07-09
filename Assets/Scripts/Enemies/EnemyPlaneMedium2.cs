@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyPlaneMedium2 : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[5];
-
     private const int APPEARANCE_TIME = 1600;
     private const int TIME_LIMIT = 8000;
     private float m_VSpeed = 1.1f;
@@ -76,7 +74,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
     }
 
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
         while(!m_TimeLimitState) {
             Vector3[] pos = new Vector3[m_FirePosition.Length];
@@ -136,7 +134,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
     }
 
     private IEnumerator Pattern2() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         float target_angle;
 

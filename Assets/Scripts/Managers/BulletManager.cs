@@ -51,7 +51,7 @@ public class BulletManager : MonoBehaviour
             return;
         }
 
-        _inBulletFreeState = true;
+        InBulletFreeState = true;
         _remainingFrame = frame;
     }
 
@@ -59,7 +59,6 @@ public class BulletManager : MonoBehaviour
     {
         List<GameObject> bulletList = GameObject.FindGameObjectsWithTag("EnemyBulletParent").ToList();
         int index, num = 0, count = bulletList.Count;
-        Debug.Log(count);
 
         while (count > 0) {
             index = UnityEngine.Random.Range(0, count);
@@ -90,9 +89,9 @@ public class BulletManager : MonoBehaviour
         {
             _remainingFrame--;
         }
-        else if (_inBulletFreeState)
+        else if (InBulletFreeState)
         {
-            _inBulletFreeState = false;
+            InBulletFreeState = false;
         }
     }
 

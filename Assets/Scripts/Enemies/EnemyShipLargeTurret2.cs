@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyShipLargeTurret2 : EnemyUnit
 {
-    public Transform m_FirePosition;
     private int[] m_FireDelay = { 2000, 1000, 500 };
 
     private int m_Side;
@@ -33,10 +32,10 @@ public class EnemyShipLargeTurret2 : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
 
         while(true) {
-            pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
             CreateBullet(1, pos, 6.8f, CurrentAngle + m_Side*12f, accel);
             yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
         }

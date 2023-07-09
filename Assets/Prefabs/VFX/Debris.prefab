@@ -83,6 +83,7 @@ MonoBehaviour:
   m_ObjectName: Debris
   m_LifeTime: 24000
   m_Collider2D: {fileID: 7277607235241683513}
+  m_DebrisTransform: {fileID: 3638522882337520919}
 --- !u!1 &1899456025855020102
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 1899456025855020102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4518793265261127580}
@@ -179,7 +180,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
 --- !u!1001 &2496988622856470859
 PrefabInstance:

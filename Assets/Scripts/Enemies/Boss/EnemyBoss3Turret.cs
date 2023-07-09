@@ -59,7 +59,7 @@ public class EnemyBoss3Turret : EnemyUnit
 
     private IEnumerator Pattern1()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         yield return new WaitForMillisecondFrames(1500);
         
@@ -84,7 +84,7 @@ public class EnemyBoss3Turret : EnemyUnit
 
     private IEnumerator Pattern2()
     {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos;
         int[] fire_delay = { 2400, 1800, 1800 };
         float random_value;

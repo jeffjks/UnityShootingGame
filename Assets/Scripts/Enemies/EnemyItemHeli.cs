@@ -6,7 +6,6 @@ public class EnemyItemHeli : EnemyUnit {
 
 	public GameObject m_FanL, m_FanR, m_FanB;
 	public float m_FanRotationSpeed;
-    public Transform[] m_FirePosition = new Transform[2];
     private int[] m_FireDelay = { 4000, 2000, 1500 };
     
     private const int APPEARANCE_TIME = 1500;
@@ -86,7 +85,7 @@ public class EnemyItemHeli : EnemyUnit {
     }
     
     private IEnumerator Pattern1() {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         Vector3 pos1, pos2;
         float target_angle1, target_angle2;
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
@@ -113,5 +112,5 @@ public class EnemyItemHeli : EnemyUnit {
 }
 
 
-//EnemyBulletAccel accel2 = new EnemyBulletAccel(6f, 0.8f);
-//CreateBullet(0, pos, 3.8f, target_angle, accel, 2, 1f, 4, 0.5f, BulletDirection.PLAYER, 0f, accel2);
+//BulletAccel accel2 = new BulletAccel(6f, 0.8f);
+//CreateBullet(0, pos, 3.8f, target_angle, accel, 2, 1f, 4, 0.5f, BulletPivot.Player, 0f, accel2);

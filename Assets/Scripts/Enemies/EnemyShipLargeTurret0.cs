@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyShipLargeTurret0 : EnemyUnit
 {
-    public Transform m_FirePosition;
     private int[] m_FireDelay = { 2000, 2000, 1400 };
 
     void Start()
@@ -25,22 +24,22 @@ public class EnemyShipLargeTurret0 : EnemyUnit
     
     private IEnumerator Pattern1() {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         float gap = 0.32f;
 
         while(true) {
             if (SystemManager.Difficulty <= GameDifficulty.Expert) {
-                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
-                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
+                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
+                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].TransformPoint(Vector3.right * gap));
+                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].TransformPoint(Vector3.left * gap));
                 CreateBullet(0, pos[0], 5.6f, CurrentAngle, accel);
                 CreateBullet(0, pos[1], 5.6f, CurrentAngle, accel);
                 CreateBullet(0, pos[2], 5.6f, CurrentAngle, accel);
             }
             else {
-                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
-                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.right * gap));
-                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition.TransformPoint(Vector3.left * gap));
+                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
+                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].TransformPoint(Vector3.right * gap));
+                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].TransformPoint(Vector3.left * gap));
                 CreateBulletsSector(0, pos[0], 5.6f, CurrentAngle, accel, 3, 2f);
                 CreateBulletsSector(0, pos[1], 5.6f, CurrentAngle - 3f, accel, 2, 2f);
                 CreateBulletsSector(0, pos[2], 5.6f, CurrentAngle + 3f, accel, 2, 2f);

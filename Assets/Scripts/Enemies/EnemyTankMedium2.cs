@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTankMedium2 : EnemyUnit
 {
-    public Transform m_FirePosition;
     [SerializeField] private Transform[] m_ArmorPosition = new Transform[2];
 
     private bool m_ShootState = false;
@@ -39,30 +38,30 @@ public class EnemyTankMedium2 : EnemyUnit
 
     private IEnumerator Pattern1() {
         Vector3 pos;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(Random.Range(0, 1000));
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+                pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 18, 20f); // 1
                 yield return new WaitForMillisecondFrames(1000);
-                pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+                pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                 CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 10, 36f,
-                    OldBulletType.ERASE_AND_CREATE, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                    BulletSpawnType.EraseAndCreate, 200, 1, 5.8f, BulletPivot.Player, Random.Range(-2f, 2f), accel);
                 yield return new WaitForMillisecondFrames(1000);
             }
 
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 5; i++) {
-                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                     CreateBulletsSector(5, pos, 6.6f, Random.Range(0f, 360f), accel, 30, 12f); // 1
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
                 for (int i = 0; i < 3; i++) {
-                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                     CreateBulletsSector(2, pos, 6.6f, Random.Range(0f, 360f), accel, 24, 15f,
-                        OldBulletType.ERASE_AND_CREATE, 200, 1, 5.8f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                        BulletSpawnType.EraseAndCreate, 200, 1, 5.8f, BulletPivot.Player, Random.Range(-2f, 2f), accel);
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
@@ -70,15 +69,15 @@ public class EnemyTankMedium2 : EnemyUnit
 
             else if (SystemManager.Difficulty == GameDifficulty.Hell) {
                 for (int i = 0; i < 5; i++) {
-                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                     CreateBulletsSector(5, pos, 7.5f, Random.Range(0f, 360f), accel, 36, 10f); // 1
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
                 for (int i = 0; i < 3; i++) {
-                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition.position);
+                    pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
                     CreateBulletsSector(2, pos, 7.5f, Random.Range(0f, 360f), accel, 30, 12f,
-                        OldBulletType.ERASE_AND_CREATE, 200, 1, 6.5f, BulletDirection.PLAYER, Random.Range(-2f, 2f), accel);
+                        BulletSpawnType.EraseAndCreate, 200, 1, 6.5f, BulletPivot.Player, Random.Range(-2f, 2f), accel);
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);

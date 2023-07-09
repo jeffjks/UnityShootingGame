@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTankSmall3Turret : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[3];
     private int[] m_FireDelay = { 3000, 2000, 1500 };
 
     void Start()
@@ -25,7 +24,7 @@ public class EnemyTankSmall3Turret : EnemyUnit
 
     private IEnumerator Pattern1(int millisecond) {
         Vector3[] pos = new Vector3[3];
-        EnemyBulletAccel accel = new EnemyBulletAccel(5.2f, 1400);
+        BulletAccel accel = new BulletAccel(5.2f, 1400);
         yield return new WaitForMillisecondFrames(millisecond);
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {

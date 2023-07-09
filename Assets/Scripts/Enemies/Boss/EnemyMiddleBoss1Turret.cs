@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class EnemyMiddleBoss1Turret : EnemyUnit
+public class EnemyMiddleBoss1Turret : EnemyUnit, IEnemySubAttacker
 {
-    public Transform m_FirePosition;
-    
-    private bool m_Shooting = false;
     private int m_Phase;
     private IEnumerator m_CurrentPattern;
-    private byte m_RotateState;
+    private int m_RotateState;
 
     void Start()
     {
-        m_CurrentPattern = Pattern1();
-        StartCoroutine(m_CurrentPattern);
         RotateImmediately(PlayerManager.GetPlayerPosition());
+
+        _bulletPatterns.Add("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(this, param => m_RotateState = param));
+        _bulletPatterns.Add("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(this, param => m_RotateState = param));
     }
 
     protected override void Update()
@@ -23,7 +22,7 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
         base.Update();
 
         if (m_RotateState == 0) {
-            if (!m_Shooting) {
+            if (IsRotatable) {
                 RotateSlightly(PlayerManager.GetPlayerPosition(), 90f);
             }
         }
@@ -32,84 +31,14 @@ public class EnemyMiddleBoss1Turret : EnemyUnit
         }
     }
 
-    public void StartPattern() {
-        m_CurrentPattern = Pattern2();
+    public void StartPattern(string key)
+    {
+        m_CurrentPattern = _bulletPatterns[key].ExecutePattern();
         StartCoroutine(m_CurrentPattern);
-        m_RotateState = 1;
     }
 
     public void StopPattern() {
         if (m_CurrentPattern != null)
             StopCoroutine(m_CurrentPattern);
-    }
-
-    private IEnumerator Pattern1()
-    {
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(1500);
-
-        if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            while(true) {
-                m_Shooting = true;
-                CreateBullet(4, m_FirePosition.position, 4f, CurrentAngle, accel);
-                m_Shooting = false;
-                yield return new WaitForMillisecondFrames(2000 + Random.Range(0, 1000));
-            }
-        }
-        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            while(true) {
-                m_Shooting = true;
-                CreateBullet(4, m_FirePosition.position, 4.2f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(80);
-                CreateBullet(4, m_FirePosition.position, 4.2f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(80);
-                CreateBullet(4, m_FirePosition.position, 4.2f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(80);
-                CreateBullet(4, m_FirePosition.position, 4.2f, CurrentAngle, accel);
-                m_Shooting = false;
-                yield return new WaitForMillisecondFrames(1200 + Random.Range(0, 500));
-            }
-        }
-        else {
-            while(true) {
-                m_Shooting = true;
-                CreateBullet(4, m_FirePosition.position, 5.6f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(60);
-                CreateBullet(4, m_FirePosition.position, 5.6f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(60);
-                CreateBullet(4, m_FirePosition.position, 5.6f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(60);
-                CreateBullet(4, m_FirePosition.position, 5.6f, CurrentAngle, accel);
-                m_Shooting = false;
-                yield return new WaitForMillisecondFrames(1000 + Random.Range(0, 400));
-            }
-        }
-    }
-
-    private IEnumerator Pattern2()
-    {
-        if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
-            while(true) {
-                CreateBullet(4, m_FirePosition.position, 2f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(200);
-            }
-        }
-        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            EnemyBulletAccel accel = new EnemyBulletAccel(5.5f, 1000);
-            while(true) {
-                CreateBullet(4, m_FirePosition.position, 2f, CurrentAngle, accel);
-                yield return new WaitForMillisecondFrames(50);
-            }
-        }
-        else {
-            while(true) {
-                EnemyBulletAccel accel1 = new EnemyBulletAccel(6.1f, 1000);
-                EnemyBulletAccel accel2 = new EnemyBulletAccel(5f, 1000);
-                CreateBullet(4, m_FirePosition.position, 2f, CurrentAngle + 3f, accel1);
-                CreateBullet(4, m_FirePosition.position, 2f, CurrentAngle - 3f, accel2);
-                yield return new WaitForMillisecondFrames(50);
-            }
-        }
     }
 }

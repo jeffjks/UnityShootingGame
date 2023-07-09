@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyTurret3Turret : EnemyUnit
 {
-    public Transform[] m_FirePosition = new Transform[2];
     public Transform m_TurretAnimation;
     private int[] m_FireDelay = { 2000, 2000, 1800 };
 
@@ -39,7 +38,7 @@ public class EnemyTurret3Turret : EnemyUnit
 
     private IEnumerator Pattern1() {
         Vector3 pos1, pos2;
-        EnemyBulletAccel accel = new EnemyBulletAccel(0f, 0);
+        BulletAccel accel = new BulletAccel(0f, 0);
         yield return new WaitForMillisecondFrames(Random.Range(0, m_FireDelay[(int) SystemManager.Difficulty]));
         while(true) {
             pos1 = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);

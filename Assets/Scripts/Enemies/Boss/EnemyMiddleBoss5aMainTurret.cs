@@ -12,7 +12,7 @@ public class EnemyMiddleBoss5aMainTurret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()

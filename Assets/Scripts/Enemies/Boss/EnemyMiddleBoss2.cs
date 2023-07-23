@@ -73,13 +73,13 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.OnRemoved();
     }
 
-    private IEnumerator MovementPattern(MoveVector target_moveVector, int speed_ease, int direction_ease, int duration) {
+    private IEnumerator MovementPattern(MoveVector target_moveVector, EaseType speedEase, EaseType directionEase, int duration) {
         MoveVector init_moveVector = m_MoveVector;
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_spd = AC_Ease.ac_ease[speed_ease].Evaluate((float) (i+1) / frame);
-            float t_dir = AC_Ease.ac_ease[direction_ease].Evaluate((float) (i+1) / frame);
+            float t_spd = AC_Ease.ac_ease[(int) speedEase].Evaluate((float) (i+1) / frame);
+            float t_dir = AC_Ease.ac_ease[(int) directionEase].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_moveVector.speed, target_moveVector.speed, t_spd);
             m_MoveVector.direction = Mathf.Lerp(init_moveVector.direction, target_moveVector.direction, t_dir);
@@ -94,7 +94,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.375f) { // 체력 37.5% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.375f) { // 체력 37.5% 이하
                 ToNextPhase();
             }
         }

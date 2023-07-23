@@ -7,9 +7,7 @@ using UnityEngine;
 public class PlayerLaserHandler : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
-    public PlayerLaser m_PlayerLaser;
     public PlayerLaserRenderer[] m_LaserRenderers;
-    public PlayerDamageDatas[] m_PlayerDamageData;
     public PlayerLaserFireLight m_PlayerLaserFireLight;
     
     private int _laserIndex;
@@ -20,30 +18,30 @@ public class PlayerLaserHandler : MonoBehaviour
         set
         {
             _laserIndex = value;
-            SetLaserIndex();
+            Action_OnLaserIndexChanged?.Invoke();
         }
     }
 
     public event Action Action_OnStartLaser;
     public event Action Action_OnStopLaser;
+    public event Action Action_OnLaserIndexChanged;
     
     private GameObject _currentLaserInstance; // Laser Object
 
     private void Start()
     {
-        LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
-        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => m_PlayerLaser.DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+        Action_OnLaserIndexChanged += ResetLaserIndex;
         m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += RestartLaser;
         m_PlayerUnit.Action_OnControllableChanged += StopLaser;
+        
+        LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
     }
     
-    private void SetLaserIndex() {
+    private void ResetLaserIndex() {
         StopLaser();
         
         _currentLaserInstance = m_LaserRenderers[LaserIndex].gameObject;
-        m_PlayerLaser.SetPlayerDamageData(m_PlayerDamageData[LaserIndex]);
         m_PlayerLaserFireLight.SetLightColor(LaserIndex);
-        m_PlayerLaser.DamageLevel = m_PlayerUnit.PlayerAttackLevel;
 
         _currentLaserInstance.SetActive(true);
         _currentLaserInstance.SetActive(false);

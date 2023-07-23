@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerWeapon : PlayerObject, IObjectPooling, IRotatable
+public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 {
     [SerializeField] protected float m_Speed;
     [SerializeField] private bool m_IsPenetrate;

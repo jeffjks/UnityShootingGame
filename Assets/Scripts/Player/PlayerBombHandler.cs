@@ -38,7 +38,7 @@ public class PlayerBombHandler : MonoBehaviour
         AudioService.PlaySound("PlayerBomb1");
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
             m_Bomb.transform.position = Vector3.Lerp(startPos, destPos, t_pos);
             yield return null;

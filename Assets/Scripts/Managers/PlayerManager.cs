@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     public static ShipAttributes CurrentAttributes = new (0, 0, 0, 0, 0, 0, 0);
     public static bool IsPlayerAlive;
     
-    private const int REVIVE_DELAY = 1400;
+    private const int REVIVE_DELAY = 1500;
 
     public static Action Action_OnStartStartNewGame;
 

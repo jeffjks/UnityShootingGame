@@ -17,32 +17,33 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     [DrawIf("m_HealthType", HealthType.Share, ComparisonType.NotEqual)]
     [SerializeField] private int m_DefaultHealth = -1;
     [SerializeField] private Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
-    [HideInInspector] public float m_HealthPercent;
 
     public event Action Action_LowHealthState;
     public event Action Action_DamagingBlend;
     public event Action Action_OnHealthChanged; // 여기 등록된 메소드는 Invoke 실행 시 인자로 체력 백분율, 체력 고정값을 받아서 실행됨
 
-    private EnemyHealth m_ParentEnemyHealth = null;
-    private int m_CurrentHealth;
-    private Dictionary<PlayerDamageType, bool> m_IsTakingDamage = new Dictionary<PlayerDamageType, bool>(); // 중복 데미지 방지
-    private bool m_IsLowHealthState = false;
+    private EnemyHealth _parentEnemyHealth;
+    private int _currentHealth;
+    private readonly Dictionary<PlayerDamageType, bool> _isTakingDamage = new (); // 중복 데미지 방지
+    private bool _isLowHealthState;
     private bool _isInvincible;
     private int _remainingFrame;
 
-    public int CurrentHealth {
-        get { return m_CurrentHealth; }
-        set {
-            m_CurrentHealth = value;
-            m_HealthPercent = (float) m_CurrentHealth / (float) m_DefaultHealth;
+    public int CurrentHealth
+    {
+        get => _currentHealth;
+        private set {
+            _currentHealth = value;
             Action_OnHealthChanged?.Invoke();
         }
     }
 
+    public float HealthPercent => (float) _currentHealth / m_DefaultHealth;
+
     void Start()
     {
         if (transform != transform.root) {
-            m_ParentEnemyHealth = transform.parent.GetComponentInParent<EnemyHealth>();
+            _parentEnemyHealth = transform.parent.GetComponentInParent<EnemyHealth>();
         }
         m_EnemyDeath = GetComponent<EnemyDeath>();
         
@@ -73,22 +74,22 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     private void ResetIsTakingDamage() {
-        m_IsTakingDamage[PlayerDamageType.Normal] = false;
-        m_IsTakingDamage[PlayerDamageType.Laser] = false;
-        m_IsTakingDamage[PlayerDamageType.LaserAura] = false;
-        m_IsTakingDamage[PlayerDamageType.Bomb] = false;
+        _isTakingDamage[PlayerDamageType.Normal] = false;
+        _isTakingDamage[PlayerDamageType.Laser] = false;
+        _isTakingDamage[PlayerDamageType.LaserAura] = false;
+        _isTakingDamage[PlayerDamageType.Bomb] = false;
     }
     
 
-    public void TakeDamage(int amount, PlayerDamageType damage_type = PlayerDamageType.Normal, bool blend = true)
+    public void TakeDamage(int amount, PlayerDamageType damageType = PlayerDamageType.Normal, bool blend = true)
     {
         // blend - ImageBlend 실행 여부
 
-        if (m_HealthType == HealthType.None) { // 본체와 자신에게 데미지 및 자신 색 blend
-            m_ParentEnemyHealth?.TakeDamage(amount, damage_type, false);
+        if (m_HealthType == HealthType.None && _parentEnemyHealth != null) { // 본체와 자신에게 데미지 및 자신 색 blend
+            _parentEnemyHealth.TakeDamage(amount, damageType, false);
         }
-        else if (m_HealthType == HealthType.Share) { // 본체에게 데미지 및 본체 색 blend
-            m_ParentEnemyHealth?.TakeDamage(amount, damage_type, true);
+        else if (m_HealthType == HealthType.Share && _parentEnemyHealth != null) { // 본체에게 데미지 및 본체 색 blend
+            _parentEnemyHealth.TakeDamage(amount, damageType, true);
             return;
         }
 
@@ -99,7 +100,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         if (_isInvincible) {
             return;
         }
-        if (IsDuplicatedDamage(damage_type)) {
+        if (IsDuplicatedDamage(damageType)) {
             return;
         }
 
@@ -112,15 +113,17 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         }
     }
 
-    private bool IsDuplicatedDamage(PlayerDamageType damage_type) {
-        if (damage_type == PlayerDamageType.Normal) {
+    private bool IsDuplicatedDamage(PlayerDamageType damageType) {
+        if (damageType == PlayerDamageType.Normal) {
             return false;
         }
         
-        if (m_IsTakingDamage.TryGetValue(damage_type, out bool result)) {
+        if (_isTakingDamage.TryGetValue(damageType, out bool result))
+        {
+            _isTakingDamage[damageType] = true;
             return result;
         }
-        m_IsTakingDamage.Add(damage_type, true);
+        _isTakingDamage.Add(damageType, true);
         return false;
     }
 
@@ -134,8 +137,9 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation) {
         foreach (var colliderItem in m_Collider2D)
         {
-            colliderItem.transform.position = screenPosition;
-            colliderItem.transform.rotation = screenRotation;
+            var trans = colliderItem.transform;
+            trans.position = screenPosition;
+            trans.rotation = screenRotation;
         }
     }
     
@@ -166,9 +170,9 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
         Action_DamagingBlend?.Invoke();
         
-        if (!m_IsLowHealthState) {
+        if (!_isLowHealthState) {
             if (IsLowHealth()) {
-                m_IsLowHealthState = true;
+                _isLowHealthState = true;
                 Action_LowHealthState?.Invoke();
             }
         }
@@ -176,7 +180,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
     private bool IsLowHealth() {
         if (m_DefaultHealth < 10000) {
-            if (m_HealthPercent < 0.30f) { // 30% 미만
+            if (HealthPercent < 0.30f) { // 30% 미만
                 return true;
             }
         }

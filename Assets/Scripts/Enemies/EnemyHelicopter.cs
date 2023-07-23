@@ -12,7 +12,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     void Start()
     {
         StartCoroutine(Pattern1());
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -22,9 +22,9 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
         
         RotateFan();
     }
@@ -44,7 +44,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
             transform.position = Vector3.Lerp(init_position, target_position, t_pos);
             yield return new WaitForMillisecondFrames(0);
@@ -54,13 +54,13 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         m_TimeLimitState = true;
-        m_MoveVector.direction = GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
+        m_MoveVector.direction = AngleToPlayer;
         
         float init_speed = m_MoveVector.speed;
         int frame = 800 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_spd = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_spd = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_speed, 7.2f, t_spd);
             yield return new WaitForMillisecondFrames(0);

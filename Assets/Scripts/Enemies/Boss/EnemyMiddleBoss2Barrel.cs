@@ -17,7 +17,7 @@ public class EnemyMiddleBoss2Barrel : MonoBehaviour
 
         frame = 100 * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
-            float t_posz = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_posz = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             float localPosition_z = Mathf.Lerp(m_Pos_Z1, m_Pos_Z2, t_posz);
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, localPosition_z);
             yield return new WaitForMillisecondFrames(0);
@@ -27,7 +27,7 @@ public class EnemyMiddleBoss2Barrel : MonoBehaviour
 
         frame = 400 * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
-            float t_posz = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_posz = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             float localPosition_z = Mathf.Lerp(m_Pos_Z2, m_Pos_Z1, t_posz);
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, localPosition_z);
             yield return new WaitForMillisecondFrames(0);

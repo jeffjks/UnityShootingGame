@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -526,24 +527,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition:
+  - {fileID: 4975343088006806313}
+  - {fileID: 3476680720526473216}
+  - {fileID: 8746116740752515704}
+  - {fileID: 8808925658807472578}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 100000
   m_IsRoot: 1
   m_Core: {fileID: 1161593236161121628}
-  m_Wings: {fileID: 8024313439898444883}
+  m_AllWings: {fileID: 8024313439898444883}
   m_WingsForAppearance: {fileID: 6161929909053796587}
   m_EnemyBoss5Wings:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_FirePosition: {fileID: 4975343088006806313}
-  m_FirePositionsWing:
-  - {fileID: 3476680720526473216}
-  - {fileID: 8746116740752515704}
-  - {fileID: 8808925658807472578}
+  - {fileID: 2026939687749254909}
+  - {fileID: 7403120876155489487}
+  - {fileID: 919856330169884490}
   m_NextPhaseExplosionCreater: {fileID: 9080709706137137727}
+  m_WingAnimator: {fileID: 5262792015596840969}
 --- !u!114 &8989448250438833964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,7 +574,6 @@ MonoBehaviour:
   m_DefaultHealth: 140000
   m_Collider2D:
   - {fileID: 7122233041792260751}
-  m_HealthPercent: 100
 --- !u!114 &5667442117550585716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -1028,6 +1030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -1271,8 +1274,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643861111866822498}
+  - component: {fileID: 5262792015596840969}
   m_Layer: 10
-  m_Name: Wings
+  m_Name: Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1297,6 +1301,27 @@ Transform:
   m_Father: {fileID: 1252501679486291099}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5262792015596840969
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8024313439898444883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 910f84236fd69cb4b8d14411805bdfd2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8192553894412687617
 GameObject:
   m_ObjectHideFlags: 0

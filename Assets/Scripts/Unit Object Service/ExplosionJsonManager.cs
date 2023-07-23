@@ -123,7 +123,7 @@ public class ExplosionJsonManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CreateExplosionSequence(EnemyDeath enemyDeath, Effect effect, Coroutine coroutine) {
+    private IEnumerator CreateExplosionSequence(EnemyDeath enemyDeath, Effect effect, ExplosionCoroutine coroutine) {
         int duration = coroutine.duration;
         int timer = 0;
         int number = coroutine.number;

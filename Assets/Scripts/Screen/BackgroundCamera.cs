@@ -111,7 +111,7 @@ public class BackgroundCamera : MonoBehaviour
         }
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos_z = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+            float t_pos_z = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
             
             position_z = Mathf.Lerp(init_position_z, target_position_z, t_pos_z);
             Vector3 temp = transform.position;

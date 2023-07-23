@@ -10,7 +10,7 @@ public class EnemyTurret2Turret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()

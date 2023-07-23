@@ -30,7 +30,7 @@ public class EndingCredit : MonoBehaviour
         _inGameInputController = IngameInputController.Instance;
         _inGameInputController.Action_OnFireInput += OnFireInvoked;
         _inGameInputController.Action_OnBombInput += QuitEndingCredit;
-        _inGameInputController.Action_OnEscape += QuitEndingCredit;
+        _inGameInputController.Action_OnEscapeInput += QuitEndingCredit;
     }
 
     private void OnEnable()

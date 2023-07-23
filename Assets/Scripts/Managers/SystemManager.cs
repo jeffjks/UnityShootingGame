@@ -96,6 +96,7 @@ public class SystemManager : MonoBehaviour
 
         if (GameMode == GameMode.Training && !DebugOption.InvincibleMod) {
             QuitGame();
+            yield break;
         }
         
         if (Stage < 4) {

@@ -37,7 +37,7 @@ public class EnemyMissile : EnemyUnit
         int frame = 1000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) { // 1초간 1->6
-            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_spd = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             
             float speed = Mathf.Lerp(init_speed, 6f, t_spd);
             m_MoveVector.speed = speed;

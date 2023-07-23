@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 
 public class IngameInputController : MonoBehaviour
 {
-    public event Action Action_OnPause;
+    public event Action Action_OnPauseInput;
     public event Action<InputValue> Action_OnFireInput;
     public event Action Action_OnBombInput;
-    public event Action Action_OnEscape;
+    public event Action Action_OnEscapeInput;
     
     public static IngameInputController Instance { get; private set; }
 
@@ -20,13 +20,15 @@ public class IngameInputController : MonoBehaviour
             return;
         }
         Instance = this;
+
+        SystemManager.Action_OnQuitInGame += DestroySelf;
         
         DontDestroyOnLoad(gameObject);
     }
 
     public void OnPause()
     {
-        Action_OnPause?.Invoke();
+        Action_OnPauseInput?.Invoke();
     }
     
     public void OnFire(InputValue inputValue)
@@ -42,6 +44,12 @@ public class IngameInputController : MonoBehaviour
     
     public void OnEscape()
     {
-        Action_OnEscape?.Invoke();
+        Action_OnEscapeInput?.Invoke();
+    }
+
+    private void DestroySelf()
+    {
+        Instance = null;
+        Destroy(gameObject);
     }
 }

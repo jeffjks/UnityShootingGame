@@ -9,7 +9,7 @@ public class EnemyPlaneLarge3Turret : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
         //m_CurrentPattern = Pattern1();
         //StartCoroutine(m_CurrentPattern);
     }
@@ -24,9 +24,9 @@ public class EnemyPlaneLarge3Turret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
     }
     
     private IEnumerator Pattern1() {

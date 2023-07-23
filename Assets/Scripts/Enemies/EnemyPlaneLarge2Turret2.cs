@@ -8,19 +8,11 @@ public class EnemyPlaneLarge2Turret2 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
-        StartCoroutine(Pattern1());
-    }
-
-    protected override void Update()
-    {
-        base.Update();
+        CurrentAngle = AngleToPlayer;
         
-        float target_angle = GetAngleToTarget(transform.root.position, PlayerManager.GetPlayerPosition()); // Special (Parent 기준)
-        if (PlayerManager.IsPlayerAlive)
-            RotateSlightly(target_angle, 50f);
-        else
-            RotateSlightly(target_angle, 100f);
+        var targetAngle = GetAngleToTarget(transform.root.position, PlayerManager.GetPlayerPosition()); // Special (Parent 기준)
+        SetRotatePattern(new RotatePattern_Target_Conditional(targetAngle, 50f, () => PlayerManager.IsPlayerAlive, targetAngle, 100f));
+        StartCoroutine(Pattern1());
     }
     
     private IEnumerator Pattern1() {

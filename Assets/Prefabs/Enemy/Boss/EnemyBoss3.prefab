@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 3300014}
   - component: {fileID: 2300014}
   m_Layer: 10
-  m_Name: Barrel2White
+  m_Name: Barrel2White2R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 3300016}
   - component: {fileID: 2300016}
   m_Layer: 10
-  m_Name: Barrel2White
+  m_Name: Barrel2White2L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,9 +675,8 @@ GameObject:
   - component: {fileID: 400018}
   - component: {fileID: 3300018}
   - component: {fileID: 2300018}
-  - component: {fileID: 3503695035009464765}
   m_Layer: 10
-  m_Name: Barrel2White
+  m_Name: Barrel2White1L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -749,18 +748,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3503695035009464765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5624c53d96141469dc6ee2fd1c2194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,9 +759,8 @@ GameObject:
   - component: {fileID: 400020}
   - component: {fileID: 3300020}
   - component: {fileID: 2300020}
-  - component: {fileID: 8773741354909031095}
   m_Layer: 10
-  m_Name: Barrel2White
+  m_Name: Barrel2White1R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -846,18 +832,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8773741354909031095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5624c53d96141469dc6ee2fd1c2194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,6 +1654,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition:
+  - {fileID: 7223775219289773829}
+  - {fileID: 9197943203969601947}
+  - {fileID: 1260405448530375821}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -1689,16 +1667,13 @@ MonoBehaviour:
   - {fileID: 4825628901128920826}
   - {fileID: 830100542010700538}
   m_Part: {fileID: 879531077460462987}
-  m_FirePosition:
-  - {fileID: 7223775219289773829}
-  - {fileID: 9197943203969601947}
-  - {fileID: 1260405448530375821}
   m_EnemyBoss3Barrel:
-  - {fileID: 8773741354909031095}
-  - {fileID: 3503695035009464765}
+  - {fileID: 0}
+  - {fileID: 0}
   m_PartOnDeath:
   - {fileID: 4553579827368825369}
   - {fileID: 1781527331031492148}
+  m_BarrelAnimator: {fileID: 3157016641706922461}
   m_NextPhaseExplosionCreater: {fileID: 7400798833613286123}
 --- !u!114 &1533351013444666824
 MonoBehaviour:
@@ -1728,7 +1703,6 @@ MonoBehaviour:
   m_DefaultHealth: 82000
   m_Collider2D:
   - {fileID: 5522644990783414182}
-  m_HealthPercent: 100
 --- !u!114 &8419797047090169567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,7 +1959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9197943203969601947}
   m_Layer: 10
-  m_Name: FirePosition1
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16436,6 +16410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7306561971951939663}
+  - component: {fileID: 3157016641706922461}
   m_Layer: 10
   m_Name: Attachements
   m_TagString: Untagged
@@ -16472,6 +16447,27 @@ Transform:
   m_Father: {fileID: 1045208313282847164}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3157016641706922461
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781527331031492148}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3b1e10138b4dfc40adb04b530c84ac2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2467252491195604226
 GameObject:
   m_ObjectHideFlags: 0
@@ -16485,7 +16481,6 @@ GameObject:
   - component: {fileID: 842011555084163259}
   - component: {fileID: 6486641039175564450}
   - component: {fileID: 1941264960385361648}
-  - component: {fileID: 24079949945653653}
   m_Layer: 10
   m_Name: Part
   m_TagString: Untagged
@@ -16523,6 +16518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -16557,7 +16553,6 @@ MonoBehaviour:
   m_Collider2D:
   - {fileID: 3794133456954439533}
   - {fileID: 7288680743365988699}
-  m_HealthPercent: 100
 --- !u!114 &1941264960385361648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16571,21 +16566,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsDead: 0
---- !u!114 &24079949945653653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2467252491195604226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40dbafe252ea21f4ebe14bb9d12e4875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EnemyDeath: {fileID: 1941264960385361648}
-  m_ExplType: 5
-  m_ExplAudioType: 7
 --- !u!1 &3387398102656478092
 GameObject:
   m_ObjectHideFlags: 0
@@ -16596,7 +16576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090455745477923947}
   m_Layer: 10
-  m_Name: FirePosition4
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17214,12 +17194,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3865005802238110697}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3865005802238110697}
 --- !u!114 &8798361341891316393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17258,7 +17239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7223775219289773829}
   m_Layer: 10
-  m_Name: FirePosition0
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17289,7 +17270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1260405448530375821}
   m_Layer: 10
-  m_Name: FirePosition2
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17503,12 +17484,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 1090455745477923947}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 1090455745477923947}
 --- !u!114 &8876583122414583330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17650,7 +17632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3865005802238110697}
   m_Layer: 10
-  m_Name: FirePosition3
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

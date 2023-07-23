@@ -67,28 +67,28 @@ public struct BulletSpawnTiming
 
 public interface IBulletPattern
 {
-    public IEnumerator ExecutePattern(int patternIndex = 0);
+    public IEnumerator ExecutePattern(UnityAction onCompleted = null);
 }
 
 public class BulletFactory
 {
     protected readonly EnemyObject _enemyObject;
-    protected readonly UnityAction<int> _action;
+    
+    protected Vector3 CurrentPos => _enemyObject.transform.position;
     
     private const float SAFE_LINE = -11f;
 
-    protected BulletFactory(EnemyObject enemyObject, UnityAction<int> action = null)
+    protected BulletFactory(EnemyObject enemyObject)
     {
         _enemyObject = enemyObject;
-        _action = action;
     }
 
-    protected Vector3 GetFirePosition(int index)
+    protected Vector3 GetFirePos(int index)
     {
         return _enemyObject.m_FirePosition[index].position;
     }
 
-    protected Vector3 GetFirePosition(int index, float gap)
+    protected Vector3 GetFirePos(int index, float gap)
     {
         return _enemyObject.m_FirePosition[index].TransformPoint(new Vector3(gap, 0f, 0f));
     }
@@ -196,6 +196,7 @@ public class BulletFactory
 
     private bool CanCreateBullet(Vector3 pos) {
         float camera_x = MainCamera.Camera.transform.position.x;
+        var limitLine = (_enemyObject is EnemyBullet) ? -Size.GAME_HEIGHT : SAFE_LINE;
 
         if (!_enemyObject.IsInteractable())
             return false;
@@ -205,7 +206,9 @@ public class BulletFactory
             return false;
         if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH)
             return false;
-        if (pos.y is > 0 or < SAFE_LINE)
+        if (pos.y > 0)
+            return false;
+        if (pos.y < limitLine)
             return false;
         
         return true;

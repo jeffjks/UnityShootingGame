@@ -11,7 +11,7 @@ public class EnemyTankSmall2Turret : EnemyUnit
     void Start()
     {
         StartCoroutine(Pattern1(Random.Range(0, 500)));
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()

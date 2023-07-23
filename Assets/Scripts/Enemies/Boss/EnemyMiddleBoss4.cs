@@ -36,7 +36,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.33f) { // 체력 33% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.33f) { // 체력 33% 이하
                 ToNextPhase();
             }
         }
@@ -66,7 +66,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         float init_position_y = transform.position.y;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos_y = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_pos_y = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
             float position_y = Mathf.Lerp(init_position_y, TARGET_POSITION.y, t_pos_y);
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
@@ -101,7 +101,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         float init_position_y = transform.position.y;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos_y = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_pos_y = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
             float position_y = Mathf.Lerp(init_position_y, 12f, t_pos_y);
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);

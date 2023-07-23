@@ -277,11 +277,11 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 30000
   m_IsRoot: 1
-  m_Turret0: {fileID: 3385715111078662454}
-  m_Turret1:
+  m_Turret1: {fileID: 3385715111078662454}
+  m_Turret2:
   - {fileID: 6799106137971308598}
   - {fileID: 1998271232390334958}
-  m_Turret2:
+  m_Turret3:
   - {fileID: 803866027355164162}
   - {fileID: 6938611304771158681}
   m_Part: {fileID: 6008979672011824061}
@@ -347,7 +347,6 @@ MonoBehaviour:
   m_DefaultHealth: 25000
   m_Collider2D:
   - {fileID: 8506718949116158364}
-  m_HealthPercent: 100
 --- !u!114 &7427637404073788237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,7 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3004855640862697177}
   m_Layer: 10
-  m_Name: FirePosition0
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,7 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 747809586268101702}
   m_Layer: 10
-  m_Name: FirePosition7
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -589,7 +588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6155251564605104993}
   m_Layer: 10
-  m_Name: FirePosition6
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1039,7 +1038,7 @@ GameObject:
   - component: {fileID: 6938611304771158681}
   - component: {fileID: 401202328062057025}
   m_Layer: 10
-  m_Name: Turret2R
+  m_Name: Turret3R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1081,7 +1080,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 5422302557399437400}
 --- !u!114 &401202328062057025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1485,7 +1483,7 @@ GameObject:
   - component: {fileID: 803866027355164162}
   - component: {fileID: 5941105993797695290}
   m_Layer: 10
-  m_Name: Turret2L
+  m_Name: Turret3L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1527,7 +1525,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 450619147110160440}
 --- !u!114 &5941105993797695290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,7 +1665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1647796258182680312}
   m_Layer: 10
-  m_Name: FirePosition8
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2863,7 +2860,7 @@ GameObject:
   - component: {fileID: 1998271232390334958}
   - component: {fileID: 3372187585273066131}
   m_Layer: 10
-  m_Name: Turret1R
+  m_Name: Turret2R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2905,8 +2902,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 2775689256702845394}
-  m_Phase: 0
 --- !u!114 &3372187585273066131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,7 +2958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450619147110160440}
   m_Layer: 10
-  m_Name: FirePosition3
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2996,7 +2991,7 @@ GameObject:
   - component: {fileID: 6799106137971308598}
   - component: {fileID: 6567572222341365436}
   m_Layer: 10
-  m_Name: Turret1L
+  m_Name: Turret2L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3038,8 +3033,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3258065114507138636}
-  m_Phase: 0
 --- !u!114 &6567572222341365436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3230,6 +3223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 618556789853471107}
   - component: {fileID: 8942602529837830220}
+  - component: {fileID: 964750592750917224}
   - component: {fileID: 6008979672011824061}
   - component: {fileID: 6595924187833569471}
   - component: {fileID: 3926020963003103878}
@@ -3282,6 +3276,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &964750592750917224
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517212350611022900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aac21d7f276e6054891411d5d3348f52, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6008979672011824061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3301,9 +3316,7 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_PartObj:
-  - {fileID: 3806728726757168906}
-  - {fileID: 2771398303429543800}
+  _partAnimation: {fileID: 964750592750917224}
 --- !u!114 &6595924187833569471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3333,7 +3346,6 @@ MonoBehaviour:
   m_Collider2D:
   - {fileID: 146527624299374687}
   - {fileID: 6299213922551753239}
-  m_HealthPercent: 100
 --- !u!114 &618218625103322066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,7 +3384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3258065114507138636}
   m_Layer: 10
-  m_Name: FirePosition1
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3435,7 +3447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6198974166331824447}
   m_Layer: 10
-  m_Name: FirePosition5
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3637,7 +3649,7 @@ GameObject:
   - component: {fileID: 3831122247406469405}
   - component: {fileID: 1091254013656855434}
   m_Layer: 10
-  m_Name: Turret0
+  m_Name: Turret1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3679,7 +3691,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3004855640862697177}
 --- !u!114 &3831122247406469405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3718,7 +3729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2775689256702845394}
   m_Layer: 10
-  m_Name: FirePosition2
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

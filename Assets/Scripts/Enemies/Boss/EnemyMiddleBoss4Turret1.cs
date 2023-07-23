@@ -10,7 +10,7 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()
@@ -18,9 +18,9 @@ public class EnemyMiddleBoss4Turret1 : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
     }
 
     public void StartPattern(byte num) {

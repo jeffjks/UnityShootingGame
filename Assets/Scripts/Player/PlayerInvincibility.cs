@@ -35,10 +35,14 @@ public class PlayerInvincibility : MonoBehaviour
         Instance = this;
         
         Instance.Action_OnInvincibilityChanged += Instance.SetPlayerShield;
+    }
 
+    private void Start()
+    {
         if (DebugOption.InvincibleMod)
         {
-            SetInvincibility();
+            IsInvincible = true;
+            _remainingFrame = -1;
         }
     }
 

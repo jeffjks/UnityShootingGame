@@ -13,7 +13,7 @@ public class EnemyMiddleBoss2Turret0 : EnemyUnit
     {
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()

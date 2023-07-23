@@ -32,7 +32,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
         int frame = (APPEARANCE_TIME / 2) * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_spd = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_speed, m_VSpeed, t_spd);
             yield return new WaitForMillisecondFrames(0);
@@ -50,7 +50,7 @@ public class EnemyPlaneMedium2 : EnemyUnit
         int frame = 1000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_spd = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
             yield return new WaitForMillisecondFrames(0);

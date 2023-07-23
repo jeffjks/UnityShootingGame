@@ -8,14 +8,14 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
     private int[] m_FireDelay = { 2000, 1500, 1250 };
     
     private IEnumerator m_CurrentPattern;
-    private int m_KillScore = 0;
+    private int _killScore;
 
     void Start()
     {
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
-        RotateImmediately(PlayerManager.GetPlayerPosition());
-        m_KillScore = m_Score;
+        RotateUnit(AngleToPlayer);
+        _killScore = m_Score;
         m_Score = 0;
         
         m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
@@ -26,9 +26,9 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
     }
 
     private IEnumerator Pattern1()
@@ -70,7 +70,7 @@ public class EnemyMiddleBoss2Turret1 : EnemyUnit
 
     private void DestroyBonus() {
         if (m_EnemyHealth.CurrentHealth == 0) {
-            m_Score = m_KillScore;
+            m_Score = _killScore;
         }
     }
 }

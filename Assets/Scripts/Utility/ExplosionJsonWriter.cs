@@ -73,9 +73,11 @@ public class ExplosionJsonWriter : MonoBehaviour
     private void WriteJsonList4(string enemyKey) {
         list.Clear();
 
-        DeathExplosion(2000, new Effect(ExplType.Normal_2, ExplAudioType.AirMedium_2, new Vector3(0f, 0.15f), 0.7f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
+        CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.Large, new Vector2(-1f, 0.4f));
+        CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.None, new Vector2(1f, 0.4f));
+        DeathExplosion(2000, new Effect(ExplType.Normal_2, ExplAudioType.AirMedium_2, new Vector3(0f, 0.15f), 2.1f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
         new PairInt(350, 500));
-        DeathExplosion(2000, new Effect(ExplType.Normal_1, ExplAudioType.AirMedium_1, new Vector3(0f, 0.15f), 0.8f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
+        DeathExplosion(2000, new Effect(ExplType.Normal_1, ExplAudioType.AirMedium_1, new Vector3(0f, 0.15f), 1.6f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
         new PairInt(200, 400), 2);
         
         dictionary[enemyKey] = new List<ExplosionData>(list);
@@ -91,11 +93,11 @@ public class ExplosionJsonWriter : MonoBehaviour
         CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.None, new Vector2(-0.4f, 0.2f), new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f));
 
         WaitFor(600);
-        DeathExplosion(2800, new Effect(ExplType.Normal_1, ExplAudioType.GroundSmall, new Vector2(0f, 0.15f), 0.7f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
+        DeathExplosion(2800, new Effect(ExplType.Normal_1, ExplAudioType.GroundSmall, new Vector2(0f, 0.15f), 1.5f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
         new PairInt(500, 700), 2);
-        DeathExplosion(2800, new Effect(ExplType.Normal_2, ExplAudioType.AirMedium_1, new Vector2(0f, 0.15f), 0.7f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
+        DeathExplosion(2800, new Effect(ExplType.Normal_2, ExplAudioType.AirMedium_1, new Vector2(0f, 0.15f), 1.5f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
         new PairInt(350, 500), 2);
-        DeathExplosion(2800, new Effect(ExplType.Normal_3, ExplAudioType.None, new Vector2(0f, 0.15f), 0.7f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
+        DeathExplosion(2800, new Effect(ExplType.Normal_3, ExplAudioType.None, new Vector2(0f, 0.15f), 1.5f, new PairFloat(0.75f, 1.25f), new PairFloat(0f, 360f)),
         new PairInt(200, 400), 2);
 
         WaitFor(1000);
@@ -713,9 +715,9 @@ public class ExplosionJsonWriter : MonoBehaviour
 
 
     private void DeathExplosion(int duration, Effect effect, int timer_add, int number = 1) {
-        list.Add(new ExplosionData(effect, new Coroutine(duration, timer_add, number), 0));
+        list.Add(new ExplosionData(effect, new ExplosionCoroutine(duration, timer_add, number), 0));
     }
     private void DeathExplosion(int duration, Effect effect, PairInt timer_add, int number = 1) {
-        list.Add(new ExplosionData(effect, new Coroutine(duration, timer_add, number), 0));
+        list.Add(new ExplosionData(effect, new ExplosionCoroutine(duration, timer_add, number), 0));
     }
 }

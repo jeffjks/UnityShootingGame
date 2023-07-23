@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Score: 7000
   m_IsRoot: 1
   m_Turret:
-  - {fileID: 1456182595892666218}
   - {fileID: 5089846689053469985}
+  - {fileID: 1456182595892666218}
   m_Rotator: {fileID: 1199223310285886370}
   m_NextPhaseExplosionCreater: {fileID: 4121262065568302305}
 --- !u!114 &390901051984682322
@@ -571,7 +571,7 @@ Transform:
   m_Children:
   - {fileID: 6105468507659351429}
   m_Father: {fileID: 5786706671073935468}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5089846689053469985
 MonoBehaviour:
@@ -733,8 +733,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1304863347695508149}
   - {fileID: 1666294648639295898}
+  - {fileID: 1304863347695508149}
   - {fileID: 4500595340916744}
   m_Father: {fileID: 1199223310285886370}
   m_RootOrder: 0
@@ -856,7 +856,7 @@ Transform:
   m_Children:
   - {fileID: 661043038904223000}
   m_Father: {fileID: 5786706671073935468}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1456182595892666218
 MonoBehaviour:

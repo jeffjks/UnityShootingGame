@@ -33,10 +33,13 @@ public class MainCameraBoundary : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        var otherObject = other.gameObject;
+        
         if (other.CompareTag("PlayerWeapon")) {
-            if (other.gameObject.activeSelf) {
-                PlayerWeapon playerWeapon = other.gameObject.GetComponent<PlayerWeapon>();
-                PoolingManager.PushToPool(playerWeapon.m_ObjectName, other.gameObject, PoolingParent.PlayerMissile);
+            if (otherObject.activeSelf)
+            {
+                var playerWeapon = otherObject.GetComponent<PlayerWeapon>();
+                PoolingManager.PushToPool(playerWeapon.m_ObjectName, otherObject, PoolingParent.PlayerMissile);
             }
         }
     }

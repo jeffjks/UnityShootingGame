@@ -25,6 +25,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public MoveVector m_NewMoveVector;
     public BulletAccel m_NewBulletAccel;*/
     private int _imageDepth;
+    private bool _isRotating;
     
     private bool _isPlayingEraseAnimation;
     private GameObject _bulletImageObject;
@@ -103,9 +104,11 @@ public class EnemyBullet : EnemyObject, IObjectPooling
                 pivotDirection = OwnerEnemyObject.CurrentAngle;
                 break;
         }
-        
-        m_MoveVector = new MoveVector(bulletProperty.speed, pivotDirection + bulletProperty.direction);
+
+        var bulletDirection = pivotDirection + bulletProperty.direction;
+        m_MoveVector = new MoveVector(bulletProperty.speed, bulletDirection);
         BulletImage = bulletProperty.image;
+        CurrentAngle = bulletDirection;
 
         if (BulletManager.InBulletFreeState)
         {
@@ -147,33 +150,45 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();
     }
+
+    private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
+        const float gap = 0.5f;
+        
+        if (transform.position.x is > Size.GAME_WIDTH*0.5f + gap or < - Size.GAME_WIDTH*0.5f - gap)
+        {
+            ReturnToPool();
+        }
+        else if (transform.position.y is > 0f or < - Size.GAME_HEIGHT - gap)
+        {
+            ReturnToPool();
+        }
+    }
     
     void LateUpdate()
     {
-        if (IsRotatable) {
+        if (_isRotating) {
             _bulletImageObject.transform.Rotate(Vector3.back, 200f / Application.targetFrameRate * Time.timeScale, Space.Self);
         }
     }
 
     private void OnBulletImageChanged()
     {
-        if (_currentBullet == m_BulletData.bullets[(int)_bulletImage])
-            return;
-        
         _currentBullet = m_BulletData.bullets[(int)_bulletImage];
         _spriteRenderer.sprite = _currentBullet.sprite;
         _animator.runtimeAnimatorController = _currentBullet.animatorController;
-        IsRotatable = false;
+        _bulletImageObject.SetActive(true);
+        _isRotating = false;
+        _bulletImageObject.transform.localRotation = Quaternion.identity;
 
         if (_bulletImage is BulletImage.PinkNeedle or BulletImage.BlueNeedle) { // Needle Form
-            transform.eulerAngles = new Vector3(0f, 0f, m_MoveVector.direction);
+            transform.rotation = Quaternion.Euler(0f, 0f, m_MoveVector.direction);
         }
         else if (_bulletImage is BulletImage.BlueSmall or BulletImage.BlueLarge) { // Blue Circle Form
-            _bulletImageObject.transform.rotation = Quaternion.identity;
-            IsRotatable = true;
+            transform.rotation = Quaternion.identity;
+            _isRotating = true;
         }
         else {
-            _bulletImageObject.transform.rotation = Quaternion.identity;
+            transform.rotation = Quaternion.identity;
         }
 
         if (_currentBullet.colliderSize.Length == 1)
@@ -211,7 +226,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         var easeType = (initSpeed < targetSpeed) ? EaseType.InQuad : EaseType.OutQuad;
 
         for (var i = 0; i < frame; ++i) {
-            var t_spd = AC_Ease.ac_ease[easeType].Evaluate((float) (i+1) / frame);
+            var t_spd = AC_Ease.ac_ease[(int)easeType].Evaluate((float) (i+1) / frame);
             
             m_MoveVector.speed = Mathf.Lerp(initSpeed, targetSpeed, t_spd);
             yield return new WaitForMillisecondFrames(0);
@@ -224,22 +239,34 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             yield return new WaitForMillisecondFrames(spawnTiming.delay);
 
         _subBulletPattern.m_BulletProperty = property;
-        _subBulletPattern.m_BulletProperty.startPos = transform.position;
 
         switch (spawnTiming.spawnType)
         {
             case BulletSpawnType.EraseAndCreate:
-                StartCoroutine(_subBulletPattern.ExecutePattern());
+                CreateSubBullet();
                 PlayEraseAnimation();
-                yield break;
+                break;
             
             case BulletSpawnType.Create:
                 while (true)
                 {
-                    StartCoroutine(_subBulletPattern.ExecutePattern());
-                    yield return new WaitForMillisecondFrames(Random.Range(spawnTiming.period.x, spawnTiming.period.y));
+                    CreateSubBullet();
+                    if (spawnTiming.period == Vector2Int.zero)
+                    {
+                        Debug.LogError("Bullet spawn type is Create but spawn period is zero.");
+                        break;
+                    }
+                    var period = Random.Range(spawnTiming.period.x, spawnTiming.period.y);
+                    yield return new WaitForMillisecondFrames(period);
                 }
+                break;
         }
+    }
+
+    private void CreateSubBullet()
+    {
+        _subBulletPattern.m_BulletProperty.startPos = transform.position;
+        StartCoroutine(_subBulletPattern.ExecutePattern());
     }
 
     /*
@@ -293,17 +320,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         StartCoroutine(ReturnToPoolDelayed(1000));
     }
 
-    private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
-        float gap = 0.5f;
-        Vector3 pos = transform.position;
-        if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + gap) {
-            ReturnToPool();
-        }
-        else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + gap) {
-            ReturnToPool();
-        }
-    }
-
     private IEnumerator ReturnToPoolDelayed(int millisecond) {
         if (millisecond != 0) {
             yield return new WaitForMillisecondFrames(millisecond);
@@ -314,6 +330,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public void ReturnToPool() {
         StopAllCoroutines();
         _isPlayingEraseAnimation = false;
+        _currentCollider.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
     }

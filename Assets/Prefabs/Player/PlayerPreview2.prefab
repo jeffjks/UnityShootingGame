@@ -96,15 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerUnit: {fileID: 989022632222629200}
-  m_PlayerLaser: {fileID: 1706938960081096862}
   m_LaserRenderers:
   - {fileID: 6439080611552354078}
   - {fileID: 6968940515004250534}
   - {fileID: 1233957929657116967}
-  m_PlayerDamageData:
-  - {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
-  - {fileID: 11400000, guid: 322bde3078da3284383fee041c5fece9, type: 2}
-  - {fileID: 11400000, guid: 03826495dee18ce4d9038b60c18cc547, type: 2}
   m_PlayerLaserFireLight: {fileID: 8618462025797561936}
 --- !u!114 &1706938960081096862
 MonoBehaviour:
@@ -122,6 +117,10 @@ MonoBehaviour:
   m_ObjectName: LaserBeam
   _playerDamageData: {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
   m_PlayerUnit: {fileID: 989022632222629200}
+  m_PlayerLaserDamageData:
+  - {fileID: 11400000, guid: f665915bdc1452b48a1cd2b6b3d6d6f4, type: 2}
+  - {fileID: 11400000, guid: 322bde3078da3284383fee041c5fece9, type: 2}
+  - {fileID: 11400000, guid: 03826495dee18ce4d9038b60c18cc547, type: 2}
 --- !u!1 &4476741379894299300
 GameObject:
   m_ObjectHideFlags: 0

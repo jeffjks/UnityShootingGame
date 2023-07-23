@@ -21,7 +21,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
         
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
 
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
@@ -63,12 +63,12 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         yield return MovementPattern(new Vector3(0f, 10f, Depth.ENEMY), EaseType.InQuad, 3000);
     }
 
-    private IEnumerator MovementPattern(Vector3 target_position, int position_ease, int duration) {
+    private IEnumerator MovementPattern(Vector3 target_position, EaseType positionEase, int duration) {
         Vector3 init_position = transform.position;
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)positionEase].Evaluate((float) (i+1) / frame);
 
             transform.position = Vector3.Lerp(init_position, target_position, t_pos);
             yield return new WaitForMillisecondFrames(0);
@@ -80,7 +80,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         base.Update();
         
         if (m_Phase == 0) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -191,17 +191,17 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
     }
 
 
-    private IEnumerator DeathPattern(Quaternion target_rotation, Vector3 target_scale, int rotation_ease, int scale_ease, int duration) {
+    private IEnumerator DeathPattern(Quaternion target_rotation, Vector3 target_scale, EaseType rotationEase, EaseType scaleEase, int duration) {
         Quaternion init_rotation = transform.rotation;
         Vector3 init_scale = m_Renderer.transform.localScale;
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_scale = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
-            float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_rot = AC_Ease.ac_ease[(int)rotationEase].Evaluate((float) (i+1) / frame);
+            float t_scale = AC_Ease.ac_ease[(int)scaleEase].Evaluate((float) (i+1) / frame);
 
-            m_Renderer.transform.localScale = Vector3.Lerp(init_scale, target_scale, t_scale);
             transform.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
+            m_Renderer.transform.localScale = Vector3.Lerp(init_scale, target_scale, t_scale);
             yield return new WaitForMillisecondFrames(0);
         }
         yield break;

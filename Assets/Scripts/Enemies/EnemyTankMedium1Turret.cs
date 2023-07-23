@@ -7,7 +7,7 @@ public class EnemyTankMedium1Turret : EnemyUnit
     void Start()
     {
         StartCoroutine(Pattern1());
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()

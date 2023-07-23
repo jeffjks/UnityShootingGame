@@ -8,7 +8,7 @@ public class EnemyShipLargeTurret0 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
         StartCoroutine(Pattern1());
     }
 

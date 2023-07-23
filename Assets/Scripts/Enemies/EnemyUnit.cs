@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // ============================================================================================ //
 
 [RequireComponent(typeof(EnemyDeath))]
-public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 (적 총알 제외)
+public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 제외)
 {
     [HideInInspector] public EnemyHealth m_EnemyHealth; // Can be null
     [HideInInspector] public EnemyDeath m_EnemyDeath;
@@ -17,7 +18,8 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         set
         {
             _currentAngle = value;
-            OnCurrentAngleChanged(_currentAngle);
+            _currentAngle = Mathf.Repeat(_currentAngle, 360f);
+            OnCurrentAngleChanged();
         }
     }
 
@@ -25,13 +27,15 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     public int m_Score;
     public bool m_IsRoot;
     public Queue<TweenData> m_TweenDataQueue = new ();
+    public bool IsExecutingPattern => m_CurrentPatterns.Count > 0;
     
     protected bool m_TimeLimitState = false;
-    protected readonly Dictionary<string, IBulletPattern> _bulletPatterns = new();
+    protected UnityAction _onPatternStopped;
 
     private readonly Vector3 _airEnemyAxis = new (0f, -0.4f, 1f);
     private Quaternion _defaultRotation;
-    
+    private readonly Dictionary<string, Coroutine> m_CurrentPatterns = new();
+
     public event Action Action_StartInteractable;
 
     protected virtual void Awake()
@@ -65,6 +69,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         
         m_EnemyDeath.Action_OnDying += HandleOnDying;
         m_EnemyDeath.Action_OnDying += DisableInteractable;
+        m_EnemyDeath.Action_OnDying += StopAllPatterns;
         if (m_EnemyType != EnemyType.Zako || m_IsAir) { // 지상 자코가 아닐 경우
             if (TryGetComponent(out EnemyColorBlender enemyColorBlender)) {
                 Action_StartInteractable += enemyColorBlender.StartInteractableEffect;
@@ -78,6 +83,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     protected virtual void Update()
     {
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
+        _rotatePattern?.ExecuteRotatePattern(this);
     }
 
     private void LateUpdate()
@@ -96,6 +102,42 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
             m_EnemyHealth.SetColliderPositionOnScreen(m_Position2D, screenRotation);
     }
 
+    public Coroutine StartPattern(string key, IBulletPattern bulletPattern)
+    {
+        if (!_isInteractable)
+            return null;
+        
+        m_CurrentPatterns.Add(key, null);
+        var enumerator = bulletPattern.ExecutePattern(() => StopPattern(key));
+        var coroutine = StartCoroutine(enumerator);
+        
+        if (m_CurrentPatterns.ContainsKey(key))
+            m_CurrentPatterns[key] = coroutine;
+        
+        return coroutine;
+    }
+
+    public void StopPattern(string key)
+    {
+        if (m_CurrentPatterns.TryGetValue(key, out var value))
+        {
+            if (value != null)
+                StopCoroutine(value);
+            m_CurrentPatterns.Remove(key);
+        }
+        
+        _onPatternStopped?.Invoke();
+    }
+
+    public void StopAllPatterns() {
+        foreach (var pattern in m_CurrentPatterns)
+        {
+            if (pattern.Value != null)
+                StopCoroutine(pattern.Value);
+        }
+        
+        _onPatternStopped?.Invoke();
+    }
     
     
 
@@ -211,7 +253,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         }
         else {
             for (int i = 0; i < frame; ++i) {
-                float t_lerp = AC_Ease.ac_ease[tdmp.easeType].Evaluate((float) (i+1)/frame);
+                float t_lerp = AC_Ease.ac_ease[(int)tdmp.easeType].Evaluate((float) (i+1)/frame);
 
                 m_MoveVector.speed = Mathf.Lerp(init_speed, movePattern.speed, t_lerp);
                 m_MoveVector.direction = Mathf.LerpAngle(init_direction, movePattern.direction, t_lerp);
@@ -225,7 +267,7 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
         Vector3 target_position = new Vector3(moveTarget.targetVector2.x, moveTarget.targetVector2.y, Depth.ENEMY);
 
         for (int i = 0; i < frame; ++i) {
-            float t_lerp = AC_Ease.ac_ease[tdmp.easeType].Evaluate((float) (i+1)/frame);
+            float t_lerp = AC_Ease.ac_ease[(int)tdmp.easeType].Evaluate((float) (i+1)/frame);
             
             transform.position = Vector3.Lerp(init_position, target_position, t_lerp);
             yield return new WaitForMillisecondFrames(0);
@@ -241,55 +283,8 @@ public abstract class EnemyUnit : EnemyObject, IRotatable // 적 개체, 포탑 
     }
 
 
-    // IRotatable Methods ----------------------------------
-
-    public void RotateSlightly(Vector2 target, float speed, float rot = 0f)
+    private void OnCurrentAngleChanged()
     {
-        if (!IsRotatable)
-            return;
-        if (m_EnemyDeath.m_IsDead)
-            return;
-        float target_angle = GetAngleToTarget(m_Position2D, target);
-        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-    }
-
-    public void RotateSlightly(float target_angle, float speed, float rot = 0f) {
-        
-        if (!IsRotatable)
-            return;
-        if (m_EnemyDeath.m_IsDead)
-            return;
-        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-    }
-
-    public void RotateImmediately(Vector2 target, float rot = 0f) {
-        
-        if (!IsRotatable)
-            return;
-        if (m_EnemyDeath.m_IsDead)
-            return;
-        float target_angle = GetAngleToTarget(m_Position2D, target);
-        CurrentAngle = target_angle + rot;
-    }
-
-    public void RotateImmediately(float target_angle, float rot = 0f) {
-        
-        if (!IsRotatable)
-            return;
-        if (m_EnemyDeath.m_IsDead)
-            return;
-        CurrentAngle = target_angle + rot;
-    }
-
-    private void OnCurrentAngleChanged(float value)
-    {
-        if (CurrentAngle > 360f) {
-            CurrentAngle -= 360f;
-        }
-        else if (CurrentAngle < 0f) {
-            CurrentAngle += 360f;
-        }
-        
         Quaternion target_rotation;
 
         if (m_IsAir) {

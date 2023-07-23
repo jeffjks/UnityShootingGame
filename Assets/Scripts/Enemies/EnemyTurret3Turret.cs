@@ -13,7 +13,7 @@ public class EnemyTurret3Turret : EnemyUnit
     void Start()
     {
         m_InitaialTurretPosition = m_TurretAnimation.localPosition.z;
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()
@@ -21,9 +21,9 @@ public class EnemyTurret3Turret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
         
         if (!m_Active) {
             if (m_Position2D.y < 0f) {

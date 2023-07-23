@@ -61,6 +61,7 @@ public class PlayerUnit : PlayerObject
                 SlowMode = false;
                 IsAttacking = false;
             };
+            SystemManager.Action_OnStageClear += () => IsControllable = false;
         }
     }
     

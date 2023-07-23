@@ -47,8 +47,10 @@ public class PlayerShield : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
-        if (other.gameObject.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상 파괴
-            EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
+        var otherObject = other.gameObject;
+        
+        if (other.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상 파괴
+            EnemyBullet enemyBullet = otherObject.GetComponentInParent<EnemyBullet>();
             try {
                 enemyBullet.PlayEraseAnimation();
             }

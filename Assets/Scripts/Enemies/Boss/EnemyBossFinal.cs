@@ -41,8 +41,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
-            float t_scale = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+            float t_scale = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
             transform.position = Vector3.Lerp(init_position, TARGET_POSITION, t_pos);
             transform.localScale = Vector3.Lerp(init_scale, new Vector3(1f, 1f, 1f), t_pos);
@@ -74,7 +74,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.50f) { // 체력 50% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.50f) { // 체력 50% 이하
                 ToNextPhase();
             }
         }
@@ -354,7 +354,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         init_direction = m_DirectionDelta[1];
         frame = 2700 * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
-            float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_dir = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             
             m_DirectionDelta[1] = Mathf.Lerp(init_direction, -43f, t_dir);
             yield return new WaitForMillisecondFrames(0);
@@ -365,7 +365,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         init_direction = m_DirectionDelta[1];
         frame = 2700 * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
-            float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_dir = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             
             m_DirectionDelta[1] = Mathf.Lerp(init_direction, 43f, t_dir);
             yield return new WaitForMillisecondFrames(0);
@@ -507,7 +507,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             init_direction = m_DirectionDelta[0];
             frame = 1200 * Application.targetFrameRate / 1000;
             for (int i = 0; i < frame; ++i) {
-                float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+                float t_dir = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
                 
                 m_DirectionDelta[0] = Mathf.Lerp(init_direction, -max_rotate_speed, t_dir);
                 yield return new WaitForMillisecondFrames(0);
@@ -517,7 +517,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             init_direction = m_DirectionDelta[0];
             frame = 1200 * Application.targetFrameRate / 1000;
             for (int i = 0; i < frame; ++i) {
-                float t_dir = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+                float t_dir = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
                 
                 m_DirectionDelta[0] = Mathf.Lerp(init_direction, max_rotate_speed, t_dir);
                 yield return new WaitForMillisecondFrames(0);
@@ -535,7 +535,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             init_direction = m_DirectionDelta[1];
             frame = 700 * Application.targetFrameRate / 1000;
             for (int i = 0; i < frame; ++i) {
-                float t_dir = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+                float t_dir = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
                 
                 m_DirectionDelta[1] = Mathf.Lerp(init_direction, -max_rotate_speed, t_dir);
                 yield return new WaitForMillisecondFrames(0);
@@ -545,7 +545,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             init_direction = m_DirectionDelta[1];
             frame = 700 * Application.targetFrameRate / 1000;
             for (int i = 0; i < frame; ++i) {
-                float t_dir = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+                float t_dir = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
                 
                 m_DirectionDelta[1] = Mathf.Lerp(init_direction, max_rotate_speed, t_dir);
                 yield return new WaitForMillisecondFrames(0);
@@ -563,7 +563,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             init_speed = m_BulletSpeed;
             frame = 2000 * Application.targetFrameRate / 1000;
             for (int i = 0; i < frame; ++i) {
-                float t_spd = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+                float t_spd = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
                 
                 m_BulletSpeed = Mathf.Lerp(init_speed, min_speed, t_spd);
                 yield return new WaitForMillisecondFrames(0);
@@ -573,7 +573,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
             init_speed = m_BulletSpeed;
             frame = 2000 * Application.targetFrameRate / 1000;
             for (int i = 0; i < frame; ++i) {
-                float t_spd = AC_Ease.ac_ease[EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+                float t_spd = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
                 
                 m_BulletSpeed = Mathf.Lerp(init_speed, max_speed, t_spd);
                 yield return new WaitForMillisecondFrames(0);

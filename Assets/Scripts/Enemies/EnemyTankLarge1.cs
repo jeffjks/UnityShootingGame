@@ -23,7 +23,7 @@ public class EnemyTankLarge1 : EnemyUnit
     }
 
     private void DestroyChildEnemy() {
-        if (m_EnemyHealth.m_HealthPercent <= 0.33f) { // 체력 33% 이하
+        if (m_EnemyHealth.HealthPercent <= 0.33f) { // 체력 33% 이하
             m_Turret1[0]?.m_EnemyDeath.OnDying();
             m_Turret1[2]?.m_EnemyDeath.OnDying();
             m_Turret2?.m_EnemyDeath.OnDying();

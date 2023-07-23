@@ -42,8 +42,8 @@ public class EnemyPlaneLarge1 : EnemyUnit
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
-            float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_rot = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
             transform.position = Vector3.Lerp(init_position, TARGET_POSITION, t_pos);
             m_Rotator.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
@@ -78,8 +78,8 @@ public class EnemyPlaneLarge1 : EnemyUnit
         int frame = 2000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_spd = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
-            float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_spd = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_rot = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_speed, target_speed, t_spd);
             m_Rotator.rotation = Quaternion.Lerp(init_rotation, target_rotation, t_rot);
@@ -93,7 +93,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }

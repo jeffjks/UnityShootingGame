@@ -14,6 +14,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
     private MenuHandler _menuHandler;
     private string _englishText;
     private float _alpha;
+    private CanvasGroup _canvasGroup;
 
     private float Alpha
     {
@@ -32,6 +33,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
     void Awake()
     {
         _buttonUI = GetComponent<Button>();
+        _canvasGroup = GetComponent<CanvasGroup>();
         _textUI = GetComponentInChildren<TextMeshProUGUI>();
         _menuHandler = GetComponentInParent<MenuHandler>();
         _englishText = _textUI.text;

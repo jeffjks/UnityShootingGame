@@ -82,7 +82,7 @@ public class InGameScreenTransitionEffect : MonoBehaviour
         float init_scale_x = transform.localScale.x;
         int frame = duration * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
-            float t_scale = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_scale = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
             float localScale_x = Mathf.Lerp(init_scale_x, 0f, t_scale);
             Vector3 tempScale = transform.localScale;

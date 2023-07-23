@@ -30,8 +30,8 @@ public class PauseManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         _inGameInputController = EventSystem.current.gameObject.GetComponent<IngameInputController>();
-        _inGameInputController.Action_OnPause += Pause;
-        _inGameInputController.Action_OnEscape += Pause;
+        _inGameInputController.Action_OnPauseInput += Pause;
+        _inGameInputController.Action_OnEscapeInput += Pause;
     }
 
     private void Pause() {
@@ -52,6 +52,7 @@ public class PauseManager : MonoBehaviour
         IsGamePaused = true;
         Time.timeScale = 0f;
         AudioService.PauseAudio();
+        PlayerUnit.IsControllable = false;
         
         //m_EventSystemUI.SetActive(true);
         m_PauseMenuHandler.gameObject.SetActive(true);
@@ -72,6 +73,7 @@ public class PauseManager : MonoBehaviour
         _pauseEnabled = false;
         AudioService.UnpauseAudio();
         Time.timeScale = 1;
+        PlayerUnit.IsControllable = true;
         
         CriticalStateSystem.SetCriticalState(10);
         

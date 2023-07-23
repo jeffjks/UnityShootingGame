@@ -14,7 +14,7 @@ public class PauseMenuController : MonoBehaviour
     
     private void Awake()
     {
-        //m_PauseManager.Action_OnPause += ShowPauseMenu;
+        //m_PauseManager.Action_OnPauseInput += ShowPauseMenu;
         //m_PauseManager.Action_OnResume += HidePauseMenu;
     }
 

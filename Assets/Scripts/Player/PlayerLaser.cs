@@ -1,10 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLaser : PlayerObject
 {
     public PlayerUnit m_PlayerUnit;
+    public PlayerDamageDatas[] m_PlayerLaserDamageData;
+
+    private PlayerLaserHandler _playerLaserHandler;
+
+    private void Start()
+    {
+        _playerLaserHandler = GetComponent<PlayerLaserHandler>();
+        DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+
+        _playerLaserHandler.Action_OnLaserIndexChanged += UpdateLaserIndex;
+        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+    }
 
     void OnTriggerStay2D(Collider2D other) // 닿을 때
     {
@@ -22,8 +35,9 @@ public class PlayerLaser : PlayerObject
         }
     }
 
-    public void SetPlayerDamageData(PlayerDamageDatas playerDamageData)
+    private void UpdateLaserIndex()
     {
-        _playerDamageData = playerDamageData;
+        _playerDamageData = m_PlayerLaserDamageData[_playerLaserHandler.LaserIndex];
+        DamageLevel = m_PlayerUnit.PlayerAttackLevel;
     }
 }

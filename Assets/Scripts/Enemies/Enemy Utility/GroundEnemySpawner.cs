@@ -34,19 +34,19 @@ public class GroundEnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(GameObject enemy) {
         GameObject ins = Instantiate(enemy, transform.position, Quaternion.identity);
-        EnemyUnit enemy_unit = ins.GetComponent<EnemyUnit>();
-        enemy_unit.m_MoveVector = new MoveVector(m_MovePattern[0].speed, m_MovePattern[0].direction);
-        enemy_unit.RotateImmediately(m_MovePattern[0].direction);
+        EnemyUnit enemyUnit = ins.GetComponent<EnemyUnit>();
+        enemyUnit.m_MoveVector = new MoveVector(m_MovePattern[0].speed, m_MovePattern[0].direction);
+        enemyUnit.CurrentAngle = m_MovePattern[0].direction;
         
         if (m_EnemySpawnerDatas.InteractableTimer != 0)
         {
-            enemy_unit.DisableInteractable(m_EnemySpawnerDatas.InteractableTimer);
+            enemyUnit.DisableInteractable(m_EnemySpawnerDatas.InteractableTimer);
         }
         
         for (int i = 0; i < m_MovePattern.Length; i++) {
-            enemy_unit.m_TweenDataQueue.Enqueue(new TweenData(m_MovePattern[i]));
+            enemyUnit.m_TweenDataQueue.Enqueue(new TweenData(m_MovePattern[i]));
         }
-        enemy_unit.StartPlayTweenData();
+        enemyUnit.StartPlayTweenData();
         
         if (m_EnemySpawnerDatas.RemoveTimer > 0) {
             StartCoroutine(DestroySpawnedEnemy());

@@ -9,7 +9,7 @@ public class EnemyTankSmall3Turret : EnemyUnit
     void Start()
     {
         StartCoroutine(Pattern1(Random.Range(0, m_FireDelay[(int) SystemManager.Difficulty])));
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()
@@ -17,9 +17,9 @@ public class EnemyTankSmall3Turret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
     }
 
     private IEnumerator Pattern1(int millisecond) {

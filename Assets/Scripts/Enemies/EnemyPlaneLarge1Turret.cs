@@ -6,6 +6,12 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
 {
     private IEnumerator m_CurrentPattern;
 
+    private void Start()
+    {
+        CurrentAngle = AngleToPlayer;
+        SetRotatePattern(new RotatePattern_TargetPlayer(24f));
+    }
+
     public void StartPattern() {
         m_CurrentPattern = PatternA();
         StartCoroutine(m_CurrentPattern);
@@ -15,16 +21,6 @@ public class EnemyPlaneLarge1Turret : EnemyUnit
         if (m_CurrentPattern != null) {
             StopCoroutine(m_CurrentPattern);
         }
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        
-        if (PlayerManager.IsPlayerAlive)
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 24f);
-        else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
     
     

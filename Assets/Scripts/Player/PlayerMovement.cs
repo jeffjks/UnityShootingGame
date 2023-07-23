@@ -148,7 +148,8 @@ public class PlayerMovement : MonoBehaviour
         }
         // m_PlayState가 3일때만 이하 내용 실행
         //m_Vector2 = Vector2Int.zero;
-        PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(PositionInt2D, target_pos, m_OverviewSpeed / Application.targetFrameRate * Time.timeScale));
+        var maxDistanceDelta = m_OverviewSpeed / (Application.targetFrameRate * Time.timeScale);
+        PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(PositionInt2D, target_pos, maxDistanceDelta));
     }
 
     private void OnRemove()

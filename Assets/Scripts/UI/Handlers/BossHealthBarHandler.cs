@@ -97,7 +97,7 @@ public class BossHealthBarHandler : MonoBehaviour
     
     private void SetHealthRate() {
         try {
-            _healthRate = _enemyUnit.m_EnemyHealth.m_HealthPercent;
+            _healthRate = _enemyUnit.m_EnemyHealth.HealthPercent;
         }
         catch(System.NullReferenceException) {
             _healthRate = 0f;

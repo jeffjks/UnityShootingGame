@@ -98,8 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d68291513085e2418d050213cfb3e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 7021008997697841483}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -218,8 +219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d68291513085e2418d050213cfb3e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3444663183974911546}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -625,8 +627,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f38e6779a81e274bb9996c08bb4acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 4862007706350544916}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -661,7 +664,6 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 4417317141876734764}
-  m_HealthPercent: 100
 --- !u!114 &748648914517165654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,8 +742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f38e6779a81e274bb9996c08bb4acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 109533634783990533}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -776,7 +779,6 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 5653689540836584610}
-  m_HealthPercent: 100
 --- !u!114 &8590920233221446469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,8 +1361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f38e6779a81e274bb9996c08bb4acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 4628570922968981107}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -1395,7 +1398,6 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 6126094460631671931}
-  m_HealthPercent: 100
 --- !u!114 &7821914013008084646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,8 +1476,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f38e6779a81e274bb9996c08bb4acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 6585013472877613492}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -1510,7 +1513,6 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 8330236720640189807}
-  m_HealthPercent: 100
 --- !u!114 &8947434179275376496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1838,8 +1840,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b58a5852671808468aa844749c7dea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 6059859442607796135}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -2440,8 +2443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76629f6ef52ee04cb86d6f518a4898e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 8258282674371013236}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -2524,8 +2528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76629f6ef52ee04cb86d6f518a4898e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3206545656578198555}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -3115,8 +3120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568e9fa9e82c5a241996406991647d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 4701576049642114937}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -3152,7 +3158,6 @@ MonoBehaviour:
   m_DefaultHealth: 5000
   m_Collider2D:
   - {fileID: 2714358893465278300}
-  m_HealthPercent: 100
 --- !u!114 &240741888577068434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3231,8 +3236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568e9fa9e82c5a241996406991647d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 7902654878378707055}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -3268,7 +3274,6 @@ MonoBehaviour:
   m_DefaultHealth: 5000
   m_Collider2D:
   - {fileID: 157164651920185090}
-  m_HealthPercent: 100
 --- !u!114 &2166348856357856252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3976,8 +3981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151c47e1381b5ea458ff6c97d9ae4b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
@@ -4028,7 +4033,6 @@ MonoBehaviour:
   m_DefaultHealth: 100000
   m_Collider2D:
   - {fileID: 7012390822520836271}
-  m_HealthPercent: 100
 --- !u!114 &2908747836849494739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4506,7 +4510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7021008997697841483}
   m_Layer: 12
-  m_Name: FirePositionL
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4620,7 +4624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8258282674371013236}
   m_Layer: 12
-  m_Name: FirePositionSubL
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4651,7 +4655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6059859442607796135}
   m_Layer: 12
-  m_Name: FirePositionMain
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4713,7 +4717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4701576049642114937}
   m_Layer: 12
-  m_Name: FirePositionFrontL
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4923,7 +4927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3206545656578198555}
   m_Layer: 12
-  m_Name: FirePositionSubR
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5002,7 +5006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3444663183974911546}
   m_Layer: 12
-  m_Name: FirePositionR
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5033,7 +5037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7902654878378707055}
   m_Layer: 12
-  m_Name: FirePositionFrontR
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

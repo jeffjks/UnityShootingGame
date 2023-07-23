@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 {
-    public EnemyMiddleBoss1Turret[] m_Turret = new EnemyMiddleBoss1Turret[2];
+    public EnemyUnit[] m_Turret = new EnemyUnit[2];
     public Transform m_Rotator;
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
@@ -26,9 +26,6 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDying;
-
-        _bulletPatterns.Add("1A", new BulletPattern_EnemyMiddleBoss1_1A(this));
-        _bulletPatterns.Add("2A", new BulletPattern_EnemyMiddleBoss1_2A(this));
     }
 
     protected override void Update()
@@ -36,7 +33,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -76,8 +73,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         Quaternion init_quaternion = m_Rotator.rotation;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.OutQuad].Evaluate((float) (i+1) / frame);
-            float t_rot = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
+            float t_rot = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
             
             transform.position = Vector3.Lerp(init_vector, TARGET_POSITION, t_pos);
             m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.identity, t_rot);
@@ -107,41 +104,42 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         int frame = 3500 * Application.targetFrameRate / 1000;
 
         Quaternion init_quaternion = m_Rotator.rotation;
-        float target_xspeed;
+        float targetHorizontalSpeed;
 
         if (Mathf.DeltaAngle(0f, m_MoveVector.direction) < 180f) {
-            target_xspeed = 18f;
+            targetHorizontalSpeed = 18f;
         }
         else {
-            target_xspeed = -18f;
+            targetHorizontalSpeed = -18f;
         }
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos = AC_Ease.ac_ease[EaseType.InQuad].Evaluate((float) (i+1) / frame);
+            float t_pos = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
             float t_rot = (float) (i+1) / frame;
             
-            transform.Translate(new Vector3(Mathf.Lerp(0f, target_xspeed / Application.targetFrameRate, t_pos), 0f, 0f));
+            transform.Translate(new Vector3(Mathf.Lerp(0f, targetHorizontalSpeed / Application.targetFrameRate, t_pos), 0f, 0f));
             m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
     }
     
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
-        m_Turret[0].StartPattern("1A");
-        m_Turret[1].StartPattern("1A");
-        while (m_Phase == 1) {
-            yield return _bulletPatterns["1A"].ExecutePattern();
+        m_Turret[0].StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(m_Turret[0]));
+        m_Turret[1].StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(m_Turret[1]));
+        while (m_Phase == 1)
+        {
+            yield return StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_1A(this));
         }
     }
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(1800);
-        m_Turret[0].StartPattern("2A");
-        m_Turret[1].StartPattern("2A");
+        m_Turret[0].StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(m_Turret[0], -1));
+        m_Turret[1].StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(m_Turret[1], 1));
         while (m_Phase == 2)
         {
             if (SystemManager.Difficulty == GameDifficulty.Hell)
-                yield return _bulletPatterns["2A"].ExecutePattern();
+                yield return StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_2A(this));
             else
                 yield return null;
         }
@@ -153,12 +151,13 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
+
+        StopAllPatterns();
+        m_Turret[0].StopAllPatterns();
+        m_Turret[1].StopAllPatterns();
         
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
-
-        m_Turret[0].StopPattern();
-        m_Turret[1].StopPattern();
 
         NextPhaseExplosion();
     }

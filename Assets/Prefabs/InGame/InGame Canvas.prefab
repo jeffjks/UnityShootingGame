@@ -2460,7 +2460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitialSelection: 1
   m_PreserveLastSelection: 0
-  m_PauseManager: {fileID: 0}
+  m_PauseManager: {fileID: 7974526509860398373}
 --- !u!114 &4079609951447364886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2542,7 +2542,7 @@ MonoBehaviour:
   m_SoundMenuPanel: {fileID: 4079609951251440442}
   m_QuitMenuPanel: {fileID: 4079609951447364889}
   m_InGameInputController: {fileID: 0}
-  m_PauseManager: {fileID: 0}
+  m_PauseManager: {fileID: 7974526509860398373}
 --- !u!1 &4079609951603998193
 GameObject:
   m_ObjectHideFlags: 0

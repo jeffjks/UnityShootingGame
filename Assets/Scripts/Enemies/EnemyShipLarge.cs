@@ -27,7 +27,7 @@ public class EnemyShipLarge : EnemyUnit
         if (m_Phase > 0) {
             return;
         }
-        if (m_EnemyHealth.m_HealthPercent <= 0.33f) {
+        if (m_EnemyHealth.HealthPercent <= 0.33f) {
             m_Phase = 1;
             StartCoroutine(Pattern1());
             m_Turret0?.m_EnemyDeath.OnDying();

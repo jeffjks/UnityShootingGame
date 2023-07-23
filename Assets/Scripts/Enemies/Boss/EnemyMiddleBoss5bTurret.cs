@@ -13,7 +13,7 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
     {
         m_Pattern1 = Pattern1();
         m_Pattern2 = Pattern2();
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
     }
 
     protected override void Update()
@@ -21,9 +21,9 @@ public class EnemyMiddleBoss5bTurret : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
     }
 
     public void StartPattern1() {

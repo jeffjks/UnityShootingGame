@@ -63,7 +63,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         float init_alpha = m_Materials[m_DebrisIndex].color.a;
         int frame = m_LifeTime * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
-            float t_fade = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_fade = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             
             float alpha = Mathf.Lerp(init_alpha, 0f, t_fade);
             Color color_tmp = m_Materials[m_DebrisIndex].color;

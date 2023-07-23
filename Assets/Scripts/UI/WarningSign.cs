@@ -16,7 +16,7 @@ public class WarningSign : MonoBehaviour
     {
         int frame = duration * Application.targetFrameRate / 1000; // White Blink Effect
         for (int i = 0; i < frame; ++i) {
-            float inter = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float inter = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             SetEmissionColor(1f - inter);
             yield return new WaitForMillisecondFrames(0);
         }

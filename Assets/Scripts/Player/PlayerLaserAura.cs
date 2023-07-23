@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class PlayerLaserAura : PlayerObject
 {
-    private PlayerLaser m_PlayerLaser = null;
-    private PlayerUnit m_PlayerMovement = null;
-    private int m_MinDamage, m_MaxDamage;
+    private PlayerUnit _playerUnit;
+    private PlayerLaserHandler _playerLaserHandler;
 
-    private int m_ShotLevelBonus;
-    private int m_LaserIndex;
-    
-    private void Awake()
+    private void Start()
     {
-        m_PlayerLaser = GetComponentInParent<PlayerLaser>();
-        m_PlayerMovement = GetComponentInParent<PlayerUnit>();
+        _playerLaserHandler = GetComponentInParent<PlayerLaserHandler>();
+        _playerUnit = GetComponentInParent<PlayerUnit>();
+        DamageLevel = _playerUnit.PlayerAttackLevel;
+
+        _playerLaserHandler.Action_OnLaserIndexChanged += UpdateLaserIndex;
+        _playerUnit.Action_OnUpdatePlayerAttackLevel += () => DamageLevel = _playerUnit.PlayerAttackLevel;
     }
 
     void OnTriggerStay2D(Collider2D other) // 닿을 때
     {
-        if (m_PlayerMovement.SlowMode) {
+        if (_playerUnit.SlowMode) {
             if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 유닛이고
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
@@ -31,5 +31,10 @@ public class PlayerLaserAura : PlayerObject
                 }
             }
         }
+    }
+
+    private void UpdateLaserIndex()
+    {
+        DamageLevel = _playerUnit.PlayerAttackLevel;
     }
 }

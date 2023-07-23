@@ -222,12 +222,12 @@ public struct MoveVector
     }
 }
 
-public class EaseType
+public enum EaseType
 {
-    public const int Linear = 0;
-    public const int OutQuad = 1;
-    public const int InQuad = 2;
-    public const int InOutQuad = 3;
+    Linear,
+    OutQuad,
+    InQuad,
+    InOutQuad
 }
 
 /*
@@ -306,9 +306,9 @@ public class MoveTarget : UnitMovement
 public class TweenData
 {
     public UnitMovement unitMovement;
-    public readonly int easeType = EaseType.Linear;
+    public readonly EaseType easeType = EaseType.Linear;
 
-    public TweenData(UnitMovement unitMovement, int easeType = EaseType.Linear) {
+    public TweenData(UnitMovement unitMovement, EaseType easeType = EaseType.Linear) {
         this.unitMovement = unitMovement;
         this.easeType = easeType;
     }
@@ -441,24 +441,24 @@ public class Effect {
     }
 }
 
-public class Coroutine {
+public class ExplosionCoroutine {
     public int duration;
     public PairInt timer_add;
     public int number;
 
-    public Coroutine() {
+    public ExplosionCoroutine() {
         this.duration = 0;
         this.timer_add = new PairInt(0);
         this.number = 0;
     }
 
-    public Coroutine(int duration, int timer_add, int number) {
+    public ExplosionCoroutine(int duration, int timer_add, int number) {
         this.duration = duration;
         this.timer_add = new PairInt(timer_add);
         this.number = number;
     }
 
-    public Coroutine(int duration, PairInt timer_add, int number) {
+    public ExplosionCoroutine(int duration, PairInt timer_add, int number) {
         this.duration = duration;
         this.timer_add = timer_add;
         this.number = number;
@@ -468,10 +468,10 @@ public class Coroutine {
 [Serializable]
 public struct ExplosionData {
     public Effect effect;
-    public Coroutine coroutine;
+    public ExplosionCoroutine coroutine;
     public int waitAfter;
 
-    public ExplosionData(Effect effect, Coroutine coroutine, int waitAfter) {
+    public ExplosionData(Effect effect, ExplosionCoroutine coroutine, int waitAfter) {
         this.effect = effect;
         this.coroutine = coroutine;
         this.waitAfter = waitAfter;

@@ -40,7 +40,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         int frame = (APPEARANCE_TIME - delay) * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
-            float t_pos_y = AC_Ease.ac_ease[EaseType.Linear].Evaluate((float) (i+1) / frame);
+            float t_pos_y = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
             
             float position_y = Mathf.Lerp(init_position_y, 2.4f, t_pos_y);
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
@@ -71,7 +71,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동
 
         if (m_Phase == 1) {
-            if (m_EnemyHealth.m_HealthPercent <= 0.40f) { // 체력 40% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }

@@ -11,6 +11,8 @@ public abstract class UnitObject : MonoBehaviour
 	//[HideInInspector] public Vector2 m_Position2D;
 	protected float _currentAngle; // 현재 회전 각도
 
+    public float AngleToPlayer => GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
+
     public virtual float CurrentAngle
     {
         get => _currentAngle;
@@ -45,20 +47,57 @@ public abstract class UnitObject : MonoBehaviour
         }
         return BackgroundCamera.GetScreenPosition(transform.position);
     }
-}
 
-public interface IRotatable
-{
-    public void RotateSlightly(Vector2 target, float speed, float rot = 0f);
-    public void RotateSlightly(float target_angle, float speed, float rot = 0f);
-    public void RotateImmediately(Vector2 target, float rot = 0f);
-    public void RotateImmediately(float target_angle, float rot = 0f);
-}
+    public void RotateUnit(float targetAngle, float speed = 0f)
+    {
+        if (speed <= 0f)
+        {
+            CurrentAngle = targetAngle;
+            return;
+        }
+        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, targetAngle, speed / Application.targetFrameRate * Time.timeScale);
+    }
 
-public interface IEnemySubAttacker
-{
-    public void StartPattern(string key);
-    public void StopPattern();
+    // Rotate Methods ---------------------------------- TODO. have to remove
+    
+    public void RotateSlightly(Vector2 target, float speed, float rot = 0f)
+    {
+        // if (!IsRotatable)
+        //     return;
+        // if (m_EnemyDeath.m_IsDead)
+        //     return;
+        // float target_angle = GetAngleToTarget(m_Position2D, target);
+        // CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
+    }
+
+    public void RotateSlightly(float target_angle, float speed, float rot = 0f)
+    {
+        // if (!IsRotatable)
+        //     return;
+        // if (m_EnemyDeath.m_IsDead)
+        //     return;
+        // CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
+    }
+
+    public void RotateImmediately(Vector2 target, float rot = 0f)
+    {
+        // if (!IsRotatable)
+        //     return;
+        // if (m_EnemyDeath.m_IsDead)
+        //     return;
+        // float target_angle = GetAngleToTarget(m_Position2D, target);
+        // CurrentAngle = target_angle + rot;
+    }
+
+    public void RotateImmediately(float target_angle, float rot = 0f)
+    {
+        
+        // if (!IsRotatable)
+        //     return;
+        // if (m_EnemyDeath.m_IsDead)
+        //     return;
+        // CurrentAngle = target_angle + rot;
+    }
 }
 
 
@@ -68,9 +107,19 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 {
     public Transform[] m_FirePosition;
     protected bool _isInteractable = true;
+    protected IRotatePattern _rotatePattern;
     private const float SAFE_LINE = -11f;
-
-    public bool IsRotatable { get; set; } = true;
+    
+    private float _customDirection;
+    public float CustomDirection
+    {
+        get => _customDirection;
+        set
+        {
+            _customDirection = value;
+            _customDirection = Mathf.Repeat(_customDirection, 360f);
+        }
+    }
     
     public bool IsInteractable() {
         return _isInteractable;
@@ -176,6 +225,11 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
             return false;
         
         return true;
+    }
+
+    public void SetRotatePattern(IRotatePattern rotatePattern)
+    {
+        _rotatePattern = rotatePattern;
     }
 }
 

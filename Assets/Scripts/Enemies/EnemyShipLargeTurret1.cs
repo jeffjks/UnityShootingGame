@@ -8,7 +8,7 @@ public class EnemyShipLargeTurret1 : EnemyUnit
 
     void Start()
     {
-        RotateImmediately(PlayerManager.GetPlayerPosition());
+        RotateUnit(AngleToPlayer);
         StartCoroutine(Pattern1());
     }
 
@@ -17,9 +17,9 @@ public class EnemyShipLargeTurret1 : EnemyUnit
         base.Update();
         
         if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(PlayerManager.GetPlayerPosition());
+            RotateUnit(AngleToPlayer);
         else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+            RotateUnit(AngleToPlayer, 180f);
     }
     
     private IEnumerator Pattern1() {

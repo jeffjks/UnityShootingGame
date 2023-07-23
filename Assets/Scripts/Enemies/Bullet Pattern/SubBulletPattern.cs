@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SubBulletPattern : BulletFactory, IBulletPattern
 {
@@ -10,9 +11,10 @@ public class SubBulletPattern : BulletFactory, IBulletPattern
     {
     }
     
-    public IEnumerator ExecutePattern(int patternIndex = 0)
+    public IEnumerator ExecutePattern(UnityAction onCompleted = null)
     {
         CreateBullet(m_BulletProperty);
+        onCompleted?.Invoke();
         yield break;
     }
 }

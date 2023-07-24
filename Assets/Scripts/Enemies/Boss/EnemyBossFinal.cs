@@ -162,14 +162,8 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(3000);
-        m_CurrentPattern[0] = Pattern1_A1();
-        StartCoroutine(m_CurrentPattern[0]);
-        m_CurrentPattern[1] = Pattern1_A2();
-        StartCoroutine(m_CurrentPattern[1]);
-
-        while(m_InPattern) {
-            yield return new WaitForMillisecondFrames(0);
-        }
+        StartPattern("1A1", new EnemyBossFinal_BulletPattern_1A1(this));
+        yield return StartPattern("1A2", new EnemyBossFinal_BulletPattern_1A2(this));
         StopAllPatterns();
         yield return new WaitForMillisecondFrames(3000);
 
@@ -213,59 +207,6 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 
             m_DirectionSide *= -1;
         }
-        yield break;
-    }
-
-    private IEnumerator Pattern1_A1() {
-        float dir;
-        BulletAccel accel = new BulletAccel(0f, 0);
-
-        while (true) {
-            dir = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-            CreateBulletsSector(2, transform.position, 5.4f, dir - 40f, accel, 6, 6f);
-            CreateBulletsSector(2, transform.position, 4.8f, dir, accel, 6, 6f);
-            CreateBulletsSector(2, transform.position, 5.4f, dir + 40f, accel, 6, 6f);
-
-            CreateBulletsSector(0, transform.position, 4f, dir, accel, 6, 4f);
-            yield return new WaitForMillisecondFrames(1600);
-        }
-    }
-
-    private IEnumerator Pattern1_A2() {
-        float dir = Random.Range(0f, 360f);
-        BulletAccel accel = new BulletAccel(0f, 0);
-        int timer, t_add = 110;
-        float random_distribution = 2f;
-        int bulletNum1 = 20, bulletNum2 = 25;
-
-        m_InPattern = true;
-
-        timer = 0;
-        while (timer < 4000) {
-            CreateBulletsSector(3, transform.position, 7f, dir, accel, bulletNum1, 360f/((float) bulletNum1));
-            dir += Random.Range(180f/((float) bulletNum1) - random_distribution, 180f/((float) bulletNum1) + random_distribution);
-            yield return new WaitForFrames(8);
-            CreateBulletsSector(3, transform.position, 7f, dir, accel, bulletNum1, 360f/((float) bulletNum1));
-            dir += Random.Range(180f/((float) bulletNum1) - random_distribution, 180f/((float) bulletNum1) + random_distribution);
-            yield return new WaitForFrames(8);
-            timer += t_add * 2;
-        }
-
-        yield return new WaitForMillisecondFrames(500);
-        dir = Random.Range(0f, 360f);
-
-        timer = 0;
-        while (timer < 3500) {
-            CreateBulletsSector(5, transform.position, 8.1f, dir, accel, bulletNum2, 360f/((float) bulletNum2));
-            dir += Random.Range(180f/((float) bulletNum2) - random_distribution, 180f/((float) bulletNum2) + random_distribution);
-            yield return new WaitForFrames(7);
-            CreateBulletsSector(5, transform.position, 8.1f, dir, accel, bulletNum2, 360f/((float) bulletNum2));
-            dir += Random.Range(180f/((float) bulletNum2) - random_distribution, 180f/((float) bulletNum2) + random_distribution);
-            yield return new WaitForFrames(7);
-            timer += t_add * 2;
-        }
-
-        m_InPattern = false;
         yield break;
     }
 

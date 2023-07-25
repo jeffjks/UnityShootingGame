@@ -109,16 +109,34 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
     protected bool _isInteractable = true;
     protected IRotatePattern _rotatePattern;
     private const float SAFE_LINE = -11f;
-    
-    private float _customDirection;
-    public float CustomDirection
+
+    public CustomDirection m_CustomDirection;
+
+    public class CustomDirection
     {
-        get => _customDirection;
-        set
+        private readonly float[] _array;
+
+        public CustomDirection()
         {
-            _customDirection = value;
-            _customDirection = Mathf.Repeat(_customDirection, 360f);
+            _array = new float[1];
         }
+
+        public CustomDirection(int size)
+        {
+            _array = new float[size];
+        }
+        
+        public float this[int index]
+        {
+            get => _array[index];
+            set
+            {
+                _array[index] = value;
+                _array[index] = Mathf.Repeat(_array[index], 360f);
+            }
+        }
+ 
+        public int Length => _array.Length;
     }
     
     public bool IsInteractable() {

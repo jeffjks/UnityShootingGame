@@ -25,6 +25,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     void Start()
     {
         m_MoveVector = new MoveVector(0f, 180f); // new MoveVector(-4.5f, 180f);
+        m_CustomDirection = new CustomDirection();
         
         DisableInteractableAll();
 
@@ -97,7 +98,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             }
         }
         else if (m_Phase == 2) {
-            CustomDirection += 80f / Application.targetFrameRate * Time.timeScale;
+            m_CustomDirection[0] += 80f / Application.targetFrameRate * Time.timeScale;
         }
 
         RunTracks();
@@ -272,18 +273,18 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         var rand2 = Random.Range(0, 2) * 2 - 1;
 
         while (true) {
-            CustomDirection = Random.Range(0f, 360f);
+            m_CustomDirection[0] = Random.Range(0f, 360f);
             m_Launchers[rand1].StartPattern("1B",
-                new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[rand1], rand2, m_Launchers[rand1].SetCustomDirection));
+                new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[rand1], rand2));
             rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
             float difficulty = (int) SystemManager.Difficulty;
             for (int i = 0; i < 32; i++) {
-                CustomDirection += (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
+                m_CustomDirection[0] += (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
                 yield return new WaitForMillisecondFrames(0);
             }
             rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
             for (int i = 0; i < 32; i++) {
-                CustomDirection -= (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
+                m_CustomDirection[0] -= (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
                 yield return new WaitForMillisecondFrames(0);
             }
             m_Launchers[rand1].StopPattern("1B");
@@ -347,8 +348,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (m_Phase == 2) {
             var rand = Random.Range(0, 2) * 2 - 1;
-            m_Launchers[0].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[0], rand, m_Launchers[0].SetCustomDirection));
-            m_Launchers[1].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[1], rand, m_Launchers[1].SetCustomDirection));
+            m_Launchers[0].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[0], rand));
+            m_Launchers[1].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[1], rand));
             m_Launchers[0].SetMoving(true);
             m_Launchers[1].SetMoving(true);
             m_CurrentPattern1 = Pattern2A();

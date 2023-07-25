@@ -32,6 +32,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             _wingMeshRenderers[i] = m_EnemyBoss5Wings[i].GetComponentInChildren<MeshRenderer>();
             _wingMeshRenderers[i].gameObject.SetActive(false);
         }
+        m_CustomDirection = new CustomDirection();
 
         DisableInteractableAll();
         
@@ -114,7 +115,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             transform.position = new Vector3(pos.x + m_MoveSpeed / Application.targetFrameRate * Time.timeScale, pos.y, Depth.ENEMY);
         }
 
-        CustomDirection += 91f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[0] += 91f / Application.targetFrameRate * Time.timeScale;
     }
 
     private void SetWingOpenState(bool state) {

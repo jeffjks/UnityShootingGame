@@ -82,13 +82,13 @@ public class BulletPattern_EnemyBoss4_1D2 : BulletFactory, IBulletPattern
 
 public class BulletPattern_EnemyBoss4_Launcher_1B : BulletFactory, IBulletPattern
 {
+    private readonly EnemyBoss4_Launcher _typedEnemyObject;
     private readonly int _patternIndex;
-    private readonly UnityAction<float, int> _action;
 
-    public BulletPattern_EnemyBoss4_Launcher_1B(EnemyObject enemyObject, int patternIndex, UnityAction<float, int> action) : base(enemyObject)
+    public BulletPattern_EnemyBoss4_Launcher_1B(EnemyObject enemyObject, int patternIndex) : base(enemyObject)
     {
+        _typedEnemyObject = enemyObject as EnemyBoss4_Launcher;
         _patternIndex = patternIndex;
-        _action = action;
     }
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
@@ -98,26 +98,27 @@ public class BulletPattern_EnemyBoss4_Launcher_1B : BulletFactory, IBulletPatter
         var durationFrame = 0;
         var directionChanged = false;
         const int totalDurationFrame = 64;
-        _enemyObject.CustomDirection = Random.Range(0f, 360f);
+        _enemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         
         while (durationFrame < totalDurationFrame) {
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                var dir = _enemyObject.CustomDirection;
+                var dir = _enemyObject.m_CustomDirection[0];
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.1f, BulletPivot.Fixed, dir, 4, 90f));
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                var dir = _enemyObject.CustomDirection;
+                var dir = _enemyObject.m_CustomDirection[0];
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.4f, BulletPivot.Fixed, dir, 5, 72f));
             }
             else {
-                var dir = _enemyObject.CustomDirection;
+                var dir = _enemyObject.m_CustomDirection[0];
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.8f, BulletPivot.Fixed, dir, 6, 60f));
             }
 
             if (!directionChanged && durationFrame >= totalDurationFrame / 2)
             {
-                _action?.Invoke(directionDelta[(int)SystemManager.Difficulty], -_patternIndex);
+                _typedEnemyObject.CustomDirectionDelta = directionDelta[(int)SystemManager.Difficulty];
+                _typedEnemyObject.CustomDirectionSide = -_patternIndex;
                 directionChanged = true;
             }
 
@@ -152,53 +153,54 @@ public class BulletPattern_EnemyBoss4_Launcher_1C : BulletFactory, IBulletPatter
 
 public class BulletPattern_EnemyBoss4_Launcher_2A : BulletFactory, IBulletPattern
 {
+    private readonly EnemyBoss4_Launcher _typedEnemyObject;
     private readonly int _patternIndex;
-    private readonly UnityAction<float, int> _action;
 
-    public BulletPattern_EnemyBoss4_Launcher_2A(EnemyObject enemyObject, int patternIndex , UnityAction<float, int> action) : base(enemyObject)
+    public BulletPattern_EnemyBoss4_Launcher_2A(EnemyObject enemyObject, int patternIndex) : base(enemyObject)
     {
+        _typedEnemyObject = enemyObject as EnemyBoss4_Launcher;
         _patternIndex = patternIndex;
-        _action = action;
     }
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        _action?.Invoke(0f, _patternIndex);
-        _enemyObject.CustomDirection = Random.Range(0f, 360f);
+        _typedEnemyObject.CustomDirectionDelta = 0f;
+        _typedEnemyObject.CustomDirectionSide = _patternIndex;
+        _enemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         
         while (true) {
             Vector3 pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                var dir1 = (_enemyObject.CustomDirection - 1.4f) * _patternIndex;
-                var dir2 = _enemyObject.CustomDirection * _patternIndex;
-                var dir3 = (_enemyObject.CustomDirection + 1.4f) * _patternIndex;
+                var dir1 = (_enemyObject.m_CustomDirection[0] - 1.4f) * _patternIndex;
+                var dir2 = _enemyObject.m_CustomDirection[0] * _patternIndex;
+                var dir3 = (_enemyObject.m_CustomDirection[0] + 1.4f) * _patternIndex;
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.3f, BulletPivot.Fixed, dir1, 8, 45f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.5f, BulletPivot.Fixed, dir2, 8, 45f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.7f, BulletPivot.Fixed, dir3, 8, 45f));
-                _enemyObject.CustomDirection += 12f;
+                _enemyObject.m_CustomDirection[0] += 12f;
                 yield return new WaitForMillisecondFrames(1000 + Random.Range(0, 300));
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                var dir1 = (_enemyObject.CustomDirection - 1.5f) * _patternIndex;
-                var dir2 = _enemyObject.CustomDirection * _patternIndex;
-                var dir3 = (_enemyObject.CustomDirection + 1.5f) * _patternIndex;
+                var dir1 = (_enemyObject.m_CustomDirection[0] - 1.5f) * _patternIndex;
+                var dir2 = _enemyObject.m_CustomDirection[0] * _patternIndex;
+                var dir3 = (_enemyObject.m_CustomDirection[0] + 1.5f) * _patternIndex;
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.25f, BulletPivot.Fixed, dir1, 12, 30f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.5f, BulletPivot.Fixed, dir2, 12, 30f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.75f, BulletPivot.Fixed, dir3, 12, 30f));
-                _enemyObject.CustomDirection += 10f;
+                _enemyObject.m_CustomDirection[0] += 10f;
                 yield return new WaitForMillisecondFrames(600 + Random.Range(0, 200));
             }
             else {
-                var dir1 = (_enemyObject.CustomDirection - 2.25f) * _patternIndex;
-                var dir2 = (_enemyObject.CustomDirection - 0.75f) * _patternIndex;
-                var dir3 = (_enemyObject.CustomDirection + 0.75f) * _patternIndex;
-                var dir4 = (_enemyObject.CustomDirection + 2.25f) * _patternIndex;
+                var dir1 = (_enemyObject.m_CustomDirection[0] - 2.25f) * _patternIndex;
+                var dir2 = (_enemyObject.m_CustomDirection[0] - 0.75f) * _patternIndex;
+                var dir3 = (_enemyObject.m_CustomDirection[0] + 0.75f) * _patternIndex;
+                var dir4 = (_enemyObject.m_CustomDirection[0] + 2.25f) * _patternIndex;
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.25f, BulletPivot.Fixed, dir1, 12, 30f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.5f, BulletPivot.Fixed, dir2, 12, 30f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.75f, BulletPivot.Fixed, dir3, 12, 30f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 5f, BulletPivot.Fixed, dir4, 12, 30f));
-                _enemyObject.CustomDirection += 10f;
+                _enemyObject.m_CustomDirection[0] += 10f;
                 yield return new WaitForMillisecondFrames(400 + Random.Range(0, 200));
             }
         }
@@ -387,22 +389,22 @@ public class BulletPattern_EnemyBoss4_MainTurret_3A : BulletFactory, IBulletPatt
         {
             var property = new BulletProperty(pos, BulletImage.PinkLarge, 5.1f, BulletPivot.Current, 0f);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 500);
-            var newProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 4.5f, BulletPivot.Fixed, Random.Range(0f, 360f), 30, 12f);
-            CreateBullet(property, spawnTiming, newProperty);
+            var subProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 4.5f, BulletPivot.Fixed, Random.Range(0f, 360f), 30, 12f);
+            CreateBullet(property, spawnTiming, subProperty);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert)
         {
             var property = new BulletProperty(pos, BulletImage.PinkLarge, 5.1f, BulletPivot.Current, 0f);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, 200, new Vector2Int(170, 170));
-            var newProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, Random.Range(0f, 360f), 45, 8f);
-            CreateBullet(property, spawnTiming, newProperty);
+            var subProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, Random.Range(0f, 360f), 45, 8f);
+            CreateBullet(property, spawnTiming, subProperty);
         }
         else
         {
             var property = new BulletProperty(pos, BulletImage.PinkLarge, 5.1f, BulletPivot.Current, 0f);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, 200, new Vector2Int(125, 125));
-            var newProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 5.4f, BulletPivot.Fixed, Random.Range(0f, 360f), 50, 7.2f);
-            CreateBullet(property, spawnTiming, newProperty);
+            var subProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 5.4f, BulletPivot.Fixed, Random.Range(0f, 360f), 50, 7.2f);
+            CreateBullet(property, spawnTiming, subProperty);
         }
         onCompleted?.Invoke();
         yield break;

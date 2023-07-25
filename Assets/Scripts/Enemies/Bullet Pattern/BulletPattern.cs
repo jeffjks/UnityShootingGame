@@ -109,7 +109,7 @@ public class BulletFactory
         return enemyBullets;
     }
 
-    protected EnemyBullet[] CreateMultipleBullets(Vector3 pos, BulletProperty property, BulletSpawnTiming spawnTiming, BulletProperty newProperty)
+    protected EnemyBullet[] CreateMultipleBullets(Vector3 pos, BulletProperty property, BulletSpawnTiming spawnTiming, BulletProperty subProperty)
     {
         var num = property.number;
         EnemyBullet[] enemyBullets = new EnemyBullet[num];
@@ -118,7 +118,7 @@ public class BulletFactory
         for (var i = 0; i < num; ++i)
         {
             property.direction = mainDirection - property.interval * (num - i * 2 - 1) / 2;
-            enemyBullets[i] = CreateBullet(pos, property, spawnTiming, newProperty);
+            enemyBullets[i] = CreateBullet(pos, property, spawnTiming, subProperty);
         }
 
         return enemyBullets;
@@ -159,7 +159,7 @@ public class BulletFactory
         return enemyBullets;
     }
 
-    protected EnemyBullet[] CreateBullet(BulletProperty property, BulletSpawnTiming spawnTiming, BulletProperty newProperty)
+    protected EnemyBullet[] CreateBullet(BulletProperty property, BulletSpawnTiming spawnTiming, BulletProperty subProperty)
     {
         if (!_enemyObject.m_IsAir)
             property.startPos = BackgroundCamera.GetScreenPosition(property.startPos);
@@ -188,7 +188,7 @@ public class BulletFactory
             enemyBullets[i].OwnerEnemyObject = _enemyObject;
             
             bulletObject.SetActive(true);
-            enemyBullets[i].OnStart(property, spawnTiming, newProperty);
+            enemyBullets[i].OnStart(property, spawnTiming, subProperty);
         }
         
         return enemyBullets;

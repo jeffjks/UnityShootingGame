@@ -8,14 +8,16 @@ public class EnemyBoss4_Launcher : EnemyUnit
     private bool m_Moving = false;
     private int _side;
     private int _moveDirection;
-    private float _customDirectionDelta;
-    private int _customDirectionSide;
+    public float CustomDirectionDelta { get; set; }
+    public int CustomDirectionSide { get; set; }
 
     void Start()
     {
+        m_CustomDirection = new CustomDirection();
+        
         _side = transform.localPosition.x < 0f ? -1 : 1;
         _moveDirection = _side;
-        _customDirectionSide = Random.Range(0, 2) * 2 - 1;
+        CustomDirectionSide = Random.Range(0, 2) * 2 - 1;
     }
 
     protected override void Update() {
@@ -51,15 +53,9 @@ public class EnemyBoss4_Launcher : EnemyUnit
             transform.localPosition = new Vector3(transform.localPosition.x + dir , transform.localPosition.y, transform.localPosition.z);
         }
         
-        CustomDirection += _customDirectionDelta * _customDirectionSide / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[0] += CustomDirectionDelta * CustomDirectionSide / Application.targetFrameRate * Time.timeScale;
     }
-
-    public void SetCustomDirection(float directionDelta, int side)
-    {
-        _customDirectionDelta = directionDelta;
-        _customDirectionSide = side;
-    }
-
+    
     public void SetMoving(bool boolean) {
         m_Moving = boolean;
     }

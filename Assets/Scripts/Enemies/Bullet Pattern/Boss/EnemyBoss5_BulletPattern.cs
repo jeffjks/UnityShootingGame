@@ -62,21 +62,21 @@ public class BulletPattern_EnemyBoss5_1A2 : BulletFactory, IBulletPattern
             var interval = Random.Range(0f, 24f);
             
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 600);
-            var newProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 2f, BulletPivot.Current, 0f, accel, 2, 20f + interval);
+            var subProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 2f, BulletPivot.Current, 0f, accel, 2, 20f + interval);
             
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
                 var property = new BulletProperty(pos, BulletImage.PinkNeedle, 5f, BulletPivot.Player, dir, 6, 20f);
-                CreateBullet(property, spawnTiming, newProperty);
+                CreateBullet(property, spawnTiming, subProperty);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert)
             {
                 var property = new BulletProperty(pos, BulletImage.PinkNeedle, 5.3f, BulletPivot.Player, dir, 10, 12f);
-                CreateBullet(property, spawnTiming, newProperty);
+                CreateBullet(property, spawnTiming, subProperty);
             }
             else {
                 var property = new BulletProperty(pos, BulletImage.PinkNeedle, 5.6f, BulletPivot.Player, dir, 12, 10f);
-                CreateBullet(property, spawnTiming, newProperty);
+                CreateBullet(property, spawnTiming, subProperty);
             }
             yield return new WaitForMillisecondFrames(_func_fireDelay.Invoke());
         }
@@ -439,7 +439,7 @@ public class BulletPattern_EnemyBoss5_2C : BulletFactory, IBulletPattern
                 if (pos.z > _bottomLine.position.z)
                     continue;
 
-                var dir = Random.Range(0f, 360f) + _enemyObject.CustomDirection;
+                var dir = Random.Range(0f, 360f) + _enemyObject.m_CustomDirection[0];
 
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.2f, BulletPivot.Fixed, dir, 15, 24f));

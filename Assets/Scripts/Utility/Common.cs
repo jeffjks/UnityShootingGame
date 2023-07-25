@@ -102,7 +102,7 @@ public class WaitForMillisecondFrames : CustomYieldInstruction
 
 public class AC_Ease
 {
-    public static AnimationCurve[] ac_ease = new AnimationCurve[4];
+    public static readonly AnimationCurve[] ac_ease = new AnimationCurve[4];
 }
 
 [Serializable]

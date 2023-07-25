@@ -27,6 +27,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         _defaultScale = transform.localScale;
         transform.localScale = new Vector3(2f, 2f, 2f);
         m_MoveVector = new MoveVector(1f, -125f);
+        m_CustomDirection = new CustomDirection();
         RotateUnit(m_MoveVector.direction);
 
         DisableInteractableAll();
@@ -50,16 +51,16 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         switch(_directionState) {
             case "1A":
-                CustomDirection += 90f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
+                m_CustomDirection[0] += 90f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
             case "1C":
-                CustomDirection += 71f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
+                m_CustomDirection[0] += 71f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
             case "2A":
-                CustomDirection += 19f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
+                m_CustomDirection[0] += 19f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
             case "2B":
-                CustomDirection += MAX_ROTATION * _rotateDirection / Application.targetFrameRate * Time.timeScale;
+                m_CustomDirection[0] += MAX_ROTATION * _rotateDirection / Application.targetFrameRate * Time.timeScale;
                 break;
         }
 
@@ -173,7 +174,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_Turret[1].StopPattern("1B");
             yield return new WaitForMillisecondFrames(2000);
 
-            CustomDirection = Random.Range(0f, 360f);
+            m_CustomDirection[0] = Random.Range(0f, 360f);
             _directionState = "1C";
             _rotateDirection = RandomValue();
             StartPattern("1C1", new BulletPattern_EnemyBoss3_1C1(this));
@@ -196,7 +197,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
             
             _directionState = "2B";
             _rotateDirection = RandomValue();
-            CustomDirection = - _rotateDirection * MAX_ROTATION * 0.7f;
+            m_CustomDirection[0] = - _rotateDirection * MAX_ROTATION * 0.7f;
             StartPattern("2B1", new BulletPattern_EnemyBoss3_2B1(this, () => _rotateDirection *= -1));
             
             for (int i = 0; i < 1; ++i) { // Repeat Once
@@ -222,7 +223,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         _directionState = "1A";
 
         for (int i = 0; i < 3; i++) {
-            CustomDirection = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f*_rotateDirection;
+            m_CustomDirection[0] = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f*_rotateDirection;
             StartPattern("1A1", new BulletPattern_EnemyBoss3_1A1(this, i));
             StartPattern("1A2", new BulletPattern_EnemyBoss3_1A2(this, i));
             yield return new WaitForMillisecondFrames(1000);

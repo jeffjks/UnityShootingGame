@@ -221,11 +221,11 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private IEnumerator Pattern1A() {
         _rotateDirection = RandomValue();
         _directionState = "1A";
+        StartPattern("1A1", new BulletPattern_EnemyBoss3_1A1(this));
+        StartPattern("1A2", new BulletPattern_EnemyBoss3_1A2(this));
 
         for (int i = 0; i < 3; i++) {
             m_CustomDirection[0] = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f*_rotateDirection;
-            StartPattern("1A1", new BulletPattern_EnemyBoss3_1A1(this, i));
-            StartPattern("1A2", new BulletPattern_EnemyBoss3_1A2(this, i));
             yield return new WaitForMillisecondFrames(1000);
             _rotateDirection *= -1;
         }

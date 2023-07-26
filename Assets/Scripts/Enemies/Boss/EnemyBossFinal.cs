@@ -5,24 +5,17 @@ using UnityEngine;
 public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
 {
     public GameObject m_BombBarrier;
-    public Transform m_Core;
     public readonly float[] m_CustomDirectionDelta = new float[2];
     private int _directionSide = 1;
 
     private int m_Phase;
-    private float m_BulletSpeed;
     private readonly Vector3 TARGET_POSITION = new (0f, -3.8f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 1600;
 
     private IEnumerator m_CurrentPhase;
-    private Vector3 m_RotateAxis = new Vector2(1f, 1f);
-    private float m_RotateAngle, m_RotateAxisAngle = 45f; // TODO. 애니메이션으로 설정
-    private const float ROTATE_SPEED = 120f;
-    private const float ROTATE_AXIS_SPEED = 180f;
 
     void Start()
     {
-        //m_RotateAxisSide = 2*Random.Range(0, 2) - 1;
         m_CustomDirection = new CustomDirection(2);
         
         DisableInteractableAll();
@@ -96,38 +89,11 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
                 transform.position = new Vector3(transform.position.x, TARGET_POSITION.y - 0.4f, transform.position.z);
             }
         }
-        
-        Rotate();
 
         for (var i = 0; i < m_CustomDirection.Length; ++i)
         {
             m_CustomDirection[i] += m_CustomDirectionDelta[i] * _directionSide / Application.targetFrameRate * Time.timeScale;
         }
-    }
-
-    private void Rotate() {
-        Vector3 temp_rotate_axis;
-        m_RotateAngle += ROTATE_SPEED / Application.targetFrameRate * Time.timeScale;
-        temp_rotate_axis = Quaternion.AngleAxis(m_RotateAngle, Vector3.up) * m_RotateAxis;
-        m_RotateAxis = new Vector2(Mathf.Cos(Mathf.Deg2Rad*m_RotateAxisAngle), Mathf.Sin(Mathf.Deg2Rad*m_RotateAxisAngle));
-
-        //m_RotateAxisAngle += 25f / Application.targetFrameRate * Time.timeScale;
-        /*
-        m_RotateAxisAngle += 25f / Application.targetFrameRate * Time.timeScale * m_RotateAxisSide;
-
-        if (m_RotateAxisAngle > 70) {
-            m_RotateAxisSide = -1;
-        }
-        else if (m_RotateAxisAngle < 20) {
-            m_RotateAxisSide = 1;
-        }*/
-
-        m_Core.RotateAround(transform.position, temp_rotate_axis, -ROTATE_AXIS_SPEED / Application.targetFrameRate * Time.timeScale);
-
-        if (m_RotateAngle > 360f)
-            m_RotateAngle -= 360f;
-        else if (m_RotateAngle < 0f)
-            m_RotateAngle += 360f;
     }
 
     private void SetBombBarrier(bool state) {

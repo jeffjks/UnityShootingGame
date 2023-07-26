@@ -5,23 +5,17 @@ using UnityEngine.Events;
 
 public class BulletPattern_EnemyBoss3_1A1 : BulletFactory, IBulletPattern
 {
-    private readonly int _patternIndex;
+    public BulletPattern_EnemyBoss3_1A1(EnemyObject enemyObject) : base(enemyObject) { }
 
-    public BulletPattern_EnemyBoss3_1A1(EnemyObject enemyObject, int patternIndex) : base(enemyObject)
-    {
-        _patternIndex = patternIndex;
-    }
-    
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        Vector3 pos;
-        int duration = 0;
+        var duration = 0;
         int[] fireDelay = { 180, 130, 100 };
 
-        while (duration < 1000) {
-            pos = GetFirePos(0);
+        while (duration < 3000) {
+            var pos = GetFirePos(0);
             duration += fireDelay[(int) SystemManager.Difficulty];
-            switch(_patternIndex) {
+            switch(duration / 1000) {
                 case 0:
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0]));
                     break;
@@ -40,23 +34,17 @@ public class BulletPattern_EnemyBoss3_1A1 : BulletFactory, IBulletPattern
 
 public class BulletPattern_EnemyBoss3_1A2 : BulletFactory, IBulletPattern
 {
-    private readonly int _patternIndex;
-
-    public BulletPattern_EnemyBoss3_1A2(EnemyObject enemyObject, int patternIndex) : base(enemyObject)
-    {
-        _patternIndex = patternIndex;
-    }
+    public BulletPattern_EnemyBoss3_1A2(EnemyObject enemyObject) : base(enemyObject) { }
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        Vector3 pos;
-        int duration = 0;
+        var duration = 0;
         int[] fireDelay = { 300, 220, 150 };
 
-        while (duration < 1000) {
-            pos = GetFirePos(0);
+        while (duration < 3000) {
+            var pos = GetFirePos(0);
             duration += fireDelay[(int) SystemManager.Difficulty];
-            switch(_patternIndex) {
+            switch(duration / 1000) {
                 case 0:
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0], 3, 2.25f));
                     break;

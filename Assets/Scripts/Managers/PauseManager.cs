@@ -89,12 +89,12 @@ public class PauseManager : MonoBehaviour
     }
 
     public void QuitGame() {
+        SystemManager.Instance.QuitGame();
+        
         StopAllCoroutines();
         
         IsGamePaused = false;
         _pauseEnabled = true;
         AudioService.UnpauseAudio();
-
-        SystemManager.Instance.QuitGame();
     }
 }

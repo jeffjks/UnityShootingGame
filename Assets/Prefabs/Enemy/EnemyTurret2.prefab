@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 75
   m_IsRoot: 1
-  m_Turret: {fileID: 0}
+  m_Turret: {fileID: 6581753055472979929}
 --- !u!114 &1364429096475363529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +109,6 @@ MonoBehaviour:
   m_DefaultHealth: 600
   m_Collider2D:
   - {fileID: 6192040104998937505}
-  m_HealthPercent: 100
 --- !u!114 &4450760002710729640
 MonoBehaviour:
   m_ObjectHideFlags: 0

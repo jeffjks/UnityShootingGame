@@ -95,7 +95,7 @@ public class SystemManager : MonoBehaviour
         yield return new WaitForMillisecondFrames(2000);
 
         if (GameMode == GameMode.Training && !DebugOption.InvincibleMod) {
-            QuitGame();
+            QuitGame(null);
             yield break;
         }
         
@@ -122,11 +122,12 @@ public class SystemManager : MonoBehaviour
         }
     }
 
-    public void QuitGame() {
+    public void QuitGame(Action onCompleted) {
         Action_OnQuitInGame?.Invoke();
         StopAllCoroutines();
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
+        onCompleted?.Invoke();
     }
 
 

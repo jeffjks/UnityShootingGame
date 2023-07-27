@@ -135,6 +135,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             if (pattern.Value != null)
                 StopCoroutine(pattern.Value);
         }
+        m_CurrentPatterns.Clear();
         
         _onPatternStopped?.Invoke();
     }

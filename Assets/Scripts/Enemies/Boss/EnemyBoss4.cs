@@ -163,6 +163,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         yield return StartPattern("1A2", new BulletPattern_EnemyBoss4_1A2(this, ExecuteSubTurretPattern_1A));
         
         StopAllPatterns();
+        var rand = 1;
 
         while (m_Phase == 1) {
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(0f, 150f));
@@ -204,6 +205,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             }
             yield return new WaitForMillisecondFrames(1000);
             
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_RotateAround(140f * rand));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_RotateAround(140f * rand));
             m_SubTurrets[0].StartPattern("1C", new BulletPattern_EnemyBoss4_SubTurret_1C(m_SubTurrets[0]));
             m_SubTurrets[1].StartPattern("1C", new BulletPattern_EnemyBoss4_SubTurret_1C(m_SubTurrets[1]));
             m_CurrentPattern1 = Pattern1C1();
@@ -214,8 +217,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             yield return new WaitForMillisecondFrames(5000);
             m_SubTurrets[0].StopPattern("1C");
             m_SubTurrets[1].StopPattern("1C");
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(130f, 100f));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(130f, 100f));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
             StopAllPatterns();
 
             yield return new WaitForMillisecondFrames(2000);
@@ -223,6 +226,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             yield return StartPattern("1D2", new BulletPattern_EnemyBoss4_1D2(this, ExecuteSubTurretPattern_1D));
 
             StopAllPatterns();
+            rand *= -1;
         }
     }
 
@@ -372,8 +376,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_SubTurrets[0].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[0], side));
             m_SubTurrets[1].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[1], side));
             yield return new WaitForMillisecondFrames(1000);
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(130f, 100f));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(130f, 100f));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
             if (m_EnemyHealth.HealthPercent <= 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
@@ -438,32 +442,25 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator Phase3() { // 페이즈3 패턴 ============================
-        int rand = Random.Range(0, 2) * 2 - 1;
+        var rand = Random.Range(0, 2) * 2 - 1;
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(0f, 150f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(0f, 150f));
         yield return new WaitForMillisecondFrames(2500);
 
         while (m_Phase == 3) {
             m_MainTurret.SetRotatePattern(new RotatePattern_Target(45f * rand, 80f));
-            m_SubTurrets[rand].StartPattern("3A", new BulletPattern_EnemyBoss4_SubTurret_3A(m_SubTurrets[0]));
+            m_SubTurrets[(rand + 1) / 2].StartPattern("3A", new BulletPattern_EnemyBoss4_SubTurret_3A(m_SubTurrets[(rand + 1) / 2]));
             yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StartPattern("3A", new BulletPattern_EnemyBoss4_MainTurret_3A(m_MainTurret));
             yield return new WaitForMillisecondFrames(1000);
             rand *= -1;
             m_MainTurret.SetRotatePattern(new RotatePattern_Target(45f * rand, 80f));
-            m_SubTurrets[rand].StartPattern("3A", new BulletPattern_EnemyBoss4_SubTurret_3A(m_SubTurrets[0]));
+            m_SubTurrets[(rand + 1) / 2].StartPattern("3A", new BulletPattern_EnemyBoss4_SubTurret_3A(m_SubTurrets[(rand + 1) / 2]));
             yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StartPattern("3A", new BulletPattern_EnemyBoss4_MainTurret_3A(m_MainTurret));
             yield return new WaitForMillisecondFrames(1000);
             rand *= -1;
         }
-    }
-
-    private void StopAllPatterns() {
-        if (m_CurrentPattern1 != null)
-            StopCoroutine(m_CurrentPattern1);
-        if (m_CurrentPattern2 != null)
-            StopCoroutine(m_CurrentPattern2);
     }
 
 

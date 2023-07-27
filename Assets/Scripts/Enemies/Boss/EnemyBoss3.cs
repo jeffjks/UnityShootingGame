@@ -17,8 +17,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private const int APPEARANCE_TIME = 1200;
     private const float MAX_ROTATION = 11f;
     private readonly int _barrelAnimationTrigger = Animator.StringToHash("BarrelShoot");
-    private string _directionState;
-    private int _rotateDirection;
+    private float _directionDelta;
 
     private IEnumerator _currentPhase;
 
@@ -48,21 +47,8 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 ToNextPhase();
             }
         }
-
-        switch(_directionState) {
-            case "1A":
-                m_CustomDirection[0] += 90f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
-                break;
-            case "1C":
-                m_CustomDirection[0] += 71f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
-                break;
-            case "2A":
-                m_CustomDirection[0] += 19f * _rotateDirection / Application.targetFrameRate * Time.timeScale;
-                break;
-            case "2B":
-                m_CustomDirection[0] += MAX_ROTATION * _rotateDirection / Application.targetFrameRate * Time.timeScale;
-                break;
-        }
+        
+        m_CustomDirection[0] += _directionDelta / Application.targetFrameRate * Time.timeScale;
 
         if (m_Phase > 0) {
             if (transform.position.x > TARGET_POSITION.x + 0.7f) {
@@ -175,8 +161,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
             yield return new WaitForMillisecondFrames(2000);
 
             m_CustomDirection[0] = Random.Range(0f, 360f);
-            _directionState = "1C";
-            _rotateDirection = RandomValue();
+            _directionDelta = 71f * RandomValue();
             StartPattern("1C1", new BulletPattern_EnemyBoss3_1C1(this));
             StartPattern("1C2", new BulletPattern_EnemyBoss3_1C2(this));
             yield return new WaitForMillisecondFrames(5000);
@@ -194,11 +179,11 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (m_Phase == 2) {
             yield return StartPattern("2A", new BulletPattern_EnemyBoss3_2A(this));
-            
-            _directionState = "2B";
-            _rotateDirection = RandomValue();
-            m_CustomDirection[0] = - _rotateDirection * MAX_ROTATION * 0.7f;
-            StartPattern("2B1", new BulletPattern_EnemyBoss3_2B1(this, () => _rotateDirection *= -1));
+
+            var rand = RandomValue();
+            _directionDelta =  MAX_ROTATION * 0.7f * rand;
+            m_CustomDirection[0] = - MAX_ROTATION * 0.7f * rand;
+            StartPattern("2B1", new BulletPattern_EnemyBoss3_2B1(this, () => _directionDelta *= -1));
             
             for (int i = 0; i < 1; ++i) { // Repeat Once
                 var random_value = Random.Range(0, 2);
@@ -219,15 +204,17 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private IEnumerator Pattern1A() {
-        _rotateDirection = RandomValue();
-        _directionState = "1A";
+        var rand = RandomValue();
+        _directionDelta = 90f * rand;
+        m_CustomDirection[0] = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f * rand;
+        
         StartPattern("1A1", new BulletPattern_EnemyBoss3_1A1(this));
         StartPattern("1A2", new BulletPattern_EnemyBoss3_1A2(this));
 
         for (int i = 0; i < 3; i++) {
-            m_CustomDirection[0] = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f*_rotateDirection;
-            yield return new WaitForMillisecondFrames(1000);
-            _rotateDirection *= -1;
+            m_CustomDirection[0] = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f * Mathf.Sign(_directionDelta);
+            yield return new WaitForFrames(64);
+            _directionDelta *= -1;
         }
     }
 

@@ -87,7 +87,7 @@ public class RotatePattern_RotateAround : IRotatePattern
     
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
-        var rotateSpeed = _speed / Application.targetFrameRate * Time.timeScale;
+        var rotateSpeed = _speed;
         if (rotateSpeed > 0f)
             enemyObject.RotateUnit(enemyObject.CurrentAngle + 179f, rotateSpeed);
         else if (rotateSpeed < 0f)
@@ -113,8 +113,7 @@ public class RotatePattern_RotateAround_PingPong : IRotatePattern
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
         _tempAngle += _speed / Application.targetFrameRate * Time.timeScale;
-        _tempAngle = Mathf.Repeat(_tempAngle, 360f);
-        _tempAngle = Mathf.PingPong(_tempAngle, _angleRange);
-        enemyObject.CurrentAngle = _tempAngle + _correctionValue;
+        //_tempAngle = Mathf.Repeat(_tempAngle, 360f);
+        enemyObject.CurrentAngle = Mathf.PingPong(_tempAngle, _angleRange) + _correctionValue;
     }
 }

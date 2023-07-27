@@ -10,23 +10,25 @@ public class BulletPattern_EnemyBoss3_1A1 : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         var duration = 0;
-        int[] fireDelay = { 180, 130, 100 };
+        int[] fireDelay = { 12, 8, 6 };
 
-        while (duration < 3000) {
+        while (duration < 180) {
             var pos = GetFirePos(0);
             duration += fireDelay[(int) SystemManager.Difficulty];
-            switch(duration / 1000) {
+            var dir = _enemyObject.m_CustomDirection[0];
+            switch(duration / 60)
+            {
                 case 0:
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0]));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, dir));
                     break;
                 case 1:
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0], 2, 24f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, dir, 2, 24f));
                     break;
                 case 2:
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0], 3, 24f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, dir, 3, 24f));
                     break;
             }
-            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+            yield return new WaitForFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
         onCompleted?.Invoke();
     }
@@ -39,26 +41,27 @@ public class BulletPattern_EnemyBoss3_1A2 : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         var duration = 0;
-        int[] fireDelay = { 300, 220, 150 };
+        int[] fireDelay = { 18, 12, 9 };
 
-        while (duration < 3000) {
+        while (duration < 180) {
             var pos = GetFirePos(0);
             duration += fireDelay[(int) SystemManager.Difficulty];
-            switch(duration / 1000) {
+            var dir = _enemyObject.m_CustomDirection[0];
+            switch(duration / 60) {
                 case 0:
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0], 3, 2.25f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir, 3, 2.25f));
                     break;
                 case 1:
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0] - 14f, 3, 2.25f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0] + 14f, 3, 2.25f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir - 14f, 3, 2.25f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir + 14f, 3, 2.25f));
                     break;
                 case 2:
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0] - 28f, 3, 2.25f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0], 3, 2.25f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, _enemyObject.m_CustomDirection[0] + 28f, 3, 2.25f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir - 28f, 3, 2.25f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir, 3, 2.25f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir + 28f, 3, 2.25f));
                     break;
             }
-            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+            yield return new WaitForFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
         onCompleted?.Invoke();
     }
@@ -94,7 +97,7 @@ public class BulletPattern_EnemyBoss3_1B : BulletFactory, IBulletPattern
 
 public class BulletPattern_EnemyBoss3_Turret_1B : BulletFactory, IBulletPattern
 {
-    private int _side;
+    private readonly int _side;
 
     public BulletPattern_EnemyBoss3_Turret_1B(EnemyObject enemyObject, int side) : base(enemyObject)
     {

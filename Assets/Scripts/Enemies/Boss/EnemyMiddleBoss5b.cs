@@ -91,7 +91,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
             RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         m_Phase++;
         if (m_CurrentPattern2 != null)
             StopCoroutine(m_CurrentPattern2);

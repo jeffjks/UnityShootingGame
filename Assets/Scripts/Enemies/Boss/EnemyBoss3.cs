@@ -119,7 +119,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         return random_value;
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         int duration = 2000;
         m_Phase++;
         if (m_Phase >= 2) {

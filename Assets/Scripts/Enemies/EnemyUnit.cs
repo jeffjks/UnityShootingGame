@@ -27,14 +27,14 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     public int m_Score;
     public bool m_IsRoot;
     public Queue<TweenData> m_TweenDataQueue = new ();
-    public bool IsExecutingPattern => m_CurrentPatterns.Count > 0;
+    public bool IsExecutingPattern => _currentPatterns.Count > 0;
     
     protected bool m_TimeLimitState = false;
-    protected UnityAction _onPatternStopped;
+    protected event UnityAction Action_OnPatternStopped;
 
     private readonly Vector3 _airEnemyAxis = new (0f, -0.4f, 1f);
     private Quaternion _defaultRotation;
-    private readonly Dictionary<string, Coroutine> m_CurrentPatterns = new();
+    private readonly Dictionary<string, Coroutine> _currentPatterns = new();
 
     public event Action Action_StartInteractable;
 
@@ -107,37 +107,37 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         if (!_isInteractable)
             return null;
         
-        m_CurrentPatterns.Add(key, null);
+        _currentPatterns.Add(key, null);
         var enumerator = bulletPattern.ExecutePattern(() => StopPattern(key));
         var coroutine = StartCoroutine(enumerator);
         
-        if (m_CurrentPatterns.ContainsKey(key))
-            m_CurrentPatterns[key] = coroutine;
+        if (_currentPatterns.ContainsKey(key))
+            _currentPatterns[key] = coroutine;
         
         return coroutine;
     }
 
     public void StopPattern(string key)
     {
-        if (m_CurrentPatterns.TryGetValue(key, out var value))
+        if (_currentPatterns.TryGetValue(key, out var value))
         {
             if (value != null)
                 StopCoroutine(value);
-            m_CurrentPatterns.Remove(key);
+            _currentPatterns.Remove(key);
         }
         
-        _onPatternStopped?.Invoke();
+        Action_OnPatternStopped?.Invoke();
     }
 
     public void StopAllPatterns() {
-        foreach (var pattern in m_CurrentPatterns)
+        foreach (var pattern in _currentPatterns)
         {
             if (pattern.Value != null)
                 StopCoroutine(pattern.Value);
         }
-        m_CurrentPatterns.Clear();
+        _currentPatterns.Clear();
         
-        _onPatternStopped?.Invoke();
+        Action_OnPatternStopped?.Invoke();
     }
     
     

@@ -110,7 +110,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_BombBarrier.SetActive(state);
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         m_Phase++;
         StopAllPatterns();
         BulletManager.SetBulletFreeState(2000);

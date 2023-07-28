@@ -85,8 +85,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     }
 
     public void OnAppearanceComplete() {
-        float[] random_direction = { 70f, 110f, -70f, -110f };
-        m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
+        float[] randomDirection = { 70f, 110f, -70f, -110f };
+        m_MoveVector = new MoveVector(0.8f, randomDirection[Random.Range(0, 4)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
@@ -97,13 +97,13 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
 
-    private IEnumerator TimeLimit(int time_limit = 0) {
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME + time_limit);
+    private IEnumerator TimeLimit(int timeLimit = 0) {
+        yield return new WaitForMillisecondFrames(APPEARANCE_TIME + timeLimit);
         m_TimeLimitState = true;
 
         int frame = 3500 * Application.targetFrameRate / 1000;
 
-        Quaternion init_quaternion = m_Rotator.rotation;
+        Quaternion initQuaternion = m_Rotator.rotation;
         float targetHorizontalSpeed;
 
         if (Mathf.DeltaAngle(0f, m_MoveVector.direction) < 180f) {
@@ -118,7 +118,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
             float t_rot = (float) (i+1) / frame;
             
             transform.Translate(new Vector3(Mathf.Lerp(0f, targetHorizontalSpeed / Application.targetFrameRate, t_pos), 0f, 0f));
-            m_Rotator.rotation = Quaternion.Lerp(init_quaternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
+            m_Rotator.rotation = Quaternion.Lerp(initQuaternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
             yield return new WaitForMillisecondFrames(0);
         }
     }

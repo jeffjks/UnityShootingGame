@@ -34,7 +34,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
         }
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         if (m_State == -1) {
             StartCoroutine(Pattern1());
         }

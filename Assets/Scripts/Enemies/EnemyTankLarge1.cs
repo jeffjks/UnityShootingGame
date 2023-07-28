@@ -55,8 +55,8 @@ public class EnemyTankLarge1 : EnemyUnit
         }
 
         if (m_TurretState) {
-            m_Turret1[0].ToNextPhase();
-            m_Turret1[1].ToNextPhase();
+            //m_Turret1[0].ToNextPhase(); TODO.
+            //m_Turret1[1].ToNextPhase();
             m_TurretState = false;
         }
     }

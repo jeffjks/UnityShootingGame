@@ -158,7 +158,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         yield break;
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         m_Phase++;
         StopAllPatterns();
 

@@ -116,7 +116,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             _trackPos--;
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_Launchers[0].SetMoving(false);

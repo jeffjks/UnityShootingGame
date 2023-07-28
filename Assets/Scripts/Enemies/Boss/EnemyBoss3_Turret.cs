@@ -7,6 +7,6 @@ public class EnemyBoss3_Turret : EnemyUnit
     void Start()
     {
         CurrentAngle = AngleToPlayer;
-        _onPatternStopped += () => SetRotatePattern(new RotatePattern_TargetPlayer(100f));
+        Action_OnPatternStopped += () => SetRotatePattern(new RotatePattern_TargetPlayer(100f));
     }
 }

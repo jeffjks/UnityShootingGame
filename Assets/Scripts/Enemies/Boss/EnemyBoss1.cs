@@ -56,7 +56,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
     }
 
-    public void ToNextPhase() {
+    private void ToNextPhase() {
         m_Phase++;
         m_MoveVector = new MoveVector(0f, 0f);
         if (m_CurrentPhase != null)

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 {
-    public EnemyMiddleBoss4Turret1 m_Turret1;
-    public EnemyMiddleBoss4Turret2 m_Turret2;
-    public EnemyMiddleBoss4Part[] m_Part = new EnemyMiddleBoss4Part[2];
+    public EnemyMiddleBoss4_Turret1 m_Turret1;
+    public EnemyMiddleBoss4_Turret2 m_Turret2;
+    public EnemyMiddleBoss4_Part[] m_Part = new EnemyMiddleBoss4_Part[2];
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
     private int m_Phase;
@@ -14,7 +14,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private const int TIME_LIMIT = 40000;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2, m_SubPattern;
-    private bool m_Pattern1B;
 
     void Start()
     {
@@ -177,222 +176,24 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         if (m_Part[1] != null) {
             m_Part[1].StartPattern(2);
         }
-        yield break;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
         while (m_Phase == 1) {
-            m_CurrentPattern1 = Pattern1A1();
-            m_CurrentPattern2 = Pattern1A2();
-            StartCoroutine(m_CurrentPattern1);
-            StartCoroutine(m_CurrentPattern2);
+            m_Turret1.StartPattern("1A1", new BulletPattern_EnemyMiddleBoss4_Turret1_1A(m_Turret1));
+            m_Turret2.StartPattern("1A2", new BulletPattern_EnemyMiddleBoss4_Turret2_1A(m_Turret2));
             yield return new WaitForMillisecondFrames(6000);
-            if (m_CurrentPattern1 != null)
-                StopCoroutine(m_CurrentPattern1);
-            if (m_CurrentPattern2 != null)
-                StopCoroutine(m_CurrentPattern2);
+            m_Turret1.StopPattern("1A");
+            m_Turret2.StopPattern("1A");
             yield return new WaitForMillisecondFrames(1000);
 
-            m_Pattern1B = true;
-            m_CurrentPattern1 = Pattern1B1();
-            m_CurrentPattern2 = Pattern1B2();
-            StartCoroutine(m_CurrentPattern1);
-            StartCoroutine(m_CurrentPattern2);
+            m_Turret1.StartPattern("1B1", new BulletPattern_EnemyMiddleBoss4_Turret1_1B(m_Turret1));
+            m_Turret2.StartPattern("1B2", new BulletPattern_EnemyMiddleBoss4_Turret2_1B(m_Turret2));
             yield return new WaitForMillisecondFrames(6000);
-            m_Pattern1B = false;
+            m_Turret1.StopPattern("1B");
+            m_Turret2.StopPattern("1B");
             yield return new WaitForMillisecondFrames(1800);
-        }
-        yield break;
-    }
-
-    private IEnumerator Pattern1A1() {
-        Vector2 pos;
-        float target_angle, random_value;
-        BulletAccel accel = new BulletAccel(0f, 0);
-
-        while (true) {
-            pos = m_Turret1.m_FirePosition.position;
-            target_angle = m_Turret1.CurrentAngle + Random.Range(-1.5f, 1.5f);
-            random_value = Random.Range(0.5f,14f);
-
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(4, pos, 6f, target_angle, accel, 5, random_value);
-                yield return new WaitForMillisecondFrames(1000);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(4, pos, 6f, target_angle, accel, 7, random_value);
-                yield return new WaitForMillisecondFrames(600);
-            }
-            else {
-                CreateBulletsSector(4, pos, 6f, target_angle, accel, 7, random_value);
-                yield return new WaitForMillisecondFrames(500);
-            }
-        }
-    }
-
-    private IEnumerator Pattern1A2() {
-        Vector2 pos;
-        float target_angle;
-        int random_value;
-        BulletAccel accel = new BulletAccel(0f, 0);
-
-        while (true) {
-            random_value = Random.Range(0, 2);
-
-            if (random_value == 0) {
-                if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    for (int i = 0; i < 5; i++) {
-                        pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.CurrentAngle;
-                        CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 7, 14f);
-                        yield return new WaitForMillisecondFrames(70);
-                    }
-                    yield return new WaitForMillisecondFrames(1200);
-                }
-                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    for (int i = 0; i < 5; i++) {
-                        pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.CurrentAngle;
-                        CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 9, 11f);
-                        yield return new WaitForMillisecondFrames(70);
-                    }
-                    yield return new WaitForMillisecondFrames(1000);
-                }
-                else {
-                    for (int i = 0; i < 5; i++) {
-                        pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.CurrentAngle;
-                        CreateBulletsSector(2, pos, 5.8f + i*0.82f, target_angle, accel, 11, 8f);
-                        yield return new WaitForMillisecondFrames(70);
-                    }
-                    yield return new WaitForMillisecondFrames(800);
-                }
-            }
-            else {
-                if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    for (int i = 0; i < 3; i++) {
-                        pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.CurrentAngle;
-                        CreateBulletsSector(2, pos, 8.4f, target_angle - 2f, accel, 5, 17f);
-                        CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 5, 17f);
-                        CreateBulletsSector(2, pos, 8.4f, target_angle + 2f, accel, 5, 17f);
-                        yield return new WaitForMillisecondFrames(80);
-                    }
-                    yield return new WaitForMillisecondFrames(1300);
-                }
-                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    for (int i = 0; i < 3; i++) {
-                        pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.CurrentAngle;
-                        CreateBulletsSector(2, pos, 8.4f, target_angle - 1.5f, accel, 7, 13f);
-                        CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 7, 15f);
-                        CreateBulletsSector(2, pos, 8.4f, target_angle + 1.5f, accel, 7, 13f);
-                        yield return new WaitForMillisecondFrames(80);
-                    }
-                    yield return new WaitForMillisecondFrames(1100);
-                }
-                else {
-                    for (int i = 0; i < 3; i++) {
-                        pos = m_Turret2.m_FirePosition.position;
-                        target_angle = m_Turret2.CurrentAngle;
-                        CreateBulletsSector(2, pos, 8.4f, target_angle - 1.5f, accel, 7, 13f);
-                        CreateBulletsSector(2, pos, 8.4f, target_angle, accel, 7, 15f);
-                        CreateBulletsSector(2, pos, 8.4f, target_angle + 1.5f, accel, 7, 13f);
-                        yield return new WaitForMillisecondFrames(80);
-                    }
-                    yield return new WaitForMillisecondFrames(800);
-                }
-            }
-        }
-    }
-
-    private IEnumerator Pattern1B1() {
-        Vector2 pos;
-        float target_angle;
-        BulletAccel accel = new BulletAccel(0f, 0);
-
-        while (m_Pattern1B) {
-            pos = m_Turret1.m_FirePosition.position;
-
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                for (int i = 0; i < 6; i++) {
-                    target_angle = m_Turret1.CurrentAngle;
-                    CreateBullet(4, pos, 3.5f + i*1.2f, target_angle, accel);
-                    yield return new WaitForMillisecondFrames(70);
-                }
-                yield return new WaitForMillisecondFrames(2300);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                for (int i = 0; i < 8; i++) {
-                    target_angle = m_Turret1.CurrentAngle;
-                    CreateBullet(4, pos, 3.5f + i*1.2f, target_angle, accel);
-                    yield return new WaitForMillisecondFrames(70);
-                }
-                yield return new WaitForMillisecondFrames(1800);
-            }
-            else {
-                for (int i = 0; i < 10; i++) {
-                    target_angle = m_Turret1.CurrentAngle;
-                    CreateBulletsSector(4, pos, 3.5f + i*1.2f, target_angle, accel, 3, 3f);
-                    yield return new WaitForMillisecondFrames(70);
-                }
-                yield return new WaitForMillisecondFrames(1300);
-            }
-        }
-    }
-
-    private IEnumerator Pattern1B2() {
-        Vector2 pos;
-        float target_angle;
-        BulletAccel accel = new BulletAccel(0f, 0);
-
-        while (m_Pattern1B) {
-            pos = m_Turret2.m_FirePosition.position;
-            target_angle = m_Turret2.CurrentAngle;
-
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(0, pos, 7.3f, target_angle, accel, 2, 80f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(0, pos, 6.6f, target_angle, accel, 2, 62f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(0, pos, 5.9f, target_angle, accel, 2, 44f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(2, pos, 5.2f, target_angle, accel, 2, 26f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(2, pos, 4.5f, target_angle, accel, 2, 8f);
-                yield return new WaitForMillisecondFrames(1000);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(0, pos, 7.3f, target_angle, accel, 2, 80f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(0, pos, 6.6f, target_angle, accel, 2, 62f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(0, pos, 5.9f, target_angle, accel, 2, 44f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(2, pos, 5.2f, target_angle, accel, 2, 26f);
-                yield return new WaitForFrames(2);
-                CreateBulletsSector(2, pos, 4.5f, target_angle, accel, 2, 8f);
-                yield return new WaitForMillisecondFrames(400);
-            }
-            else {
-                CreateBulletsSector(0, pos, 7.3f, target_angle, accel, 2, 90f);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(0, pos, 6.8f, target_angle, accel, 2, 78f);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(0, pos, 6.3f, target_angle, accel, 2, 66f);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(0, pos, 5.8f, target_angle, accel, 2, 54f);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(0, pos, 5.3f, target_angle, accel, 2, 42);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(2, pos, 4.8f, target_angle, accel, 2, 30);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(2, pos, 4.3f, target_angle, accel, 2, 18);
-                yield return new WaitForFrames(1);
-                CreateBulletsSector(2, pos, 3.8f, target_angle, accel, 2, 6);
-                yield return new WaitForMillisecondFrames(320);
-            }
         }
     }
 

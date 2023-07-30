@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss4Part : EnemyUnit
+public class EnemyMiddleBoss4_Part : EnemyUnit
 {
     public Transform m_FirePosition;
     public EnemyItemCreater m_EnemyItemCreater;

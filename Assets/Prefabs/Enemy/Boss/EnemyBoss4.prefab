@@ -106,8 +106,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 7021008997697841483}
-  m_Position: 1
 --- !u!114 &4450760002710729640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,8 +225,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3444663183974911546}
-  m_Position: -1
 --- !u!114 &1686895223111532974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,7 +631,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 2500
   m_IsRoot: 0
-  m_FirePosition: {fileID: 4862007706350544916}
 --- !u!114 &292107961841412729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +745,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 2500
   m_IsRoot: 0
-  m_FirePosition: {fileID: 109533634783990533}
 --- !u!114 &6552932599282503610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,7 +1363,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 2500
   m_IsRoot: 0
-  m_FirePosition: {fileID: 4628570922968981107}
 --- !u!114 &2671401052856329017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,7 +1477,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 2500
   m_IsRoot: 0
-  m_FirePosition: {fileID: 6585013472877613492}
 --- !u!114 &5469240398995098365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,9 +1840,7 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_EnemyBoss4MainTurretBarrel: {fileID: 4737815172762983701}
-  m_FirePosition: {fileID: 6059859442607796135}
-  m_RotatePattern: 10
+  m_EnemyBoss4MainTurretBarrel: {fileID: 0}
 --- !u!114 &3157064963520387791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2058,7 +2048,6 @@ GameObject:
   - component: {fileID: 400154}
   - component: {fileID: 3300124}
   - component: {fileID: 2300124}
-  - component: {fileID: 4737815172762983701}
   m_Layer: 12
   m_Name: LandFortressHeavyTurretBarrelAnimated
   m_TagString: Untagged
@@ -2132,18 +2121,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4737815172762983701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e49cc5ed4f4e894fa08435811d11fcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &100156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,8 +2428,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 8258282674371013236}
-  m_RotatePattern: 10
 --- !u!114 &215864085475969502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2536,8 +2511,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3206545656578198555}
-  m_RotatePattern: 10
 --- !u!114 &7620463052331929337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3128,8 +3101,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 5000
   m_IsRoot: 0
-  m_FirePosition: {fileID: 4701576049642114937}
-  m_RotatePattern: 10
 --- !u!114 &6607992162665462031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3244,8 +3215,6 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 5000
   m_IsRoot: 0
-  m_FirePosition: {fileID: 7902654878378707055}
-  m_RotatePattern: 10
 --- !u!114 &1769992302779647881
 MonoBehaviour:
   m_ObjectHideFlags: 0

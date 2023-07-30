@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss4Turret2 : EnemyUnit
+public class EnemyMiddleBoss4_Turret2 : EnemyUnit
 {
     public Transform m_FirePosition;
     

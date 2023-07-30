@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
 {
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
-
-    private float m_Direction1, m_Direction2;
+    
     private Vector2 m_TargetPosition;
     private int m_Phase;
 
@@ -16,6 +15,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
     void Start()
     {
         m_TargetPosition = new Vector2(0f, -4.3f);
+        m_CustomDirection = new CustomDirection(2);
 
         DisableInteractableAll();
 
@@ -84,13 +84,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
             }
         }
 
-        m_Direction1 += 111f / Application.targetFrameRate * Time.timeScale;
-        if (m_Direction1 >= 360f)
-            m_Direction1 -= 360f;
-
-        m_Direction2 += 79f / Application.targetFrameRate * Time.timeScale;
-        if (m_Direction2 >= 360f)
-            m_Direction2 -= 360f;
+        m_CustomDirection[0] += 111f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[1] += 79f / Application.targetFrameRate * Time.timeScale;
     }
 
     private void ToNextPhase() {
@@ -98,17 +93,12 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
             return;
         m_Phase = 2;
 
-        if (m_CurrentPattern1 != null)
-            StopCoroutine(m_CurrentPattern1);
-        if (m_CurrentPattern2 != null)
-            StopCoroutine(m_CurrentPattern2);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
+        StopAllPatterns();
 
-        m_CurrentPattern1 = Pattern2A1();
-        m_CurrentPattern2 = Pattern2A2();
-        StartCoroutine(m_CurrentPattern1);
-        StartCoroutine(m_CurrentPattern2);
+        StartPattern("2A1", new BulletPattern_EnemyMiddleBoss3_2A1(this));
+        StartPattern("2A2", new BulletPattern_EnemyMiddleBoss3_2A2(this));
 
         NextPhaseExplosion();
     }
@@ -133,65 +123,6 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
             yield return new WaitForMillisecondFrames(3000);
             StopAllPatterns();
             yield return new WaitForMillisecondFrames(2000);
-        }
-    }
-
-    private IEnumerator Pattern2A1() {
-        Vector2 pos;
-        float target_angle;
-        BulletAccel accel = new BulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(1500);
-
-        while (true) {
-            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
-
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(5, pos, 6.2f, -m_Direction1, accel, 4, 90f);
-                yield return new WaitForMillisecondFrames(120);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBulletsSector(5, pos, 6.2f, -m_Direction1, accel, 5, 120f);
-                yield return new WaitForMillisecondFrames(80);
-            }
-            else {
-                CreateBulletsSector(5, pos, 6.2f, -m_Direction1, accel, 6, 60f);
-                yield return new WaitForMillisecondFrames(60);
-            }
-        }
-    }
-
-    private IEnumerator Pattern2A2() {
-        Vector2 pos;
-        float target_angle, speed;
-        BulletAccel accel = new BulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(1500);
-
-        while (true) {
-            pos = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
-
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                speed = 1f;
-                CreateBulletsSector(0, pos, 6.4f*speed, -m_Direction2, accel, 6, 60f);
-                yield return new WaitForMillisecondFrames(330);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                speed = 1.1f;
-                CreateBulletsSector(0, pos, 5.4f*speed, -m_Direction2 , accel, 6, 60f);
-                CreateBulletsSector(0, pos, 5.9f*speed, -m_Direction2 + 1.5f, accel, 6, 60f);
-                CreateBulletsSector(0, pos, 6.4f*speed, -m_Direction2 + 3.5f, accel, 6, 60f);
-                CreateBulletsSector(0, pos, 6.8f*speed, -m_Direction2 + 6f, accel, 6, 60f);
-                yield return new WaitForMillisecondFrames(250);
-            }
-            else {
-                speed = 1.2f;
-                CreateBulletsSector(0, pos, 5.4f*speed, -m_Direction2 , accel, 8, 45f);
-                CreateBulletsSector(0, pos, 5.9f*speed, -m_Direction2 + 1.5f, accel, 8, 45f);
-                CreateBulletsSector(0, pos, 6.4f*speed, -m_Direction2 + 3.5f, accel, 8, 45f);
-                CreateBulletsSector(0, pos, 6.8f*speed, -m_Direction2 + 6f, accel, 8, 45f);
-                yield return new WaitForMillisecondFrames(220);
-            }
         }
     }
 

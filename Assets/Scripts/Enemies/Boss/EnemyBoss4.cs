@@ -370,8 +370,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             yield return new WaitForMillisecondFrames(1500);
 
             var side = Random.Range(0, 2) * 2 - 1;
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(AngleToPlayer + 70f*side, 180f));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(AngleToPlayer + 70f*side, 180f));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(AngleToPlayer).SetOffsetAngle(70f*side));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(AngleToPlayer).SetOffsetAngle(70f*side));
             yield return new WaitForMillisecondFrames(1000);
             m_SubTurrets[0].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[0], side));
             m_SubTurrets[1].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[1], side));

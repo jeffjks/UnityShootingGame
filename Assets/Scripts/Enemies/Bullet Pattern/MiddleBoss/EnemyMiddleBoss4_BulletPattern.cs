@@ -67,6 +67,83 @@ public class BulletPattern_EnemyMiddleBoss4_Turret1_1B : BulletFactory, IBulletP
     }
 }
 
+public class BulletPattern_EnemyMiddleBoss4_Turret1_2A1 : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyMiddleBoss4_Turret1_2A1(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 600, 350, 250 };
+        while (true)
+        {
+            var pos = GetFirePos(0);
+            var dir = Random.Range(-12f, 12f);
+
+            if (SystemManager.Difficulty == GameDifficulty.Normal)
+            {
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 3.6f, BulletPivot.Current, dir, 5, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir - 1f, 4, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir, 4, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir + 1f, 4, 24f));
+            }
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 3.6f, BulletPivot.Current, dir, 6, 19.2f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir - 1.5f, 5, 19.2f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir - 0.5f, 5, 19.2f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir + 0.5f, 5, 19.2f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir + 1.5f, 5, 19.2f));
+            }
+            else {
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 3.6f, BulletPivot.Current, dir, 7, 16f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir - 1.5f, 6, 16f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir - 0.5f, 6, 16f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir + 0.5f, 6, 16f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 3.6f, BulletPivot.Current, dir + 1.5f, 6, 16f));
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}
+
+public class BulletPattern_EnemyMiddleBoss4_Turret1_2A2 : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyMiddleBoss4_Turret1_2A2(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 1500, 1000, 800 };
+        while (true)
+        {
+            var pos = GetFirePos(0);
+
+            if (SystemManager.Difficulty == GameDifficulty.Normal)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.6f + 0.4f*i, BulletPivot.Current, 0f, 6, 60f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f + 0.4f*i, BulletPivot.Current, 30f, 6, 60f));
+                }
+            }
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+                for (int i = 0; i < 3; i++)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.6f + 0.4f*i, BulletPivot.Current, 0f, 10, 36f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f + 0.4f*i, BulletPivot.Current, 18f, 10, 36f));
+                }
+            }
+            else {
+                for (int i = 0; i < 3; i++) {
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.6f + 0.4f*i, BulletPivot.Current, 0f, 10, 36f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f + 0.4f*i, BulletPivot.Current, 18f, 10, 36f));
+                }
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}
+
 public class BulletPattern_EnemyMiddleBoss4_Turret2_1A : BulletFactory, IBulletPattern
 {
     public BulletPattern_EnemyMiddleBoss4_Turret2_1A(EnemyObject enemyObject) : base(enemyObject) { }

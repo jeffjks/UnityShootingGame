@@ -140,7 +140,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1B : BulletFactory, IBulletP
         yield return new WaitForMillisecondFrames(1200);
 
         var sign = Mathf.Sign(_enemyObject.transform.localScale.x);
-        _enemyObject.SetRotatePattern(new RotatePattern_Target(_enemyObject.AngleToPlayer + 60f*sign, 360f));
+        _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(360f).SetOffsetAngle(60f*sign));
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while (true) {
@@ -186,7 +186,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1C : BulletFactory, IBulletP
         yield return new WaitForMillisecondFrames(1500);
 
         var sign = Mathf.Sign(_enemyObject.transform.localScale.x);
-        _enemyObject.SetRotatePattern(new RotatePattern_Target(_enemyObject.AngleToPlayer + 150f*sign, 850f));
+        _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(850f).SetOffsetAngle(150f*sign));
 
         if (_patternIndex == 1) {
             yield return new WaitForMillisecondFrames(400);

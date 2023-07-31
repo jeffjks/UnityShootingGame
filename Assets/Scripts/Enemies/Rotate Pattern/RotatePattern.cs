@@ -20,6 +20,8 @@ public class RotatePattern_TargetPlayer : IRotatePattern
 {
     private readonly float _speed;
     private readonly float _speedSub;
+    private float _offsetAngle;
+    private Func<Vector2> _func;
     
     public RotatePattern_TargetPlayer(float speed = 0f, float speedAtPlayerDead = 180f)
     {
@@ -29,7 +31,29 @@ public class RotatePattern_TargetPlayer : IRotatePattern
     
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
-        enemyObject.RotateUnit(enemyObject.AngleToPlayer, PlayerManager.IsPlayerAlive ? _speed : _speedSub);
+        enemyObject.RotateUnit(enemyObject.AngleToPlayer + _offsetAngle, PlayerManager.IsPlayerAlive ? _speed : _speedSub);
+    }
+
+    public IRotatePattern SetOffsetAngle(float offsetAngle)
+    {
+        _offsetAngle += offsetAngle;
+        return this;
+    }
+}
+
+public class RotatePattern_CustomTarget : IRotatePattern
+{
+    private readonly Func<(float targetAngle, float speed)> _func;
+    
+    public RotatePattern_CustomTarget(Func<(float targetAngle, float speed)> func)
+    {
+        _func = func;
+    }
+    
+    public void ExecuteRotatePattern(EnemyObject enemyObject)
+    {
+        var tuple = _func.Invoke();
+        enemyObject.RotateUnit(tuple.targetAngle, tuple.speed);
     }
 }
 

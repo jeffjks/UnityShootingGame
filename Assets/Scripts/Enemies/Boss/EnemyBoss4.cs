@@ -11,14 +11,17 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     public EnemyBoss4_Launcher[] m_Launchers = new EnemyBoss4_Launcher[2];
     public MeshRenderer m_Track;
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
+    public Animator m_MissileLauncherAnimator;
 
     private int m_Phase;
-    
+
+    private readonly int _missileLauncherMoving = Animator.StringToHash("Moving");
     private const int APPEARANCE_TIME = 8000;
     //private int m_MoveDirection;
     //private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
     private float _trackPos;
     private bool _followingBackground;
+    private EnemyUnit[] _childEnemyUnits;
 
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
 
@@ -34,6 +37,9 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_EnemyDeath.Action_OnDying += OnBossDying;
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+
+        _childEnemyUnits = GetComponentsInChildren<EnemyUnit>();
+        Debug.Log(_childEnemyUnits.Length);
     }
 
     public IEnumerator AppearanceSequence() {
@@ -119,8 +125,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private void ToNextPhase() {
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
-        m_Launchers[0].SetMoving(false);
-        m_Launchers[1].SetMoving(false);
+        m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, false);
         m_Phase++;
         
         for (int i = 0; i < m_SmallTurrets.Length; i++) {
@@ -185,15 +190,13 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_MainTurret.StartPattern("1B1", new BulletPattern_EnemyBoss4_MainTurret_1B1(m_MainTurret));
             m_MainTurret.StartPattern("1B2", new BulletPattern_EnemyBoss4_MainTurret_1B2(m_MainTurret));
             yield return new WaitForMillisecondFrames(6000);
-            m_MainTurret.StopPattern("1B1");
-            m_MainTurret.StopPattern("1B2");
-            m_Launchers[0].StopPattern("1B");
-            m_Launchers[1].StopPattern("1B");
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(130f, 100f));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(130f, 100f));
             m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer());
             m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer());
+            StopAllSubUnitPattern();
             StopAllPatterns();
+            
             yield return new WaitForMillisecondFrames(1000);
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(270f, 150f));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(90f, 150f));
@@ -215,11 +218,10 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             StartCoroutine(m_CurrentPattern2);
 
             yield return new WaitForMillisecondFrames(5000);
-            m_SubTurrets[0].StopPattern("1C");
-            m_SubTurrets[1].StopPattern("1C");
+            StopAllSubUnitPattern();
+            StopAllPatterns();
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
-            StopAllPatterns();
 
             yield return new WaitForMillisecondFrames(2000);
             StartPattern("1A2", new BulletPattern_EnemyBoss4_1A2(this, ExecuteFrontTurretPattern_1A));
@@ -278,8 +280,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
         while (true) {
             m_CustomDirection[0] = Random.Range(0f, 360f);
-            m_Launchers[rand1].StartPattern("1B",
-                new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[rand1], rand2));
+            m_Launchers[rand1].StartPattern("1B", new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[rand1], rand2));
             rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
             float difficulty = (int) SystemManager.Difficulty;
             for (int i = 0; i < 32; i++) {
@@ -354,15 +355,13 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             var rand = Random.Range(0, 2) * 2 - 1;
             m_Launchers[0].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[0], rand));
             m_Launchers[1].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[1], rand));
-            m_Launchers[0].SetMoving(true);
-            m_Launchers[1].SetMoving(true);
+            m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, true);
             m_CurrentPattern1 = Pattern2A();
             yield return StartCoroutine(m_CurrentPattern1);
             
             m_Launchers[0].StopPattern("2A");
             m_Launchers[1].StopPattern("2A");
-            m_Launchers[0].SetMoving(false);
-            m_Launchers[1].SetMoving(false);
+            m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, false);
             if (m_EnemyHealth.HealthPercent <= 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
@@ -390,9 +389,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_SubTurrets[0].StartPattern("2C", new BulletPattern_EnemyBoss4_SubTurret_2C(m_SubTurrets[0]));
             m_SubTurrets[1].StartPattern("2C", new BulletPattern_EnemyBoss4_SubTurret_2C(m_SubTurrets[1]));
             yield return new WaitForMillisecondFrames(7000);
-            m_MainTurret.StopPattern("2C");
-            m_SubTurrets[0].StopPattern("2C");
-            m_SubTurrets[1].StopPattern("2C");
+            StopAllSubUnitPattern();
             if (m_EnemyHealth.HealthPercent <= 0.25f) { // 체력 25% 이하
                 ToNextPhase();
                 break;
@@ -463,6 +460,13 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
     }
 
+    private void StopAllSubUnitPattern()
+    {
+        foreach (var childEnemyUnit in _childEnemyUnits)
+        {
+            childEnemyUnit.StopAllPatterns();
+        }
+    }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;

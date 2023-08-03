@@ -8,7 +8,8 @@ public class EnemyBoss4_FrontTurret : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
+        SetRotatePattern(new RotatePattern_TargetPlayer());
         _killScore = m_Score;
         m_Score = 0;
         

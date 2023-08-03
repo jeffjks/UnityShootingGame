@@ -99,6 +99,7 @@ public class BulletPattern_EnemyBoss4_Launcher_1B : BulletFactory, IBulletPatter
         var directionChanged = false;
         const int totalDurationFrame = 64;
         _enemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
+        _typedEnemyObject.CustomDirectionDelta = directionDelta[(int)SystemManager.Difficulty];
         
         while (durationFrame < totalDurationFrame) {
             if (SystemManager.Difficulty == GameDifficulty.Normal)
@@ -117,7 +118,6 @@ public class BulletPattern_EnemyBoss4_Launcher_1B : BulletFactory, IBulletPatter
 
             if (!directionChanged && durationFrame >= totalDurationFrame / 2)
             {
-                _typedEnemyObject.CustomDirectionDelta = directionDelta[(int)SystemManager.Difficulty];
                 _typedEnemyObject.CustomDirectionSide = -_patternIndex;
                 directionChanged = true;
             }
@@ -455,7 +455,6 @@ public class BulletPattern_EnemyBoss4_FrontTurret_1B : BulletFactory, IBulletPat
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         const float gap = 0.6f;
-        _enemyObject.SetRotatePattern(new RotatePattern_Target(0f, 150f));
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             CreateBullet(new BulletProperty(GetFirePos(0, gap), BulletImage.PinkNeedle, 5.4f, BulletPivot.Current, 0f));
@@ -479,7 +478,6 @@ public class BulletPattern_EnemyBoss4_FrontTurret_1B : BulletFactory, IBulletPat
             }
         }
         
-        _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(180f));
         onCompleted?.Invoke();
     }
 }

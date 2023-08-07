@@ -1797,6 +1797,7 @@ GameObject:
   - component: {fileID: 7611769284488222124}
   - component: {fileID: 3157064963520387791}
   - component: {fileID: 2587928320699139741}
+  - component: {fileID: 7833911600097816386}
   m_Layer: 12
   m_Name: MainTurret
   m_TagString: Untagged
@@ -1840,7 +1841,7 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_EnemyBoss4MainTurretBarrel: {fileID: 0}
+  m_BarrelAnimator: {fileID: 0}
 --- !u!114 &3157064963520387791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1869,6 +1870,27 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 3157064963520387791}
   m_ExplType: 2
   m_ExplAudioType: 5
+--- !u!95 &7833911600097816386
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e82b9be164886ad4d9c81c21d07c475b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &100148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,7 +3909,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400212}
-  - component: {fileID: 6533881228428448146}
   - component: {fileID: 2827427694812776932}
   - component: {fileID: 2609958564702679677}
   - component: {fileID: 4183505070903517161}
@@ -3917,27 +3938,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &6533881228428448146
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100212}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &2827427694812776932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4222,6 +4222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3579193017122849287}
   - component: {fileID: 4417317141876734764}
+  - component: {fileID: 3014963407219724400}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -4260,6 +4261,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!50 &3014963407219724400
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713987991628468597}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1313608597132985817
 GameObject:
   m_ObjectHideFlags: 0
@@ -4301,6 +4323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4991118066584865917}
   - component: {fileID: 6126094460631671931}
+  - component: {fileID: 2793659163537041579}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -4339,6 +4362,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!50 &2793659163537041579
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851233479205885944}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2928418591711431917
 GameObject:
   m_ObjectHideFlags: 0
@@ -4432,6 +4476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3236132440696968461}
   - component: {fileID: 8330236720640189807}
+  - component: {fileID: 2382102301089056941}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -4470,6 +4515,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!50 &2382102301089056941
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3352951997320216733}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3464107443106588295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,6 +4920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5976637970258512718}
   - component: {fileID: 7012390822520836271}
+  - component: {fileID: 7226322650037184892}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -4909,6 +4976,27 @@ PolygonCollider2D:
       - {x: 7, y: -2}
       - {x: 7, y: 2}
       - {x: 5, y: 4}
+--- !u!50 &7226322650037184892
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6749964755423374645}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6834043487859664151
 GameObject:
   m_ObjectHideFlags: 0
@@ -4950,6 +5038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9078659264394371385}
   - component: {fileID: 157164651920185090}
+  - component: {fileID: 6253344180719869002}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -4988,6 +5077,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!50 &6253344180719869002
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7205014352979068136}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7735267488881791788
 GameObject:
   m_ObjectHideFlags: 0
@@ -5060,6 +5170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7753415846989577637}
   - component: {fileID: 5653689540836584610}
+  - component: {fileID: 2406517483235289986}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -5098,6 +5209,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!50 &2406517483235289986
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336956856578684500}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8798155570103628825
 GameObject:
   m_ObjectHideFlags: 0
@@ -5139,6 +5271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6059361779775606022}
   - component: {fileID: 2714358893465278300}
+  - component: {fileID: 1145624928454452802}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -5177,3 +5310,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!50 &1145624928454452802
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799177408631359033}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

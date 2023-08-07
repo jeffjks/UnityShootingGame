@@ -93,7 +93,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400010}
-  - component: {fileID: 6040041773985462118}
   - component: {fileID: 148231667775193918}
   - component: {fileID: 7074582856146585833}
   - component: {fileID: 4220126295284246220}
@@ -123,27 +122,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &6040041773985462118
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100010}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &148231667775193918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +171,6 @@ MonoBehaviour:
   m_DefaultHealth: 50
   m_Collider2D:
   - {fileID: 68537464001249492}
-  m_HealthPercent: 100
 --- !u!114 &5385556361113366454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1203070630789412584}
   - component: {fileID: 68537464001249492}
+  - component: {fileID: 6233752065279466796}
   m_Layer: 11
   m_Name: Collider
   m_TagString: Enemy
@@ -618,6 +596,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &6233752065279466796
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4295618940245938096}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7860808079222825841
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +705,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 70
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3918467306904601275}
 --- !u!114 &2202371597217946102
 MonoBehaviour:
   m_ObjectHideFlags: 0

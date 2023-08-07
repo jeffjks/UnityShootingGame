@@ -215,11 +215,11 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
             yield return new WaitForMillisecondFrames(3000);
 
             var initDir1 = GetAngleToTarget(m_FirePosition[1].position, PlayerManager.GetPlayerPosition());
-            StartPattern("1D1", new BulletPattern_EnemyBoss5_1D1(this, 0, 1400, initDir1, 2f));
+            StartPattern("1D1a", new BulletPattern_EnemyBoss5_1D1(this, 1, 1200, initDir1, 2f));
             var initDir2 = GetAngleToTarget(m_FirePosition[2].position, PlayerManager.GetPlayerPosition());
-            StartPattern("1D1", new BulletPattern_EnemyBoss5_1D1(this, 0, 1100, initDir2, -1f));
+            StartPattern("1D1b", new BulletPattern_EnemyBoss5_1D1(this, 2, 800, initDir2, -1f));
             var initDir3 = GetAngleToTarget(m_FirePosition[3].position, PlayerManager.GetPlayerPosition());
-            StartPattern("1D1", new BulletPattern_EnemyBoss5_1D1(this, 0, 800, initDir3, -3f));
+            StartPattern("1D1c", new BulletPattern_EnemyBoss5_1D1(this, 3, 500, initDir3, -3f));
             yield return new WaitForMillisecondFrames(3000);
             StartPattern("1D2", new BulletPattern_EnemyBoss5_1D2(this));
             yield return new WaitForMillisecondFrames(11000);

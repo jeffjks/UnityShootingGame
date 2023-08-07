@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -379,7 +380,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 8417897096735470365}
-  m_HealthPercent: 100
 --- !u!114 &5385556361113366454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -548,7 +549,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 6485578164333232411}
-  m_HealthPercent: 100
 --- !u!114 &515412261101433539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,6 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -717,7 +718,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 1351382190013489434}
-  m_HealthPercent: 100
 --- !u!114 &2726026014436905523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,6 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -886,7 +887,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 1266834556991815419}
-  m_HealthPercent: 100
 --- !u!114 &5008286825400514406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,6 +1020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1055,7 +1056,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 6116868255486706482}
-  m_HealthPercent: 100
 --- !u!114 &7427637404073788237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,6 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1224,7 +1225,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 2746127168013012546}
-  m_HealthPercent: 100
 --- !u!114 &3391064297525549700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,6 +1358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1393,7 +1394,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 4568803759589665376}
-  m_HealthPercent: 100
 --- !u!114 &8865729688615271646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,6 +1527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1562,7 +1563,6 @@ MonoBehaviour:
   m_DefaultHealth: 150
   m_Collider2D:
   - {fileID: 4875191083314851074}
-  m_HealthPercent: 100
 --- !u!114 &6374387857110140405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1692,6 +1692,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 0}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1721,7 +1723,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400046}
-  - component: {fileID: 1824795489223679813}
   - component: {fileID: 7068832166097506925}
   - component: {fileID: 963543929464101144}
   - component: {fileID: 7927978532329084971}
@@ -1750,27 +1751,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1824795489223679813
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100046}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &7068832166097506925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1784,6 +1764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
@@ -1830,7 +1811,6 @@ MonoBehaviour:
   m_DefaultHealth: 46000
   m_Collider2D:
   - {fileID: 6378092441801283617}
-  m_HealthPercent: 100
 --- !u!114 &4594881256512531662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11634,14 +11614,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 6626880381667716888}
+  - {fileID: 4628748407013359911}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 6626880381667716888}
-  - {fileID: 4628748407013359911}
   m_RotatePattern: 10
 --- !u!114 &3072801503214260976
 MonoBehaviour:
@@ -21345,6 +21325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3922951544196671525}
   - component: {fileID: 6378092441801283617}
+  - component: {fileID: 2324300578426922075}
   m_Layer: 10
   m_Name: Collider
   m_TagString: Enemy
@@ -21402,6 +21383,27 @@ PolygonCollider2D:
       - {x: 0.75, y: -0.7}
       - {x: 1, y: 0}
       - {x: 0.83, y: 0.83}
+--- !u!50 &2324300578426922075
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275264172086504359}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3370570433949699391
 GameObject:
   m_ObjectHideFlags: 0
@@ -36299,14 +36301,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3017209431804007154}
+  - {fileID: 1246601882547752241}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 3017209431804007154}
-  - {fileID: 1246601882547752241}
   m_RotatePattern: 10
 --- !u!114 &2286717553688513525
 MonoBehaviour:

@@ -1473,7 +1473,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400052}
-  - component: {fileID: -2252459381075718800}
   - component: {fileID: 6257076432406510264}
   - component: {fileID: 8620984854170658003}
   - component: {fileID: 6839415859766660001}
@@ -1502,27 +1501,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &-2252459381075718800
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100052}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &6257076432406510264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1535,16 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707b1dffbc7df0d48ad5ab6ed14f6383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 500
-  m_DefaultExplosion: 2
-  m_DefaultAudioClip: {fileID: 8300000, guid: a2feff481b180c749a181ee1c098d2c4, type: 3}
-  m_Explosion: 02000000
-  m_AudioClip: []
+  m_IsAir: 0
   m_FirePosition:
   - {fileID: 6921252410329860803}
   - {fileID: 7085795059355424091}
@@ -1553,6 +1522,11 @@ MonoBehaviour:
   - {fileID: 3339365416896817707}
   - {fileID: 400004}
   - {fileID: 400002}
+  m_EnemyHealth: {fileID: 0}
+  m_EnemyDeath: {fileID: 0}
+  m_EnemyType: 0
+  m_Score: 500
+  m_IsRoot: 0
 --- !u!114 &8620984854170658003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1581,7 +1555,6 @@ MonoBehaviour:
   m_DefaultHealth: 3000
   m_Collider2D:
   - {fileID: 689643523573826911}
-  m_HealthPercent: 100
 --- !u!114 &8711802044910816062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,6 +1740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8982821229965584241}
   - component: {fileID: 689643523573826911}
+  - component: {fileID: 440142516366262624}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -1805,6 +1779,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 4, y: 13}
   m_Direction: 0
+--- !u!50 &440142516366262624
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047255493483546545}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3541900720003885018
 GameObject:
   m_ObjectHideFlags: 0

@@ -134,12 +134,12 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
             m_Collider2D[i].enabled = state;
     }
 
-    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation) {
+    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation)
+    {
         foreach (var colliderItem in m_Collider2D)
         {
-            var trans = colliderItem.transform;
-            trans.position = screenPosition;
-            trans.rotation = screenRotation;
+            colliderItem.transform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
+            colliderItem.transform.rotation = screenRotation;
         }
     }
     

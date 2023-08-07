@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400006}
-  - component: {fileID: 5352910151716473333}
   - component: {fileID: 258503854877788582}
   - component: {fileID: 1386633708750019361}
   - component: {fileID: 3851520786745407258}
@@ -38,27 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &5352910151716473333
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100006}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &258503854877788582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,17 +49,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eed25edeaad5ed449e44da87a92454d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 8600843656446972908}
+  - {fileID: 1627735005470464450}
+  - {fileID: 5139293032551367863}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 5000
   m_IsRoot: 1
-  m_FirePosition:
-  - {fileID: 8600843656446972908}
-  - {fileID: 1627735005470464450}
-  - {fileID: 5139293032551367863}
   m_EnemyUnits:
   - {fileID: 4842996069959975582}
   - {fileID: 4752411846241770093}
@@ -119,7 +96,6 @@ MonoBehaviour:
   m_DefaultHealth: 6000
   m_Collider2D:
   - {fileID: 7530292145792047302}
-  m_HealthPercent: 100
 --- !u!114 &5036429281607314849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -325,7 +301,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 5433659531096476103}
-  m_HealthPercent: 100
 --- !u!114 &5068984236688004338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,8 +531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -591,7 +566,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 5072523587418273590}
-  m_HealthPercent: 100
 --- !u!114 &7273369595855979581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,8 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -822,7 +796,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 1385021496966112610}
-  m_HealthPercent: 100
 --- !u!114 &3510468714110486856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1838,8 +1811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1873,7 +1846,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 1650716858753972313}
-  m_HealthPercent: 100
 --- !u!114 &6238011330765287056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,8 +2146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -2209,7 +2181,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 349424761819422866}
-  m_HealthPercent: 100
 --- !u!114 &6974024865813410587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3157,8 +3128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -3192,7 +3163,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 7969953563956996022}
-  m_HealthPercent: 100
 --- !u!114 &1201872739710998542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3454,8 +3424,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -3489,7 +3459,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 4572607875431434519}
-  m_HealthPercent: 100
 --- !u!114 &7978458616619827513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3768,8 +3737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc71752fbceef4db2ea1664de32e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -3803,7 +3772,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 8300688331063428057}
-  m_HealthPercent: 100
 --- !u!114 &6180863432213751888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3964,6 +3932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1960417860705552910}
   - component: {fileID: 7530292145792047302}
+  - component: {fileID: 5061612224074955370}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -4012,6 +3981,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 2.5}
   m_EdgeRadius: 0
+--- !u!50 &5061612224074955370
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334002554691973106}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8367295273948486037
 GameObject:
   m_ObjectHideFlags: 0

@@ -344,7 +344,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400018}
-  - component: {fileID: 560772434423606538}
   - component: {fileID: 8398379833720575597}
   - component: {fileID: 6894093102882778675}
   - component: {fileID: 8502280800643667659}
@@ -374,27 +373,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &560772434423606538
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100018}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &8398379833720575597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,16 +385,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21efb2fc5ef84c84cb4d6fe9b782199d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 7558106524672285823}
+  - {fileID: 8498245693456844446}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 2000
   m_IsRoot: 1
-  m_FirePosition:
-  - {fileID: 7558106524672285823}
-  - {fileID: 8498245693456844446}
 --- !u!114 &6894093102882778675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +422,6 @@ MonoBehaviour:
   m_DefaultHealth: 7000
   m_Collider2D:
   - {fileID: 4879177299756922682}
-  m_HealthPercent: 100
 --- !u!114 &7427637404073788237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9116145762744479368}
   - component: {fileID: 4879177299756922682}
+  - component: {fileID: 2087404157211372753}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -705,6 +682,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.2, y: 1.8}
   m_Direction: 0
+--- !u!50 &2087404157211372753
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2307840585908269035}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2408078696469135132
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,16 +749,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a90db8f31846564f8d066d463329f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 4222119219249780956}
+  - {fileID: 256634357029212525}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 4222119219249780956}
-  - {fileID: 256634357029212525}
 --- !u!114 &4318030872199668291
 MonoBehaviour:
   m_ObjectHideFlags: 0

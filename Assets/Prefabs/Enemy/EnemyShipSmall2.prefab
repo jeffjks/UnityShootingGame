@@ -306,7 +306,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 8436531691388401257}
 --- !u!114 &8419797047090169567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +328,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400048}
-  - component: {fileID: 8967707106189290519}
   - component: {fileID: 3214695909034335811}
   - component: {fileID: 2897899064020239187}
   - component: {fileID: 3483399909445711568}
@@ -358,27 +356,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &8967707106189290519
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100048}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &3214695909034335811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +403,6 @@ MonoBehaviour:
   m_DefaultHealth: 70
   m_Collider2D:
   - {fileID: 5249143261987186977}
-  m_HealthPercent: 100
 --- !u!114 &8640377587622728023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,6 +621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6517594672231060875}
   - component: {fileID: 5249143261987186977}
+  - component: {fileID: 8758500395062972882}
   m_Layer: 11
   m_Name: Collider
   m_TagString: Enemy
@@ -683,3 +660,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 4, y: 7}
   m_Direction: 0
+--- !u!50 &8758500395062972882
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971154429288069492}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

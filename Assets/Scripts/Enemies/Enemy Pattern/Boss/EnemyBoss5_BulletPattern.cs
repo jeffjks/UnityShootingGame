@@ -207,7 +207,7 @@ public class BulletPattern_EnemyBoss5_1D1 : BulletFactory, IBulletPattern
     {
         _firePositionIndex = firePositionIndex;
         _duration = duration;
-        _dirInit = dirDelta;
+        _dirInit = dirInit;
         _dirDelta = dirDelta;
     }
     

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class EnemyBoss4_MainTurret : EnemyUnit
 {
-    public EnemyBoss4_MainTurretBarrel m_EnemyBoss4MainTurretBarrel; // TODO. 애니메이션 설정
-    
-    private IEnumerator _subPattern1, _subPattern2;
+    public Animator m_BarrelAnimator;
 
     void Start()
     {

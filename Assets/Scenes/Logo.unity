@@ -1070,26 +1070,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
         type: 3}
-      propertyPath: m_text
-      value: Version
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
       propertyPath: m_fontSizeBase
       value: 22
       objectReference: {fileID: 0}
@@ -1097,16 +1077,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1551fb2b614d47a4882d8fcec6cf9b4e, type: 3}

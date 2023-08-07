@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1314187946552073078}
   - component: {fileID: 1314187946552073079}
+  - component: {fileID: 8968905777531334308}
   m_Layer: 5
   m_Name: VersionText
   m_TagString: Untagged
@@ -46,6 +47,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314187946552072972}
   m_CullTransparentMesh: 1
+--- !u!114 &8968905777531334308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314187946552072972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ce22a84a226fd4bbc3f561c3d40881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textUI: {fileID: 4000964303993614375}
 --- !u!1 &5833603036325344511
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Text
+  m_text: Version
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 443b2ce82d38d9f4999bf0da8660ea85, type: 2}
   m_sharedMaterial: {fileID: -4932068518111235552, guid: 443b2ce82d38d9f4999bf0da8660ea85,
@@ -122,7 +136,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286894304
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

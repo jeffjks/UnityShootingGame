@@ -344,7 +344,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400012}
-  - component: {fileID: 3907605585878452936}
   - component: {fileID: 611388499316022645}
   - component: {fileID: 114903601766903414}
   - component: {fileID: 4321402386482491992}
@@ -375,27 +374,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &3907605585878452936
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100012}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &611388499316022645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,8 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe9baeb7b7cb3419f8136016281aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 3642231956075061742}
+  - {fileID: 1117458527355304265}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -419,9 +399,6 @@ MonoBehaviour:
   - {fileID: 1850863824149968204}
   - {fileID: 7732258645414893920}
   m_Turret2: {fileID: 9028911499515134563}
-  m_FirePosition:
-  - {fileID: 3642231956075061742}
-  - {fileID: 1117458527355304265}
   m_LauncherRotation: {fileID: 400010}
 --- !u!114 &114903601766903414
 MonoBehaviour:
@@ -451,7 +428,6 @@ MonoBehaviour:
   m_DefaultHealth: 10000
   m_Collider2D:
   - {fileID: 1534149398655828823}
-  m_HealthPercent: 100
 --- !u!114 &515412261101433539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,16 +1079,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a8741b09eacd40b5655033947907b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 4287026626115791604}
+  - {fileID: 6612182412610256966}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 500
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 4287026626115791604}
-  - {fileID: 6612182412610256966}
 --- !u!114 &7152689029245064815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1272,8 +1247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb12c0062e1a7434b94cfaa7034a8240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1317,6 +1292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4128585420309052148}
   - component: {fileID: 1534149398655828823}
+  - component: {fileID: 9219904851906268642}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -1355,6 +1331,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3, y: 4.2}
   m_Direction: 0
+--- !u!50 &9219904851906268642
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318184344933796676}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5429452962155919351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,16 +1399,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a8741b09eacd40b5655033947907b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 22032423976621568}
+  - {fileID: 583097748549169610}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 500
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 22032423976621568}
-  - {fileID: 583097748549169610}
 --- !u!114 &8205178742575763674
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -345,7 +345,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400012}
-  - component: {fileID: 1694562640896289361}
   - component: {fileID: 7364352182547524881}
   - component: {fileID: 3806967069370981789}
   - component: {fileID: 4756078565137907594}
@@ -376,27 +375,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1694562640896289361
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100012}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &7364352182547524881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,8 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac4e55dbe0c4c54db9583257fc2459c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -444,7 +422,6 @@ MonoBehaviour:
   m_DefaultHealth: 1400
   m_Collider2D:
   - {fileID: 8455782903374224084}
-  m_HealthPercent: 100
 --- !u!114 &515412261101433539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3400842780292548288}
   - component: {fileID: 8455782903374224084}
+  - component: {fileID: 1773449819565641772}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -560,6 +538,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.2, y: 3.2}
   m_EdgeRadius: 0
+--- !u!50 &1773449819565641772
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493884270525782264}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &611414361245105371
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,16 +639,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c075c2db9dce194f99105bd54f6cc2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 9071116404323423081}
+  - {fileID: 1340929024304998776}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 9071116404323423081}
-  - {fileID: 1340929024304998776}
   m_TurretAnimation: {fileID: 400006}
 --- !u!114 &2142862693485299852
 MonoBehaviour:

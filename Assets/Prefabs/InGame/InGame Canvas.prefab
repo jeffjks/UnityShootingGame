@@ -2541,7 +2541,6 @@ MonoBehaviour:
   m_PreserveLastSelection: 1
   m_SoundMenuPanel: {fileID: 4079609951251440442}
   m_QuitMenuPanel: {fileID: 4079609951447364889}
-  m_InGameInputController: {fileID: 0}
   m_PauseManager: {fileID: 7974526509860398373}
 --- !u!1 &4079609951603998193
 GameObject:
@@ -5749,16 +5748,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1314187946552073078, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314187946552073078, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5781,11 +5770,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
-        type: 3}
-      propertyPath: m_text
-      value: Version
       objectReference: {fileID: 0}
     - target: {fileID: 4000964303993614375, guid: 1551fb2b614d47a4882d8fcec6cf9b4e,
         type: 3}

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400006}
-  - component: {fileID: 5352910151716473333}
   - component: {fileID: 258503854877788582}
   - component: {fileID: 7010519120278975428}
   - component: {fileID: 8231584157325183682}
@@ -38,27 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &5352910151716473333
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100006}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &258503854877788582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +96,6 @@ MonoBehaviour:
   m_DefaultHealth: 6000
   m_Collider2D:
   - {fileID: 7530292145792047302}
-  m_HealthPercent: 100
 --- !u!114 &5036429281607314849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,7 +1297,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 2584976920722111438}
-  m_HealthPercent: 100
 --- !u!114 &7339422413942685892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,7 +1598,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 5549598710243160195}
-  m_HealthPercent: 100
 --- !u!114 &6786669355471637137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3394,7 +3369,6 @@ MonoBehaviour:
   m_DefaultHealth: 50
   m_Collider2D:
   - {fileID: 782485757654861832}
-  m_HealthPercent: 100
 --- !u!114 &7500468705758568312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4125,7 +4099,6 @@ MonoBehaviour:
   m_DefaultHealth: 50
   m_Collider2D:
   - {fileID: 6620734080348137944}
-  m_HealthPercent: 100
 --- !u!114 &6371802203652484010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4459,7 +4432,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 7426759133943790757}
-  m_HealthPercent: 100
 --- !u!114 &3565813235323144277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5130,7 +5102,6 @@ MonoBehaviour:
   m_DefaultHealth: 50
   m_Collider2D:
   - {fileID: 6427917142928611874}
-  m_HealthPercent: 100
 --- !u!114 &2117893235112114438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5718,7 +5689,6 @@ MonoBehaviour:
   m_DefaultHealth: 50
   m_Collider2D:
   - {fileID: 2951290784269847196}
-  m_HealthPercent: 100
 --- !u!114 &4424852754270944716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6194,6 +6164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1960417860705552910}
   - component: {fileID: 7530292145792047302}
+  - component: {fileID: 8358905655601801751}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -6242,6 +6213,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 2.5}
   m_EdgeRadius: 0
+--- !u!50 &8358905655601801751
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334002554691973106}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8485072251415770144
 GameObject:
   m_ObjectHideFlags: 0
@@ -6382,7 +6374,6 @@ MonoBehaviour:
   m_DefaultHealth: 30
   m_Collider2D:
   - {fileID: 5366126447254452686}
-  m_HealthPercent: 100
 --- !u!114 &8169725646223558306
 MonoBehaviour:
   m_ObjectHideFlags: 0

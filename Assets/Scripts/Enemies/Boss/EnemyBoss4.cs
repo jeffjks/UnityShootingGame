@@ -22,8 +22,9 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     private float _trackPos;
     private bool _followingBackground;
     private EnemyUnit[] _childEnemyUnits;
+    private Material _trackMaterial;
 
-    private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
+    private IEnumerator m_CurrentPhase;
 
     void Start()
     {
@@ -38,8 +39,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDeath;
 
+        _trackMaterial = m_Track.material;
         _childEnemyUnits = GetComponentsInChildren<EnemyUnit>();
-        Debug.Log(_childEnemyUnits.Length);
     }
 
     public IEnumerator AppearanceSequence() {
@@ -115,11 +116,9 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
     private void RunTracks() {
-        Material material = m_Track.material;
-        material.SetTextureOffset("_MainTex", new Vector2(_trackPos, 0f));
+        _trackMaterial.SetTextureOffset("_BaseMap", new Vector2(_trackPos, 0f));
         _trackPos += m_MoveVector.speed / Application.targetFrameRate * Time.timeScale;
-        if (_trackPos > 1f)
-            _trackPos--;
+        _trackPos = Mathf.Repeat(_trackPos, 1f);
     }
 
     private void ToNextPhase() {
@@ -180,11 +179,19 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             {
                 smallTurret.StopPattern("0");
             }
-
-            m_CurrentPattern1 = Pattern1B1();
-            StartCoroutine(m_CurrentPattern1);
-            m_CurrentPattern2 = Pattern1B2();
-            StartCoroutine(m_CurrentPattern2);
+            
+            foreach (var subTurret in m_SubTurrets) {
+                if (subTurret != null)
+                    subTurret.StartPattern("1B", new BulletPattern_EnemyBoss4_SubTurret_1B(subTurret));
+            }
+            foreach (var frontTurret in m_FrontTurrets) {
+                if (frontTurret != null)
+                    frontTurret.StartPattern("1B", new BulletPattern_EnemyBoss4_FrontTurret_1B(frontTurret));
+            }
+            
+            var rand1B = Random.Range(0, 2);
+            m_Launchers[0].StartPattern("1B", new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[0], rand1B));
+            m_Launchers[1].StartPattern("1B", new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[1], 1 - rand1B));
             
             yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StartPattern("1B1", new BulletPattern_EnemyBoss4_MainTurret_1B1(m_MainTurret));
@@ -212,12 +219,10 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_RotateAround(140f * rand));
             m_SubTurrets[0].StartPattern("1C", new BulletPattern_EnemyBoss4_SubTurret_1C(m_SubTurrets[0]));
             m_SubTurrets[1].StartPattern("1C", new BulletPattern_EnemyBoss4_SubTurret_1C(m_SubTurrets[1]));
-            m_CurrentPattern1 = Pattern1C1();
-            StartCoroutine(m_CurrentPattern1);
-            m_CurrentPattern2 = Pattern1C2();
-            StartCoroutine(m_CurrentPattern2);
+            StartPattern("1C1", new BulletPattern_EnemyBoss4_1C1(this, m_Launchers));
+            StartPattern("1C2", new BulletPattern_EnemyBoss4_1C2(this, m_FrontTurrets));
 
-            yield return new WaitForMillisecondFrames(5000);
+            yield return new WaitForMillisecondFrames(6400);
             StopAllSubUnitPattern();
             StopAllPatterns();
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
@@ -252,97 +257,10 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_SubTurrets[index].StartPattern("1D", new BulletPattern_EnemyBoss4_SubTurret_1D(m_SubTurrets[index]));
     }
 
-    private IEnumerator Pattern1B1() {
-        int[] n = {2, 3, 4};
-
-        for (int i = 0; i < 6; i++) {
-            foreach (var subTurret in m_SubTurrets) {
-                if (subTurret != null)
-                    subTurret.StartPattern("1B", new BulletPattern_EnemyBoss4_SubTurret_1B(subTurret));
-            }
-            foreach (var frontTurret in m_FrontTurrets) {
-                if (frontTurret != null)
-                    frontTurret.StartPattern("1B", new BulletPattern_EnemyBoss4_FrontTurret_1B(frontTurret));
-            }
-            
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                yield return new WaitForMillisecondFrames(3000);
-            }
-            else {
-                yield return new WaitForMillisecondFrames(2000);
-            }
-        }
-    }
-
-    private IEnumerator Pattern1B2() {
-        int rand1 = Random.Range(0, 2);
-        var rand2 = Random.Range(0, 2) * 2 - 1;
-
-        while (true) {
-            m_CustomDirection[0] = Random.Range(0f, 360f);
-            m_Launchers[rand1].StartPattern("1B", new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[rand1], rand2));
-            rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
-            float difficulty = (int) SystemManager.Difficulty;
-            for (int i = 0; i < 32; i++) {
-                m_CustomDirection[0] += (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
-                yield return new WaitForMillisecondFrames(0);
-            }
-            rand2 = (2*Random.Range(0, 2) - 1); // -1 or 1
-            for (int i = 0; i < 32; i++) {
-                m_CustomDirection[0] -= (20f + difficulty*5f) * rand2 / Application.targetFrameRate * Time.timeScale;
-                yield return new WaitForMillisecondFrames(0);
-            }
-            m_Launchers[rand1].StopPattern("1B");
-            rand1 = 1 - rand1;
-            yield return new WaitForMillisecondFrames(0);
-        }
-    }
-
-    private IEnumerator Pattern1C1() {
-        while (true) {
-            var rand = Random.Range(0, 2);
-            m_Launchers[rand].StartPattern("1C", new BulletPattern_EnemyBoss4_Launcher_1C(m_Launchers[rand]));
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                yield return new WaitForMillisecondFrames(1800);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                yield return new WaitForMillisecondFrames(1200);
-            }
-            else {
-                yield return new WaitForMillisecondFrames(800);
-            }
-        }
-    }
-
-    private IEnumerator Pattern1C2() {
-        int r = Random.Range(0, 2);
-        yield return new WaitForMillisecondFrames(1000);
-
-        while (true) {
-            if (m_FrontTurrets[r] != null) {
-                m_FrontTurrets[r].StartPattern("1C", new BulletPattern_EnemyBoss4_FrontTurret_1C(m_FrontTurrets[r]));
-            }
-            else if (m_FrontTurrets[1-r] != null) {
-                m_FrontTurrets[1-r].StartPattern("1C", new BulletPattern_EnemyBoss4_FrontTurret_1C(m_FrontTurrets[1-r]));
-            }
-            else {
-                yield break;
-            }
-            
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                yield return new WaitForMillisecondFrames(3000);
-            }
-            else {
-                yield return new WaitForMillisecondFrames(2000);
-            }
-            r = 1-r;
-        }
-    }
-
     
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
-        bool first = true;
+        var first = true;
         yield return new WaitForMillisecondFrames(3000);
         
         foreach (var smallTurret in m_SmallTurrets)
@@ -356,8 +274,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_Launchers[0].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[0], rand));
             m_Launchers[1].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[1], rand));
             m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, true);
-            m_CurrentPattern1 = Pattern2A();
-            yield return StartCoroutine(m_CurrentPattern1);
+            yield return StartPattern("2A", new BulletPattern_EnemyBoss4_2A(this, m_MainTurret));
             
             m_Launchers[0].StopPattern("2A");
             m_Launchers[1].StopPattern("2A");
@@ -369,8 +286,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             yield return new WaitForMillisecondFrames(1500);
 
             var side = Random.Range(0, 2) * 2 - 1;
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(AngleToPlayer).SetOffsetAngle(70f*side));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(AngleToPlayer).SetOffsetAngle(70f*side));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(m_SubTurrets[0].AngleToPlayer).SetOffsetAngle(70f*side));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(m_SubTurrets[1].AngleToPlayer).SetOffsetAngle(70f*side));
             yield return new WaitForMillisecondFrames(1000);
             m_SubTurrets[0].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[0], side));
             m_SubTurrets[1].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[1], side));
@@ -381,8 +298,8 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 ToNextPhase();
                 break;
             }
-            if (first)
-                yield return new WaitForMillisecondFrames(2000);
+            
+            yield return new WaitForMillisecondFrames(first ? 2000 : 1000);
             first = false;
 
             m_MainTurret.StartPattern("2C", new BulletPattern_EnemyBoss4_MainTurret_2C(m_MainTurret));
@@ -395,46 +312,6 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
                 break;
             }
             yield return new WaitForMillisecondFrames(2000);
-        }
-    }
-
-    private IEnumerator Pattern2A()
-    {
-        if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            int[] repeatNum = { 1, 1, 2, 2, 2 };
-            foreach (var num in repeatNum)
-            {
-                for (var i = 0; i < num; ++i)
-                {
-                    m_MainTurret.StartPattern("2A", new BulletPattern_EnemyBoss4_MainTurret_2A(m_MainTurret));
-                    yield return new WaitForMillisecondFrames(500);
-                }
-                yield return new WaitForMillisecondFrames(1000);
-            }
-        }
-        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-            int[] repeatNum = { 1, 2, 2, 3, 3 };
-            foreach (var num in repeatNum)
-            {
-                for (var i = 0; i < num; ++i)
-                {
-                    m_MainTurret.StartPattern("2A", new BulletPattern_EnemyBoss4_MainTurret_2A(m_MainTurret));
-                    yield return new WaitForMillisecondFrames(400);
-                }
-                yield return new WaitForMillisecondFrames(900);
-            }
-        }
-        else {
-            int[] repeatNum = { 1, 2, 3, 3, 3 };
-            foreach (var num in repeatNum)
-            {
-                for (var i = 0; i < num; ++i)
-                {
-                    m_MainTurret.StartPattern("2A", new BulletPattern_EnemyBoss4_MainTurret_2A(m_MainTurret));
-                    yield return new WaitForMillisecondFrames(400);
-                }
-                yield return new WaitForMillisecondFrames(800);
-            }
         }
     }
 

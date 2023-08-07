@@ -48,7 +48,7 @@ public class RotatePattern_TargetPlayer : IRotatePattern
 
     public IRotatePattern SetOffsetAngle(float offsetAngle)
     {
-        _offsetAngle += offsetAngle;
+        _offsetAngle = offsetAngle;
         return this;
     }
 
@@ -140,10 +140,11 @@ public class RotatePattern_RotateAround : IRotatePattern
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
         var rotateSpeed = _speed;
+        var rotateSpeedAbs = Mathf.Abs(_speed);
         if (rotateSpeed > 0f)
-            enemyObject.RotateUnit(enemyObject.CurrentAngle + 179f, rotateSpeed);
+            enemyObject.RotateUnit(enemyObject.CurrentAngle + 179f, rotateSpeedAbs);
         else if (rotateSpeed < 0f)
-            enemyObject.RotateUnit(enemyObject.CurrentAngle - 179f, rotateSpeed);
+            enemyObject.RotateUnit(enemyObject.CurrentAngle - 179f, rotateSpeedAbs);
     }
 }
 

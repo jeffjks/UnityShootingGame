@@ -259,7 +259,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400014}
-  - component: {fileID: 5204912769195033671}
   - component: {fileID: 4641978124879329762}
   - component: {fileID: 5543879121379405872}
   - component: {fileID: 5962672780895046278}
@@ -289,27 +288,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &5204912769195033671
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100014}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &4641978124879329762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,16 +300,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c7adc58388dcb4c95ede7a0f21ef82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Position2D: {x: 0, y: 0}
-  m_CurrentAngle: 0
+  m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 1125923927610817067}
+  - {fileID: 4818967407035481534}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 400
   m_IsRoot: 1
-  m_FirePosition:
-  - {fileID: 1125923927610817067}
-  - {fileID: 4818967407035481534}
 --- !u!114 &5543879121379405872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +337,6 @@ MonoBehaviour:
   m_DefaultHealth: 2400
   m_Collider2D:
   - {fileID: 5915268304025218368}
-  m_HealthPercent: 100
 --- !u!114 &2726026014436905523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,6 +505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427987155630689197}
   - component: {fileID: 5915268304025218368}
+  - component: {fileID: 4225175273457463943}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -567,6 +544,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.5, y: 2}
   m_Direction: 0
+--- !u!50 &4225175273457463943
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3229781687611048043}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4770825799200460367
 GameObject:
   m_ObjectHideFlags: 0

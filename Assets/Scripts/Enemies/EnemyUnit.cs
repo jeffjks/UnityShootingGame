@@ -104,6 +104,9 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     {
         if (!m_IsInteractable)
             return null;
+
+        if (bulletPattern == null)
+            return null;
         
         _currentPatterns.Add(key, null);
         var enumerator = bulletPattern.ExecutePattern(() => StopPattern(key));

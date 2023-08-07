@@ -65,7 +65,8 @@ public class PlayerLaserRenderer : MonoBehaviour
         var curPos = transform.position;
         
         _lineRenderer.SetPosition(0, curPos);
-        //Debug.DrawRay(curPos + width, transform.forward, Color.red, 0.1f);
+        //Debug.DrawRay(curPos - (Vector3)_laserHitBoxWidth, transform.forward, Color.red, 0.1f);
+        //Debug.DrawRay(curPos + (Vector3)_laserHitBoxWidth, transform.forward, Color.red, 0.1f);
 
         RaycastHit2D hit1 = Physics2D.Raycast((Vector2) curPos - _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
         RaycastHit2D hit2 = Physics2D.Raycast((Vector2) curPos, Vector2.up, CurrentLaserLength, Layer.LARGE);

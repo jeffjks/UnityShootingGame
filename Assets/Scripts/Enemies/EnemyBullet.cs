@@ -244,7 +244,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         {
             case BulletSpawnType.EraseAndCreate:
                 CreateSubBullet();
-                PlayEraseAnimation();
+                PlayEraseAnimation(false);
                 break;
             
             case BulletSpawnType.Create:
@@ -308,8 +308,15 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void PlayEraseAnimation()
     {
+        PlayEraseAnimation(true);
+    }
+
+    private void PlayEraseAnimation(bool hasSpeed)
+    {
         if (_isPlayingEraseAnimation)
             return;
+        if (!hasSpeed)
+            m_MoveVector.speed = 0f;
         _isPlayingEraseAnimation = true;
         StopAllCoroutines();
         _bulletImageObject.SetActive(false);

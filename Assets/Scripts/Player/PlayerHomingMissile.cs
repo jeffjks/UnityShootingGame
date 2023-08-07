@@ -5,15 +5,15 @@ using UnityEngine;
 public class PlayerHomingMissile : PlayerWeapon {
     
     [Space(10)]
-    private float m_RotationSpeed = 324f;
-    private GameObject m_Target;
+    private const float ROTATION_SPEED = 324f;
+    private GameObject _target;
     private Vector2 m_MainCameraPosition;
     
     public override void OnStart() {
         base.OnStart();
-        m_Target = null;
+        _target = null;
         
-        RotateImmediately(m_MoveVector.direction);
+        CurrentAngle = m_MoveVector.direction;
         m_MoveVector.speed = m_Speed;
     }
 
@@ -25,12 +25,14 @@ public class PlayerHomingMissile : PlayerWeapon {
         if (SystemManager.PlayState != PlayState.OutGame) {
             m_MainCameraPosition = MainCamera.Instance.transform.position;
             
-            if (m_Target == null) {
-                m_Target = FindClosestEnemy();
+            if (_target == null) {
+                _target = FindClosestEnemy();
             }
             else {
-                RotateSlightly(m_Target.transform.position, m_RotationSpeed);
-                //Vector2 vec = (m_Target.transform.position - transform.position).normalized;
+                var targetAngle = GetAngleToTarget(m_Position2D, _target.transform.position);
+                CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, targetAngle, ROTATION_SPEED / Application.targetFrameRate * Time.timeScale);
+                
+                //Vector2 vec = (_target.transform.position - transform.position).normalized;
                 //transform.up = Vector3.RotateTowards(transform.up, vec, m_RotationSpeed, 0f);
             }
         }

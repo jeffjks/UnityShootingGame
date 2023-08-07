@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // 파괴 후 Quaternion.identity 상태로 돌아가는 용도
 
-public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
+public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
 {
     public EnemyUnit m_Turret1;
     public EnemyUnit[] m_Turret2 = new EnemyUnit[2];
@@ -76,7 +76,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
     }
 
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         /*
         float appearance_time_1 = 0.55f;
         float appearance_time_2 = 1f - 0.55f;
@@ -128,7 +128,7 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         yield break;
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);

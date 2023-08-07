@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
+public class EnemyBoss5 : EnemyUnit, IEnemyBossMain
 {
     public Transform m_BottomLine;
     public GameObject m_AllWings;
@@ -47,7 +47,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_EnemyDeath.Action_OnRemoved += OnBossDeath;
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         float init_position_y = transform.position.y;
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
@@ -62,7 +62,7 @@ public class EnemyBoss5 : EnemyUnit, IHasAppearance, IEnemyBossMain
         OnAppearanceComplete();
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         float random_direction = 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.05f, random_direction);
         m_MoveDirection = Random.Range(0, 2)*2 - 1;

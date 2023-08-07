@@ -259,3 +259,52 @@ public class BulletPattern_EnemyMiddleBoss4_Turret2_1B : BulletFactory, IBulletP
         //onCompleted?.Invoke();
     }
 }
+
+public class BulletPattern_EnemyMiddleBoss4_PartA : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyMiddleBoss4_PartA(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        if (SystemManager.Difficulty == GameDifficulty.Normal)
+        {
+            var pos = GetFirePos(0);
+            var dir = _enemyObject.m_CustomDirection[0];
+            CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 4.8f, BulletPivot.Fixed, dir, 1, 90f));
+            CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.2f, BulletPivot.Fixed, dir, 1, 90f));
+        }
+        else {
+            for (int i = 0; i < 4; i++) {
+                var pos = GetFirePos(0);
+                var dir = _enemyObject.m_CustomDirection[0];
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 4.8f, BulletPivot.Fixed, dir, 4, 90f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.2f, BulletPivot.Fixed, dir, 4, 90f));
+                yield return new WaitForMillisecondFrames(100);
+            }
+        }
+        onCompleted?.Invoke();
+    }
+}
+
+public class BulletPattern_EnemyMiddleBoss4_PartB : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyMiddleBoss4_PartB(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        const int timer = 300;
+        BulletAccel accel1 = new BulletAccel(0f, timer);
+        int[] fireDelay = { 300, 200, 100 };
+
+        while (true) {
+            var pos = GetFirePos(0);
+            var dir = Random.Range(0f, 360f);
+            var property = new BulletProperty(pos, BulletImage.BlueSmall, 2.2f, BulletPivot.Fixed, dir, accel1);
+            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, timer);
+            var newProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 8f, BulletPivot.Fixed, 0f);
+            CreateBullet(property, spawnTiming, newProperty);
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}

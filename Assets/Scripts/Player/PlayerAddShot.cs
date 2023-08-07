@@ -7,8 +7,8 @@ public class PlayerAddShot : PlayerWeapon
     public override void OnStart()
     {
         base.OnStart();
-        
-        RotateImmediately(m_MoveVector.direction);
+
+        CurrentAngle = m_MoveVector.direction;
         m_MoveVector.speed = m_Speed;
     }
 

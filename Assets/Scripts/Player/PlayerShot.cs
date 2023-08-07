@@ -8,7 +8,7 @@ public class PlayerShot : PlayerWeapon
     {
         base.OnStart();
         
-        RotateImmediately(m_MoveVector.direction);
+        CurrentAngle = m_MoveVector.direction;
         m_MoveVector.speed = m_Speed;
     }
 

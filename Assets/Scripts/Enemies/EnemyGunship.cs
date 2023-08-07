@@ -47,7 +47,6 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
             m_MoveVector.speed = Mathf.Lerp(initSpeed, 5.4f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 }
 

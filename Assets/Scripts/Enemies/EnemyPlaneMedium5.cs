@@ -25,7 +25,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
         DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, APPEARANCE_TIME).SetEase(Ease.OutQuad);*/
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(750);
 
         float init_speed = m_MoveVector.speed;

@@ -60,7 +60,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         }
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
         float init_position_y = transform.position.y;
 
@@ -75,7 +75,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         OnAppearanceComplete();
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         float[] random_direction = { 80f, 100f, -80f, -100f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_Phase = 1;
@@ -127,12 +127,11 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator SubPattern() { // 서브 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
         while (m_Phase == 1) {
-            if (m_Part[0] != null) {
-                m_Part[0].StartPattern(1);
-            }
-            else if (m_Part[1] != null) {
-                m_Part[1].StartPattern(1);
-            }
+            if (m_Part[0] != null)
+                m_Part[0].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[0]));
+            else if (m_Part[1] != null)
+                m_Part[1].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[1]));
+            
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(1800);
             }
@@ -142,12 +141,11 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             else {
                 yield return new WaitForMillisecondFrames(700);
             }
-            if (m_Part[1] != null) {
-                m_Part[1].StartPattern(1);
-            }
-            else if (m_Part[0] != null) {
-                m_Part[0].StartPattern(1);
-            }
+            if (m_Part[1] != null)
+                m_Part[1].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[0]));
+            else if (m_Part[0] != null)
+                m_Part[0].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[1]));
+            
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 yield return new WaitForMillisecondFrames(1800);
             }
@@ -158,19 +156,16 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
                 yield return new WaitForMillisecondFrames(700);
             }
         }
-        if (m_Part[0] != null) {
-            m_Part[0].StopPattern();
-        }
-        else if (m_Part[1] != null) {
-            m_Part[1].StopPattern();
-        }
+        if (m_Part[0] != null)
+            m_Part[0].StopAllPatterns();
+        if (m_Part[1] != null)
+            m_Part[1].StopAllPatterns();
         yield return new WaitForMillisecondFrames(3000);
-        if (m_Part[0] != null) {
-            m_Part[0].StartPattern(2);
-        }
-        if (m_Part[1] != null) {
-            m_Part[1].StartPattern(2);
-        }
+        
+        if (m_Part[0] != null)
+            m_Part[0].StartPattern("SubB", new BulletPattern_EnemyMiddleBoss4_PartB(m_Part[0]));
+        else if (m_Part[1] != null)
+            m_Part[1].StartPattern("SubB", new BulletPattern_EnemyMiddleBoss4_PartB(m_Part[1]));
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================

@@ -51,7 +51,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         .Append(DOTween.To(()=>m_MoveVector.direction, x=>m_MoveVector.direction = x, 240f, 2.5f).SetEase(Ease.Linear));*/
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         //MoveVector init_moveVector;
         yield return new WaitForMillisecondFrames(4000);
         yield return MovementPattern(new MoveVector(0f, m_MoveVector.direction), EaseType.OutQuad, EaseType.InOutQuad, 1000); // stop

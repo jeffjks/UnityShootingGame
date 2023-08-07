@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyPlaneLarge1 : EnemyUnit
 {
     public GameObject[] m_Part = new GameObject[2];
-    public EnemyPlaneLarge1Turret[] m_Turret = new EnemyPlaneLarge1Turret[2];
+    public EnemyPlaneLarge1_Turret[] m_Turret = new EnemyPlaneLarge1_Turret[2];
     public Transform m_Rotator;
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
@@ -27,14 +27,9 @@ public class EnemyPlaneLarge1 : EnemyUnit
         DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
-        
-        /*
-        m_Sequence.Append(transform.DOMove(TARGET_POSITION, APPEARANCE_TIME).SetEase(Ease.OutQuad));
-        m_Sequence.Join(transform.DORotateQuaternion(m_TargetQuaternion, APPEARANCE_TIME).SetEase(Ease.InQuad));
-        */
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
         Quaternion init_rotation = m_Rotator.rotation;
         Quaternion target_rotation = Quaternion.identity;
@@ -51,10 +46,9 @@ public class EnemyPlaneLarge1 : EnemyUnit
         }
 
         OnAppearanceComplete();
-        yield break;
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         m_Phase = 1;
 
         m_CurrentPattern1 = PatternA();

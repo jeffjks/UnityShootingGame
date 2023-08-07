@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
+public class EnemyBoss4 : EnemyUnit, IEnemyBossMain
 {
     public EnemyBoss4_SmallTurret[] m_SmallTurrets = new EnemyBoss4_SmallTurret[4];
     public EnemyBoss4_FrontTurret[] m_FrontTurrets = new EnemyBoss4_FrontTurret[2];
@@ -43,7 +43,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         _childEnemyUnits = GetComponentsInChildren<EnemyUnit>();
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         float init_speed = m_MoveVector.speed;
@@ -60,7 +60,7 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         OnAppearanceComplete();
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);

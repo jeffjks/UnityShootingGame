@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class EnemyHelicopter : EnemyUnit, ITargetPosition
 {
 	public GameObject m_FanU, m_FanB;
 	public float m_FanRotationSpeed;
-
-    private readonly int[] m_FireDelay = { 2000, 1000, 500 };
+    
     private const int TIME_LIMIT = 4000;
 
     void Start()
     {
-        StartCoroutine(Pattern1());
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
+        StartPattern("A", new BulletPattern_EnemyHelicopter(this));
+        SetRotatePattern(new RotatePattern_TargetPlayer());
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
@@ -20,11 +21,6 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     protected override void Update()
     {
         base.Update();
-        
-        if (PlayerManager.IsPlayerAlive)
-            RotateUnit(AngleToPlayer);
-        else
-            RotateUnit(AngleToPlayer, 180f);
         
         RotateFan();
     }
@@ -66,15 +62,23 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
             yield return new WaitForMillisecondFrames(0);
         }
     }
+}
 
-    private IEnumerator Pattern1() {
-        while (!TimeLimitState) {
-            Vector3 pos = m_FirePosition[0].position;
-            float[] speed = {7f, 8.3f, 8.3f};
-            
-            BulletAccel accel = new BulletAccel(0f, 0);
-            CreateBullet(1, pos, speed[(int) SystemManager.Difficulty], CurrentAngle, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
+public class BulletPattern_EnemyHelicopter : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyHelicopter(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 2000, 1000, 500 };
+        float[] speed = { 7f, 8.3f, 8.3f };
+        yield return new WaitForMillisecondFrames(1200);
+        
+        while (!_enemyObject.TimeLimitState) {
+            Vector3 pos = GetFirePos(0);
+            CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, speed[(int) SystemManager.Difficulty], BulletPivot.Current, 0f));
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
+        onCompleted?.Invoke();
     }
 }

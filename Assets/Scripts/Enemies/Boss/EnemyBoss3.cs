@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
+public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
 {
     public EnemyUnit[] m_Turret = new EnemyUnit[2];
     public EnemyBoss3_Part m_Part;
@@ -66,7 +66,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         }
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         int frame;
 
         float init_speed = m_MoveVector.speed;
@@ -100,7 +100,7 @@ public class EnemyBoss3 : EnemyUnit, IHasAppearance, IEnemyBossMain
         OnAppearanceComplete();
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         float random_direction = Random.Range(75f, 105f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
         m_Phase = 1;

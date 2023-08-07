@@ -50,7 +50,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         }
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         float init_position_y = transform.position.y;
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
 
@@ -64,7 +64,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         OnAppearanceComplete();
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         float random_direction = Random.Range(80f, 100f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.4f, random_direction);
         m_Phase = 1;

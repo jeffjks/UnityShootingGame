@@ -303,11 +303,6 @@ interface ITargetPosition {
     public void MoveTowardsToTarget(Vector2 target_vec2, int duration);
 }
 
-interface IHasAppearance {
-    public IEnumerator AppearanceSequence();
-    public void OnAppearanceComplete();
-}
-
 interface IEnemyBossMain {
     public void OnBossDying();
     public void OnBossDeath();

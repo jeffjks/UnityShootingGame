@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyItemHeli : EnemyUnit {
 
 	public GameObject m_FanL, m_FanR, m_FanB;
 	public float m_FanRotationSpeed;
-    private int[] m_FireDelay = { 4000, 2000, 1500 };
     
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 9000;
@@ -16,29 +16,14 @@ public class EnemyItemHeli : EnemyUnit {
 
     void Start()
     {
-        //m_PositionY = transform.position.y;
-
         m_MoveVector.speed = 4f;
         
-        StartCoroutine(Pattern1());
+        StartPattern("A", new BulletPattern_EnemyItemHeli(this));
 
         StartCoroutine(AppearanceSequence());
-        /*
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
-        m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
-    /*
-    protected override void Update()
-    {
-        m_AddPositionY -= m_VSpeed * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, m_PositionY + m_AddPositionY, transform.position.z);
-        
-        base.Update();
-    }*/
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME / 2);
 
         float init_speed = m_MoveVector.speed;
@@ -52,7 +37,6 @@ public class EnemyItemHeli : EnemyUnit {
         }
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
-        yield break;
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
@@ -68,7 +52,6 @@ public class EnemyItemHeli : EnemyUnit {
             m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     protected override void Update()
@@ -83,34 +66,30 @@ public class EnemyItemHeli : EnemyUnit {
 		m_FanR.transform.Rotate(0, m_FanRotationSpeed * Time.deltaTime, 0);
 		m_FanB.transform.Rotate(- m_FanRotationSpeed * Time.deltaTime, 0 , 0);
     }
-    
-    private IEnumerator Pattern1() {
-        BulletAccel accel = new BulletAccel(0f, 0);
-        Vector3 pos1, pos2;
-        float target_angle1, target_angle2;
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
-
-        while(!TimeLimitState) {
-            float random_value = Random.Range(-1f, 1f);
-
-            pos1 = m_FirePosition[0].position;
-            pos2 = m_FirePosition[1].position;
-            target_angle1 = GetAngleToTarget(pos1, PlayerManager.GetPlayerPosition());
-            target_angle2 = GetAngleToTarget(pos2, PlayerManager.GetPlayerPosition());
-
-            for (int i = 0; i < 3; i++) {
-                pos1 = m_FirePosition[0].position;
-                pos2 = m_FirePosition[1].position;
-                CreateBullet(1, pos1, 5.4f, target_angle1 + random_value, accel);
-                CreateBullet(1, pos2, 5.4f, target_angle2 + random_value, accel);
-                yield return new WaitForMillisecondFrames(80);
-            }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
-        }
-        yield break;
-    }
 }
 
+public class BulletPattern_EnemyItemHeli : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyItemHeli(EnemyObject enemyObject) : base(enemyObject) { }
 
-//BulletAccel accel2 = new BulletAccel(6f, 0.8f);
-//CreateBullet(0, pos, 3.8f, target_angle, accel, 2, 1f, 4, 0.5f, BulletPivot.Player, 0f, accel2);
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 4000, 2000, 1500 };
+        yield return new WaitForMillisecondFrames(1500);
+        
+        while (!_enemyObject.TimeLimitState) {
+            var dir = Random.Range(-1f, 1f);
+            
+            for (int i = 0; i < 3; i++)
+            {
+                var pos1 = GetFirePos(0);
+                var pos2 = GetFirePos(1);
+                CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 5.4f, BulletPivot.Player, dir));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 5.4f, BulletPivot.Player, dir));
+                yield return new WaitForMillisecondFrames(80);
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+        }
+        onCompleted?.Invoke();
+    }
+}

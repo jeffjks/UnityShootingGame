@@ -98,7 +98,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 9e3c4d6202dee43498673f869ca37807,
+  m_LightingDataAsset: {fileID: 112000002, guid: eb2d76478412f98428eb6fdd6e5471af,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 5d0afc51d66bdd64fbf5f0539b5bd7e3,
     type: 2}
@@ -972,9 +972,90 @@ Transform:
   - {fileID: 901154026}
   - {fileID: 1017001204}
   - {fileID: 1713491654}
+  - {fileID: 333350865}
   m_Father: {fileID: 838861398}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &333350864
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 309560553}
+    m_Modifications:
+    - target: {fileID: 8096176881304793030, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_Name
+      value: TreesForShadow(Stage1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096176881304793030, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 408b09bae2c46194797b8910db88cc2f, type: 3}
+--- !u!4 &333350865 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8869253573880927452, guid: 408b09bae2c46194797b8910db88cc2f,
+    type: 3}
+  m_PrefabInstance: {fileID: 333350864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &364714181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,7 +2351,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: NaN, z: 5.5e-43, w: -1.3836026e+10}
+  m_BoundingSphereOverride: {x: 6.63e-43, y: -4.44772e-40, z: 6.63e-43, w: -9.0042e-40}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -3414,7 +3495,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: NaN, z: 5.5e-43, w: -1.3836026e+10}
+  m_BoundingSphereOverride: {x: 6.63e-43, y: 7.1e-44, z: 0, w: -1.880307e-39}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

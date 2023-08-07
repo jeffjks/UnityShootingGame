@@ -83,23 +83,24 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     // IRotatable Methods ----------------------------------
 
-    public void RotateSlightly(Vector2 target, float speed, float rot = 0f) {
+    /*
+    public new void RotateSlightly(Vector2 target, float speed, float rot = 0f) {
         float target_angle = GetAngleToTarget(m_Position2D, target);
         CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
     }
 
-    public void RotateSlightly(float target_angle, float speed, float rot = 0f) {
+    public new void RotateSlightly(float target_angle, float speed, float rot = 0f) {
         CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
     }
 
-    public void RotateImmediately(Vector2 target, float rot = 0f) {
+    public new void RotateImmediately(Vector2 target, float rot = 0f) {
         float target_angle = GetAngleToTarget(m_Position2D, target);
         CurrentAngle = target_angle + rot;
     }
 
-    public void RotateImmediately(float target_angle, float rot = 0f) {
+    public new void RotateImmediately(float target_angle, float rot = 0f) {
         CurrentAngle = target_angle + rot;
-    }
+    }*/
 
     private void OnCurrentAngleChanged(float value)
     {

@@ -40,7 +40,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         .Append(transform.DOMoveY(10f, 3f).SetEase(Ease.InQuad));*/
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         int duration = 3000;
         int random_sign = Random.Range(-1, 1);
         if (random_sign == 0)
@@ -82,11 +82,8 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
                 ToNextPhase();
             }
         }
-
-        if (PlayerManager.IsPlayerAlive)
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 40f);
-        else
-            RotateSlightly(PlayerManager.GetPlayerPosition(), 100f);
+        
+        SetRotatePattern(new RotatePattern_TargetPlayer(40f, 100f));
     }
 
     private void ToNextPhase() {

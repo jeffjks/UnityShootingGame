@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
+public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
 {
     public GameObject m_BombBarrier;
     public readonly float[] m_CustomDirectionDelta = new float[2];
@@ -27,7 +27,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_EnemyDeath.Action_OnRemoved += OnBossDeath;
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         Vector3 init_position = transform.position;
         Vector3 init_scale = transform.localScale;
         int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
@@ -44,7 +44,7 @@ public class EnemyBossFinal : EnemyUnit, IHasAppearance, IEnemyBossMain
         OnAppearanceComplete();
     }
 
-    public void OnAppearanceComplete() {
+    private void OnAppearanceComplete() {
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
 

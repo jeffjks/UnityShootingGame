@@ -27,7 +27,7 @@ public class EnemyMissile : EnemyUnit
         EnableInteractableAll();
     }
 
-    public IEnumerator AppearanceSequence() {
+    private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(1000);
         m_Engine.SetActive(true);
 

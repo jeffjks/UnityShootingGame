@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
-using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -188,7 +187,7 @@ public static class BulletType
 public class Bullet
 {
     public Sprite sprite;
-    public AnimatorController animatorController;
+    public RuntimeAnimatorController animatorController;
     public int eraseIndex;
     public float[] colliderSize;
 }

@@ -106,11 +106,12 @@ public abstract class UnitObject : MonoBehaviour
 public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 {
     public Transform[] m_FirePosition;
-    protected bool _isInteractable = true;
-    protected IRotatePattern _rotatePattern;
+    protected bool m_IsInteractable = true;
+    protected IRotatePattern m_RotatePattern;
     private const float SAFE_LINE = -11f;
 
     public CustomDirection m_CustomDirection;
+    public bool TimeLimitState { get; set; }
 
     public class CustomDirection
     {
@@ -140,7 +141,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
     }
     
     public bool IsInteractable() {
-        return _isInteractable;
+        return m_IsInteractable;
     }
 
 
@@ -247,7 +248,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
 
     public void SetRotatePattern(IRotatePattern rotatePattern)
     {
-        _rotatePattern = rotatePattern;
+        m_RotatePattern = rotatePattern;
     }
 }
 

@@ -53,7 +53,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
         m_MoveVector.direction = AngleToPlayer;
         
         float init_speed = m_MoveVector.speed;
@@ -68,7 +68,7 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     }
 
     private IEnumerator Pattern1() {
-        while (!m_TimeLimitState) {
+        while (!TimeLimitState) {
             Vector3 pos = m_FirePosition[0].position;
             float[] speed = {7f, 8.3f, 8.3f};
             

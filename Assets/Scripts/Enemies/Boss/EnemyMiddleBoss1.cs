@@ -42,7 +42,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     }
 
     private void MovePattern() {
-        if (m_TimeLimitState) {
+        if (TimeLimitState) {
             return;
         }
         if (m_Phase < 1) {
@@ -99,7 +99,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 
     private IEnumerator TimeLimit(int timeLimit = 0) {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME + timeLimit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
 
         int frame = 3500 * Application.targetFrameRate / 1000;
 

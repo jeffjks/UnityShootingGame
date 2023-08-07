@@ -43,7 +43,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
 
         float init_speed = m_MoveVector.speed;
         int frame = 1000 * Application.targetFrameRate / 1000;
@@ -61,13 +61,13 @@ public class EnemyPlaneMedium1 : EnemyUnit
     {
         base.Update();
         
-        if (!m_TimeLimitState) { // Retreat when boss or middle boss state
+        if (!TimeLimitState) { // Retreat when boss or middle boss state
             if (SystemManager.PlayState != PlayState.OnField) {
                 if (m_TimeLimit != null)
                     StopCoroutine(m_TimeLimit);
                 m_TimeLimit = TimeLimit();
                 StartCoroutine(m_TimeLimit);
-                m_TimeLimitState = true;
+                TimeLimitState = true;
             }
         }
     }
@@ -77,7 +77,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
         BulletAccel accel1 = new BulletAccel(7.2f, 1000);
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
-        while(!m_TimeLimitState) {
+        while(!TimeLimitState) {
             Vector3 pos0 = m_FirePosition[0].position;
             Vector3 pos1 = m_FirePosition[1].position;
             Vector3 pos2 = m_FirePosition[2].position;

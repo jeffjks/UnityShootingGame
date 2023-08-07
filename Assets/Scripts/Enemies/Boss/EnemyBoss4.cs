@@ -171,10 +171,10 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
         var rand = 1;
 
         while (m_Phase == 1) {
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(0f, 150f));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(0f, 150f));
-            m_FrontTurrets[0].SetRotatePattern(new RotatePattern_Target(0f, 150f));
-            m_FrontTurrets[1].SetRotatePattern(new RotatePattern_Target(0f, 150f));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
+            m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
+            m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
             yield return new WaitForMillisecondFrames(2000);
             foreach (var smallTurret in m_SmallTurrets)
             {
@@ -190,16 +190,16 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
             m_MainTurret.StartPattern("1B1", new BulletPattern_EnemyBoss4_MainTurret_1B1(m_MainTurret));
             m_MainTurret.StartPattern("1B2", new BulletPattern_EnemyBoss4_MainTurret_1B2(m_MainTurret));
             yield return new WaitForMillisecondFrames(6000);
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(130f, 100f));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(130f, 100f));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(130f, 100f));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(130f, 100f));
             m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer());
             m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer());
             StopAllSubUnitPattern();
             StopAllPatterns();
             
             yield return new WaitForMillisecondFrames(1000);
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(270f, 150f));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(90f, 150f));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(270f, 150f));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(90f, 150f));
             yield return new WaitForMillisecondFrames(1000);
             
             foreach (var smallTurret in m_SmallTurrets)
@@ -440,18 +440,18 @@ public class EnemyBoss4 : EnemyUnit, IHasAppearance, IEnemyBossMain
 
     private IEnumerator Phase3() { // 페이즈3 패턴 ============================
         var rand = Random.Range(0, 2) * 2 - 1;
-        m_SubTurrets[0].SetRotatePattern(new RotatePattern_Target(0f, 150f));
-        m_SubTurrets[1].SetRotatePattern(new RotatePattern_Target(0f, 150f));
+        m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
+        m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
         yield return new WaitForMillisecondFrames(2500);
 
         while (m_Phase == 3) {
-            m_MainTurret.SetRotatePattern(new RotatePattern_Target(45f * rand, 80f));
+            m_MainTurret.SetRotatePattern(new RotatePattern_TargetAngle(45f * rand, 80f));
             m_SubTurrets[(rand + 1) / 2].StartPattern("3A", new BulletPattern_EnemyBoss4_SubTurret_3A(m_SubTurrets[(rand + 1) / 2]));
             yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StartPattern("3A", new BulletPattern_EnemyBoss4_MainTurret_3A(m_MainTurret));
             yield return new WaitForMillisecondFrames(1000);
             rand *= -1;
-            m_MainTurret.SetRotatePattern(new RotatePattern_Target(45f * rand, 80f));
+            m_MainTurret.SetRotatePattern(new RotatePattern_TargetAngle(45f * rand, 80f));
             m_SubTurrets[(rand + 1) / 2].StartPattern("3A", new BulletPattern_EnemyBoss4_SubTurret_3A(m_SubTurrets[(rand + 1) / 2]));
             yield return new WaitForMillisecondFrames(2000);
             m_MainTurret.StartPattern("3A", new BulletPattern_EnemyBoss4_MainTurret_3A(m_MainTurret));

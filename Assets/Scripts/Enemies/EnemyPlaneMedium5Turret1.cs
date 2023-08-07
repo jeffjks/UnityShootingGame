@@ -9,7 +9,7 @@ public class EnemyPlaneMedium5Turret1 : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
         m_CurrentPattern = Pattern1();
         StartCoroutine(m_CurrentPattern);
     }

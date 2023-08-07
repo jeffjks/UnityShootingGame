@@ -21,7 +21,7 @@ public class RotatePattern_TargetPlayer : IRotatePattern
     private readonly float _speed;
     private readonly float _speedSub;
     private float _offsetAngle;
-    private Func<Vector2> _func;
+    private Vector2 _offsetPosition;
     
     public RotatePattern_TargetPlayer(float speed = 0f, float speedAtPlayerDead = 180f)
     {
@@ -31,7 +31,19 @@ public class RotatePattern_TargetPlayer : IRotatePattern
     
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
-        enemyObject.RotateUnit(enemyObject.AngleToPlayer + _offsetAngle, PlayerManager.IsPlayerAlive ? _speed : _speedSub);
+        var targetAngle = GetBaseTargetAngle(enemyObject);
+        enemyObject.RotateUnit(targetAngle + _offsetAngle, PlayerManager.IsPlayerAlive ? _speed : _speedSub);
+    }
+
+    private float GetBaseTargetAngle(EnemyObject enemyObject)
+    {
+        if (_offsetPosition == Vector2.zero)
+        {
+            return enemyObject.AngleToPlayer;
+        }
+        var pointDirectionVector = (Vector2)PlayerManager.GetPlayerPosition() + _offsetPosition - enemyObject.m_Position2D;
+        var targetAngle = Vector2.SignedAngle(Vector2.down, pointDirectionVector);
+        return targetAngle;
     }
 
     public IRotatePattern SetOffsetAngle(float offsetAngle)
@@ -39,21 +51,11 @@ public class RotatePattern_TargetPlayer : IRotatePattern
         _offsetAngle += offsetAngle;
         return this;
     }
-}
 
-public class RotatePattern_CustomTarget : IRotatePattern
-{
-    private readonly Func<(float targetAngle, float speed)> _func;
-    
-    public RotatePattern_CustomTarget(Func<(float targetAngle, float speed)> func)
+    public IRotatePattern SetOffsetPosition(Vector2 offsetPosition)
     {
-        _func = func;
-    }
-    
-    public void ExecuteRotatePattern(EnemyObject enemyObject)
-    {
-        var tuple = _func.Invoke();
-        enemyObject.RotateUnit(tuple.targetAngle, tuple.speed);
+        _offsetPosition += offsetPosition;
+        return this;
     }
 }
 
@@ -83,12 +85,12 @@ public class RotatePattern_Target_Conditional : IRotatePattern
     }
 }
 
-public class RotatePattern_Target : IRotatePattern
+public class RotatePattern_TargetAngle : IRotatePattern
 {
     private readonly float _targetAngle;
     private readonly float _speed;
     
-    public RotatePattern_Target(float targetAngle, float speed = 0f)
+    public RotatePattern_TargetAngle(float targetAngle, float speed = 0f)
     {
         _targetAngle = targetAngle;
         _speed = speed;
@@ -97,6 +99,32 @@ public class RotatePattern_Target : IRotatePattern
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
         enemyObject.RotateUnit(_targetAngle, _speed);
+    }
+}
+
+public class RotatePattern_TargetPosition : IRotatePattern
+{
+    private readonly Vector2 _targetPosition;
+    private readonly float _speed;
+    private float _offsetAngle;
+    
+    public RotatePattern_TargetPosition(Vector2 targetPosition, float speed = 0f)
+    {
+        _targetPosition = targetPosition;
+        _speed = speed;
+    }
+    
+    public void ExecuteRotatePattern(EnemyObject enemyObject)
+    {
+        var pointDirectionVector = enemyObject.m_Position2D - _targetPosition;
+        var targetAngle = Vector2.SignedAngle(Vector2.down, pointDirectionVector);
+        enemyObject.RotateUnit(targetAngle + _offsetAngle, _speed);
+    }
+
+    public IRotatePattern SetOffsetAngle(float offsetAngle)
+    {
+        _offsetAngle += offsetAngle;
+        return this;
     }
 }
 

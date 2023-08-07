@@ -8,7 +8,7 @@ public class EnemyTankLarge3Turret : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
         StartCoroutine(Pattern1());
     }
 

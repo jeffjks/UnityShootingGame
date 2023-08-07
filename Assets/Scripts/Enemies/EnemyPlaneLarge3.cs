@@ -48,7 +48,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
         //m_Turret.StopPattern1();
 
         float init_speed = m_MoveVector.speed;
@@ -66,13 +66,13 @@ public class EnemyPlaneLarge3 : EnemyUnit
     {
         base.Update();
         
-        if (!m_TimeLimitState) { // Retreat when boss or middle boss state
+        if (!TimeLimitState) { // Retreat when boss or middle boss state
             if (SystemManager.PlayState != PlayState.OnField) {
                 if (m_TimeLimit != null)
                     StopCoroutine(m_TimeLimit);
                 m_TimeLimit = TimeLimit();
                 StartCoroutine(m_TimeLimit);
-                m_TimeLimitState = true;
+                TimeLimitState = true;
             }
         }
     }

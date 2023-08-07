@@ -136,7 +136,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1B : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        _enemyObject.SetRotatePattern(new RotatePattern_Target(90f + 90f * _patternIndex, 180f));
+        _enemyObject.SetRotatePattern(new RotatePattern_TargetAngle(90f + 90f * _patternIndex, 180f));
         yield return new WaitForMillisecondFrames(1200);
 
         var sign = Mathf.Sign(_enemyObject.transform.localScale.x);
@@ -182,7 +182,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1C : BulletFactory, IBulletP
         BulletAccel accel1 = new BulletAccel(speed1, 400);
         BulletAccel accel2 = new BulletAccel(speed2, 700);
         
-        _enemyObject.SetRotatePattern(new RotatePattern_Target(90f + 90f * _patternIndex, 180f));
+        _enemyObject.SetRotatePattern(new RotatePattern_TargetAngle(90f + 90f * _patternIndex, 180f));
         yield return new WaitForMillisecondFrames(1500);
 
         var sign = Mathf.Sign(_enemyObject.transform.localScale.x);
@@ -488,7 +488,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret2_3A : BulletFactory, IBulletP
                 CreateBullet(new BulletProperty(GetFirePos(0, -gap), BulletImage.BlueSmall, 6.1f, BulletPivot.Current, 0f));
                 yield return new WaitForMillisecondFrames(70);
             }
-            _enemyObject.SetRotatePattern(new RotatePattern_Target(60f, 100f));
+            _enemyObject.SetRotatePattern(new RotatePattern_TargetAngle(60f, 100f));
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
         //onCompleted?.Invoke();

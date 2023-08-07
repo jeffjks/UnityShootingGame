@@ -10,7 +10,7 @@ public class EnemyShipLargeTurret2 : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
 
         if (transform.localPosition.x > 0f)
             m_Side = -1;

@@ -8,7 +8,7 @@ public class EnemyMiddleBoss2_Turret2 : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
         _killScore = m_Score;
         m_Score = 0;
         

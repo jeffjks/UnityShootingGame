@@ -28,8 +28,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     public bool m_IsRoot;
     public Queue<TweenData> m_TweenDataQueue = new ();
     public bool IsExecutingPattern => _currentPatterns.Count > 0;
-    
-    protected bool m_TimeLimitState = false;
     protected event UnityAction Action_OnPatternStopped;
 
     private readonly Vector3 _airEnemyAxis = new (0f, -0.4f, 1f);
@@ -83,7 +81,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     protected virtual void Update()
     {
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
-        _rotatePattern?.ExecuteRotatePattern(this);
+        m_RotatePattern?.ExecuteRotatePattern(this);
     }
 
     private void LateUpdate()
@@ -104,7 +102,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     public Coroutine StartPattern(string key, IBulletPattern bulletPattern)
     {
-        if (!_isInteractable)
+        if (!m_IsInteractable)
             return null;
         
         _currentPatterns.Add(key, null);
@@ -152,7 +150,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     public void DisableInteractable(int millisecond) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
         if (millisecond == 0)
             return;
-        _isInteractable = false;
+        m_IsInteractable = false;
         if (m_EnemyHealth != null)
             m_EnemyHealth.SetActiveColliders(false);
         
@@ -171,9 +169,9 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     }
 
     public void EnableInteractable() {
-        if (_isInteractable)
+        if (m_IsInteractable)
             return;
-        _isInteractable = true;
+        m_IsInteractable = true;
         if (m_EnemyHealth != null)
             m_EnemyHealth.SetActiveColliders(true);
         StartCoroutine(InteractableTimer());

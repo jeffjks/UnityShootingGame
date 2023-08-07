@@ -68,7 +68,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
         m_MoveVector.direction = -90f;
 
         float init_speed = m_MoveVector.speed;
@@ -127,7 +127,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         }
         yield return new WaitForMillisecondFrames(200);
 
-        while(!m_TimeLimitState) {
+        while(!TimeLimitState) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 random_value = Random.Range(-8f, 0f);
                 pos = m_FirePosition[0].position;
@@ -212,7 +212,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         
         yield return new WaitForMillisecondFrames(800);
 
-        while(!m_TimeLimitState) {
+        while(!TimeLimitState) {
             random_value = Random.Range(-3f, 3f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {

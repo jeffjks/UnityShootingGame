@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
 {
-    public EnemyMiddleBoss5aMainTurret m_MainTurret;
-    public EnemyMiddleBoss5aTurret[] m_Turret = new EnemyMiddleBoss5aTurret[2];
+    public EnemyMiddleBoss5a_MainTurret m_MainTurret;
+    public EnemyMiddleBoss5a_SubTurret[] m_SubTurret = new EnemyMiddleBoss5a_SubTurret[2];
     public EnemyMissile[] m_Missiles = new EnemyMissile[8];
     private int m_Phase;
     
@@ -34,7 +34,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     {
         base.Update();
         
-        if (!m_TimeLimitState && m_Phase > 0) {
+        if (!TimeLimitState && m_Phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 0.6f) {
                 m_MoveVector.direction = Random.Range(-100f, -80f);
             }
@@ -76,7 +76,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
 
         int frame = 5000 * Application.targetFrameRate / 1000;
         float init_position_y = transform.position.y;
@@ -88,65 +88,64 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
-        int rand;
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 1) {
-            m_MainTurret.StartPattern(1);
+        while (m_Phase == 1)
+        {
+            m_MainTurret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5a_MainTurret_A(m_MainTurret));
             yield return new WaitForMillisecondFrames(2000);
-            m_Turret[0].m_RotatePattern = 21;
-            m_Turret[1].m_RotatePattern = 22;
-            m_Turret[0].StartPattern(1);
-            m_Turret[1].StartPattern(1);
+            m_SubTurret[0].SetRotatePattern(new RotatePattern_RotateAround(240f));
+            m_SubTurret[0].SetRotatePattern(new RotatePattern_RotateAround(-240f));
+            m_SubTurret[0].StartPattern("A", new BulletPattern_EnemyMiddleBoss5a_SubTurret_A(m_SubTurret[0]));
+            m_SubTurret[1].StartPattern("A", new BulletPattern_EnemyMiddleBoss5a_SubTurret_A(m_SubTurret[1]));
             yield return new WaitForMillisecondFrames(2000);
-            m_MainTurret.StopPattern();
+            m_MainTurret.StopPattern("A");
             yield return new WaitForMillisecondFrames(2000);
-            m_Turret[0].StopPattern();
-            m_Turret[1].StopPattern();
-            m_Turret[0].m_RotatePattern = 10;
-            m_Turret[1].m_RotatePattern = 10;
+            m_SubTurret[0].StopPattern("A");
+            m_SubTurret[1].StopPattern("A");
+            m_SubTurret[0].SetRotatePattern(new RotatePattern_TargetPlayer(120f, 100f));
+            m_SubTurret[0].SetRotatePattern(new RotatePattern_TargetPlayer(120f, 100f));
             yield return new WaitForMillisecondFrames(2200);
-            m_MainTurret.StartPattern(4);
-            m_MainTurret.m_RotatePattern = 21;
+            m_MainTurret.StartPattern("D", new BulletPattern_EnemyMiddleBoss5a_MainTurret_D(m_MainTurret));
+            m_MainTurret.PlayerSweepRotatePattern = -1;
             yield return new WaitForMillisecondFrames(500);
-            m_MainTurret.StopPattern();
+            m_MainTurret.StopPattern("D");
 
             yield return new WaitForMillisecondFrames(500);
             StartCoroutine(LaunchMissile());
             yield return new WaitForMillisecondFrames(1000);
-            m_MainTurret.StartPattern(2);
+            m_MainTurret.StartPattern("B", new BulletPattern_EnemyMiddleBoss5a_MainTurret_B(m_MainTurret));
             yield return new WaitForMillisecondFrames(6000);
-            m_MainTurret.StopPattern();
-            m_MainTurret.m_RotatePattern = 10;
+            m_MainTurret.StopPattern("B");
+            m_MainTurret.SetRotatePattern(new RotatePattern_TargetPlayer(150f, 100f));
             yield return new WaitForMillisecondFrames(4000);
             
-            m_MainTurret.StartPattern(1);
+            m_MainTurret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5a_MainTurret_A(m_MainTurret));
             yield return new WaitForMillisecondFrames(1000);
-            rand = Random.Range(0, 2);
-            m_Turret[0].StartPattern(2, rand);
-            m_Turret[1].StartPattern(2, 1-rand);
+            var rand = Random.Range(0, 2);
+            m_SubTurret[0].StartPattern("B", new BulletPattern_EnemyMiddleBoss5a_SubTurret_B(m_SubTurret[0], rand));
+            m_SubTurret[1].StartPattern("B", new BulletPattern_EnemyMiddleBoss5a_SubTurret_B(m_SubTurret[1], 1 - rand));
             yield return new WaitForMillisecondFrames(6000);
-            m_MainTurret.StopPattern();
-            m_Turret[0].StopPattern();
-            m_Turret[1].StopPattern();
+            m_MainTurret.StopPattern("A");
+            m_SubTurret[0].StopPattern("B");
+            m_SubTurret[1].StopPattern("B");
 
             rand = Random.Range(0, 2);
-            m_Turret[0].m_RotatePattern = (byte) (31 + rand);
-            m_Turret[1].m_RotatePattern = (byte) (32 - rand);
+            m_SubTurret[rand].SetRotatePattern(new RotatePattern_TargetAngle(0f, 120f));
+            m_SubTurret[1 - rand].SetRotatePattern(new RotatePattern_TargetAngle(180f, 120f));
             yield return new WaitForMillisecondFrames(2000);
-            m_Turret[0].m_RotatePattern = 22;
-            m_Turret[1].m_RotatePattern = 21;
-            m_Turret[0].StartPattern(3);
-            m_Turret[1].StartPattern(3);
+            m_SubTurret[0].SetRotatePattern(new RotatePattern_RotateAround(-240f));
+            m_SubTurret[0].SetRotatePattern(new RotatePattern_RotateAround(240f));
+            m_SubTurret[0].StartPattern("C", new BulletPattern_EnemyMiddleBoss5a_SubTurret_C(m_SubTurret[0]));
+            m_SubTurret[1].StartPattern("C", new BulletPattern_EnemyMiddleBoss5a_SubTurret_C(m_SubTurret[1]));
             yield return new WaitForMillisecondFrames(2000);
-            m_MainTurret.StartPattern(3);
+            m_MainTurret.StartPattern("C", new BulletPattern_EnemyMiddleBoss5a_MainTurret_C(m_MainTurret));
             yield return new WaitForMillisecondFrames(6000);
-            m_Turret[0].StopPattern();
-            m_Turret[1].StopPattern();
-            m_MainTurret.StopPattern();
+            m_SubTurret[0].StopPattern("C");
+            m_SubTurret[1].StopPattern("C");
+            m_MainTurret.StopPattern("C");
             break;
         }
         yield break;
@@ -157,15 +156,10 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         for (int i = 0; i < 4; i++) {
             yield return new WaitForMillisecondFrames(2000);
             if (m_Phase > 0) {
-                try {
-                    m_Missiles[i*2].enabled = true;
-                    m_Missiles[i*2 + 1].enabled = true;
-                }
-                catch {
-                }
+                m_Missiles[i*2].enabled = true;
+                m_Missiles[i*2 + 1].enabled = true;
             }
         }
-        yield break;
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정

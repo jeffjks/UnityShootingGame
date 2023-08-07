@@ -20,7 +20,7 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
     {
         base.Update();
         
-        if (!m_TimeLimitState) {
+        if (!TimeLimitState) {
             if (PlayerManager.IsPlayerAlive)
                 RotateUnit(AngleToPlayer);
             else
@@ -48,7 +48,7 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
         m_MoveVector.direction = AngleToPlayer;
 
         float init_speed = m_MoveVector.speed;
@@ -69,7 +69,7 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
         yield return new WaitForMillisecondFrames(millisecond);
         
         while (true) {
-            if (!m_TimeLimitState) {
+            if (!TimeLimitState) {
                 if (SystemManager.Difficulty <= GameDifficulty.Expert) {
                     Vector3 pos1 = m_FirePosition[0].TransformPoint(Vector3.right * gap);
                     Vector3 pos2 = m_FirePosition[0].TransformPoint(Vector3.left * gap);

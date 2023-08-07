@@ -41,7 +41,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         }
         
         
-        if (!m_TimeLimitState && m_Phase > 0) {
+        if (!TimeLimitState && m_Phase > 0) {
             if (transform.position.x >= PlayerManager.GetPlayerPosition().x * 0.14f + 1.2f) {
                 m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
             }
@@ -93,7 +93,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
         m_MoveVector = new MoveVector(0f, 0f);
 
         int frame = 4000 * Application.targetFrameRate / 1000;
@@ -106,7 +106,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             transform.position = new Vector3(transform.position.x, position_y, transform.position.z);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     private void ToNextPhase() {

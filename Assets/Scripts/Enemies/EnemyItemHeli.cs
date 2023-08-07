@@ -57,7 +57,7 @@ public class EnemyItemHeli : EnemyUnit {
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
+        TimeLimitState = true;
 
         float init_speed = m_MoveVector.speed;
         int frame = 1000 * Application.targetFrameRate / 1000;
@@ -90,7 +90,7 @@ public class EnemyItemHeli : EnemyUnit {
         float target_angle1, target_angle2;
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
-        while(!m_TimeLimitState) {
+        while(!TimeLimitState) {
             float random_value = Random.Range(-1f, 1f);
 
             pos1 = m_FirePosition[0].position;

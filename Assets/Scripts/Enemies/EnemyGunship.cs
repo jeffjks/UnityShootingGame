@@ -1,98 +1,90 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class EnemyGunship : EnemyUnit, ITargetPosition
 {
-    private int[] m_FireDelay = { 2000, 1500, 1000 };
-    
     private const int TIME_LIMIT = 8000;
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(Pattern1());
-        RotateUnit(AngleToPlayer);
+        StartPattern("A", new BulletPattern_EnemyGunship(this));
+        CurrentAngle = AngleToPlayer;
+        SetRotatePattern(new RotatePattern_TargetPlayer());
 
         StartCoroutine(TimeLimit(TIME_LIMIT));
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        
-        if (PlayerManager.IsPlayerAlive)
-            RotateUnit(AngleToPlayer);
-        else
-            RotateUnit(AngleToPlayer, 180f);
+    public void MoveTowardsToTarget(Vector2 targetVector, int duration) {
+        StartCoroutine(MoveTowardsToTargetSequence(targetVector, duration));
     }
 
-    public void MoveTowardsToTarget(Vector2 target_vec2, int duration) {
-        StartCoroutine(MoveTowardsToTargetSequence(target_vec2, duration));
-    }
-
-    private IEnumerator MoveTowardsToTargetSequence(Vector2 target_vec2, int duration) {
-        Vector3 init_position = transform.position;
-        Vector3 target_position = new Vector3(target_vec2.x, target_vec2.y, Depth.ENEMY);
+    private IEnumerator MoveTowardsToTargetSequence(Vector2 targetVector, int duration) {
+        Vector3 initPosition = transform.position;
+        Vector3 targetPosition = new Vector3(targetVector.x, targetVector.y, Depth.ENEMY);
         int frame = duration * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
-            transform.position = Vector3.Lerp(init_position, target_position, t_pos);
+            transform.position = Vector3.Lerp(initPosition, targetPosition, t_pos);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
-    private IEnumerator TimeLimit(int time_limit = 0) {
-        yield return new WaitForMillisecondFrames(time_limit);
-        m_TimeLimitState = true;
-        float leave_direction = Mathf.Sign(transform.position.x);
-        if (leave_direction == 1) {
-            m_MoveVector.direction = Random.Range(80f, 100f);
-        }
-        else {
-            m_MoveVector.direction = Random.Range(-80f, -100f);
-        }
+    private IEnumerator TimeLimit(int timeLimit = 0) {
+        yield return new WaitForMillisecondFrames(timeLimit);
+        TimeLimitState = true;
+        var leaveDirection = Mathf.Sign(transform.position.x);
+        m_MoveVector.direction = leaveDirection > 0f ? Random.Range(80f, 100f) : Random.Range(-80f, -100f);
         
-        float init_speed = m_MoveVector.speed;
+        float initSpeed = m_MoveVector.speed;
         int frame = 800 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
 
-            m_MoveVector.speed = Mathf.Lerp(init_speed, 5.4f, t_spd);
+            m_MoveVector.speed = Mathf.Lerp(initSpeed, 5.4f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
         yield break;
     }
+}
 
-    private IEnumerator Pattern1() {
-        BulletAccel accel = new BulletAccel(0f, 0);
+public class BulletPattern_EnemyGunship : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyGunship(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 2000, 1500, 1000 };
         yield return new WaitForMillisecondFrames(1200);
         
-        while (!m_TimeLimitState) {
-            for (int i = 0; i < 4; i++) {
-                Vector3 pos1 = m_FirePosition[0].position;
-                Vector3 pos2 = m_FirePosition[1].position;
-                if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    CreateBullet(4, pos1, 6.7f, CurrentAngle + 2.5f, accel);
-                    CreateBullet(4, pos2, 6.7f, CurrentAngle - 2.5f, accel);
+        while (!_enemyObject.TimeLimitState) {
+            for (var i = 0; i < 4; i++) {
+                var pos1 = GetFirePos(0);
+                var pos2 = GetFirePos(1);
+                if (SystemManager.Difficulty == GameDifficulty.Normal)
+                {
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 6.7f, BulletPivot.Current, -2.5f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 6.7f, BulletPivot.Current, 2.5f));
                     break;
                 }
-                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    CreateBullet(4, pos1, 8f, CurrentAngle + 2.5f, accel);
-                    CreateBullet(4, pos2, 8f, CurrentAngle - 2.5f, accel);
+                if (SystemManager.Difficulty == GameDifficulty.Expert)
+                {
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8f, BulletPivot.Current, -2.5f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 2.5f));
                 }
                 else {
-                    CreateBullet(4, pos1, 8.5f, CurrentAngle + 2.5f, accel);
-                    CreateBullet(4, pos1, 8.5f, CurrentAngle + 9f, accel);
-                    CreateBullet(4, pos2, 8.5f, CurrentAngle - 9f, accel);
-                    CreateBullet(4, pos2, 8.5f, CurrentAngle - 2.5f, accel);
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -9f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -2.5f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 2.5f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 9f));
                 }
                 yield return new WaitForMillisecondFrames(140);
             }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
-        yield break;
+        onCompleted?.Invoke();
     }
 }

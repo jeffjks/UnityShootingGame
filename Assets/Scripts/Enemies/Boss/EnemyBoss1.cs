@@ -68,8 +68,8 @@ public class EnemyBoss1 : EnemyUnit, IHasAppearance, IEnemyBossMain
         m_Turret3[1].StopAllPatterns();
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
-        m_Turret2[0].SetRotatePattern(new RotatePattern_Target(0f, 100f));
-        m_Turret2[1].SetRotatePattern(new RotatePattern_Target(0f, 100f));
+        m_Turret2[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 100f));
+        m_Turret2[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 100f));
         //m_Sequence.Kill();
         m_CurrentMovement = OnPhase2();
         StartCoroutine(m_CurrentMovement);

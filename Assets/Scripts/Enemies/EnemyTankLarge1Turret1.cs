@@ -10,7 +10,7 @@ public class EnemyTankLarge1Turret1 : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
     }
 
     protected override void Update()

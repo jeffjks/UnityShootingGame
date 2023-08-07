@@ -75,7 +75,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
             }
         }
         
-        if (!m_TimeLimitState && m_Phase > 0) {
+        if (!TimeLimitState && m_Phase > 0) {
             if (transform.position.x > m_TargetPosition.x + 1.6f) {
                 m_MoveVector.direction = -90f;
             }

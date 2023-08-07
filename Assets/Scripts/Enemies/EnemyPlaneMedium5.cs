@@ -44,7 +44,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
 
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
-        //m_TimeLimitState = true;
+        //TimeLimitState = true;
         m_Turret0.StopPattern();
         m_Turret1.StopPattern();
 

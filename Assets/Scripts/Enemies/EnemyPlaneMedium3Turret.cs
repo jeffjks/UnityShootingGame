@@ -8,7 +8,7 @@ public class EnemyPlaneMedium3Turret : EnemyUnit
 
     void Start()
     {
-        RotateUnit(AngleToPlayer);
+        CurrentAngle = AngleToPlayer;
     }
 
     protected override void Update()

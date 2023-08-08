@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyPlaneLarge2 : EnemyUnit
 {
     public EnemyUnit[] m_Turret = new EnemyUnit[4];
-    private int m_Phase;
+    private int _phase;
 
     void Start() {
         m_MoveVector = new MoveVector(0.8f, 0f);
@@ -15,46 +15,13 @@ public class EnemyPlaneLarge2 : EnemyUnit
     {
         base.Update();
         
-        if (m_Phase == 0) {
-            if (m_Position2D.y < - 1f) {
-                StartCoroutine(Pattern1());
-                m_Phase = 1;
+        if (_phase == 0) {
+            if (m_Position2D.y < - 1f)
+            {
+                StartPattern("1A", new EnemyPlaneLarge2_BulletPattern_1A(this));
+                _phase = 1;
             }
         }
-    }
-    
-    private IEnumerator Pattern1() {
-        BulletAccel accel = new BulletAccel(0f, 0);
-        Vector3 pos;
-        float target_angle;
-        yield return new WaitForMillisecondFrames(1000);
-
-        while(true) {
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                break;
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                pos = m_FirePosition[0].position;
-                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
-                for (int i = 0; i < 12; i++) {
-                    pos = m_FirePosition[0].position;
-                    CreateBulletsSector(4, pos, 10f, target_angle, accel, 2, 115f - i*4.8f);
-                    yield return new WaitForFrames(3);
-                }
-            }
-            else {
-                pos = m_FirePosition[0].position;
-                target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
-                for (int i = 0; i < 12; i++) {
-                    pos = m_FirePosition[0].position;
-                    CreateBulletsSector(4, pos, 9.5f, target_angle, accel, 2, 120f - i*5.3f);
-                    CreateBulletsSector(4, pos, 11f, target_angle, accel, 2, 100f - i*4.8f);
-                    yield return new WaitForFrames(3);
-                }
-            }
-            yield return new WaitForMillisecondFrames(3000);
-        }
-        yield break;
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정

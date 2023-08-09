@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class EnemyPlaneMedium3 : EnemyUnit
 {
-    public EnemyPlaneMedium3Turret[] m_Turret = new EnemyPlaneMedium3Turret[2];
+    public EnemyPlaneMedium3_Turret[] m_Turret = new EnemyPlaneMedium3_Turret[2];
     
     private const int APPEARANCE_TIME = 1200;
     private const int TIME_LIMIT = 7800;

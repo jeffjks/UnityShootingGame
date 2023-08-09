@@ -22,6 +22,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
         m_MoveVector = new MoveVector(5.25f, -72f * _side); // 원래 7f에 1000ms 대기 없었음
 
         StartCoroutine(AppearanceSequence());
+        SetRotatePattern(new RotatePattern_MoveDirection());
     }
 
     private IEnumerator AppearanceSequence() {
@@ -38,7 +39,6 @@ public class EnemyPlaneMedium5 : EnemyUnit
         }
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
-        yield break;
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
@@ -58,13 +58,5 @@ public class EnemyPlaneMedium5 : EnemyUnit
             m_MoveVector.direction = Mathf.Lerp(init_moveVector.direction, 96f * _side, t_dir);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        
-        RotateImmediately(m_MoveVector.direction);
     }
 }

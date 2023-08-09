@@ -1,117 +1,121 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyShipCarrier : EnemyUnit
 {
-    public EnemyUnit[] m_EnemyUnits;
-
-    private float m_Direction1, m_Direction2;
-    private int m_Pattern1Direction = 1;
+    private EnemyUnit[] _enemyUnits;
     
     void Start()
     {
-        RotateImmediately(m_MoveVector.direction);
-        m_Direction1 = Random.Range(0f, 360f);
-        if (CurrentAngle >= 180f) {
-            m_Pattern1Direction = -1;
-        }
-        StartCoroutine(Pattern1());
-        StartCoroutine(Pattern2());
+        _enemyUnits = GetComponentsInChildren<EnemyUnit>();
+        SetRotatePattern(new RotatePattern_MoveDirection());
+        m_CustomDirection = new CustomDirection(2);
+        m_CustomDirection[0] = Random.Range(0f, 360f);
+        StartPattern("A", new BulletPattern_EnemyShipCarrier_A(this));
+        StartPattern("B", new BulletPattern_EnemyShipCarrier_B(this));
     }
     
     protected override void Update()
     {
         base.Update();
         
-        m_Direction1 += 120f / Application.targetFrameRate * Time.timeScale;
-        m_Direction2 += 180f / Application.targetFrameRate * Time.timeScale;
-
-        if (m_Direction1 > 360f) {
-            m_Direction1 -= m_Pattern1Direction*360f;
-        }
-        if (m_Direction2 > 360f) {
-            m_Direction2 -= 360f;
-        }
-
-        RotateImmediately(m_MoveVector.direction);
+        m_CustomDirection[0] += 120f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[1] += 180f / Application.targetFrameRate * Time.timeScale;
     }
 
-    
-    private IEnumerator Pattern1() {
-        Vector3[] pos = new Vector3[3];
-        BulletAccel accel = new BulletAccel(0f, 0);
+    protected override IEnumerator DyingEffect() { // 파괴 과정
+        BulletManager.SetBulletFreeState(2000);
+
+        foreach (var enemyUnit in _enemyUnits)
+        {
+            if (enemyUnit != null)
+                enemyUnit.m_EnemyDeath.OnDying();
+        }
         
+        yield break;
+    }
+}
+
+public class BulletPattern_EnemyShipCarrier_A : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyShipCarrier_A(EnemyObject enemyObject) : base(enemyObject) { }
+    
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            while(true) {
-                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + CurrentAngle, accel, 2, 180f);
+            while(true)
+            {
+                var pos = GetFirePos(0);
+                var dir = _enemyObject.m_CustomDirection[0];
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.7f, BulletPivot.Fixed, dir, 2, 180f));
                 yield return new WaitForMillisecondFrames(160);
             }
 
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
-                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + CurrentAngle, accel, 3, 120f);
+                var pos = GetFirePos(0);
+                var dir = _enemyObject.m_CustomDirection[0];
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.7f, BulletPivot.Fixed, dir, 3, 120f));
                 yield return new WaitForMillisecondFrames(110);
             }
 
         }
         else {
             while(true) {
-                pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-                CreateBulletsSector(3, pos[0], 5.7f, m_Direction1 + CurrentAngle, accel, 4, 90f);
+                var pos = GetFirePos(0);
+                var dir = _enemyObject.m_CustomDirection[0];
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.7f, BulletPivot.Fixed, dir, 4, 90f));
                 yield return new WaitForMillisecondFrames(70);
             }
         }
+        //onCompleted?.Invoke();
     }
+}
+
+public class BulletPattern_EnemyShipCarrier_B : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyShipCarrier_B(EnemyObject enemyObject) : base(enemyObject) { }
     
-    private IEnumerator Pattern2() {
-        Vector3[] pos = new Vector3[3];
-        BulletAccel accel = new BulletAccel(0f, 0);
-        
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            while(true) {
-                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBullet(3, pos[1], 6.2f, m_Direction2 + CurrentAngle, accel);
-                CreateBullet(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle, accel);
+            while(true)
+            {
+                var pos1 = GetFirePos(1);
+                var pos2 = GetFirePos(2);
+                var dir = _enemyObject.m_CustomDirection[1];
+                CreateBullet(new BulletProperty(pos1, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, dir));
+                CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, -dir));
                 yield return new WaitForMillisecondFrames(200);
             }
 
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while(true) {
-                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + CurrentAngle, accel, 2, 180f);
-                CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle, accel, 2, 180f);
+                var pos1 = GetFirePos(1);
+                var pos2 = GetFirePos(2);
+                var dir = _enemyObject.m_CustomDirection[1];
+                CreateBullet(new BulletProperty(pos1, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, dir, 2, 180f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, -dir, 2, 180f));
                 yield return new WaitForMillisecondFrames(120);
             }
 
         }
         else {
             while(true) {
-                pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-                pos[2] = BackgroundCamera.GetScreenPosition(m_FirePosition[2].position);
-                CreateBulletsSector(3, pos[1], 6.2f, m_Direction2 + CurrentAngle, accel, 2, 30f);
-                CreateBullet(3, pos[1], 6.2f, m_Direction2 + CurrentAngle + 180f, accel);
-                CreateBulletsSector(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle, accel, 2, 30f);
-                CreateBullet(3, pos[2], 6.2f, -m_Direction2 + CurrentAngle + 180f, accel);
+                var pos1 = GetFirePos(1);
+                var pos2 = GetFirePos(2);
+                var dir = _enemyObject.m_CustomDirection[1];
+                CreateBullet(new BulletProperty(pos1, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, dir, 2, 30f));
+                CreateBullet(new BulletProperty(pos1, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, dir + 180f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, -dir, 2, 30f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 6.2f, BulletPivot.Fixed, -dir + 180f));
                 yield return new WaitForMillisecondFrames(100);
             }
         }
-    }
-
-    protected override IEnumerator DyingEffect() { // 파괴 과정
-        BulletManager.SetBulletFreeState(2000);
-
-        for (int i = 0; i < m_EnemyUnits.Length; i++) {
-            if (m_EnemyUnits[i] != null)
-                m_EnemyUnits[i].m_EnemyDeath.OnDying();
-        }
-        
-        yield break;
+        //onCompleted?.Invoke();
     }
 }

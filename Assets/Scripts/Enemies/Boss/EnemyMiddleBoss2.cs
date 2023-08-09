@@ -30,25 +30,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnDeath += OnBossDeath;
         m_EnemyDeath.Action_OnRemoved += OnBossDying;
         m_Turret1.m_EnemyDeath.Action_OnDying += ToNextPhase;
+        SetRotatePattern(new RotatePattern_MoveDirection());
 
         SystemManager.OnMiddleBossStart();
-
-        /*
-        m_Sequence = DOTween.Sequence()
-        .AppendInterval(4f)
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, 1f).SetEase(Ease.OutQuad)) // stop
-        .AppendInterval(2f)
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 2f, 1f).SetEase(Ease.InQuad))
-        .AppendInterval(1f)
-        .Append(DOTween.To(()=>m_MoveVector.direction, x=>m_MoveVector.direction = x, 220f, 3.5f).SetEase(Ease.Linear))
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, 1f).SetEase(Ease.OutQuad)) // stop
-        .AppendInterval(0.5f)
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 2f, 1f).SetEase(Ease.InQuad))
-        .Append(DOTween.To(()=>m_MoveVector.direction, x=>m_MoveVector.direction = x, 170f, 2.5f).SetEase(Ease.Linear))
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, 1f).SetEase(Ease.OutQuad)) // stop
-        .AppendInterval(1f)
-        .Append(DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 2f, 1.5f).SetEase(Ease.InQuad))
-        .Append(DOTween.To(()=>m_MoveVector.direction, x=>m_MoveVector.direction = x, 240f, 2.5f).SetEase(Ease.Linear));*/
     }
 
     private IEnumerator AppearanceSequence() {
@@ -98,8 +82,6 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         }
         
         m_CustomDirection[0] += 200f / Application.targetFrameRate * Time.timeScale;
-
-        RotateImmediately(m_MoveVector.direction);
     }
 
     private IEnumerator Phase1()

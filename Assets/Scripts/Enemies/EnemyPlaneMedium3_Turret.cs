@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlaneMedium3Turret : EnemyUnit
+public class EnemyPlaneMedium3_Turret : EnemyUnit
 {
     void Start()
     {

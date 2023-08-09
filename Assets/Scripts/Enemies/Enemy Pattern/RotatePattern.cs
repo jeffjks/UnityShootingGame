@@ -59,6 +59,29 @@ public class RotatePattern_TargetPlayer : IRotatePattern
     }
 }
 
+public class RotatePattern_MoveDirection : IRotatePattern
+{
+    private readonly float _speed;
+    private float _offsetAngle;
+    
+    public RotatePattern_MoveDirection(float speed = 0f)
+    {
+        _speed = speed;
+    }
+    
+    public void ExecuteRotatePattern(EnemyObject enemyObject)
+    {
+        var targetAngle = enemyObject.m_MoveVector.direction + _offsetAngle;
+        enemyObject.RotateUnit(targetAngle, _speed);
+    }
+
+    public IRotatePattern SetOffsetAngle(float offsetAngle)
+    {
+        _offsetAngle = offsetAngle;
+        return this;
+    }
+}
+
 public class RotatePattern_Target_Conditional : IRotatePattern
 {
     private readonly float _targetAngle;

@@ -1,50 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyPlaneSmall2 : EnemyUnit
 {
-    private int[] m_FireDelay = { 5000, 2100, 1200 };
 
-    private bool m_TargetPlayer = true;
-    private float m_Speed = 7.2f;
+    private bool _isTargetingPlayer = true;
+    private const float DEFAULT_SPEED = 7.2f;
 
     void Start()
     {
-        StartCoroutine(Pattern1(800));
-        RotateUnit(AngleToPlayer);
-        float target_angle = AngleToPlayer;
-        m_MoveVector = new MoveVector(m_Speed, target_angle);
+        StartPattern("A", new BulletPattern_EnemyPlaneSmall2_A(this));
+        CurrentAngle = AngleToPlayer;
+        m_MoveVector = new MoveVector(DEFAULT_SPEED, AngleToPlayer);
+        SetRotatePattern(new RotatePattern_TargetPlayer(0f, 100f));
     }
 
     protected override void Update()
     {
         base.Update();
         
-        if (m_TargetPlayer) {
+        if (_isTargetingPlayer) {
             float player_distance = Vector2.Distance(transform.position, PlayerManager.GetPlayerPosition());
             m_MoveVector.direction = AngleToPlayer;
 
             if (player_distance < 5f) {
-                m_TargetPlayer = false;
+                _isTargetingPlayer = false;
             }
         }
-        if (PlayerManager.IsPlayerAlive)
-            RotateImmediately(m_MoveVector.direction);
-        else
-            RotateSlightly(m_MoveVector.direction, 100f);
     }
+}
 
-    private IEnumerator Pattern1(int millisecond) {
-        float[] speed = {8.2f, 9.8f, 9.8f};
-        yield return new WaitForMillisecondFrames(millisecond);
+public class BulletPattern_EnemyPlaneSmall2_A : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyPlaneSmall2_A(EnemyObject enemyObject) : base(enemyObject) { }
+    
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 5000, 2100, 1200 };
+        float[] speedArray = { 8.2f, 9.8f, 9.8f };
+        yield return new WaitForMillisecondFrames(800);
         
         while (true) {
-            Vector3 pos = m_FirePosition[0].position;
-            BulletAccel accel = new BulletAccel(0f, 0);
-            CreateBullet(0, pos, speed[(int) SystemManager.Difficulty], CurrentAngle, accel);
-            CreateBulletsSector(2, pos, speed[(int) SystemManager.Difficulty], CurrentAngle, accel, 2, 28f);
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
+            var pos = GetFirePos(0);
+            var speed = speedArray[(int)SystemManager.Difficulty];
+            CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Current, 0f));
+            CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, speed, BulletPivot.Current, 0f, 2, 28f));
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
+        //onCompleted?.Invoke();
     }
 }

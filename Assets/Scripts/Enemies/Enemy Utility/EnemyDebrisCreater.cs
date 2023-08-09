@@ -12,7 +12,8 @@ public class EnemyDebrisCreater : MonoBehaviour
         m_EnemyDeath.Action_OnDeath += CreateDebris;
     }
 
-    private void CreateDebris() {
+    private void CreateDebris()
+    {
         GameObject obj = PoolingManager.PopFromPool("Debris", PoolingParent.Debris);
         DebrisEffect debris = obj.GetComponent<DebrisEffect>();
         obj.transform.position = transform.position;

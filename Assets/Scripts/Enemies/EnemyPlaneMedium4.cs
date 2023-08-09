@@ -51,7 +51,6 @@ public class EnemyPlaneMedium4 : EnemyUnit
             m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     protected override void Update()

@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyShipMedium1 : EnemyUnit
 {
-    private int[] m_FireDelay = { 2200, 2000, 1500 };
-    
     void Start()
     {
-        StartCoroutine(Pattern1());
-        StartCoroutine(Pattern2());
+        StartPattern("A", new BulletPattern_EnemyPlaneMedium1_A(this));
     }
     
     protected override void Update()
@@ -18,43 +16,57 @@ public class EnemyShipMedium1 : EnemyUnit
         
         RotateImmediately(m_MoveVector.direction);
     }
+}
+
+public class BulletPattern_EnemyPlaneMedium1_A : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyPlaneMedium1_A(EnemyObject enemyObject) : base(enemyObject) { }
     
-    private IEnumerator Pattern1() {
-        Vector3[] pos = new Vector3[5];
-        BulletAccel accel = new BulletAccel(0f, 0);
-        float[] target_angle = new float[5];
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 2200, 2000, 1500 };
+        var accel = new BulletAccel(6f, 800);
 
-        for (int i = 0; i < 5; i++) {
-            target_angle[i] = m_FirePosition[i].parent.parent.parent.localRotation.eulerAngles.y;
-        }
-
-        while(true) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 5; j++) {
-                    pos[j] = BackgroundCamera.GetScreenPosition(m_FirePosition[j].position);
-                    CreateBullet(1, pos[j], 4.3f, CurrentAngle - target_angle[j], accel);
+        while(true)
+        {
+            for (var i = 0; i < 2; i++)
+            {
+                var pos = GetFirePos(i + 5);
+                var dir = Random.Range(0f, 360f);
+                if (SystemManager.Difficulty == GameDifficulty.Normal)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 2f, BulletPivot.Fixed, dir, accel, 12, 30f));
                 }
+                else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 2f, BulletPivot.Fixed, dir, accel, 24, 15f));
+                }
+                else
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 2f, BulletPivot.Fixed, dir, accel, 30, 12f));
+                }
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}
+
+public class BulletPattern_EnemyPlaneMedium1_Turret_A : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyPlaneMedium1_Turret_A(EnemyObject enemyObject) : base(enemyObject) { }
+    
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        while(true) {
+            for (var i = 0; i < 3; i++)
+            {
+                var pos = GetFirePos(0);
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 4.3f, BulletPivot.Current, 0f));
                 yield return new WaitForMillisecondFrames(100);
             }
             yield return new WaitForMillisecondFrames(1600);
         }
-    }
-    
-    private IEnumerator Pattern2() {
-        Vector3[] pos = new Vector3[2];
-        BulletAccel accel = new BulletAccel(6f, 800);
-
-        while(true) {
-            for (int i = 0; i < 2; i++) {
-                pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i+5].position);
-                if (SystemManager.Difficulty == GameDifficulty.Normal)
-                    CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 12, 30f);
-                else if (SystemManager.Difficulty == GameDifficulty.Expert)
-                    CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 24, 15f);
-                else
-                    CreateBulletsSector(5, pos[i], 2f, Random.Range(0f, 360f), accel, 30, 12f);
-            }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
-        }
+        //onCompleted?.Invoke();
     }
 }

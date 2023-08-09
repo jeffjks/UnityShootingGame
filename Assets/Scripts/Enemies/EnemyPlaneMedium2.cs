@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyPlaneMedium2 : EnemyUnit
 {
@@ -13,16 +14,10 @@ public class EnemyPlaneMedium2 : EnemyUnit
     {
         m_MoveVector.speed = 4.4f;
 
-        StartCoroutine(Pattern1());
-        StartCoroutine(Pattern2());
+        StartPattern("A", new EnemyPlaneMedium2_BulletPattern_A(this, APPEARANCE_TIME));
+        StartPattern("B", new EnemyPlaneMedium2_BulletPattern_B(this, APPEARANCE_TIME));
 
         StartCoroutine(AppearanceSequence());
-
-        /*
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.5f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
-        m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
@@ -72,93 +67,109 @@ public class EnemyPlaneMedium2 : EnemyUnit
             }
         }
     }
+}
 
-    private IEnumerator Pattern1() {
-        BulletAccel accel = new BulletAccel(0f, 0);
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
-        while(!TimeLimitState) {
-            Vector3[] pos = new Vector3[m_FirePosition.Length];
-            float target_angle;
+public class EnemyPlaneMedium2_BulletPattern_A : BulletFactory, IBulletPattern
+{
+    private readonly int _appearanceTime;
 
+    public EnemyPlaneMedium2_BulletPattern_A(EnemyObject enemyObject, int appearanceTime) : base(enemyObject)
+    {
+        _appearanceTime = appearanceTime;
+    }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        yield return new WaitForMillisecondFrames(_appearanceTime);
+        while(!_enemyObject.TimeLimitState) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
-                    CreateBullet(4, pos[1], 6.2f, CurrentAngle, accel);
-                    CreateBullet(4, pos[2], 6.2f, CurrentAngle, accel);
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
+                    CreateBullet(new BulletProperty(GetFirePos(2), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(1000);
-                target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-                pos[0] = m_FirePosition[0].position;
-                CreateBullet(3, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
-                CreateBullet(5, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
+                var pos = GetFirePos(0);
+                for (var i = 0; i < 2; ++i)
+                {
+                    var speed1 = 5f + Random.Range(0f, 1.2f);
+                    var speed2 = 5f + Random.Range(0f, 1.2f);
+                    var dir1 = Random.Range(-24f, 24f);
+                    var dir2 = Random.Range(-24f, 24f);
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed1, BulletPivot.Player, dir1));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed2, BulletPivot.Player, dir2));
+                }
                 yield return new WaitForMillisecondFrames(2000);
             }
 
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
-                    CreateBullet(4, pos[1], 6.2f, 0f, accel);
-                    CreateBullet(4, pos[2], 6.2f, 0f, accel);
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
+                    CreateBullet(new BulletProperty(GetFirePos(2), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(800);
-                target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-                pos[0] = m_FirePosition[0].position;
-                for (int i = 0; i < 4; i++) {
-                    CreateBullet(3, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
-                    CreateBullet(5, pos[0], 5f + Random.Range(0f, 1.2f), target_angle + Random.Range(-24f, 24f), accel);
+                var pos = GetFirePos(0);
+                for (var i = 0; i < 4; ++i)
+                {
+                    var speed1 = 5f + Random.Range(0f, 1.2f);
+                    var speed2 = 5f + Random.Range(0f, 1.2f);
+                    var dir1 = Random.Range(-24f, 24f);
+                    var dir2 = Random.Range(-24f, 24f);
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed1, BulletPivot.Player, dir1));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed2, BulletPivot.Player, dir2));
                 }
                 yield return new WaitForMillisecondFrames(1600);
             }
 
             else {
                 for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
-                    CreateBullet(4, pos[1], 6.2f, 0f, accel);
-                    CreateBullet(4, pos[2], 6.2f, 0f, accel);
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
+                    CreateBullet(new BulletProperty(GetFirePos(2), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(600);
 
                 for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos[1], ref pos[2], ref pos[3], ref pos[4]);
-                    CreateBullet(4, pos[3], 6.2f, 0f, accel);
-                    CreateBullet(4, pos[4], 6.2f, 0f, accel);
+                    CreateBullet(new BulletProperty(GetFirePos(3), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
+                    CreateBullet(new BulletProperty(GetFirePos(4), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f));
                     yield return new WaitForMillisecondFrames(80);
                 }
                 yield return new WaitForMillisecondFrames(600);
             }
         }
-        yield break;
+        onCompleted?.Invoke();
+    }
+}
+
+public class EnemyPlaneMedium2_BulletPattern_B : BulletFactory, IBulletPattern
+{
+    private readonly int _appearanceTime;
+
+    public EnemyPlaneMedium2_BulletPattern_B(EnemyObject enemyObject, int appearanceTime) : base(enemyObject)
+    {
+        _appearanceTime = appearanceTime;
     }
 
-    private IEnumerator Pattern2() {
-        BulletAccel accel = new BulletAccel(0f, 0);
-        Vector3 pos;
-        float target_angle;
-
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
-        while(!TimeLimitState) {
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        yield return new WaitForMillisecondFrames(_appearanceTime);
+        while(!_enemyObject.TimeLimitState) {
             yield return new WaitForMillisecondFrames(Random.Range(0, 1500));
 
             if (SystemManager.Difficulty == GameDifficulty.Hell) {
-                target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-                pos = m_FirePosition[0].position;
-                for (int i = 0; i < 5; i++) {
-                    CreateBullet(3, pos, 5f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);
-                    CreateBullet(5, pos, 5f + Random.Range(0f, 1.8f), target_angle + Random.Range(-24f, 24f), accel);
+                var pos = GetFirePos(0);
+                for (int i = 0; i < 6; i++) {
+                    var speed1 = 5.2f + Random.Range(0f, 1.8f);
+                    var speed2 = 5.2f + Random.Range(0f, 1.8f);
+                    var dir1 = Random.Range(-24f, 24f);
+                    var dir2 = Random.Range(-24f, 24f);
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed1, BulletPivot.Player, dir1));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed2, BulletPivot.Player, dir2));
                 }
             }
             yield return new WaitForMillisecondFrames(1600);
         }
-        yield break;
-    }
-
-    private void SetBulletVariables(ref Vector3 pos1, ref Vector3 pos2, ref Vector3 pos3, ref Vector3 pos4) {
-        pos1 = m_FirePosition[1].position;
-        pos2 = m_FirePosition[2].position;
-        pos3 = m_FirePosition[3].position;
-        pos4 = m_FirePosition[4].position;
+        onCompleted?.Invoke();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyPlaneMedium3 : EnemyUnit
 {
     public EnemyPlaneMedium3Turret[] m_Turret = new EnemyPlaneMedium3Turret[2];
-    private int[] m_FireDelay = { 2400, 1800, 1200 };
     
     private const int APPEARANCE_TIME = 1200;
     private const int TIME_LIMIT = 7800;
@@ -16,17 +16,11 @@ public class EnemyPlaneMedium3 : EnemyUnit
     {
         m_MoveVector.speed = 5.4f;
 
-        StartCoroutine(Pattern1());
+        StartPattern("A", new EnemyPlaneMedium3_BulletPattern_A(this, APPEARANCE_TIME));
 
         StartCoroutine(AppearanceSequence());
 
         m_EnemyDeath.Action_OnDying += DestroyTurrets;
-
-        /*
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -1.8f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
-        m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
@@ -76,49 +70,98 @@ public class EnemyPlaneMedium3 : EnemyUnit
             }
         }
     }
-    
-    private IEnumerator Pattern1() {
-        BulletAccel accel = new BulletAccel(0f, 0);
-        Vector3 pos;
-        float target_angle, random_value;
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME + Random.Range(-500, 500));
-
-        while(!TimeLimitState) {
-            pos = transform.position;
-            target_angle = GetAngleToTarget(pos, PlayerManager.GetPlayerPosition());
-            random_value = Random.Range(-2f, 2f);
-            if (m_Turret[0] != null) {
-                m_Turret[0].StartPattern();
-            }
-            if (m_Turret[1] != null) {
-                m_Turret[1].StartPattern();
-            }
-
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                for (int i = 0; i < 3; i++) {
-                    CreateBullet(2, pos, 6f, target_angle + random_value, accel);
-                    yield return new WaitForMillisecondFrames(50);
-                }
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                for (int i = 0; i < 4; i++) {
-                    CreateBulletsSector(2, pos, 7f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForMillisecondFrames(43);
-                }
-            }
-            else {
-                for (int i = 0; i < 4; i++) {
-                    CreateBulletsSector(2, pos, 8.5f, target_angle + random_value, accel, 3, 10f);
-                    yield return new WaitForMillisecondFrames(35);
-                }
-            }
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty] * Random.Range(85, 115) / 100);
-        }
-        yield break;
-    }
 
     private void DestroyTurrets() {
         m_Turret[0].m_EnemyDeath.OnDying();
         m_Turret[1].m_EnemyDeath.OnDying();
+    }
+}
+
+public class EnemyPlaneMedium3_BulletPattern_A : BulletFactory, IBulletPattern
+{
+    private readonly EnemyPlaneMedium3 _typedEnemyObject;
+    private readonly int _appearanceTime;
+
+    public EnemyPlaneMedium3_BulletPattern_A(EnemyObject enemyObject, int appearanceTime) : base(enemyObject)
+    {
+        _typedEnemyObject = enemyObject as EnemyPlaneMedium3;
+        _appearanceTime = appearanceTime;
+    }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 2400, 1800, 1200 };
+        yield return new WaitForMillisecondFrames(_appearanceTime + Random.Range(-500, 500));
+
+        while(!_enemyObject.TimeLimitState) {
+            var dir = Random.Range(-2f, 2f);
+            
+            if (_typedEnemyObject.m_Turret[0] != null) {
+                _typedEnemyObject.m_Turret[0].StartPattern("A", new EnemyPlaneMedium3_BulletPattern_Turret_A(_typedEnemyObject.m_Turret[0]));
+            }
+            if (_typedEnemyObject.m_Turret[1] != null) {
+                _typedEnemyObject.m_Turret[1].StartPattern("A", new EnemyPlaneMedium3_BulletPattern_Turret_A(_typedEnemyObject.m_Turret[1]));
+            }
+
+            if (SystemManager.Difficulty == GameDifficulty.Normal) {
+                for (int i = 0; i < 3; i++)
+                {
+                    var pos = _enemyObject.transform.position;
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6f, BulletPivot.Current, dir));
+                    yield return new WaitForFrames(3);
+                }
+            }
+            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+                for (int i = 0; i < 4; i++) {
+                    var pos = _enemyObject.transform.position;
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7f, BulletPivot.Current, dir, 3, 10f));
+                    yield return new WaitForFrames(2);
+                }
+            }
+            else {
+                for (int i = 0; i < 4; i++) {
+                    var pos = _enemyObject.transform.position;
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 8.5f, BulletPivot.Current, dir, 3, 10f));
+                    yield return new WaitForFrames(2);
+                }
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty] * Random.Range(85, 115) / 100);
+        }
+        onCompleted?.Invoke();
+    }
+}
+
+public class EnemyPlaneMedium3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
+{
+    public EnemyPlaneMedium3_BulletPattern_Turret_A(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        var dir = Random.Range(-2f, 2f);
+        _enemyObject.SetRotatePattern(new RotatePattern_Stop());
+
+        if (SystemManager.Difficulty == GameDifficulty.Normal) {
+            for (int i = 0; i < 3; i++) {
+                var pos = GetFirePos(0);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 6f, BulletPivot.Current, dir));
+                yield return new WaitForFrames(3);
+            }
+        }
+        else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+            for (int i = 0; i < 4; i++) {
+                var pos = GetFirePos(0);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 7f, BulletPivot.Current, dir));
+                yield return new WaitForFrames(2);
+            }
+        }
+        else {
+            for (int i = 0; i < 4; i++) {
+                var pos = GetFirePos(0);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 8f, BulletPivot.Current, dir, 3, 12f));
+                yield return new WaitForFrames(2);
+            }
+        }
+        _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer());
+        onCompleted?.Invoke();
     }
 }

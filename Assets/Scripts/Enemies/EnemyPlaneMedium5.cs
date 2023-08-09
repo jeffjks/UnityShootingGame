@@ -1,28 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class EnemyPlaneMedium5 : EnemyUnit
 {
-    public EnemyPlaneMedium5Turret0 m_Turret0;
-    public EnemyPlaneMedium5Turret1 m_Turret1;
+    public EnemyPlaneMedium5_FrontTurret m_FrontTurret;
+    public EnemyPlaneMedium5_BackTurret m_BackTurret;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 8500;
     private IEnumerator m_TimeLimit;
-    private int m_Side;
+    private int _side;
 
     void Start ()
     {
         if (transform.position.x < 0)
-            m_Side = -1;
+            _side = -1;
         else
-            m_Side = 1;
-        m_MoveVector = new MoveVector(5.25f, -72f * m_Side); // 원래 7f에 1000ms 대기 없었음
+            _side = 1;
+        m_MoveVector = new MoveVector(5.25f, -72f * _side); // 원래 7f에 1000ms 대기 없었음
 
         StartCoroutine(AppearanceSequence());
-
-        /*
-        DOTween.To(()=>m_MoveVector.speed, x=>m_MoveVector.speed = x, 0f, APPEARANCE_TIME).SetEase(Ease.OutQuad);*/
     }
 
     private IEnumerator AppearanceSequence() {
@@ -45,8 +44,8 @@ public class EnemyPlaneMedium5 : EnemyUnit
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         //TimeLimitState = true;
-        m_Turret0.StopPattern();
-        m_Turret1.StopPattern();
+        m_FrontTurret.StopPattern("A");
+        m_BackTurret.StopPattern("A");
 
         MoveVector init_moveVector = m_MoveVector;
         int frame = 1500 * Application.targetFrameRate / 1000;
@@ -56,7 +55,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
             float t_dir = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
 
             m_MoveVector.speed = Mathf.Lerp(init_moveVector.speed, 6.4f, t_spd);
-            m_MoveVector.direction = Mathf.Lerp(init_moveVector.direction, 96f * m_Side, t_dir);
+            m_MoveVector.direction = Mathf.Lerp(init_moveVector.direction, 96f * _side, t_dir);
             yield return new WaitForMillisecondFrames(0);
         }
         yield break;

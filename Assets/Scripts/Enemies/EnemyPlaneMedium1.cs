@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class EnemyPlaneMedium1 : EnemyUnit
 {
@@ -12,16 +13,10 @@ public class EnemyPlaneMedium1 : EnemyUnit
     void Start ()
     {
         m_MoveVector.speed = 4.3f;
-        
-        StartCoroutine(Pattern1());
+
+        StartPattern("A", new EnemyPlaneMedium1_BulletPattern_A(this, APPEARANCE_TIME));
 
         StartCoroutine(AppearanceSequence());
-
-        /*
-        m_Sequence = DOTween.Sequence();
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -2.2f + m_VSpeed*APPEARANCE_TIME, APPEARANCE_TIME).SetEase(Ease.OutQuad));
-        m_Sequence.AppendInterval(time_limit);
-        m_Sequence.Append(DOTween.To(()=>m_PositionY, x=>m_PositionY = x, -20f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
@@ -38,7 +33,6 @@ public class EnemyPlaneMedium1 : EnemyUnit
         }
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
-        yield break;
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
@@ -54,7 +48,6 @@ public class EnemyPlaneMedium1 : EnemyUnit
             m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     protected override void Update()
@@ -71,77 +64,88 @@ public class EnemyPlaneMedium1 : EnemyUnit
             }
         }
     }
+}
 
-    private IEnumerator Pattern1() {
-        BulletAccel accel = new BulletAccel(0f, 0);
-        BulletAccel accel1 = new BulletAccel(7.2f, 1000);
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
+public class EnemyPlaneMedium1_BulletPattern_A : BulletFactory, IBulletPattern
+{
+    private readonly int _appearanceTime;
 
-        while(!TimeLimitState) {
-            Vector3 pos0 = m_FirePosition[0].position;
-            Vector3 pos1 = m_FirePosition[1].position;
-            Vector3 pos2 = m_FirePosition[2].position;
-            float target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBulletsSector(3, pos0, 6.4f, target_angle, accel, 6, 12);
-                CreateBulletsSector(5, pos0, 5.2f, target_angle, accel, 5, 12);
+    public EnemyPlaneMedium1_BulletPattern_A(EnemyObject enemyObject, int appearanceTime) : base(enemyObject)
+    {
+        _appearanceTime = appearanceTime;
+    }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 1500, 1200, 1200 };
+        var accel = new BulletAccel(7.2f, 1000);
+        yield return new WaitForMillisecondFrames(_appearanceTime);
+
+        while(!_enemyObject.TimeLimitState) {
+            if (SystemManager.Difficulty == GameDifficulty.Normal)
+            {
+                var pos = GetFirePos(0);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, 0f, 6, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.4f, BulletPivot.Player, 0f, 5, 12f));
                 yield return new WaitForMillisecondFrames(1000);
-                for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                    CreateBullet(1, pos1, 6.0f, 0f, accel);
-                    CreateBullet(1, pos2, 6.0f, 0f, accel);
+                
+                for (int i = 0; i < 4; i++)
+                {
+                    var pos1 = GetFirePos(1);
+                    var pos2 = GetFirePos(2);
+                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 6f, BulletPivot.Fixed, 0f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 6f, BulletPivot.Fixed, 0f));
                     yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForMillisecondFrames(1500);
             }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert)
+            {
                 for (int i = 0; i < 3; i++) {
-                    SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                    CreateBulletsSector(3, pos0, 6.4f, target_angle + Random.Range(-3f, 3f), accel, 9, 10f);
+                    var pos = GetFirePos(0);
+                    var dir = Random.Range(-3f, 3f);
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, dir, 9, 10f));
                     yield return new WaitForMillisecondFrames(200);
                 }
                 yield return new WaitForMillisecondFrames(1000);
                 for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                    CreateBullet(1, pos1, 4.2f, 0f, accel1);
-                    CreateBullet(1, pos2, 4.2f, 0f, accel1);
+                    var pos1 = GetFirePos(1);
+                    var pos2 = GetFirePos(2);
+                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 4.2f, BulletPivot.Fixed, 0f, accel));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 4.2f, BulletPivot.Fixed, 0f, accel));
                     yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForMillisecondFrames(1200);
             }
-            else {
-                CreateBulletsSector(3, pos0, 6.4f, target_angle - 1.5f, accel, 10, 9f);
-                CreateBulletsSector(3, pos0, 6.4f, target_angle + 1.5f, accel, 10, 9f);
+            else
+            {
+                var pos = GetFirePos(0);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, -1.5f, 10, 9f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, 1.5f, 10, 9f));
                 yield return new WaitForMillisecondFrames(200);
                 for (int i = 0; i < 4; i++) {
-                    float random_value = Random.Range(-3f, 3f);
-                    SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                    CreateBulletsSector(3, pos0, 6.4f, target_angle + random_value, accel, 9, 10f);
-                    
+                    pos = GetFirePos(0);
+                    var dir = Random.Range(-3f, 3f);
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, dir, 9, 10f));
                     yield return new WaitForMillisecondFrames(200);
                 }
                 yield return new WaitForMillisecondFrames(100);
-                SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                CreateBulletsSector(5, pos0, 6.4f, target_angle, accel, 13, 8f);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.4f, BulletPivot.Player, 0f, 13, 8f));
                 yield return new WaitForMillisecondFrames(1000);
                 for (int i = 0; i < 4; i++) {
-                    SetBulletVariables(ref pos0, ref pos1, ref pos2, ref target_angle);
-                    CreateBullet(1, pos1, 4.2f, -40f, accel1);
-                    CreateBullet(1, pos1, 4.2f, 0f, accel1);
-                    CreateBullet(1, pos2, 4.2f, 0f, accel1);
-                    CreateBullet(1, pos2, 4.2f, 40f, accel1);
+                    var pos1 = GetFirePos(1);
+                    var pos2 = GetFirePos(2);
+                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, -39f, accel));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, -26f, accel));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, -13f, accel));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, 0f, accel));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, 0f, accel));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, 13f, accel));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, 26f, accel));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 5f, BulletPivot.Fixed, 39f, accel));
                     yield return new WaitForMillisecondFrames(60);
                 }
-                yield return new WaitForMillisecondFrames(1200);
             }
+            yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
         }
-        yield break;
-    }
-
-    private void SetBulletVariables(ref Vector3 pos0, ref Vector3 pos1, ref Vector3 pos2, ref float target_angle) {
-        pos0 = m_FirePosition[0].position;
-        pos1 = m_FirePosition[1].position;
-        pos2 = m_FirePosition[2].position;
-        target_angle = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
+        onCompleted?.Invoke();
     }
 }

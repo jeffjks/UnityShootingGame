@@ -1038,7 +1038,6 @@ MonoBehaviour:
   m_DefaultHealth: 800
   m_Collider2D:
   - {fileID: 6279746386467987376}
-  m_HealthPercent: 100
 --- !u!114 &8419797047090169567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1322,7 +1321,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 198542346308787666}
 --- !u!114 &659727037139193818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1361,7 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198542346308787666}
   m_Layer: 10
-  m_Name: FirePosition0
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1392,7 +1390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3283773156848308564}
   m_Layer: 10
-  m_Name: FirePosition1
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1507,7 +1505,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 3283773156848308564}
 --- !u!114 &192035531332467835
 MonoBehaviour:
   m_ObjectHideFlags: 0

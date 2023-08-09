@@ -189,17 +189,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
-  m_EnemyHealth: {fileID: 0}
-  m_EnemyDeath: {fileID: 0}
-  m_EnemyType: 0
-  m_Score: 800
-  m_IsRoot: 1
   m_FirePosition:
   - {fileID: 4368414503484632591}
   - {fileID: 8331787465577357396}
   - {fileID: 421341312352904410}
   - {fileID: 2405717969679973692}
   - {fileID: 5103029907258149507}
+  m_EnemyHealth: {fileID: 0}
+  m_EnemyDeath: {fileID: 0}
+  m_EnemyType: 0
+  m_Score: 800
+  m_IsRoot: 1
 --- !u!114 &1740032797504509516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +228,6 @@ MonoBehaviour:
   m_DefaultHealth: 2000
   m_Collider2D:
   - {fileID: 3614948998550249195}
-  m_HealthPercent: 100
 --- !u!114 &3391064297525549700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2405717969679973692}
   m_Layer: 10
-  m_Name: FirePosition3
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -535,7 +534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8331787465577357396}
   m_Layer: 10
-  m_Name: FirePosition1
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -566,7 +565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5103029907258149507}
   m_Layer: 10
-  m_Name: FirePosition4
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,7 +596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421341312352904410}
   m_Layer: 10
-  m_Name: FirePosition2
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,7 +878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4368414503484632591}
   m_Layer: 10
-  m_Name: FirePosition0
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

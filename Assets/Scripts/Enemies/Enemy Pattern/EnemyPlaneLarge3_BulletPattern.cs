@@ -196,22 +196,22 @@ public class EnemyPlaneLarge3_BulletPattern_Turret_Old : BulletFactory, IBulletP
                     var pos = GetFirePos(0);
                     var property = new BulletProperty(pos, BulletImage.BlueLarge, 8.3f, BulletPivot.Current, 0f, accel);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 600);
-                    var newProperty= new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 4.3f, BulletPivot.Player, 0f);
-                    CreateBullet(property, spawnTiming, newProperty);
+                    var subProperty= new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 4.3f, BulletPivot.Player, 0f);
+                    CreateBullet(property, spawnTiming, subProperty);
                 }
                 else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                     var pos = GetFirePos(0);
                     var property = new BulletProperty(pos, BulletImage.BlueLarge, 8.3f, BulletPivot.Current, 0f, accel, 2, 100f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 600);
-                    var newProperty= new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 4.3f, BulletPivot.Player, 0f, 3, 16f);
-                    CreateBullet(property, spawnTiming, newProperty);
+                    var subProperty= new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 4.3f, BulletPivot.Player, 0f, 3, 16f);
+                    CreateBullet(property, spawnTiming, subProperty);
                 }
                 else {
                     var pos = GetFirePos(0);
                     var property = new BulletProperty(pos, BulletImage.BlueLarge, 8.3f, BulletPivot.Current, 0f, accel, 2, 100f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 600);
-                    var newProperty= new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 4.3f, BulletPivot.Player, 0f, 3, 16f);
-                    CreateBullet(property, spawnTiming, newProperty);
+                    var subProperty= new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 4.3f, BulletPivot.Player, 0f, 3, 16f);
+                    CreateBullet(property, spawnTiming, subProperty);
                 }
                 yield return new WaitForMillisecondFrames(280);
             }

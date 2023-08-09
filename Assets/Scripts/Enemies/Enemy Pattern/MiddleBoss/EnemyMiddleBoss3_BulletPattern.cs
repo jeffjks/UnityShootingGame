@@ -23,15 +23,15 @@ public class BulletPattern_EnemyMiddleBoss3_1A1 : BulletFactory, IBulletPattern
             {
                 var property = new BulletProperty(pos, BulletImage.BlueLarge, 10f, BulletPivot.Player, dir1, accel);
                 var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, timer);
-                var newProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 6f, BulletPivot.Player, dir2);
-                CreateBullet(property, spawnTiming, newProperty);
+                var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 6f, BulletPivot.Player, dir2);
+                CreateBullet(property, spawnTiming, subProperty);
             }
             else if (SystemManager.Difficulty >= GameDifficulty.Expert) {
                 var property = new BulletProperty(pos, BulletImage.BlueLarge, 10f, BulletPivot.Player, dir1, accel);
                 var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, timer);
                 for (int i = 0; i < 4; i++) {
-                    var newProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 5.6f + 0.4f*i, BulletPivot.Player, dir2);
-                    CreateBullet(property, spawnTiming, newProperty);
+                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 5.6f + 0.4f*i, BulletPivot.Player, dir2);
+                    CreateBullet(property, spawnTiming, subProperty);
                 }
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);

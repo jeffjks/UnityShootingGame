@@ -301,8 +301,8 @@ public class BulletPattern_EnemyMiddleBoss4_PartB : BulletFactory, IBulletPatter
             var dir = Random.Range(0f, 360f);
             var property = new BulletProperty(pos, BulletImage.BlueSmall, 2.2f, BulletPivot.Fixed, dir, accel1);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, timer);
-            var newProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 8f, BulletPivot.Fixed, 0f);
-            CreateBullet(property, spawnTiming, newProperty);
+            var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 8f, BulletPivot.Fixed, 0f);
+            CreateBullet(property, spawnTiming, subProperty);
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
         //onCompleted?.Invoke();

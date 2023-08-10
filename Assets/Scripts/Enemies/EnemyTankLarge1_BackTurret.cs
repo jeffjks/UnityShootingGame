@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTankLarge1Turret2 : EnemyUnit
+public class EnemyTankLarge1_BackTurret : EnemyUnit
 {
 }

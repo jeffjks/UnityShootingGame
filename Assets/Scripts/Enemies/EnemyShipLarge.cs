@@ -5,8 +5,8 @@ using UnityEngine.Serialization;
 
 public class EnemyShipLarge : EnemyUnit
 {
-    [FormerlySerializedAs("m_Turret0")] public EnemyShipLarge_FrontTurret m_FrontTurret;
-    [FormerlySerializedAs("m_Turret1")] public EnemyShipLarge_BackTurret m_BackTurret;
+    public EnemyShipLarge_FrontTurret m_FrontTurret;
+    public EnemyShipLarge_BackTurret m_BackTurret;
     private int _phase = 1;
     
     void Start()

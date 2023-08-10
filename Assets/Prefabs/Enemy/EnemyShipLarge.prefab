@@ -1267,8 +1267,8 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 2000
   m_IsRoot: 1
-  m_Turret0: {fileID: 3515310384688074091}
-  m_Turret1: {fileID: 5437809782247922651}
+  m_FrontTurret: {fileID: 3515310384688074091}
+  m_BackTurret: {fileID: 5437809782247922651}
 --- !u!114 &4029241012857440692
 MonoBehaviour:
   m_ObjectHideFlags: 0

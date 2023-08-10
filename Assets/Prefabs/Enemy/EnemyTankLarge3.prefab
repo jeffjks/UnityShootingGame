@@ -564,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1610580103404080784}
   m_Layer: 12
-  m_Name: FirePosition2
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,7 +710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398562093700003551}
   m_Layer: 12
-  m_Name: FirePosition1
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,7 +741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1494443869040272853}
   m_Layer: 12
-  m_Name: FirePosition0
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

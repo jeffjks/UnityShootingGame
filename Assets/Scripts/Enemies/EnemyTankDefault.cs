@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTankSmall : EnemyUnit
+public class EnemyTankDefault : EnemyUnit
 {
     public EnemyUnit m_Turret;
     public bool m_HasDestroyableTurret;

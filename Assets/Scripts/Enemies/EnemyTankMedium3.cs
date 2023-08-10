@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyTankMedium3 : EnemyUnit
 {
-    private int[] m_FireDelay = { 400, 200, 150 };
-    private float m_Direction;
-
     void Start()
     {
-        StartCoroutine(Pattern1());
-        m_Direction = Random.Range(0f, 360f);
+        StartPattern("A", new EnemyTankMedium3_BulletPattern(this));
+        m_CustomDirection = new CustomDirection();
+        m_CustomDirection[0] = Random.Range(0f, 360f);
+        SetRotatePattern(new RotatePattern_MoveDirection());
     }
 
     
@@ -18,23 +18,28 @@ public class EnemyTankMedium3 : EnemyUnit
     {
         base.Update();
         
-        RotateImmediately(m_MoveVector.direction);
-
-        if (m_Direction >= 360f) {
-            m_Direction -= 360f;
-        }
-        m_Direction += 90f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[0] += 90f / Application.targetFrameRate * Time.timeScale;
     }
+}
 
-    private IEnumerator Pattern1() {
-        Vector3[] pos = new Vector3[2];
-        BulletAccel accel = new BulletAccel(0f, 0);
-        while(true) {
-            pos[0] = BackgroundCamera.GetScreenPosition(m_FirePosition[0].position);
-            pos[1] = BackgroundCamera.GetScreenPosition(m_FirePosition[1].position);
-            CreateBullet(4, pos[0], 5.2f, m_Direction, accel);
-            CreateBullet(4, pos[1], 5.2f, m_Direction + 180f, accel);
-            yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
+public class EnemyTankMedium3_BulletPattern : BulletFactory, IBulletPattern
+{
+    public EnemyTankMedium3_BulletPattern(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 400, 200, 150 };
+        float[] speedArray = { 5.2f, 5.2f, 6.4f };
+        while(true)
+        {
+            var pos0 = GetFirePos(0);
+            var pos1 = GetFirePos(1);
+            var dir = _enemyObject.m_CustomDirection[0];
+            var speed = speedArray[(int)SystemManager.Difficulty];
+            CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed, BulletPivot.Fixed, dir));
+            CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed, BulletPivot.Fixed, dir + 180f));
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
+        //onCompleted?.Invoke();
     }
 }

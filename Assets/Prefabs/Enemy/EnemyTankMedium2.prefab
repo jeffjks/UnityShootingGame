@@ -224,9 +224,7 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 600
   m_IsRoot: 1
-  m_ArmorPosition:
-  - {fileID: 7968192415374132389}
-  - {fileID: 6739185255160516622}
+  m_ArmorAnimator: {fileID: 6393717956236634701}
 --- !u!114 &4337317642074098972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3691822432914976926}
+  - component: {fileID: 6393717956236634701}
   m_Layer: 12
   m_Name: Body
   m_TagString: Untagged
@@ -666,6 +665,27 @@ Transform:
   m_Father: {fileID: 6814972373202185731}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6393717956236634701
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8618064872189118753}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9dc286ee6a55d884d88cef6d0b73958e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8862389243386684594
 GameObject:
   m_ObjectHideFlags: 0

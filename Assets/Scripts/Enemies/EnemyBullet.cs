@@ -269,6 +269,18 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         StartCoroutine(_subBulletPattern.ExecutePattern());
     }
 
+    public void ClampDirection(float pivotDirection, float rangeAngle)
+    {
+        var rangeAngleHalf = rangeAngle / 2;
+        var deltaAngle = Mathf.DeltaAngle(m_MoveVector.direction, pivotDirection); // ~-45, -45~45, 45~
+        if (deltaAngle < -rangeAngleHalf) {
+            m_MoveVector.direction = pivotDirection + rangeAngleHalf;
+        }
+        else if (deltaAngle > rangeAngleHalf) {
+            m_MoveVector.direction = pivotDirection - rangeAngleHalf;
+        }
+    }
+
     /*
     private IEnumerator CreateSubBullet(int millisecond, int repeatMillisecond = -1) {
         if (millisecond != 0) {

@@ -1,39 +1,86 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyTankLarge3 : EnemyUnit
 {
-    private int[] m_FireDelay = { 1000, 550, 250 };
-    
-    void Start()
+    private void Start()
     {
-        StartCoroutine(Pattern1());
+        StartPattern("A", new EnemyTankLarge3_BulletPattern_A(this));
+        SetRotatePattern(new RotatePattern_MoveDirection());
     }
-    
-    protected override void Update()
-    {
-        base.Update();
-        
-        RotateImmediately(m_MoveVector.direction);
-    }
-    
-    private IEnumerator Pattern1() {
-        Vector3[] pos = new Vector3[2];
-        BulletAccel accel = new BulletAccel(0f, 0);
-        float[] target_angle = new float[2];
+}
 
-        while(true) {
-            for (int i = 0; i < 2; i++) {
-                pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i].position);
-                target_angle[i] = GetAngleToTarget(pos[i], PlayerManager.GetPlayerPosition());
-                for (int j = 0; j < 5; j++) {
-                    pos[i] = BackgroundCamera.GetScreenPosition(m_FirePosition[i].position);
-                    CreateBullet(4, pos[i], 8f, target_angle[i], accel);
-                    yield return new WaitForMillisecondFrames(60);
+public class EnemyTankLarge3_BulletPattern_A : BulletFactory, IBulletPattern
+{
+    public EnemyTankLarge3_BulletPattern_A(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 1000, 550, 250 };
+
+        while(true)
+        {
+            for (var i = 0; i < 2; i++)
+            {
+                var pos = GetFirePos(i);
+                var targetAngle = _enemyObject.AngleToPlayer;
+                
+                for (var j = 0; j < 5; j++)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 8f, BulletPivot.Fixed, targetAngle));
+                    yield return new WaitForFrames(3);
                 }
-                yield return new WaitForMillisecondFrames(m_FireDelay[(int) SystemManager.Difficulty]);
+                yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
             }
         }
+        //onCompleted?.Invoke();
+    }
+}
+
+public class EnemyTankLarge3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
+{
+    public EnemyTankLarge3_BulletPattern_Turret_A(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 2000 - 300, 1500 - 200, 1200 - 200 };
+        
+        while(true)
+        {
+            if (SystemManager.Difficulty == GameDifficulty.Normal)
+            {
+                int[] nums = { 3, 4, 5, 4 };
+                foreach (var num in nums)
+                {
+                    var pos = GetFirePos(0);
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Current, 0f, num, 19.5f));
+                    yield return new WaitForMillisecondFrames(300);
+                }
+            }
+            else if (SystemManager.Difficulty == GameDifficulty.Expert)
+            {
+                int[] nums = { 3, 4, 5, 6, 5 };
+                foreach (var num in nums)
+                {
+                    var pos = GetFirePos(0);
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Current, 0f, num, 16f));
+                    yield return new WaitForMillisecondFrames(200);
+                }
+            }
+            else
+            {
+                int[] nums = { 4, 5, 6, 7, 6, 7 };
+                foreach (var num in nums)
+                {
+                    var pos = GetFirePos(0);
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Current, 0f, num, 16f));
+                    yield return new WaitForMillisecondFrames(200);
+                }
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
     }
 }

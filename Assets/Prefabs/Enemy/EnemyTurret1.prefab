@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400000}
-  - component: {fileID: 5280077643445492577}
+  - component: {fileID: 7225392929717830585}
   - component: {fileID: 4450760002710729640}
   - component: {fileID: 7733266431317518229}
   - component: {fileID: 8326412449623019054}
@@ -36,7 +36,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5280077643445492577
+--- !u!114 &7225392929717830585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43a3eb766839e8742a11b8f119644536, type: 3}
+  m_Script: {fileID: 11500000, guid: d0960a3217f5e12459e7af371c19da88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
@@ -55,6 +55,8 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 1
+  m_Turret: {fileID: 2848602546128725394}
+  m_HealthPercentTurretDestroying: 0
 --- !u!114 &4450760002710729640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +236,7 @@ MonoBehaviour:
   m_IsAir: 0
   m_FirePosition:
   - {fileID: 655516768711985845}
+  - {fileID: 4722493974931150980}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -310,6 +313,37 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 1484281011506092397}
   m_ExplType: 9
   m_ExplAudioType: 4
+--- !u!1 &1199497736375929375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4722493974931150980}
+  m_Layer: 12
+  m_Name: FirePositionR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4722493974931150980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199497736375929375}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 81694394459617268}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4723675950717047004
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655516768711985845}
   m_Layer: 12
-  m_Name: FirePosition
+  m_Name: FirePositionL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +522,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5972157757027355351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -642,6 +676,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 655516768711985845}
+  - {fileID: 4722493974931150980}
   m_Father: {fileID: 7413517156600965579}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -65,13 +65,11 @@ public class EnemyTankLarge2_BulletPattern_A : BulletFactory, IBulletPattern
 public class EnemyTankLarge2_BulletPattern_Turret_A : BulletFactory, IBulletPattern
 {
     private readonly IRotatePattern _defaultRotatePattern;
-    private readonly IRotatePattern _stopRotatePattern;
+    private readonly IRotatePattern _stopRotatePattern = new RotatePattern_Stop();
 
-    public EnemyTankLarge2_BulletPattern_Turret_A(EnemyObject enemyObject, IRotatePattern defaultRotatePattern,
-        IRotatePattern stopRotatePattern) : base(enemyObject)
+    public EnemyTankLarge2_BulletPattern_Turret_A(EnemyObject enemyObject, IRotatePattern defaultRotatePattern) : base(enemyObject)
     {
         _defaultRotatePattern = defaultRotatePattern;
-        _stopRotatePattern = stopRotatePattern;
     }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)

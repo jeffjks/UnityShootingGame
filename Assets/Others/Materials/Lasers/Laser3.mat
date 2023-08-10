@@ -94,7 +94,7 @@ Material:
     - _NoiseUspeed: 0
     - _NoiseVspeed: 0
     - _OcclusionStrength: 1
-    - _Opacity: 2.4
+    - _Opacity: 3
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

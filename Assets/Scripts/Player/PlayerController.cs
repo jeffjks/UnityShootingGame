@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     private PlayerUnit _playerUnit;
     private IngameInputController _inGameInputController;
 
-    private bool _isFirePress;
+    public bool IsFirePressed { get; private set; }
+    public bool IsBombPressed { get; private set; }
     private int _firePressFrame;
     
     void Awake()
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if (Time.timeScale == 0)
             return;
 
-        if (_isFirePress)
+        if (IsFirePressed)
         {
             _firePressFrame++;
         }
@@ -71,12 +72,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!PlayerUnit.IsControllable)
         {
-            _isFirePress = false;
+            IsFirePressed = false;
         }
         
-        _isFirePress = inputValue.isPressed;
+        IsFirePressed = inputValue.isPressed;
 
-        if (_isFirePress) // 누르는 순간
+        if (IsFirePressed) // 누르는 순간
         {
             if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
                 if (_playerShootHandler.AutoShot < 2) {
@@ -177,7 +178,7 @@ public class PlayerController : MonoBehaviour
     
     void OnEnable()
     {
-        _isFirePress = false;
+        IsFirePressed = false;
         _firePressFrame = 0;
         
         _playerUnit.SlowMode = false;

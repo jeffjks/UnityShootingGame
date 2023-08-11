@@ -43,11 +43,11 @@ public class PlayerManager : MonoBehaviour
         BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
 
-    public void SpawnPlayer() {
-        SpawnPlayer(CurrentAttributes);
+    public GameObject SpawnPlayer() {
+        return SpawnPlayer(CurrentAttributes);
     }
 
-    public void SpawnPlayer(ShipAttributes attributes)
+    public GameObject SpawnPlayer(ShipAttributes attributes)
     {
         CurrentAttributes = attributes;
         IsPlayerAlive = true;
@@ -84,6 +84,8 @@ public class PlayerManager : MonoBehaviour
             }
             _playerUnit.PlayerAttackLevel = power;
         }
+
+        return Player;
     }
 
     public void PlayerDead(Vector2Int dead_position) {

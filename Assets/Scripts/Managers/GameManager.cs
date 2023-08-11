@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviour
     public NetworkAccount m_NetworkAccount;
     
     //[HideInInspector] public ShipAttribute m_CurrentAttributes;
-    [HideInInspector] public byte m_ReplayNum;
-    [HideInInspector] public string m_ReplayDirectory;
-    [HideInInspector] public string m_RankingDirectory;
 
     private static string m_AccountID = string.Empty;
     private static string m_EncryptedAccountID;
@@ -37,9 +34,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         
         //m_CurrentAttributes = new ShipAttribute(0, 0, 0, 0, 0, 0, 0);
-        
-        m_ReplayDirectory = "";
-        m_RankingDirectory = "";
 
         for (int i = 0; i < m_AnimationCurve.Length; ++i) {
             AC_Ease.ac_ease[i] = m_AnimationCurve[i];

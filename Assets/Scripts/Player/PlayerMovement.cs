@@ -73,15 +73,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PlayerUnit.IsControllable) {
             if (SystemManager.GameMode != GameMode.Replay) {
-                _moveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
-                _moveRawVertical = (int) Input.GetAxisRaw ("Vertical");
+                MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
+                MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
             }
         }
 
         if (Time.timeScale == 0)
             return;
         
-        Vector2Int movement_vector = new Vector2Int(_moveRawHorizontal, _moveRawVertical);
+        Vector2Int movement_vector = new Vector2Int(MoveRawHorizontal, MoveRawVertical);
         if (PlayerUnit.IsControllable) {
             m_PlayerUnit.m_MoveVector = new MoveVector(movement_vector);
             if (m_PlayerUnit.SlowMode) {
@@ -96,8 +96,8 @@ public class PlayerMovement : MonoBehaviour
             PositionInt2D = PositionInt2D + movement_vector;
         }
         else {
-            _moveRawHorizontal = 0;
-            _moveRawVertical = 0;
+            MoveRawHorizontal = 0;
+            MoveRawVertical = 0;
         }
 
         OverviewPosition();

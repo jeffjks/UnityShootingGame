@@ -35,11 +35,11 @@ public class AntiAliasingButtonController : MonoBehaviour, IMoveHandler
         var moveInputX = (int) axisEventData.moveVector.x;
         if (moveInputX > 0)
         {
-            GameSetting.GraphicsAntiAliasing = GameSetting.GraphicsAntiAliasing.GetEnumNext();
+            GameSetting.GraphicsAntiAliasing = GameSetting.GraphicsAntiAliasing.GetEnumNext(true);
         }
         else if (moveInputX < 0)
         {
-            GameSetting.GraphicsAntiAliasing = GameSetting.GraphicsAntiAliasing.GetEnumPrev();
+            GameSetting.GraphicsAntiAliasing = GameSetting.GraphicsAntiAliasing.GetEnumPrev(true);
         }
 
         SetText();

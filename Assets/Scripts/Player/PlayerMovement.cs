@@ -6,11 +6,12 @@ using System.Text;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
+    public PlayerSpeedDatas m_PlayerSpeedData;
     
     private const int MAX_PLAYER_CAMERA = (int) (Size.CAMERA_MOVE_LIMIT * 256);
-    private float m_DefaultRotation;
-    private int m_SpeedIntDefault, m_SpeedIntSlow, m_OverviewSpeed;
-    private int _moveRawHorizontal, _moveRawVertical;
+    private int m_OverviewSpeed;
+    private int _defaultSpeed;
+    private int _slowSpeed;
     private PlayerCollisionDetector _playerCollisionDetector;
 
     private const int BOUNDARY_PLAYER_X_MIN = -1792; // -7f
@@ -46,61 +47,40 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        m_DefaultRotation = transform.eulerAngles[0];
-        m_PlayerUnit.CurrentAngle = 180f;
         m_PlayerUnit.m_MoveVector.direction = 180f;
         transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.CurrentAngle, Vector3.forward); // Vector3.forward
 
-        switch(PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)) {
-            case 0:
-                m_SpeedIntDefault = 26; // 6f * 256;
-                m_SpeedIntSlow = 17; // 4f * 256;
-                break;
-            case 1:
-                m_SpeedIntDefault = 29; // 6.75f * 256;
-                m_SpeedIntSlow = 18; // 4.2f * 256;
-                break;
-            case 2:
-                m_SpeedIntDefault = 32; // 7.5f; * 256 / 60
-                m_SpeedIntSlow = 19; // 4.4f * 256;
-                break;
-        }
+        var index = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed);
+        _defaultSpeed = m_PlayerSpeedData.playerSpeed[index].defaultSpeed;
+        _slowSpeed = m_PlayerSpeedData.playerSpeed[index].slowSpeed;
         
         PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
     }
 
-    void Update()
+    public void MovePlayer(Vector2 inputVector)
     {
-        if (PlayerUnit.IsControllable) {
-            if (SystemManager.GameMode != GameMode.Replay) {
-                MoveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
-                MoveRawVertical = (int) Input.GetAxisRaw ("Vertical");
-            }
-        }
-
-        if (Time.timeScale == 0)
-            return;
-        
-        Vector2Int movement_vector = new Vector2Int(MoveRawHorizontal, MoveRawVertical);
-        if (PlayerUnit.IsControllable) {
-            m_PlayerUnit.m_MoveVector = new MoveVector(movement_vector);
-            if (m_PlayerUnit.SlowMode) {
-                m_PlayerUnit.m_MoveVector.speed = m_SpeedIntSlow;
-                movement_vector *= m_SpeedIntSlow;
-            }
-            else {
-                m_PlayerUnit.m_MoveVector.speed = m_SpeedIntDefault;
-                movement_vector *= m_SpeedIntDefault;
-            }
-
-            PositionInt2D = PositionInt2D + movement_vector;
-        }
-        else {
-            MoveRawHorizontal = 0;
-            MoveRawVertical = 0;
-        }
+        MoveRawHorizontal = System.Math.Sign(inputVector.x);
+        MoveRawVertical = System.Math.Sign(inputVector.y);
 
         OverviewPosition();
+    }
+
+    private void Update()
+    {
+        ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
+        
+        Vector2 moveVector = new Vector2(MoveRawHorizontal, MoveRawVertical);
+        moveVector.Normalize();
+        
+        if (m_PlayerUnit.SlowMode) {
+            moveVector *= _slowSpeed;
+        }
+        else {
+            moveVector *= _defaultSpeed;
+        }
+
+        var moveVectorInt = Vector2Int.RoundToInt(moveVector);
+        PositionInt2D += moveVectorInt;
 
         if (PlayerUnit.IsControllable) {
             PositionInt2D = new Vector2Int
@@ -111,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         m_PlayerUnit.SlowMode = false;
     }
@@ -129,7 +109,11 @@ public class PlayerMovement : MonoBehaviour
         PositionInt2D = new Vector2Int(playerReviveX, playerReviveY);
     }
 
-    private void OverviewPosition() {
+    private void OverviewPosition()
+    {
+        if (Time.timeScale == 0)
+            return;
+        
         Vector2Int target_pos;
         if (SystemManager.Stage < 4) {
             target_pos = new Vector2Int(0, (int) PlayerManager.REVIVE_POSITION_Y * 256);

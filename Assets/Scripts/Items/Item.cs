@@ -65,7 +65,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
 public abstract class ItemBox : Item
 {
     private float m_MinX, m_MaxX, m_MinY, m_MaxY;
-    private bool m_Disappear = false;
+    private bool m_Disappear;
     private const float SPEED = 4f;
     private const float PADDING = 0.6f;
 
@@ -113,7 +113,6 @@ public abstract class ItemBox : Item
                 m_MoveVector.direction = 0f + angle;
             }
         }
-        RotateBox();
     }
 
     private void MoveDirection(MoveVector moveVector) {

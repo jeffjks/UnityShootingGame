@@ -35,11 +35,11 @@ public class QualityButtonController : MonoBehaviour, IMoveHandler
         var moveInputX = (int) axisEventData.moveVector.x;
         if (moveInputX > 0)
         {
-            GameSetting.GraphicsQuality = GameSetting.GraphicsQuality.GetEnumNext();
+            GameSetting.GraphicsQuality = GameSetting.GraphicsQuality.GetEnumNext(false);
         }
         else if (moveInputX < 0)
         {
-            GameSetting.GraphicsQuality = GameSetting.GraphicsQuality.GetEnumPrev();
+            GameSetting.GraphicsQuality = GameSetting.GraphicsQuality.GetEnumPrev(false);
         }
 
         SetText();

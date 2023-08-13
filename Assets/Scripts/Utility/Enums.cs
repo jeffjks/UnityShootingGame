@@ -53,12 +53,12 @@ public enum ScreenModeSetting
 
 public enum QualitySetting
 {
-    Ultra,
-    VeryHigh,
-    High,
-    Medium,
+    VeryLow,
     Low,
-    VeryLow
+    Medium,
+    High,
+    VeryHigh,
+    Ultra,
 }
 
 public enum AntiAliasingSetting

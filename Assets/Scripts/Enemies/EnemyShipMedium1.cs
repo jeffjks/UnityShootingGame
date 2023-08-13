@@ -8,13 +8,7 @@ public class EnemyShipMedium1 : EnemyUnit
     void Start()
     {
         StartPattern("A", new BulletPattern_EnemyPlaneMedium1_A(this));
-    }
-    
-    protected override void Update()
-    {
-        base.Update();
-        
-        RotateImmediately(m_MoveVector.direction);
+        SetRotatePattern(new RotatePattern_MoveDirection());
     }
 }
 

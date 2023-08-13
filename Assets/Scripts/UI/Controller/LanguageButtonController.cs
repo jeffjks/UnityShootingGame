@@ -35,11 +35,11 @@ public class LanguageButtonController : MonoBehaviour, IMoveHandler
         var moveInputX = (int) axisEventData.moveVector.x;
         if (moveInputX > 0)
         {
-            GameSetting.CurrentLanguage = GameSetting.CurrentLanguage.GetEnumNext();
+            GameSetting.CurrentLanguage = GameSetting.CurrentLanguage.GetEnumNext(true);
         }
         else if (moveInputX < 0)
         {
-            GameSetting.CurrentLanguage = GameSetting.CurrentLanguage.GetEnumPrev();
+            GameSetting.CurrentLanguage = GameSetting.CurrentLanguage.GetEnumPrev(true);
         }
 
         SetText();

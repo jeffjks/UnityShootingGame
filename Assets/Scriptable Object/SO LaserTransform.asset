@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: SO LaserTransform
   m_EditorClassIdentifier: 
   fireLocalScale:
-  - {x: 1, y: 1, z: 1.5}
-  - {x: 1.25, y: 1.25, z: 1.5}
+  - {x: 1, y: 1, z: 1}
+  - {x: 1.25, y: 1.25, z: 1.25}
   - {x: 1.5, y: 1.5, z: 1.5}
-  - {x: 1.75, y: 1.75, z: 1.5}
-  - {x: 2, y: 2, z: 1.5}
+  - {x: 1.75, y: 1.75, z: 1.75}
+  - {x: 2, y: 2, z: 2}
   rushLocalScale:
   - {x: 1, y: 1, z: 1}
   - {x: 1.25, y: 1.25, z: 1.25}

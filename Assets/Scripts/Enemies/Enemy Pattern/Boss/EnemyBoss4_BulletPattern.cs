@@ -510,7 +510,7 @@ public class BulletPattern_EnemyBoss4_MainTurret_3A : BulletFactory, IBulletPatt
         Vector3 pos = GetFirePos(0);
 
         _typedEnemyObject.m_BarrelAnimator.SetTrigger(_barrelAnimationTrigger);
-        //StartCoroutine(m_EnemyBoss4MainTurretBarrel.ShootAnimation()); TODO. 애니메이션 설정
+        
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
             var property = new BulletProperty(pos, BulletImage.PinkLarge, 5.1f, BulletPivot.Current, 0f);

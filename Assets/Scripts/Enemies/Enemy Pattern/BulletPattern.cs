@@ -124,18 +124,18 @@ public class BulletFactory
         return enemyBullets;
     }*/
 
-    protected EnemyBullet[] CreateBullet(BulletProperty property)
+    protected List<EnemyBullet> CreateBullet(BulletProperty property)
     {
         if (!_enemyObject.m_IsAir)
             property.startPos = BackgroundCamera.GetScreenPosition(property.startPos);
         property.startPos.z = Depth.ENEMY_BULLET;
         
         if (!CanCreateBullet(property.startPos))
-            return null;
+            return new List<EnemyBullet>();
 
         var num = property.number;
-        EnemyBullet[] enemyBullets = new EnemyBullet[num];
         var mainDirection = property.direction;
+        List<EnemyBullet> enemyBullets = new(num);
         
         if (num <= 0)
         {
@@ -148,7 +148,7 @@ public class BulletFactory
             property.direction = mainDirection - property.interval * (num - i * 2 - 1) / 2;
             
             GameObject bulletObject = PoolingManager.PopFromPool("EnemyBullet", PoolingParent.EnemyBullet);
-            enemyBullets[i] = bulletObject.GetComponent<EnemyBullet>();
+            enemyBullets.Add(bulletObject.GetComponent<EnemyBullet>());
             enemyBullets[i].transform.position = property.startPos;
             enemyBullets[i].OwnerEnemyObject = _enemyObject;
             
@@ -159,18 +159,18 @@ public class BulletFactory
         return enemyBullets;
     }
 
-    protected EnemyBullet[] CreateBullet(BulletProperty property, BulletSpawnTiming spawnTiming, BulletProperty subProperty)
+    protected List<EnemyBullet> CreateBullet(BulletProperty property, BulletSpawnTiming spawnTiming, BulletProperty subProperty)
     {
         if (!_enemyObject.m_IsAir)
             property.startPos = BackgroundCamera.GetScreenPosition(property.startPos);
         property.startPos.z = Depth.ENEMY_BULLET;
         
         if (!CanCreateBullet(property.startPos))
-            return null;
+            return new List<EnemyBullet>();
 
         var num = property.number;
-        EnemyBullet[] enemyBullets = new EnemyBullet[num];
         var mainDirection = property.direction;
+        List<EnemyBullet> enemyBullets = new(num);
         
         if (num <= 0)
         {
@@ -183,7 +183,7 @@ public class BulletFactory
             property.direction = mainDirection - property.interval * (num - i * 2 - 1) / 2;
             
             GameObject bulletObject = PoolingManager.PopFromPool("EnemyBullet", PoolingParent.EnemyBullet);
-            enemyBullets[i] = bulletObject.GetComponent<EnemyBullet>();
+            enemyBullets.Add(bulletObject.GetComponent<EnemyBullet>());
             enemyBullets[i].transform.position = property.startPos;
             enemyBullets[i].OwnerEnemyObject = _enemyObject;
             

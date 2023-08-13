@@ -58,7 +58,7 @@ public class OverviewHandler : MonoBehaviour
     public event Action<long> Action_OnUpdateFinalBonus;
 
     private readonly Queue<OverviewFlow> _overviewFlowQueue = new();
-    private IngameInputController _inGameInputController;
+    private InGameInputController _inGameInputController;
     private bool _inputSkip;
     private int _missBonusPercent;
     private long _finalBonusScore;
@@ -79,7 +79,7 @@ public class OverviewHandler : MonoBehaviour
 
     private void Awake()
     {
-        _inGameInputController = EventSystem.current.gameObject.GetComponent<IngameInputController>();
+        _inGameInputController = EventSystem.current.gameObject.GetComponent<InGameInputController>();
         _inGameInputController.Action_OnFireInput += SkipOverviewPhase;
         StartOverview();
     }

@@ -9,13 +9,7 @@ public class EnemyTurret2 : EnemyUnit
     void Start()
     {
         m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        
-        RotateImmediately(m_MoveVector.direction);
+        SetRotatePattern(new RotatePattern_MoveDirection());
     }
 
     private void DestroyChildEnemy() {

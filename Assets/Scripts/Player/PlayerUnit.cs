@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerUnit : PlayerObject
 {
     public bool m_IsPreviewObject;
+    [DrawIf("m_IsPreviewObject", true, ComparisonType.Equals)]
+    public float m_MaxLaserLength;
     
     public bool SlowMode { get; set; }
     public bool IsAttacking { get; set; }
@@ -29,7 +31,7 @@ public class PlayerUnit : PlayerObject
         set
         {
             _isControllable = value;
-            Instance.Action_OnControllableChanged?.Invoke();
+            Instance.Action_OnControllableChanged?.Invoke(_isControllable);
         }
     }
     
@@ -38,10 +40,12 @@ public class PlayerUnit : PlayerObject
     private const int MAX_PLAYER_ATTACK_LEVEL = 4;
 
     public event Action Action_OnUpdatePlayerAttackLevel;
-    public event Action Action_OnControllableChanged;
+    public event Action<bool> Action_OnControllableChanged;
 
-    private void Start()
+    private void Awake()
     {
+        _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
+        
         if (m_IsPreviewObject)
         {
             PlayerAttackLevel = MAX_PLAYER_ATTACK_LEVEL;
@@ -56,13 +60,17 @@ public class PlayerUnit : PlayerObject
             
             DontDestroyOnLoad(transform.parent);
 
-            Action_OnControllableChanged += () =>
+            Action_OnControllableChanged += (controllable) =>
             {
+                if (controllable)
+                    return;
                 SlowMode = false;
                 IsAttacking = false;
             };
             SystemManager.Action_OnStageClear += () => IsControllable = false;
         }
+        
+        CurrentAngle = 180f;
     }
     
     public void DealCollisionDamage(EnemyUnit enemyUnit)

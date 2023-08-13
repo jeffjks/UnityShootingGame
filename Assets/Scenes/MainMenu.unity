@@ -7997,6 +7997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8db17f8bb77c2543b6e6ef2af3fb70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TestMode: 0
   m_PooledPrefabs:
   - {fileID: 7308936934683739909, guid: 30b392808faeedc4c9c0bcd3bc220249, type: 3}
   - {fileID: 1505355089897114, guid: 6bb61dcf10331eb42bcaff10ba470e8f, type: 3}
@@ -11755,19 +11756,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NativeTexts:
-  - "\uC6B8\uD2B8\uB77C"
-  - "\uB9E4\uC6B0 \uB192\uC74C"
-  - "\uB192\uC74C"
-  - "\uC911\uAC04"
-  - "\uB0AE\uC74C"
   - "\uB9E4\uC6B0 \uB0AE\uC74C"
+  - "\uB0AE\uC74C"
+  - "\uC911\uAC04"
+  - "\uB192\uC74C"
+  - "\uB9E4\uC6B0 \uB192\uC74C"
+  - "\uC6B8\uD2B8\uB77C"
   m_Texts:
-  - Ultra
-  - Very High
-  - High
-  - Medium
-  - Low
   - Very Low
+  - Low
+  - Medium
+  - High
+  - Very High
+  - Ultra
 --- !u!1 &1428413551
 GameObject:
   m_ObjectHideFlags: 0
@@ -12712,7 +12713,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582591672}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12720,7 +12721,7 @@ Transform:
   - {fileID: 1835614935}
   m_Father: {fileID: 1657329941}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1602892888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16755,7 +16756,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.6
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

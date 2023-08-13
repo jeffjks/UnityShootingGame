@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyItemCreater : MonoBehaviour
 {
     [SerializeField] private EnemyDeath m_EnemyDeath;
-    [SerializeField] private GameObject m_ItemBox = null;
-    [SerializeField] private byte m_GemNumber = 0;
+    [SerializeField] private Item m_Item;
+    [SerializeField] private int m_ItemNumber;
     
     void Start()
     {
@@ -14,39 +14,48 @@ public class EnemyItemCreater : MonoBehaviour
     }
 
     private void CreateItems() {
-        if (m_ItemBox != null) { // 아이템 드랍
-            Vector3 item_pos;
-            if (Utility.CheckLayer(gameObject, Layer.AIR)) {
-                item_pos = new Vector3(transform.position.x, transform.position.y, Depth.ITEMS);
-            }
-            else {
-                item_pos = transform.position;
-            }
-            Instantiate(m_ItemBox, item_pos, Quaternion.identity);
-        }
-        
+        Vector3 item_pos;
         if (Utility.CheckLayer(gameObject, Layer.AIR)) {
-            for (int i = 0; i < m_GemNumber; i++) {
-                GameObject obj = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir);
-                Vector3 pos = transform.position + (Vector3) UnityEngine.Random.insideUnitCircle * 0.8f;
-                obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
-                obj.SetActive(true);
-            }
+            item_pos = new Vector3(transform.position.x, transform.position.y, Depth.ITEMS);
         }
         else {
-            GameObject[] obj = new GameObject[m_GemNumber];
-            for (int i = 0; i < m_GemNumber; i++) {
-                obj[i] = PoolingManager.PopFromPool("ItemGemGround", PoolingParent.GemGround);
+            item_pos = transform.position;
+        }
+
+        var gemItem = m_Item as ItemGem;
+        if (gemItem)
+        {
+            if (Utility.CheckLayer(gameObject, Layer.AIR)) {
+                for (int i = 0; i < m_ItemNumber; i++) {
+                    GameObject obj = PoolingManager.PopFromPool(gemItem.m_ObjectName, PoolingParent.GemAir);
+                    Vector3 pos = transform.position + (Vector3) Random.insideUnitCircle * 0.8f;
+                    obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
+                    obj.SetActive(true);
+                }
             }
-            CreateGems(obj);
-            for (int i = 0; i < m_GemNumber; i++) {
-                obj[i].SetActive(true);
+            else {
+                GameObject[] obj = new GameObject[m_ItemNumber];
+                for (int i = 0; i < m_ItemNumber; i++) {
+                    obj[i] = PoolingManager.PopFromPool(gemItem.m_ObjectName, PoolingParent.GemGround);
+                }
+                CreateGems(obj);
+                for (int i = 0; i < m_ItemNumber; i++) {
+                    obj[i].SetActive(true);
+                }
             }
         }
+        else
+        {
+            for (var i = 0; i < m_ItemNumber; ++i)
+                Instantiate(m_Item, item_pos, Quaternion.identity);
+        }
+        
+        if (m_ItemNumber == 0)
+            Debug.LogWarning($"Item number is zero!");
     }
 
     private void CreateGems(GameObject[] obj) {
-        switch(m_GemNumber) {
+        switch(m_ItemNumber) {
             case 1:
                 obj[0].transform.position = transform.position;
                 break;
@@ -73,8 +82,8 @@ public class EnemyItemCreater : MonoBehaviour
                 obj[4].transform.position = transform.position + new Vector3(0.3f, 0f, -0.3f);
                 break;
             default:
-                for (int i = 0; i < m_GemNumber; i++) {
-                    Vector3 vec = UnityEngine.Random.insideUnitSphere * Mathf.Sqrt(m_GemNumber) * 0.5f;
+                for (int i = 0; i < m_ItemNumber; i++) {
+                    Vector3 vec = Random.insideUnitSphere * (Mathf.Sqrt(m_ItemNumber) / 2f);
                     obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.z);
                 }
                 break;

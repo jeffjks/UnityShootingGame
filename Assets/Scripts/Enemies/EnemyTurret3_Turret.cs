@@ -31,11 +31,11 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         int[] fireDelay = { 2000, 2000, 1800 };
+        List<EnemyBullet> enemyBullets = new (16);
         
         yield return new WaitForMillisecondFrames(Random.Range(0, fireDelay[(int) SystemManager.Difficulty]));
         while(true)
         {
-            List<EnemyBullet> enemyBullets = new (16);
             var pos0 = GetFirePos(0);
             var pos1 = GetFirePos(1);
 

@@ -13,14 +13,14 @@ public class PauseMenuHandler : MenuHandler
 
     private void OnEnable()
     {
-        IngameInputController.Instance.Action_OnPauseInput += Resume;
-        IngameInputController.Instance.Action_OnEscapeInput += Resume;
+        InGameInputController.Instance.Action_OnPauseInput += Resume;
+        InGameInputController.Instance.Action_OnEscapeInput += Resume;
     }
 
     private void OnDisable()
     {
-        IngameInputController.Instance.Action_OnPauseInput -= Resume;
-        IngameInputController.Instance.Action_OnEscapeInput -= Resume;
+        InGameInputController.Instance.Action_OnPauseInput -= Resume;
+        InGameInputController.Instance.Action_OnEscapeInput -= Resume;
     }
 
     public override void Back()

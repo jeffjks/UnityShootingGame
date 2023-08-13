@@ -7,6 +7,7 @@ public class PlayerLaserFireLight : MonoBehaviour {
     public Light m_Light;
     public Color[] m_Color = new Color[3];
 
+    /*
     private void Start()
     {
         if (GameSetting.GraphicsQuality > QualitySetting.VeryHigh)
@@ -14,6 +15,7 @@ public class PlayerLaserFireLight : MonoBehaviour {
             m_Light.enabled = false;
         }
     }
+    */
 
     private void Update()
     {

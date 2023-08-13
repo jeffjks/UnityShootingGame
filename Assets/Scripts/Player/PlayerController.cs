@@ -11,8 +11,9 @@ public class PlayerController : MonoBehaviour
     private PlayerBombHandler _playerBombHandler;
     private PlayerLaserHandler _playerLaserHandler;
     private PlayerShootHandler _playerShootHandler;
+    private PlayerMovement _playerMovement;
     private PlayerUnit _playerUnit;
-    private IngameInputController _inGameInputController;
+    private InGameInputController _inGameInputController;
 
     public bool IsFirePressed { get; private set; }
     public bool IsBombPressed { get; private set; }
@@ -24,34 +25,25 @@ public class PlayerController : MonoBehaviour
         _playerBombHandler = bombObject.GetComponent<PlayerBombHandler>();
         _playerLaserHandler = GetComponentInChildren<PlayerLaserHandler>();
         _playerShootHandler = GetComponent<PlayerShootHandler>();
+        _playerMovement = GetComponent<PlayerMovement>();
         _playerUnit = GetComponent<PlayerUnit>();
         
         if (!_playerUnit.m_IsPreviewObject)
         {
-            _inGameInputController = IngameInputController.Instance;
+            _inGameInputController = InGameInputController.Instance;
 
             _inGameInputController.Action_OnFireInput += OnFireInvoked;
             _inGameInputController.Action_OnBombInput += OnBombInvoked;
+            _inGameInputController.Action_OnMove += OnMoveInvoked;
+            _playerUnit.Action_OnControllableChanged += OnControllableChanged;
         }
     }
 
-    
-    void Start()
+    private void OnControllableChanged(bool controllable)
     {
-        /*
-        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Bomb) == 0) // 폭탄 개수
-            InGameDataManager.Instance.MaxBombNumber = 2;
-        else
-            InGameDataManager.Instance.MaxBombNumber = 3;
-        InGameDataManager.Instance.InitBombNumber();
-
-        if (m_Module != 0) {
-            SetModule();
-            UpdateShotNumber();
-            StartCoroutine(ModuleShot());
-        }
-        else
-            UpdateShotNumber();*/
+        if (controllable)
+            return;
+        _playerMovement.MovePlayer(Vector2.zero);
     }
 
     void Update()
@@ -74,8 +66,12 @@ public class PlayerController : MonoBehaviour
         {
             IsFirePressed = false;
         }
-        
-        IsFirePressed = inputValue.isPressed;
+        ExecuteFire(inputValue.isPressed);
+    }
+
+    public void ExecuteFire(bool isPressed)
+    {
+        IsFirePressed = isPressed;
 
         if (IsFirePressed) // 누르는 순간
         {
@@ -92,6 +88,8 @@ public class PlayerController : MonoBehaviour
             _playerLaserHandler.StopLaser();
             _playerUnit.IsAttacking = false;
         }
+        
+        ReplayManager.Instance.WriteUserPressInput(isPressed, 4);
     }
 
     private void FireShot()
@@ -117,49 +115,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void PlayerControllerBehaviour() {
-        /*
-        if (m_ShotKeyPress == 1) {
-            _firePressFrame++;
-            if (!m_ShotKeyPrevious) {
-                m_ShotKeyPrevious = true;
-                if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
-                    if (_playerShootHandler.AutoShot <= 1) {
-                        _playerShootHandler.AutoShot++;
-                    }
-                }
-            }
-        }
-        else {
-            m_ShotKeyPrevious = false;
-            _firePressFrame = 0;
-            _playerUnit.SlowMode = false;
-            _playerLaserHandler.StopLaser();
-            _playerUnit.IsAttacking = false;
-        }
-        
-        if (!_playerUnit.SlowMode) {
-            if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
-                _playerUnit.SlowMode = true;
-                _playerLaserHandler.StartLaser();
-                _playerUnit.IsAttacking = true;
-                _playerShootHandler.AutoShot = 0;
-            }
-        }
-
-        if (_playerShootHandler.AutoShot > 0) {
-            if (!_playerUnit.IsShooting) {
-                _playerUnit.IsShooting = true;
-                StartCoroutine(Shot());
-            }
-            _playerUnit.IsAttacking = true;
-        }
-
-        if (m_BombKeyPress == 1) {
-            BombKeyPressed();
-        }*/
-    }
-
     private void OnBombInvoked()
     {
         if (!PlayerUnit.IsControllable)
@@ -170,10 +125,27 @@ public class PlayerController : MonoBehaviour
             return;
         if (!SystemManager.IsOnGamePlayState())
             return;
-        
+
+        ExecuteBomb();
+    }
+    
+    public void ExecuteBomb()
+    {
         PlayerInvincibility.SetInvincibility(4000);
         _playerBombHandler.UseBomb(transform.position);
         InGameDataManager.Instance.BombNumber--;
+        
+        ReplayManager.Instance.WriteUserPressInput(true, 5);
+    }
+
+    private void OnMoveInvoked(InputValue inputValue)
+    {
+        if (!PlayerUnit.IsControllable)
+            return;
+        
+        Vector2 moveInput = inputValue.Get<Vector2>();
+
+        _playerMovement.MovePlayer(moveInput);
     }
     
     void OnEnable()

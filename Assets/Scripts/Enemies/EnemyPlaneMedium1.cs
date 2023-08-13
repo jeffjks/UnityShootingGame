@@ -7,7 +7,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
     private const int APPEARANCE_TIME = 1600;
     private const int TIME_LIMIT = 10000;
     //private float m_PositionY, m_AddPositionY;
-    private float m_VSpeed = 0.2f;
+    private const float VERTICAL_SPEED = 0.2f;
     private IEnumerator m_TimeLimit;
 
     void Start ()
@@ -28,7 +28,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
 
-            m_MoveVector.speed = Mathf.Lerp(init_speed, m_VSpeed, t_spd);
+            m_MoveVector.speed = Mathf.Lerp(init_speed, VERTICAL_SPEED, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
         m_TimeLimit = TimeLimit(TIME_LIMIT);
@@ -86,7 +86,7 @@ public class EnemyPlaneMedium1_BulletPattern_A : BulletFactory, IBulletPattern
             {
                 var pos = GetFirePos(0);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, 0f, 6, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.4f, BulletPivot.Player, 0f, 5, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.2f, BulletPivot.Player, 0f, 5, 12f));
                 yield return new WaitForMillisecondFrames(1000);
                 
                 for (int i = 0; i < 4; i++)

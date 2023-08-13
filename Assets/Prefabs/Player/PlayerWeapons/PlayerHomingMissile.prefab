@@ -89,8 +89,9 @@ MonoBehaviour:
   _playerDamageData: {fileID: 11400000, guid: 16e19650059f5184193d0757994307a6, type: 2}
   m_Speed: 20
   m_IsPenetrate: 0
-  m_ActivatedObject: []
+  _activatedObject: []
   _hitEffectType: 1
+  _removeTimer: 5000
 --- !u!1 &1067027769915147066
 GameObject:
   m_ObjectHideFlags: 0

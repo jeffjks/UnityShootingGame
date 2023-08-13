@@ -42,7 +42,7 @@ public class EnemyTurret1_BulletPattern_Turret_A : BulletFactory, IBulletPattern
                 var enemyBullets = CreateBullet(new BulletProperty(pos0, BulletImage.BlueSmall, speed, BulletPivot.Current, 0f));
                 CreateBullet(new BulletProperty(pos1, BulletImage.BlueSmall, speed, BulletPivot.Current, 0f));
 
-                if (enemyBullets == null)
+                if (enemyBullets.Count == 0)
                 {
                     break;
                 }

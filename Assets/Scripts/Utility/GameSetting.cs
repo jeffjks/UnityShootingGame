@@ -50,7 +50,7 @@ public class GameSetting : MonoBehaviour
             PlayerPrefs.SetInt("ResolutionWidth", 1920);
             PlayerPrefs.SetInt("ResolutionHeight", 1080);
             PlayerPrefs.SetInt("FullScreen", 1);
-            PlayerPrefs.SetInt("GraphicsQuality", 0);
+            PlayerPrefs.SetInt("GraphicsQuality", (int) QualitySetting.Ultra);
             PlayerPrefs.SetInt("AntiAliasing", 1);
             PlayerPrefs.SetInt("Language", 1);
             PlayerPrefs.SetInt("MusicVolume", 80);
@@ -108,8 +108,7 @@ public class GameSetting : MonoBehaviour
     public static void SetGraphicSettings()
     {
         SetScreenSettings();
-        SetQuality();
-        SetAntiAliasing();
+        SetQualitySettings();
     }
 
     public static void SaveSoundSettings()
@@ -130,6 +129,7 @@ public class GameSetting : MonoBehaviour
         var width = _graphicsResolutionList[index].x;
         var height = _graphicsResolutionList[index].y;
         Screen.SetResolution(width, height, GraphicsScreenMode == ScreenModeSetting.FullScreen);
+        Debug.Log($"[Screen Settings] Resolution: {width}x{height}, FullScreen: {Screen.fullScreen}");
     }
 
     private static void SaveScreenSettings()
@@ -143,10 +143,14 @@ public class GameSetting : MonoBehaviour
         PlayerPrefs.SetInt("ResolutionHeight", height);
     }
 
-    private static void SetQuality()
+    private static void SetQualitySettings()
     {
         var quality = GraphicsQuality;
         QualitySettings.SetQualityLevel((int) quality, true);
+        
+        var antiAliasing = GraphicsAntiAliasing;
+        QualitySettings.antiAliasing = (antiAliasing == AntiAliasingSetting.Deactivated) ? 0 : 2;
+        Debug.Log($"[Quality Settings] Quality: {QualitySettings.names[(int)quality]}, AntiAliasing: {QualitySettings.antiAliasing}");
     }
 
     private static void SaveQuality()
@@ -154,16 +158,7 @@ public class GameSetting : MonoBehaviour
         var quality = GraphicsQuality;
         PlayerPrefs.SetInt("GraphicsQuality", (int) quality);
     }
-
-    private static void SetAntiAliasing() {
-        var antiAliasing = GraphicsAntiAliasing;
-        
-        if (antiAliasing == AntiAliasingSetting.Deactivated)
-            QualitySettings.antiAliasing = 0;
-        else
-            QualitySettings.antiAliasing = 2;
-    }
-
+    
     private static void SaveAntiAliasing() {
         var antiAliasing = GraphicsAntiAliasing;
         PlayerPrefs.SetInt("AntiAliasing", (int) antiAliasing);
@@ -173,6 +168,7 @@ public class GameSetting : MonoBehaviour
     {
         var volume = MusicVolume;
         Instance.m_AudioMixer.SetFloat("Music", Instance.GetMixerVolume(volume));
+        Debug.Log($"[Music Volume] Volume: {volume}");
     }
     
     public static void SaveMusicVolume()
@@ -184,6 +180,7 @@ public class GameSetting : MonoBehaviour
     public static void SetSoundEffectVolume() {
         var volume = SoundEffectVolume;
         Instance.m_AudioMixer.SetFloat("SFX", Instance.GetMixerVolume(volume));
+        Debug.Log($"[SFX Volume] Volume: {volume}");
     }
     
     public static void SaveSoundEffectVolume() {
@@ -200,5 +197,6 @@ public class GameSetting : MonoBehaviour
     {
         var language = CurrentLanguage;
         PlayerPrefs.SetInt("Language", (int) language);
+        Debug.Log($"[LanguageSetting] Language: {language}");
     }
 }

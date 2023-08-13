@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd494a7ac194cf84eb4fa6f66dd9057c, type: 3}
+  m_Name: PlayerDroneTransform3 SO
+  m_EditorClassIdentifier: 
+  shotTransformData:
+  - positionData: {x: -1.44, y: 0, z: -1.384}
+    rotationData: {x: 0, y: -3, z: 0}
+  - positionData: {x: -1.6, y: 0, z: -0.96}
+    rotationData: {x: 0, y: -8, z: 0}
+  - positionData: {x: -2.56, y: 0, z: -1.44}
+    rotationData: {x: 0, y: -5, z: 0}
+  laserTransformData:
+  - positionData: {x: -0.72, y: -0.8, z: -0.16}
+    rotationData: {x: 0, y: 0, z: 0}
+  - positionData: {x: -0.72, y: -0.8, z: -0.16}
+    rotationData: {x: 0, y: 0, z: 0}
+  - positionData: {x: -0.72, y: -0.8, z: -0.16}
+    rotationData: {x: 0, y: 0, z: 0}

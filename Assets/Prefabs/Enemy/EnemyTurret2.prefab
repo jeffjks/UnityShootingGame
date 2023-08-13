@@ -114,7 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 4450760002710729640}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: 7898624762947922464, guid: b34bf25cecb5fc24c91de3edea19cb13, type: 3}
+  m_ItemNumber: 2
   m_GemNumber: 2
 --- !u!114 &8752691327478028972
 MonoBehaviour:

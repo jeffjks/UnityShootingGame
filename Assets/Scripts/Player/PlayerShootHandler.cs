@@ -7,7 +7,6 @@ using System;
 public class PlayerShootHandler : MonoBehaviour
 {
     public Transform[] m_PlayerShotPosition = new Transform[7];
-    public PlayerDrone[] m_PlayerDrone = new PlayerDrone[4];
     public PlayerUnit m_PlayerUnit;
     public Transform m_PlayerBody;
     
@@ -21,6 +20,7 @@ public class PlayerShootHandler : MonoBehaviour
     
     private List<int> _currentModuleDelay = new();
     private PlayerModuleManager _playerModuleManager;
+    private PlayerDrone[] _playerDrones;
 
     private readonly List<IModule> _modules = new()
     {
@@ -34,9 +34,8 @@ public class PlayerShootHandler : MonoBehaviour
 
     private int _shotIndex;
     private int _moduleIndex;
-    private int _shotAttackLevel;
 
-    public int ShotIndex { private get; set; }
+    public int ShotIndex { get; set; }
 
     public int ModuleIndex
     {
@@ -53,10 +52,15 @@ public class PlayerShootHandler : MonoBehaviour
     private void Awake()
     {
         _playerModuleManager = new PlayerModuleManager();
+        _playerDrones = GetComponentsInChildren<PlayerDrone>();
         ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex);
         ShotIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
-        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => _shotAttackLevel = m_PlayerUnit.PlayerAttackLevel;
-        m_PlayerUnit.Action_OnControllableChanged += () => AutoShot = 0;
+        m_PlayerUnit.Action_OnControllableChanged += (controllable) =>
+        {
+            if (controllable)
+                return;
+            AutoShot = 0;
+        };
     }
     
     private void OnEnable()
@@ -71,8 +75,8 @@ public class PlayerShootHandler : MonoBehaviour
     private IEnumerator ModuleShot() {
         while(true) {
             if (_moduleIndex > 0 && m_PlayerUnit.IsAttacking) {
-                _currentModule.Shoot(this, m_PlayerModuleDamageData[_moduleIndex - 1], _shotAttackLevel);
-                yield return new WaitForMillisecondFrames(_currentModuleDelay[_shotAttackLevel]);
+                _currentModule.Shoot(this, m_PlayerModuleDamageData[_moduleIndex - 1], m_PlayerUnit.PlayerAttackLevel);
+                yield return new WaitForMillisecondFrames(_currentModuleDelay[m_PlayerUnit.PlayerAttackLevel]);
             }
             yield return new WaitForFrames(0);
         }
@@ -86,14 +90,15 @@ public class PlayerShootHandler : MonoBehaviour
     private IEnumerator Shot() {
         if (AutoShot > 0)
             AutoShot--;
-        var shotNumber = _shotNumbers[_shotAttackLevel];
+        var shotNumber = _shotNumbers[m_PlayerUnit.PlayerAttackLevel];
+        
         for (int i = 0; i < shotNumber; i++) { // FIRE_RATE초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
             if (ShotIndex == 0)
-                CreateShotNormal(_shotAttackLevel);
+                CreateShotNormal(m_PlayerUnit.PlayerAttackLevel);
             else if (ShotIndex == 1)
-                CreateShotStrong(_shotAttackLevel);
+                CreateShotStrong(m_PlayerUnit.PlayerAttackLevel);
             else if (ShotIndex == 2)
-                CreateShotVeryStrong(_shotAttackLevel);
+                CreateShotVeryStrong(m_PlayerUnit.PlayerAttackLevel);
             
             if (!m_PlayerUnit.m_IsPreviewObject)
                 AudioService.PlaySound("PlayerShot1");
@@ -137,7 +142,7 @@ public class PlayerShootHandler : MonoBehaviour
                 shotDirection[i] = 180f;
             }
             else {
-                shotDirection[i] = 180f - m_PlayerDrone[i - 1].GetCurrentLocalRotation();
+                shotDirection[i] = 180f - _playerDrones[i - 1].GetCurrentLocalRotation();
             }
             shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
         }
@@ -174,7 +179,7 @@ public class PlayerShootHandler : MonoBehaviour
                 shotDirection[i] = 180f;
             }
             else {
-                shotDirection[i] = 180f - m_PlayerDrone[i - 1].GetCurrentLocalRotation();
+                shotDirection[i] = 180f - _playerDrones[i - 1].GetCurrentLocalRotation();
             }
             shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
         }
@@ -211,7 +216,7 @@ public class PlayerShootHandler : MonoBehaviour
                 shotDirection[i] = 180f;
             }
             else {
-                shotDirection[i] = 180f - m_PlayerDrone[i - 1].GetCurrentLocalRotation();
+                shotDirection[i] = 180f - _playerDrones[i - 1].GetCurrentLocalRotation();
             }
             shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
         }
@@ -267,18 +272,18 @@ public class PlayerShootHandler : MonoBehaviour
 
     /*
     protected void UpdateShotNumber() {
-        for (int i = 0; i < m_PlayerDrone.Length; i++)
-            m_PlayerDrone[i].SetShotLevel(_shotAttackLevel);
+        for (int i = 0; i < _playerDrones.Length; i++)
+            _playerDrones[i].SetShotLevel(_shotAttackLevel);
 
         if (_shotAttackLevel <= -1) {
-            m_PlayerDrone[2].gameObject.SetActive(false);
-            m_PlayerDrone[3].gameObject.SetActive(false);
+            _playerDrones[2].gameObject.SetActive(false);
+            _playerDrones[3].gameObject.SetActive(false);
         }
         else {
-            m_PlayerDrone[2].gameObject.SetActive(true);
-            m_PlayerDrone[3].gameObject.SetActive(true);
-            m_PlayerDrone[2].transform.localPosition = new Vector2(0f, -1f);
-            m_PlayerDrone[3].transform.localPosition = new Vector2(0f, -1f);
+            _playerDrones[2].gameObject.SetActive(true);
+            _playerDrones[3].gameObject.SetActive(true);
+            _playerDrones[2].transform.localPosition = new Vector2(0f, -1f);
+            _playerDrones[3].transform.localPosition = new Vector2(0f, -1f);
         }
     }*/
 

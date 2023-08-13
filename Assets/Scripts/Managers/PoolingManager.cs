@@ -9,10 +9,11 @@ m_PoolQueue : 오브젝트들을 담은 Queue. PooledObject 클래스 안에 존
 
 public class PoolingManager : MonoBehaviour
 {
-    protected Dictionary<string, PooledObject> m_ObjectPoolDictionary = new (); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
+    public bool m_TestMode;
+    protected readonly Dictionary<string, PooledObject> m_ObjectPoolDictionary = new(); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
     [SerializeField] protected GameObject[] m_PooledPrefabs;
 
-    private static PoolingManager Instance = null;
+    private static PoolingManager Instance;
 
     void Awake()
     {
@@ -30,6 +31,9 @@ public class PoolingManager : MonoBehaviour
     {
         InitOutGame();
         PlayerManager.Action_OnStartStartNewGame += InitInGame;
+        
+        if (m_TestMode)
+            InitInGame();
     }
 
     private void InitOutGame()

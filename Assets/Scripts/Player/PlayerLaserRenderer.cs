@@ -114,7 +114,7 @@ public class PlayerLaserRenderer : MonoBehaviour
             CurrentLaserLength += LASER_SPEED / Application.targetFrameRate * Time.timeScale;
         }
 
-        var maxClampLength = _playerUnit.m_IsPreviewObject ? 4f : -transform.position.y;
+        var maxClampLength = _playerUnit.m_IsPreviewObject ? _playerUnit.m_MaxLaserLength : -transform.position.y;
         CurrentLaserLength = Mathf.Clamp(CurrentLaserLength, 0f, maxClampLength);
     }
 

@@ -15,23 +15,23 @@ public class ReplayManager : MonoBehaviour
     private FileStream _fileStream;
     private PlayerMovement _playerMovement;
     private PlayerController _playerController;
-    private bool m_StageOverview = false;
     
     private PlayerManager _playerManager;
     
     private const string REPLAY_DIRECTORY = "";
     private ReplayInfo _replayInfo;
-    private BinaryReader _br = null;
-    private BinaryWriter _bw = null;
+    private BinaryReader _br;
+    private BinaryWriter _bw;
+    private int _context;
 
     public static ReplayManager Instance { get; private set; }
 
     private struct ReplayInfo
     {
-        public int m_Seed;
-        public string m_Version;
-        public ShipAttributes m_Attributes;
-        public GameDifficulty m_Difficulty;
+        public readonly int m_Seed;
+        public readonly string m_Version;
+        public readonly ShipAttributes m_Attributes;
+        public readonly GameDifficulty m_Difficulty;
 
         public ReplayInfo(int seed, string version, ShipAttributes attributes, GameDifficulty difficulty)
         {
@@ -49,6 +49,8 @@ public class ReplayManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        SystemManager.Action_OnQuitInGame += OnClose;
     }
 
     public void Init()
@@ -63,41 +65,15 @@ public class ReplayManager : MonoBehaviour
 
         if (SystemManager.GameMode == GameMode.Replay)
         {
-            ReadReplayFile();
+            StartReadReplayFile();
         }
         else
         {
-            WriteReplayFile();
+            StartWriteReplayFile();
         }
     }
 
-    private void WriteReplayFile()
-    {
-        var filePath = $"{REPLAY_DIRECTORY}replayTemp.rep";
-        
-        try {
-            _fileStream = new FileStream(filePath, FileMode.Append);
-            _bw = new BinaryWriter(_fileStream);
-            
-            var replayInfo = new ReplayInfo(
-                Environment.TickCount,
-                Application.version,
-                PlayerManager.CurrentAttributes,
-                SystemManager.Difficulty
-            );
-
-            WriteBinaryHeader(replayInfo);
-        }
-        catch (Exception e)
-        {
-            Debug.Log($"Error has occured while reading replay file: {e}");
-        }
-        finally {
-            InitPlayer();
-        }
-    }
-
-    private void ReadReplayFile()
+    private void StartReadReplayFile()
     {
         var replayNum = 0; // TODO. have to decide replay num from existing files
         var filePath = $"{REPLAY_DIRECTORY}replay{replayNum}.rep";
@@ -114,13 +90,41 @@ public class ReplayManager : MonoBehaviour
             }
 
             SystemManager.SetDifficulty(_replayInfo.m_Difficulty);
+            Debug.Log($"Start reading replay file.");
         }
         catch (Exception e)
         {
-            Debug.Log($"Error has occured while reading replay file: {e}");
+            Debug.LogError($"Error has occured while reading replay file: {e}");
         }
         finally {
             InitPlayer(_replayInfo.m_Attributes);
+        }
+    }
+
+    private void StartWriteReplayFile()
+    {
+        var filePath = $"{REPLAY_DIRECTORY}replayTemp.rep";
+        
+        try {
+            _fileStream = new FileStream(filePath, FileMode.Append);
+            _bw = new BinaryWriter(_fileStream);
+            
+            var replayInfo = new ReplayInfo(
+                Environment.TickCount,
+                Application.version,
+                PlayerManager.CurrentAttributes,
+                SystemManager.Difficulty
+            );
+
+            WriteBinaryHeader(replayInfo);
+            Debug.Log($"Start writing replay file.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error has occured while reading replay file: {e}");
+        }
+        finally {
+            InitPlayer();
         }
     }
 
@@ -140,7 +144,7 @@ public class ReplayManager : MonoBehaviour
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Time.timeScale == 0)
             return;
@@ -148,48 +152,61 @@ public class ReplayManager : MonoBehaviour
         if (_playerController.gameObject.activeInHierarchy) {
             if (SystemManager.GameMode == GameMode.Replay) { // 리플레이
                 ReadUserInput();
-                _playerController.PlayerControllerBehaviour();
             }
-            else {
-                _playerController.PlayerControllerBehaviour();
-                WriteUserInput();
-            }
-            //_playerController.ResetKeyPress();
         }
     }
 
     private void ReadUserInput()
     {
-        if (!PlayerUnit.IsControllable)
+        if (SystemManager.GameMode != GameMode.Replay)
             return;
-
+        
         var context = _br.ReadInt32();
+
+        var moveLeft = context & (1 << 0);
+        var moveRight = context & (1 << 1);
+        var moveDown = context & (1 << 2);
+        var moveUp = context & (1 << 3);
+        var moveVector = new Vector2(moveRight - moveLeft, moveUp - moveDown);
+
+        var inputFire = context & (1 << 4);
+        var inputBomb = context & (1 << 5);
         
-        //var context = _fileStream.ReadByte();
-        
-        _playerMovement.MoveRawHorizontal = (context & 0b0000_0011) - 1;
-        _playerMovement.MoveRawVertical = ((context & 0b0000_1100) >> 2) - 1;
-        //_playerController.ShotKeyPress = (context & 0b0001_0000) >> 4;
-        //_playerController.BombKeyPress = (context & 0b0010_0000) >> 5;
+        _playerMovement.MovePlayer(moveVector);
+        _playerController.ExecuteFire(inputFire == 1);
+        if (inputBomb == 1)
+            _playerController.ExecuteBomb();
     }
 
-    private void WriteUserInput()
+    public void WriteUserMoveInput(int rawHorizontal, int rawVertical)
     {
-        if (!PlayerUnit.IsControllable)
+        if (SystemManager.GameMode == GameMode.Replay)
             return;
         
-        var context = 0;
+        var moveLeft = rawHorizontal == -1 ? 1 : 0;
+        var moveRight = rawHorizontal == 1 ? 1 : 0;
+        var moveDown = rawVertical == -1 ? 1 : 0;
+        var moveUp = rawVertical == 1 ? 1 : 0;
 
-        var moveLeft = _playerMovement.MoveRawHorizontal == -1 ? 1 : 0;
-        var moveRight = _playerMovement.MoveRawHorizontal == 1 ? 1 : 0;
-        var moveDown = _playerMovement.MoveRawVertical == -1 ? 1 : 0;
-        var moveUp = _playerMovement.MoveRawVertical == 1 ? 1 : 0;
+        _context |= moveLeft | (moveRight << 1) | (moveDown << 2)| (moveUp << 3);
+        _context |= (_playerController.IsFirePressed ? 1 : 0) << 4;
+        _context |= (_playerController.IsBombPressed ? 1 : 0) << 5;
+    }
 
-        context |= moveLeft | (moveRight << 1) | (moveDown << 2)| (moveUp << 3);
-        context |= (_playerController.IsFirePressed ? 1 : 0) << 4;
-        context |= (_playerController.IsBombPressed ? 1 : 0) << 5;
+    public void WriteUserPressInput(bool isPressed, int offset)
+    {
+        if (SystemManager.GameMode == GameMode.Replay)
+            return;
+        
+        var inputFire = isPressed ? 1 : 0;
+        
+        _context |= inputFire << offset;
+    }
 
-        _bw.Write(context);
+    public void LateUpdate()
+    {
+        _bw?.Write(_context);
+        _context = 0;
     }
 
     private void BinarySerialize(int seed) {
@@ -277,8 +294,16 @@ public class ReplayManager : MonoBehaviour
         return context;
     }
 
+    private void OnClose()
+    {
+        Debug.Log($"File closed");
+        _fileStream?.Close();
+        _br?.Close();
+        _bw?.Close();
+    }
+
     private void OnApplicationQuit()
     {
-        _fileStream.Close();
+        OnClose();
     }
 }

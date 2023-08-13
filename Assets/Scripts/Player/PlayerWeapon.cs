@@ -6,8 +6,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 {
     [SerializeField] protected float m_Speed;
     [SerializeField] private bool m_IsPenetrate;
-    [SerializeField] private GameObject[] m_ActivatedObject;
+    [SerializeField] private GameObject[] _activatedObject;
     [SerializeField] private HitEffectType _hitEffectType;
+    [SerializeField] private int _removeTimer;
+
+    private IEnumerator _removeTimerCoroutine;
 
     public override float CurrentAngle
     {
@@ -20,23 +23,24 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     }
 
     private int _currentForm;
-    
     private bool _appliedDamage;
     
     public virtual void OnStart() {
         _appliedDamage = false;
+        _removeTimerCoroutine = SetRemoveTimer();
+        StartCoroutine(_removeTimerCoroutine);
     }
 
     protected override void OnDamageLevelChanged()
     {
         base.OnDamageLevelChanged();
-        if (m_ActivatedObject.Length == 0)
+        if (_activatedObject.Length == 0)
         {
             return;
         }
-        m_ActivatedObject[_currentForm].SetActive(false);
-        _currentForm = _damageLevel * (m_ActivatedObject.Length - 1) / _maxDamageLevel;
-        m_ActivatedObject[_currentForm].SetActive(true);
+        _activatedObject[_currentForm].SetActive(false);
+        _currentForm = _damageLevel * (_activatedObject.Length - 1) / _maxDamageLevel;
+        _activatedObject[_currentForm].SetActive(true);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -72,35 +76,20 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     }
 
     public void ReturnToPool() {
-        if (m_ActivatedObject.Length > 0)
+        if (_activatedObject.Length > 0)
         {
-            m_ActivatedObject[_currentForm].SetActive(false);
+            _activatedObject[_currentForm].SetActive(false);
         }
+        if (_removeTimerCoroutine != null)
+            StopCoroutine(_removeTimerCoroutine);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.PlayerMissile);
     }
 
-
-
-    // IRotatable Methods ----------------------------------
-
-    /*
-    public new void RotateSlightly(Vector2 target, float speed, float rot = 0f) {
-        float target_angle = GetAngleToTarget(m_Position2D, target);
-        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
+    private IEnumerator SetRemoveTimer()
+    {
+        yield return new WaitForMillisecondFrames(_removeTimer);
+        ReturnToPool();
     }
-
-    public new void RotateSlightly(float target_angle, float speed, float rot = 0f) {
-        CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-    }
-
-    public new void RotateImmediately(Vector2 target, float rot = 0f) {
-        float target_angle = GetAngleToTarget(m_Position2D, target);
-        CurrentAngle = target_angle + rot;
-    }
-
-    public new void RotateImmediately(float target_angle, float rot = 0f) {
-        CurrentAngle = target_angle + rot;
-    }*/
 
     private void OnCurrentAngleChanged(float value)
     {

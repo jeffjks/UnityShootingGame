@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Score: 200
   m_IsRoot: 1
   m_Turret: {fileID: 5695442319512339495}
-  m_HasDestroyableTurret: 0
+  m_HealthPercentTurretDestroying: 0
 --- !u!114 &3224080496378450585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 7427637404073788237}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: 7898624762947922464, guid: b34bf25cecb5fc24c91de3edea19cb13, type: 3}
+  m_ItemNumber: 2
   m_GemNumber: 2
 --- !u!114 &8508359340573330040
 MonoBehaviour:

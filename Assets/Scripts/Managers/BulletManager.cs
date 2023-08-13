@@ -41,6 +41,8 @@ public class BulletManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        SystemManager.Action_OnNextStage += (hasNextStage) => _bulletsSortingLayer = 0;
     }
 
     public static void SetBulletFreeState(int millisecond)

@@ -35,11 +35,11 @@ public class ScreenModeButtonController : MonoBehaviour, IMoveHandler
         var moveInputX = (int) axisEventData.moveVector.x;
         if (moveInputX > 0)
         {
-            GameSetting.GraphicsScreenMode = GameSetting.GraphicsScreenMode.GetEnumNext();
+            GameSetting.GraphicsScreenMode = GameSetting.GraphicsScreenMode.GetEnumNext(true);
         }
         else if (moveInputX < 0)
         {
-            GameSetting.GraphicsScreenMode = GameSetting.GraphicsScreenMode.GetEnumPrev();
+            GameSetting.GraphicsScreenMode = GameSetting.GraphicsScreenMode.GetEnumPrev(true);
         }
 
         SetText();

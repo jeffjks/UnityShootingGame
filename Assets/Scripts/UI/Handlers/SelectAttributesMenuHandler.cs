@@ -30,7 +30,7 @@ public class SelectAttributesMenuHandler : MenuHandler
         for (int i = 0; i < attributeType.GetEnumCount(); ++i)
         {
             _attributeCost[attributeType] = 0;
-            attributeType = attributeType.GetEnumNext();
+            attributeType = attributeType.GetEnumNext(true);
         }
     }
 

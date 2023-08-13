@@ -32,7 +32,12 @@ public class PlayerLaserHandler : MonoBehaviour
     {
         Action_OnLaserIndexChanged += ResetLaserIndex;
         m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += RestartLaser;
-        m_PlayerUnit.Action_OnControllableChanged += StopLaser;
+        m_PlayerUnit.Action_OnControllableChanged += (controllable) =>
+        {
+            if (controllable)
+                return;
+            StopLaser();
+        };
         
         LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
     }

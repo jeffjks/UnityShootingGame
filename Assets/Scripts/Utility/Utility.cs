@@ -21,7 +21,7 @@ public static class Utility
     // <param name="source"></param>
     // <returns></returns>
     
-    public static T GetEnumNext<T>(this T source) where T : Enum
+    public static T GetEnumNext<T>(this T source, bool wrapAround) where T : Enum
     {
         var array = Enum.GetValues(typeof(T));
         for (int i = 0; i < array.Length - 1; ++i)
@@ -29,10 +29,13 @@ public static class Utility
             if (source.Equals(array.GetValue(i)))
                 return (T) array.GetValue(i + 1);
         }
-        return (T) array.GetValue(0);
+
+        if (wrapAround)
+            return (T)array.GetValue(0);
+        return source;
     }
     
-    public static T GetEnumPrev<T>(this T source) where T : Enum
+    public static T GetEnumPrev<T>(this T source, bool wrapAround) where T : Enum
     {
         var array = Enum.GetValues(typeof(T));
         for (int i = 0; i < array.Length - 1; ++i)
@@ -40,7 +43,10 @@ public static class Utility
             if (source.Equals(array.GetValue(array.Length - i - 1)))
                 return (T) array.GetValue(array.Length - i - 2);
         }
-        return (T) array.GetValue(array.Length - 1);
+
+        if (wrapAround)
+            return (T)array.GetValue(0);
+        return source;
     }
 
     public static int GetEnumCount<T>(this T source) where T : Enum

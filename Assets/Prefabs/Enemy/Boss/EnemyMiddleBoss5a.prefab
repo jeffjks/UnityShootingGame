@@ -406,7 +406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 5385556361113366454}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &2640752344818669441
 MonoBehaviour:
@@ -575,7 +576,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 515412261101433539}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &7107805279910688738
 MonoBehaviour:
@@ -744,7 +746,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 2726026014436905523}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &3155771572065246652
 MonoBehaviour:
@@ -913,7 +916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 5008286825400514406}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &382530899239196700
 MonoBehaviour:
@@ -1082,7 +1086,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 7427637404073788237}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &6495345836781249810
 MonoBehaviour:
@@ -1251,7 +1256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 3391064297525549700}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &7945921143358561207
 MonoBehaviour:
@@ -1420,7 +1426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 8865729688615271646}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &3784819291220376130
 MonoBehaviour:
@@ -1589,7 +1596,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 6374387857110140405}
-  m_ItemBox: {fileID: 0}
+  m_Item: {fileID: -4236653689785038940, guid: 6a7274aefcc6cef4fbbfba924cc7f657, type: 3}
+  m_ItemNumber: 10
   m_GemNumber: 10
 --- !u!114 &7697718717165396140
 MonoBehaviour:
@@ -1699,8 +1707,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition: {fileID: 1444788518534740730}
-  m_RotatePattern: 10
 --- !u!114 &4128822069944445729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1771,9 +1777,9 @@ MonoBehaviour:
   m_Score: 25000
   m_IsRoot: 1
   m_MainTurret: {fileID: 8899105967141548953}
-  m_Turret:
-  - {fileID: 7566465114371849519}
-  - {fileID: 2438573132596744102}
+  m_SubTurret:
+  - {fileID: 0}
+  - {fileID: 0}
   m_Missiles:
   - {fileID: 7128904614764597024}
   - {fileID: 1725498716193962102}
@@ -11622,7 +11628,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_RotatePattern: 10
 --- !u!114 &3072801503214260976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36309,7 +36314,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_RotatePattern: 10
 --- !u!114 &2286717553688513525
 MonoBehaviour:
   m_ObjectHideFlags: 0

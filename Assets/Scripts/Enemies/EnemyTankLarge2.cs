@@ -9,13 +9,12 @@ public class EnemyTankLarge2 : EnemyUnit
     {
         m_CustomDirection = new CustomDirection();
         StartPattern("A", new EnemyTankLarge2_BulletPattern_A(this));
+        SetRotatePattern(new RotatePattern_MoveDirection());
     }
     
     protected override void Update()
     {
         base.Update();
-        
-        RotateImmediately(m_MoveVector.direction);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             m_CustomDirection[0] += 97f / Application.targetFrameRate * Time.timeScale;

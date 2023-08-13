@@ -12,7 +12,7 @@ public class PauseManager : MonoBehaviour
     public GameObject m_PauseMenuUI;
     public Transform m_InGameTransform;
     
-    private IngameInputController _inGameInputController;
+    private InGameInputController _inGameInputController;
     private bool _pauseEnabled = true;
     private const float PAUSE_DELAY = 2f;
 
@@ -29,7 +29,7 @@ public class PauseManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         
-        _inGameInputController = EventSystem.current.gameObject.GetComponent<IngameInputController>();
+        _inGameInputController = EventSystem.current.gameObject.GetComponent<InGameInputController>();
         _inGameInputController.Action_OnPauseInput += Pause;
         _inGameInputController.Action_OnEscapeInput += Pause;
     }

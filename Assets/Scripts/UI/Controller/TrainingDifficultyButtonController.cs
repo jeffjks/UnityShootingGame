@@ -37,9 +37,9 @@ public class TrainingDifficultyButtonController : MonoBehaviour, IMoveHandler
         var moveInputX = (int) axisEventData.moveVector.x;
         
         if (moveInputX > 0)
-            SystemManager.SetDifficulty(SystemManager.Difficulty.GetEnumNext());
+            SystemManager.SetDifficulty(SystemManager.Difficulty.GetEnumNext(false));
         else if (moveInputX < 0)
-            SystemManager.SetDifficulty(SystemManager.Difficulty.GetEnumPrev());
+            SystemManager.SetDifficulty(SystemManager.Difficulty.GetEnumPrev(false));
 
         SetText();
     }

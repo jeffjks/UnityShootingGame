@@ -57,47 +57,6 @@ public abstract class UnitObject : MonoBehaviour
         }
         CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, targetAngle, speed / Application.targetFrameRate * Time.timeScale);
     }
-
-    // Rotate Methods ---------------------------------- TODO. have to remove
-    
-    public void RotateSlightly(Vector2 target, float speed, float rot = 0f)
-    {
-        // if (!IsRotatable)
-        //     return;
-        // if (m_EnemyDeath.m_IsDead)
-        //     return;
-        // float target_angle = GetAngleToTarget(m_Position2D, target);
-        // CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-    }
-
-    public void RotateSlightly(float target_angle, float speed, float rot = 0f)
-    {
-        // if (!IsRotatable)
-        //     return;
-        // if (m_EnemyDeath.m_IsDead)
-        //     return;
-        // CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, target_angle + rot, speed / Application.targetFrameRate * Time.timeScale);
-    }
-
-    public void RotateImmediately(Vector2 target, float rot = 0f)
-    {
-        // if (!IsRotatable)
-        //     return;
-        // if (m_EnemyDeath.m_IsDead)
-        //     return;
-        // float target_angle = GetAngleToTarget(m_Position2D, target);
-        // CurrentAngle = target_angle + rot;
-    }
-
-    public void RotateImmediately(float target_angle, float rot = 0f)
-    {
-        
-        // if (!IsRotatable)
-        //     return;
-        // if (m_EnemyDeath.m_IsDead)
-        //     return;
-        // CurrentAngle = target_angle + rot;
-    }
 }
 
 
@@ -265,7 +224,8 @@ public abstract class PlayerObject : UnitObject
     
     protected int _maxDamageLevel;
     protected int _damageLevel;
-    public int DamageLevel {
+    public int DamageLevel
+    {
         set
         {
             _damageLevel = value;

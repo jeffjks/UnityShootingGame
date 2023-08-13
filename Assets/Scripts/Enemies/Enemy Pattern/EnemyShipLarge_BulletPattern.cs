@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyShipLarge_BulletPattern_2A : BulletFactory, IBulletPattern // TODO. 패턴 리뉴얼 필요
+public class EnemyShipLarge_BulletPattern_2A : BulletFactory, IBulletPattern
 {
     public EnemyShipLarge_BulletPattern_2A(EnemyObject enemyObject) : base(enemyObject) { }
 

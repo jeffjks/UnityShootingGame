@@ -25,9 +25,9 @@ public class EnemyTankLarge1 : EnemyUnit
     {
         if (m_EnemyHealth.HealthPercent <= 0.33f)
         { // 체력 33% 이하
-            m_SubTurrets[0]?.m_EnemyDeath.OnDying();
-            m_SubTurrets[2]?.m_EnemyDeath.OnDying();
-            m_BackTurret?.m_EnemyDeath.OnDying();
+            m_SubTurrets[0]?.m_EnemyDeath.KillEnemy();
+            m_SubTurrets[2]?.m_EnemyDeath.KillEnemy();
+            m_BackTurret?.m_EnemyDeath.KillEnemy();
 
             if (_phase <= 1)
             {

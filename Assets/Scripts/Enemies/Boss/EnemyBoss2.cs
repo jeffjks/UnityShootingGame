@@ -26,9 +26,9 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain
         
         DisableInteractableAll();
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
     }
 
     protected override void Update()
@@ -53,7 +53,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain
         if (m_Phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.625f) { // 체력 62.5% 이하
                 for (int i = 0; i < m_Part1Turrets.Length; i++) {
-                    m_Part1Turrets[i].m_EnemyDeath.OnDying();
+                    m_Part1Turrets[i].m_EnemyDeath.KillEnemy();
                 }
                 BulletManager.SetBulletFreeState(2000);
                 ToNextPhase(NEXT_PHASE_DELAY);
@@ -62,7 +62,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain
         else if (m_Phase == 2) {
             if (m_EnemyHealth.HealthPercent <= 0.25f) { // 체력 25% 이하
                 for (int i = 0; i < m_Part2Turrets.Length; i++) {
-                    m_Part2Turrets[i].m_EnemyDeath.OnDying();
+                    m_Part2Turrets[i].m_EnemyDeath.KillEnemy();
                 }
                 BulletManager.SetBulletFreeState(2000);
                 ToNextPhase(NEXT_PHASE_DELAY);
@@ -225,17 +225,17 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain
         m_MoveVector = new MoveVector(0f, 0f);
 
         for (int i = 0; i < m_Part3Turrets.Length; i++) {
-            m_Part3Turrets[i].m_EnemyDeath.OnDying();
+            m_Part3Turrets[i].m_EnemyDeath.KillEnemy();
         }
         
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);

@@ -31,7 +31,7 @@ public class EnemyShipCarrier : EnemyUnit
         foreach (var enemyUnit in _enemyUnits)
         {
             if (enemyUnit != null)
-                enemyUnit.m_EnemyDeath.OnDying();
+                enemyUnit.m_EnemyDeath.KillEnemy();
         }
         
         yield break;

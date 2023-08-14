@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerTestPower : MonoBehaviour
+public class DebugPlayer : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
     public PlayerShootHandler m_PlayerShootHandler;

@@ -65,9 +65,9 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         
         m_EnemyDeath = GetComponent<EnemyDeath>();
         
-        m_EnemyDeath.Action_OnDying += HandleOnDying;
-        m_EnemyDeath.Action_OnDying += DisableInteractable;
-        m_EnemyDeath.Action_OnDying += StopAllPatterns;
+        m_EnemyDeath.Action_OnKilled += HandleOnKilled;
+        m_EnemyDeath.Action_OnKilled += DisableInteractable;
+        m_EnemyDeath.Action_OnKilled += StopAllPatterns;
         if (m_EnemyType != EnemyType.Zako || m_IsAir) { // 지상 자코가 아닐 경우
             if (TryGetComponent(out EnemyColorBlender enemyColorBlender)) {
                 Action_StartInteractable += enemyColorBlender.StartInteractableEffect;
@@ -195,14 +195,14 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         EnableInteractable();
     }
 
-    private void HandleOnDying() {
-        m_EnemyDeath.m_IsDead = true;
+    private void HandleOnKilled() {
+        m_EnemyDeath.IsDead = true;
         InGameDataManager.Instance.AddScore(m_Score);
         StartCoroutine(DyingEffect());
     }
 
     protected virtual IEnumerator DyingEffect() {
-        m_EnemyDeath.OnDeath();
+        m_EnemyDeath.OnEndDeathAnimation();
         yield break;
     }
 
@@ -281,7 +281,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             return;
         }
 
-        m_EnemyDeath.OnRemoved();
+        m_EnemyDeath.RemoveEnemy();
     }
 
 
@@ -304,6 +304,6 @@ interface ITargetPosition {
 }
 
 interface IEnemyBossMain {
-    public void OnBossDying();
-    public void OnBossDeath();
+    public void OnBossKilled();
+    public void OnEndBossDeathAnimation();
 }

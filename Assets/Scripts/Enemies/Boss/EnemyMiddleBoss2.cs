@@ -26,10 +26,10 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         
         DisableInteractableAll();
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDying;
-        m_Turret1.m_EnemyDeath.Action_OnDying += ToNextPhase;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnBossKilled;
+        m_Turret1.m_EnemyDeath.Action_OnKilled += ToNextPhase;
         SetRotatePattern(new RotatePattern_MoveDirection());
 
         SystemManager.OnMiddleBossStart();
@@ -52,7 +52,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         yield return MovementPattern(new MoveVector(-2f, m_MoveVector.direction), EaseType.InQuad, EaseType.InOutQuad, 1500); // speed to 2f
         yield return MovementPattern(new MoveVector(m_MoveVector.speed, 240f + 180f), EaseType.Linear, EaseType.InOutQuad, 2500); // direction to 240f
         yield return new WaitForMillisecondFrames(6500);
-        m_EnemyDeath.OnRemoved();
+        m_EnemyDeath.RemoveEnemy();
     }
 
     private IEnumerator MovementPattern(MoveVector target_moveVector, EaseType speedEase, EaseType directionEase, int duration) {
@@ -102,9 +102,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         StartPattern("2A", new BulletPattern_EnemyMiddleBoss2_2A(this));
         StartPattern("2B", new BulletPattern_EnemyMiddleBoss2_2B(this));
 
-        m_Turret1?.m_EnemyDeath.OnDying();
-        m_Turret2[0]?.m_EnemyDeath.OnDying();
-        m_Turret2[1]?.m_EnemyDeath.OnDying();
+        m_Turret1?.m_EnemyDeath.KillEnemy();
+        m_Turret2[0]?.m_EnemyDeath.KillEnemy();
+        m_Turret2[1]?.m_EnemyDeath.KillEnemy();
         
         //m_Collider2D[0].gameObject.SetActive(true);
         EnableInteractableAll();
@@ -124,11 +124,11 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnMiddleBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         InGameScreenEffectService.WhiteEffect(false);
     }
 }

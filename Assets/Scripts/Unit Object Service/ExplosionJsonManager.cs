@@ -139,12 +139,11 @@ public class ExplosionJsonManager : MonoBehaviour
             timer += timer_add;
             yield return new WaitForMillisecondFrames(timer_add);
         }
-        yield break;
     }
 
     private void OnExplosionEnd(EnemyDeath enemyDeath) {
-        if (enemyDeath.m_IsDead) {
-            enemyDeath.OnDeath();
+        if (enemyDeath.IsDead) {
+            enemyDeath.OnEndDeathAnimation();
         }
     }
 }

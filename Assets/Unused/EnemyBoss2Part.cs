@@ -14,7 +14,7 @@ public class EnemyBoss2Part : EnemyUnit
         
         //((EnemyBoss2) m_ParentEnemy).ToNextPhase(m_NextPhaseDelay);
         
-        m_EnemyDeath.OnDeath();
+        m_EnemyDeath.OnEndDeathAnimation();
         yield break;
     }
 }

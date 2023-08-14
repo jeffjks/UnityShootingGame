@@ -33,9 +33,9 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
     }
 
     protected override void Update()
@@ -134,7 +134,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
             if (m_Phase == 2) {
                 _currentPhase = Phase2();
                 StartCoroutine(_currentPhase);
-                m_Part.m_EnemyDeath.OnDying();
+                m_Part.m_EnemyDeath.KillEnemy();
                 m_EnemyHealth.SetInvincibility(duration);
                 NextPhaseExplosion();
             }
@@ -227,7 +227,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
             StopCoroutine(_currentPhase);
         for (int i = 0; i < m_Turret.Length; i++) {
             if (m_Turret[i] != null)
-                m_Turret[i].m_EnemyDeath.OnDying();
+                m_Turret[i].m_EnemyDeath.KillEnemy();
         }
         BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
@@ -238,11 +238,11 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
         m_PartOnDeath[1].SetActive(false);
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);

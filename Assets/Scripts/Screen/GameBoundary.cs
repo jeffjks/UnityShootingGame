@@ -33,7 +33,7 @@ public class GameBoundary : MonoBehaviour
         if (other.CompareTag("Enemy")) {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             if (enemyObject.transform == enemyObject.transform.root) { // 본체일 경우
-                if (!enemyObject.m_EnemyDeath.m_IsDead) {
+                if (!enemyObject.m_EnemyDeath.IsDead) {
                     enemyObject.OutOfBound();
                 }
             }

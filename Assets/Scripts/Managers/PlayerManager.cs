@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public GameObject m_PlayerPrefab;
-    public GameObject m_ItemPowerUp;
+    public Item m_ItemPowerUp;
     public ReplayManager m_ReplayManager;
     
     public GameObject Player { get; private set; }
@@ -105,9 +105,8 @@ public class PlayerManager : MonoBehaviour
         }
         InGameDataManager.Instance.AddMiss();
 
-        for (int i = 0; i < item_num; i++) { // item_num 만큼 파워업 아이템 드랍
-            GameObject item = Instantiate(m_ItemPowerUp, item_pos, Quaternion.identity);
-            Item m_Item = item.GetComponent<Item>();
+        for (var i = 0; i < item_num; i++) { // item_num 만큼 파워업 아이템 드랍
+            var item = Instantiate(m_ItemPowerUp, item_pos, Quaternion.identity);
         }
         _playerUnit.PlayerAttackLevel -= item_num;
     }

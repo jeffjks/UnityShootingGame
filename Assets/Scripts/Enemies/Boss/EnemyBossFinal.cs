@@ -22,9 +22,9 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -192,11 +192,11 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(2f);

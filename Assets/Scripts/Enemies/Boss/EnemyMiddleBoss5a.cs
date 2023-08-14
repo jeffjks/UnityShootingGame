@@ -19,9 +19,9 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     {
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDying;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
         SystemManager.OnMiddleBossStart();
         
@@ -171,11 +171,11 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnMiddleBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         InGameScreenEffectService.WhiteEffect(false);
     }
 }

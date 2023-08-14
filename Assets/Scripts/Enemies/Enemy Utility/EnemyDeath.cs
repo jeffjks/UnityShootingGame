@@ -5,38 +5,38 @@ using UnityEngine;
 
 public class EnemyDeath : MonoBehaviour
 {
-    public event Action Action_OnDying;
-    public event Action Action_OnDeath;
+    public event Action Action_OnKilled;
+    public event Action Action_OnEndDeathAnimation;
     public event Action Action_OnRemoved;
-    [HideInInspector] public bool m_IsDead = false;
+    public bool IsDead { get; set; }
 
     void Start()
     {
-        Action_OnDying += SetDeadState;
+        Action_OnKilled += SetDeadState;
     }
 
     private void SetDeadState() {
-        m_IsDead = true;
+        IsDead = true;
     }
 
-    public void OnDying() {
-        if (m_IsDead) {
+    public void KillEnemy() {
+        if (IsDead) {
             return;
         }
-        Action_OnDying?.Invoke();
+        Action_OnKilled?.Invoke();
         
         EnemyDeath[] enemyDeath = GetComponentsInChildren<EnemyDeath>();
         for (int i = 0; i < enemyDeath.Length; ++i) {
-            enemyDeath[i].OnDying();
+            enemyDeath[i].KillEnemy();
         }
     }
 
-    public void OnDeath() {
-        Action_OnDeath?.Invoke();
+    public void OnEndDeathAnimation() {
+        Action_OnEndDeathAnimation?.Invoke();
         Destroy(gameObject);
     }
 
-    public void OnRemoved() {
+    public void RemoveEnemy() {
         Action_OnRemoved?.Invoke();
         Destroy(gameObject);
     }

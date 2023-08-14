@@ -12,22 +12,137 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c04f282ee1aa694aa4bb828a8acfa4b, type: 3}
   m_Name: EnemyUnit Prefab Data
   m_EditorClassIdentifier: 
-  EnemyUnitPrefabs:
-  - name: TankSmall1
-    prefab: {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
-  - name: TankSmall2
-    prefab: {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
-  - name: Helicopter
-    prefab: {fileID: 2610135649203121185, guid: 691377558a126544bbcc4525f317a0c9,
+  AirEnemyPrefabs:
+  - enemyName: Helicopter
+    enemyUnit: {fileID: 4809145071204106495, guid: 691377558a126544bbcc4525f317a0c9,
       type: 3}
-  - name: ItemHeliRed
-    prefab: {fileID: 1770139926367605940, guid: ec11cef2fa1d4ac4db8ef555a8dc630e,
+    defaultPosition: {x: 0, y: 2, z: 0}
+  - enemyName: PlaneSmall1
+    enemyUnit: {fileID: 4992371589699399945, guid: f7728fb29871acb47b34bf1f7aedcfc1,
       type: 3}
-  - name: PlaneSmall1
-    prefab: {fileID: 100014, guid: f7728fb29871acb47b34bf1f7aedcfc1, type: 3}
-  - name: ShipSmall1
-    prefab: {fileID: 100016, guid: fde099b61cee14345a24c27a878ea83a, type: 3}
-  - name: PlaneMedium1
-    prefab: {fileID: 100022, guid: 4a7f0f8c1948b3c4aac3995529017058, type: 3}
-  - name: PlaneMedium3
-    prefab: {fileID: 100040, guid: f152f960cd4bd53408ba28b300a96fbf, type: 3}
+    defaultPosition: {x: 0, y: 2, z: 0}
+  - enemyName: PlaneSmall2
+    enemyUnit: {fileID: 1079206839345538828, guid: 02c15b5e607002049ae7dafea72d59e2,
+      type: 3}
+    defaultPosition: {x: 0, y: 2, z: 0}
+  - enemyName: PlaneSmall3
+    enemyUnit: {fileID: 8822356553103738460, guid: cccf4ecdf235ef9449af4985f990a850,
+      type: 3}
+    defaultPosition: {x: 0, y: 2, z: 0}
+  - enemyName: ItemHeliRed
+    enemyUnit: {fileID: 2920277950422956973, guid: ec11cef2fa1d4ac4db8ef555a8dc630e,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  - enemyName: ItemHeliGreen
+    enemyUnit: {fileID: 2039957484594992876, guid: 84ee4271d2bd51a4f9517974be350148,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  - enemyName: Gunship
+    enemyUnit: {fileID: 2734892192389342171, guid: 3e3304ed2d033014780a68963f571825,
+      type: 3}
+    defaultPosition: {x: -9.555, y: -3, z: 0}
+  - enemyName: PlaneBomber
+    enemyUnit: {fileID: 1939308523946767372, guid: 4a7f0f8c1948b3c4aac3995529017058,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  - enemyName: PlaneScouter
+    enemyUnit: {fileID: 577099269186788663, guid: 115679294ce48084e99d458150e3af61,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  - enemyName: PlaneRanger
+    enemyUnit: {fileID: 7460271519197683389, guid: f152f960cd4bd53408ba28b300a96fbf,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  - enemyName: PlaneLindwurm
+    enemyUnit: {fileID: 7636915655271683178, guid: 3c9acb6ed1d30384aa75b8bd4e6be01f,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  - enemyName: PlaneFrigate
+    enemyUnit: {fileID: 4972793159689678571, guid: b5fea407a60574f49ac95ab25487cf83,
+      type: 3}
+    defaultPosition: {x: -10.555, y: -2, z: 0}
+  - enemyName: PlaneBattleship
+    enemyUnit: {fileID: 7903204131874078517, guid: 4801bb2cdb0d1ab48be9cfed39e019c0,
+      type: 3}
+    defaultPosition: {x: 11, y: -3, z: 0}
+  - enemyName: PlaneAirFortress
+    enemyUnit: {fileID: 2059762339551745271, guid: c2a0d51ba2f914f4490fe61fe3cae693,
+      type: 3}
+    defaultPosition: {x: 0, y: 5, z: 0}
+  - enemyName: PlaneViking
+    enemyUnit: {fileID: 2563803976030731554, guid: 08d81f4fe50e55f46984cbaab086ddeb,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 0}
+  GroundEnemyPrefabs:
+  - enemyName: TankSmall1
+    enemyUnit: {fileID: 8068312687421605875, guid: 1843e9acf2d3dc5418f615bcf5a7b86e,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankSmall2
+    enemyUnit: {fileID: 148231667775193918, guid: 37082ba0f130558408b298430506019a,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankSmall3
+    enemyUnit: {fileID: 4755303997625997831, guid: c7c57e1830349914dbad94867eaa8a23,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankMarauder
+    enemyUnit: {fileID: 4987848309060957489, guid: 7f71ca8d301cd5e42952884da283fcd1,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankArtillery
+    enemyUnit: {fileID: 8177157520491495044, guid: 19b5952420e31a846b47201d539459d9,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankFlak
+    enemyUnit: {fileID: 4641978124879329762, guid: 2d57fa3eedf91944e9c8d8310d670f1a,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankArclite
+    enemyUnit: {fileID: 611388499316022645, guid: 5cd4761de8f774c47a3d30064b3f4e96,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankScorpion
+    enemyUnit: {fileID: 8398379833720575597, guid: fee8a48d14e5e3a40ae478a182c83325,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: TankTurtle
+    enemyUnit: {fileID: 1954327149335142907, guid: b9bdbda092004034e839df5181db4bc1,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: Turret1
+    enemyUnit: {fileID: 7225392929717830585, guid: 209a7fe0ffb83614d91a7658db0b1dcb,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: Turret2
+    enemyUnit: {fileID: 5666303648770411826, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: Turret3
+    enemyUnit: {fileID: 8259466801933660769, guid: 36679f8f89b3ec247a08ac00572e9cd0,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: ShipSmall1
+    enemyUnit: {fileID: 3119006708911008031, guid: fde099b61cee14345a24c27a878ea83a,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: ShipSmall2
+    enemyUnit: {fileID: 3214695909034335811, guid: a6416b0ddb7a93e45b2dc48b34f355d1,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: ShipDestroyer
+    enemyUnit: {fileID: 6257076432406510264, guid: 27f1241ee78b41e438b446db2c8ba5bf,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: ShipCruiser
+    enemyUnit: {fileID: 4199735894588476970, guid: ac3860b22313225478f27a97e5eb442d,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 40}
+  - enemyName: ShipCarrier_Aircraft
+    enemyUnit: {fileID: 5934066734732574098, guid: a1c2794f8e78bfa439b3da14accdddf3,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 36}
+  - enemyName: ShipCarrier_Tank
+    enemyUnit: {fileID: 1843840746731019506, guid: 2b679c15f9e294c4198a62e1972ef6e3,
+      type: 3}
+    defaultPosition: {x: 0, y: 3, z: 36}

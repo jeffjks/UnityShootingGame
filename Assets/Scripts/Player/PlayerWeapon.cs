@@ -18,7 +18,8 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         set
         {
             _currentAngle = value;
-            OnCurrentAngleChanged(_currentAngle);
+            _currentAngle = Mathf.Repeat(_currentAngle, 360f);
+            OnCurrentAngleChanged();
         }
     }
 
@@ -51,7 +52,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 if (m_IsPenetrate) { // 관통 공격이며
                     if (Utility.CheckLayer(other.gameObject, Layer.SMALL)) { // 적이 소형이면
-                        enemyObject.m_EnemyDeath.OnDying(); // 기냥 죽임
+                        enemyObject.m_EnemyDeath.KillEnemy(); // 기냥 죽임
                     }
                 }
                 else { // 그 이외의 경우에는
@@ -91,15 +92,8 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         ReturnToPool();
     }
 
-    private void OnCurrentAngleChanged(float value)
+    private void OnCurrentAngleChanged()
     {
-        if (CurrentAngle > 360f) {
-            CurrentAngle -= 360f;
-        }
-        else if (CurrentAngle < 0f) {
-            CurrentAngle += 360f;
-        }
-
-        transform.rotation = Quaternion.AngleAxis(CurrentAngle, Vector3.forward); // Vector3.forward
+        transform.rotation = Quaternion.AngleAxis(_currentAngle, Vector3.forward); // Vector3.forward
     }
 }

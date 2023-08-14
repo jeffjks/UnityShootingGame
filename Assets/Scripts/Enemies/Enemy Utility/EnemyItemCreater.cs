@@ -10,7 +10,7 @@ public class EnemyItemCreater : MonoBehaviour
     
     void Start()
     {
-        m_EnemyDeath.Action_OnDeath += CreateItems;
+        m_EnemyDeath.Action_OnEndDeathAnimation += CreateItems;
     }
 
     private void CreateItems() {

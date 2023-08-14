@@ -21,9 +21,9 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         
         RotateUnit(AngleToPlayer);
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDying;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
         SystemManager.OnMiddleBossStart();
         /*
@@ -127,7 +127,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         BulletManager.BulletsToGems(3000);
         m_Phase = 2;
         StopAllPatterns();
-        m_Turret.m_EnemyDeath.OnDying();
+        m_Turret.m_EnemyDeath.KillEnemy();
 
         if (m_MovementPattern != null) {
             StopCoroutine(m_MovementPattern);
@@ -143,11 +143,11 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnMiddleBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         InGameScreenEffectService.WhiteEffect(false);
     }
 }

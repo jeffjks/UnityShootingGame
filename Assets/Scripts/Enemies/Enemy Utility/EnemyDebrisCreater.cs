@@ -9,7 +9,7 @@ public class EnemyDebrisCreater : MonoBehaviour
 
     void Start()
     {
-        m_EnemyDeath.Action_OnDeath += CreateDebris;
+        m_EnemyDeath.Action_OnEndDeathAnimation += CreateDebris;
     }
 
     private void CreateDebris()

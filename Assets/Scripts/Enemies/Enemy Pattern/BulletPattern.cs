@@ -198,17 +198,21 @@ public class BulletFactory
         float camera_x = MainCamera.Camera.transform.position.x;
         var limitLine = (_enemyObject is EnemyBullet) ? -Size.GAME_HEIGHT : SAFE_LINE;
 
-        if (!_enemyObject.IsInteractable())
-            return false;
-        if (!PlayerManager.IsPlayerAlive)
-            return false;
-        if (!SystemManager.IsOnGamePlayState())
-            return false;
         if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH)
             return false;
         if (pos.y > 0)
             return false;
         if (pos.y < limitLine)
+            return false;
+        if (!_enemyObject.IsInteractable())
+            return false;
+
+        if (GameManager.IsDebugScene)
+            return true;
+        
+        if (!PlayerManager.IsPlayerAlive)
+            return false;
+        if (!SystemManager.IsOnGamePlayState())
             return false;
         
         return true;

@@ -101,7 +101,7 @@ public class WaitForMillisecondFrames : CustomYieldInstruction
 
 public class AC_Ease
 {
-    public static readonly AnimationCurve[] ac_ease = new AnimationCurve[4];
+    public static readonly List<AnimationCurve> ac_ease = new();
 }
 
 [Serializable]
@@ -585,13 +585,6 @@ public class LocalRankingData : IComparable<LocalRankingData> {
         string attributesCode = shipAttributes.GetAttributesCode();
         Debug.Log($"{id}, {score}, {attributesCode}, {miss}, {date}");
     }
-}
-
-[Serializable]
-public struct EnemyUnitPrefab
-{
-    public string enemyName;
-    public GameObject prefab;
 }
 
 [Serializable]

@@ -654,6 +654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3751866176514020007}
   - component: {fileID: 3751866176514020003}
+  - component: {fileID: 1920078058679409277}
   m_Layer: 0
   m_Name: InGame System
   m_TagString: Untagged
@@ -692,3 +693,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InGameWorldCanvasTransform: {fileID: 7148374621239708662}
+--- !u!114 &1920078058679409277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751866176514020006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908f32c2b6454a24c97a4842abe5984f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -20,7 +20,7 @@ public class EnemyPlaneMedium3 : EnemyUnit
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += DestroyTurrets;
+        m_EnemyDeath.Action_OnKilled += DestroyTurrets;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -72,8 +72,8 @@ public class EnemyPlaneMedium3 : EnemyUnit
     }
 
     private void DestroyTurrets() {
-        m_Turret[0].m_EnemyDeath.OnDying();
-        m_Turret[1].m_EnemyDeath.OnDying();
+        m_Turret[0].m_EnemyDeath.KillEnemy();
+        m_Turret[1].m_EnemyDeath.KillEnemy();
     }
 }
 

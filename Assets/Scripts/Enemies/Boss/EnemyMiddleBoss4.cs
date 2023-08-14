@@ -21,9 +21,9 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDying;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnBossKilled;
         
         /*
         m_Sequence = DOTween.Sequence()
@@ -204,7 +204,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     protected override IEnumerator DyingEffect() { // 파괴 과정
         for (int i = 0; i < m_Part.Length; i++) {
             if (m_Part[i] != null) {
-                m_Part[i].m_EnemyDeath.OnDying();
+                m_Part[i].m_EnemyDeath.KillEnemy();
             }
         }
 
@@ -215,11 +215,11 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnMiddleBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         InGameScreenEffectService.WhiteEffect(false);
     }
 }

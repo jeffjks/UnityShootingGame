@@ -17,7 +17,7 @@ public class EnemyTurretBody : EnemyUnit
     private void DestroyChildEnemy() {
         if (m_EnemyHealth.HealthPercent <= m_HealthPercentTurretDestroying) {
             if (m_Turret != null)
-                m_Turret.m_EnemyDeath.OnDying();
+                m_Turret.m_EnemyDeath.KillEnemy();
         }
     }
 }

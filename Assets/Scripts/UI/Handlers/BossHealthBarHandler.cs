@@ -50,7 +50,7 @@ public class BossHealthBarHandler : MonoBehaviour
         enemyUnit.m_EnemyHealth.Action_OnHealthChanged += CheckHealthBarLowState;
         _enemyUnit = enemyUnit;
         StartScrollDownBar();
-        enemyUnit.m_EnemyDeath.Action_OnDying += StartScrollUpBar;
+        enemyUnit.m_EnemyDeath.Action_OnKilled += StartScrollUpBar;
     }
 
     private void StartScrollDownBar() {

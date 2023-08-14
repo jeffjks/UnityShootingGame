@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,10 +14,11 @@ public class GameManager : MonoBehaviour
 
     private static string m_AccountID = string.Empty;
     private static string m_EncryptedAccountID;
-
-    public AnimationCurve[] m_AnimationCurve = new AnimationCurve[3];
+    
+    public List<AnimationCurve> m_AnimationCurves;
 
     public static bool isOnline;
+    public static bool IsDebugScene;
 
     public static GameManager Instance { get; private set; }
 
@@ -35,8 +37,9 @@ public class GameManager : MonoBehaviour
         
         //m_CurrentAttributes = new ShipAttribute(0, 0, 0, 0, 0, 0, 0);
 
-        for (int i = 0; i < m_AnimationCurve.Length; ++i) {
-            AC_Ease.ac_ease[i] = m_AnimationCurve[i];
+        foreach (var animationCurve in m_AnimationCurves)
+        {
+            AC_Ease.ac_ease.Add(animationCurve);
         }
 
         DOTween.SetTweensCapacity(512, 64);

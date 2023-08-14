@@ -90,8 +90,8 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     private void ToNextPhase() {
         m_Phase++;
-        m_Turret[0].m_EnemyDeath.OnDying();
-        m_Turret[1].m_EnemyDeath.OnDying();
+        m_Turret[0].m_EnemyDeath.KillEnemy();
+        m_Turret[1].m_EnemyDeath.KillEnemy();
         Destroy(m_Part[0]);
         Destroy(m_Part[1]);
         

@@ -33,11 +33,11 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
         m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
-        m_Part.m_EnemyDeath.Action_OnDying += ToNextPhase;
+        m_Part.m_EnemyDeath.Action_OnKilled += ToNextPhase;
     }
 
     protected override void Update()
@@ -51,7 +51,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
         if (m_Phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.30f) { // 체력 30% 이하
                 if (m_Part != null)
-                    m_Part.m_EnemyDeath.OnDying();
+                    m_Part.m_EnemyDeath.KillEnemy();
             }
         }
     }
@@ -285,17 +285,17 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
             StopCoroutine(m_CurrentPhase);
         BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0.6f, 0f);
-        m_Turret1.m_EnemyDeath.OnDying();
+        m_Turret1.m_EnemyDeath.KillEnemy();
 
         m_Rotator.DORotateQuaternion(Quaternion.identity, 1f).SetEase(Ease.Linear);
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);

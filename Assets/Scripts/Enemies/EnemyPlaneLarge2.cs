@@ -27,7 +27,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
     protected override IEnumerator DyingEffect() { // 파괴 과정
         for (int i = 0; i < m_Turret.Length; i++) {
             if (m_Turret[i] != null)
-                m_Turret[i].m_EnemyDeath.OnDying();
+                m_Turret[i].m_EnemyDeath.KillEnemy();
         }
         BulletManager.SetBulletFreeState(1000);
         

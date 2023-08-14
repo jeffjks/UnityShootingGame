@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140016, g: 0.50089294, b: 0.57231724, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1735,7 +1735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GameSetting: {fileID: 1577670865}
   m_NetworkAccount: {fileID: 1110295709}
-  m_AnimationCurve:
+  m_AnimationCurves:
   - serializedVersion: 2
     m_Curve:
     - serializedVersion: 3

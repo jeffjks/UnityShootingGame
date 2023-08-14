@@ -31,9 +31,9 @@ public class EnemyShipLarge : EnemyUnit
             _phase = 2;
             StartPattern("2A", new EnemyShipLarge_BulletPattern_2A(this));
             if (m_FrontTurret != null)
-                m_FrontTurret.m_EnemyDeath.OnDying();
+                m_FrontTurret.m_EnemyDeath.KillEnemy();
             if (m_BackTurret != null)
-                m_BackTurret.m_EnemyDeath.OnDying();
+                m_BackTurret.m_EnemyDeath.KillEnemy();
         }
     }
 }

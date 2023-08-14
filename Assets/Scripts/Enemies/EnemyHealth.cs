@@ -165,7 +165,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     private void UpdateColorBlend() {
-        if (m_EnemyDeath.m_IsDead)
+        if (m_EnemyDeath.IsDead)
             return;
 
         Action_DamagingBlend?.Invoke();
@@ -193,6 +193,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     private void OnHpZero() {
-        m_EnemyDeath.OnDying();
+        m_EnemyDeath.KillEnemy();
     }
 }

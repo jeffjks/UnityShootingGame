@@ -14,7 +14,7 @@ public class EnemyDefaultExplosionCreater : MonoBehaviour, IExplosionCreater
     {
         _explosionJsonManager = ExplosionJsonManager.Instance;
 
-        m_EnemyDeath.Action_OnDying += StartExplosion;
+        m_EnemyDeath.Action_OnKilled += StartExplosion;
     }
 
     public void StartExplosion() {

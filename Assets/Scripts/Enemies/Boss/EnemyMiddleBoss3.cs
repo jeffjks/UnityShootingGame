@@ -22,9 +22,9 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         int delay = 2000;
         StartCoroutine(AppearanceSequence(delay));
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDying;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
         /*
         m_Sequence = DOTween.Sequence()
@@ -136,11 +136,11 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnMiddleBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         InGameScreenEffectService.WhiteEffect(false);
     }
 }

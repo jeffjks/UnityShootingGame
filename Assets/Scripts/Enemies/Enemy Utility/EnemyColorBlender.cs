@@ -41,14 +41,14 @@ public class EnemyColorBlender : MonoBehaviour
     {
         m_EnemyHealth.Action_LowHealthState += StartLowHealthBlendEffect;
         m_EnemyHealth.Action_DamagingBlend += SetDamagingBlendEffectTimer;
-        m_EnemyDeath.Action_OnDying += DyingImageBlend;
+        m_EnemyDeath.Action_OnKilled += DyingImageBlend;
     }
 
     private void OnDisable()
     {
         m_EnemyHealth.Action_LowHealthState -= StartLowHealthBlendEffect;
         m_EnemyHealth.Action_DamagingBlend -= SetDamagingBlendEffectTimer;
-        m_EnemyDeath.Action_OnDying -= DyingImageBlend;
+        m_EnemyDeath.Action_OnKilled -= DyingImageBlend;
 
         StopAllCoroutines();
     }

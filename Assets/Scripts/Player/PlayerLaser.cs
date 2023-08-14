@@ -29,7 +29,7 @@ public class PlayerLaser : PlayerObject
                     DealDamage(enemyObject); // 데미지 줌
                 }
                 else { // 소형이면 기냥 죽임
-                    enemyObject.m_EnemyDeath.OnDying();
+                    enemyObject.m_EnemyDeath.KillEnemy();
                 }
             }
         }

@@ -35,9 +35,9 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain
 
         StartCoroutine(AppearanceSequence());
 
-        m_EnemyDeath.Action_OnDying += OnBossDying;
-        m_EnemyDeath.Action_OnDeath += OnBossDeath;
-        m_EnemyDeath.Action_OnRemoved += OnBossDeath;
+        m_EnemyDeath.Action_OnKilled += OnBossKilled;
+        m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
+        m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
 
         _trackMaterial = m_Track.material;
         _childEnemyUnits = GetComponentsInChildren<EnemyUnit>();
@@ -97,7 +97,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain
             if (m_EnemyHealth.HealthPercent <= 0.65f) { // 체력 65% 이하
                 for (int i = 0; i < m_FrontTurrets.Length; i++) {
                     if (m_FrontTurrets[i] != null)
-                        m_FrontTurrets[i].m_EnemyDeath.OnDying();
+                        m_FrontTurrets[i].m_EnemyDeath.KillEnemy();
                 }
                 BulletManager.SetBulletFreeState(2000);
                 NextPhaseExplosion();
@@ -353,18 +353,18 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain
         foreach (var smallTurret in m_SmallTurrets)
         {
             if (smallTurret != null)
-                smallTurret.m_EnemyDeath.OnDying();
+                smallTurret.m_EnemyDeath.KillEnemy();
         }
         BulletManager.BulletsToGems(2000);
         
         yield break;
     }
 
-    public void OnBossDying() {
+    public void OnBossKilled() {
         SystemManager.OnBossClear();
     }
 
-    public void OnBossDeath() {
+    public void OnEndBossDeathAnimation() {
         SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);

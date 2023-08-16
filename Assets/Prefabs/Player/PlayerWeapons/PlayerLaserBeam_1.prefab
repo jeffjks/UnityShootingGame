@@ -144,13 +144,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2592797742405677791}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5599177937166425239}
-  m_RootOrder: 3
+  m_Father: {fileID: 6029975352679135706}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2394024062048726727
 ParticleSystem:
@@ -169,7 +169,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4912,7 +4912,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1722506597
   m_SortingLayer: 3
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4993,7 +4993,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -14650,7 +14650,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -19464,7 +19464,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5599177937166425239}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2393782183008502329
 ParticleSystem:
@@ -19483,7 +19483,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -24307,7 +24307,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -29335,7 +29335,6 @@ Transform:
   - {fileID: 2587670999047335287}
   - {fileID: 2587413516413000781}
   - {fileID: 2587729242955816337}
-  - {fileID: 2591261723438872911}
   - {fileID: 2591774478885651169}
   m_Father: {fileID: 2591300526247460903}
   m_RootOrder: 3
@@ -34151,6 +34150,7 @@ Transform:
   m_Children:
   - {fileID: 2591286038798728867}
   - {fileID: 4883030118288812901}
+  - {fileID: 2591261723438872911}
   m_Father: {fileID: 2591300526247460903}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48592,7 +48592,7 @@ GameObject:
   - component: {fileID: 4861573658319291414}
   - component: {fileID: 7278009066642886014}
   - component: {fileID: 8999095919834737073}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48804,7 +48804,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.735849, g: 0.19386256, b: 0.010412939, a: 1}
+      maxColor: {r: 0.8039216, g: 0.08627451, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -53412,7 +53412,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74f7a67779760e44d97ddd9bcb40b33f, type: 2}
+  - {fileID: 2100000, guid: b1f457093fc12ce4c9aa3dbb27216209, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

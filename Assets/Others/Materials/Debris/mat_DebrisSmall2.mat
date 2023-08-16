@@ -34,7 +34,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 57249f334f3028643a9c7c7355b75781, type: 3}
+        m_Texture: {fileID: 2800000, guid: 218808d64d508de45b2b72b7f6a384cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecTex:

@@ -47,10 +47,9 @@ public class EnemyPlaneLarge1 : EnemyUnit
 
     private void OnAppearanceComplete() {
         m_Phase = 1;
+        EnableInteractableAll();
 
         StartPattern("1A", new EnemyPlaneLarge1_BulletPattern_1A(this));
-
-        EnableInteractableAll();
 
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);

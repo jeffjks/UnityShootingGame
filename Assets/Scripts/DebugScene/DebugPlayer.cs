@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DebugPlayer : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
-    public PlayerShootHandler m_PlayerShootHandler;
+    [FormerlySerializedAs("m_PlayerShootHandler")] public PlayerShotHandler m_PlayerShotHandler;
     public PlayerLaserHandler m_PlayerLaserHandler;
     public TextMeshProUGUI m_ShotIndexText;
     public TextMeshProUGUI m_LaserIndexText;
+    public TextMeshProUGUI m_ModuleIndexText;
     public TextMeshProUGUI m_PowerText;
     
     private int _attackLevel;
     private int _shotIndex;
     private int _laserIndex;
+    private int _moduleIndex;
 
     private int AttackLevel
     {
@@ -36,7 +39,7 @@ public class DebugPlayer : MonoBehaviour
             _shotIndex = value;
             _shotIndex = Mathf.Clamp(_shotIndex, 0, 2);
             m_ShotIndexText.SetText($"ShotIndex: {_shotIndex}");
-            m_PlayerShootHandler.ShotIndex = _shotIndex;
+            m_PlayerShotHandler.ShotIndex = _shotIndex;
         }
     }
     
@@ -51,12 +54,25 @@ public class DebugPlayer : MonoBehaviour
             m_PlayerLaserHandler.LaserIndex = _laserIndex;
         }
     }
+    
+    private int ModuleIndex
+    {
+        get => _moduleIndex;
+        set
+        {
+            _moduleIndex = value;
+            _moduleIndex = Mathf.Clamp(_moduleIndex, 0, 3);
+            m_ModuleIndexText.SetText($"ModuleIndex: {_moduleIndex}");
+            m_PlayerShotHandler.ModuleIndex = _moduleIndex;
+        }
+    }
 
     private void Start()
     {
         AttackLevel = m_PlayerUnit.PlayerAttackLevel;
-        ShotIndex = m_PlayerShootHandler.ShotIndex;
+        ShotIndex = m_PlayerShotHandler.ShotIndex;
         LaserIndex = m_PlayerLaserHandler.LaserIndex;
+        ModuleIndex = m_PlayerShotHandler.ModuleIndex;
     }
 
     public void OnClickPowerDown()
@@ -87,5 +103,15 @@ public class DebugPlayer : MonoBehaviour
     public void OnClickLaserIndexUp()
     {
         LaserIndex++;
+    }
+
+    public void OnClickModuleIndexDown()
+    {
+        ModuleIndex--;
+    }
+
+    public void OnClickModuleIndexUp()
+    {
+        ModuleIndex++;
     }
 }

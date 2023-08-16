@@ -119,12 +119,9 @@ public class PlayerManager : MonoBehaviour
     }
 
     public static Vector3 GetPlayerPosition() {
-        var defaultVector = new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
-        if (SystemManager.PlayState == PlayState.OutGame)
-        {
-            return defaultVector;
-        }
-        return Instance._playerUnit.transform.position;
+        if (IsPlayerAlive)
+            return Instance._playerUnit.transform.position;
+        return new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
     }
 
     private void DestroySelf()

@@ -14,9 +14,9 @@ public class InGameScreenEffectService : MonoBehaviour
 		TransitioningOut
 	}
 
-	public GameObject m_TransitionBlock;
-	public GameObject m_TransitionEffectController;
-	public GameObject m_WhiteEffectController;
+	public InGameScreenTransitionEffect m_TransitionBlock;
+	public RectTransform m_TransitionContent;
+	public WhiteEffectController m_WhiteEffectController;
 	
 	public TransitionState CurrentState { get; set; }
 	
@@ -24,7 +24,6 @@ public class InGameScreenEffectService : MonoBehaviour
 	private const int TRANSITION_BLOCK_ROW = 8;
 	private const int DELAY_INTERVAL = 160;
 	
-	private WhiteEffectController _whiteEffectController;
 	private readonly List<InGameScreenTransitionEffect> _transitionList = new ();
     private static InGameScreenEffectService Instance { get; set; }
     
@@ -37,8 +36,6 @@ public class InGameScreenEffectService : MonoBehaviour
         Instance = this;
         
         Init();
-
-        _whiteEffectController = m_WhiteEffectController.GetComponent<WhiteEffectController>();
     }
 
     private void Init()
@@ -46,9 +43,8 @@ public class InGameScreenEffectService : MonoBehaviour
 	    CurrentState = TransitionState.TransitionIn;
 	    const int COLUMN = TRANSITION_NUMBER / TRANSITION_BLOCK_ROW;
 	    
-	    for (int i = 0; i < TRANSITION_NUMBER; ++i) {
-		    GameObject obj = Instantiate(m_TransitionBlock, m_TransitionEffectController.transform);
-		    InGameScreenTransitionEffect screenTransitionEffect = obj.GetComponent<InGameScreenTransitionEffect>();
+	    for (var i = 0; i < TRANSITION_NUMBER; ++i) {
+		    var screenTransitionEffect = Instantiate(m_TransitionBlock, m_TransitionContent);
 		    screenTransitionEffect.Delay = i / TRANSITION_BLOCK_ROW * DELAY_INTERVAL;
 		    if ((i + i / COLUMN) % 2 == 1)
 		    {
@@ -56,9 +52,6 @@ public class InGameScreenEffectService : MonoBehaviour
 		    }
 		    _transitionList.Add(screenTransitionEffect);
 	    }
-	    
-	    //m_TransitionEffectController.SetActive(true);
-	    //m_WhiteEffectController.SetActive(true);
     }
 
 	public static void TransitionOut(float duration = 1f)
@@ -94,6 +87,6 @@ public class InGameScreenEffectService : MonoBehaviour
 
 	public static void WhiteEffect(bool isLarge)
 	{
-		Instance._whiteEffectController.PlayWhiteEffect(isLarge);
+		Instance.m_WhiteEffectController.PlayWhiteEffect(isLarge);
 	}
 }

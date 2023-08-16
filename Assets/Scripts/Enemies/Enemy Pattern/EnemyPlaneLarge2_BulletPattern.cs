@@ -16,8 +16,8 @@ public class EnemyPlaneLarge2_BulletPattern_1A : BulletFactory, IBulletPattern
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 break;
             }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                for (int i = 0; i < 12; i++) {
+            if (SystemManager.Difficulty == GameDifficulty.Expert) {
+                for (int i = 0; i < 16; i++) {
                     var pos = GetFirePos(0);
                     var dir = 115f - 4.8f * i;
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 10f, BulletPivot.Player, 0f, 2, dir));
@@ -25,12 +25,12 @@ public class EnemyPlaneLarge2_BulletPattern_1A : BulletFactory, IBulletPattern
                 }
             }
             else {
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < 20; i++) {
                     var pos = GetFirePos(0);
                     var dir1 = 120f - 5.3f * i;
                     var dir2 = 120f - 4.8f * i;
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 9.5f, BulletPivot.Player, 0f, 2, dir1));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 11f, BulletPivot.Player, 0f, 2, dir2));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 13f, BulletPivot.Player, 0f, 2, dir2));
                     yield return new WaitForFrames(3);
                 }
             }

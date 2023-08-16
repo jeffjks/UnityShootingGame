@@ -7,7 +7,6 @@ public class EnemyTankLarge1 : EnemyUnit
 {
     public EnemyTankLarge1_SubTurret[] m_SubTurrets = new EnemyTankLarge1_SubTurret[2];
     public EnemyTankLarge1_BackTurret m_BackTurret;
-    public Transform m_LauncherRotation;
     public Animator m_RotateAnimator;
 
     private int _phase;
@@ -24,10 +23,13 @@ public class EnemyTankLarge1 : EnemyUnit
     private void ToNextPhase()
     {
         if (m_EnemyHealth.HealthPercent <= 0.33f)
-        { // 체력 33% 이하
-            m_SubTurrets[0]?.m_EnemyDeath.KillEnemy();
-            m_SubTurrets[2]?.m_EnemyDeath.KillEnemy();
-            m_BackTurret?.m_EnemyDeath.KillEnemy();
+        {
+            if (m_SubTurrets[0] != null)
+                m_SubTurrets[0].m_EnemyDeath.KillEnemy();
+            if (m_SubTurrets[2] != null)
+                m_SubTurrets[2].m_EnemyDeath.KillEnemy();
+            if (m_BackTurret != null)
+                m_BackTurret.m_EnemyDeath.KillEnemy();
 
             if (_phase <= 1)
             {
@@ -57,8 +59,8 @@ public class EnemyTankLarge1 : EnemyUnit
         if (!_isSubTurretStart) {
             if (Mathf.Abs(m_SubTurrets[0].m_Position2D.x) <= 7f && Mathf.Abs(m_SubTurrets[1].m_Position2D.x) <= 7f)
             {
-                m_SubTurrets[0].StartPattern("A", new EnemyTankLarge1_BulletPattern_SubTurret_A(m_SubTurrets[0]));
-                m_SubTurrets[1].StartPattern("A", new EnemyTankLarge1_BulletPattern_SubTurret_A(m_SubTurrets[1]));
+                m_SubTurrets[0].StartPattern("A", new EnemyTankLarge1_BulletPattern_SubTurret_A(m_SubTurrets[0], m_BackTurret));
+                m_SubTurrets[1].StartPattern("A", new EnemyTankLarge1_BulletPattern_SubTurret_A(m_SubTurrets[1], null));
                 _isSubTurretStart = true;
             }
         }

@@ -70,11 +70,11 @@ public class EnemyTankLarge1_BulletPattern_B : BulletFactory, IBulletPattern
 
 public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletPattern
 {
-    private readonly EnemyTankLarge1 _typedEnemyObject;
+    private readonly EnemyTankLarge1_BackTurret _backTurret;
 
-    public EnemyTankLarge1_BulletPattern_SubTurret_A(EnemyObject enemyObject) : base(enemyObject)
+    public EnemyTankLarge1_BulletPattern_SubTurret_A(EnemyObject enemyObject, EnemyTankLarge1_BackTurret backTurret) : base(enemyObject)
     {
-        _typedEnemyObject = enemyObject as EnemyTankLarge1;
+        _backTurret = backTurret;
     }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
@@ -86,26 +86,24 @@ public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletP
                 {
                     var pos = GetFirePos(0);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.5f, BulletPivot.Current, 0f));
-                    yield return new WaitForMillisecondFrames(137);
+                    yield return new WaitForFrames(9);
                 }
-                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(48f));
-                yield return new WaitForMillisecondFrames(900);
+                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(40f));
                 
-                _typedEnemyObject.m_BackTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_typedEnemyObject.m_BackTurret));
-                yield return new WaitForMillisecondFrames(750);
+                StartBackTurretPattern();
+                yield return new WaitForMillisecondFrames(1650);
                 
                 _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(-90f));
                 for (int i = 0; i < 7; i++)
                 {
                     var pos = GetFirePos(0);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.5f, BulletPivot.Current, 0f));
-                    yield return new WaitForMillisecondFrames(137);
+                    yield return new WaitForFrames(9);
                 }
-                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(-48f));
-                yield return new WaitForMillisecondFrames(750);
+                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(-40f));
                 
-                _typedEnemyObject.m_BackTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_typedEnemyObject.m_BackTurret));
-                yield return new WaitForMillisecondFrames(900);
+                StartBackTurretPattern();
+                yield return new WaitForMillisecondFrames(1650);
             }
 
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
@@ -119,13 +117,12 @@ public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletP
                         var dir = 0.8f * j;
                         CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed, BulletPivot.Current, -dir));
                     }
-                    yield return new WaitForMillisecondFrames(96);
+                    yield return new WaitForFrames(6);
                 }
-                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(48f));
-                yield return new WaitForMillisecondFrames(800);
+                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(40f));
                 
-                _typedEnemyObject.m_BackTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_typedEnemyObject.m_BackTurret));
-                yield return new WaitForMillisecondFrames(600);
+                StartBackTurretPattern();
+                yield return new WaitForMillisecondFrames(1400);
                 
                 _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(-90f));
                 for (int i = 0; i < 10; i++)
@@ -136,13 +133,12 @@ public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletP
                         var dir = 0.8f * j;
                         CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed, BulletPivot.Current, dir));
                     }
-                    yield return new WaitForMillisecondFrames(96);
+                    yield return new WaitForFrames(6);
                 }
-                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(-48f));
-                yield return new WaitForMillisecondFrames(600);
+                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(-40f));
                 
-                _typedEnemyObject.m_BackTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_typedEnemyObject.m_BackTurret));
-                yield return new WaitForMillisecondFrames(800);
+                StartBackTurretPattern();
+                yield return new WaitForMillisecondFrames(1400);
             }
 
             else {
@@ -155,13 +151,12 @@ public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletP
                         var dir = 3f * j;
                         CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed, BulletPivot.Current, -dir));
                     }
-                    yield return new WaitForMillisecondFrames(80);
+                    yield return new WaitForFrames(5);
                 }
-                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(48f));
-                yield return new WaitForMillisecondFrames(800);
+                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(40f));
                 
-                _typedEnemyObject.m_BackTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_typedEnemyObject.m_BackTurret));
-                yield return new WaitForMillisecondFrames(600);
+                StartBackTurretPattern();
+                yield return new WaitForMillisecondFrames(1400);
                 
                 _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(-90f));
                 for (int i = 0; i < 12; i++)
@@ -172,16 +167,22 @@ public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletP
                         var dir = 3f * j;
                         CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed, BulletPivot.Current, dir));
                     }
-                    yield return new WaitForMillisecondFrames(80);
+                    yield return new WaitForFrames(5);
                 }
-                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(-48f));
-                yield return new WaitForMillisecondFrames(600);
+                _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(100f, 100f).SetOffsetAngle(-40f));
                 
-                _typedEnemyObject.m_BackTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_typedEnemyObject.m_BackTurret));
-                yield return new WaitForMillisecondFrames(800);
+                StartBackTurretPattern();
+                yield return new WaitForMillisecondFrames(1400);
             }
         }
         //onCompleted?.Invoke();
+    }
+
+    private void StartBackTurretPattern()
+    {
+        if (_backTurret == null)
+            return;
+        _backTurret.StartPattern("A", new EnemyTankLarge1_BulletPattern_BackTurret_A(_backTurret));
     }
 }
 
@@ -191,8 +192,10 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        BulletAccel accel1 = new BulletAccel(0f, 500);
-        BulletAccel accel2 = new BulletAccel(7.4f, 800);
+        const int accelDuration1 = 400;
+        const int accelDuration2 = 700;
+        var accel1 = new BulletAccel(0f, accelDuration1);
+        var accel2 = new BulletAccel(7.7f, accelDuration2);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
@@ -201,10 +204,10 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
                 foreach (var posTransform in _enemyObject.m_FirePosition)
                 {
                     var pos = posTransform.position;
-                    var speed = Random.Range(5f, 12f);
+                    var speed = Random.Range(7f, 15f);
                     var dir = _enemyObject.CurrentAngle + Random.Range(-20f, 20f);
                     var property = new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Fixed, dir, accel1);
-                    var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 500);
+                    var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, accelDuration1);
                     var subDir = Random.Range(-25f, 25f);
                     var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkLarge, 0.1f, BulletPivot.Player, subDir, accel2);
                     CreateBullet(property, spawnTiming, subProperty);
@@ -220,10 +223,10 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
                     foreach (var posTransform in _enemyObject.m_FirePosition)
                     {
                         var pos = posTransform.position;
-                        var speed = Random.Range(5f, 12f);
+                        var speed = Random.Range(7f, 15f);
                         var dir = _enemyObject.CurrentAngle + Random.Range(-20f, 20f);
                         var property = new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Fixed, dir, accel1);
-                        var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 500);
+                        var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, accelDuration1);
                         var subDir = Random.Range(-25f, 25f);
                         var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkLarge, 0.1f, BulletPivot.Player, subDir, accel2);
                         CreateBullet(property, spawnTiming, subProperty);
@@ -240,10 +243,10 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
                     foreach (var posTransform in _enemyObject.m_FirePosition)
                     {
                         var pos = posTransform.position;
-                        var speed = Random.Range(5f, 12f);
+                        var speed = Random.Range(7f, 15f);
                         var dir = _enemyObject.CurrentAngle + Random.Range(-20f, 20f);
                         var property = new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Fixed, dir, accel1);
-                        var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 500);
+                        var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, accelDuration1);
                         var subDir = Random.Range(-25f, 25f);
                         var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkLarge, 0.1f, BulletPivot.Player, subDir, accel2);
                         CreateBullet(property, spawnTiming, subProperty);

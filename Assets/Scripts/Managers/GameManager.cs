@@ -7,7 +7,6 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-    public GameSetting m_GameSetting;
     public NetworkAccount m_NetworkAccount;
     
     //[HideInInspector] public ShipAttribute m_CurrentAttributes;
@@ -32,17 +31,12 @@ public class GameManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         
-        Application.targetFrameRate = 60;
-        Cursor.visible = false;
-        
         //m_CurrentAttributes = new ShipAttribute(0, 0, 0, 0, 0, 0, 0);
 
         foreach (var animationCurve in m_AnimationCurves)
         {
             AC_Ease.ac_ease.Add(animationCurve);
         }
-
-        DOTween.SetTweensCapacity(512, 64);
     }
 
     private void Start()
@@ -61,7 +55,6 @@ public class GameManager : MonoBehaviour
             Utility.QuitGame();
         }
         ValidateAccount();
-        m_GameSetting.LoadSettings();
         m_NetworkAccount.Init();
     }
 

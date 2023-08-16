@@ -6,16 +6,17 @@ public class PlayerDrone : MonoBehaviour
 {
     public PlayerDroneTransformDatas m_PlayerDroneTransformData;
     public GameObject m_ParticleObject;
-
+    
     private PlayerUnit _playerUnit;
     private PlayerLaserHandler _playerLaserHandler;
-    private PlayerShootHandler _playerShootHandler;
+    private PlayerShotHandler _playerShotHandler;
     private ParticleSystem[] _particleSystems;
     private Vector3 _currentTargetLocalP; // 현재 위치 타겟
     private Vector3 _currentLocalP; // 현재 위치
-    private Vector3 _currentTargetLocalR; // 현재 회전 타겟
-    private Vector3 _currentLocalR; // 현재 회전
+    private Quaternion _currentTargetLocalR; // 현재 회전 타겟
+    private Quaternion _currentLocalR; // 현재 회전
     private int _shotIndex;
+    private int _laserIndex;
     private byte _shockWaveNumber;
     private float _defaultDepth;
     private float _defaultParticlePositionZ;
@@ -24,43 +25,43 @@ public class PlayerDrone : MonoBehaviour
     {
         _playerUnit = GetComponentInParent<PlayerUnit>();
         _playerLaserHandler = _playerUnit.GetComponentInChildren<PlayerLaserHandler>();
-        _playerShootHandler = _playerUnit.GetComponentInChildren<PlayerShootHandler>();
+        _playerShotHandler = _playerUnit.GetComponentInChildren<PlayerShotHandler>();
         _particleSystems = m_ParticleObject.GetComponentsInChildren<ParticleSystem>(true);
         _playerUnit.Action_OnUpdatePlayerAttackLevel += SetPreviewDrones;
         _playerLaserHandler.Action_OnLaserIndexChanged += SetPreviewDrones;
+        _playerShotHandler.Action_OnShotIndexChanged += SetPreviewDrones;
         _defaultParticlePositionZ = m_ParticleObject.transform.position.z;
     }
 
     void Start()
     {
         _defaultDepth = transform.localPosition.y;
+        _currentLocalP = transform.localPosition;
+        _currentLocalR = transform.localRotation;
         
         SetPreviewDrones();
     }
 
     private void Update()
     {
-        DisplayParticles();
-        _currentLocalP = Vector3.MoveTowards(_currentLocalP, _currentTargetLocalP, 12f / Application.targetFrameRate * Time.timeScale);
-        _currentLocalR = Vector3.MoveTowards(_currentLocalR, _currentTargetLocalR, 12f / Application.targetFrameRate * Time.timeScale);
+        SetDroneMode();
+        var maxDistanceDelta = 12f / Application.targetFrameRate * Time.timeScale;
+        _currentLocalP = Vector3.MoveTowards(_currentLocalP, _currentTargetLocalP, maxDistanceDelta);
+        _currentLocalR = Quaternion.RotateTowards(_currentLocalR, _currentTargetLocalR, maxDistanceDelta);
         transform.localPosition = _currentLocalP;
-        transform.localRotation = Quaternion.Euler(_currentLocalR);
+        transform.localRotation = _currentLocalR;
     }
 
-    private void DisplayParticles() {
+    private void SetDroneMode() {
         if (!_playerUnit.SlowMode) { // 샷 모드
             _currentTargetLocalP = m_PlayerDroneTransformData.shotTransformData[_shotIndex].positionData;
-            _currentTargetLocalR = m_PlayerDroneTransformData.shotTransformData[_shotIndex].rotationData;
+            _currentTargetLocalR = Quaternion.Euler(m_PlayerDroneTransformData.shotTransformData[_shotIndex].rotationData);
             m_ParticleObject.SetActive(false);
-            // if (_particleSystems[_shockWaveNumber].isPlaying)
-            //     _particleSystems[_shockWaveNumber].Stop();
         }
         else { // 레이저 모드
-            _currentTargetLocalP = m_PlayerDroneTransformData.laserTransformData[_shotIndex].positionData;
-            _currentTargetLocalR = m_PlayerDroneTransformData.laserTransformData[_shotIndex].rotationData;
+            _currentTargetLocalP = m_PlayerDroneTransformData.laserTransformData[_laserIndex].positionData;
+            _currentTargetLocalR = Quaternion.Euler(m_PlayerDroneTransformData.laserTransformData[_laserIndex].rotationData);
             m_ParticleObject.SetActive(true);
-            // if (!_particleSystems[_shockWaveNumber].isPlaying)
-            //     _particleSystems[_shockWaveNumber].Play();
         }
     }
 
@@ -74,19 +75,19 @@ public class PlayerDrone : MonoBehaviour
 
     private void SetPreviewDrones()
     {
-        _shotIndex = _playerShootHandler.ShotIndex;
-        var laserIndex = _playerLaserHandler.LaserIndex;
+        _shotIndex = _playerShotHandler.ShotIndex;
+        _laserIndex = _playerLaserHandler.LaserIndex;
         
         foreach (var particle in _particleSystems)
         {
             particle.gameObject.SetActive(false);
         }
-        _particleSystems[laserIndex].gameObject.SetActive(true);
+        _particleSystems[_laserIndex].gameObject.SetActive(true);
         
         //SetParticleScale(_playerUnit.PlayerAttackLevel);
     }
 
     public float GetCurrentLocalRotation() {
-        return _currentLocalR.y;
+        return _currentLocalR.eulerAngles.y;
     }
 }

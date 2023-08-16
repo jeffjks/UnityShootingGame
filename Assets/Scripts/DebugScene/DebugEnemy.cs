@@ -22,7 +22,10 @@ public class DebugEnemy : MonoBehaviour
         set
         {
             _enemyIndex = value;
-            _enemyIndex = Mathf.Clamp(_enemyIndex, 0, 4);
+            if (_enemyIndex < 0)
+                _enemyIndex = _enemyPrefabs.Count - 1;
+            else if (_enemyIndex >= _enemyPrefabs.Count)
+                _enemyIndex = 0;
             m_EnemyText.SetText($"{_enemyPrefabs[_enemyIndex].enemyName}");
         }
     }
@@ -35,11 +38,15 @@ public class DebugEnemy : MonoBehaviour
         }
 
         GameManager.IsDebugScene = true;
+        SystemManager.PlayState = PlayState.OnField;
         
         _enemyPrefabs.AddRange(m_EnemyUnitPrefabData.AirEnemyPrefabs);
         _enemyPrefabs.AddRange(m_EnemyUnitPrefabData.GroundEnemyPrefabs);
-        CreateEnemy();
+        _enemyPrefabs.AddRange(m_EnemyUnitPrefabData.MiddleBossPrefabs);
+        _enemyPrefabs.AddRange(m_EnemyUnitPrefabData.BossPrefabs);
         OnUpdateDifficulty();
+        
+        EnemyIndex = 0;
     }
 
     public void OnClickNextDifficulty()
@@ -62,13 +69,13 @@ public class DebugEnemy : MonoBehaviour
     public void OnClickNextEnemy()
     {
         RemoveEnemy();
-        EnemyIndex--;
+        EnemyIndex++;
     }
 
     public void OnClickPrevEnemy()
     {
         RemoveEnemy();
-        EnemyIndex++;
+        EnemyIndex--;
     }
 
     private void RemoveEnemy()
@@ -108,7 +115,14 @@ public class DebugEnemy : MonoBehaviour
 
         if (_currentEnemyUnit is ITargetPosition targetingEnemyUnit)
         {
-            targetingEnemyUnit.MoveTowardsToTarget(new Vector2(0f, -3f), 1200);
+            if (Mathf.Abs(_currentEnemyUnit.transform.position.x) > Size.GAME_WIDTH / 2f)
+            {
+                targetingEnemyUnit.MoveTowardsToTarget(new Vector2(-3f, _currentEnemyUnit.transform.position.y), 1200);
+            }
+            else
+            {
+                targetingEnemyUnit.MoveTowardsToTarget(new Vector2(0f, -3f), 1200);
+            }
         }
     }
 

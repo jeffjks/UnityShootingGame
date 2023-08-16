@@ -86,8 +86,8 @@ public class BulletPattern_EnemyPlaneSmall3_A : BulletFactory, IBulletPattern
                 CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 6f, BulletPivot.Current, 0f));
                 CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 7f, BulletPivot.Current, 0f));
             }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
-        yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         //onCompleted?.Invoke();
     }
 }

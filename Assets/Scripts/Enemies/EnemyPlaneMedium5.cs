@@ -6,8 +6,8 @@ using UnityEngine.Serialization;
 
 public class EnemyPlaneMedium5 : EnemyUnit
 {
-    public EnemyPlaneMedium5_FrontTurret m_FrontTurret;
-    public EnemyPlaneMedium5_BackTurret m_BackTurret;
+    public EnemyUnit m_FrontTurret;
+    public EnemyUnit m_BackTurret;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 8500;
     private IEnumerator m_TimeLimit;

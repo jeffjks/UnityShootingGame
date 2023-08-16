@@ -15,10 +15,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         int[] fireDelay = { 1600, 800, 600 };
-        var state = Random.Range(-1, 1);
-        if (state == 0) {
-            state = 1;
-        }
+        var state = Random.Range(0, 2) * 2 - 1;
         yield return new WaitForMillisecondFrames(200);
 
         while(!_enemyObject.TimeLimitState)
@@ -95,15 +92,15 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
             else
             {
                 var rand = Random.Range(0f, 360f);
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 9; i++) {
                     var pos = GetFirePos(0);
                     var dir = rand + 9f * i * state;
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 6.6f, BulletPivot.Fixed, dir, 4, 90f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f, BulletPivot.Fixed, dir - 28f, 4, 90f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f, BulletPivot.Fixed, dir - 14f, 4, 90f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f, BulletPivot.Fixed, dir + 14f, 4, 90f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6f, BulletPivot.Fixed, dir + 28f, 4, 90f));
-                    yield return new WaitForMillisecondFrames(150);
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7.5f, BulletPivot.Fixed, dir, 4, 90f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.6f, BulletPivot.Fixed, dir - 28f, 4, 90f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.6f, BulletPivot.Fixed, dir - 14f, 4, 90f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.6f, BulletPivot.Fixed, dir + 14f, 4, 90f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.6f, BulletPivot.Fixed, dir + 28f, 4, 90f));
+                    yield return new WaitForMillisecondFrames(120);
                 }
             }
             yield return new WaitForMillisecondFrames(200);

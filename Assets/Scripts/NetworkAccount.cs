@@ -8,12 +8,19 @@ public class NetworkAccount : MonoBehaviour
 {
     public GameObject m_LoginPanel;
 
+    private string[] _sceneList =
+    {
+        "MainMenu",
+        "DebugPlayer",
+        "DebugEnemy"
+    };
+
     public void Init()
     {
         InitServer();
         
         if (!DebugOption.NetworkAvailable) {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene(_sceneList[DebugOption.SceneMode]);
         }
 
         m_LoginPanel.SetActive(true);

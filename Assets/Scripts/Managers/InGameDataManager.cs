@@ -102,7 +102,10 @@ public class InGameDataManager : MonoBehaviour
         _itemCount[itemType]++;
     }
 
-    public void AddScore(long score, bool effect = false) {
+    public void AddScore(long score, bool effect = false)
+    {
+        if (SystemManager.Stage == -1)
+            return;
         TotalScore += score;
         _stageScore[SystemManager.Stage] += score;
 
@@ -149,15 +152,21 @@ public class InGameDataManager : MonoBehaviour
     }
 
     public long GetCurrentStageScore() {
+        if (SystemManager.Stage == -1)
+            return -1;
         return _stageScore[SystemManager.Stage];
     }
 
     public void AddMiss() {
+        if (SystemManager.Stage == -1)
+            return;
         TotalMiss++;
         _stageMiss[SystemManager.Stage]++;
     }
 
     public int GetCurrentStageMiss() {
+        if (SystemManager.Stage == -1)
+            return -1;
         return _stageMiss[SystemManager.Stage];
     }
 

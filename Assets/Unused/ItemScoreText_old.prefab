@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 6041230313454243774}
   - component: {fileID: 1704282770586582022}
   m_Layer: 5
-  m_Name: ItemScoreText_old
+  m_Name: ItemScoreText_Old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 6477694972780195976}
   m_Layer: 10
   m_Name: EnemyBoss1
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &6477694972780195976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,7 +1064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &1960839194805488090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,7 +1503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &2599808903725224968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2904,7 +2901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &5461362295547433283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,7 +3037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &5897636267480751395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,7 +3327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &2935975655334535033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3677,7 +3671,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &1091254013656855434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3706,7 +3699,7 @@ GameObject:
   - component: {fileID: 7133375208854470135}
   m_Layer: 10
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

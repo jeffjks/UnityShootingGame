@@ -14,20 +14,20 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     public Transform m_DebrisTransform;
 
     private Vector2 m_Position2D;
-    private Material[] m_Materials;
+    //private Material[] m_Materials;
     private int m_DebrisIndex = -1;
     private readonly Dictionary<DebrisType, GameObject[]> _debrisDict = new();
 
-    private IEnumerator m_FadeOutAnimation;
+    //private IEnumerator m_FadeOutAnimation;
 
     void Awake()
     {
-        MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
-        m_Materials = new Material[meshRenderers.Length];
-        
-        for (int i = 0; i < meshRenderers.Length; i++) {
-            m_Materials[i] = meshRenderers[i].material;
-        }
+        // MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
+        // m_Materials = new Material[meshRenderers.Length];
+        //
+        // for (int i = 0; i < meshRenderers.Length; i++) {
+        //     m_Materials[i] = meshRenderers[i].material;
+        // }
 
         _debrisDict[DebrisType.Small] = m_DebrisSmall;
         _debrisDict[DebrisType.Medium] = m_DebrisMedium;
@@ -50,16 +50,16 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
 
         m_DebrisIndex = new System.Random().Next(0, _debrisDict[debrisType].Length);
         var rotationRandom = new System.Random().Next(0, 360);
-        GameObject debrisObject = _debrisDict[debrisType][m_DebrisIndex];
+        var debrisObject = _debrisDict[debrisType][m_DebrisIndex];
         m_DebrisTransform.rotation = Quaternion.Euler(0f, rotationRandom, 0f);
         debrisObject.SetActive(true);
-        m_Materials[m_DebrisIndex].color = Color.white;
+        //m_Materials[m_DebrisIndex].color = Color.white;
         
-        m_FadeOutAnimation = FadeOutAnimation();
-        StartCoroutine(m_FadeOutAnimation);
+        //m_FadeOutAnimation = FadeOutAnimation();
+        //StartCoroutine(m_FadeOutAnimation);
     }
 
-    private IEnumerator FadeOutAnimation() {
+    /*private IEnumerator FadeOutAnimation() {
         float init_alpha = m_Materials[m_DebrisIndex].color.a;
         int frame = m_LifeTime * Application.targetFrameRate / 1000;
         for (int i = 0; i < frame; ++i) {
@@ -72,12 +72,12 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         }
         
         ReturnToPool();
-    }
+    }*/
 
     public void ReturnToPool() {
-        if (m_FadeOutAnimation != null) {
-            StopCoroutine(m_FadeOutAnimation);
-        }
+        // if (m_FadeOutAnimation != null) {
+        //     StopCoroutine(m_FadeOutAnimation);
+        // }
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.Debris);
     }
 

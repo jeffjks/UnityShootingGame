@@ -19,11 +19,11 @@ public class EnemyTankSmall3_BulletPattern_Turret_A : BulletFactory, IBulletPatt
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        int[] fireDelay = { 3000, 2000, 1500 };
-        float[] speedArray = { 6f, 7.4f, 7.4f };
+        int[] fireDelay = { 3000, 2000, 900 };
+        float[] speedArray = { 6f, 7.4f, 8.6f };
         yield return new WaitForMillisecondFrames(Random.Range(0, 500));
         
-        BulletAccel accel = new BulletAccel(5.2f, 1400);
+        var accel = new BulletAccel(5.7f, 1200);
         yield return new WaitForMillisecondFrames(Random.Range(0, 2000));
         
         while(true)
@@ -36,29 +36,29 @@ public class EnemyTankSmall3_BulletPattern_Turret_A : BulletFactory, IBulletPatt
             
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 35f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 30f));
                 CreateBullet(new BulletProperty(pos1, BulletImage.PinkLarge, 7.7f, BulletPivot.Current, dir, accel));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 35f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 30f));
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 40f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 20f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 32f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 12f));
                 CreateBullet(new BulletProperty(pos1, BulletImage.PinkLarge, 7.7f, BulletPivot.Current, dir, accel));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 20f));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 40f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 12f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 32f));
             }
             else {
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 40f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 36f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 30f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 22f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkLarge, speed, BulletPivot.Current, dir - 12f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 36f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 32f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 26f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 18f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir - 8f));
                 CreateBullet(new BulletProperty(pos1, BulletImage.PinkLarge, 7.7f, BulletPivot.Current, dir, accel));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 12f));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 22f));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 30f));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 36f));
-                CreateBullet(new BulletProperty(pos2, BulletImage.PinkLarge, speed, BulletPivot.Current, dir + 40f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 8f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 18f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 26f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 32f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, speed, BulletPivot.Current, dir + 36f));
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }

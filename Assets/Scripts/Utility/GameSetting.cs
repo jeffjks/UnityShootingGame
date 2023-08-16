@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -14,7 +16,7 @@ public class GameSetting : MonoBehaviour
     
     public static Language CurrentLanguage;
 
-    public AudioMixer m_AudioMixer = null;
+    public AudioMixer m_AudioMixer;
 
     private static readonly List<Vector2Int> _graphicsResolutionList = new List<Vector2Int>()
     {
@@ -42,10 +44,20 @@ public class GameSetting : MonoBehaviour
         }
         Instance = this;
         
+        Application.targetFrameRate = 60;
+        Cursor.visible = (DebugOption.SceneMode != 0);
+        DOTween.SetTweensCapacity(512, 64);
+        
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadSettings() {
+    private void Start()
+    {
+        LoadSettings(); // Have to call in Start method!
+    }
+
+    private void LoadSettings()
+    {
         if (!PlayerPrefs.HasKey("SoundEffectVolume")) {
             PlayerPrefs.SetInt("ResolutionWidth", 1920);
             PlayerPrefs.SetInt("ResolutionHeight", 1080);

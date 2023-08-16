@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyTurretBody : EnemyUnit
 {
     public EnemyUnit m_Turret;
-    public float m_HealthPercentTurretDestroying;
+    public int m_HealthPercentTurretDestroying;
 
     void Start()
     {
@@ -15,7 +15,7 @@ public class EnemyTurretBody : EnemyUnit
     }
 
     private void DestroyChildEnemy() {
-        if (m_EnemyHealth.HealthPercent <= m_HealthPercentTurretDestroying) {
+        if (m_EnemyHealth.HealthPercent <= (float) m_HealthPercentTurretDestroying / 100) {
             if (m_Turret != null)
                 m_Turret.m_EnemyDeath.KillEnemy();
         }

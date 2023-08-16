@@ -7,13 +7,11 @@ public class EnemyTankMedium3 : EnemyUnit
 {
     void Start()
     {
-        StartPattern("A", new EnemyTankMedium3_BulletPattern(this));
         m_CustomDirection = new CustomDirection();
-        m_CustomDirection[0] = Random.Range(0f, 360f);
+        StartPattern("A", new EnemyTankMedium3_BulletPattern_A(this));
         SetRotatePattern(new RotatePattern_MoveDirection());
     }
 
-    
     protected override void Update()
     {
         base.Update();
@@ -22,14 +20,16 @@ public class EnemyTankMedium3 : EnemyUnit
     }
 }
 
-public class EnemyTankMedium3_BulletPattern : BulletFactory, IBulletPattern
+public class EnemyTankMedium3_BulletPattern_A : BulletFactory, IBulletPattern
 {
-    public EnemyTankMedium3_BulletPattern(EnemyObject enemyObject) : base(enemyObject) { }
+    public EnemyTankMedium3_BulletPattern_A(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        int[] fireDelay = { 400, 200, 150 };
+        int[] fireDelay = { 400, 160, 70 };
         float[] speedArray = { 5.2f, 5.2f, 6.4f };
+        _enemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
+        
         while(true)
         {
             var pos0 = GetFirePos(0);

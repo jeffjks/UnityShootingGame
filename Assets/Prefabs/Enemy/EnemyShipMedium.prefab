@@ -33,8 +33,8 @@ Transform:
   - {fileID: 400028}
   - {fileID: 400012}
   - {fileID: 400014}
-  - {fileID: 400004}
   - {fileID: 400002}
+  - {fileID: 400004}
   m_Father: {fileID: 3700794128079587272}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   m_Layer: 12
-  m_Name: WaterBombLauncherBlue
+  m_Name: WaterBombLauncherBlueL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3300000
 MeshFilter:
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3300002}
   - component: {fileID: 2300002}
   m_Layer: 12
-  m_Name: WaterBombLauncherBlue
+  m_Name: WaterBombLauncherBlueR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3300002
 MeshFilter:
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 3609012630144179936}
   - component: {fileID: 8988557526852962688}
   m_Layer: 12
-  m_Name: TurretLvl1AnimatedBlue
+  m_Name: TurretLvl1AnimatedBlueL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,7 +470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &8988557526852962688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,7 +504,7 @@ GameObject:
   - component: {fileID: 7168460240821386570}
   - component: {fileID: 8264002481508373924}
   m_Layer: 12
-  m_Name: TurretLvl1AnimatedBlue
+  m_Name: TurretLvl1AnimatedBlueR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -589,7 +588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &8264002481508373924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,7 +1042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &349912898351096100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,7 +1076,7 @@ GameObject:
   - component: {fileID: 1217473632714618653}
   - component: {fileID: 5796194631196388892}
   m_Layer: 12
-  m_Name: TurretLvl1AnimatedBlue
+  m_Name: TurretLvl1AnimatedBlueR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1163,7 +1160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &5796194631196388892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1534,7 +1530,7 @@ GameObject:
   - component: {fileID: 3475335738988404695}
   - component: {fileID: 5250073259416919188}
   m_Layer: 12
-  m_Name: TurretLvl1AnimatedBlue
+  m_Name: TurretLvl1AnimatedBlueL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1618,7 +1614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &5250073259416919188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1690,8 +1685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsAir: 0
   m_FirePosition:
-  - {fileID: 400004}
   - {fileID: 400002}
+  - {fileID: 400004}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -1737,7 +1732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &7286347808047871022
 MonoBehaviour:
   m_ObjectHideFlags: 0

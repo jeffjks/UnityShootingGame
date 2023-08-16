@@ -70,7 +70,7 @@ public class PlayerUnit : PlayerObject
             SystemManager.Action_OnStageClear += () => IsControllable = false;
         }
         
-        CurrentAngle = 180f;
+        //CurrentAngle = 180f;
     }
     
     public void DealCollisionDamage(EnemyUnit enemyUnit)

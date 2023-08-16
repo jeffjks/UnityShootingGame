@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6259688466032779814}
   m_Layer: 10
   m_Name: EnemyMiddleBoss1
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &4121262065568302305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &5623504635096607236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,7 +829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &5606494257735019607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,7 +857,7 @@ GameObject:
   - component: {fileID: 5526210931361119491}
   m_Layer: 10
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class DebugMenu : EditorWindow
 {
+    private static readonly string[] sceneModeRadioMenus =
+    {
+        "Tools/Scene Mode/Default",
+        "Tools/Scene Mode/Debug Player",
+        "Tools/Scene Mode/Debug Enemy"
+    };
+    
     [MenuItem("Tools/Invincible Mod")]
     private static void ToggleInvincibleMod()
     {
@@ -56,6 +63,63 @@ public class DebugMenu : EditorWindow
         return true;
     }
 
+    [MenuItem("Tools/Scene Mode/Default")]
+    private static void RadioButtonSceneModeDefault()
+    {
+        EditorPrefsSetInt("SceneMode", 0);
+        foreach (var menuPath in sceneModeRadioMenus)
+        {
+            Menu.SetChecked(menuPath, false);
+        }
+        Menu.SetChecked("Tools/Scene Mode/Default", true);
+    }
+    
+    [MenuItem("Tools/Scene Mode/Default", true)]
+    private static bool RadioButtonSceneModeDefaultValidate()
+    {
+        var value = EditorPrefsGetInt("SceneMode", 0);
+        Menu.SetChecked("Tools/Scene Mode/Default", value == 0);
+        return true;
+    }
+
+    [MenuItem("Tools/Scene Mode/Debug Player")]
+    private static void RadioButtonSceneModePlayerDebug()
+    {
+        EditorPrefsSetInt("SceneMode", 1);
+        foreach (var menuPath in sceneModeRadioMenus)
+        {
+            Menu.SetChecked(menuPath, false);
+        }
+        Menu.SetChecked("Tools/Scene Mode/Debug Player", true);
+    }
+    
+    [MenuItem("Tools/Scene Mode/Debug Player", true)]
+    private static bool RadioButtonSceneModePlayerDebugValidate()
+    {
+        var value = EditorPrefsGetInt("SceneMode", 0);
+        Menu.SetChecked("Tools/Scene Mode/Debug Player", value == 1);
+        return true;
+    }
+
+    [MenuItem("Tools/Scene Mode/Debug Enemy")]
+    private static void RadioButtonSceneModeEnemyDebug()
+    {
+        EditorPrefsSetInt("SceneMode", 2);
+        foreach (var menuPath in sceneModeRadioMenus)
+        {
+            Menu.SetChecked(menuPath, false);
+        }
+        Menu.SetChecked("Tools/Scene Mode/Debug Enemy", true);
+    }
+    
+    [MenuItem("Tools/Scene Mode/Debug Enemy", true)]
+    private static bool RadioButtonSceneModeEnemyDebugValidate()
+    {
+        var value = EditorPrefsGetInt("SceneMode", 0);
+        Menu.SetChecked("Tools/Scene Mode/Debug Enemy", value == 2);
+        return true;
+    }
+
     private static bool EditorPrefsGetBool(string key, bool defaultValue)
     {
         return EditorPrefs.GetInt(key, defaultValue ? 1 : 0) == 1;
@@ -64,5 +128,15 @@ public class DebugMenu : EditorWindow
     private static void EditorPrefsSetBool(string key, bool defaultValue)
     {
         EditorPrefs.SetInt(key, defaultValue ? 1 : 0);
+    }
+
+    private static int EditorPrefsGetInt(string key, int defaultValue)
+    {
+        return EditorPrefs.GetInt(key, defaultValue);
+    }
+
+    private static void EditorPrefsSetInt(string key, int defaultValue)
+    {
+        EditorPrefs.SetInt(key, defaultValue);
     }
 }

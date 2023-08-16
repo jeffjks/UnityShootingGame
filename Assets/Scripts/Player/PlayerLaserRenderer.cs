@@ -128,7 +128,7 @@ public class PlayerLaserRenderer : MonoBehaviour
         if (_stormParticles.Length > 0)
             _particleMainModule.startLifetime = - _currentLaserLength / _stormSpeed * 0.6f;
 
-        _collider2D.offset = new Vector2(_collider2D.offset.x, - _currentLaserLength / 2f);
+        _collider2D.offset = new Vector2(_collider2D.offset.x, _currentLaserLength / 2f);
         _collider2D.size = new Vector2(_collider2D.size.x, _currentLaserLength);
     }
 

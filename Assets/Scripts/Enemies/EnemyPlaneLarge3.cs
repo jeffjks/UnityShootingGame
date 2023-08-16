@@ -6,10 +6,10 @@ public class EnemyPlaneLarge3 : EnemyUnit
 {
     public EnemyPlaneLarge3_Turret m_Turret;
     
-    private const int APPEARANCE_TIME = 1500;
-    private const int TIME_LIMIT = 14000;
+    private const int APPEARANCE_TIME = 1700;
+    private const int TIME_LIMIT = 16000;
     //private float m_PositionY, m_AddPositionY;
-    private float m_VSpeed = 0.3f;
+    private float m_VSpeed = 0.06f;
     private IEnumerator m_TimeLimit;
 
     void Start ()
@@ -40,7 +40,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
     private IEnumerator TimeLimit(int time_limit = 0) {
         yield return new WaitForMillisecondFrames(time_limit);
         TimeLimitState = true;
-        //m_Turret.StopPattern1();
+        m_Turret.StopAllPatterns();
 
         float init_speed = m_MoveVector.speed;
         int frame = 1000 * Application.targetFrameRate / 1000;

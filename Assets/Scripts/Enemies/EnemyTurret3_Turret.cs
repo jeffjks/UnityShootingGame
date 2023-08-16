@@ -52,10 +52,10 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
                 for (var i = 0; i < 4; i++) {
                     var speed1 = 4.6f + 0.3f * i;
                     var speed2 = 5f + 0.3f * i;
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed1, BulletPivot.Current, -2f)));
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed2, BulletPivot.Current, -1.5f)));
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed2, BulletPivot.Current, 1.5f)));
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed1, BulletPivot.Current, 2f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed2, BulletPivot.Current, -2f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed1, BulletPivot.Current, 1.5f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed1, BulletPivot.Current, -1.5f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed2, BulletPivot.Current, 2f)));
                 }
             }
             else
@@ -63,10 +63,10 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
                 for (var i = 0; i < 4; i++) {
                     var speed1 = 5f + 0.33f * i;
                     var speed2 = 5.5f + 0.33f * i;
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed1, BulletPivot.Current, -2f)));
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed2, BulletPivot.Current, -1.5f)));
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed2, BulletPivot.Current, 1.5f)));
-                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed1, BulletPivot.Current, 2f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed2, BulletPivot.Current, -2f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos0, BulletImage.BlueNeedle, speed1, BulletPivot.Current, 1.5f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed1, BulletPivot.Current, -1.5f)));
+                    enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed2, BulletPivot.Current, 2f)));
                 }
             }
 

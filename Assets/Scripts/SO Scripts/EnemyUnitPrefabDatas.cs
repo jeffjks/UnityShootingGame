@@ -16,4 +16,6 @@ public class EnemyUnitPrefabDatas : ScriptableObject
 
     public List<EnemyUnitPrefab> AirEnemyPrefabs;
     public List<EnemyUnitPrefab> GroundEnemyPrefabs;
+    public List<EnemyUnitPrefab> MiddleBossPrefabs;
+    public List<EnemyUnitPrefab> BossPrefabs;
 }

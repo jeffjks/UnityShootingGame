@@ -132,7 +132,8 @@ public class Stage3Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -3f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -7f), new Vector2(4f, -7f), 1000);
         yield return new WaitForMillisecondFrames(1000);
-        CreateEnemy(m_ItemHeliRed, new Vector2(1f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliRed, new Vector2(3f, 3f)); // Item Heli 1
+        CreateEnemy(m_ItemHeliGreen, new Vector2(-3f, 3f)); // Item Heli 2
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(2f, -4f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -6f), new Vector2(5f, -6f), 1000);
@@ -162,8 +163,7 @@ public class Stage3Manager : StageManager
             }
         }
         yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_ItemHeliRed, new Vector2(3f, 3f)); // Item Heli 1
-        CreateEnemy(m_ItemHeliGreen, new Vector2(-3f, 3f)); // Item Heli 2
+        CreateEnemy(m_ItemHeliRed, new Vector2(0f, 3f)); // Item Heli 1
         yield break;
     }
 

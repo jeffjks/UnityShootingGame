@@ -14501,8 +14501,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7727318515198895845}
-  - {fileID: 203968171852202768}
+  - {fileID: 2607751629590145346}
   - {fileID: 39474964449242404}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -14553,7 +14552,7 @@ Transform:
   - {fileID: 2621960434919699650}
   - {fileID: 5051486690065442458}
   m_Father: {fileID: 8582631045559787748}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7727318515199064773
 GameObject:
@@ -14566,7 +14565,7 @@ GameObject:
   - component: {fileID: 7727318515198895845}
   - component: {fileID: 7727318515196028613}
   - component: {fileID: 7727318515197125637}
-  - component: {fileID: 7162895853335242306}
+  - component: {fileID: 4449955743121931784}
   m_Layer: 17
   m_Name: Drone
   m_TagString: Untagged
@@ -14586,9 +14585,9 @@ Transform:
   m_LocalScale: {x: 0.112, y: 0.112, z: 0.112}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8582631045559787748}
+  m_Father: {fileID: 2607751629590145346}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -3, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7727318515196028613
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -14639,19 +14638,60 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7162895853335242306
-MonoBehaviour:
+--- !u!95 &4449955743121931784
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7727318515199064773}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a875519ce143a874b8a6ff992d6a2514, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RotateReverse: -1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2d3ffec6c1e2c9e4593aa5caf0bb0469, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8669312928322396990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2607751629590145346}
+  m_Layer: 17
+  m_Name: DroneTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2607751629590145346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669312928322396990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7727318515198895845}
+  - {fileID: 203968171852202768}
+  m_Father: {fileID: 8582631045559787748}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8988153254885344510
 GameObject:
   m_ObjectHideFlags: 0
@@ -14676,10 +14716,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8988153254885344510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.672}
+  m_LocalPosition: {x: 0, y: 0, z: 0.67200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8582631045559787748}
+  m_Father: {fileID: 2607751629590145346}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

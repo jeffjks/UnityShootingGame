@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
 {
     public GameObject m_BombBarrier;
+    public ParticleSystem m_ParticleFireEffect;
+    public ParticleSystem m_ParticleLightningEffect;
     public readonly float[] m_CustomDirectionDelta = new float[2];
     private int _directionSide = 1;
 
@@ -114,6 +116,8 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
         m_Phase++;
         StopAllPatterns();
         BulletManager.SetBulletFreeState(2000);
+        m_ParticleFireEffect.gameObject.SetActive(false);
+        m_ParticleLightningEffect.gameObject.SetActive(true);
 
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);

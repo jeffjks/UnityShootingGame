@@ -27,8 +27,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                     var pos = GetFirePos(0);
                     var dir1 = Random.Range(-8f, 8f);
                     var dir2 = Random.Range(-8f, 8f);
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 7, 23f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 6, 23f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 3, 23f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 4, 23f));
                     yield return new WaitForMillisecondFrames(800);
                 }
             }
@@ -39,21 +39,21 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                     var pos = GetFirePos(0);
                     var dir1 = Random.Range(-5f, 5f);
                     var dir2 = Random.Range(-5f, 5f);
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 9, 17f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 8, 17f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 5, 17f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 6, 17f));
                     yield return new WaitForMillisecondFrames(500);
                 }
             }
             else
             {
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     var pos = GetFirePos(0);
                     var dir1 = Random.Range(-5f, 5f);
                     var dir2 = Random.Range(-5f, 5f);
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 11, 14f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 10, 14f));
-                    yield return new WaitForMillisecondFrames(500);
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.8f, BulletPivot.Current, dir1, 9, 12f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 8.2f, BulletPivot.Current, dir2, 10, 12f));
+                    yield return new WaitForMillisecondFrames(400);
                 }
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
@@ -67,8 +67,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                     var pos2 = GetFirePos(2);
                     var num1 = rand ? 5 : 6;
                     var num2 = rand ? 5 : 6;
-                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 7.5f, BulletPivot.Current, 0f, num1, 19f));
-                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 7.5f, BulletPivot.Current, 0f, num2, 19f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 7.5f, BulletPivot.Current, 0f, num1, 19f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 7.5f, BulletPivot.Current, 0f, num2, 19f));
                     yield return new WaitForMillisecondFrames(180);
                 }
             }
@@ -79,8 +79,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                     var pos2 = GetFirePos(2);
                     var num1 = rand ? 7 : 8;
                     var num2 = rand ? 7 : 8;
-                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 8f, BulletPivot.Current, 0f, num1, 12f));
-                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 8f, BulletPivot.Current, 0f, num2, 12f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 0f, num1, 12f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 0f, num2, 12f));
                     yield return new WaitForMillisecondFrames(150);
                 }
             }
@@ -91,8 +91,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                     var pos2 = GetFirePos(2);
                     var num1 = rand ? 7 : 8;
                     var num2 = rand ? 7 : 8;
-                    CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 8.3f, BulletPivot.Current, 0f, num1, 12f));
-                    CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 8.3f, BulletPivot.Current, 0f, num2, 12f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.3f, BulletPivot.Current, 0f, num1, 12f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.3f, BulletPivot.Current, 0f, num2, 12f));
                     yield return new WaitForMillisecondFrames(100);
                 }
             }
@@ -128,9 +128,9 @@ public class EnemyPlaneLarge3_BulletPattern_Turret_A : BulletFactory, IBulletPat
             for (int i = 0; i < 3; i++)
             {
                 var pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6f, BulletPivot.Current, 0f, 11, 16f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7.2f, BulletPivot.Current, 0f, 10, 16f));
-                yield return new WaitForMillisecondFrames(500);
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.4f, BulletPivot.Current, 0f, 13, 14f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7.9f, BulletPivot.Current, 0f, 12, 14f));
+                yield return new WaitForMillisecondFrames(400);
             }
         }
         onCompleted?.Invoke();

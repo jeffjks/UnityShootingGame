@@ -8,18 +8,24 @@ public class PlayerPreviewSimulator : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
     public PlayerLaserHandler m_PlayerLaserHandler;
+    public bool m_AutoChangeMode;
     
-    private PlayerShootHandler _playerShootHandler;
+    private PlayerShotHandler _playerShotHandler;
     private bool _shotMode;
     
-    void Awake()
+    private void Awake()
     {
-        _playerShootHandler = GetComponent<PlayerShootHandler>();
+        _playerShotHandler = GetComponent<PlayerShotHandler>();
         m_PlayerUnit.IsAttacking = true;
     }
 
-    void OnEnable() {
-        StartCoroutine(PreviewSlowMode());
+    private void OnEnable()
+    {
+        _shotMode = true;
+        SetShotMode();
+        
+        if (m_AutoChangeMode)
+            StartCoroutine(PreviewSlowMode());
     }
 
     private void Update()
@@ -31,13 +37,21 @@ public class PlayerPreviewSimulator : MonoBehaviour
         yield return new WaitForMillisecondFrames(0);
         while(true)
         {
-            _shotMode = true;
-            SetShotMode();
             yield return new WaitForMillisecondFrames(Random.Range(1000, 3000));
+            ToggleShotMode();
+        }
+    }
 
-            _shotMode = false;
+    public void ToggleShotMode()
+    {
+        _shotMode = !_shotMode;
+        if (_shotMode)
+        {
+            SetShotMode();
+        }
+        else
+        {
             SetLaserMode();
-            yield return new WaitForMillisecondFrames(Random.Range(1000, 3000));
         }
     }
 
@@ -57,7 +71,7 @@ public class PlayerPreviewSimulator : MonoBehaviour
     {
         if (_shotMode && !m_PlayerUnit.IsShooting)
         {
-            _playerShootHandler.StartShotCoroutine();
+            _playerShotHandler.StartShotCoroutine();
             m_PlayerUnit.IsShooting = true;
         }
     }

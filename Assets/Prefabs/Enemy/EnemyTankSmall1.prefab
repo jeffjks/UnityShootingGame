@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Score: 50
   m_IsRoot: 1
   m_Turret: {fileID: 6949044101867533789}
-  m_HealthPercentTurretDestroying: 0.5
+  m_HealthPercentTurretDestroying: 50
 --- !u!114 &3348953216548398263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &5441479397995938923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,7 +677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &4032332817488101324
 MonoBehaviour:
   m_ObjectHideFlags: 0

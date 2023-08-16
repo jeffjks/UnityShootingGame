@@ -54,7 +54,7 @@ public abstract class StageManager : MonoBehaviour
         PoolingManager.ResetPool();
         FadeScreenService.ScreenFadeIn(0f);
         SystemManager.Action_OnStageClear += StopAllCoroutines;
-        Action_OnTrueBossStart += StartTrueLastBoss;
+        Action_OnTrueBossStart += StartFinalBoss;
         
         InGameScreenEffectService.TransitionIn();
 
@@ -151,7 +151,7 @@ public abstract class StageManager : MonoBehaviour
             m_EnemyPreloaded[i].SetActive(true);
     }
 
-    protected void StartTrueLastBoss(Vector3 pos) {
+    protected void StartFinalBoss(Vector3 pos) {
         BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
         AudioService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss

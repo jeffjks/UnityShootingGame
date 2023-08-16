@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     
     private PlayerBombHandler _playerBombHandler;
     private PlayerLaserHandler _playerLaserHandler;
-    private PlayerShootHandler _playerShootHandler;
+    private PlayerShotHandler _playerShotHandler;
     private PlayerMovement _playerMovement;
     private PlayerUnit _playerUnit;
     private InGameInputController _inGameInputController;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         var bombObject = Instantiate(m_PlayerBomb);
         _playerBombHandler = bombObject.GetComponent<PlayerBombHandler>();
         _playerLaserHandler = GetComponentInChildren<PlayerLaserHandler>();
-        _playerShootHandler = GetComponent<PlayerShootHandler>();
+        _playerShotHandler = GetComponent<PlayerShotHandler>();
         _playerMovement = GetComponent<PlayerMovement>();
         _playerUnit = GetComponent<PlayerUnit>();
         
@@ -76,8 +76,8 @@ public class PlayerController : MonoBehaviour
         if (IsFirePressed) // 누르는 순간
         {
             if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
-                if (_playerShootHandler.AutoShot < 2) {
-                    _playerShootHandler.AutoShot++;
+                if (_playerShotHandler.AutoShot < 2) {
+                    _playerShotHandler.AutoShot++;
                 }
             }
         }
@@ -94,10 +94,10 @@ public class PlayerController : MonoBehaviour
 
     private void FireShot()
     {
-        if (_playerShootHandler.AutoShot > 0) {
+        if (_playerShotHandler.AutoShot > 0) {
             if (!_playerUnit.IsShooting) {
                 _playerUnit.IsShooting = true;
-                _playerShootHandler.StartShotCoroutine();
+                _playerShotHandler.StartShotCoroutine();
             }
             _playerUnit.IsAttacking = true;
         }
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
                 _playerUnit.SlowMode = true;
                 _playerLaserHandler.StartLaser();
                 _playerUnit.IsAttacking = true;
-                _playerShootHandler.AutoShot = 0;
+                _playerShotHandler.AutoShot = 0;
             }
         }
     }
@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
         _playerUnit.SlowMode = false;
         _playerUnit.IsShooting = false;
         _playerUnit.IsAttacking = false;
-        _playerShootHandler.AutoShot = 0;
+        _playerShotHandler.AutoShot = 0;
         _playerLaserHandler.StopLaser();
         
         if (!_playerUnit.m_IsPreviewObject)

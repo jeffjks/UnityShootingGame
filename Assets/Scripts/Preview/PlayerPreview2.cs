@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerPreview2 : PlayerPreviewManager
 {
     public PlayerLaserHandler m_PlayerLaserHandler;
-    public PlayerShootHandler m_PlayerShootHandler;
+    [FormerlySerializedAs("m_PlayerShootHandler")] public PlayerShotHandler m_PlayerShotHandler;
     public GameObject m_DronePart; // Shot Spawner
     
     private void Awake()
@@ -28,7 +29,7 @@ public class PlayerPreview2 : PlayerPreviewManager
     private void SetPreviewWeapons(ShipAttributes shipAttributes)
     {
         m_PlayerLaserHandler.LaserIndex = shipAttributes.GetAttributes(AttributeType.LaserIndex);
-        m_PlayerShootHandler.ShotIndex = shipAttributes.GetAttributes(AttributeType.ShotIndex);
-        m_PlayerShootHandler.ModuleIndex = shipAttributes.GetAttributes(AttributeType.ModuleIndex);
+        m_PlayerShotHandler.ShotIndex = shipAttributes.GetAttributes(AttributeType.ShotIndex);
+        m_PlayerShotHandler.ModuleIndex = shipAttributes.GetAttributes(AttributeType.ModuleIndex);
     }
 }

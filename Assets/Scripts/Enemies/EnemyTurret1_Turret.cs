@@ -28,7 +28,7 @@ public class EnemyTurret1_BulletPattern_Turret_A : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         int[] fireDelay = { 1600, 800, 400 };
-        int[] subFireDelay = { 136, 115, 115 };
+        int[] subFireDelay = { 5, 5, 5 };
         float[] speedArray = { 5.5f, 6f, 6.5f };
         yield return new WaitForMillisecondFrames(Random.Range(0, 1000));
         
@@ -48,7 +48,7 @@ public class EnemyTurret1_BulletPattern_Turret_A : BulletFactory, IBulletPattern
                 }
                 _enemyObject.SetRotatePattern(new RotatePattern_Stop());
                 
-                yield return new WaitForMillisecondFrames(subFireDelay[(int) SystemManager.Difficulty]);
+                yield return new WaitForFrames(subFireDelay[(int) SystemManager.Difficulty]);
             }
             _enemyObject.SetRotatePattern(_defaultRotatePattern);
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);

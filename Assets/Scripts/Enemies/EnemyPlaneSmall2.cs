@@ -40,7 +40,7 @@ public class BulletPattern_EnemyPlaneSmall2_A : BulletFactory, IBulletPattern
     {
         int[] fireDelay = { 5000, 2100, 1200 };
         float[] speedArray = { 8.2f, 9.8f, 9.8f };
-        yield return new WaitForMillisecondFrames(800);
+        yield return new WaitForMillisecondFrames(500);
         
         while (true) {
             var pos = GetFirePos(0);

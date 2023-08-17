@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 696288135215100546}
   - component: {fileID: 4824996300273409103}
   - component: {fileID: 4450760002710729640}
+  - component: {fileID: 7336781965597172946}
   - component: {fileID: 1178527869220532233}
   m_Layer: 12
   m_Name: EnemyMiddleBoss3
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_EnemyType: 1
   m_Score: 12500
   m_IsRoot: 1
-  m_NextPhaseExplosionCreater: {fileID: 0}
+  m_NextPhaseExplosionCreater: {fileID: 7336781965597172946}
 --- !u!114 &696288135215100546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +101,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
+--- !u!114 &7336781965597172946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 4450760002710729640}
+  m_JsonKey: EnemyMiddleBoss3_NextPhase
+  m_RunOnDying: 0
 --- !u!114 &1178527869220532233
 MonoBehaviour:
   m_ObjectHideFlags: 0

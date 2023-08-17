@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlaneLarge1 : EnemyUnit
+public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 {
     public GameObject[] m_Part = new GameObject[2];
     public EnemyPlaneLarge1_Turret[] m_Turret = new EnemyPlaneLarge1_Turret[2];
@@ -87,7 +87,7 @@ public class EnemyPlaneLarge1 : EnemyUnit
         }
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_Phase++;
         m_Turret[0].m_EnemyDeath.KillEnemy();
         m_Turret[1].m_EnemyDeath.KillEnemy();

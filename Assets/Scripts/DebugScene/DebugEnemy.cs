@@ -88,6 +88,10 @@ public class DebugEnemy : MonoBehaviour
 
     public void OnClickNextPhase()
     {
+        if (_currentEnemyUnit is IHasPhase hasPhaseEnemyUnit)
+        {
+            hasPhaseEnemyUnit.ToNextPhase();
+        }
     }
 
     public void OnClickCreateEnemy()

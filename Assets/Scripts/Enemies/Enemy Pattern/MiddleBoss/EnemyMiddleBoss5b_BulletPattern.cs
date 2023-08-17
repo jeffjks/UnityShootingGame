@@ -14,6 +14,7 @@ public class BulletPattern_EnemyMiddleBoss5b_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        string[] stateKey = { "B1", "B2" };
         int[] fireDelay = { 3200, 2600, 2000 };
         var pos = new Vector3[2];
         var state = 1;
@@ -34,7 +35,7 @@ public class BulletPattern_EnemyMiddleBoss5b_A : BulletFactory, IBulletPattern
             pos[1] = GetFirePos(1);
             if (_typedEnemyObject.GetCurrentPhase() == 0)
             {
-                _typedEnemyObject.StartPattern("B", new BulletPattern_EnemyMiddleBoss5b_B(_typedEnemyObject, state));
+                _typedEnemyObject.StartPattern(stateKey[(state + 1) / 2], new BulletPattern_EnemyMiddleBoss5b_B(_typedEnemyObject, state));
             }
             else if (_typedEnemyObject.GetCurrentPhase() == 1)
             {

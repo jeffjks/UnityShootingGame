@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
+public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
     
@@ -25,11 +25,6 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
-
-        /*
-        m_Sequence = DOTween.Sequence()
-        .AppendInterval(delay)
-        .Append(transform.DOMoveY(2.4f, APPEARANCE_TIME - delay));*/
     }
 
     private IEnumerator AppearanceSequence(int delay) {
@@ -47,7 +42,6 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         }
 
         OnAppearanceComplete();
-        yield break;
     }
 
     private void OnAppearanceComplete() {
@@ -67,7 +61,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         base.Update();
         
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, pos.y, pos.z - 0.96f / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동
+        var backgroundSpeed = BackgroundCamera.GetBackgroundVector().z;
+        transform.position = new Vector3(pos.x, pos.y, pos.z + backgroundSpeed / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동
 
         if (m_Phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
@@ -88,7 +83,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain
         m_CustomDirection[1] += 79f / Application.targetFrameRate * Time.timeScale;
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         if (m_Phase == 2)
             return;
         m_Phase = 2;

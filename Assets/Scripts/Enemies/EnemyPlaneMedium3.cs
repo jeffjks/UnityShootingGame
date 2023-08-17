@@ -37,10 +37,10 @@ public class EnemyPlaneMedium3 : EnemyUnit
         }
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
-        yield break;
     }
 
-    private IEnumerator TimeLimit(int time_limit = 0) {
+    private IEnumerator TimeLimit(int time_limit = 0)
+    {
         yield return new WaitForMillisecondFrames(time_limit);
         TimeLimitState = true;
 
@@ -53,7 +53,6 @@ public class EnemyPlaneMedium3 : EnemyUnit
             m_MoveVector.speed = Mathf.Lerp(init_speed, 5f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
     protected override void Update()

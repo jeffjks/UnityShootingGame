@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
+public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
-    public EnemyMiddleBoss2_Turret1 m_Turret1;
-    public EnemyMiddleBoss2_Turret2[] m_Turret2 = new EnemyMiddleBoss2_Turret2[2];
+    public EnemyMiddleBoss2_MainTurret m_MainTurret;
+    public EnemyMiddleBoss2_SubTurret[] m_SubTurret = new EnemyMiddleBoss2_SubTurret[2];
     private int m_Phase;
 
     private IEnumerator m_MovementPattern;
@@ -24,12 +24,12 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         _currentPhase = Phase1();
         StartCoroutine(_currentPhase);
         
-        DisableInteractableAll();
+        DisableInteractable(-1);
 
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
-        m_Turret1.m_EnemyDeath.Action_OnKilled += ToNextPhase;
+        m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
         SetRotatePattern(new RotatePattern_MoveDirection());
 
         SystemManager.OnMiddleBossStart();
@@ -90,7 +90,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         if (m_Phase == 2)
             return;
         m_Phase = 2;
@@ -99,15 +99,19 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain
         
         StopAllPatterns();
 
+        if (m_MainTurret != null)
+            m_MainTurret.m_EnemyDeath.KillEnemy();
+        if (m_SubTurret[0] != null)
+            m_SubTurret[0].m_EnemyDeath.KillEnemy();
+        if (m_SubTurret[1] != null)
+            m_SubTurret[1].m_EnemyDeath.KillEnemy();
+        
+        EnableInteractable();
+
         StartPattern("2A", new BulletPattern_EnemyMiddleBoss2_2A(this));
         StartPattern("2B", new BulletPattern_EnemyMiddleBoss2_2B(this));
-
-        m_Turret1?.m_EnemyDeath.KillEnemy();
-        m_Turret2[0]?.m_EnemyDeath.KillEnemy();
-        m_Turret2[1]?.m_EnemyDeath.KillEnemy();
         
         //m_Collider2D[0].gameObject.SetActive(true);
-        EnableInteractableAll();
         BulletManager.SetBulletFreeState(500);
     }
 

@@ -155,6 +155,7 @@ public enum HealthType {
 
 public enum ItemType
 {
+    None = -1,
     PowerUp,
     Bomb,
     Life,

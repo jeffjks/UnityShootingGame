@@ -38,7 +38,8 @@ public class BulletPattern_EnemyMiddleBoss2_1A : BulletFactory, IBulletPattern
                 CreateBullet(new BulletProperty(GetFirePos(2), BulletImage.PinkSmall, 6.8f, BulletPivot.Fixed, Random.Range(0f, 360f), 20, 18f));
                 yield return new WaitForMillisecondFrames(2000);
             }
-            else {
+            else
+            {
                 CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.PinkSmall, 6.8f, BulletPivot.Fixed, Random.Range(0f, 360f), 24, 15f));
                 yield return new WaitForMillisecondFrames(500);
                 CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.PinkSmall, 6.8f, BulletPivot.Fixed, Random.Range(0f, 360f), 24, 15f));
@@ -122,14 +123,14 @@ public class BulletPattern_EnemyMiddleBoss2_2B : BulletFactory, IBulletPattern
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss2_Turret1_0 : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss2_MainTurret_0 : BulletFactory, IBulletPattern
 {
     private readonly Animator _barrelAnimator;
     private readonly int _barrelAnimationTrigger = Animator.StringToHash("BarrelShoot");
 
-    public BulletPattern_EnemyMiddleBoss2_Turret1_0(EnemyObject enemyObject) : base(enemyObject)
+    public BulletPattern_EnemyMiddleBoss2_MainTurret_0(EnemyObject enemyObject) : base(enemyObject)
     {
-        _barrelAnimator = (_enemyObject as EnemyMiddleBoss2_Turret1)?.m_BarrelAnimator;
+        _barrelAnimator = (_enemyObject as EnemyMiddleBoss2_MainTurret)?.m_BarrelAnimator;
     }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
@@ -149,8 +150,8 @@ public class BulletPattern_EnemyMiddleBoss2_Turret1_0 : BulletFactory, IBulletPa
                 for (var i = 0; i < 3; i++)
                 {
                     var randomValue = Random.Range(-2f, 2f);
-                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 4.4f - 1.1f*i, BulletPivot.Current, randomValue));
-                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 4.4f - 1.1f*i, BulletPivot.Current, -randomValue));
+                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 4.4f + 1.1f*i, BulletPivot.Current, randomValue));
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 4.4f + 1.1f*i, BulletPivot.Current, -randomValue));
                 }
                 _barrelAnimator.SetTrigger(_barrelAnimationTrigger);
             }
@@ -165,8 +166,8 @@ public class BulletPattern_EnemyMiddleBoss2_Turret1_0 : BulletFactory, IBulletPa
                 for (var i = 0; i < 6; i++)
                 {
                     var randomValue = Random.Range(-2f, 2f);
-                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 4f - 0.8f*i, BulletPivot.Current, randomValue));
-                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 4f - 0.8f*i, BulletPivot.Current, -randomValue));
+                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 4f + 0.8f*i, BulletPivot.Current, randomValue));
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 4f + 0.8f*i, BulletPivot.Current, -randomValue));
                 }
                 _barrelAnimator.SetTrigger(_barrelAnimationTrigger);
             }
@@ -174,17 +175,17 @@ public class BulletPattern_EnemyMiddleBoss2_Turret1_0 : BulletFactory, IBulletPa
             {
                 for (var i = 0; i < 7; i++)
                 {
-                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 6.8f - 0.3f*i, BulletPivot.Current, - 66 + i*8f));
+                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 7.2f - 0.3f*i, BulletPivot.Current, - 66 + i*8f));
                     CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 6f - 0.3f*i, BulletPivot.Current, - 62 + i*8f));
                     CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 6f - 0.3f*i, BulletPivot.Current, 62 - i*8f));
-                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 6.8f - 0.3f*i, BulletPivot.Current, 66 - i*8f));
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 7.2f - 0.3f*i, BulletPivot.Current, 66 - i*8f));
                     yield return new WaitForMillisecondFrames(170);
                 }
                 for (var i = 0; i < 6; i++)
                 {
                     var randomValue = Random.Range(-1f, 1f);
-                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 4f - 0.8f*i, BulletPivot.Current, randomValue));
-                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 4f - 0.8f*i, BulletPivot.Current, -randomValue));
+                    CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueLarge, 4f + 0.8f*i, BulletPivot.Current, randomValue));
+                    CreateBullet(new BulletProperty(GetFirePos(1), BulletImage.BlueLarge, 4f + 0.8f*i, BulletPivot.Current, -randomValue));
                 }
                 _barrelAnimator.SetTrigger(_barrelAnimationTrigger);
             }
@@ -194,9 +195,9 @@ public class BulletPattern_EnemyMiddleBoss2_Turret1_0 : BulletFactory, IBulletPa
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss2_Turret2_0 : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss2_SubTurret_0 : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss2_Turret2_0(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss2_SubTurret_0(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {

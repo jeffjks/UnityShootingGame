@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss4 : EnemyUnit, IEnemyBossMain
+public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public EnemyBoss4_SmallTurret[] m_SmallTurrets = new EnemyBoss4_SmallTurret[4];
     public EnemyBoss4_FrontTurret[] m_FrontTurrets = new EnemyBoss4_FrontTurret[2];
@@ -121,7 +121,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain
         _trackPos = Mathf.Repeat(_trackPos, 1f);
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, false);

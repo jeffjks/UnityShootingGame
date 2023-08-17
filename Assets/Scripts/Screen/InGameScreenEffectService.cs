@@ -15,7 +15,7 @@ public class InGameScreenEffectService : MonoBehaviour
 	}
 
 	public InGameScreenTransitionEffect m_TransitionBlock;
-	public RectTransform m_TransitionContent;
+	public Transform m_TransitionContent;
 	public WhiteEffectController m_WhiteEffectController;
 	
 	public TransitionState CurrentState { get; set; }

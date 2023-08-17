@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public abstract class Item : UnitObject, IHasGroundCollider
 {
-    public ItemDatas m_ItemData;
+    public ItemInfoDatas m_ItemData;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
     public Transform m_Renderer;
     private const float BOUNDARY_PADDING = 0.5f;

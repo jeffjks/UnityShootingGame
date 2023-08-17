@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMiddleBoss2_Turret2 : EnemyUnit
+public class EnemyMiddleBoss2_SubTurret : EnemyUnit
 {
     private int _killScore;
 
@@ -13,7 +13,7 @@ public class EnemyMiddleBoss2_Turret2 : EnemyUnit
         m_Score = 0;
         
         SetRotatePattern(new RotatePattern_TargetPlayer());
-        StartPattern("0", new BulletPattern_EnemyMiddleBoss2_Turret2_0(this));
+        StartPattern("0", new BulletPattern_EnemyMiddleBoss2_SubTurret_0(this));
         
         m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
     }

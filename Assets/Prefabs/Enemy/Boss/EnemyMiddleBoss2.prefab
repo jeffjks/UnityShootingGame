@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 5008286825400514406}
   - component: {fileID: 2086992599391477854}
   - component: {fileID: 3837575615890229735}
-  - component: {fileID: 1291753293729771185}
+  - component: {fileID: 3227193330244197453}
   m_Layer: 12
   m_Name: EnemyMiddleBoss2
   m_TagString: Untagged
@@ -312,8 +312,8 @@ MonoBehaviour:
   m_EnemyType: 1
   m_Score: 6000
   m_IsRoot: 1
-  m_Turret1: {fileID: 2735425668325104040}
-  m_Turret2:
+  m_MainTurret: {fileID: 2735425668325104040}
+  m_SubTurret:
   - {fileID: 7634328482314332691}
   - {fileID: 9114508609880418932}
 --- !u!114 &8560421019014938997
@@ -356,7 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &2086992599391477854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,8 +369,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 5008286825400514406}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 10
+  m_ItemData: {fileID: 11400000, guid: 220bb15e863646741ab5215f9c732396, type: 2}
+  m_ItemType: 3
+  m_ItemNumber: 20
 --- !u!114 &3837575615890229735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 5008286825400514406}
   m_Debris: 2
---- !u!114 &1291753293729771185
+--- !u!114 &3227193330244197453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 2858088655854634424}
   - component: {fileID: 3521022452340826322}
   m_Layer: 12
-  m_Name: Turret1
+  m_Name: MainTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
   m_EnemyType: 1
   m_Score: 2000
   m_IsRoot: 0
-  m_BarrelAnimator: {fileID: 0}
+  m_BarrelAnimator: {fileID: 2145535938998091326}
 --- !u!114 &3790133983894167632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,7 +918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &3521022452340826322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,7 +1015,7 @@ GameObject:
   - component: {fileID: 3621604697863329020}
   - component: {fileID: 8007411102155453716}
   m_Layer: 12
-  m_Name: Turret2L
+  m_Name: SubTurretL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,7 +1098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &8007411102155453716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,7 +1963,7 @@ GameObject:
   - component: {fileID: 5640588887376963424}
   - component: {fileID: 471486785216962509}
   m_Layer: 12
-  m_Name: Turret2R
+  m_Name: SubTurretR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2048,7 +2046,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &471486785216962509
 MonoBehaviour:
   m_ObjectHideFlags: 0

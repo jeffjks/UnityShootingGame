@@ -32,7 +32,8 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
         }
     }
 
-    private IEnumerator TimeLimit(int timeLimit = 0) {
+    private IEnumerator TimeLimit(int timeLimit = 0)
+    {
         yield return new WaitForMillisecondFrames(timeLimit);
         TimeLimitState = true;
         var leaveDirection = Mathf.Sign(transform.position.x);

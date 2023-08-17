@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16e8299f7b15f24889c5a63fdda3dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransitionBlock: {fileID: 2269979634886200349, guid: d0761a9720d58d34abf5d80e8bfdce27,
+  m_TransitionBlock: {fileID: 2269979634886200349, guid: 08217556cb8b9154a9a837b5579039e9,
     type: 3}
   m_TransitionContent: {fileID: 1737703864059779284}
   m_WhiteEffectController: {fileID: 5553214931010617787}

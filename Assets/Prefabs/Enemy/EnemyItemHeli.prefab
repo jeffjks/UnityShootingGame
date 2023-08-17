@@ -440,6 +440,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition:
+  - {fileID: 1058610507532705680}
+  - {fileID: 460456756178118038}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -449,9 +452,6 @@ MonoBehaviour:
   m_FanR: {fileID: 1327838167947842}
   m_FanB: {fileID: 1018867442816964}
   m_FanRotationSpeed: 1200
-  m_FirePosition:
-  - {fileID: 1058610507532705680}
-  - {fileID: 460456756178118038}
 --- !u!114 &8779208997381888771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +480,6 @@ MonoBehaviour:
   m_DefaultHealth: 2000
   m_Collider2D:
   - {fileID: 7987449607515456430}
-  m_HealthPercent: 100
 --- !u!114 &2056113527640944080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,7 +492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &6659708667826182241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,8 +505,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 2056113527640944080}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 0
+  m_ItemData: {fileID: 11400000, guid: 220bb15e863646741ab5215f9c732396, type: 2}
+  m_ItemType: -1
+  m_ItemNumber: 0
 --- !u!114 &4493954593581785793
 MonoBehaviour:
   m_ObjectHideFlags: 0

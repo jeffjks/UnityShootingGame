@@ -353,7 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsAir: 0
   m_FirePosition:
-  - {fileID: 0}
+  - {fileID: 8605005144375726545}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -531,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8605005144375726545}
   m_Layer: 10
-  m_Name: FirePosition3
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

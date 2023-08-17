@@ -11,6 +11,7 @@ public class EnemyMiddleBoss4_Part : EnemyUnit
     private void Start()
     {
         m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
+        m_CustomDirection = new CustomDirection();
     }
 
     protected override void Update()

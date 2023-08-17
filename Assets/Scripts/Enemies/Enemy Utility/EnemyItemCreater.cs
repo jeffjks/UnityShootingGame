@@ -5,24 +5,33 @@ using UnityEngine;
 public class EnemyItemCreater : MonoBehaviour
 {
     [SerializeField] private EnemyDeath m_EnemyDeath;
-    [SerializeField] private Item m_Item;
+    [SerializeField] private ItemDatas m_ItemData;
+    [SerializeField] private ItemType m_ItemType;
     [SerializeField] private int m_ItemNumber;
+
+    private List<ItemDatas.ItemElement> _itemElementList;
     
     void Start()
     {
         m_EnemyDeath.Action_OnEndDeathAnimation += CreateItems;
+        _itemElementList = m_ItemData.itemElementList;
     }
 
     private void CreateItems() {
-        Vector3 item_pos;
+        if (m_ItemType == ItemType.None)
+            return;
+        
+        Vector3 itemPos;
         if (Utility.CheckLayer(gameObject, Layer.AIR)) {
-            item_pos = new Vector3(transform.position.x, transform.position.y, Depth.ITEMS);
+            itemPos = new Vector3(transform.position.x, transform.position.y, Depth.ITEMS);
         }
         else {
-            item_pos = transform.position;
+            itemPos = transform.position;
         }
 
-        var gemItem = m_Item as ItemGem;
+        var item = _itemElementList[(int)m_ItemType].Item;
+
+        var gemItem = item as ItemGem;
         if (gemItem)
         {
             if (Utility.CheckLayer(gameObject, Layer.AIR)) {
@@ -47,7 +56,7 @@ public class EnemyItemCreater : MonoBehaviour
         else
         {
             for (var i = 0; i < m_ItemNumber; ++i)
-                Instantiate(m_Item, item_pos, Quaternion.identity);
+                Instantiate(item, itemPos, Quaternion.identity);
         }
         
         if (m_ItemNumber == 0)
@@ -83,7 +92,7 @@ public class EnemyItemCreater : MonoBehaviour
                 break;
             default:
                 for (int i = 0; i < m_ItemNumber; i++) {
-                    Vector3 vec = Random.insideUnitSphere * (Mathf.Sqrt(m_ItemNumber) / 2f);
+                    Vector3 vec = Random.insideUnitSphere * (Mathf.Sqrt(m_ItemNumber) * 0.7f);
                     obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.z);
                 }
                 break;

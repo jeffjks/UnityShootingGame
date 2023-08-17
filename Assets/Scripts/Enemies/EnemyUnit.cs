@@ -150,7 +150,10 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         DisableInteractable(-1);
     }
 
-    public void DisableInteractable(int millisecond) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    /// <summary>
+    /// millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    /// </summary>
+    public void DisableInteractable(int millisecond) {
         if (millisecond == 0)
             return;
         m_IsInteractable = false;
@@ -160,7 +163,10 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         if (millisecond != -1)
             StartCoroutine(InteractableTimer(millisecond));
     }
-
+    
+    /// <summary>
+    /// millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    /// </summary>
     protected void DisableInteractableAll(int millisecond = -1) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
         if (millisecond == 0)
             return;

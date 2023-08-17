@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
+public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public GameObject m_BombBarrier;
     public ParticleSystem m_ParticleFireEffect;
@@ -112,7 +112,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain
         m_BombBarrier.SetActive(state);
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_Phase++;
         StopAllPatterns();
         BulletManager.SetBulletFreeState(2000);

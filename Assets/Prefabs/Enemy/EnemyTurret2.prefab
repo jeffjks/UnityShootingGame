@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &4513432000215153851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,9 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 4450760002710729640}
-  m_Item: {fileID: 7898624762947922464, guid: b34bf25cecb5fc24c91de3edea19cb13, type: 3}
+  m_ItemData: {fileID: 11400000, guid: 220bb15e863646741ab5215f9c732396, type: 2}
+  m_ItemType: 3
   m_ItemNumber: 2
-  m_GemNumber: 2
 --- !u!114 &8752691327478028972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,7 +547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &7017348430357223502
 MonoBehaviour:
   m_ObjectHideFlags: 0

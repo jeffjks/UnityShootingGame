@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class EnemyTankLarge1 : EnemyUnit
+public class EnemyTankLarge1 : EnemyUnit, IHasPhase
 {
     public EnemyTankLarge1_SubTurret[] m_SubTurrets = new EnemyTankLarge1_SubTurret[2];
     public EnemyTankLarge1_BackTurret m_BackTurret;
@@ -20,7 +20,7 @@ public class EnemyTankLarge1 : EnemyUnit
         SetRotatePattern(new RotatePattern_MoveDirection());
     }
 
-    private void ToNextPhase()
+    public void ToNextPhase()
     {
         if (m_EnemyHealth.HealthPercent <= 0.33f)
         {

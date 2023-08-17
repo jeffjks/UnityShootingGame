@@ -22,20 +22,19 @@ public class EnemyMissile : EnemyUnit
     void OnEnable()
     {
         transform.SetParent(null);
+        m_IsRoot = true;
         m_MoveVector = new MoveVector(1f, 0f);
         //m_Renderer.rotation = m_Rotation;
         StartCoroutine(AppearanceSequence());
-
-        EnableInteractableAll();
     }
 
     private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(1000);
         m_Engine.SetActive(true);
 
-        yield return new WaitForMillisecondFrames(1200);
+        EnableInteractableAll();
 
-        float init_speed = transform.position.z;
+        float init_speed = 1f;
         int frame = 1000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) { // 1초간 1->6

@@ -399,7 +399,7 @@ MonoBehaviour:
   - {fileID: 1850863824149968204}
   - {fileID: 7732258645414893920}
   m_BackTurret: {fileID: 9028911499515134563}
-  m_LauncherRotation: {fileID: 400010}
+  m_RotateAnimator: {fileID: 0}
 --- !u!114 &114903601766903414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &6605208663967901235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,8 +453,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 515412261101433539}
-  m_ItemBox: {fileID: 0}
-  m_GemNumber: 6
+  m_ItemData: {fileID: 11400000, guid: 220bb15e863646741ab5215f9c732396, type: 2}
+  m_ItemType: 3
+  m_ItemNumber: 8
 --- !u!114 &8968808646381496086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,7 +1099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &5185556878862846782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,7 +1266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &2941072240059797184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1420,7 +1418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &642089065627596974
 MonoBehaviour:
   m_ObjectHideFlags: 0

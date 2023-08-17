@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BulletPattern_EnemyMiddleBoss4_Turret1_1A : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss4_MainTurret_1A : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss4_Turret1_1A(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss4_MainTurret_1A(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -29,9 +29,9 @@ public class BulletPattern_EnemyMiddleBoss4_Turret1_1A : BulletFactory, IBulletP
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss4_Turret1_1B : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss4_MainTurret_1B : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss4_Turret1_1B(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss4_MainTurret_1B(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -67,9 +67,9 @@ public class BulletPattern_EnemyMiddleBoss4_Turret1_1B : BulletFactory, IBulletP
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss4_Turret1_2A1 : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss4_MainTurret_2A1 : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss4_Turret1_2A1(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss4_MainTurret_2A1(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -106,9 +106,9 @@ public class BulletPattern_EnemyMiddleBoss4_Turret1_2A1 : BulletFactory, IBullet
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss4_Turret1_2A2 : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss4_MainTurret_2A2 : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss4_Turret1_2A2(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss4_MainTurret_2A2(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -144,9 +144,9 @@ public class BulletPattern_EnemyMiddleBoss4_Turret1_2A2 : BulletFactory, IBullet
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss4_Turret2_1A : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss4_BackTurret_1A : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss4_Turret2_1A(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss4_BackTurret_1A(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -218,9 +218,9 @@ public class BulletPattern_EnemyMiddleBoss4_Turret2_1A : BulletFactory, IBulletP
     }
 }
 
-public class BulletPattern_EnemyMiddleBoss4_Turret2_1B : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyMiddleBoss4_BackTurret_1B : BulletFactory, IBulletPattern
 {
-    public BulletPattern_EnemyMiddleBoss4_Turret2_1B(EnemyObject enemyObject) : base(enemyObject) { }
+    public BulletPattern_EnemyMiddleBoss4_BackTurret_1B(EnemyObject enemyObject) : base(enemyObject) { }
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -293,13 +293,13 @@ public class BulletPattern_EnemyMiddleBoss4_PartB : BulletFactory, IBulletPatter
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         const int timer = 300;
-        BulletAccel accel1 = new BulletAccel(0f, timer);
+        BulletAccel accel = new BulletAccel(0f, timer);
         int[] fireDelay = { 300, 200, 100 };
 
         while (true) {
             var pos = GetFirePos(0);
             var dir = Random.Range(0f, 360f);
-            var property = new BulletProperty(pos, BulletImage.BlueSmall, 2.2f, BulletPivot.Fixed, dir, accel1);
+            var property = new BulletProperty(pos, BulletImage.BlueSmall, 3.2f, BulletPivot.Fixed, dir, accel);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, timer);
             var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 8f, BulletPivot.Fixed, 0f);
             CreateBullet(property, spawnTiming, subProperty);

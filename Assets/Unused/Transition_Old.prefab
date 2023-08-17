@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2269979634886200350}
   - component: {fileID: 2269979634886200349}
   m_Layer: 14
-  m_Name: Transition
+  m_Name: Transition_Old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

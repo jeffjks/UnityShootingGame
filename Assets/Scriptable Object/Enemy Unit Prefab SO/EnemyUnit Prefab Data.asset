@@ -154,7 +154,7 @@ MonoBehaviour:
   - enemyName: MiddleBoss2
     enemyUnit: {fileID: 4334012117464872134, guid: 4612e62690a6d004db7718900a70e812,
       type: 3}
-    defaultPosition: {x: -12.5, y: 4.23, z: 33}
+    defaultPosition: {x: -12.5, y: 4.23, z: 30}
   - enemyName: MiddleBoss3
     enemyUnit: {fileID: 8674409897457576518, guid: 473812caa50370642aef744627df5d27,
       type: 3}
@@ -179,7 +179,7 @@ MonoBehaviour:
   - enemyName: Boss2
     enemyUnit: {fileID: 4034944517753554836, guid: 01bdc9a859a9fd54d8b56ff22302f2ea,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 44}
   - enemyName: Boss3
     enemyUnit: {fileID: 4634525837565633629, guid: c93e1719d14959746ba1d22a8ec1f6f4,
       type: 3}

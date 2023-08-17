@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public interface IHasPhase
+{
+    public void ToNextPhase();
+}
+
 public class EnemyPhaseController : MonoBehaviour
 {
     [SerializeField] private UnityEvent[] _onNextPhase;

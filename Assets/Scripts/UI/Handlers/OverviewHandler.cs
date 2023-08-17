@@ -41,8 +41,8 @@ public class OverviewFlowBuilder
 
 public class OverviewHandler : MonoBehaviour
 {
-    public ItemDatas m_GemGroundData;
-    public ItemDatas m_GemAirData;
+    public ItemInfoDatas m_GemGroundData;
+    public ItemInfoDatas m_GemAirData;
     
     [SerializeField] private GameObject[] m_OverviewContents;
 

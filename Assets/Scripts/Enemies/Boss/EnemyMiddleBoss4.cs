@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
+public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
-    public EnemyMiddleBoss4_Turret1 m_Turret1;
-    public EnemyMiddleBoss4_Turret2 m_Turret2;
+    public EnemyMiddleBoss4_FrontTurret m_FrontTurret;
+    public EnemyMiddleBoss4_BackTurret m_BackTurret;
     public EnemyMiddleBoss4_Part[] m_Part = new EnemyMiddleBoss4_Part[2];
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
@@ -14,6 +14,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private const int TIME_LIMIT = 40000;
 
     private IEnumerator m_CurrentPhase, m_SubPattern;
+    private IEnumerator m_TimeLimit;
 
     void Start()
     {
@@ -24,10 +25,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
-        
-        /*
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(TARGET_POSITION.y, APPEARANCE_TIME).SetEase(Ease.OutQuad));*/
     }
 
     protected override void Update()
@@ -88,10 +85,12 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
 
         SystemManager.OnMiddleBossStart();
 
-        StartCoroutine(TimeLimit(TIME_LIMIT));
+        m_TimeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(m_TimeLimit);
     }
 
-    private IEnumerator TimeLimit(int time_limit = 0) {
+    private IEnumerator TimeLimit(int time_limit = 0)
+    {
         yield return new WaitForMillisecondFrames(time_limit);
         TimeLimitState = true;
         m_MoveVector = new MoveVector(0f, 0f);
@@ -108,7 +107,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         }
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_Phase++;
         BulletManager.SetBulletFreeState(1000);
         if (m_CurrentPhase != null)
@@ -125,41 +124,28 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     }
 
     private IEnumerator SubPattern() { // 서브 패턴 ============================
+        int[] fireDelay = { 1800, 1300, 700 };
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 1) {
+        while (m_Phase == 1)
+        {
+            StopAllPartPattern();
             if (m_Part[0] != null)
                 m_Part[0].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[0]));
             else if (m_Part[1] != null)
                 m_Part[1].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[1]));
+
+            yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
             
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                yield return new WaitForMillisecondFrames(1800);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                yield return new WaitForMillisecondFrames(1300);
-            }
-            else {
-                yield return new WaitForMillisecondFrames(700);
-            }
+            StopAllPartPattern();
             if (m_Part[1] != null)
-                m_Part[1].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[0]));
+                m_Part[1].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[1]));
             else if (m_Part[0] != null)
-                m_Part[0].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[1]));
+                m_Part[0].StartPattern("SubA", new BulletPattern_EnemyMiddleBoss4_PartA(m_Part[0]));
             
-            if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                yield return new WaitForMillisecondFrames(1800);
-            }
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                yield return new WaitForMillisecondFrames(1300);
-            }
-            else {
-                yield return new WaitForMillisecondFrames(700);
-            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
         }
-        if (m_Part[0] != null)
-            m_Part[0].StopAllPatterns();
-        if (m_Part[1] != null)
-            m_Part[1].StopAllPatterns();
+
+        StopAllPartPattern();
         yield return new WaitForMillisecondFrames(3000);
         
         if (m_Part[0] != null)
@@ -168,21 +154,29 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
             m_Part[1].StartPattern("SubB", new BulletPattern_EnemyMiddleBoss4_PartB(m_Part[1]));
     }
 
+    private void StopAllPartPattern()
+    {
+        if (m_Part[0] != null)
+            m_Part[0].StopAllPatterns();
+        if (m_Part[1] != null)
+            m_Part[1].StopAllPatterns();
+    }
+
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
         while (m_Phase == 1) {
-            m_Turret1.StartPattern("1A1", new BulletPattern_EnemyMiddleBoss4_Turret1_1A(m_Turret1));
-            m_Turret2.StartPattern("1A2", new BulletPattern_EnemyMiddleBoss4_Turret2_1A(m_Turret2));
+            m_FrontTurret.StartPattern("1A1", new BulletPattern_EnemyMiddleBoss4_MainTurret_1A(m_FrontTurret));
+            m_BackTurret.StartPattern("1A2", new BulletPattern_EnemyMiddleBoss4_BackTurret_1A(m_BackTurret));
             yield return new WaitForMillisecondFrames(6000);
-            m_Turret1.StopPattern("1A");
-            m_Turret2.StopPattern("1A");
+            m_FrontTurret.StopPattern("1A1");
+            m_BackTurret.StopPattern("1A2");
             yield return new WaitForMillisecondFrames(1000);
 
-            m_Turret1.StartPattern("1B1", new BulletPattern_EnemyMiddleBoss4_Turret1_1B(m_Turret1));
-            m_Turret2.StartPattern("1B2", new BulletPattern_EnemyMiddleBoss4_Turret2_1B(m_Turret2));
+            m_FrontTurret.StartPattern("1B1", new BulletPattern_EnemyMiddleBoss4_MainTurret_1B(m_FrontTurret));
+            m_BackTurret.StartPattern("1B2", new BulletPattern_EnemyMiddleBoss4_BackTurret_1B(m_BackTurret));
             yield return new WaitForMillisecondFrames(6000);
-            m_Turret1.StopPattern("1B");
-            m_Turret2.StopPattern("1B");
+            m_FrontTurret.StopPattern("1B1");
+            m_BackTurret.StopPattern("1B2");
             yield return new WaitForMillisecondFrames(1800);
         }
     }
@@ -191,10 +185,10 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
         while (m_Phase == 2) {
-            m_Turret1.StartPattern("2A1", new BulletPattern_EnemyMiddleBoss4_Turret1_2A1(m_Turret1));
-            m_Turret1.StartPattern("2A2", new BulletPattern_EnemyMiddleBoss4_Turret1_2A2(m_Turret1));
+            m_FrontTurret.StartPattern("2A1", new BulletPattern_EnemyMiddleBoss4_MainTurret_2A1(m_FrontTurret));
+            m_FrontTurret.StartPattern("2A2", new BulletPattern_EnemyMiddleBoss4_MainTurret_2A2(m_FrontTurret));
             yield return new WaitForMillisecondFrames(4400);
-            m_Turret1.StopAllPatterns();
+            m_FrontTurret.StopAllPatterns();
             yield return new WaitForMillisecondFrames(600);
         }
     }
@@ -209,6 +203,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain
         }
 
         BulletManager.BulletsToGems(2000);
+        if (m_TimeLimit != null)
+            StopCoroutine(m_TimeLimit);
         m_MoveVector = new MoveVector(1.4f, 0f);
         m_Phase = -1;
         

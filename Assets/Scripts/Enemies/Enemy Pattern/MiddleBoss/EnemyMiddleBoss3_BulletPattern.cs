@@ -55,18 +55,28 @@ public class BulletPattern_EnemyMiddleBoss3_1A2 : BulletFactory, IBulletPattern
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (var i = 0; i < 4; i++) {
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Player, 32f * i, 3, 3f));
+                    var property = new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Fixed, dir + 32f * i, 3, 3f);
+                    CreateBullet(property);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (var i = 0; i < 5; i++) {
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Player, 25f * i, 4, 3f));
+                    var property1 = new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Fixed, dir + 25f * i, 4, 3f);
+                    var property2 = new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Fixed, dir + 25f * i + 180f, 4, 3f);
+                    CreateBullet(property1);
+                    CreateBullet(property2);
                 }
             }
             else {
                 for (var i = 0; i < 5; i++) {
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 6.9f, BulletPivot.Player, 25f * i, 4, 3f));
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7.5f, BulletPivot.Player, 25f * i, 4, 3f));
+                    var property1 = new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Fixed, dir + 25f * i, 4, 3f);
+                    var property2 = new BulletProperty(pos, BulletImage.PinkLarge, 7.5f, BulletPivot.Fixed, dir + 25f * i, 4, 3f);
+                    var property3 = new BulletProperty(pos, BulletImage.PinkLarge, 7.2f, BulletPivot.Fixed, dir + 25f * i + 180f, 4, 3f);
+                    var property4= new BulletProperty(pos, BulletImage.PinkLarge, 7.5f, BulletPivot.Fixed, dir + 25f * i + 180f, 4, 3f);
+                    CreateBullet(property1);
+                    CreateBullet(property2);
+                    CreateBullet(property3);
+                    CreateBullet(property4);
                 }
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);

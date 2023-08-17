@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss5 : EnemyUnit, IEnemyBossMain
+public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public Transform m_BottomLine;
     public GameObject m_AllWings;
@@ -158,7 +158,7 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain
         yield break;
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_Phase++;
         StopAllPatterns();
 

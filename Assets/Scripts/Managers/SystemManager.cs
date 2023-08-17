@@ -18,7 +18,7 @@ public class SystemManager : MonoBehaviour
     public static PlayState PlayState = PlayState.OutGame;
     public static int Stage = -1;
     
-    public static SystemManager Instance { get; set; }
+    public static SystemManager Instance { get; private set; }
     
     public static event Action Action_OnBossClear;
     public static event Action Action_OnStageClear;
@@ -55,6 +55,12 @@ public class SystemManager : MonoBehaviour
 
     public static void OnBossClear()
     {
+        if (DebugOption.SceneMode > 0)
+        {
+            PlayState = PlayState.OnField;
+            return;
+        }
+        
         AudioService.StopMusic();
         if (StageManager.IsTrueBossEnabled)
             return;
@@ -74,11 +80,17 @@ public class SystemManager : MonoBehaviour
         Action_OnShowOverview?.Invoke();
     }
 
-    public void StartStageClearCoroutine() {
+    public void StartStageClearCoroutine()
+    {
+        if (DebugOption.SceneMode > 0)
+            return;
         StartCoroutine(StageClear());
     }
 
-    public void StartNextStageCoroutine() {
+    public void StartNextStageCoroutine()
+    {
+        if (DebugOption.SceneMode > 0)
+            return;
         StartCoroutine(NextStage());
     }
 

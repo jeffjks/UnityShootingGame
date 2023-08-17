@@ -6,6 +6,6 @@ public class EnemyBoss2_Part1_Turret2 : EnemyUnit
 {
     void Start()
     {
-        CurrentAngle = 180f;
+        SetRotatePattern(new RotatePattern_TargetPlayer(180f));
     }
 }

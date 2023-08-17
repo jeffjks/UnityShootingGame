@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
+public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public EnemyUnit[] m_Turret = new EnemyUnit[2];
     public Transform m_Rotator;
@@ -14,6 +14,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
     private const float ROLLING_ANGLE_MAX = 30f;
 
     private IEnumerator m_CurrentPhase;
+    private IEnumerator m_TimeLimit;
 
     void Start()
     {
@@ -94,10 +95,12 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         EnableInteractableAll();
 
         SystemManager.OnMiddleBossStart();
-        StartCoroutine(TimeLimit(TIME_LIMIT));
+        m_TimeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(m_TimeLimit);
     }
 
-    private IEnumerator TimeLimit(int timeLimit = 0) {
+    private IEnumerator TimeLimit(int timeLimit = 0)
+    {
         yield return new WaitForMillisecondFrames(APPEARANCE_TIME + timeLimit);
         TimeLimitState = true;
 
@@ -145,7 +148,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
         }
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_Phase++;
         BulletManager.SetBulletFreeState(1000);
         
@@ -168,6 +171,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
         BulletManager.BulletsToGems(2000);
+        if (m_TimeLimit != null)
+            StopCoroutine(m_TimeLimit);
         m_MoveVector = new MoveVector(1f, 0f);
         m_Phase = -1;
         

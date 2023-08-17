@@ -140,7 +140,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1B : BulletFactory, IBulletP
         yield return new WaitForMillisecondFrames(1200);
 
         var sign = Mathf.Sign(_enemyObject.transform.localScale.x);
-        _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(360f).SetOffsetAngle(60f*sign));
+        _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(360f*sign));
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while (true) {
@@ -186,7 +186,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1C : BulletFactory, IBulletP
         yield return new WaitForMillisecondFrames(1500);
 
         var sign = Mathf.Sign(_enemyObject.transform.localScale.x);
-        _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(850f).SetOffsetAngle(150f*sign));
+        _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(850f*sign));
 
         if (_patternIndex == 1) {
             yield return new WaitForMillisecondFrames(400);
@@ -217,12 +217,12 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1C : BulletFactory, IBulletP
         }
         else {
             for (int i = 0; i < 36; i++) {
-                var property1 = new BulletProperty(GetFirePos(0, gap), BulletImage.PinkNeedle, 10f, BulletPivot.Current, 0f, accel1, 2, 6f);
+                var property1 = new BulletProperty(GetFirePos(0, gap), BulletImage.PinkNeedle, 9f, BulletPivot.Current, 0f, accel1, 2, 6f);
                 var property2 = new BulletProperty(GetFirePos(0, -gap), BulletImage.PinkNeedle, 10f, BulletPivot.Current, 0f, accel1, 2, 6f);
                 var spawnTiming1 = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 360);
                 var spawnTiming2 = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 560);
                 var newProperty1 = new BulletProperty(CurrentPos, BulletImage.PinkNeedle, 8f, BulletPivot.Current, 15f, accel2);
-                var newProperty2 = new BulletProperty(CurrentPos, BulletImage.PinkNeedle, 8f, BulletPivot.Current, 9f, accel2);
+                var newProperty2 = new BulletProperty(CurrentPos, BulletImage.PinkNeedle, 8f, BulletPivot.Current, -9f, accel2);
                 CreateBullet(property1, spawnTiming1, newProperty1);
                 CreateBullet(property1, spawnTiming2, newProperty2);
                 CreateBullet(property2, spawnTiming1, newProperty1);
@@ -488,7 +488,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret2_3A : BulletFactory, IBulletP
                 CreateBullet(new BulletProperty(GetFirePos(0, -gap), BulletImage.BlueSmall, 6.1f, BulletPivot.Current, 0f));
                 yield return new WaitForMillisecondFrames(70);
             }
-            _enemyObject.SetRotatePattern(new RotatePattern_TargetAngle(60f, 100f));
+            _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(60f, 100f));
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
         //onCompleted?.Invoke();

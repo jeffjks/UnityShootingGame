@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
+public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public GameObject m_Hull;
     public EnemyMiddleBoss5b_Turret m_Turret;
@@ -26,18 +26,6 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
         SystemManager.OnMiddleBossStart();
-        /*
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMove(TARGET_POSITION, APPEARANCE_TIME).SetEase(Ease.OutQuad))
-        .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(-3f*random_value, -3.8f, Depth.ENEMY), duration).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMove(new Vector3(0f, -3.8f, Depth.ENEMY), 2f).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMoveY(10f, 3f).SetEase(Ease.InQuad));*/
     }
 
     private IEnumerator AppearanceSequence() {
@@ -86,9 +74,10 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain
         SetRotatePattern(new RotatePattern_TargetPlayer(40f, 100f));
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         m_Phase++;
-        StopPattern("B");
+        StopPattern("B1");
+        StopPattern("B2");
         m_Hull.SetActive(false);
         
         m_Turret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5b_Turret_A(m_Turret));

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // 파괴 후 Quaternion.identity 상태로 돌아가는 용도
 
-public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
+public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public EnemyUnit m_Turret1;
     public EnemyUnit[] m_Turret2 = new EnemyUnit[2];
@@ -20,7 +20,8 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
     private const float ROLLING_ANGLE_MID = 20f;
     private const float ROLLING_ANGLE_MAX = 15f;
 
-    private IEnumerator m_CurrentPhase, m_CurrentMovement;
+    private IEnumerator m_CurrentPhase;
+    private IEnumerator m_CurrentMovement;
 
     void Start()
     {
@@ -56,7 +57,10 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
         }
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase()
+    {
+        if (m_Phase != 1)
+            return;
         m_Phase++;
         m_MoveVector = new MoveVector(0f, 0f);
         if (m_CurrentPhase != null)
@@ -70,26 +74,14 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
         StartCoroutine(m_CurrentPhase);
         m_Turret2[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 100f));
         m_Turret2[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 100f));
-        //m_Sequence.Kill();
+        
         m_CurrentMovement = OnPhase2();
         StartCoroutine(m_CurrentMovement);
     }
 
 
-    private IEnumerator AppearanceSequence() {
-        /*
-        float appearance_time_1 = 0.55f;
-        float appearance_time_2 = 1f - 0.55f;
-        
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveX(3f, APPEARANCE_TIME*appearance_time_1).SetEase(Ease.OutQuad))
-        .Join(transform.DOMoveY(-2f, APPEARANCE_TIME*appearance_time_1).SetEase(Ease.Linear))
-        .Join(transform.DORotateQuaternion(m_TargetQuaternion[0], APPEARANCE_TIME*appearance_time_1).SetEase(Ease.InOutQuad))
-        .Append(transform.DOMoveX(0f, APPEARANCE_TIME*appearance_time_2).SetEase(Ease.InOutQuad))
-        .Join(transform.DOMoveY(-4.5f, APPEARANCE_TIME*appearance_time_2).SetEase(Ease.OutQuad))
-        .Join(transform.DORotateQuaternion(Quaternion.identity, APPEARANCE_TIME*appearance_time_2).SetEase(Ease.InQuad));*/
-
-        
+    private IEnumerator AppearanceSequence()
+    {
         int frame1 = 1100 * Application.targetFrameRate / 1000;
         int frame2 = 900 * Application.targetFrameRate / 1000;
 
@@ -125,7 +117,6 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain
         }
         
         OnAppearanceComplete();
-        yield break;
     }
 
     private void OnAppearanceComplete() {

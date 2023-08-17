@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
+public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public EnemyUnit[] m_Turret = new EnemyUnit[2];
     public EnemyBoss3_Part m_Part;
@@ -119,7 +119,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain
         return random_value;
     }
 
-    private void ToNextPhase() {
+    public void ToNextPhase() {
         int duration = 2000;
         m_Phase++;
         if (m_Phase >= 2) {

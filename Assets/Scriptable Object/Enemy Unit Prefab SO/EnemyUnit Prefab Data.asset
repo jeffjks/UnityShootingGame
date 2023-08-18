@@ -187,7 +187,7 @@ MonoBehaviour:
   - enemyName: Boss4
     enemyUnit: {fileID: 2827427694812776932, guid: aaa4d9b9720cad04c99d4e0321cfdcd4,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 38}
+    defaultPosition: {x: 0, y: 3, z: 39}
   - enemyName: Boss5
     enemyUnit: {fileID: 3070432210736135170, guid: e061956d714bf2942bba9f5c7c918046,
       type: 3}

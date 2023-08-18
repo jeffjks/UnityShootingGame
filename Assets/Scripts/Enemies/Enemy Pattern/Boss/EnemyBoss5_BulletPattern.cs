@@ -276,40 +276,84 @@ public class BulletPattern_EnemyBoss5_1D2 : BulletFactory, IBulletPattern
     }
 }
 
-public class BulletPattern_EnemyBoss5_2A1 : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyBoss5_2A1a : BulletFactory, IBulletPattern
 {
     private readonly Transform _bottomLine;
 
-    public BulletPattern_EnemyBoss5_2A1(EnemyObject enemyObject, Transform bottomLine) : base(enemyObject)
+    public BulletPattern_EnemyBoss5_2A1a(EnemyObject enemyObject, Transform bottomLine) : base(enemyObject)
     {
         _bottomLine = bottomLine;
     }
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        int[] fireDelay = { 900, 350, 250 };
-        int number = Random.Range(0, 2);
+        int[] fireDelayFrame = { 15, 7, 5 };
 
-        while (true) {
-            for (int i = 1; i < 4; i++) {
-                //pos = m_FirePositionsWing[i].position;
-                var pos = GetFirePos(i);
+        while (true)
+        {
+            for (var i = 0; i < 3; ++i)
+            {
+                var pos = GetFirePos(i + 1);
                 if (pos.z > _bottomLine.position.z)
                     continue;
 
-                var dir = Random.Range(-5f, 5f);
-                if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.5f, BulletPivot.Fixed, dir, 4 - number, 25f));
+                var dir = _enemyObject.m_CustomDirection[1];
+                var randDir = Random.Range(-2f, 2f);
+                if (SystemManager.Difficulty == GameDifficulty.Normal)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7.5f, BulletPivot.Fixed, dir + randDir));
                 }
-                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.7f, BulletPivot.Fixed, dir, 5 - number, 15f));
+                else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 9f, BulletPivot.Fixed, dir + randDir));
                 }
-                else {
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir, 5 - number, 15f));
+                else
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 10f, BulletPivot.Fixed, dir + randDir));
                 }
-                number = 1 - number;
             }
-            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+            yield return new WaitForFrames(fireDelayFrame[(int)SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}
+
+public class BulletPattern_EnemyBoss5_2A1b : BulletFactory, IBulletPattern
+{
+    private readonly Transform _bottomLine;
+
+    public BulletPattern_EnemyBoss5_2A1b(EnemyObject enemyObject, Transform bottomLine) : base(enemyObject)
+    {
+        _bottomLine = bottomLine;
+    }
+    
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelayFrame = { 8, 3, 2 };
+
+        while (true)
+        {
+            for (var i = 0; i < 3; ++i)
+            {
+                var pos = GetFirePos(i + 1);
+                if (pos.z > _bottomLine.position.z)
+                    continue;
+
+                var dir = _enemyObject.m_CustomDirection[2];
+                if (SystemManager.Difficulty == GameDifficulty.Normal)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5f, BulletPivot.Fixed, dir));
+                }
+                else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5f, BulletPivot.Fixed, dir));
+                }
+                else
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5f, BulletPivot.Fixed, dir));
+                }
+            }
+            yield return new WaitForFrames(fireDelayFrame[(int) SystemManager.Difficulty]);
         }
         //onCompleted?.Invoke();
     }
@@ -345,30 +389,35 @@ public class BulletPattern_EnemyBoss5_2B1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        BulletAccel accel1 = new BulletAccel(5f, 800);
-        BulletAccel accel2 = new BulletAccel(6f, 800);
-        BulletAccel accel3 = new BulletAccel(7f, 800);
-        int[] fireDelay = { 320, 150, 100 };
+        int[] fireDelay = { 3000, 2500, 2000 };
+        int[] bulletNumArray = { 4, 8, 12 };
 
-        while (true) {
-            for (int i = 1; i < 4; i++) {
-                var pos = GetFirePos(i);
-                if (pos.z > _bottomLine.position.z)
-                    continue;
+        while (true)
+        {
+            var bulletNum = bulletNumArray[(int)SystemManager.Difficulty];
+            for (var j = 0; j < bulletNum; ++j)
+            {
+                var speed = 10f - (bulletNum - 1) * 0.3f + 0.6f * j;
+                for (var i = 1; i < 4; i++)
+                {
+                    var pos = GetFirePos(i);
+                    if (pos.z > _bottomLine.position.z)
+                        continue;
 
-                var dir = Random.Range(-18f, 18f);
-                if (SystemManager.Difficulty == GameDifficulty.Normal)
-                {
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 2f, BulletPivot.Fixed, dir, accel1));
+                    if (SystemManager.Difficulty == GameDifficulty.Normal)
+                    {
+                        CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Player, 0f));
+                    }
+                    else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                    {
+                        CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Player, 0f));
+                    }
+                    else
+                    {
+                        CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Player, 0f, 9, 40f));
+                    }
                 }
-                else if (SystemManager.Difficulty == GameDifficulty.Expert)
-                {
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 2.5f, BulletPivot.Fixed, dir, accel2));
-                }
-                else
-                {
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 3f, BulletPivot.Fixed, dir, accel3));
-                }
+                yield return new WaitForMillisecondFrames(600 / bulletNum);
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }
@@ -379,6 +428,43 @@ public class BulletPattern_EnemyBoss5_2B1 : BulletFactory, IBulletPattern
 public class BulletPattern_EnemyBoss5_2B2 : BulletFactory, IBulletPattern
 {
     public BulletPattern_EnemyBoss5_2B2(EnemyObject enemyObject) : base(enemyObject) { }
+    
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        var dir = 0f;
+        int[] fireDelayFrame = { 60, 45, 30 };
+        
+        while (true) {
+            var pos = GetFirePos(0);
+            var spawnTiming1 = new BulletSpawnTiming(BulletSpawnType.Create, 350);
+            var spawnTiming2 = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 350);
+            var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 5.6f, BulletPivot.Current, 0f, 2, 180f);
+            
+            if (SystemManager.Difficulty == GameDifficulty.Normal)
+            {
+                var property = new BulletProperty(pos, BulletImage.PinkSmall, 6f, BulletPivot.Fixed, dir, 8, 45);
+                CreateBullet(property, spawnTiming1, subProperty);
+            }
+            else if (SystemManager.Difficulty == GameDifficulty.Expert)
+            {
+                var property = new BulletProperty(pos, BulletImage.PinkSmall, 6f, BulletPivot.Fixed, dir, 12, 30);
+                CreateBullet(property, spawnTiming2, subProperty);
+            }
+            else
+            {
+                var property = new BulletProperty(pos, BulletImage.PinkSmall, 6f, BulletPivot.Fixed, dir, 15, 24);
+                CreateBullet(property, spawnTiming2, subProperty);
+            }
+            dir += 3f + fireDelayFrame[(int) SystemManager.Difficulty] / 2f;
+            yield return new WaitForFrames(fireDelayFrame[(int) SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}
+
+public class BulletPattern_EnemyBoss5_2B2_Old : BulletFactory, IBulletPattern
+{
+    public BulletPattern_EnemyBoss5_2B2_Old(EnemyObject enemyObject) : base(enemyObject) { }
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
@@ -420,18 +506,67 @@ public class BulletPattern_EnemyBoss5_2B2 : BulletFactory, IBulletPattern
     }
 }
 
-public class BulletPattern_EnemyBoss5_2C : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyBoss5_2C1 : BulletFactory, IBulletPattern
 {
     private readonly Transform _bottomLine;
 
-    public BulletPattern_EnemyBoss5_2C(EnemyObject enemyObject, Transform bottomLine) : base(enemyObject)
+    public BulletPattern_EnemyBoss5_2C1(EnemyObject enemyObject, Transform bottomLine) : base(enemyObject)
     {
         _bottomLine = bottomLine;
     }
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        int[] fireDelay = { 640, 400, 300 };
+        int[] fireDelay = { 2500, 1600, 1000 };
+        int[] subFireDelay = { 500, 400, 300 };
+        int[] repeatNum = { 3, 5, 7 };
+
+        while (true)
+        {
+            for (var i = 0; i < repeatNum[(int) SystemManager.Difficulty]; ++i)
+            {
+                for (var j = 0; j < 3; j++)
+                {
+                    var pos = GetFirePos(0);
+                    var dir = _enemyObject.m_CustomDirection[0] / 2f + 120f * j;
+
+                    if (SystemManager.Difficulty == GameDifficulty.Normal)
+                    {
+                        CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 4.3f, BulletPivot.Fixed, dir, 3, 15f));
+                    }
+                    else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                    {
+                        CreateBullet( new BulletProperty(pos, BulletImage.PinkNeedle, 4.4f, BulletPivot.Fixed, dir, 5, 10f));
+                    }
+                    else
+                    {
+                        CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 4.5f, BulletPivot.Fixed, dir, 9, 7f));
+                        CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 5.2f, BulletPivot.Fixed, dir + 60f));
+                    }
+                }
+                yield return new WaitForMillisecondFrames(subFireDelay[(int) SystemManager.Difficulty]);
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+        }
+        //onCompleted?.Invoke();
+    }
+}
+
+public class BulletPattern_EnemyBoss5_2C2 : BulletFactory, IBulletPattern
+{
+    private readonly Transform _bottomLine;
+
+    public BulletPattern_EnemyBoss5_2C2(EnemyObject enemyObject, Transform bottomLine) : base(enemyObject)
+    {
+        _bottomLine = bottomLine;
+    }
+    
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        BulletAccel accel1 = new BulletAccel(5f, 800);
+        BulletAccel accel2 = new BulletAccel(6f, 800);
+        BulletAccel accel3 = new BulletAccel(7f, 800);
+        int[] fireDelay = { 320, 150, 100 };
 
         while (true) {
             for (int i = 1; i < 4; i++) {
@@ -439,13 +574,18 @@ public class BulletPattern_EnemyBoss5_2C : BulletFactory, IBulletPattern
                 if (pos.z > _bottomLine.position.z)
                     continue;
 
-                var dir = Random.Range(0f, 360f) + _enemyObject.m_CustomDirection[0];
-
-                if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.2f, BulletPivot.Fixed, dir, 15, 24f));
+                var dir = Random.Range(-18f, 18f);
+                if (SystemManager.Difficulty == GameDifficulty.Normal)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 2f, BulletPivot.Fixed, dir, accel1));
                 }
-                else {
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.2f, BulletPivot.Fixed, dir, 20, 18f));
+                else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 2.5f, BulletPivot.Fixed, dir, accel2));
+                }
+                else
+                {
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 3f, BulletPivot.Fixed, dir, accel3));
                 }
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);

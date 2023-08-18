@@ -15,7 +15,7 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
     private int _pattern1A_fireDelay2;
 
     private int m_Phase;
-    private readonly Vector3 TARGET_POSITION = new (0f, -4f);
+    private readonly Vector3 TARGET_POSITION = new (0f, -3.5f);
     private const int APPEARANCE_TIME = 10000;
     private const float DEFAULT_SPEED = 0.2f;
     private int m_MoveDirection;
@@ -32,13 +32,9 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             _wingMeshRenderers[i] = m_EnemyBoss5Wings[i].GetComponentInChildren<MeshRenderer>();
             _wingMeshRenderers[i].gameObject.SetActive(false);
         }
-        m_CustomDirection = new CustomDirection();
+        m_CustomDirection = new CustomDirection(3);
 
         DisableInteractableAll();
-        
-        /*
-        m_Sequence = DOTween.Sequence()
-        .Append(transform.DOMoveY(TARGET_POSITION.y, APPEARANCE_TIME).SetEase(Ease.Linear));*/
 
         StartCoroutine(AppearanceSequence());
 
@@ -48,8 +44,9 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private IEnumerator AppearanceSequence() {
-        float init_position_y = transform.position.y;
-        int frame = APPEARANCE_TIME * Application.targetFrameRate / 1000;
+        var init_position_y = transform.position.y;
+        var appearanceTime = (DebugOption.SceneMode > 0) ? 2000 : APPEARANCE_TIME;
+        var frame = appearanceTime * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_posy = AC_Ease.ac_ease[(int)EaseType.Linear].Evaluate((float) (i+1) / frame);
@@ -116,34 +113,12 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
 
         m_CustomDirection[0] += 91f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[1] += 111f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[2] -= 191f / Application.targetFrameRate * Time.timeScale;
     }
 
     private void SetWingOpenState(bool state) {
         m_WingOpenAnimator.SetBool(_openedBoolAnimation, state);
-        /*
-        Quaternion[] init_localRotation = new Quaternion[m_EnemyBoss5Wings.Length];
-        
-        for (int i = 0; i < m_EnemyBoss5Wings.Length; ++i) {
-            m_FirePositionsWing[i].localPosition = new Vector3(0f, 4.5f, -3.3f);
-            init_localRotation[i] = m_EnemyBoss5Wings[i].transform.localRotation;
-        }
-        
-        int frame = 1500 * Application.targetFrameRate / 1000;
-
-        for (int i = 0; i < frame; ++i) {
-            float t_rot = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
-
-            try {
-                for (int j = 0; j < m_EnemyBoss5Wings.Length; ++j) {
-                    m_EnemyBoss5Wings[j].transform.localRotation = Quaternion.Lerp(init_localRotation[j], Quaternion.Euler(30f, 0f, 0f), t_rot);
-                }
-            }
-            catch {
-                break;
-            }
-            yield return new WaitForMillisecondFrames(0);
-        }
-        yield break;*/
     }
 
     private IEnumerator InitMaterial() {
@@ -248,22 +223,25 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(3000);
         
-        StartPattern("2A1", new BulletPattern_EnemyBoss5_2A1(this, m_BottomLine));
-        StartPattern("2A2", new BulletPattern_EnemyBoss5_2A2(this));
-        yield return new WaitForMillisecondFrames(8000);
-        StopAllPatterns();
-        yield return new WaitForMillisecondFrames(3000);
-
         while (m_Phase == 2) {
-            StartPattern("2B1", new BulletPattern_EnemyBoss5_2B1(this, m_BottomLine));
-            StartPattern("2B2", new BulletPattern_EnemyBoss5_2B2(this));
-            yield return new WaitForMillisecondFrames(15000);
+            StartPattern("2A1a", new BulletPattern_EnemyBoss5_2A1a(this, m_BottomLine));
+            StartPattern("2A1b", new BulletPattern_EnemyBoss5_2A1b(this, m_BottomLine));
+            //StartPattern("2A2", new BulletPattern_EnemyBoss5_2A2(this));
+            yield return new WaitForMillisecondFrames(10000);
             StopAllPatterns();
             yield return new WaitForMillisecondFrames(3000);
             
-            StartPattern("2C", new BulletPattern_EnemyBoss5_2C(this, m_BottomLine));
+            StartPattern("2B1", new BulletPattern_EnemyBoss5_2B1(this, m_BottomLine));
+            StartPattern("2B2", new BulletPattern_EnemyBoss5_2B2(this));
+            yield return new WaitForMillisecondFrames(12000);
+            StopAllPatterns();
+            yield return new WaitForMillisecondFrames(3000);
+            
+            StartPattern("2C1", new BulletPattern_EnemyBoss5_2C1(this, m_BottomLine));
+            StartPattern("2C2", new BulletPattern_EnemyBoss5_2C2(this, m_BottomLine));
             yield return new WaitForMillisecondFrames(8000);
-            StopPattern("2C");
+            StopPattern("2C1");
+            StopPattern("2C2");
             yield return new WaitForMillisecondFrames(3000);
         }
     }

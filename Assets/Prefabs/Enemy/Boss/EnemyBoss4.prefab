@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &3670372200201617813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +782,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &1062965563993457308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1403,7 +1399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &4913570178514782801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,7 +1512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &6782856625095346979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1841,7 +1835,7 @@ MonoBehaviour:
   m_EnemyType: 2
   m_Score: 0
   m_IsRoot: 0
-  m_BarrelAnimator: {fileID: 0}
+  m_BarrelAnimator: {fileID: 7833911600097816386}
 --- !u!114 &3157064963520387791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1854,7 +1848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &2587928320699139741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2462,7 +2455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &2349702625600597650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2545,7 +2537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &6115190051575038981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3163,7 +3154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &4771056642176141178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3277,7 +3267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &6493849359376926846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4015,7 +4004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &7852211876741681770
 MonoBehaviour:
   m_ObjectHideFlags: 0

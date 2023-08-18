@@ -63,7 +63,7 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(3000);
         AudioService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(1000);
-        StartCoroutine(BossStart(new Vector3(0f, 8f, Depth.ENEMY), 9000)); // Boss
+        StartCoroutine(BossStart(new Vector3(0f, 7.5f, Depth.ENEMY), 9000)); // Boss
         yield return new WaitForMillisecondFrames(4000);
         ShowBossWarningSign();
         StartCoroutine(DarkEffect());

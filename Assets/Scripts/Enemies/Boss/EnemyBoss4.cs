@@ -44,7 +44,10 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private IEnumerator AppearanceSequence() {
-        yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
+        if (DebugOption.SceneMode > 0)
+            yield return new WaitForMillisecondFrames(1500);
+        else
+            yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         float init_speed = m_MoveVector.speed;
         float target_speed = BackgroundCamera.GetBackgroundVector().z;
@@ -95,12 +98,6 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         if (m_Phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.65f) { // 체력 65% 이하
-                for (int i = 0; i < m_FrontTurrets.Length; i++) {
-                    if (m_FrontTurrets[i] != null)
-                        m_FrontTurrets[i].m_EnemyDeath.KillEnemy();
-                }
-                BulletManager.SetBulletFreeState(2000);
-                NextPhaseExplosion();
                 ToNextPhase();
             }
         }
@@ -125,32 +122,28 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, false);
-        m_Phase++;
-        
-        for (int i = 0; i < m_SmallTurrets.Length; i++) {
-            if (m_SmallTurrets[i] != null)
-                m_SmallTurrets[i].StopAllPatterns();
-        }
-        for (int i = 0; i < m_SubTurrets.Length; i++) {
-            if (m_SubTurrets[i] != null)
-                m_SubTurrets[i].StopAllPatterns();
-        }
-        for (int i = 0; i < m_Launchers.Length; i++) {
-            m_Launchers[i].StopAllPatterns();
-        }
-        m_MainTurret.StopAllPatterns();
-        
+
+        StopAllSubUnitPattern();
         StopAllPatterns();
+        
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         
-        if (m_Phase == 2) {
+        if (m_Phase == 1) {
+            foreach (var frontTurret in m_FrontTurrets) {
+                if (frontTurret != null)
+                    frontTurret.m_EnemyDeath.KillEnemy();
+            }
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
+            BulletManager.SetBulletFreeState(2000);
+            NextPhaseExplosion();
+            m_Phase++;
         }
-        else if (m_Phase == 3) {
+        else if (m_Phase == 2) {
             m_CurrentPhase = Phase3();
             StartCoroutine(m_CurrentPhase);
+            m_Phase++;
         }
     }
 
@@ -357,7 +350,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
         BulletManager.BulletsToGems(2000);
         
-        yield break;
+        yield return new WaitForMillisecondFrames(1000);
+        MainCamera.ShakeCamera(0.5f);
     }
 
     public void OnBossKilled() {

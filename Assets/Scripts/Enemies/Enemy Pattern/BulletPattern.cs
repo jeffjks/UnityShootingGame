@@ -195,10 +195,10 @@ public class BulletFactory
     }
 
     private bool CanCreateBullet(Vector3 pos) {
-        float camera_x = MainCamera.Camera.transform.position.x;
+        var mainCameraPosX = MainCamera.Instance.GetCameraScreenPosition().x;
         var limitLine = (_enemyObject is EnemyBullet) ? -Size.GAME_HEIGHT : SAFE_LINE;
 
-        if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH)
+        if (2 * Mathf.Abs(pos.x - mainCameraPosX) > Size.MAIN_CAMERA_WIDTH)
             return false;
         if (pos.y > 0)
             return false;

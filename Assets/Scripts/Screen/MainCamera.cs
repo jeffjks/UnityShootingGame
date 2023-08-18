@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCamera : MonoBehaviour {
+public class MainCamera : MonoBehaviour
+{
+    [SerializeField] private Transform m_CameraTransform;
     
-    public static Camera Camera;
-    
-    private Vector2 _shakePosition;
+    private Vector2 _shakingPosition;
     private const float CAMERA_MOVE_RATE = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
     private const float CAMERA_MARGIN = (Size.GAME_WIDTH - Size.MAIN_CAMERA_WIDTH) / 2; // 1.555
     
@@ -18,20 +18,19 @@ public class MainCamera : MonoBehaviour {
     {
         Instance = this;
 
-        Camera = GetComponent<Camera>();
-
         InitCamera();
 
         SystemManager.Action_OnNextStage += InitCamera;
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        var camera_x = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x * CAMERA_MOVE_RATE : transform.position.x;
+        var cameraPosX = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x * CAMERA_MOVE_RATE : transform.position.x;
 
-        camera_x = Mathf.Clamp(camera_x, - CAMERA_MARGIN, CAMERA_MARGIN);
+        cameraPosX = Mathf.Clamp(cameraPosX, - CAMERA_MARGIN, CAMERA_MARGIN);
         
-        transform.position = new Vector3(camera_x, -Size.GAME_HEIGHT/2, Depth.CAMERA) + (Vector3) _shakePosition;
+        transform.position = new Vector3(cameraPosX, -Size.GAME_HEIGHT/2, Depth.CAMERA);
+        m_CameraTransform.transform.localPosition = new Vector3(_shakingPosition.x, _shakingPosition.y, 0f);
     }
 
     private void InitCamera(bool hasNextStage = true)
@@ -54,15 +53,20 @@ public class MainCamera : MonoBehaviour {
     {
         var timer = 0f;
         var radius = Mathf.Clamp01(duration) * 1.5f;
-        var radius_init = radius;
+        var radiusInit = radius;
 
         while(timer < duration) {
-            Instance._shakePosition = Random.insideUnitCircle * radius;
+            Instance._shakingPosition = Random.insideUnitCircle * radius;
     
             timer += Time.deltaTime;
-            radius = Mathf.Lerp(radius_init, 0f, timer / duration);
+            radius = Mathf.Lerp(radiusInit, 0f, timer / duration);
             yield return null;
         }
-        Instance._shakePosition = Vector2.zero;
+        Instance._shakingPosition = Vector2.zero;
+    }
+
+    public Vector3 GetCameraScreenPosition()
+    {
+        return transform.position;
     }
 }

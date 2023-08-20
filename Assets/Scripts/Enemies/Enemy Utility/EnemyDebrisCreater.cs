@@ -6,6 +6,7 @@ public class EnemyDebrisCreater : MonoBehaviour
 {
     [SerializeField] private EnemyDeath m_EnemyDeath;
     [SerializeField] private DebrisType m_Debris;
+    [SerializeField] private float m_Scale;
 
     void Start()
     {
@@ -18,6 +19,6 @@ public class EnemyDebrisCreater : MonoBehaviour
         DebrisEffect debris = obj.GetComponent<DebrisEffect>();
         obj.transform.position = transform.position;
         obj.SetActive(true);
-        debris.OnStart(m_Debris);
+        debris.OnStart(m_Debris, m_Scale);
     }
 }

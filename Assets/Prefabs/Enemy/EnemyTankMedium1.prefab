@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Score: 350
   m_IsRoot: 1
   m_Turret: {fileID: 7750816736371111347}
-  m_HasDestroyableTurret: 0
+  m_HealthPercentTurretDestroying: 0
 --- !u!114 &7924027591515508201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &4715573208315158707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 1686895223111532974}
   m_Debris: 1
+  m_Scale: 1.5
 --- !u!114 &5232624104943117805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &6763888391552758240
 GameObject:
   m_ObjectHideFlags: 0

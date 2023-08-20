@@ -9,9 +9,9 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     public GameObject[] m_DebrisMedium;
     public GameObject[] m_DebrisSmall;
     public string m_ObjectName;
-    public int m_LifeTime;
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
-    public Transform m_DebrisTransform;
+    
+    [SerializeField] private Transform _debrisTransform;
 
     private Vector2 m_Position2D;
     //private Material[] m_Materials;
@@ -44,14 +44,15 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         m_Collider2D.transform.position = m_Position2D;
     }
     
-    public void OnStart(DebrisType debrisType)
+    public void OnStart(DebrisType debrisType, float debrisScale)
     {
         DeactivateAllChildren();
 
         m_DebrisIndex = new System.Random().Next(0, _debrisDict[debrisType].Length);
         var rotationRandom = new System.Random().Next(0, 360);
         var debrisObject = _debrisDict[debrisType][m_DebrisIndex];
-        m_DebrisTransform.rotation = Quaternion.Euler(0f, rotationRandom, 0f);
+        _debrisTransform.rotation = Quaternion.Euler(0f, rotationRandom, 0f);
+        _debrisTransform.localScale = new Vector3(debrisScale, debrisScale, debrisScale);
         debrisObject.SetActive(true);
         //m_Materials[m_DebrisIndex].color = Color.white;
         

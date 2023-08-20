@@ -15,30 +15,25 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
 
     void Start()
     {
-        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
-        
         SetRotatePattern(new RotatePattern_MoveDirection());
     }
 
     public void ToNextPhase()
     {
-        if (m_EnemyHealth.HealthPercent <= 0.33f)
-        {
-            if (m_SubTurrets[0] != null)
-                m_SubTurrets[0].m_EnemyDeath.KillEnemy();
-            if (m_SubTurrets[2] != null)
-                m_SubTurrets[2].m_EnemyDeath.KillEnemy();
-            if (m_BackTurret != null)
-                m_BackTurret.m_EnemyDeath.KillEnemy();
-
-            if (_phase <= 1)
-            {
-                m_RotateAnimator.SetTrigger(_rotateAnimationTrigger);
-                _isSubTurretStart = true;
-                StartPattern("B", new EnemyTankLarge1_BulletPattern_B(this));
-                _phase = 2;
-            }
-        }
+        if (_phase == 2)
+            return;
+            
+        if (m_SubTurrets[0] != null)
+            m_SubTurrets[0].m_EnemyDeath.KillEnemy();
+        if (m_SubTurrets[1] != null)
+            m_SubTurrets[1].m_EnemyDeath.KillEnemy();
+        if (m_BackTurret != null)
+            m_BackTurret.m_EnemyDeath.KillEnemy();
+                
+        m_RotateAnimator.SetTrigger(_rotateAnimationTrigger);
+        _isSubTurretStart = true;
+        StartPattern("B", new EnemyTankLarge1_BulletPattern_B(this));
+        _phase++;
     }
     
     protected override void Update()
@@ -48,6 +43,11 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
         if (_phase == 0) {
             if (m_Position2D.y < - 1f) {
                 _phase = 1;
+            }
+        }
+        else if (_phase == 1) {
+            if (m_EnemyHealth.HealthPercent <= 0.33f) { // 체력 33% 이하
+                ToNextPhase();
             }
         }
 

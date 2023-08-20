@@ -46,8 +46,8 @@ public class EnemyTankLarge1_BulletPattern_B : BulletFactory, IBulletPattern
                     for (int j = 0; j < 2; j++)
                     {
                         var pos = GetFirePos(j);
-                        var property1 = new BulletProperty(pos, BulletImage.PinkSmall, 6f + 0.8f * i, BulletPivot.Player, 0f, 2, 22f);
-                        var property2 = new BulletProperty(pos, BulletImage.PinkLarge, 6f + 0.8f * i, BulletPivot.Player, 0f, 3, 22f);
+                        var property1 = new BulletProperty(pos, BulletImage.PinkSmall, 6f + 0.8f * i, BulletPivot.Player, 0f, 4, 22f);
+                        var property2 = new BulletProperty(pos, BulletImage.PinkLarge, 6f + 0.8f * i, BulletPivot.Player, 0f, 5, 22f);
                         var enemyBullets1 = CreateBullet(property1);
                         var enemyBullets2 = CreateBullet(property2);
                         foreach (var enemyBullet in enemyBullets1)

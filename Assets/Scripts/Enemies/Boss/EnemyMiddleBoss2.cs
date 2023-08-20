@@ -6,7 +6,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 {
     public EnemyMiddleBoss2_MainTurret m_MainTurret;
     public EnemyMiddleBoss2_SubTurret[] m_SubTurret = new EnemyMiddleBoss2_SubTurret[2];
-    private int m_Phase;
+    private int _phase;
 
     private IEnumerator m_MovementPattern;
     private IEnumerator _currentPhase;
@@ -14,7 +14,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     void Start()
     {
-        m_Phase = 1;
+        _phase = 1;
         m_MoveVector = new MoveVector(-3f, 120f + 180f);
         m_CustomDirection = new CustomDirection();
 
@@ -29,7 +29,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
-        m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
+        //m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
         SetRotatePattern(new RotatePattern_MoveDirection());
 
         SystemManager.OnMiddleBossStart();
@@ -75,7 +75,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     {
         base.Update();
         
-        if (m_Phase == 1) {
+        if (_phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.375f) { // 체력 37.5% 이하
                 ToNextPhase();
             }
@@ -90,10 +90,10 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         yield break;
     }
 
-    public void ToNextPhase() {
-        if (m_Phase == 2)
-            return;
-        m_Phase = 2;
+    public void ToNextPhase()
+    {
+        _phase++;
+        
         if (_currentPhase != null)
             StopCoroutine(_currentPhase);
         
@@ -119,7 +119,8 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     protected override IEnumerator DyingEffect() { // 파괴 과정
         BulletManager.BulletsToGems(2000);
         m_MoveVector.speed = 0f;
-        m_Phase = -1;
+        _phase = -1;
+        StopAllPatterns();
 
         if (m_MovementPattern != null) {
             StopCoroutine(m_MovementPattern);

@@ -253,7 +253,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
                     CreateSubBullet();
                     if (spawnTiming.period == Vector2Int.zero)
                     {
-                        Debug.LogError("Bullet spawn type is Create but spawn period is zero.");
                         break;
                     }
                     var period = Random.Range(spawnTiming.period.x, spawnTiming.period.y);

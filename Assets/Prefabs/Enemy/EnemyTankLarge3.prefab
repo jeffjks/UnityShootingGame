@@ -274,7 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &980932594775129011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 7427637404073788237}
   m_Debris: 2
+  m_Scale: 1
 --- !u!114 &2615840971719764040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,7 +1195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &8924425901345374858
 GameObject:
   m_ObjectHideFlags: 0

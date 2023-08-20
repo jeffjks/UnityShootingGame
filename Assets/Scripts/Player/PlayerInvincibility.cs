@@ -12,14 +12,14 @@ public class PlayerInvincibility : MonoBehaviour
     private static bool _isInvincible;
     public static PlayerInvincibility Instance { get; private set; }
 
-    public Action<bool> Action_OnInvincibilityChanged;
+    public static Action<bool> Action_OnInvincibilityChanged;
 
     public static bool IsInvincible
     {
         get => _isInvincible;
         private set {
             _isInvincible = value;
-            Instance.Action_OnInvincibilityChanged?.Invoke(_isInvincible);
+            Action_OnInvincibilityChanged?.Invoke(_isInvincible);
         }
     }
     
@@ -34,7 +34,7 @@ public class PlayerInvincibility : MonoBehaviour
 
         Instance = this;
         
-        Instance.Action_OnInvincibilityChanged += Instance.SetPlayerShield;
+        Action_OnInvincibilityChanged += Instance.SetPlayerShield;
     }
 
     private void Start()

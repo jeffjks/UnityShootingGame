@@ -399,7 +399,7 @@ MonoBehaviour:
   - {fileID: 1850863824149968204}
   - {fileID: 7732258645414893920}
   m_BackTurret: {fileID: 9028911499515134563}
-  m_RotateAnimator: {fileID: 0}
+  m_RotateAnimator: {fileID: 2487075242922505314}
 --- !u!114 &114903601766903414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 515412261101433539}
   m_Debris: 2
+  m_Scale: 1.5
 --- !u!114 &3936612277171697280
 MonoBehaviour:
   m_ObjectHideFlags: 0

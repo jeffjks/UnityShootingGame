@@ -7,6 +7,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
     public GameObject m_BombBarrier;
     public ParticleSystem m_ParticleFireEffect;
     public ParticleSystem m_ParticleLightningEffect;
+    public EnemyExplosionCreater m_NextPhaseExplosionCreater;
     public readonly float[] m_CustomDirectionDelta = new float[2];
     private int _directionSide = 1;
 
@@ -55,7 +56,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentPhase);
         StageManager.IsTrueBossEnabled = false;
         
-        PlayerInvincibility.Instance.Action_OnInvincibilityChanged += SetBombBarrier;
+        PlayerInvincibility.Action_OnInvincibilityChanged += SetBombBarrier;
         SetBombBarrier(PlayerInvincibility.IsInvincible);
 
         EnableInteractableAll();
@@ -118,12 +119,17 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         BulletManager.SetBulletFreeState(2000);
         m_ParticleFireEffect.gameObject.SetActive(false);
         m_ParticleLightningEffect.gameObject.SetActive(true);
+        NextPhaseExplosion();
 
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
+    }
+
+    private void NextPhaseExplosion() {
+        m_NextPhaseExplosionCreater.StartExplosion();
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================

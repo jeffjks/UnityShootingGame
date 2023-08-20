@@ -65,10 +65,10 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                 {
                     var pos1 = GetFirePos(1);
                     var pos2 = GetFirePos(2);
-                    var num1 = rand ? 5 : 6;
-                    var num2 = rand ? 5 : 6;
-                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 7.5f, BulletPivot.Current, 0f, num1, 19f));
-                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 7.5f, BulletPivot.Current, 0f, num2, 19f));
+                    var num1 = rand ? 3 : 4;
+                    var num2 = rand ? 3 : 4;
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 7.5f, BulletPivot.Current, 0f, num1, 23f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 7.5f, BulletPivot.Current, 0f, num2, 23f));
                     yield return new WaitForMillisecondFrames(180);
                 }
             }

@@ -83,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyDeath: {fileID: 4450760002710729640}
   m_Debris: 0
+  m_Scale: 1
 --- !u!114 &8326412449623019054
 MonoBehaviour:
   m_ObjectHideFlags: 0

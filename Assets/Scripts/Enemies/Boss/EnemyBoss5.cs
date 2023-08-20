@@ -85,10 +85,10 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_MoveVector.speed += 0.72f / Application.targetFrameRate * Time.timeScale;
         }
         else if (m_Phase > 0) {
-            if (transform.position.x >= TARGET_POSITION.x + 0.7f) {
+            if (transform.position.x >= TARGET_POSITION.x + 0.5f) {
                 m_MoveDirection = -1;
             }
-            else if (transform.position.x <= TARGET_POSITION.x - 0.7f) {
+            else if (transform.position.x <= TARGET_POSITION.x - 0.5f) {
                 m_MoveDirection = 1;
             }
             else if (transform.position.y >= TARGET_POSITION.y + 0.2f) {
@@ -112,9 +112,9 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             transform.position = new Vector3(pos.x + m_MoveSpeed / Application.targetFrameRate * Time.timeScale, pos.y, Depth.ENEMY);
         }
 
-        m_CustomDirection[0] += 91f / Application.targetFrameRate * Time.timeScale;
-        m_CustomDirection[1] += 111f / Application.targetFrameRate * Time.timeScale;
-        m_CustomDirection[2] -= 191f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[0] -= 111f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[1] += 191f / Application.targetFrameRate * Time.timeScale;
+        m_CustomDirection[2] += 23f / Application.targetFrameRate * Time.timeScale;
     }
 
     private void SetWingOpenState(bool state) {
@@ -238,11 +238,10 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(3000);
             
             StartPattern("2C1", new BulletPattern_EnemyBoss5_2C1(this, m_BottomLine));
-            StartPattern("2C2", new BulletPattern_EnemyBoss5_2C2(this, m_BottomLine));
-            yield return new WaitForMillisecondFrames(8000);
+            yield return StartPattern("2C2", new BulletPattern_EnemyBoss5_2C2(this));
             StopPattern("2C1");
             StopPattern("2C2");
-            yield return new WaitForMillisecondFrames(3000);
+            yield return new WaitForMillisecondFrames(2500);
         }
     }
 

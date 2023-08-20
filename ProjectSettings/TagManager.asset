@@ -57,8 +57,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Debris
+    uniqueID: 2724720025
+    locked: 0
   - name: Engines
     uniqueID: 2809474781
+    locked: 0
+  - name: Explosion
+    uniqueID: 3895909207
     locked: 0
   - name: PlayerLaser
     uniqueID: 2997507123

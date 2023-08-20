@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4703285390574417192}
   - component: {fileID: 8497858591161711081}
   - component: {fileID: 1730303417453691176}
+  - component: {fileID: 4447613071567821631}
   - component: {fileID: 5563151018635716957}
   m_Layer: 10
   m_Name: EnemyBossFinal
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_BombBarrier: {fileID: 4541800789654134177}
   m_ParticleFireEffect: {fileID: 9052990528080305766}
   m_ParticleLightningEffect: {fileID: 325519884935844340}
+  m_NextPhaseExplosionCreater: {fileID: 4447613071567821631}
 --- !u!114 &4703285390574417192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +102,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4447613071567821631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47514129448403895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ae3848a7c7c548a98d9321922df50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyDeath: {fileID: 1730303417453691176}
+  m_JsonKey: EnemyBossFinal_NextPhase
+  m_RunOnDying: 0
 --- !u!114 &5563151018635716957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +500,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6.5
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -30626,7 +30643,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
       cycleCount: 100
-      repeatInterval: 0.01
+      repeatInterval: 0.05
       probability: 1
   SizeModule:
     enabled: 0

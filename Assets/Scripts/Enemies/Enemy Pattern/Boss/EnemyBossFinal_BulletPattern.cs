@@ -13,7 +13,8 @@ public class EnemyBossFinal_BulletPattern_1A1 : BulletFactory, IBulletPattern
     {
         while (true) {
             var pos = GetFirePos(0);
-            CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4f, BulletPivot.Player, 40f, 6, 4f));
+            CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4f, BulletPivot.Player, -20f, 6, 4f));
+            CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4f, BulletPivot.Player, 20f, 6, 4f));
             
             CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 5.4f, BulletPivot.Player, -40f, 6, 6f));
             CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 4.8f, BulletPivot.Player, 0f, 6, 6f));
@@ -35,9 +36,9 @@ public class EnemyBossFinal_BulletPattern_1A2 : BulletFactory, IBulletPattern
         var timerDelta = 110;
         const float randomDistribution = 2f;
         
-        const int bulletNum1 = 20;
+        const int bulletNum1 = 25;
         const float interval1 = 360f / bulletNum1;
-        const int bulletNum2 = 25;
+        const int bulletNum2 = 30;
         const float interval2 = 360f / bulletNum1;
 
         timer = 0;
@@ -80,7 +81,7 @@ public class EnemyBossFinal_BulletPattern_1B1 : BulletFactory, IBulletPattern
             {
                 var dir = Random.Range(-45f, 45f);
                 var property = new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 6f, BulletPivot.Player, dir, accel1);
-                var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, 600, new Vector2Int(600, 600));
+                var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, 600);
                 var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, 0f, accel2);
                 CreateBullet(property, spawnTiming, subProperty);
             }
@@ -107,7 +108,7 @@ public class EnemyBossFinal_BulletPattern_1B2 : BulletFactory, IBulletPattern
             CreateBullet(property, spawnTiming, subProperty);
             yield return new WaitForFrames(4);
         }
-        //onCompleted?.Invoke();
+        onCompleted?.Invoke();
     }
 }
 
@@ -251,7 +252,7 @@ public class EnemyBossFinal_BulletPattern_1E1 : BulletFactory, IBulletPattern
             var dir = _typedEnemyObject.m_CustomDirection[0];
             for (int i = 0; i < 6; i++)
             {
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 4f * 0.9f*i, BulletPivot.Fixed, dir, 4, 90f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 4f + 0.9f*i, BulletPivot.Fixed, dir, 4, 90f));
             }
             yield return new WaitForFrames(7);
         }
@@ -336,11 +337,11 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
 {
     private readonly EnemyBossFinal _typedEnemyObject;
     private float _currentBulletSpeed;
-    const int BULLET_DELAY = 1100;
+    const int BULLET_DELAY = 700;
     private const float MAX_BULLET_SPEED = 10f;
-    private const float MIN_BULLET_SPEED = 5.6f;
-    private const float MAX_DIRECTION_DELTA_0 = 109f;
-    private const float MAX_DIRECTION_DELTA_1 = 73f;
+    private const float MIN_BULLET_SPEED = 7f;
+    private const float MAX_DIRECTION_DELTA_0 = 73f;
+    private const float MAX_DIRECTION_DELTA_1 = 137f;
     /*
     분홍탄 = m_CustomDirection[0]
     청탄 = m_CustomDirection[1]
@@ -353,7 +354,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        var accel = new BulletAccel(0.1f, BULLET_DELAY);
+        var accel = new BulletAccel(0.1f, BULLET_DELAY + 300);
         _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = MAX_DIRECTION_DELTA_0;
@@ -368,13 +369,20 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
         {
             var pos = GetFirePos(0);
             var dir = _typedEnemyObject.m_CustomDirection;
-            var property = new BulletProperty(pos, BulletImage.PinkLarge, _currentBulletSpeed, BulletPivot.Fixed, dir[0], accel, 3, 120f);
+            var property = new BulletProperty(pos, BulletImage.PinkLarge, _currentBulletSpeed, BulletPivot.Fixed, dir[0], accel);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, BULLET_DELAY);
-            var subProperty1 = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 7.5f, BulletPivot.Fixed, dir[1], 2, 48f);
-            var subProperty2 = new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 5.4f, BulletPivot.Fixed, dir[1] + 180f);
-            CreateBullet(property, spawnTiming, subProperty1);
-            CreateBullet(property, spawnTiming, subProperty2);
-            yield return new WaitForFrames(4); // 62ms
+            var subProperty1 = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 8.3f, BulletPivot.Fixed, dir[1], 3, 48f);
+            var subProperty2 = new BulletProperty(Vector3.zero, BulletImage.BlueSmall, 6.8f, BulletPivot.Fixed, dir[1] + 180f, 2, 36f);
+            
+            for (var i = 0; i < 3; ++i)
+            {
+                CreateBullet(property, spawnTiming, subProperty1);
+                CreateBullet(property, spawnTiming, subProperty2);
+                property.direction += 120f;
+                subProperty1.direction += 120f;
+                subProperty2.direction += 120f;
+            }
+            yield return new WaitForFrames(5);
         }
         //onCompleted?.Invoke();
     }
@@ -473,7 +481,7 @@ public class EnemyBossFinal_BulletPattern_FinalB : BulletFactory, IBulletPattern
         while (true)
         {
             var pos = GetFirePos(0);
-            CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Player, 0f, 26, 13.8461f));
+            CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.3f, BulletPivot.Player, 0f, 26, 13.8461f));
             yield return new WaitForMillisecondFrames(400);
         }
         //onCompleted?.Invoke();

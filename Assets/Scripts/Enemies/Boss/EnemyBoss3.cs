@@ -12,7 +12,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private int m_Phase;
     
-    private readonly Vector3 TARGET_POSITION = new (0f, -4.2f, Depth.ENEMY);
+    private Vector3 _targetPosition;
     private Vector3 _defaultScale;
     private const int APPEARANCE_TIME = 1200;
     private const float MAX_ROTATION = 10f;
@@ -51,16 +51,16 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_CustomDirection[0] += _directionDelta / Application.targetFrameRate * Time.timeScale;
 
         if (m_Phase > 0) {
-            if (transform.position.x > TARGET_POSITION.x + 0.7f) {
+            if (transform.position.x > _targetPosition.x + 0.7f) {
                 m_MoveVector.direction = Random.Range(-105f, -75f);
             }
-            if (transform.position.x < TARGET_POSITION.x - 0.7f) {
+            if (transform.position.x < _targetPosition.x - 0.7f) {
                 m_MoveVector.direction = Random.Range(75f, 105f);
             }
-            if (transform.position.y > TARGET_POSITION.y + 0.2f) {
+            if (transform.position.y > _targetPosition.y + 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
-            if (transform.position.y < TARGET_POSITION.y - 0.2f) {
+            if (transform.position.y < _targetPosition.y - 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
             }
         }
@@ -103,6 +103,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     private void OnAppearanceComplete() {
         float random_direction = Random.Range(75f, 105f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
+        _targetPosition = transform.position;
         m_Phase = 1;
         _currentPhase = Phase1();
         StartCoroutine(_currentPhase);

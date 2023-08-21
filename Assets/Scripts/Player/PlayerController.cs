@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject m_PlayerBomb;
+    public PlayerBombHandler m_PlayerBomb;
     
     private PlayerBombHandler _playerBombHandler;
     private PlayerLaserHandler _playerLaserHandler;
@@ -21,8 +21,7 @@ public class PlayerController : MonoBehaviour
     
     void Awake()
     {
-        var bombObject = Instantiate(m_PlayerBomb);
-        _playerBombHandler = bombObject.GetComponent<PlayerBombHandler>();
+        _playerBombHandler = Instantiate(m_PlayerBomb);
         _playerLaserHandler = GetComponentInChildren<PlayerLaserHandler>();
         _playerShotHandler = GetComponent<PlayerShotHandler>();
         _playerMovement = GetComponent<PlayerMovement>();

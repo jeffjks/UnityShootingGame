@@ -218,7 +218,7 @@ public class BulletPattern_EnemyBoss5_1D1 : BulletFactory, IBulletPattern
         int[] period = { 1200, 700, 500 };
 
         int[] durationScale = { 50, 80, 100 }; // 난이도에 따른 duration 비율 (%)
-        _duration *= durationScale[(int) SystemManager.Difficulty] / 100;
+        _duration = _duration * durationScale[(int) SystemManager.Difficulty] / 100;
 
         yield return new WaitForMillisecondFrames(Random.Range(0, 1200));
 
@@ -230,10 +230,12 @@ public class BulletPattern_EnemyBoss5_1D1 : BulletFactory, IBulletPattern
                 {
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4.4f, BulletPivot.Fixed, _dirInit, 3, 90f));
                 }
-                else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+                else if (SystemManager.Difficulty == GameDifficulty.Expert)
+                {
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4.4f, BulletPivot.Fixed, _dirInit, 5, 72f));
                 }
-                else {
+                else
+                {
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4.4f, BulletPivot.Fixed, _dirInit, 6, 60f));
                 }
                 time += time_add[(int) SystemManager.Difficulty];

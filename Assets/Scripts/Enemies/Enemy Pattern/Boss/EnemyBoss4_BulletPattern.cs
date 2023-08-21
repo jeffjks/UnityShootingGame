@@ -99,12 +99,12 @@ public class BulletPattern_EnemyBoss4_1C2 : BulletFactory, IBulletPattern
                 _frontTurrets[1-rand].StartPattern("1C", new BulletPattern_EnemyBoss4_FrontTurret_1C(_frontTurrets[1-rand]));
             }
             else {
-                yield break;
+                break;
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
             rand = 1 - rand;
         }
-        //onCompleted?.Invoke();
+        onCompleted?.Invoke();
     }
 }
 

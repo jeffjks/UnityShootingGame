@@ -170,7 +170,6 @@ public class BulletPattern_EnemyMiddleBoss5b_Turret_B : BulletFactory, IBulletPa
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            yield break;
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {
             var pos = GetFirePos(0);
@@ -187,5 +186,6 @@ public class BulletPattern_EnemyMiddleBoss5b_Turret_B : BulletFactory, IBulletPa
             CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.8f, BulletPivot.Current, 0f, 15, 7f));
         }
         onCompleted?.Invoke();
+        yield break;
     }
 }

@@ -78,12 +78,17 @@ public class EnemyShipLarge_BulletPattern_BackTurret_A : BulletFactory, IBulletP
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.2f, BulletPivot.Current, 0, 3, 20f));
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.6f, BulletPivot.Current, 0, 5, 13f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.1f, BulletPivot.Current, 0, 3, 26f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.6f, BulletPivot.Current, 0, 2, 26f));
             }
             else {
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.9f, BulletPivot.Current, 0, 9, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7.2f, BulletPivot.Current, 0, 9, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7.5f, BulletPivot.Current, 0, 9, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.4f, BulletPivot.Current, 0, 5, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.7f, BulletPivot.Current, 0, 5, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7.0f, BulletPivot.Current, 0, 5, 24f));
+                
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6.9f, BulletPivot.Current, 0, 4, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7.2f, BulletPivot.Current, 0, 4, 24f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7.5f, BulletPivot.Current, 0, 4, 24f));
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }

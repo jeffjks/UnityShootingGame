@@ -9,14 +9,15 @@ public class BulletPattern_EnemyBoss3_1A1 : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        var duration = 0;
+        var frame = 0;
         int[] fireDelay = { 12, 8, 6 };
+        var frameTotal = 192;
 
-        while (duration < 180) {
+        while (frame < frameTotal) {
             var pos = GetFirePos(0);
-            duration += fireDelay[(int) SystemManager.Difficulty];
+            frame += fireDelay[(int) SystemManager.Difficulty];
             var dir = _enemyObject.m_CustomDirection[0];
-            switch(duration / 60)
+            switch(frame / (frameTotal / 3))
             {
                 case 0:
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 7.4f, BulletPivot.Fixed, dir));
@@ -40,14 +41,15 @@ public class BulletPattern_EnemyBoss3_1A2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        var duration = 0;
+        var frame = 0;
         int[] fireDelay = { 18, 12, 9 };
+        var frameTotal = 192;
 
-        while (duration < 180) {
+        while (frame < frameTotal) {
             var pos = GetFirePos(0);
-            duration += fireDelay[(int) SystemManager.Difficulty];
+            frame += fireDelay[(int) SystemManager.Difficulty];
             var dir = _enemyObject.m_CustomDirection[0];
-            switch(duration / 60) {
+            switch(frame / (frameTotal / 3)) {
                 case 0:
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Fixed, dir, 3, 2.25f));
                     break;
@@ -259,7 +261,7 @@ public class BulletPattern_EnemyBoss3_2A : BulletFactory, IBulletPattern
     }
 }
 
-public class BulletPattern_EnemyBoss3_2B1 : BulletFactory, IBulletPattern
+public class BulletPattern_EnemyBoss3_2B1 : BulletFactory, IBulletPattern // Pink Wall
 {
     private readonly UnityAction _action;
 

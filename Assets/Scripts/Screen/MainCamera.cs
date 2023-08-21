@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour
 {
-    [SerializeField] private Transform m_CameraTransform;
+    [SerializeField] private Transform m_CameraShakingTransform;
     
     private Vector2 _shakingPosition;
     private const float CAMERA_MOVE_RATE = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
@@ -30,7 +30,7 @@ public class MainCamera : MonoBehaviour
         cameraPosX = Mathf.Clamp(cameraPosX, - CAMERA_MARGIN, CAMERA_MARGIN);
         
         transform.position = new Vector3(cameraPosX, -Size.GAME_HEIGHT/2, Depth.CAMERA);
-        m_CameraTransform.transform.localPosition = new Vector3(_shakingPosition.x, _shakingPosition.y, 0f);
+        m_CameraShakingTransform.transform.localPosition = new Vector3(_shakingPosition.x, _shakingPosition.y, 0f);
     }
 
     private void InitCamera(bool hasNextStage = true)

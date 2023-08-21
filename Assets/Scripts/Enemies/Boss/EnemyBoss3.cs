@@ -15,7 +15,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     private readonly Vector3 TARGET_POSITION = new (0f, -4.2f, Depth.ENEMY);
     private Vector3 _defaultScale;
     private const int APPEARANCE_TIME = 1200;
-    private const float MAX_ROTATION = 11f;
+    private const float MAX_ROTATION = 10f;
     private readonly int _barrelAnimationTrigger = Animator.StringToHash("BarrelShoot");
     private float _directionDelta;
 
@@ -179,11 +179,13 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         while (m_Phase == 2) {
             yield return StartPattern("2A", new BulletPattern_EnemyBoss3_2A(this));
-
+            yield return new WaitForMillisecondFrames(4000);
+            
             var rand = RandomValue();
-            _directionDelta =  MAX_ROTATION * 0.7f * rand;
-            m_CustomDirection[0] = - MAX_ROTATION * 0.7f * rand;
-            StartPattern("2B1", new BulletPattern_EnemyBoss3_2B1(this, () => _directionDelta *= -1));
+            _directionDelta =  MAX_ROTATION * rand;
+            m_CustomDirection[0] = - MAX_ROTATION * rand;
+            
+            StartPattern("2B1", new BulletPattern_EnemyBoss3_2B1(this, () => _directionDelta *= -1)); // Pink Wall
             
             for (int i = 0; i < 1; ++i) { // Repeat Once
                 var random_value = Random.Range(0, 2);

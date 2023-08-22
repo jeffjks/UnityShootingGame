@@ -44,6 +44,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         _activatedObject[_currentForm].SetActive(true);
     }
 
+    protected void SetMissilePosition(Vector3 position)
+    {
+        _activatedObject[_currentForm].transform.position = position;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!_appliedDamage) {

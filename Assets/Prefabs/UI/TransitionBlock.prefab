@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9edec3e5aeedba468027df970e5a665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Transition: {fileID: 2269979633754313391}
   m_TransitionImage: {fileID: 445980733273107411}
 --- !u!95 &6827826553417054096
 Animator:
@@ -140,7 +139,7 @@ Animator:
   m_GameObject: {fileID: 2269979634886200344}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cc88c85f076265649972c92a7a4e122b, type: 2}
+  m_Controller: {fileID: 9100000, guid: a4e9fe949684ea742b54be724b0eb4d3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

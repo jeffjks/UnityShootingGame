@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
+using Random = System.Random;
 
 public class InGameDataManager : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class InGameDataManager : MonoBehaviour
     private int _maxBombNumber;
     private long _elapsedTime;
     
-    private readonly long[] _stageScore;
-    private readonly int[] _stageMiss;
+    private readonly long[] _stageScore = {0, 0, 0, 0, 0};
+    private readonly int[] _stageMiss = {0, 0, 0, 0, 0};
     private readonly Dictionary<ItemType, int> _itemCount = new();
     
     public long TotalScore
@@ -30,6 +31,9 @@ public class InGameDataManager : MonoBehaviour
             Action_OnUpdateScore?.Invoke(value);
         }
     }
+
+    public ShipAttributes CurrentShipAttributes { get; private set; }
+    
     public int TotalMiss { get; private set; }
     public int BombNumber
     {
@@ -62,19 +66,6 @@ public class InGameDataManager : MonoBehaviour
     
     public static InGameDataManager Instance { get; private set; }
 
-    private InGameDataManager()
-    {
-        TotalScore = 0;
-        _stageScore = new long[] {0, 0, 0, 0, 0};
-        TotalMiss = 0;
-        _stageMiss = new int[] {0, 0, 0, 0, 0};
-        
-        foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
-        {
-            _itemCount[itemType] = 0;
-        }
-    }
-
     private void Awake()
     {
         if (Instance != null) {
@@ -86,12 +77,25 @@ public class InGameDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
+        
+        foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
+        {
+            _itemCount[itemType] = 0;
+        }
+
+        if (DebugOption.SceneMode == 3)
+        {
+            TotalScore = UnityEngine.Random.Range(0, 10000);
+            TotalMiss = UnityEngine.Random.Range(0, 50);
+            ElapsedTime = DateTime.Now.Ticks;
+        }
     }
 
     private void Start()
     {
         TotalScore = 0;
-        MaxBombNumber = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Bomb) + 2;
+        CurrentShipAttributes = PlayerManager.CurrentAttributes;
+        MaxBombNumber = CurrentShipAttributes.GetAttributes(AttributeType.Bomb) + 2;
         InitBombNumber();
     }
 

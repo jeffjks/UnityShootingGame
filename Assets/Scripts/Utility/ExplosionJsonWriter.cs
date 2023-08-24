@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 public class ExplosionJsonWriter : MonoBehaviour
 {
+#if UNITY_EDITOR
     private readonly Dictionary<string, List<ExplosionData>> dictionary = new();
     private readonly List<ExplosionData> list = new();
 
@@ -734,4 +735,5 @@ public class ExplosionJsonWriter : MonoBehaviour
     private void DeathExplosion(int duration, Effect effect, PairInt timer_add, int number = 1) {
         list.Add(new ExplosionData(effect, new ExplosionCoroutine(duration, timer_add, number), 0));
     }
+#endif
 }

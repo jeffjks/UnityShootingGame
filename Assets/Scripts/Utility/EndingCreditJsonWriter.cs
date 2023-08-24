@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 public class EndingCreditJsonWriter : MonoBehaviour
 {
+#if UNITY_EDITOR
     [TextArea(0, 10)]
     public string credit;
     [TextArea(0, 10)]
@@ -36,6 +37,7 @@ public class EndingCreditJsonWriter : MonoBehaviour
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(MakeRichText(creditText.creditWord));
+        sb.Append("\n");
         sb.Append($"{credit}\n\nMade With Unity {unityVersion}\n\n\n\n");
         sb.Append(MakeRichText(creditText.usedAssetsWord));
         sb.Append("\n\n");
@@ -44,7 +46,7 @@ public class EndingCreditJsonWriter : MonoBehaviour
         {
             sb.Append(MakeAssetList(creditText.categories[i], i));
         }
-        sb.Append("\n\n\n\n\n\n\n\n");
+        sb.Append("\n\n\n\n\n\n\n\n\n\n\n");
         sb.Append(MakeRichText("Dead Planet 2"));
         sb.Append($"\nver {Application.version}\n{creditDate}");
 
@@ -56,7 +58,7 @@ public class EndingCreditJsonWriter : MonoBehaviour
         WriteJson(Language.English, new CreditText("Credit", "UsedAsset",
             new List<string> { "Models", "Images / Textures", "Effects", "Sounds", "Terrain", "Others" }));
         WriteJson(Language.Korean, new CreditText("제작", "사용한 에셋",
-            new List<string> { "모델링", "이미지 / 텍스쳐", "이펙트", "사운드", "지형", "기타" }));
+            new List<string> { "모델링", "이미지 / 텍스처", "이펙트", "사운드", "지형", "기타" }));
         
         Utility.SaveDataFile(Application.dataPath, "resources2", _endingCreditText);
     }
@@ -66,12 +68,13 @@ public class EndingCreditJsonWriter : MonoBehaviour
         StringBuilder tempSb = new StringBuilder(MakeRichText(category));
         tempSb.Append("\n");
         tempSb.Append(assetLists[index]);
-        tempSb.Append("\n\n");
+        tempSb.Append("\n\n\n");
         return tempSb;
     }
 
     private string MakeRichText(string text)
     {
-        return $"<size=56><b>{text}</b></size>";
+        return $"<size=30><b>{text}</b></size>";
     }
+#endif
 }

@@ -79,7 +79,7 @@ public class OverviewHandler : MonoBehaviour
 
     private void Awake()
     {
-        _inGameInputController = EventSystem.current.gameObject.GetComponent<InGameInputController>();
+        _inGameInputController = InGameInputController.Instance;
         _inGameInputController.Action_OnFireInput += SkipOverviewPhase;
         StartOverview();
     }

@@ -12,19 +12,20 @@ public class EndingCredit : MonoBehaviour
     public MenuHandler m_RegisterLocalRankingMenuHandler;
     public TextMeshProUGUI m_CreditText;
     public RectTransform m_ParentRectTransform;
+    public RectTransform m_CreditTextRectTransform;
 
     private Dictionary<Language, string> _creditJsonData = new();
 
-    private const float DEFAULT_SCROLL_SPEED = 0.8f;
-    private const float FAST_SCROLL_SPEED = 6.4f;
+    private const float DEFAULT_SCROLL_SPEED = 48f;
+    private const float FAST_SCROLL_SPEED = 384f;
     private float _currentScrollSpeed;
-    private bool m_Quitting = false;
+    private bool _isQuitting;
     private bool _isFirePress;
     private InGameInputController _inGameInputController;
 
     private void Awake()
     {
-        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.dataPath, "resources1").jsonData;
+        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.dataPath, "resources2").jsonData;
         m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
         
         _inGameInputController = InGameInputController.Instance;
@@ -46,7 +47,7 @@ public class EndingCredit : MonoBehaviour
 
     private void Update ()
     {
-        if (transform.localPosition.y >= m_CreditText.flexibleHeight + m_ParentRectTransform.rect.height / 2)
+        if (transform.localPosition.y >= m_CreditTextRectTransform.rect.height)
         {
             _currentScrollSpeed = 0f;
             QuitEndingCredit(3f);
@@ -56,7 +57,7 @@ public class EndingCredit : MonoBehaviour
         _currentScrollSpeed = _isFirePress ? FAST_SCROLL_SPEED : DEFAULT_SCROLL_SPEED;
 
         Vector3 newLocalPos = transform.localPosition;
-        newLocalPos.y += _currentScrollSpeed*Time.deltaTime;
+        newLocalPos.y += _currentScrollSpeed * Time.deltaTime;
         transform.localPosition = newLocalPos;
     }
 
@@ -67,15 +68,14 @@ public class EndingCredit : MonoBehaviour
 
     private void QuitEndingCredit(float delay)
     {
-        if (m_Quitting)
+        if (_isQuitting)
             return;
-        m_Quitting = true;
+        _isQuitting = true;
         StartCoroutine(QuitEnding(delay));
     }
 
     private IEnumerator QuitEnding(float delay) {
         yield return new WaitForSeconds(delay);
-        Debug.Log("Quitting");
         
         FadeScreenService.ScreenFadeOut(2f);
         AudioService.FadeOutMusic(2f);

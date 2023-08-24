@@ -11,7 +11,7 @@ public class NetworkUploadRankingScore : MonoBehaviour
     {
         string id = GameManager.GetAccountID();
         long totalScore = InGameDataManager.Instance.TotalScore;
-        ShipAttributes shipAttributes = PlayerManager.CurrentAttributes;
+        ShipAttributes shipAttributes = InGameDataManager.Instance.CurrentShipAttributes;
         int totalMiss = InGameDataManager.Instance.TotalMiss;
         string pcID = SystemInfo.deviceUniqueIdentifier;
 

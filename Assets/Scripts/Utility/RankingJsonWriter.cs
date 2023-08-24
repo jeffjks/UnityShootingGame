@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 public class RankingJsonWriter : MonoBehaviour
 {
+#if UNITY_EDITOR
     private readonly List<LocalRankingData> _localRankingData = new();
     private readonly List<string> _fileList = new() { "ranking0", "ranking1", "ranking2" };
 
@@ -19,4 +20,5 @@ public class RankingJsonWriter : MonoBehaviour
                 Utility.SaveDataFile(Application.dataPath, fileName, _localRankingData);
         }
     }
+#endif
 }

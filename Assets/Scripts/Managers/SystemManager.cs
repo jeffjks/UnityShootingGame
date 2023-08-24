@@ -36,7 +36,8 @@ public class SystemManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
 
-        //gameObject.SetActive(false);
+        if (DebugOption.SceneMode == 3)
+            StartNextStageCoroutine();
     }
 
     public static void OnMiddleBossStart()
@@ -55,7 +56,7 @@ public class SystemManager : MonoBehaviour
 
     public static void OnBossClear()
     {
-        if (DebugOption.SceneMode > 0)
+        if (DebugOption.SceneMode == 1 || DebugOption.SceneMode == 2)
         {
             PlayState = PlayState.OnField;
             return;
@@ -82,14 +83,14 @@ public class SystemManager : MonoBehaviour
 
     public void StartStageClearCoroutine()
     {
-        if (DebugOption.SceneMode > 0)
+        if (DebugOption.SceneMode == 1 || DebugOption.SceneMode == 2)
             return;
         StartCoroutine(StageClear());
     }
 
     public void StartNextStageCoroutine()
     {
-        if (DebugOption.SceneMode > 0)
+        if (DebugOption.SceneMode == 1 || DebugOption.SceneMode == 2)
             return;
         StartCoroutine(NextStage());
     }
@@ -111,21 +112,21 @@ public class SystemManager : MonoBehaviour
             yield break;
         }
         
-        if (Stage < 4) {
-            string scene_name = "Stage" + (Stage + 2);
+        if (Stage < 4 && DebugOption.SceneMode == 0) {
+            var sceneName = $"Stage{Stage + 2}";
             Stage++;
             Action_OnNextStage?.Invoke(true);
-            SceneManager.LoadScene(scene_name);
+            SceneManager.LoadScene(sceneName);
 
             PlayState = PlayState.OnField;
         }
         else {
-            string scene_name = "Ending";
+            var sceneName = "Ending";
             Stage = -1;
             
             gameObject.SetActive(false);
             Action_OnNextStage?.Invoke(false);
-            SceneManager.LoadScene(scene_name);
+            SceneManager.LoadScene(sceneName);
 
             PlayState = PlayState.OnStageResult;
             

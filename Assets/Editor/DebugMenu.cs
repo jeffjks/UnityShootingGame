@@ -120,6 +120,25 @@ public class DebugMenu : EditorWindow
         return true;
     }
 
+    [MenuItem("Tools/Scene Mode/Debug Ending")]
+    private static void RadioButtonSceneModeEndingDebug()
+    {
+        EditorPrefsSetInt("SceneMode", 3);
+        foreach (var menuPath in sceneModeRadioMenus)
+        {
+            Menu.SetChecked(menuPath, false);
+        }
+        Menu.SetChecked("Tools/Scene Mode/Debug Ending", true);
+    }
+    
+    [MenuItem("Tools/Scene Mode/Debug Ending", true)]
+    private static bool RadioButtonSceneModeEndingDebugValidate()
+    {
+        var value = EditorPrefsGetInt("SceneMode", 0);
+        Menu.SetChecked("Tools/Scene Mode/Debug Ending", value == 3);
+        return true;
+    }
+
     private static bool EditorPrefsGetBool(string key, bool defaultValue)
     {
         return EditorPrefs.GetInt(key, defaultValue ? 1 : 0) == 1;

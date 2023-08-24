@@ -15,17 +15,17 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
     public Button m_ConfirmButton;
     public TextErrorMessage m_TextErrorMessage;
 
-    private long m_TotalScore;
-    private ShipAttributes m_ShipAttributes;
-    private int m_TotalMiss;
-    private long m_ClearedTime;
+    private long _totalScore;
+    private ShipAttributes _shipAttributes;
+    private int _totalMiss;
+    private long _clearedTime;
 
     void Start()
     {
-        m_TotalScore = InGameDataManager.Instance.TotalScore;
-        m_ShipAttributes = PlayerManager.CurrentAttributes;
-        m_TotalMiss = InGameDataManager.Instance.TotalMiss;
-        m_ClearedTime = InGameDataManager.Instance.ElapsedTime;
+        _totalScore = InGameDataManager.Instance.TotalScore;
+        _shipAttributes = InGameDataManager.Instance.CurrentShipAttributes;
+        _totalMiss = InGameDataManager.Instance.TotalMiss;
+        _clearedTime = InGameDataManager.Instance.ElapsedTime;
 
         m_InputFieldID.text = PlayerPrefs.GetString("LastLocalRankingID", string.Empty);
         m_InputFieldID.ActivateInputField();
@@ -34,7 +34,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
     public void RegisterLocalRanking()
     {
         var id = m_InputFieldID.text;
-        LocalRankingData localRankingData = new LocalRankingData(id, m_TotalScore, m_ShipAttributes, m_TotalMiss, m_ClearedTime);
+        LocalRankingData localRankingData = new LocalRankingData(id, _totalScore, _shipAttributes, _totalMiss, _clearedTime);
         
         Utility.SaveDataFile(Application.dataPath, $"ranking{(int) SystemManager.Difficulty}", localRankingData);
 

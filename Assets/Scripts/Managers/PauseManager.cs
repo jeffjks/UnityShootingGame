@@ -29,7 +29,7 @@ public class PauseManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         
-        _inGameInputController = EventSystem.current.gameObject.GetComponent<InGameInputController>();
+        _inGameInputController = InGameInputController.Instance;
         _inGameInputController.Action_OnPauseInput += Pause;
         _inGameInputController.Action_OnEscapeInput += Pause;
     }

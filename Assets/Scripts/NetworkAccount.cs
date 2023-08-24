@@ -12,7 +12,8 @@ public class NetworkAccount : MonoBehaviour
     {
         "MainMenu",
         "DebugPlayer",
-        "DebugEnemy"
+        "DebugEnemy",
+        "DebugEnding"
     };
 
     public void Init()

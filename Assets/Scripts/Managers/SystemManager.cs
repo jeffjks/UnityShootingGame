@@ -121,7 +121,7 @@ public class SystemManager : MonoBehaviour
             PlayState = PlayState.OnField;
         }
         else {
-            var sceneName = "Ending";
+            var sceneName = "EndingCredit";
             Stage = -1;
             
             gameObject.SetActive(false);
@@ -133,6 +133,12 @@ public class SystemManager : MonoBehaviour
             yield return new WaitForMillisecondFrames(1000);
             InGameScreenEffectService.TransitionOut(1.5f);
         }
+    }
+
+    public void FinishEndingCredit()
+    {
+        InGameInputController.Instance.DestroySelf();
+        SceneManager.LoadScene("EndingRanking");
     }
 
     public void QuitGame(Action onCompleted) {

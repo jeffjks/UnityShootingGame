@@ -28,22 +28,17 @@ public class InputFieldMoveController : MonoBehaviour
     private void OnMoveInput(InputValue inputValue)
     {
         Vector2 moveInput = inputValue.Get<Vector2>();
+        Debug.Log(moveInput);
         
         if (_inputField.isFocused)
         {
-            EventSystem.current.currentInputModule.enabled = false;
-                
             if (moveInput == Vector2.up)
             {
-                if (_inputField.navigation.selectOnUp != null)
-                    _inputField.navigation.selectOnUp.Select();
-                EventSystem.current.currentInputModule.enabled = true;
+                _inputField.DeactivateInputField();
             }
             else if (moveInput == Vector2.down)
             {
-                if (_inputField.navigation.selectOnDown != null)
-                    _inputField.navigation.selectOnDown.Select();
-                EventSystem.current.currentInputModule.enabled = true;
+                _inputField.DeactivateInputField();
             }
         }
     }

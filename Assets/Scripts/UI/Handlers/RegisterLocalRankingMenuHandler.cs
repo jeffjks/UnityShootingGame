@@ -38,7 +38,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
         
         Utility.SaveDataFile(Application.dataPath, $"ranking{(int) SystemManager.Difficulty}", localRankingData);
 
-        AudioService.PlaySound("ConfirmUI");
+        AudioService.PlaySound("SallyUI");
         LeaveMenu();
     }
 

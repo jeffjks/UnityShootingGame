@@ -16,7 +16,6 @@ public class InGameDataManager : MonoBehaviour
     private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
-    private long _elapsedTime;
     
     private readonly long[] _stageScore = {0, 0, 0, 0, 0};
     private readonly int[] _stageMiss = {0, 0, 0, 0, 0};
@@ -45,14 +44,7 @@ public class InGameDataManager : MonoBehaviour
         }
     }
 
-    public long ElapsedTime
-    {
-        get => _elapsedTime;
-        private set
-        {
-            _elapsedTime = value;
-        }
-    }
+    public long ElapsedTime { get; private set; }
     
     private int MaxBombNumber
     {
@@ -86,6 +78,7 @@ public class InGameDataManager : MonoBehaviour
         if (DebugOption.SceneMode == 3)
         {
             TotalScore = UnityEngine.Random.Range(0, 10000);
+            CurrentShipAttributes = new ShipAttributes();
             TotalMiss = UnityEngine.Random.Range(0, 50);
             ElapsedTime = DateTime.Now.Ticks;
         }

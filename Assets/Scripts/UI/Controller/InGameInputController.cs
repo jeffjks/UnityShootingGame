@@ -23,6 +23,7 @@ public class InGameInputController : MonoBehaviour
         Instance = this;
 
         SystemManager.Action_OnQuitInGame += DestroySelf;
+        SystemManager.Action_OnNextStage += DestroySelf;
         
         DontDestroyOnLoad(gameObject);
     }
@@ -53,9 +54,15 @@ public class InGameInputController : MonoBehaviour
         Action_OnMove?.Invoke(inputValue);
     }
 
-    private void DestroySelf()
+    public void DestroySelf()
     {
         Instance = null;
         Destroy(gameObject);
+    }
+
+    private void DestroySelf(bool hasNextStage)
+    {
+        if (!hasNextStage)
+            DestroySelf();
     }
 }

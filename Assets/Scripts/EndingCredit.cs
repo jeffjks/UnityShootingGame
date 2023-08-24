@@ -2,16 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 using TMPro;
 using UnityEngine.InputSystem;
 
 public class EndingCredit : MonoBehaviour
 {
-    public MenuHandler m_RegisterLocalRankingMenuHandler;
     public TextMeshProUGUI m_CreditText;
-    public RectTransform m_ParentRectTransform;
     public RectTransform m_CreditTextRectTransform;
 
     private Dictionary<Language, string> _creditJsonData = new();
@@ -23,7 +19,7 @@ public class EndingCredit : MonoBehaviour
     private bool _isFirePress;
     private InGameInputController _inGameInputController;
 
-    private void Awake()
+    private void Start()
     {
         _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.dataPath, "resources2").jsonData;
         m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
@@ -74,7 +70,8 @@ public class EndingCredit : MonoBehaviour
         StartCoroutine(QuitEnding(delay));
     }
 
-    private IEnumerator QuitEnding(float delay) {
+    private IEnumerator QuitEnding(float delay)
+    {
         yield return new WaitForSeconds(delay);
         
         FadeScreenService.ScreenFadeOut(2f);
@@ -83,8 +80,7 @@ public class EndingCredit : MonoBehaviour
         
         FadeScreenService.ScreenFadeIn(0f);
         AudioService.StopMusic();
-        m_RegisterLocalRankingMenuHandler.gameObject.SetActive(true);
-        gameObject.SetActive(false);
+        SystemManager.Instance.FinishEndingCredit();
     }
 }
 

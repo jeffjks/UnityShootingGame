@@ -8,7 +8,7 @@ public class CriticalStateSystem : MonoBehaviour
     private static int _remainingFrame;
     private static CriticalStateSystem Instance { get; set; }
     
-    void Start()
+    private void Start()
     {
         if (Instance != null) {
             Destroy(gameObject);

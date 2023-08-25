@@ -78,7 +78,6 @@ public class EndingCredit : MonoBehaviour
         AudioService.FadeOutMusic(2f);
         yield return new WaitForSeconds(3f);
         
-        FadeScreenService.ScreenFadeIn(0f);
         AudioService.StopMusic();
         SystemManager.Instance.FinishEndingCredit();
     }

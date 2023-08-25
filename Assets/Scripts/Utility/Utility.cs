@@ -138,7 +138,6 @@ public static class Utility
             {
                 throw new IntegrityTestFailedException($"무결성 검사 실패: {fileName}.dat");
             }
-            Debug.Log(jsonData);
             var deserializedData = JsonConvert.DeserializeObject<T>(jsonData);
             Debug.Log($"파일 열기에 성공했습니다: {fileName}.dat");
             return (deserializedData, hash);

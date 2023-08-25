@@ -7,7 +7,7 @@ using System;
 
 public class RankingDataLoader : MonoBehaviour
 {
-    public TextErrorMessage m_ErrorMessage;
+    public TextErrorMessage m_TextErrorMessage;
     public RankingDataSlotLoader[] m_RankingDataSlotLoaders = new RankingDataSlotLoader[SLOTS_PER_PAGE];
     public RankingDataSlotLoader m_MyRankingDataSlotLoader; // Unused
     public RankingPageText m_RankingPageText;
@@ -58,7 +58,7 @@ public class RankingDataLoader : MonoBehaviour
             var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(Application.dataPath, $"ranking{(int)m_GameDifficulty}").jsonData;
             if (rankingData == null)
             {
-                m_ErrorMessage.DisplayText("FileLoadException");
+                m_TextErrorMessage.DisplayText("FileLoadException");
                 rankingData = new List<LocalRankingData>();
             }
             else
@@ -82,7 +82,7 @@ public class RankingDataLoader : MonoBehaviour
         UnityWebRequest webRequest = UnityWebRequest.Post(url, form);
         yield return webRequest.SendWebRequest();
         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError) {
-            m_ErrorMessage.DisplayText("NetworkErrorException", webRequest.error);
+            m_TextErrorMessage.DisplayText("NetworkErrorException", webRequest.error);
         }
         _isLoaded = true;
     }

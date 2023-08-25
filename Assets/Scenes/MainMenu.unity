@@ -12636,7 +12636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe648b09db75ff144ad2dfa06f533557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ErrorMessage: {fileID: 1296820182}
+  m_TextErrorMessage: {fileID: 1296820182}
   m_RankingDataSlotLoaders:
   - {fileID: 1052172885}
   - {fileID: 1524207008}

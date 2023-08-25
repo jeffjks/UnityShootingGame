@@ -24,6 +24,7 @@ public class SystemManager : MonoBehaviour
     public static event Action Action_OnStageClear;
     public static event Action Action_OnShowOverview;
     public static event Action<bool> Action_OnNextStage;
+    public static event Action Action_OnFinishEndingCredit;
     public static event Action Action_OnQuitInGame;
 
     void Awake()
@@ -124,7 +125,7 @@ public class SystemManager : MonoBehaviour
             var sceneName = "EndingCredit";
             Stage = -1;
             
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             Action_OnNextStage?.Invoke(false);
             SceneManager.LoadScene(sceneName);
 
@@ -137,7 +138,7 @@ public class SystemManager : MonoBehaviour
 
     public void FinishEndingCredit()
     {
-        InGameInputController.Instance.DestroySelf();
+        Action_OnFinishEndingCredit?.Invoke();
         SceneManager.LoadScene("EndingRanking");
     }
 

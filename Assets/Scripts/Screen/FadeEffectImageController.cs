@@ -18,7 +18,7 @@ public class FadeEffectImageController : MonoBehaviour
 
     private void SetImageAlpha(float alpha)
     {
-        Color color = _fadeImage.color;
+        var color = _fadeImage.color;
         color.a = alpha;
         _fadeImage.color = color;
     }

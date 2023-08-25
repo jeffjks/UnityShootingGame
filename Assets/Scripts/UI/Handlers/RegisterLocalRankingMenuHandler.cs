@@ -34,9 +34,20 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
     public void RegisterLocalRanking()
     {
         var id = m_InputFieldID.text;
-        LocalRankingData localRankingData = new LocalRankingData(id, _totalScore, _shipAttributes, _totalMiss, _clearedTime);
+        var localRankingData = new LocalRankingData(id, _totalScore, _shipAttributes, _totalMiss, _clearedTime);
+        var difficulty = (int)SystemManager.Difficulty;
         
-        Utility.SaveDataFile(Application.dataPath, $"ranking{(int) SystemManager.Difficulty}", localRankingData);
+        var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(Application.dataPath, $"ranking{difficulty}").jsonData;
+        if (rankingData == null)
+        {
+            m_TextErrorMessage.DisplayText("FileLoadException");
+            //rankingData = new List<LocalRankingData>();
+            AudioService.PlaySound("CancelUI");
+            return;
+        }
+        rankingData.Add(localRankingData);
+        
+        Utility.SaveDataFile(Application.dataPath, $"ranking{difficulty}", rankingData);
 
         AudioService.PlaySound("SallyUI");
         LeaveMenu();

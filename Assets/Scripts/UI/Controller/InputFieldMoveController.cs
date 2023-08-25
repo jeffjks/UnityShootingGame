@@ -28,7 +28,6 @@ public class InputFieldMoveController : MonoBehaviour
     private void OnMoveInput(InputValue inputValue)
     {
         Vector2 moveInput = inputValue.Get<Vector2>();
-        Debug.Log(moveInput);
         
         if (_inputField.isFocused)
         {

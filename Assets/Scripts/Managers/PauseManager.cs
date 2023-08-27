@@ -19,7 +19,7 @@ public class PauseManager : MonoBehaviour
     public static bool IsGamePaused = false;
     public static PauseManager Instance { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         if (Instance != null) {
             Destroy(gameObject);

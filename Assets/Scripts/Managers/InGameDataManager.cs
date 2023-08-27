@@ -83,6 +83,11 @@ public class InGameDataManager : MonoBehaviour
             ElapsedTime = DateTime.Now.Ticks;
         }
     }
+    
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= DestroySelf;
+    }
 
     private void Start()
     {

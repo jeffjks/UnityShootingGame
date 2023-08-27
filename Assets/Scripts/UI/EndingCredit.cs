@@ -21,7 +21,7 @@ public class EndingCredit : MonoBehaviour
 
     private void Start()
     {
-        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.dataPath, "resources2").jsonData;
+        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.streamingAssetsPath, "resources2").jsonData;
         m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
         
         _inGameInputController = InGameInputController.Instance;

@@ -10,7 +10,6 @@ public class PlayerInvincibility : MonoBehaviour
     public const int REVIVE_TIME = 3000;
     
     private static bool _isInvincible;
-    public static PlayerInvincibility Instance { get; private set; }
 
     public static Action<bool> Action_OnInvincibilityChanged;
 
@@ -27,14 +26,12 @@ public class PlayerInvincibility : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
-            Destroy(gameObject);
-            return;
-        }
+        Action_OnInvincibilityChanged += SetPlayerShield;
+    }
 
-        Instance = this;
-        
-        Action_OnInvincibilityChanged += Instance.SetPlayerShield;
+    private void OnDestroy()
+    {
+        Action_OnInvincibilityChanged -= SetPlayerShield;
     }
 
     private void Start()

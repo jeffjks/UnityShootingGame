@@ -23,6 +23,11 @@ public class MainCamera : MonoBehaviour
         SystemManager.Action_OnNextStage += InitCamera;
     }
 
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnNextStage -= InitCamera;
+    }
+
     private void LateUpdate()
     {
         var cameraPosX = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x * CAMERA_MOVE_RATE : transform.position.x;

@@ -278,7 +278,7 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
         {
             Vector3 bossPos = transform.position;
             bossPos.z = Depth.ENEMY;
-            StageManager.Action_OnTrueBossStart?.Invoke(bossPos);
+            StageManager.Instance.StartFinalBoss(bossPos);
         }
     }
 }

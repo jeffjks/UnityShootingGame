@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -29,6 +30,11 @@ public class BossHealthBarHandler : MonoBehaviour
     {
         _deltaHeight = GetComponent<RectTransform>().rect.height;
         StageManager.Action_BossHealthBar += StartHealthListener;
+    }
+
+    private void OnDestroy()
+    {
+        StageManager.Action_BossHealthBar -= StartHealthListener;
     }
 
     private float InterpolateY

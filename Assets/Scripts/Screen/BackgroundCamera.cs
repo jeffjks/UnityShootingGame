@@ -121,8 +121,8 @@ public class BackgroundCamera : MonoBehaviour
         }
     }
 
-    public static Vector2 GetScreenPosition(Vector3 pos) {
-        
+    public static Vector2 GetScreenPosition(Vector3 pos)
+    {
         var mainCameraX = MainCamera.Instance.GetCameraScreenPosition().x;
         Vector3 screenPos = Camera.WorldToScreenPoint(pos);
         Vector2 newPos = new Vector2(

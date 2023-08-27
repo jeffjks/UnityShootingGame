@@ -82,10 +82,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     {
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         m_RotatePattern?.ExecuteRotatePattern(this);
-    }
-
-    private void LateUpdate()
-    {
         SetColliderPosition();
     }
 

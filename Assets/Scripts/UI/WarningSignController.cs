@@ -12,6 +12,11 @@ public class WarningSignController : MonoBehaviour
         StageManager.Action_BossWarningSign += PlayWarningSign;
     }
     
+    private void OnDestroy()
+    {
+        StageManager.Action_BossWarningSign -= PlayWarningSign;
+    }
+    
     private void PlayWarningSign()
     {
         AudioService.PlaySound("BossAlert1");

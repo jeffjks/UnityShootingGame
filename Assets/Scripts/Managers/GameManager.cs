@@ -19,6 +19,18 @@ public class GameManager : MonoBehaviour
     public static bool isOnline;
     public static bool IsDebugScene;
 
+    private class EncryptedFile
+    {
+        public string filePath;
+        public List<string> fileList;
+
+        public EncryptedFile(string filePath, List<string> fileList)
+        {
+            this.filePath = filePath;
+            this.fileList = fileList;
+        }
+    }
+
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -46,9 +58,9 @@ public class GameManager : MonoBehaviour
         {
             GetComponent<ExplosionJsonWriter>().GenerateJsonFile();
             GetComponent<EndingCreditJsonWriter>().GenerateJsonFile();
-            GetComponent<RankingJsonWriter>().GenerateJsonFile();
         }
         #endif
+        GetComponent<RankingJsonWriter>().GenerateJsonFile();
 
         if (!TestIntegrityAll())
         {
@@ -90,21 +102,27 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            List<string> fileList = new () { "resources1", "resources2", "ranking0", "ranking1", "ranking2" };
-            string filePath = Application.dataPath;
+            var resourceFile = new EncryptedFile(Application.streamingAssetsPath, new List<string> { "resources1", "resources2" });
+            var rankingFile = new EncryptedFile(Application.dataPath, new List<string> { "ranking0", "ranking1", "ranking2" });
+            List<EncryptedFile> encryptedFiles = new () { resourceFile, rankingFile };
 
-            foreach (var fileName in fileList)
+            foreach (var encryptedFile in encryptedFiles)
             {
-                if (!File.Exists($"{filePath}/{fileName}.dat"))
+                foreach (var fileName in encryptedFile.fileList)
                 {
-                    continue;
-                }
-                var (jsonData, hash) = Utility.LoadDataFileString(filePath, fileName);
+                    if (!File.Exists($"{encryptedFile.filePath}/{fileName}.dat"))
+                    {
+                        if (resourceFile.filePath == Application.dataPath)
+                            continue;
+                        Debug.LogError("게임 실행에 필요한 파일을 찾을 수 없습니다.");
+                    }
+                    var (jsonData, hash) = Utility.LoadDataFileString(encryptedFile.filePath, fileName);
                 
-                if (jsonData != null && Utility.Md5Sum(jsonData) != hash)
-                {
-                    Debug.LogError("무결성 검사에 실패하였습니다.");
-                    return false;
+                    if (jsonData != null && Utility.Md5Sum(jsonData) != hash)
+                    {
+                        Debug.LogError("무결성 검사에 실패하였습니다.");
+                        return false;
+                    }
                 }
             }
             Debug.Log("무결성 검사가 완료되었습니다.");

@@ -4,14 +4,14 @@ using UnityEngine;
 
 /*
 m_ObjectPoolDictionary : 특정 종류의 오브젝트들의 List를 담은 PooledObject 들을 가진 Dictionary
-m_PoolQueue : 오브젝트들을 담은 Queue. PooledObject 클래스 안에 존재. 아직 생성되지 않은 오브젝트들이 Queue 안에 있음.
+_poolQueue : 오브젝트들을 담은 Queue. PooledObject 클래스 안에 존재. 아직 생성되지 않은 오브젝트들이 Queue 안에 있음.
 */
 
 public class PoolingManager : MonoBehaviour
 {
     public bool m_TestMode;
-    protected readonly Dictionary<string, PooledObject> m_ObjectPoolDictionary = new(); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
-    [SerializeField] protected GameObject[] m_PooledPrefabs;
+    public PoolingDatas m_PoolingData;
+    private readonly Dictionary<string, PooledObject> m_ObjectPoolDictionary = new(); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
 
     private static PoolingManager Instance;
 
@@ -31,6 +31,7 @@ public class PoolingManager : MonoBehaviour
     {
         InitOutGame();
         PlayerManager.Action_OnStartStartNewGame += InitInGame;
+        SystemManager.Action_OnQuitInGame += ClearInGamePool;
         
         if (m_TestMode)
             InitInGame();
@@ -38,37 +39,28 @@ public class PoolingManager : MonoBehaviour
 
     private void InitOutGame()
     {
-        m_ObjectPoolDictionary.Add("PlayerShot", new PooledObject(m_PooledPrefabs[0], 30, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
-
-        m_ObjectPoolDictionary.Add("PlayerHomingMissile", new PooledObject(m_PooledPrefabs[1], 8, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
-        m_ObjectPoolDictionary.Add("PlayerRocket", new PooledObject(m_PooledPrefabs[2], 6, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
-        m_ObjectPoolDictionary.Add("PlayerAddShot", new PooledObject(m_PooledPrefabs[3], 8, GetChildByPoolingParent(PoolingParent.PlayerMissile)));
+        foreach (var poolingInfo in m_PoolingData.poolingOutGameInfos)
+        {
+            var parentTransform = GetChildByPoolingParent(PoolingParent.PlayerMissile);
+            var pooledObject = new PooledObject(poolingInfo.poolingObject, poolingInfo.defaultNumber, parentTransform);
+            m_ObjectPoolDictionary.Add(poolingInfo.objectName, pooledObject);
+        }
     }
 
     private void InitInGame()
     {
-        m_ObjectPoolDictionary.Add("EnemyBullet", new PooledObject(m_PooledPrefabs[4], 1024, GetChildByPoolingParent(PoolingParent.EnemyBullet)));
+        foreach (var poolingInfo in m_PoolingData.poolingInfos)
+        {
+            var parentTransform = GetChildByPoolingParent(PoolingParent.PlayerMissile);
+            var pooledObject = new PooledObject(poolingInfo.poolingObject, poolingInfo.defaultNumber, parentTransform);
+            m_ObjectPoolDictionary.Add(poolingInfo.objectName, pooledObject);
+        }
+    }
 
-        m_ObjectPoolDictionary.Add("ExplosionGround_1", new PooledObject(m_PooledPrefabs[5], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionGround_2", new PooledObject(m_PooledPrefabs[6], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionGround_3", new PooledObject(m_PooledPrefabs[7], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionNormal_1", new PooledObject(m_PooledPrefabs[8], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionNormal_2", new PooledObject(m_PooledPrefabs[9], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionNormal_3", new PooledObject(m_PooledPrefabs[10], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionSimple_1", new PooledObject(m_PooledPrefabs[11], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionSimple_2", new PooledObject(m_PooledPrefabs[12], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionStarShape", new PooledObject(m_PooledPrefabs[13], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("ExplosionMineShape", new PooledObject(m_PooledPrefabs[14], 15, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("PlayerExplosion", new PooledObject(m_PooledPrefabs[15], 1, GetChildByPoolingParent(PoolingParent.Explosion)));
-        m_ObjectPoolDictionary.Add("PlayerHitEffect", new PooledObject(m_PooledPrefabs[16], 40, GetChildByPoolingParent(PoolingParent.Explosion)));
-        
-        m_ObjectPoolDictionary.Add("ItemGemAir", new PooledObject(m_PooledPrefabs[17], 60, GetChildByPoolingParent(PoolingParent.GemAir)));
-        
-        m_ObjectPoolDictionary.Add("ItemGemGround", new PooledObject(m_PooledPrefabs[18], 20, GetChildByPoolingParent(PoolingParent.GemGround)));
-
-        m_ObjectPoolDictionary.Add("Debris", new PooledObject(m_PooledPrefabs[19], 30, GetChildByPoolingParent(PoolingParent.Debris)));
-
-        m_ObjectPoolDictionary.Add("ScoreText", new PooledObject(m_PooledPrefabs[20], 10, GetChildByPoolingParent(PoolingParent.ScoreText)));
+    private void ClearInGamePool()
+    {
+        m_ObjectPoolDictionary.Clear();
+        InitOutGame();
     }
 
     public static bool PushToPool(string itemName, GameObject item, PoolingParent parent = PoolingParent.None) // = -1
@@ -147,7 +139,7 @@ public class PooledObject
     public int m_DefaultPoolCount;
     
     [SerializeField]
-    private Queue<GameObject> m_PoolQueue = new Queue<GameObject>();
+    private Queue<GameObject> _poolQueue = new Queue<GameObject>();
 
     // Constructor
     public PooledObject(GameObject prefab, int count, Transform parent = null) {
@@ -157,8 +149,13 @@ public class PooledObject
         Vector3 pos = new Vector3(0f, 0f, 0f);
         Quaternion rot = Quaternion.identity;
         for (int i = 0; i < m_DefaultPoolCount; i++) {
-            m_PoolQueue.Enqueue(CreateItem(parent));
+            _poolQueue.Enqueue(CreateItem(parent));
         }
+    }
+
+    public void ClearQueue()
+    {
+        _poolQueue.Clear();
     }
 
     public void Initialize(Transform parent = null)
@@ -166,7 +163,7 @@ public class PooledObject
         Vector3 pos = new Vector3(0f, 0f, 0f);
         Quaternion rot = Quaternion.identity;
         for (int i = 0; i < m_DefaultPoolCount; i++) {
-            m_PoolQueue.Enqueue(CreateItem(parent));
+            _poolQueue.Enqueue(CreateItem(parent));
         }
     }
 
@@ -174,16 +171,16 @@ public class PooledObject
     {
         item.transform.SetParent(parent);
         item.SetActive(false);
-        m_PoolQueue.Enqueue(item);
+        _poolQueue.Enqueue(item);
     }
 
     public GameObject PopFromPool(Transform parent = null)
     {
-        if (m_PoolQueue.Count == 0) {
-            m_PoolQueue.Enqueue(CreateItem(parent));
+        if (_poolQueue.Count == 0) {
+            _poolQueue.Enqueue(CreateItem(parent));
         }
         
-        GameObject item = m_PoolQueue.Dequeue();
+        GameObject item = _poolQueue.Dequeue();
 
         return item;
     }

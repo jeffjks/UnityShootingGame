@@ -27,7 +27,7 @@ public class ExplosionJsonManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _explosionJsonData = Utility.LoadDataFile<Dictionary<string, List<ExplosionData>>>(Application.dataPath, "resources1").jsonData;
+        _explosionJsonData = Utility.LoadDataFile<Dictionary<string, List<ExplosionData>>>(Application.streamingAssetsPath, "resources1").jsonData;
     }
 
     private void InitExplosionEffectString()

@@ -106,21 +106,21 @@ public class EnemyPlaneMedium3_BulletPattern_A : BulletFactory, IBulletPattern
                 for (int i = 0; i < 3; i++)
                 {
                     var pos = _enemyObject.transform.position;
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6f, BulletPivot.Current, dir));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 6f, BulletPivot.Player, dir));
                     yield return new WaitForFrames(3);
                 }
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 for (int i = 0; i < 4; i++) {
                     var pos = _enemyObject.transform.position;
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7f, BulletPivot.Current, dir, 3, 10f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 7f, BulletPivot.Player, dir, 3, 10f));
                     yield return new WaitForFrames(2);
                 }
             }
             else {
                 for (int i = 0; i < 4; i++) {
                     var pos = _enemyObject.transform.position;
-                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 8.5f, BulletPivot.Current, dir, 3, 10f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 8.5f, BulletPivot.Player, dir, 3, 10f));
                     yield return new WaitForFrames(2);
                 }
             }

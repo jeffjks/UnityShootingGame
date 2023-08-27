@@ -172,6 +172,7 @@ public class AudioService : MonoBehaviour
         }
         if (currentMusic == musicName)
         {
+            Debug.LogWarning($"'{musicName}' is already playing.");
             return;
         }
         
@@ -181,6 +182,7 @@ public class AudioService : MonoBehaviour
         if (m_AudioSourceMusicDict.TryGetValue(musicName, out AudioSource audioSource))
         {
             audioSource.Play();
+            audioSource.volume = 1f;
             currentMusic = musicName;
         
             Instance._loopStartPoint = m_MusicInfoDict[currentMusic].loopStartPoint;
@@ -286,6 +288,7 @@ public class AudioService : MonoBehaviour
         var audioSource = GetCurrentMusic();
         if (!audioSource)
             yield break;
+        audioSource.volume = 1f;
         audioSource.DOFade(0f, seconds);
 
         yield return new WaitForSeconds(seconds);

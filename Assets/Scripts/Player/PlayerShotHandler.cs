@@ -19,18 +19,18 @@ public class PlayerShotHandler : MonoBehaviour
     private const string PLAYER_SHOT = "PlayerShot";
     
     private List<int> _currentModuleDelay = new();
-    private PlayerModuleManager _playerModuleManager;
+    private PlayerSubWeaponManager _playerSubWeaponManager;
     private PlayerDrone[] _playerDrones;
 
-    private readonly List<IModule> _modules = new()
+    private readonly List<ISubWeapon> _modules = new()
     {
-        new PlayerModuleNone(),
-        new PlayerModuleHomingMissile(),
-        new PlayerModuleRocket(),
-        new PlayerModuleAddShot()
+        new PlayerSubWeaponNone(),
+        new PlayerSubWeaponHomingMissile(),
+        new PlayerSubWeaponRocket(),
+        new PlayerSubWeaponAddShot()
     };
     
-    private IModule _currentModule;
+    private ISubWeapon _currentSubWeapon;
 
     private int _shotIndex;
     private int _moduleIndex;
@@ -61,9 +61,9 @@ public class PlayerShotHandler : MonoBehaviour
 
     private void Awake()
     {
-        _playerModuleManager = new PlayerModuleManager();
+        _playerSubWeaponManager = new PlayerSubWeaponManager();
         _playerDrones = GetComponentsInChildren<PlayerDrone>();
-        ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex);
+        ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.SubWeaponIndex);
         ShotIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
         m_PlayerUnit.Action_OnControllableChanged += (controllable) =>
         {
@@ -75,17 +75,21 @@ public class PlayerShotHandler : MonoBehaviour
     
     private void OnEnable()
     {
+        StartCoroutine(ModuleShot());
+    }
+
+    private void OnDisable()
+    {
+        AutoShot = 0;
         m_PlayerUnit.SlowMode = false;
         m_PlayerUnit.IsAttacking = false;
         m_PlayerUnit.IsShooting = false;
-        AutoShot = 0;
-        StartCoroutine(ModuleShot());
     }
 
     private IEnumerator ModuleShot() {
         while(true) {
-            if (_moduleIndex > 0 && m_PlayerUnit.IsAttacking) {
-                _currentModule.Shoot(this, m_PlayerModuleDamageData[_moduleIndex - 1], m_PlayerUnit.PlayerAttackLevel);
+            if (ModuleIndex > 0 && m_PlayerUnit.IsAttacking) {
+                _currentSubWeapon.Shoot(this, m_PlayerModuleDamageData[ModuleIndex - 1], m_PlayerUnit.PlayerAttackLevel);
                 yield return new WaitForMillisecondFrames(_currentModuleDelay[m_PlayerUnit.PlayerAttackLevel]);
             }
             yield return new WaitForFrames(0);
@@ -299,14 +303,14 @@ public class PlayerShotHandler : MonoBehaviour
 
     private void SetModuleIndex()
     {
-        _currentModule = _modules[_moduleIndex];
+        _currentSubWeapon = _modules[ModuleIndex];
 
-        if (_moduleIndex == 0)
+        if (ModuleIndex == 0)
         {
             return;
         }
         
-        _currentModuleDelay = m_PlayerModuleDamageData[_moduleIndex - 1].cooldownByLevel;
-        _playerModuleManager.ChangeModule(_currentModule);
+        _currentModuleDelay = m_PlayerModuleDamageData[ModuleIndex - 1].cooldownByLevel;
+        _playerSubWeaponManager.ChangeSubWeapon(_currentSubWeapon);
     }
 }

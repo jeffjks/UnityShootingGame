@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         if (!PlayerUnit.IsControllable)
         {
             IsFirePressed = false;
+            return;
         }
         ExecuteFire(inputValue.isPressed);
     }
@@ -147,18 +148,23 @@ public class PlayerController : MonoBehaviour
         _playerMovement.MovePlayer(moveInput);
     }
     
-    void OnEnable()
+    private void OnEnable()
+    {
+        //_playerShotHandler.AutoShot = 0;
+        
+        if (!_playerUnit.m_IsPreviewObject)
+            InGameDataManager.Instance.InitBombNumber();
+    }
+
+    private void OnDisable()
     {
         IsFirePressed = false;
         _firePressFrame = 0;
         
-        _playerUnit.SlowMode = false;
-        _playerUnit.IsShooting = false;
-        _playerUnit.IsAttacking = false;
-        _playerShotHandler.AutoShot = 0;
-        _playerLaserHandler.StopLaser();
+        // _playerUnit.SlowMode = false;
+        // _playerUnit.IsAttacking = false;
+        // _playerUnit.IsShooting = false;
         
-        if (!_playerUnit.m_IsPreviewObject)
-            InGameDataManager.Instance.InitBombNumber();
+        _playerLaserHandler.StopLaser();
     }
 }

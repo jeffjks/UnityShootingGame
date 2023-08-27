@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d200eefbf520bdc43bb84681308490d2, type: 3}
+  m_Name: SO PoolingData
+  m_EditorClassIdentifier: 
+  poolingOutGameInfos:
+  - objectName: PlayerShot
+    poolingObject: {fileID: 7308936934683739909, guid: 30b392808faeedc4c9c0bcd3bc220249,
+      type: 3}
+    defaultNumber: 30
+    poolingParent: 0
+  - objectName: PlayerHomingMissile
+    poolingObject: {fileID: 1505355089897114, guid: 6bb61dcf10331eb42bcaff10ba470e8f,
+      type: 3}
+    defaultNumber: 8
+    poolingParent: 0
+  - objectName: PlayerRocket
+    poolingObject: {fileID: 1255836958617472, guid: 94ad4902bc99afe49a95a6e9a1521a6b,
+      type: 3}
+    defaultNumber: 6
+    poolingParent: 0
+  - objectName: PlayerAddShot
+    poolingObject: {fileID: 1475708882005642, guid: 22b7e2985e2cbda4cbbb9d50d8537c79,
+      type: 3}
+    defaultNumber: 8
+    poolingParent: 0
+  poolingInfos:
+  - objectName: EnemyBullet
+    poolingObject: {fileID: 3062199160004300718, guid: 6ede3d3176a9c41458dcd739c412200b,
+      type: 3}
+    defaultNumber: 1024
+    poolingParent: 1
+  - objectName: ExplosionGround_1
+    poolingObject: {fileID: 100006, guid: 7c442b9b6852b8a4f93306f3d154d471, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionGround_2
+    poolingObject: {fileID: 100006, guid: 93485fd5fc2ccf2439cb3239186f6382, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionGround_3
+    poolingObject: {fileID: 100008, guid: 06736895ea0a4ff408d25e6684dce797, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionNormal_1
+    poolingObject: {fileID: 100006, guid: 2e7e92bc7175b744ea40878dedfa79e4, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionNormal_2
+    poolingObject: {fileID: 100006, guid: 4575df893a6e3f64a8283dee38413a34, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionNormal_3
+    poolingObject: {fileID: 100008, guid: 1dbc518224e49f34095aab42fe05751a, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionSimple_1
+    poolingObject: {fileID: 100014, guid: 5332791ebce075d4a9e56f4581e7fb47, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionSimple_2
+    poolingObject: {fileID: 100008, guid: 7075bd5fe1480184695a32611c15da57, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionStarShape
+    poolingObject: {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: ExplosionMineShape
+    poolingObject: {fileID: 100002, guid: 6890a03af913b874092fbb1e8337747d, type: 3}
+    defaultNumber: 15
+    poolingParent: 2
+  - objectName: PlayerExplosion
+    poolingObject: {fileID: 558487703734782032, guid: 4a69e841720463a45a8fb4de0a2a8626,
+      type: 3}
+    defaultNumber: 1
+    poolingParent: 2
+  - objectName: PlayerMissileHitShot
+    poolingObject: {fileID: 616956361265152384, guid: bd1a3b29f1faac44d8d77bcbc297651a,
+      type: 3}
+    defaultNumber: 100
+    poolingParent: 2
+  - objectName: PlayerMissileHitHoming
+    poolingObject: {fileID: 616956361265152384, guid: 7d09ecda57ed9744394f9d9a55dcc187,
+      type: 3}
+    defaultNumber: 20
+    poolingParent: 2
+  - objectName: PlayerMissileHitRocket
+    poolingObject: {fileID: 616956361265152384, guid: 324ca07dbf19bd4499c12b1ac3ed197c,
+      type: 3}
+    defaultNumber: 10
+    poolingParent: 2
+  - objectName: PlayerMissileHitAddShot
+    poolingObject: {fileID: 616956361265152384, guid: 51c5a8ba6f11f5d488d52a6b364a3d66,
+      type: 3}
+    defaultNumber: 40
+    poolingParent: 2
+  - objectName: ItemGemAir
+    poolingObject: {fileID: 1000013105924406, guid: 6a7274aefcc6cef4fbbfba924cc7f657,
+      type: 3}
+    defaultNumber: 60
+    poolingParent: 3
+  - objectName: ItemGemGround
+    poolingObject: {fileID: 1000011501826600, guid: b34bf25cecb5fc24c91de3edea19cb13,
+      type: 3}
+    defaultNumber: 30
+    poolingParent: 4
+  - objectName: Debris
+    poolingObject: {fileID: 100000, guid: de3c7a575bbdb5945afdf2f5ed865a69, type: 3}
+    defaultNumber: 30
+    poolingParent: 5
+  - objectName: ScoreText
+    poolingObject: {fileID: 1314187946552072972, guid: 6d2693a8ed5206048a51bed128626fc2,
+      type: 3}
+    defaultNumber: 10
+    poolingParent: 6

@@ -28,6 +28,13 @@ public class InGameInputController : MonoBehaviour
         
         //DontDestroyOnLoad(gameObject);
     }
+    
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= DestroySelf;
+        SystemManager.Action_OnNextStage -= DestroySelf;
+        SystemManager.Action_OnFinishEndingCredit -= DestroySelf;
+    }
 
     public void OnPause()
     {

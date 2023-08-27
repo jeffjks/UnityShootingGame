@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using System.Text;
-using UnityEditor.UIElements;
 using Random = UnityEngine.Random;
 
 public class ReplayManager : MonoBehaviour
@@ -18,7 +16,7 @@ public class ReplayManager : MonoBehaviour
     
     private PlayerManager _playerManager;
     
-    private const string REPLAY_DIRECTORY = "";
+    private string _replayDirectory;
     private ReplayInfo _replayInfo;
     private BinaryReader _br;
     private BinaryWriter _bw;
@@ -49,6 +47,8 @@ public class ReplayManager : MonoBehaviour
             return;
         }
         Instance = this;
+        
+        _replayDirectory = $"{Application.dataPath}/";
 
         SystemManager.Action_OnQuitInGame += OnClose;
     }
@@ -76,7 +76,7 @@ public class ReplayManager : MonoBehaviour
     private void StartReadReplayFile()
     {
         var replayNum = 0; // TODO. have to decide replay num from existing files
-        var filePath = $"{REPLAY_DIRECTORY}replay{replayNum}.rep";
+        var filePath = $"{_replayDirectory}replay{replayNum}.rep";
 
         try
         {
@@ -103,7 +103,7 @@ public class ReplayManager : MonoBehaviour
 
     private void StartWriteReplayFile()
     {
-        var filePath = $"{REPLAY_DIRECTORY}replayTemp.rep";
+        var filePath = $"{_replayDirectory}replayTemp.rep";
         
         try {
             _fileStream = new FileStream(filePath, FileMode.Append);

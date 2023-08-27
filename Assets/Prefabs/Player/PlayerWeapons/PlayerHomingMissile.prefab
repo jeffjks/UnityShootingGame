@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Speed: 20
   m_IsPenetrate: 0
   _activatedObject: []
-  _hitEffectType: 1
+  _playerMissileHit: PlayerMissileHitHoming
   _removeTimer: 5000
 --- !u!1 &1067027769915147066
 GameObject:
@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 4885376814758653173}
   m_LocalRotation: {x: -0.53729963, y: -0, z: -0, w: 0.8433914}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 985979764415779574}

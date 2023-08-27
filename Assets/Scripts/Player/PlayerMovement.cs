@@ -28,8 +28,8 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3((float) _positionInt2D.x / 256, (float) _positionInt2D.y / 256, Depth.PLAYER);
         }
     }
-    public int MoveRawHorizontal { get; set; }
-    public int MoveRawVertical { get; set; }
+    private int MoveRawHorizontal { get; set; }
+    private int MoveRawVertical { get; set; }
 
     private void Awake()
     {
@@ -43,6 +43,14 @@ public class PlayerMovement : MonoBehaviour
         _playerCollisionDetector.Action_OnCollideWithEnemy += m_PlayerUnit.DealCollisionDamage;
         _playerCollisionDetector.Action_OnDeath += KillPlayer;
         _playerCollisionDetector.Action_OnDeath += ResetPosition;
+    }
+    
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnBossClear -= OnBossClear;
+        SystemManager.Action_OnStageClear -= OnStageClear;
+        SystemManager.Action_OnNextStage -= OnNextStage;
+        SystemManager.Action_OnQuitInGame -= OnRemove;
     }
 
     void Start()
@@ -78,11 +86,10 @@ public class PlayerMovement : MonoBehaviour
         else {
             moveVector *= _defaultSpeed;
         }
-
-        var moveVectorInt = Vector2Int.RoundToInt(moveVector);
-        PositionInt2D += moveVectorInt;
-
+        
         if (PlayerUnit.IsControllable) {
+            var moveVectorInt = Vector2Int.RoundToInt(moveVector);
+            PositionInt2D += moveVectorInt;
             PositionInt2D = new Vector2Int
             (
                 Mathf.Clamp(PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 

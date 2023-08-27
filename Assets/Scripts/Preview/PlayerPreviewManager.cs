@@ -19,7 +19,7 @@ public abstract class PlayerPreviewManager : MonoBehaviour
 
         m_SpeedPart[shipAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
         
-        if (shipAttributes.GetAttributes(AttributeType.ModuleIndex) != 0) // Module
+        if (shipAttributes.GetAttributes(AttributeType.SubWeaponIndex) != 0) // Module
             m_ModulePart.SetActive(true);
         
         SetPlayerPreviewColors(shipAttributes.GetAttributes(AttributeType.Color));

@@ -985,6 +985,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGame Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4079609950197110200, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1039969942}
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1088,6 +1093,21 @@ PrefabInstance:
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1724,6 +1744,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a8f52df6297a641adda81b97f9435b, type: 3}
+--- !u!20 &1039969942 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2859131885718784968, guid: 00a8f52df6297a641adda81b97f9435b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1039969941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1053206556
 GameObject:
   m_ObjectHideFlags: 0

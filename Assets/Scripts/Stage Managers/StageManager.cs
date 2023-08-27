@@ -15,8 +15,6 @@ public abstract class StageManager : MonoBehaviour
     [SerializeField] protected GameObject m_EnemySpawners = null;
     
     [SerializeField] private EnemyUnitPrefabDatas m_EnemyUnitPrefabDatas;
-
-    public static Action<Vector3> Action_OnTrueBossStart;
     public static event Action Action_BossWarningSign;
     public static event Action<EnemyUnit> Action_BossHealthBar;
 
@@ -45,16 +43,17 @@ public abstract class StageManager : MonoBehaviour
     protected abstract IEnumerator EnemyTimeline();
     protected abstract IEnumerator BossTimeline();
     protected abstract IEnumerator TestTimeline();
+    
+    public static StageManager Instance { get; private set; }
 
     void Start ()
     {
+        Instance = this;
         Init();
         
         UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         PoolingManager.ResetPool();
         FadeScreenService.ScreenFadeIn(0f);
-        SystemManager.Action_OnStageClear += StopAllCoroutines;
-        Action_OnTrueBossStart += StartFinalBoss;
         
         InGameScreenEffectService.TransitionIn();
 
@@ -66,6 +65,16 @@ public abstract class StageManager : MonoBehaviour
             StartCoroutine(MainTimeline());
             StartCoroutine(EnemyTimeline());
         }
+    }
+
+    private void Awake()
+    {
+        SystemManager.Action_OnStageClear += StopAllCoroutines;
+    }
+
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnStageClear -= StopAllCoroutines;
     }
 
     protected void ShowBossWarningSign()
@@ -132,7 +141,7 @@ public abstract class StageManager : MonoBehaviour
 
         yield return new WaitForMillisecondFrames(millisecond);
         Action_BossHealthBar?.Invoke(enemy_unit);
-        SystemManager.PlayState = PlayState.OnField;
+        //SystemManager.PlayState = PlayState.OnMiddleBoss;
     }
 
     protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화
@@ -142,7 +151,7 @@ public abstract class StageManager : MonoBehaviour
 
         yield return new WaitForMillisecondFrames(millisecond);
         Action_BossHealthBar?.Invoke(enemy_unit);
-        SystemManager.PlayState = PlayState.OnField;
+        //SystemManager.PlayState = PlayState.OnMiddleBoss;
     }
 
     protected void InitEnemies() {
@@ -151,14 +160,10 @@ public abstract class StageManager : MonoBehaviour
             m_EnemyPreloaded[i].SetActive(true);
     }
 
-    protected void StartFinalBoss(Vector3 pos) {
+    public void StartFinalBoss(Vector3 pos) {
         BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
         AudioService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
-    }
-
-    void OnDestroy() {
-        StopAllCoroutines();
     }
 
     protected EnemyBuilder GetEnemyBuilder(string key)

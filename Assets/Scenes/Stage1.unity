@@ -7673,6 +7673,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a8f52df6297a641adda81b97f9435b, type: 3}
+--- !u!20 &3751866177076334535 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2859131885718784968, guid: 00a8f52df6297a641adda81b97f9435b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3751866177076334534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4079609950414399249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7690,6 +7696,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4079609950197110200, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 3751866177076334535}
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_Pivot.x
@@ -7800,6 +7811,21 @@ PrefabInstance:
       propertyPath: m_InGameInputController
       value: 
       objectReference: {fileID: 875912435}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b0725163b06b849bdda3a107c2ba87, type: 3}
 --- !u!4 &4208690691692911754

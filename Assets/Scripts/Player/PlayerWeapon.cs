@@ -7,7 +7,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     [SerializeField] protected float m_Speed;
     [SerializeField] private bool m_IsPenetrate;
     [SerializeField] private GameObject[] _activatedObject;
-    [SerializeField] private HitEffectType _hitEffectType;
+    [SerializeField] private string _playerMissileHit;
     [SerializeField] private int _removeTimer;
 
     private IEnumerator _removeTimerCoroutine;
@@ -70,14 +70,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     }
 
     private void OnDeath() {
-        if (_hitEffectType != HitEffectType.None) {
-            GameObject obj = PoolingManager.PopFromPool("PlayerHitEffect", PoolingParent.Explosion); // 히트 이펙트
-            HitEffect hitEffect = obj.GetComponent<HitEffect>();
-            hitEffect.SetHitEffectType(_hitEffectType);
-            hitEffect.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.HIT_EFFECT);
-            obj.SetActive(true);
-            hitEffect.OnStart();
-        }
+        GameObject obj = PoolingManager.PopFromPool(_playerMissileHit, PoolingParent.Explosion); // 히트 이펙트
+        PlayerMissileHitEffect hitEffect = obj.GetComponent<PlayerMissileHitEffect>();
+        hitEffect.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.HIT_EFFECT);
+        obj.SetActive(true);
+        hitEffect.OnStart();
         ReturnToPool();
     }
 

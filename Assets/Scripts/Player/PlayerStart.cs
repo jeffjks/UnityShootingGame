@@ -62,7 +62,7 @@ public class PlayerStart : MonoBehaviour
         
         m_SpeedParts[PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
 
-        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ModuleIndex) != 0)
+        if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.SubWeaponIndex) != 0)
             m_ModulePart.SetActive(true);
         
         SetPlayerColors();

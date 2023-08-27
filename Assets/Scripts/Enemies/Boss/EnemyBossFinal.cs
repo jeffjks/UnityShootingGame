@@ -192,6 +192,9 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
     protected override IEnumerator DyingEffect() { // 파괴 과정
         m_Phase = -1;
         StopAllPatterns();
+        PlayerInvincibility.Action_OnInvincibilityChanged -= SetBombBarrier;
+        m_BombBarrier.SetActive(false);
+        
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         BulletManager.BulletsToGems(2000);

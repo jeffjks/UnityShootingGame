@@ -13,16 +13,16 @@ public class PlayerPreviewSimulator : MonoBehaviour
     private PlayerShotHandler _playerShotHandler;
     private bool _shotMode;
     
-    private void Awake()
+    private void Start()
     {
         _playerShotHandler = GetComponent<PlayerShotHandler>();
-        m_PlayerUnit.IsAttacking = true;
     }
 
     private void OnEnable()
     {
         _shotMode = true;
         SetShotMode();
+        m_PlayerUnit.IsAttacking = true;
         
         if (m_AutoChangeMode)
             StartCoroutine(PreviewSlowMode());

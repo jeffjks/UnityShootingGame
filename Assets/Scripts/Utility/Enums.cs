@@ -11,7 +11,7 @@ public enum AttributeType
     Speed,
     ShotIndex,
     LaserIndex,
-    ModuleIndex,
+    SubWeaponIndex,
     Bomb
 }
 
@@ -86,13 +86,6 @@ public enum DebrisType
     Large
 }
 
-public enum HitEffectType
-{
-    None = -1,
-    Flame,
-    Purple,
-    Metal
-}
 
 public enum PlayerDamageType
 {

@@ -26,7 +26,7 @@ public class SystemManager : MonoBehaviour
     public static event Action<bool> Action_OnNextStage;
     public static event Action Action_OnFinishEndingCredit;
     public static event Action Action_OnQuitInGame;
-
+    
     void Awake()
     {
         if (Instance != null) {

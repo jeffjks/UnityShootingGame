@@ -119,14 +119,14 @@ public class ShipAttributes
         _attributes[AttributeType.Speed] = speed;
         _attributes[AttributeType.ShotIndex] = shotIndex;
         _attributes[AttributeType.LaserIndex] = laserIndex;
-        _attributes[AttributeType.ModuleIndex] = module;
+        _attributes[AttributeType.SubWeaponIndex] = module;
         _attributes[AttributeType.Bomb] = bomb;
     }
 
     public override string ToString()
     {
         return
-            $"{_attributes[AttributeType.Color]}, {_attributes[AttributeType.Speed]}, {_attributes[AttributeType.ShotIndex]}, {_attributes[AttributeType.LaserIndex]}, {_attributes[AttributeType.ModuleIndex]}, {_attributes[AttributeType.Bomb]}";
+            $"{_attributes[AttributeType.Color]}, {_attributes[AttributeType.Speed]}, {_attributes[AttributeType.ShotIndex]}, {_attributes[AttributeType.LaserIndex]}, {_attributes[AttributeType.SubWeaponIndex]}, {_attributes[AttributeType.Bomb]}";
     }
 
     public ShipAttributes(string jsonCode)

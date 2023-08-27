@@ -9,8 +9,14 @@ public class InGameCanvasManager : MonoBehaviour
         SystemManager.Action_OnQuitInGame += DestroySelf;
     }
     
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= DestroySelf;
+    }
+    
     private void DestroySelf()
     {
+        Debug.Log(gameObject);
         Destroy(gameObject);
     }
 }

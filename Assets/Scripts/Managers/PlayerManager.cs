@@ -42,6 +42,11 @@ public class PlayerManager : MonoBehaviour
         
         BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
+    
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= DestroySelf;
+    }
 
     public GameObject SpawnPlayer() {
         return SpawnPlayer(CurrentAttributes);

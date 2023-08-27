@@ -14,9 +14,9 @@ public class PlayerLaser : PlayerObject
     {
         _playerLaserHandler = GetComponent<PlayerLaserHandler>();
         DamageLevel = m_PlayerUnit.PlayerAttackLevel;
-
+        
         _playerLaserHandler.Action_OnLaserIndexChanged += UpdateLaserIndex;
-        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+        m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += UpdatePlayerAttackLevel;
     }
 
     void OnTriggerStay2D(Collider2D other) // 닿을 때
@@ -38,6 +38,11 @@ public class PlayerLaser : PlayerObject
     private void UpdateLaserIndex()
     {
         _playerDamageData = m_PlayerLaserDamageData[_playerLaserHandler.LaserIndex];
+        DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+    }
+
+    private void UpdatePlayerAttackLevel()
+    {
         DamageLevel = m_PlayerUnit.PlayerAttackLevel;
     }
 }

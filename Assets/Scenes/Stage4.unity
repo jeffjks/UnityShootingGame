@@ -1941,6 +1941,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGame Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4079609950197110200, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 817482099}
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1954,7 +1959,7 @@ PrefabInstance:
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
@@ -3681,6 +3686,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a8f52df6297a641adda81b97f9435b, type: 3}
+--- !u!20 &817482099 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2859131885718784968, guid: 00a8f52df6297a641adda81b97f9435b,
+    type: 3}
+  m_PrefabInstance: {fileID: 817482098}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &873406574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4364,7 +4375,7 @@ PrefabInstance:
     - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5824299595195028252, guid: 55eee244c70d8de4ea8bc30e93c1f075,
         type: 3}

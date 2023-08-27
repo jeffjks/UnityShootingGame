@@ -2059,7 +2059,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 1582646005}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5824299595195028231, guid: 55eee244c70d8de4ea8bc30e93c1f075, type: 3}
     - {fileID: 5824299595195028255, guid: 55eee244c70d8de4ea8bc30e93c1f075, type: 3}
@@ -2331,6 +2331,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4079609950197110200, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1582646005}
     - target: {fileID: 4079609950197110203, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2441,6 +2446,21 @@ PrefabInstance:
       propertyPath: m_InGameInputController
       value: 
       objectReference: {fileID: 288567211}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b0725163b06b849bdda3a107c2ba87, type: 3}
 --- !u!1 &1576602209 stripped
@@ -2540,7 +2560,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 00a8f52df6297a641adda81b97f9435b, type: 3}
 --- !u!20 &1582646005 stripped
 Camera:
-  m_CorrespondingSourceObject: {fileID: 3751866176336275979, guid: 00a8f52df6297a641adda81b97f9435b,
+  m_CorrespondingSourceObject: {fileID: 2859131885718784968, guid: 00a8f52df6297a641adda81b97f9435b,
     type: 3}
   m_PrefabInstance: {fileID: 1582646004}
   m_PrefabAsset: {fileID: 0}

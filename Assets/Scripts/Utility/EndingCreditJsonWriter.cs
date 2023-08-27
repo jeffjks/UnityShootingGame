@@ -60,7 +60,7 @@ public class EndingCreditJsonWriter : MonoBehaviour
         WriteJson(Language.Korean, new CreditText("제작", "사용한 에셋",
             new List<string> { "모델링", "이미지 / 텍스처", "이펙트", "사운드", "지형", "기타" }));
         
-        Utility.SaveDataFile(Application.dataPath, "resources2", _endingCreditText);
+        Utility.SaveDataFile(Application.streamingAssetsPath, "resources2", _endingCreditText);
     }
 
     private StringBuilder MakeAssetList(string category, int index)

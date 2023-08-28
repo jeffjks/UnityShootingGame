@@ -102,15 +102,15 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            var resourceFile = new EncryptedFile(Application.streamingAssetsPath, new List<string> { "resources1", "resources2" });
-            var rankingFile = new EncryptedFile(Application.dataPath, new List<string> { "ranking0", "ranking1", "ranking2" });
+            var resourceFile = new EncryptedFile(Application.streamingAssetsPath, new List<string> { "resources1.dat", "resources2.dat" });
+            var rankingFile = new EncryptedFile(Application.dataPath, new List<string> { "ranking0.dat", "ranking1.dat", "ranking2.dat" });
             List<EncryptedFile> encryptedFiles = new () { resourceFile, rankingFile };
 
             foreach (var encryptedFile in encryptedFiles)
             {
                 foreach (var fileName in encryptedFile.fileList)
                 {
-                    if (!File.Exists($"{encryptedFile.filePath}/{fileName}.dat"))
+                    if (!File.Exists($"{encryptedFile.filePath}/{fileName}"))
                     {
                         if (resourceFile.filePath == Application.dataPath)
                             continue;

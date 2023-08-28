@@ -10,7 +10,11 @@ Material:
   m_Name: PlayerPreviewScreen2
   m_Shader: {fileID: 207, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
+  - _FLIPBOOKBLENDING_OFF
+  - _USEBACKFRESNEL_ON
+  - _USEFRESNEL_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -21,6 +25,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -48,11 +56,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Flow:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 8400000, guid: 10cb07674e3366d418020d768a717c5c, type: 2}
         m_Scale: {x: 1, y: 0.75}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -64,9 +88,29 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
+    - _AlphaClip: 0
+    - _BackFresnel: -2
+    - _BackFresnelEmission: 1
+    - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
@@ -76,15 +120,20 @@ Material:
     - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Depthpower: 1
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
     - _DstBlend: 0
+    - _Emission: 1
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
+    - _FlipbookBlending: 0
     - _FlipbookMode: 0
+    - _Fresnel: 1
+    - _FresnelEmission: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -92,8 +141,18 @@ Material:
     - _LightingEnabled: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NormalScale: 1
     - _OcclusionStrength: 1
+    - _Opacity: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _ScrollSpeed: 2
+    - _SeparateEmission: 2
+    - _SeparateFresnel: 0
+    - _Sideopacity: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
@@ -105,19 +164,39 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _Surface: 0
     - _UVSec: 0
+    - _UseBackFresnel: 1
+    - _UseCustomData: 0
+    - _UseFresnel: 1
     - _UseUIAlphaClip: 0
+    - _Usecenterglow: 0
+    - _Usedepth: 0
+    - _Usesmoothcorners: 0
     - _ZWrite: 1
+    - __dirty: 1
     m_Colors:
+    - _BackFacesColor: {r: 0, g: 0.02397324, b: 0.509434, a: 1}
+    - _BackFresnelColor: {r: 0.3568628, g: 0.08627451, b: 0.08627451, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _DistortionSpeedXYPowerZ: {r: 0, g: 0, b: 0, a: 0}
     - _EmisColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _FlowTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _FresnelColor: {r: 0.3568628, g: 0.08627451, b: 0.08627451, a: 1}
+    - _FrontFacesColor: {r: 0, g: 0.2313726, b: 1, a: 1}
+    - _MainTexTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _MaskTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _NoiseTiling: {r: 1, g: 1, b: 0, a: 0}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
+    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

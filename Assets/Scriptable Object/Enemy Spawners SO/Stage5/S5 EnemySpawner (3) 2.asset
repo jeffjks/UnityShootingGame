@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85785014d93507946b4949dc4df377f4, type: 3}
   m_Name: S5 EnemySpawner (3) 2
   m_EditorClassIdentifier: 
-  Normal: 1
-  Expert: 1
-  Hell: 1
   EnemyUnits:
   - {fileID: 100018, guid: 19b5952420e31a846b47201d539459d9, type: 3}
   SpawnPeriod: 10000
@@ -22,16 +19,16 @@ MonoBehaviour:
   RemoveTimer: 20000
   MovePatterns:
   - delay: 0
+    duration: 0
     keepSpeed: 0
     speed: 1.5
     keepDirection: 0
     direction: 0
-    duration: 0
-  - delay: 3000
+  - delay: 2500
+    duration: 1000
     keepSpeed: 0
     speed: 0
     keepDirection: 1
     direction: 8739
-    duration: 1000
   ActivateTime: 55000
   DeactivateTime: 60000

@@ -37,7 +37,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
         var localRankingData = new LocalRankingData(id, _totalScore, _shipAttributes, _totalMiss, _clearedTime);
         var difficulty = (int)SystemManager.Difficulty;
         
-        var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(Application.dataPath, $"ranking{difficulty}").jsonData;
+        var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(Application.dataPath, $"ranking{difficulty}.dat").jsonData;
         if (rankingData == null)
         {
             m_TextErrorMessage.DisplayText("FileLoadException");
@@ -47,7 +47,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
         }
         rankingData.Add(localRankingData);
         
-        Utility.SaveDataFile(Application.dataPath, $"ranking{difficulty}", rankingData);
+        Utility.SaveDataFile(Application.dataPath, $"ranking{difficulty}.dat", rankingData);
 
         AudioService.PlaySound("SallyUI");
         LeaveMenu();

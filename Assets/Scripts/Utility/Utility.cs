@@ -115,11 +115,11 @@ public static class Utility
         str += md5;
         string encryptedStr = AESEncrypter.AESEncrypt128(str);
         
-        FileStream fileStream = new FileStream($"{filePath}/{fileName}.dat", FileMode.Create);
+        FileStream fileStream = new FileStream($"{filePath}/{fileName}", FileMode.Create);
         byte[] data = Encoding.UTF8.GetBytes(encryptedStr);
         
         #if UNITY_EDITOR
-        Debug.Log($"파일 생성이 완료되었습니다: {fileName}.dat, {data.Length} Bytes, 해쉬값 : {md5}");
+        Debug.Log($"파일 생성이 완료되었습니다: {fileName}, {data.Length} Bytes, 해쉬값 : {md5}");
         #endif
         
         fileStream.Write(data, 0, data.Length);
@@ -129,28 +129,28 @@ public static class Utility
     public static (T jsonData, string hash) LoadDataFile<T>(string filePath, string fileName)
     {
         #if UNITY_EDITOR
-        //Debug.Log($"파일 열기를 시도합니다: {fileName}.dat");
+        //Debug.Log($"파일 열기를 시도합니다: {fileName}");
         #endif
         try
         {
             var (jsonData, hash) = LoadDataFileString(filePath, fileName);
             if (Md5Sum(jsonData) != hash)
             {
-                throw new IntegrityTestFailedException($"무결성 검사 실패: {fileName}.dat");
+                throw new IntegrityTestFailedException($"무결성 검사 실패: {fileName}");
             }
             var deserializedData = JsonConvert.DeserializeObject<T>(jsonData);
-            Debug.Log($"파일 열기에 성공했습니다: {fileName}.dat");
+            Debug.Log($"파일 열기에 성공했습니다: {fileName}");
             return (deserializedData, hash);
         }
         catch (Exception e)
         {
-            Debug.LogError($"파일 열기에 실패했습니다: {fileName}.dat\n{e}");
+            Debug.LogError($"파일 열기에 실패했습니다: {fileName}\n{e}");
             return (default, string.Empty);
         }
     }
 
     public static (string, string) LoadDataFileString(string filePath, string fileName) {
-        FileStream fileStream = new FileStream($"{filePath}/{fileName}.dat", FileMode.Open);
+        FileStream fileStream = new FileStream($"{filePath}/{fileName}", FileMode.Open);
         byte[] data = new byte[fileStream.Length];
         fileStream.Read(data, 0, data.Length);
         fileStream.Close();
@@ -166,6 +166,15 @@ public static class Utility
         var jsonData = decryptedStr.Substring(0, decryptedStr.Length - 32);
         var hash = decryptedStr.Substring(decryptedStr.Length - 32);
         return (jsonData, hash);
+    }
+        
+    public static Texture2D ToTexture2D(this RenderTexture rTex, Vector2 imageSize)
+    {
+        Texture2D tex = new Texture2D((int)imageSize.x, (int)imageSize.y, TextureFormat.ARGB4444, false);
+        RenderTexture.active = rTex;
+        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
+        tex.Apply();
+        return tex;
     }
 
     public static void QuitGame()

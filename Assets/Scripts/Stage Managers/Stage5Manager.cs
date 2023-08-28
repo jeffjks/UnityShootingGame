@@ -23,6 +23,7 @@ public class Stage5Manager : StageManager
     private void Update()
     {
         BackgroundLoop(460f, 32f);
+        Debug.Log(BackgroundCamera.GetBackgroundVector().z);
     }
 
     protected override IEnumerator TestTimeline()
@@ -46,12 +47,12 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         InitEnemies();
         yield return new WaitForMillisecondFrames(100000);
-        StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 0)); // Middle Boss 0
+        StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 0)); // Middle Boss 1
         BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
-        yield return new WaitForMillisecondFrames(40000);
+        yield return new WaitForMillisecondFrames(30000);
         BackgroundCamera.SetBackgroundSpeed(1f, 1000);
-        yield return new WaitForMillisecondFrames(50000);
-        StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 1)); // Middle Boss 1
+        yield return new WaitForMillisecondFrames(71000);
+        StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 1)); // Middle Boss 2
         BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(140000);
         StartBossTimeline();
@@ -69,7 +70,6 @@ public class Stage5Manager : StageManager
         StartCoroutine(DarkEffect());
         yield return new WaitForMillisecondFrames(6000);
         AudioService.PlayMusic("Boss2");
-        yield break;
     }
 
     private IEnumerator DarkEffect()
@@ -79,7 +79,6 @@ public class Stage5Manager : StageManager
 
     protected override IEnumerator EnemyTimeline()
     {
-        int[] period = new int[3];
         yield return new WaitForMillisecondFrames(3000);
         StartCoroutine(SpawnSmallTanks());
         yield return new WaitForMillisecondFrames(3000);
@@ -103,7 +102,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithMoveVector(m_TankMedium_3, new Vector3(-10f, 2f, 26f), new MoveVector(2f, 65f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
         CreateEnemyWithMoveVector(m_TankMedium_3, new Vector3(10f, 2f, 26f), new MoveVector(2f, -65f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
         yield return new WaitForMillisecondFrames(2000);
-        period = new int[] { 1000, 750, 500};
+        int[] period = { 1000, 750, 500 };
         StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_1, 4000, period[(int) SystemManager.Difficulty]));
         CreateEnemy(m_ItemHeliGreen, new Vector2(-4f, 3f));
         yield return new WaitForMillisecondFrames(5500);
@@ -162,9 +161,9 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(500);
         if (SystemManager.Difficulty == GameDifficulty.Hell)
             CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(0f, -6f), 1200);
-        yield return new WaitForMillisecondFrames(30500); // Middle Boss 1 (137s)
+        yield return new WaitForMillisecondFrames(30500); // Middle Boss 1 (127s)
 
-        period = new int[] { 600, 300, 250 };
+        period = new[] { 600, 300, 250 };
         StartCoroutine(SpawnPlaneSmall_2s(15000, period[(int) SystemManager.Difficulty]));
         if (SystemManager.Difficulty != 0)
             StartCoroutine(SpawnPlaneSmalls_B(m_PlaneSmall_1, 15000, 600));
@@ -179,13 +178,19 @@ public class Stage5Manager : StageManager
         StartCoroutine(SpawnHelicopters_B(true));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(-12.1f, 3.51f, 167f), new MoveVector(1.2f, 45f), new MovePattern[] {new MovePattern(9000, 2000, true, 0f)});
+        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000); // ----
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(SpawnHelicopters_B(false));
-        yield return new WaitForMillisecondFrames(10000);
+        yield return new WaitForMillisecondFrames(9000);
+        BackgroundCamera.SetBackgroundSpeed(1f, 1000);
+        yield return new WaitForMillisecondFrames(6700);
         CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(12.1f, 3.51f, 177.6f), new MoveVector(1.2f, -45f), new MovePattern[] {new MovePattern(10000, 2000, true, 0f)});
+        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
         yield return new WaitForMillisecondFrames(5000);
         CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
-        yield return new WaitForMillisecondFrames(11000);
+        yield return new WaitForMillisecondFrames(5000);
+        BackgroundCamera.SetBackgroundSpeed(1f, 1000);
+        yield return new WaitForMillisecondFrames(11300); // ----
         if (SystemManager.Difficulty != 0)
             CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f));
         yield return new WaitForMillisecondFrames(1000);
@@ -206,7 +211,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-6f, -5f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(5f, 2f), new Vector2(4f, -2f), 1000);
         CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(6f, -5f), 1000);
-        yield return new WaitForMillisecondFrames(20000); // Middle Boss 2 (216s)
+        yield return new WaitForMillisecondFrames(20000); // Middle Boss 2 (217s)
 
         StartCoroutine(SpawnPlaneMedium_3s(10000));
         yield return new WaitForMillisecondFrames(4000);
@@ -298,7 +303,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithMoveVector(m_ShipMedium, new Vector3(0f, WATER_HEIGHT, GetBackgroundZ() + 32f),
         new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(4000, 1000, true, 0f)});
         BackgroundCamera.SetBackgroundSpeed(1.2f, 1000);
-        yield return new WaitForMillisecondFrames(9000); // Final Field (287s)
+        yield return new WaitForMillisecondFrames(9000); // Final Field (287s + 11s)
         
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
         yield return new WaitForMillisecondFrames(2000);
@@ -328,7 +333,7 @@ public class Stage5Manager : StageManager
 
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
         CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
-        yield return new WaitForMillisecondFrames(7000); // 319s
+        yield return new WaitForMillisecondFrames(7000); // 319s + 11s
 
         BackgroundCamera.SetBackgroundSpeed(7f, 2000);
         yield return new WaitForMillisecondFrames(2000);

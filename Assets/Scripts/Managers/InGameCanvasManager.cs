@@ -16,7 +16,6 @@ public class InGameCanvasManager : MonoBehaviour
     
     private void DestroySelf()
     {
-        Debug.Log(gameObject);
         Destroy(gameObject);
     }
 }

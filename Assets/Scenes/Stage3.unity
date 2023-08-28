@@ -170,7 +170,8 @@ MonoBehaviour:
   m_ShipSmall_2: {fileID: 100048, guid: a6416b0ddb7a93e45b2dc48b34f355d1, type: 3}
   m_ShipMedium: {fileID: 100052, guid: 27f1241ee78b41e438b446db2c8ba5bf, type: 3}
   m_ShipLarge: {fileID: 100044, guid: ac3860b22313225478f27a97e5eb442d, type: 3}
-  m_ShipCarrier_1: {fileID: 100006, guid: e3bc1a53b5665f9448f84ed3e1865da8, type: 3}
+  m_ShipCarrier_1: {fileID: 5894202164313371282, guid: a1c2794f8e78bfa439b3da14accdddf3,
+    type: 3}
   m_TankLarge_3: {fileID: 100018, guid: b9bdbda092004034e839df5181db4bc1, type: 3}
   m_PlaneSmall_1: {fileID: 100014, guid: f7728fb29871acb47b34bf1f7aedcfc1, type: 3}
   m_PlaneSmall_2: {fileID: 100014, guid: 02c15b5e607002049ae7dafea72d59e2, type: 3}
@@ -1108,6 +1109,11 @@ PrefabInstance:
     - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
         type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

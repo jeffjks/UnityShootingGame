@@ -10,12 +10,18 @@ public class MainMenuHandler : MenuHandler
     public MenuHandler m_KeyConfigPanel;
     public MenuHandler m_CreditPanel;
 
-    void OnEnable()
+    private void OnEnable()
     {
         AudioService.LoadMusics("Main");
         AudioService.PlayMusic("Main");
         
         //m_GameManager.SetOptions();
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+        CriticalStateSystem.SetCriticalState(20);
     }
 
     public void StartGame() {

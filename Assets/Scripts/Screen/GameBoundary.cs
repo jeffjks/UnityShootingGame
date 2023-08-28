@@ -31,10 +31,12 @@ public class GameBoundary : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Enemy")) {
-            EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-            if (enemyObject.transform == enemyObject.transform.root) { // 본체일 경우
-                if (!enemyObject.m_EnemyDeath.IsDead) {
-                    enemyObject.OutOfBound();
+            EnemyUnit enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+            if (enemyUnit.transform == enemyUnit.transform.root) { // 본체일 경우
+                if (!enemyUnit.IsColliderInit)
+                    return;
+                if (!enemyUnit.m_EnemyDeath.IsDead) {
+                    enemyUnit.OutOfBound();
                 }
             }
         }

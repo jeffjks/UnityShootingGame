@@ -53,6 +53,11 @@ public class ReplayManager : MonoBehaviour
         SystemManager.Action_OnQuitInGame += OnClose;
     }
 
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= OnClose;
+    }
+
     public void Init()
     {
         _playerManager = PlayerManager.Instance;

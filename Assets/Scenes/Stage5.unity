@@ -18055,7 +18055,8 @@ MonoBehaviour:
   m_ShipSmall_2: {fileID: 100048, guid: a6416b0ddb7a93e45b2dc48b34f355d1, type: 3}
   m_ShipMedium: {fileID: 100052, guid: 27f1241ee78b41e438b446db2c8ba5bf, type: 3}
   m_ShipLarge: {fileID: 100044, guid: ac3860b22313225478f27a97e5eb442d, type: 3}
-  m_ShipCarrier_2: {fileID: 100006, guid: 2dd4397ace0ad424d8ef82d1e4370716, type: 3}
+  m_ShipCarrier_2: {fileID: 1873709106079323122, guid: 2b679c15f9e294c4198a62e1972ef6e3,
+    type: 3}
 --- !u!4 &2023668736
 Transform:
   m_ObjectHideFlags: 0

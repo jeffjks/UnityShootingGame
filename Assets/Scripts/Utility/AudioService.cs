@@ -327,10 +327,10 @@ public class AudioService : MonoBehaviour
     {
         if (m_AudioSourceSoundDict.TryGetValue(soundName, out AudioSource audioSource))
         {
-            if (!audioSource.isPlaying)
-            {
+            if (!audioSource)
                 return;
-            }
+            if (!audioSource.isPlaying)
+                return;
             audioSource.Stop();
         }
     }

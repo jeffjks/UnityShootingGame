@@ -23,7 +23,6 @@ public class Stage5Manager : StageManager
     private void Update()
     {
         BackgroundLoop(460f, 32f);
-        Debug.Log(BackgroundCamera.GetBackgroundVector().z);
     }
 
     protected override IEnumerator TestTimeline()
@@ -49,9 +48,9 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(100000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 0)); // Middle Boss 1
         BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
-        yield return new WaitForMillisecondFrames(30000);
+        yield return new WaitForMillisecondFrames(40000);
         BackgroundCamera.SetBackgroundSpeed(1f, 1000);
-        yield return new WaitForMillisecondFrames(71000);
+        yield return new WaitForMillisecondFrames(61000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 1)); // Middle Boss 2
         BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(140000);
@@ -177,20 +176,22 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(2000);
         StartCoroutine(SpawnHelicopters_B(true));
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(-12.1f, 3.51f, 167f), new MoveVector(1.2f, 45f), new MovePattern[] {new MovePattern(9000, 2000, true, 0f)});
-        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000); // ----
+        CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(-12.1f, 3.51f, 167f), new MoveVector(1.2f, 45f), new [] {new MovePattern(9000, 2000, true, 0f)});
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(SpawnHelicopters_B(false));
-        yield return new WaitForMillisecondFrames(9000);
+        yield return new WaitForMillisecondFrames(5000);
+        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
+        yield return new WaitForMillisecondFrames(4000);
         BackgroundCamera.SetBackgroundSpeed(1f, 1000);
         yield return new WaitForMillisecondFrames(6700);
-        CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(12.1f, 3.51f, 177.6f), new MoveVector(1.2f, -45f), new MovePattern[] {new MovePattern(10000, 2000, true, 0f)});
-        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
+        CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(12.1f, 3.51f, 177.6f), new MoveVector(1.2f, -45f), new [] {new MovePattern(10000, 2000, true, 0f)});
         yield return new WaitForMillisecondFrames(5000);
         CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
-        yield return new WaitForMillisecondFrames(5000);
+        yield return new WaitForMillisecondFrames(1000);
+        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
+        yield return new WaitForMillisecondFrames(4000);
         BackgroundCamera.SetBackgroundSpeed(1f, 1000);
-        yield return new WaitForMillisecondFrames(11300); // ----
+        yield return new WaitForMillisecondFrames(11300);
         if (SystemManager.Difficulty != 0)
             CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f));
         yield return new WaitForMillisecondFrames(1000);

@@ -28,6 +28,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     public bool m_IsRoot;
     public Queue<TweenData> m_TweenDataQueue = new ();
     public bool IsExecutingPattern => _currentPatterns.Count > 0;
+    public bool IsColliderInit { get; set; }
     protected event UnityAction Action_OnPatternStopped;
 
     private readonly Vector3 _airEnemyAxis = new (0f, -0.4f, 1f);
@@ -76,6 +77,9 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         if (TryGetComponent(out EnemyHealth enemyHealth)) {
             m_EnemyHealth = enemyHealth;
         }
+
+        SetColliderPosition();
+        IsColliderInit = true;
     }
 
     protected virtual void Update()

@@ -21,7 +21,7 @@ public class EnemyTankMedium2 : EnemyUnit
         base.Update();
         
         if (!_isStartShooing) {
-            if (m_Position2D.y < - 1.2f) {
+            if (m_IsInteractable && m_Position2D.y < - 1.2f) {
                 m_ArmorAnimator.SetBool(_armorOpenAnimationBool, true);
                 StartPattern("A", new EnemyTankMedium2_BulletPattern(this));
                 _isStartShooing = true;
@@ -57,8 +57,8 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
                 CreateBullet(property, spawnTiming, subProperty);
                 yield return new WaitForMillisecondFrames(1000);
             }
-
-            else if (SystemManager.Difficulty == GameDifficulty.Expert) {
+            else if (SystemManager.Difficulty == GameDifficulty.Expert)
+            {
                 for (int i = 0; i < 5; i++) {
                     pos = GetFirePos(0);
                     dir = Random.Range(0f, 360f);
@@ -77,8 +77,8 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
                 }
                 yield return new WaitForMillisecondFrames(700);
             }
-
-            else if (SystemManager.Difficulty == GameDifficulty.Hell) {
+            else if (SystemManager.Difficulty == GameDifficulty.Hell)
+            {
                 for (int i = 0; i < 5; i++) {
                     pos = GetFirePos(0);
                     dir = Random.Range(0f, 360f);

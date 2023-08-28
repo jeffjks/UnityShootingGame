@@ -420,7 +420,7 @@ public class ExplosionJsonWriter : MonoBehaviour
     private void WriteJsonEnemyMiddleBoss5a_Missile(string enemyKey) {
         list.Clear();
 
-        CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.None, new Vector2(0f, -1f));
+        CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.Large, new Vector2(0f, -1f));
         CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.None, new Vector2(0f, 1f));
         
         dictionary[enemyKey] = new List<ExplosionData>(list);

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /*
 m_ObjectPoolDictionary : 특정 종류의 오브젝트들의 List를 담은 PooledObject 들을 가진 Dictionary
@@ -30,11 +32,12 @@ public class PoolingManager : MonoBehaviour
     void Start()
     {
         InitOutGame();
-        PlayerManager.Action_OnStartStartNewGame += InitInGame;
-        SystemManager.Action_OnQuitInGame += ClearInGamePool;
+        InitInGame();
+        //PlayerManager.Action_OnStartStartNewGame += InitInGame;
+        //SystemManager.Action_OnQuitInGame += ClearAllObjectPool;
         
-        if (m_TestMode)
-            InitInGame();
+        //if (m_TestMode)
+        //    InitInGame();
     }
 
     private void InitOutGame()
@@ -45,6 +48,7 @@ public class PoolingManager : MonoBehaviour
             var pooledObject = new PooledObject(poolingInfo.poolingObject, poolingInfo.defaultNumber, parentTransform);
             m_ObjectPoolDictionary.Add(poolingInfo.objectName, pooledObject);
         }
+        Debug.Log($"[Object Pooling] Init outGame object pool");
     }
 
     private void InitInGame()
@@ -55,11 +59,13 @@ public class PoolingManager : MonoBehaviour
             var pooledObject = new PooledObject(poolingInfo.poolingObject, poolingInfo.defaultNumber, parentTransform);
             m_ObjectPoolDictionary.Add(poolingInfo.objectName, pooledObject);
         }
+        Debug.Log($"[Object Pooling] Init inGame object pool");
     }
 
-    private void ClearInGamePool()
+    private void ClearAllObjectPool()
     {
         m_ObjectPoolDictionary.Clear();
+        Debug.Log($"[Object Pooling] Cleared all object pool");
         InitOutGame();
     }
 

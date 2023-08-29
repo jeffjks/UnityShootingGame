@@ -51,20 +51,22 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_appliedDamage) {
-            if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 유닛이고
+        if (_appliedDamage)
+            return;
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             
-                EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-                if (m_IsPenetrate) { // 관통 공격이며
-                    if (Utility.CheckLayer(other.gameObject, Layer.SMALL)) { // 적이 소형이면
-                        enemyObject.m_EnemyDeath.KillEnemy(); // 기냥 죽임
-                    }
-                }
-                else { // 그 이외의 경우에는
-                    DealDamage(enemyObject); // 데미지 주고
-                    _appliedDamage = true;
-                    OnDeath(); // 자신 파괴
-                }
+            if (m_IsPenetrate && Utility.CheckLayer(other.gameObject, Layer.SMALL))
+            {
+                enemyObject.m_EnemyDeath.KillEnemy();
+            }
+            else // 관통 공격이며 적이 소형이 아닌 경우에는 데미지 주고 자신 파괴
+            {
+                DealDamage(enemyObject);
+                _appliedDamage = true;
+                OnDeath();
             }
         }
     }

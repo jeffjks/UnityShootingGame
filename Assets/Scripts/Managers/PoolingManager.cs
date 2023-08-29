@@ -17,7 +17,7 @@ public class PoolingManager : MonoBehaviour
 
     private static PoolingManager Instance;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null) {
             Destroy(gameObject);
@@ -26,10 +26,17 @@ public class PoolingManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
-    }
-    
 
-    void Start()
+        SystemManager.Action_OnQuitInGame += DestroySelf;
+    }
+
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= DestroySelf;
+    }
+
+
+    private void Start()
     {
         InitOutGame();
         InitInGame();
@@ -44,7 +51,7 @@ public class PoolingManager : MonoBehaviour
     {
         foreach (var poolingInfo in m_PoolingData.poolingOutGameInfos)
         {
-            var parentTransform = GetChildByPoolingParent(PoolingParent.PlayerMissile);
+            var parentTransform = GetChildByPoolingParent(poolingInfo.poolingParent);
             var pooledObject = new PooledObject(poolingInfo.poolingObject, poolingInfo.defaultNumber, parentTransform);
             m_ObjectPoolDictionary.Add(poolingInfo.objectName, pooledObject);
         }
@@ -55,7 +62,7 @@ public class PoolingManager : MonoBehaviour
     {
         foreach (var poolingInfo in m_PoolingData.poolingInfos)
         {
-            var parentTransform = GetChildByPoolingParent(PoolingParent.PlayerMissile);
+            var parentTransform = GetChildByPoolingParent(poolingInfo.poolingParent);
             var pooledObject = new PooledObject(poolingInfo.poolingObject, poolingInfo.defaultNumber, parentTransform);
             m_ObjectPoolDictionary.Add(poolingInfo.objectName, pooledObject);
         }
@@ -130,9 +137,15 @@ public class PoolingManager : MonoBehaviour
         }
     }
 
-    public Transform GetChildByPoolingParent(PoolingParent parent)
+    private Transform GetChildByPoolingParent(PoolingParent parent)
     {
         return transform.GetChild((int) parent);
+    }
+
+    private void DestroySelf()
+    {
+        Instance = null;
+        Destroy(gameObject);
     }
 }
 

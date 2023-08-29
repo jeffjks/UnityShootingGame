@@ -6,7 +6,7 @@ public class PlayerPiercingShot : PlayerWeapon
 {
     private Vector3 _savedPos;
     private int _currentPosFrame;
-    private const int MAX_POS_FRAME = 2;
+    private const int MAX_POS_FRAME = 0;
     
     public override void OnStart()
     {

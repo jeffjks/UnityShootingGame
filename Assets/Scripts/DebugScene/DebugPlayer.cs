@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class DebugPlayer : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
-    [FormerlySerializedAs("m_PlayerShootHandler")] public PlayerShotHandler m_PlayerShotHandler;
+    public PlayerShotHandler m_PlayerShotHandler;
     public PlayerLaserHandler m_PlayerLaserHandler;
     public TextMeshProUGUI m_ShotIndexText;
     public TextMeshProUGUI m_LaserIndexText;

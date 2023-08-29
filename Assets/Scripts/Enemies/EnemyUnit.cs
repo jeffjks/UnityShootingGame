@@ -94,7 +94,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         {
             return;
         }
-        Quaternion screenRotation = Quaternion.AngleAxis(CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+        var screenRotation = Quaternion.AngleAxis(CurrentAngle, Vector3.forward) * Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
         
         if (m_EnemyHealth != null)
             m_EnemyHealth.SetColliderPositionOnScreen(m_Position2D, screenRotation);

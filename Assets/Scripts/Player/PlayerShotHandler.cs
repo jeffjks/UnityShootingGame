@@ -91,7 +91,7 @@ public class PlayerShotHandler : MonoBehaviour
 
     private void Update()
     {
-        PiercingShotDirection = Mathf.MoveTowardsAngle(PiercingShotDirection, PiercingShotTargetDirection, 2f);
+        PiercingShotDirection = Mathf.MoveTowardsAngle(PiercingShotDirection, PiercingShotTargetDirection, 3f);
         PiercingShotDirection = Mathf.Clamp(PiercingShotDirection, -MAX_PIERCING_SHOT_DIRECTION, MAX_PIERCING_SHOT_DIRECTION);
     }
 
@@ -107,7 +107,7 @@ public class PlayerShotHandler : MonoBehaviour
 
     public void ReceiveHorizontalMovement(float movement)
     {
-        PiercingShotTargetDirection = - MAX_PIERCING_SHOT_DIRECTION * Mathf.Sign(movement);
+        PiercingShotTargetDirection = - MAX_PIERCING_SHOT_DIRECTION * Math.Sign(movement);
     }
 
     public void StartShotCoroutine()

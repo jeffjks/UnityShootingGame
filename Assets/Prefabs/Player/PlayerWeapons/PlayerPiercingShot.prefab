@@ -88,12 +88,12 @@ MonoBehaviour:
   m_ObjectName: PlayerPiercingShot
   _playerDamageData: {fileID: 11400000, guid: 851519de260758246b86ac59c8d7804e, type: 2}
   m_Speed: 32
-  m_IsPenetrate: 0
+  m_IsPenetrate: 1
   _activatedObject:
   - {fileID: 7891367846995215862}
   - {fileID: 5129291167534473883}
   - {fileID: 7094863888926415861}
-  _playerMissileHit: PlayerMissileHitAddShot
+  _playerMissileHit: PlayerMissileHitPiercingShot
   _removeTimer: 3000
 --- !u!1 &2690116687913638372
 GameObject:

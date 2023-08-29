@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class PlayerPreview2 : PlayerPreviewManager
 {
     public PlayerLaserHandler m_PlayerLaserHandler;
-    [FormerlySerializedAs("m_PlayerShootHandler")] public PlayerShotHandler m_PlayerShotHandler;
+    public PlayerShotHandler m_PlayerShotHandler;
     public GameObject m_DronePart; // Shot Spawner
     
     private void Awake()

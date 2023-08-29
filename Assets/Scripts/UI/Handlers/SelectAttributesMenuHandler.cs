@@ -20,7 +20,7 @@ public class SelectAttributesMenuHandler : MenuHandler
     private int _totalCost;
     private bool _isExceedMaximumCost;
 
-    private void OnEnable()
+    protected override void Init()
     {
         AudioService.PlayMusic("Select");
     }

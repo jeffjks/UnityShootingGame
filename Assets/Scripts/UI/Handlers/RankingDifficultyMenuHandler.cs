@@ -4,6 +4,8 @@ public class RankingDifficultyMenuHandler : MenuHandler
 {
     public MenuHandler m_RankingPanel;
     public RankingDataLoader m_RankingDataLoader;
+    
+    protected override void Init() { }
 
     public void RankingNormal()
     {

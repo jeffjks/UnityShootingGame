@@ -1,94 +1,130 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.IO;
+using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ReplayMenuHandler : GameUI
+public class ReplayMenuHandler : MenuHandler
 {
-    public GameObject m_PreviousMenu;
+    public GameObject m_ReplaySlotPanel;
+    private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
+    private string _replayDirectory;
+    private const int MAX_REPLAY_NUMBER = 5;
+    private int _currentSelectedSlot;
 
-    private const byte MAX_REPLAY_NUMBER = 5;
-    private bool m_State;
-    private string[] m_FilePath = new string[MAX_REPLAY_NUMBER];
-    private bool m_OnEnable = false;
+    private CanvasGroup[] _canvasGroups = new CanvasGroup[MAX_REPLAY_NUMBER];
+    private ButtonStyling[] _buttonStylingArray = new ButtonStyling[MAX_REPLAY_NUMBER];
+    private TextMeshProUGUI[] _buttonTexts = new TextMeshProUGUI[MAX_REPLAY_NUMBER];
 
-    void Update()
-	{
-        if (!m_State)
-            return;
-
-        int moveRawVertical = (int) Input.GetAxisRaw("Vertical");
-        int moveRawHorizontal = (int) Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetButtonDown("Fire1")) {
-            switch(m_Selection) {
-                case 0:
-                    StartReplay(m_Selection);
-                    break;
-                case 1:
-                    StartReplay(m_Selection);
-                    break;
-                case 2:
-                    StartReplay(m_Selection);
-                    break;
-                case 3:
-                    StartReplay(m_Selection);
-                    break;
-                case 4:
-                    StartReplay(m_Selection);
-                    break;
-                default:
-                    Back();
-                    break;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-            Back();
-        else if (Input.GetButtonDown("Fire2"))
-            Back();
+    private void Awake()
+    {
+        _replayDirectory = $"{Application.dataPath}/";
+        _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
+        _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
+        _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
         
-        MoveCursorVertical(moveRawVertical);
-        m_Selection = EndToStart(m_Selection, m_Total);
-        SetColor();
-	}
+#if UNITY_EDITOR
+        // Test Code
+        _currentSelectedSlot = -1;
+        Confirm();
+#endif
+    }
 
-    void OnEnable()
+    protected override void Init()
     {
-        m_State = true;
-
-        if (!m_OnEnable) {
-            SetFilePath();
-            m_OnEnable = true;
-        }
-
-        for (int i = 0; i < MAX_REPLAY_NUMBER; i++) {
-            if (!System.IO.File.Exists(m_FilePath[i])) {
-                m_IsEnabled[i] = false;
+        for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
+        {
+            var filePath = $"{_replayDirectory}replay{i}.rep";
+            if (!File.Exists(filePath))
+            {
+                _buttonStylingArray[i].m_NativeText = "빈 슬롯";
+                _buttonTexts[i].SetText("Empty Slot");
+                _canvasGroups[i].interactable = false;
+                continue;
             }
+            var fileStream = new FileStream(filePath, FileMode.Open);
+            _replayInfos[i] = ReplayManager.ReadBinaryHeader(fileStream);
+            var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-hh-mm");
+            _buttonStylingArray[i].m_NativeText = dateTimeString;
+            _buttonTexts[i].SetText(dateTimeString);
+            fileStream.Close();
         }
     }
 
-    private void SetFilePath() // TODO. 세팅 필요
+    public void PlayReplaySlot1()
     {
-        for (int i = 0; i < MAX_REPLAY_NUMBER; i++) {
-            //m_FilePath[i] = GameManager.Instance.m_ReplayDirectory + "replay" + i + ".rep";
-        }
+        _currentSelectedSlot = 0;
+        Confirm();
     }
 
-    private void StartReplay(int num) {
-        if (!m_IsEnabled[num]) {
-            AudioService.PlaySound("CancelUI");
-            return;
-        }
-        m_State = false;
-        SystemManager.SetGameMode(GameMode.Replay);
-        //GameManager.Instance.m_ReplayNum = (byte) num;
-        FadeScreenService.ScreenFadeOut();
+    public void PlayReplaySlot2()
+    {
+        _currentSelectedSlot = 1;
+        Confirm();
+    }
+
+    public void PlayReplaySlot3()
+    {
+        _currentSelectedSlot = 2;
+        Confirm();
+    }
+
+    public void PlayReplaySlot4()
+    {
+        _currentSelectedSlot = 3;
+        Confirm();
+    }
+
+    public void PlayReplaySlot5()
+    {
+        _currentSelectedSlot = 4;
+        Confirm();
+    }
+
+    public void Confirm()
+    {
+        EventSystem.current.currentInputModule.enabled = false;
+        FadeScreenService.ScreenFadeOut(2f, StartReplay);
+        AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
+        CriticalStateSystem.SetCriticalState(120);
     }
 
-    private void Back() {
-        m_PreviousMenu.SetActive(true);
-        AudioService.PlaySound("CancelUI");
-        gameObject.SetActive(false);
+    private void StartReplay()
+    {
+        var replayInfo = GetReplayInfo();
+
+        if (replayInfo.m_Version != Application.version)
+        {
+            // TODO. 버전이 다름
+        }
+        
+        PlayerManager.CurrentAttributes = replayInfo.m_Attributes;
+        SystemManager.SetDifficulty(replayInfo.m_Difficulty);
+        SystemManager.Instance.StartStage(replayInfo.m_Stage, replayInfo.m_Seed);
+        
+        _previousMenuStack.Clear();
+    }
+
+    private ReplayManager.ReplayInfo GetReplayInfo()
+    {
+        ReplayManager.ReplayInfo replayInfo;
+        
+        if (_currentSelectedSlot == -1)
+        {
+            ReplayManager.ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
+            var fileStream = new FileStream(ReplayManager.ReplayFilePath, FileMode.Open);
+            replayInfo = ReplayManager.ReadBinaryHeader(fileStream);
+            fileStream.Close();
+        }
+        else
+        {
+            ReplayManager.ReplayFilePath = $"{_replayDirectory}replay{_currentSelectedSlot}.rep";
+            replayInfo = _replayInfos[_currentSelectedSlot];
+        }
+
+        return replayInfo;
     }
 }

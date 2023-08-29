@@ -9,7 +9,7 @@ public class TrainingMenuHandler : MenuHandler
     private TrainingInfo _oldTrainingInfo;
     private GameDifficulty _oldDifficulty;
     
-    void OnEnable()
+    protected override void Init()
     {
         _oldTrainingInfo = SystemManager.TrainingInfo;
         _oldDifficulty = SystemManager.Difficulty;

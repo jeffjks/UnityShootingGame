@@ -8,7 +8,7 @@ public class PlayerStart : MonoBehaviour
     public PlayerColorDatas m_PlayerColorData;
     public GameObject m_DronePart; // Shot Spawner
     public GameObject[] m_SpeedParts = new GameObject[3];
-    public GameObject m_ModulePart;
+    public GameObject m_SubWeaponPart;
 
     private int _verticalSpeed;
 
@@ -63,7 +63,7 @@ public class PlayerStart : MonoBehaviour
         m_SpeedParts[PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed)].SetActive(true);
 
         if (PlayerManager.CurrentAttributes.GetAttributes(AttributeType.SubWeaponIndex) != 0)
-            m_ModulePart.SetActive(true);
+            m_SubWeaponPart.SetActive(true);
         
         SetPlayerColors();
         

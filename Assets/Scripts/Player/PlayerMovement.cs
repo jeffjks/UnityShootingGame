@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerSpeedDatas m_PlayerSpeedData;
     
     private const int MAX_PLAYER_CAMERA = (int) (Size.CAMERA_MOVE_LIMIT * 256);
-    private int m_OverviewSpeed;
+    private int _overviewSpeed;
     private int _defaultSpeed;
     private int _slowSpeed;
     private PlayerCollisionDetector _playerCollisionDetector;
@@ -75,6 +75,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (PauseManager.IsGamePaused)
+            return;
+        
         ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
         
         Vector2 moveVector = new Vector2(MoveRawHorizontal, MoveRawVertical);
@@ -125,21 +128,21 @@ public class PlayerMovement : MonoBehaviour
         if (SystemManager.Stage < 4) {
             target_pos = new Vector2Int(0, (int) PlayerManager.REVIVE_POSITION_Y * 256);
             if (SystemManager.PlayState != PlayState.OnStageResult) {
-                m_OverviewSpeed = Mathf.Max(Mathf.Abs(PositionInt2D.x - target_pos.x), Mathf.Abs(PositionInt2D.y - target_pos.y));
-                m_OverviewSpeed = Mathf.Min(m_OverviewSpeed, 820);
+                _overviewSpeed = Mathf.Max(Mathf.Abs(PositionInt2D.x - target_pos.x), Mathf.Abs(PositionInt2D.y - target_pos.y));
+                _overviewSpeed = Mathf.Min(_overviewSpeed, 820);
                 return;
             }
         }
         else {
             target_pos = new Vector2Int(PositionInt2D.x, 2*256);
             if (SystemManager.PlayState != PlayState.OnStageResult) {
-                m_OverviewSpeed = 12*256;
+                _overviewSpeed = 12*256;
                 return;
             }
         }
         // m_PlayState가 3일때만 이하 내용 실행
         //m_Vector2 = Vector2Int.zero;
-        var maxDistanceDelta = m_OverviewSpeed / (Application.targetFrameRate * Time.timeScale);
+        var maxDistanceDelta = _overviewSpeed / (Application.targetFrameRate * Time.timeScale);
         PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(PositionInt2D, target_pos, maxDistanceDelta));
     }
 

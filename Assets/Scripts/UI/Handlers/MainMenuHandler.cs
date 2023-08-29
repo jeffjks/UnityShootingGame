@@ -10,18 +10,17 @@ public class MainMenuHandler : MenuHandler
     public MenuHandler m_KeyConfigPanel;
     public MenuHandler m_CreditPanel;
 
-    private void OnEnable()
+    protected override void Init()
     {
         AudioService.LoadMusics("Main");
         AudioService.PlayMusic("Main");
-        
-        //m_GameManager.SetOptions();
     }
 
     private void Start()
     {
         Time.timeScale = 1;
         CriticalStateSystem.SetCriticalState(20);
+        Init();
     }
 
     public void StartGame() {

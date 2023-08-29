@@ -20,7 +20,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
     private int _totalMiss;
     private long _clearedTime;
 
-    void Start()
+    protected override void Init()
     {
         _totalScore = InGameDataManager.Instance.TotalScore;
         _shipAttributes = InGameDataManager.Instance.CurrentShipAttributes;
@@ -50,6 +50,7 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
         Utility.SaveDataFile(Application.dataPath, $"ranking{difficulty}.dat", rankingData);
 
         AudioService.PlaySound("SallyUI");
+        CriticalStateSystem.SetCriticalState(120);
         LeaveMenu();
     }
 

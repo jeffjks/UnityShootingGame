@@ -48,11 +48,11 @@ public class PlayerManager : MonoBehaviour
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 
-    public GameObject SpawnPlayer() {
-        return SpawnPlayer(CurrentAttributes);
+    public GameObject SpawnPlayer(int playerAttackLevel) {
+        return SpawnPlayer(CurrentAttributes, playerAttackLevel);
     }
 
-    public GameObject SpawnPlayer(ShipAttributes attributes)
+    public GameObject SpawnPlayer(ShipAttributes attributes, int playerAttackLevel)
     {
         CurrentAttributes = attributes;
         IsPlayerAlive = true;
@@ -64,31 +64,7 @@ public class PlayerManager : MonoBehaviour
         }
         _playerUnit = Player.GetComponentInChildren<PlayerUnit>();
 
-        if (SystemManager.GameMode == GameMode.Training) {
-            int power;
-            switch (SystemManager.Stage) {
-                case 0:
-                    if (SystemManager.TrainingInfo.bossOnly) {
-                        power = 2;
-                    }
-                    else {
-                        power = 0;
-                    }
-                    break;
-                case 1:
-                    if (SystemManager.TrainingInfo.bossOnly) {
-                        power = 4;
-                    }
-                    else {
-                        power = 2;
-                    }
-                    break;
-                default:
-                    power = 4;
-                    break;
-            }
-            _playerUnit.PlayerAttackLevel = power;
-        }
+        _playerUnit.PlayerAttackLevel = playerAttackLevel;
 
         return Player;
     }

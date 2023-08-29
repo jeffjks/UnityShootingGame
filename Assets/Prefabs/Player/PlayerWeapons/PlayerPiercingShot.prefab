@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8026074932953209448}
   - component: {fileID: 6049476158289766770}
   m_Layer: 18
-  m_Name: PlayerAddShot
+  m_Name: PlayerPiercingShot
   m_TagString: PlayerWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
-  m_ObjectName: PlayerAddShot
+  m_ObjectName: PlayerPiercingShot
   _playerDamageData: {fileID: 11400000, guid: 851519de260758246b86ac59c8d7804e, type: 2}
   m_Speed: 32
   m_IsPenetrate: 0
@@ -307,7 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6111297092161757518}
   m_Layer: 18
-  m_Name: PlayerAddShot3
+  m_Name: PlayerPiercingShot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8509082719712120126}
   m_Layer: 18
-  m_Name: PlayerAddShot4
+  m_Name: PlayerPiercingShot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 629491836580662765}
   m_Layer: 18
-  m_Name: PlayerAddShot2
+  m_Name: PlayerPiercingShot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,6 +4,8 @@ public class DifficultyMenuHandler : MenuHandler
 {
     public MenuHandler m_SelectAttributesMenu;
     
+    protected override void Init() { }
+    
     public void SelectDifficultyNormal()
     {
         SystemManager.SetDifficulty(GameDifficulty.Normal);

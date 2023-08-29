@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingOutGameInfos:
   - objectName: PlayerShot
-    poolingObject: {fileID: 7308936934683739909, guid: 30b392808faeedc4c9c0bcd3bc220249,
+    poolingObject: {fileID: 7308936934683739909, guid: b86361d21f8ed6c479d93536ae0ea242,
       type: 3}
     defaultNumber: 30
     poolingParent: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
       type: 3}
     defaultNumber: 6
     poolingParent: 0
-  - objectName: PlayerAddShot
+  - objectName: PlayerPiercingShot
     poolingObject: {fileID: 1475708882005642, guid: 22b7e2985e2cbda4cbbb9d50d8537c79,
       type: 3}
     defaultNumber: 8
@@ -99,7 +99,7 @@ MonoBehaviour:
       type: 3}
     defaultNumber: 10
     poolingParent: 2
-  - objectName: PlayerMissileHitAddShot
+  - objectName: PlayerMissileHitPiercingShot
     poolingObject: {fileID: 616956361265152384, guid: 51c5a8ba6f11f5d488d52a6b364a3d66,
       type: 3}
     defaultNumber: 40

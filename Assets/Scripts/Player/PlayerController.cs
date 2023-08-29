@@ -45,9 +45,9 @@ public class PlayerController : MonoBehaviour
         _playerMovement.MovePlayer(Vector2.zero);
     }
 
-    void Update()
+    private void Update()
     {
-        if (Time.timeScale == 0)
+        if (PauseManager.IsGamePaused)
             return;
 
         if (IsFirePressed)
@@ -143,9 +143,10 @@ public class PlayerController : MonoBehaviour
         if (!PlayerUnit.IsControllable)
             return;
         
-        Vector2 moveInput = inputValue.Get<Vector2>();
+        var moveInput = inputValue.Get<Vector2>();
 
         _playerMovement.MovePlayer(moveInput);
+        _playerShotHandler.ReceiveHorizontalMovement(moveInput.x);
     }
     
     private void OnEnable()

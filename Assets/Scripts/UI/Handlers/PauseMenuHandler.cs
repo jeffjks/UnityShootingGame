@@ -10,6 +10,8 @@ public class PauseMenuHandler : MenuHandler
     public MenuHandler m_SoundMenuPanel;
     public MenuHandler m_QuitMenuPanel;
     public PauseManager m_PauseManager;
+    
+    protected override void Init() { }
 
     private void OnEnable()
     {

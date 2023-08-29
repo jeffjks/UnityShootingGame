@@ -44,12 +44,12 @@ public class PlayerSubWeaponRocket : ISubWeapon
 	} 
 }
 
-public class PlayerSubWeaponAddShot : ISubWeapon
+public class PlayerSubWeaponPiercingShot : ISubWeapon
 {
-	public string ObjectName => "PlayerAddShot";
+	public string ObjectName => "PlayerPiercingShot";
 	public void Shoot(PlayerShotHandler playerShotHandler, PlayerDamageDatas playerDamage, int damageLevel) {
 		Vector3[] shotPosition = new Vector3[2];
-		var rot = playerShotHandler.m_PlayerBody.eulerAngles.y;
+		var rot = playerShotHandler.PiercingShotDirection;
 		shotPosition[0] = playerShotHandler.m_PlayerShotPosition[5].position + new Vector3(0f, 1f, 0f);
 		shotPosition[0].z = Depth.PLAYER_MISSILE;
 		shotPosition[1] = playerShotHandler.m_PlayerShotPosition[6].position + new Vector3(0f, 1f, 0f);;

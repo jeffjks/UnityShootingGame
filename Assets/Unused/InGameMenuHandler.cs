@@ -9,6 +9,10 @@ public class InGameMenuHandler : MenuHandler
 {
     public MenuHandler m_PausePanel;
 
+    protected override void Init()
+    {
+    }
+
     public void PauseMenu() {
         GoToTargetMenu(m_PausePanel);
     }

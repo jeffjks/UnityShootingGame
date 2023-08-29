@@ -16,6 +16,8 @@ public abstract class MenuHandler : MonoBehaviour
     
     private static readonly Dictionary<MenuHandler, Selectable> _lastSelected = new();
 
+    protected abstract void Init();
+
     protected void GoToTargetMenu(MenuHandler targetMenu, bool activateNewPanel = true)
     {
         if (CriticalStateSystem.InCriticalState)
@@ -24,7 +26,10 @@ public abstract class MenuHandler : MonoBehaviour
         CriticalStateSystem.SetCriticalState(10);
         
         if (activateNewPanel)
+        {
             targetMenu.gameObject.SetActive(true);
+            targetMenu.Init();
+        }
         
         _previousMenuStack.Push(this);
 
@@ -93,6 +98,7 @@ public abstract class MenuHandler : MonoBehaviour
         
         var previousMenu = _previousMenuStack.Peek();
         previousMenu.gameObject.SetActive(true);
+        previousMenu.Init();
         _previousMenuStack.Pop();
 
         SaveLastSelection();
@@ -113,6 +119,7 @@ public abstract class MenuHandler : MonoBehaviour
         
         var previousMenu = _previousMenuStack.Peek();
         previousMenu.gameObject.SetActive(true);
+        previousMenu.Init();
         _previousMenuStack.Pop();
 
         SaveLastSelection();
@@ -144,6 +151,6 @@ public abstract class MenuHandler : MonoBehaviour
             return;
         }
         Selectable[] selectables = menu.GetComponentsInChildren<Selectable>();
-        selectables[m_InitialSelection].Select();
+        selectables[menu.m_InitialSelection].Select();
     }
 }

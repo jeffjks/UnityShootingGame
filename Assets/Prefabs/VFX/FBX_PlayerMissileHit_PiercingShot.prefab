@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3200824158398141240}
   - component: {fileID: 1839350435334729110}
   m_Layer: 18
-  m_Name: FBX_PlayerMissileHit_AddShot
+  m_Name: FBX_PlayerMissileHit_PiercingShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11c66bf2313b7b429b395fb3c1f2b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ObjectName: PlayerMissileHitAddShot
+  m_ObjectName: PlayerMissileHitPiercingShot
   m_LifeTime: 1000
 --- !u!1 &1907506603247932432
 GameObject:

@@ -196,9 +196,8 @@ MonoBehaviour:
   - {fileID: 4236125696252929834}
   - {fileID: 2470972950503623728}
   m_PlayerUnit: {fileID: 989022632222629200}
-  m_PlayerBody: {fileID: 1431413074011714893}
   m_PlayerShotData: {fileID: 11400000, guid: 6fb393b4425b69648a4d139f24e0ffde, type: 2}
-  m_PlayerModuleDamageData:
+  m_PlayerSubWeaponDamageData:
   - {fileID: 11400000, guid: 16e19650059f5184193d0757994307a6, type: 2}
   - {fileID: 11400000, guid: 69d903e24be4e364a99c5241e6fc0048, type: 2}
   - {fileID: 11400000, guid: 851519de260758246b86ac59c8d7804e, type: 2}
@@ -219,9 +218,9 @@ MonoBehaviour:
   - {fileID: 8967331551345781506}
   - {fileID: 8967331551345760930}
   - {fileID: 8967331551345748388}
-  m_ModulePart: {fileID: 6697600169689980419}
+  m_SubWeaponPart: {fileID: 6697600169689980419}
   m_PlayerLaserHandler: {fileID: 6140773252724510464}
-  m_PlayerShootHandler: {fileID: 1525603388574638372}
+  m_PlayerShotHandler: {fileID: 1525603388574638372}
   m_DronePart: {fileID: 9012602562047716220}
 --- !u!114 &2766692622926604186
 MonoBehaviour:
@@ -272,12 +271,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ac84abc1c6e0040a9a5c5fc987a82c, type: 3}
---- !u!4 &1431413074011714893 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1997850226324681821, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-    type: 3}
-  m_PrefabInstance: {fileID: 604798092995543312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2470972950503623728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3039371642196938016, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,

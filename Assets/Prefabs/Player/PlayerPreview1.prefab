@@ -45,13 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d836b4f9ceaded409b36b0720b96c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PreviewScreen: {fileID: 0}
   m_PlayerColorData: {fileID: 11400000, guid: 4c45a853efa342a43805e8cd0a18f48f, type: 2}
   m_SpeedPart:
   - {fileID: 9061795334517263348}
   - {fileID: 9061795334517324372}
   - {fileID: 9061795334517295442}
-  m_ModulePart: {fileID: 6719667026339053301}
+  m_SubWeaponPart: {fileID: 6719667026339053301}
 --- !u!1001 &709043136440754662
 PrefabInstance:
   m_ObjectHideFlags: 0

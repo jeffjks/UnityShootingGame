@@ -21,21 +21,32 @@ public class ReplayManager : MonoBehaviour
     private BinaryReader _br;
     private BinaryWriter _bw;
     private int _context;
+    private bool _eof;
+
+    public static string ReplayFilePath;
 
     public static ReplayManager Instance { get; private set; }
 
-    private struct ReplayInfo
+    public struct ReplayInfo
     {
         public readonly int m_Seed;
+        public readonly long m_DateTime;
         public readonly string m_Version;
         public readonly ShipAttributes m_Attributes;
+        public readonly int m_PlayerAttackLevel;
+        public readonly GameMode m_GameMode;
+        public readonly int m_Stage;
         public readonly GameDifficulty m_Difficulty;
 
-        public ReplayInfo(int seed, string version, ShipAttributes attributes, GameDifficulty difficulty)
+        public ReplayInfo(int seed, long dateTime, string version, ShipAttributes attributes, int playerAttackLevel, GameMode gameMode, int stage, GameDifficulty difficulty)
         {
             m_Seed = seed;
+            m_DateTime = dateTime;
             m_Version = version;
             m_Attributes = attributes;
+            m_PlayerAttackLevel = playerAttackLevel;
+            m_GameMode = gameMode;
+            m_Stage = stage;
             m_Difficulty = difficulty;
         }
     }
@@ -64,8 +75,18 @@ public class ReplayManager : MonoBehaviour
 
         if (!m_Activate)
         {
-            InitPlayer();
+            InitPlayer(GetPlayerAttackLevel());
             return;
+        }
+        
+        if (SystemManager.CurrentSeed == -1)
+        {
+            SystemManager.CurrentSeed = Environment.TickCount;
+            Random.InitState(SystemManager.CurrentSeed);
+        }
+        else
+        {
+            Random.InitState(SystemManager.CurrentSeed);
         }
 
         if (SystemManager.GameMode == GameMode.Replay)
@@ -80,102 +101,132 @@ public class ReplayManager : MonoBehaviour
 
     private void StartReadReplayFile()
     {
-        var replayNum = 0; // TODO. have to decide replay num from existing files
-        var filePath = $"{_replayDirectory}replay{replayNum}.rep";
-
         try
         {
-            _fileStream = new FileStream(filePath, FileMode.Open);
+            _fileStream = new FileStream(ReplayFilePath, FileMode.Open);
             _br = new BinaryReader(_fileStream);
-            _replayInfo = ReadBinaryHeader();
-
-            if (_replayInfo.m_Version != Application.version)
-            {
-                // TODO. 버전이 다름
-            }
-
-            SystemManager.SetDifficulty(_replayInfo.m_Difficulty);
-            Debug.Log($"Start reading replay file.");
+            _replayInfo = ReadBinaryHeader(_fileStream);
+            
+            InitPlayer(PlayerManager.CurrentAttributes, _replayInfo.m_PlayerAttackLevel);
+            Debug.Log($"Start reading replay file: {ReplayFilePath}");
         }
         catch (Exception e)
         {
             Debug.LogError($"Error has occured while reading replay file: {e}");
-        }
-        finally {
-            InitPlayer(_replayInfo.m_Attributes);
         }
     }
 
     private void StartWriteReplayFile()
     {
-        var filePath = $"{_replayDirectory}replayTemp.rep";
+        ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
+        var playerAttackLevel = GetPlayerAttackLevel();
         
         try {
-            _fileStream = new FileStream(filePath, FileMode.Append);
+            File.Delete(ReplayFilePath);
+            _fileStream = new FileStream(ReplayFilePath, FileMode.Append, FileAccess.Write);
             _bw = new BinaryWriter(_fileStream);
             
             var replayInfo = new ReplayInfo(
-                Environment.TickCount,
+                SystemManager.CurrentSeed,
+                DateTime.Now.Ticks,
                 Application.version,
                 PlayerManager.CurrentAttributes,
+                playerAttackLevel,
+                SystemManager.GameMode,
+                SystemManager.Stage,
                 SystemManager.Difficulty
             );
 
             WriteBinaryHeader(replayInfo);
-            Debug.Log($"Start writing replay file.");
+            Debug.Log($"Start writing replay file: {ReplayFilePath}");
         }
         catch (Exception e)
         {
             Debug.LogError($"Error has occured while reading replay file: {e}");
         }
         finally {
-            InitPlayer();
+            InitPlayer(playerAttackLevel);
         }
     }
 
-    private void InitPlayer()
+    private void InitPlayer(int playerAttackLevel)
     {
         Random.InitState(_replayInfo.m_Seed);
-        var player = _playerManager.SpawnPlayer();
+        var player = _playerManager.SpawnPlayer(playerAttackLevel);
         _playerMovement = player.GetComponentInChildren<PlayerMovement>();
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
-    private void InitPlayer(ShipAttributes shipAttributes)
+    private void InitPlayer(ShipAttributes shipAttributes, int playerAttackLevel)
     {
         Random.InitState(_replayInfo.m_Seed);
-        var player = _playerManager.SpawnPlayer(shipAttributes);
+        var player = _playerManager.SpawnPlayer(shipAttributes, playerAttackLevel);
         _playerMovement = player.GetComponentInChildren<PlayerMovement>();
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
     private void Update()
     {
-        if (Time.timeScale == 0)
+        if (PauseManager.IsGamePaused)
             return;
+        
+        ReadUserInput();
+    }
 
-        if (_playerController.gameObject.activeInHierarchy) {
-            if (SystemManager.GameMode == GameMode.Replay) { // 리플레이
-                ReadUserInput();
+    private int GetPlayerAttackLevel()
+    {
+        var power = 0;
+        if (SystemManager.GameMode == GameMode.Training) {
+            switch (SystemManager.Stage) {
+                case 0:
+                    if (SystemManager.TrainingInfo.bossOnly) {
+                        power = 2;
+                    }
+                    else {
+                        power = 0;
+                    }
+                    break;
+                case 1:
+                    if (SystemManager.TrainingInfo.bossOnly) {
+                        power = 4;
+                    }
+                    else {
+                        power = 2;
+                    }
+                    break;
+                default:
+                    power = 4;
+                    break;
             }
         }
+
+        return power;
     }
 
     private void ReadUserInput()
     {
         if (SystemManager.GameMode != GameMode.Replay)
             return;
+        if (!PlayerUnit.IsControllable)
+            return;
+        if (_fileStream.Position >= _fileStream.Length)
+        {
+            if (!_eof)
+                Debug.Log($"Replay file reached end of file.");
+            _eof = true;
+            return;
+        }
         
         var context = _br.ReadInt32();
 
-        var moveLeft = context & (1 << 0);
-        var moveRight = context & (1 << 1);
-        var moveDown = context & (1 << 2);
-        var moveUp = context & (1 << 3);
+        var moveLeft = (context >> 0) & 1;
+        var moveRight = (context >> 1) & 1;
+        var moveDown = (context >> 2) & 1;
+        var moveUp = (context >> 3) & 1;
         var moveVector = new Vector2(moveRight - moveLeft, moveUp - moveDown);
 
-        var inputFire = context & (1 << 4);
-        var inputBomb = context & (1 << 5);
+        var inputFire = (context >> 4) & 1;
+        var inputBomb = (context >> 5) & 1;
         
         _playerMovement.MovePlayer(moveVector);
         _playerController.ExecuteFire(inputFire == 1);
@@ -186,6 +237,8 @@ public class ReplayManager : MonoBehaviour
     public void WriteUserMoveInput(int rawHorizontal, int rawVertical)
     {
         if (SystemManager.GameMode == GameMode.Replay)
+            return;
+        if (!PlayerUnit.IsControllable)
             return;
         
         var moveLeft = rawHorizontal == -1 ? 1 : 0;
@@ -224,6 +277,16 @@ public class ReplayManager : MonoBehaviour
         }
     }
 
+    private void BinarySerialize(long seed) {
+        try {
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(_fileStream, seed);
+        }
+        catch {
+            Debug.LogAssertion("File Error Has Occured");
+        }
+    }
+
     private void BinarySerialize(string version) { // Overload
         try {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -244,13 +307,17 @@ public class ReplayManager : MonoBehaviour
         }
     }
 
-    private ReplayInfo ReadBinaryHeader()
+    public static ReplayInfo ReadBinaryHeader(FileStream fileStream)
     {
         var replayInfo = new ReplayInfo(
-            BinaryDeserializeInt(),
-            BinaryDeserializeString(),
-            BinaryDeserializeAttributes(),
-            (GameDifficulty)BinaryDeserializeInt()
+            BinaryDeserializeInt(fileStream),
+            BinaryDeserializeLong(fileStream),
+            BinaryDeserializeString(fileStream),
+            BinaryDeserializeAttributes(fileStream),
+            BinaryDeserializeInt(fileStream),
+            (GameMode)BinaryDeserializeInt(fileStream),
+            BinaryDeserializeInt(fileStream),
+            (GameDifficulty)BinaryDeserializeInt(fileStream)
             );
         return replayInfo;
     }
@@ -258,16 +325,20 @@ public class ReplayManager : MonoBehaviour
     private void WriteBinaryHeader(ReplayInfo replayInfo)
     {
         BinarySerialize(replayInfo.m_Seed); // 시드 쓰기
+        BinarySerialize(replayInfo.m_DateTime); // 날짜 쓰기
         BinarySerialize(replayInfo.m_Version); // 버전 쓰기
         BinarySerialize(replayInfo.m_Attributes); // 기체 스펙 쓰기
+        BinarySerialize(replayInfo.m_PlayerAttackLevel); // 공격 레벨 쓰기
+        BinarySerialize((int) replayInfo.m_GameMode); // 게임 모드 쓰기
+        BinarySerialize(replayInfo.m_Stage); // 시작 스테이지 쓰기
         BinarySerialize((int) replayInfo.m_Difficulty); // 난이도 쓰기
     }
 
-    private int BinaryDeserializeInt() {
+    private static int BinaryDeserializeInt(FileStream fileStream) {
         int context = -1;
         try {
             BinaryFormatter formatter = new BinaryFormatter();
-            context = (int) formatter.Deserialize(_fileStream);
+            context = (int) formatter.Deserialize(fileStream);
         }
         catch {
             Debug.LogAssertion("File Error Has Occured");
@@ -275,11 +346,23 @@ public class ReplayManager : MonoBehaviour
         return context;
     }
 
-    private string BinaryDeserializeString() {
+    private static long BinaryDeserializeLong(FileStream fileStream) {
+        long context = -1;
+        try {
+            BinaryFormatter formatter = new BinaryFormatter();
+            context = (long) formatter.Deserialize(fileStream);
+        }
+        catch {
+            Debug.LogAssertion("File Error Has Occured");
+        }
+        return context;
+    }
+
+    private static string BinaryDeserializeString(FileStream fileStream) {
         string context = string.Empty;
         try {
             BinaryFormatter formatter = new BinaryFormatter();
-            context = (string) formatter.Deserialize(_fileStream);
+            context = (string) formatter.Deserialize(fileStream);
         }
         catch {
             Debug.LogAssertion("File Error Has Occured");
@@ -287,11 +370,11 @@ public class ReplayManager : MonoBehaviour
         return context;
     }
 
-    private ShipAttributes BinaryDeserializeAttributes() {
+    private static ShipAttributes BinaryDeserializeAttributes(FileStream fileStream) {
         ShipAttributes context = null;
         try {
             BinaryFormatter formatter = new BinaryFormatter();
-            context = (ShipAttributes) formatter.Deserialize(_fileStream);
+            context = (ShipAttributes) formatter.Deserialize(fileStream);
         }
         catch {
             Debug.LogAssertion("File Error Has Occured");
@@ -301,7 +384,7 @@ public class ReplayManager : MonoBehaviour
 
     private void OnClose()
     {
-        Debug.Log($"File closed");
+        Debug.Log($"Replay file closed");
         _fileStream?.Close();
         _br?.Close();
         _bw?.Close();

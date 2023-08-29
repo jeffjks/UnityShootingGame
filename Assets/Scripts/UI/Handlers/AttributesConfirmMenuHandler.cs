@@ -7,6 +7,8 @@ public class AttributesConfirmMenuHandler : MenuHandler
 {
     public Button m_ConfirmButton;
     
+    protected override void Init() { }
+
     public void Confirm()
     {
         EventSystem.current.currentInputModule.enabled = false;
@@ -14,6 +16,7 @@ public class AttributesConfirmMenuHandler : MenuHandler
         FadeScreenService.ScreenFadeOut(2f, StartInGame);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
+        CriticalStateSystem.SetCriticalState(120);
     }
 
     public override void Back()
@@ -26,6 +29,6 @@ public class AttributesConfirmMenuHandler : MenuHandler
         _previousMenuStack.Clear();
         
         var stage = (SystemManager.GameMode == GameMode.Training) ? SystemManager.TrainingInfo.stage : 0;
-        SystemManager.Instance.StartStage(stage);
+        SystemManager.Instance.StartStage(stage, -1);
     }
 }

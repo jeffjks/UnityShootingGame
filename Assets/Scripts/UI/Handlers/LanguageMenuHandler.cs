@@ -4,7 +4,7 @@ public class LanguageMenuHandler : MenuHandler
 {
     private Language _oldLanguage;
 
-    void OnEnable()
+    protected override void Init()
     {
         _oldLanguage = GameSetting.CurrentLanguage;
     }

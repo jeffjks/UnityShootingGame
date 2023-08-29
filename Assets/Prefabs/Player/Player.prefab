@@ -619,9 +619,8 @@ MonoBehaviour:
   - {fileID: 3405106494710659425}
   - {fileID: 4017856822890975867}
   m_PlayerUnit: {fileID: 6427289742828639506}
-  m_PlayerBody: {fileID: 456417361034259206}
   m_PlayerShotData: {fileID: 11400000, guid: 6fb393b4425b69648a4d139f24e0ffde, type: 2}
-  m_PlayerModuleDamageData:
+  m_PlayerSubWeaponDamageData:
   - {fileID: 11400000, guid: 16e19650059f5184193d0757994307a6, type: 2}
   - {fileID: 11400000, guid: 69d903e24be4e364a99c5241e6fc0048, type: 2}
   - {fileID: 11400000, guid: 851519de260758246b86ac59c8d7804e, type: 2}
@@ -658,7 +657,7 @@ MonoBehaviour:
   - {fileID: 7636626367002178889}
   - {fileID: 7636626367001920745}
   - {fileID: 7636626367001950191}
-  m_ModulePart: {fileID: 5294619554845179976}
+  m_SubWeaponPart: {fileID: 5294619554845179976}
 --- !u!114 &8056332426195801104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,12 +1012,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ac84abc1c6e0040a9a5c5fc987a82c, type: 3}
---- !u!4 &456417361034259206 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1997850226324681821, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2156185294410391387}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2655907211029568126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4123013094174639397, guid: 31ac84abc1c6e0040a9a5c5fc987a82c,

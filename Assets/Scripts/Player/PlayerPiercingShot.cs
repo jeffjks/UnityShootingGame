@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAddShot : PlayerWeapon
+public class PlayerPiercingShot : PlayerWeapon
 {
     private Vector3 _savedPos;
     private int _currentPosFrame;

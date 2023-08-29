@@ -113,13 +113,13 @@ public class ShipAttributes
     {
     }
     
-    public ShipAttributes(int color, int speed, int shot_form, int shotIndex, int laserIndex, int module, int bomb)
+    public ShipAttributes(int color, int speed, int shotForm, int shotIndex, int laserIndex, int subWeaponIndex, int bomb)
     {
         _attributes[AttributeType.Color] = color;
         _attributes[AttributeType.Speed] = speed;
         _attributes[AttributeType.ShotIndex] = shotIndex;
         _attributes[AttributeType.LaserIndex] = laserIndex;
-        _attributes[AttributeType.SubWeaponIndex] = module;
+        _attributes[AttributeType.SubWeaponIndex] = subWeaponIndex;
         _attributes[AttributeType.Bomb] = bomb;
     }
 

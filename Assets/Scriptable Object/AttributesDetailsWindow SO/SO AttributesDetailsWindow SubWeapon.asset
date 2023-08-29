@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c07b3d402af00944785e1a33751be6d1, type: 3}
-  m_Name: SO AttributesDetailsWindow Module
+  m_Name: SO AttributesDetailsWindow SubWeapon
   m_EditorClassIdentifier: 
   AttributeType: 4
   AttributeName: Sub Weapon
@@ -39,9 +39,8 @@ MonoBehaviour:
       \uBBF8\uC0AC\uC77C\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
   - sprite: {fileID: 21300000, guid: 8bebbfc40f080d14e82ab26777549827, type: 3}
     cost: 100
-    name: Sub Shots
-    nativeName: "\uC11C\uBE0C \uC0F7"
-    description: Fire additional shots that fire in the direction the aircraft is
-      moving.
+    name: Piercing Shots
+    nativeName: "\uAD00\uD1B5 \uC0F7"
+    description: Fire piercing shots that fire in the direction the aircraft is moving.
     nativeDescription: "\uAE30\uCCB4\uAC00 \uC6C0\uC9C1\uC774\uB294 \uBC29\uD5A5\uC73C\uB85C
-      \uBC1C\uC0AC\uB418\uB294 \uC0F7\uC744 \uCD94\uAC00\uB85C \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+      \uBC1C\uC0AC\uB418\uB294 \uAD00\uD1B5 \uC0F7\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."

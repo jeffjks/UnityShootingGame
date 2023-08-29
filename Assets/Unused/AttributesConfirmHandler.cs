@@ -55,6 +55,7 @@ public class AttributesConfirmHandler : GameUI
         FadeScreenService.ScreenFadeOut(2f, Action_startStage);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
+        CriticalStateSystem.SetCriticalState(120);
     }
 
     private void Back() {

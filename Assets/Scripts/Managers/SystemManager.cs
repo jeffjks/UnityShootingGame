@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
+using Random = System.Random;
 
 public class SystemManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class SystemManager : MonoBehaviour
     public static TrainingInfo TrainingInfo;
     public static PlayState PlayState = PlayState.OutGame;
     public static int Stage = -1;
+    public static int CurrentSeed;
     
     public static SystemManager Instance { get; private set; }
     
@@ -96,9 +98,10 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(NextStage());
     }
 
-    public void StartStage(int stage)
+    public void StartStage(int stage, int seed)
     {
-        SceneManager.LoadScene($"Stage{(stage + 1)}");
+        CurrentSeed = seed;
+        SceneManager.LoadScene($"Stage{stage + 1}");
         PlayState = PlayState.OnField;
         Stage = stage;
     }

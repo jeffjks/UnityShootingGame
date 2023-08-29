@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAddShotModule : MonoBehaviour
+public class PlayerPiercingShotSubWeapon : MonoBehaviour
 {
     public Transform m_Player;
 

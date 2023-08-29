@@ -8,32 +8,34 @@ public class PlayerShotHandler : MonoBehaviour
 {
     public Transform[] m_PlayerShotPosition = new Transform[7];
     public PlayerUnit m_PlayerUnit;
-    public Transform m_PlayerBody;
     
     private const int FIRE_RATE = 50; // 50
 
     public PlayerDamageDatas m_PlayerShotData;
-    public PlayerDamageDatas[] m_PlayerModuleDamageData;
+    public PlayerDamageDatas[] m_PlayerSubWeaponDamageData;
     public int AutoShot { get; set; }
+    public float PiercingShotDirection { get; private set; }
+    private float PiercingShotTargetDirection { get; set; }
+    private const float MAX_PIERCING_SHOT_DIRECTION = 30f;
 
     private const string PLAYER_SHOT = "PlayerShot";
     
-    private List<int> _currentModuleDelay = new();
+    private List<int> _currentSubWeaponDelay = new();
     private PlayerSubWeaponManager _playerSubWeaponManager;
     private PlayerDrone[] _playerDrones;
 
-    private readonly List<ISubWeapon> _modules = new()
+    private readonly List<ISubWeapon> _subWeapons = new()
     {
         new PlayerSubWeaponNone(),
         new PlayerSubWeaponHomingMissile(),
         new PlayerSubWeaponRocket(),
-        new PlayerSubWeaponAddShot()
+        new PlayerSubWeaponPiercingShot()
     };
     
     private ISubWeapon _currentSubWeapon;
 
     private int _shotIndex;
-    private int _moduleIndex;
+    private int _subWeaponIndex;
 
     public int ShotIndex
     {
@@ -45,13 +47,13 @@ public class PlayerShotHandler : MonoBehaviour
         }
     }
 
-    public int ModuleIndex
+    public int SubWeaponIndex
     {
-        get => _moduleIndex;
+        get => _subWeaponIndex;
         set
         {
-            _moduleIndex = value;
-            SetModuleIndex();
+            _subWeaponIndex = value;
+            SetSubWeaponIndex();
         }
     }
     
@@ -63,7 +65,7 @@ public class PlayerShotHandler : MonoBehaviour
     {
         _playerSubWeaponManager = new PlayerSubWeaponManager();
         _playerDrones = GetComponentsInChildren<PlayerDrone>();
-        ModuleIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.SubWeaponIndex);
+        SubWeaponIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.SubWeaponIndex);
         ShotIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.ShotIndex);
         m_PlayerUnit.Action_OnControllableChanged += (controllable) =>
         {
@@ -75,7 +77,8 @@ public class PlayerShotHandler : MonoBehaviour
     
     private void OnEnable()
     {
-        StartCoroutine(ModuleShot());
+        PiercingShotDirection = 0f;
+        StartCoroutine(SubWeaponShot());
     }
 
     private void OnDisable()
@@ -86,14 +89,25 @@ public class PlayerShotHandler : MonoBehaviour
         m_PlayerUnit.IsShooting = false;
     }
 
-    private IEnumerator ModuleShot() {
+    private void Update()
+    {
+        PiercingShotDirection = Mathf.MoveTowardsAngle(PiercingShotDirection, PiercingShotTargetDirection, 2f);
+        PiercingShotDirection = Mathf.Clamp(PiercingShotDirection, -MAX_PIERCING_SHOT_DIRECTION, MAX_PIERCING_SHOT_DIRECTION);
+    }
+
+    private IEnumerator SubWeaponShot() {
         while(true) {
-            if (ModuleIndex > 0 && m_PlayerUnit.IsAttacking) {
-                _currentSubWeapon.Shoot(this, m_PlayerModuleDamageData[ModuleIndex - 1], m_PlayerUnit.PlayerAttackLevel);
-                yield return new WaitForMillisecondFrames(_currentModuleDelay[m_PlayerUnit.PlayerAttackLevel]);
+            if (SubWeaponIndex > 0 && m_PlayerUnit.IsAttacking) {
+                _currentSubWeapon.Shoot(this, m_PlayerSubWeaponDamageData[SubWeaponIndex - 1], m_PlayerUnit.PlayerAttackLevel);
+                yield return new WaitForMillisecondFrames(_currentSubWeaponDelay[m_PlayerUnit.PlayerAttackLevel]);
             }
             yield return new WaitForFrames(0);
         }
+    }
+
+    public void ReceiveHorizontalMovement(float movement)
+    {
+        PiercingShotTargetDirection = - MAX_PIERCING_SHOT_DIRECTION * Mathf.Sign(movement);
     }
 
     public void StartShotCoroutine()
@@ -145,7 +159,7 @@ public class PlayerShotHandler : MonoBehaviour
         playerWeapon.DamageLevel = damageLevel;
     }
 
-    protected void CreateShotNormal(int level) {
+    private void CreateShotNormal(int level) {
         Vector3[] shotPosition = new Vector3[5];
         float[] shotDirection = new float[5];
         //Quaternion[] shotDirection = new Quaternion[5];
@@ -182,7 +196,7 @@ public class PlayerShotHandler : MonoBehaviour
         }
     }
     
-    protected void CreateShotStrong(int level) {
+    private void CreateShotStrong(int level) {
         Vector3[] shotPosition = new Vector3[5];
         float[] shotDirection = new float[5];
         //Quaternion[] shotDirection = new Quaternion[5];
@@ -219,7 +233,7 @@ public class PlayerShotHandler : MonoBehaviour
         }
     }
 
-    protected void CreateShotVeryStrong(int level) {
+    private void CreateShotVeryStrong(int level) {
         Vector3[] shotPosition = new Vector3[5];
         float[] shotDirection = new float[5];
         //Quaternion[] shotDirection = new Quaternion[5];
@@ -256,61 +270,17 @@ public class PlayerShotHandler : MonoBehaviour
             CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 1);
         }
     }
-    /*
-    private void CreateHomingMissile() {
-        Vector3[] shotPosition = new Vector3[2];
-        shotPosition[0] = m_PlayerShotPosition[5].position;
-        shotPosition[1] = m_PlayerShotPosition[6].position;
-        CreatePlayerAttack(m_PlayerWeaponName[1], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f - 15f);
-        CreatePlayerAttack(m_PlayerWeaponName[1], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), 180f + 15f);
-    }
 
-    private void CreateRocket() {
-        Vector3[] shotPosition = new Vector3[2];
-        byte damage_level = (byte) m_ShotLevelToType[_shotAttackLevel];
-        shotPosition[0] = m_PlayerShotPosition[5].position;
-        shotPosition[1] = m_PlayerShotPosition[6].position;
-        CreatePlayerAttack(m_PlayerWeaponName[2], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f, damage_level);
-        CreatePlayerAttack(m_PlayerWeaponName[2], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), 180f, damage_level);
-    }
-
-    private void CreateAddShot() {
-        Vector3[] shotPosition = new Vector3[2];
-        byte damage_level = (byte) m_ShotLevelToType[_shotAttackLevel];
-        float rot = m_PlayerBody.eulerAngles.y;
-        shotPosition[0] = m_PlayerShotPosition[5].position;
-        shotPosition[1] = m_PlayerShotPosition[6].position;
-        CreatePlayerAttack(m_PlayerWeaponName[3], new Vector3(shotPosition[0][0], shotPosition[0][1], m_PlayerShotZ), 180f + rot, damage_level);
-        CreatePlayerAttack(m_PlayerWeaponName[3], new Vector3(shotPosition[1][0], shotPosition[1][1], m_PlayerShotZ), 180f + rot, damage_level);
-    }
-
-    /*
-    protected void UpdateShotNumber() {
-        for (int i = 0; i < _playerDrones.Length; i++)
-            _playerDrones[i].SetShotLevel(_shotAttackLevel);
-
-        if (_shotAttackLevel <= -1) {
-            _playerDrones[2].gameObject.SetActive(false);
-            _playerDrones[3].gameObject.SetActive(false);
-        }
-        else {
-            _playerDrones[2].gameObject.SetActive(true);
-            _playerDrones[3].gameObject.SetActive(true);
-            _playerDrones[2].transform.localPosition = new Vector2(0f, -1f);
-            _playerDrones[3].transform.localPosition = new Vector2(0f, -1f);
-        }
-    }*/
-
-    private void SetModuleIndex()
+    private void SetSubWeaponIndex()
     {
-        _currentSubWeapon = _modules[ModuleIndex];
+        _currentSubWeapon = _subWeapons[SubWeaponIndex];
 
-        if (ModuleIndex == 0)
+        if (SubWeaponIndex == 0)
         {
             return;
         }
         
-        _currentModuleDelay = m_PlayerModuleDamageData[ModuleIndex - 1].cooldownByLevel;
+        _currentSubWeaponDelay = m_PlayerSubWeaponDamageData[SubWeaponIndex - 1].cooldownByLevel;
         _playerSubWeaponManager.ChangeSubWeapon(_currentSubWeapon);
     }
 }

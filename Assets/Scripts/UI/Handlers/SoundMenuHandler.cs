@@ -6,7 +6,7 @@ public class SoundMenuHandler : MenuHandler
     private int _oldMusicVolume;
     private int _oldSoundEffectVolume;
 
-    void OnEnable()
+    protected override void Init()
     {
         _oldMusicVolume = GameSetting.MusicVolume;
         _oldSoundEffectVolume = GameSetting.SoundEffectVolume;

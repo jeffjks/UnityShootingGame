@@ -579,7 +579,7 @@ MonoBehaviour:
   m_PlayerLaserHandler: {fileID: 1827252791}
   m_ShotIndexText: {fileID: 436573266}
   m_LaserIndexText: {fileID: 1190093089}
-  m_ModuleIndexText: {fileID: 1562605311}
+  m_SubWeaponIndexText: {fileID: 1562605311}
   m_PowerText: {fileID: 1083873339}
 --- !u!1 &217640447
 GameObject:
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ShotIndex: #'
+  m_text: 'Shot: #'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1552,7 +1552,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 148044315}
         m_TargetAssemblyTypeName: DebugPlayer, Assembly-CSharp
-        m_MethodName: OnClickModuleIndexDown
+        m_MethodName: OnClickSubWeaponIndexDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2556,7 +2556,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 148044315}
         m_TargetAssemblyTypeName: DebugPlayer, Assembly-CSharp
-        m_MethodName: OnClickModuleIndexUp
+        m_MethodName: OnClickSubWeaponIndexUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2715,7 +2715,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LaserIndex: #'
+  m_text: 'Laser: #'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3324,7 +3324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ModuleIndex: #'
+  m_text: 'SubWeapon: #'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

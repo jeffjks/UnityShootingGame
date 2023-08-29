@@ -11,13 +11,13 @@ public class DebugPlayer : MonoBehaviour
     public PlayerLaserHandler m_PlayerLaserHandler;
     public TextMeshProUGUI m_ShotIndexText;
     public TextMeshProUGUI m_LaserIndexText;
-    public TextMeshProUGUI m_ModuleIndexText;
+    public TextMeshProUGUI m_SubWeaponIndexText;
     public TextMeshProUGUI m_PowerText;
     
     private int _attackLevel;
     private int _shotIndex;
     private int _laserIndex;
-    private int _moduleIndex;
+    private int _subWeaponIndex;
 
     private int AttackLevel
     {
@@ -38,7 +38,7 @@ public class DebugPlayer : MonoBehaviour
         {
             _shotIndex = value;
             _shotIndex = Mathf.Clamp(_shotIndex, 0, 2);
-            m_ShotIndexText.SetText($"ShotIndex: {_shotIndex}");
+            m_ShotIndexText.SetText($"Shot: {_shotIndex}");
             m_PlayerShotHandler.ShotIndex = _shotIndex;
         }
     }
@@ -50,20 +50,20 @@ public class DebugPlayer : MonoBehaviour
         {
             _laserIndex = value;
             _laserIndex = Mathf.Clamp(_laserIndex, 0, 2);
-            m_LaserIndexText.SetText($"LaserIndex: {_laserIndex}");
+            m_LaserIndexText.SetText($"Laser: {_laserIndex}");
             m_PlayerLaserHandler.LaserIndex = _laserIndex;
         }
     }
     
-    private int ModuleIndex
+    private int SubWeaponIndex
     {
-        get => _moduleIndex;
+        get => _subWeaponIndex;
         set
         {
-            _moduleIndex = value;
-            _moduleIndex = Mathf.Clamp(_moduleIndex, 0, 3);
-            m_ModuleIndexText.SetText($"ModuleIndex: {_moduleIndex}");
-            m_PlayerShotHandler.ModuleIndex = _moduleIndex;
+            _subWeaponIndex = value;
+            _subWeaponIndex = Mathf.Clamp(_subWeaponIndex, 0, 3);
+            m_SubWeaponIndexText.SetText($"SubWeapon: {_subWeaponIndex}");
+            m_PlayerShotHandler.SubWeaponIndex = _subWeaponIndex;
         }
     }
 
@@ -74,7 +74,7 @@ public class DebugPlayer : MonoBehaviour
         AttackLevel = m_PlayerUnit.PlayerAttackLevel;
         ShotIndex = m_PlayerShotHandler.ShotIndex;
         LaserIndex = m_PlayerLaserHandler.LaserIndex;
-        ModuleIndex = m_PlayerShotHandler.ModuleIndex;
+        SubWeaponIndex = m_PlayerShotHandler.SubWeaponIndex;
     }
 
     public void OnClickPowerDown()
@@ -107,13 +107,13 @@ public class DebugPlayer : MonoBehaviour
         LaserIndex++;
     }
 
-    public void OnClickModuleIndexDown()
+    public void OnClickSubWeaponIndexDown()
     {
-        ModuleIndex--;
+        SubWeaponIndex--;
     }
 
-    public void OnClickModuleIndexUp()
+    public void OnClickSubWeaponIndexUp()
     {
-        ModuleIndex++;
+        SubWeaponIndex++;
     }
 }

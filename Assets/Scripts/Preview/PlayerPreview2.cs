@@ -30,6 +30,6 @@ public class PlayerPreview2 : PlayerPreviewManager
     {
         m_PlayerLaserHandler.LaserIndex = shipAttributes.GetAttributes(AttributeType.LaserIndex);
         m_PlayerShotHandler.ShotIndex = shipAttributes.GetAttributes(AttributeType.ShotIndex);
-        m_PlayerShotHandler.ModuleIndex = shipAttributes.GetAttributes(AttributeType.SubWeaponIndex);
+        m_PlayerShotHandler.SubWeaponIndex = shipAttributes.GetAttributes(AttributeType.SubWeaponIndex);
     }
 }

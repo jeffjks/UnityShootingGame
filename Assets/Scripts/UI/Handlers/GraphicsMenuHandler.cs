@@ -8,7 +8,8 @@ public class GraphicsMenuHandler : MenuHandler
     private QualitySetting _oldGraphicsQuality;
     private AntiAliasingSetting _oldGraphicsAntiAliasing;
 
-    void OnEnable() {
+    protected override void Init()
+    {
         _oldGraphicsResolution = GameSetting.GraphicsResolution;
         _oldGraphicsScreenMode = GameSetting.GraphicsScreenMode;
         _oldGraphicsQuality = GameSetting.GraphicsQuality;

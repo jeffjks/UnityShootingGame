@@ -12,7 +12,7 @@ public class LoginMenuHandler : MenuHandler
     public NetworkAccount m_NetworkAccount;
     public TextErrorMessage m_TextErrorMessage;
 
-    void Start()
+    protected override void Init()
     {
         m_InputFieldID.SetTextWithoutNotify(PlayerPrefs.GetString("LastLoginID", string.Empty));
     }

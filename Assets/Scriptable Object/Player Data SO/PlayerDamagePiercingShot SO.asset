@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00e0f46cddd03b542a191bc0413a399e, type: 3}
-  m_Name: PlayerDamageAddShot SO
+  m_Name: PlayerDamagePiercingShot SO
   m_EditorClassIdentifier: 
   playerDamageType: 0
   damageScale:
@@ -18,4 +18,4 @@ MonoBehaviour:
     middleBossEnemy: 100
     bossEnemy: 100
   cooldownByLevel: c8000000af000000960000007d00000064000000
-  damageByLevel: 0300000003000000040000000400000005000000
+  damageByLevel: 0100000001000000020000000200000003000000

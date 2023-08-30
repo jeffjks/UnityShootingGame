@@ -27,7 +27,7 @@ public class ReplayManager : MonoBehaviour
 
     public static ReplayManager Instance { get; private set; }
 
-    public struct ReplayInfo
+    public class ReplayInfo
     {
         public readonly int m_Seed;
         public readonly long m_DateTime;

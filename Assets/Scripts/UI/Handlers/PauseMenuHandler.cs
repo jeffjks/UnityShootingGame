@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuHandler : MenuHandler
 {
     public MenuHandler m_SoundMenuPanel;
-    public MenuHandler m_QuitMenuPanel;
+    public PopupMenuHandler m_PopupMenuHandler;
     public PauseManager m_PauseManager;
     
     protected override void Init() { }
@@ -21,6 +21,8 @@ public class PauseMenuHandler : MenuHandler
 
     private void OnDisable()
     {
+        if (!InGameInputController.Instance)
+            return;
         InGameInputController.Instance.Action_OnPauseInput -= Resume;
         InGameInputController.Instance.Action_OnEscapeInput -= Resume;
     }
@@ -36,11 +38,21 @@ public class PauseMenuHandler : MenuHandler
         GoToTargetMenu(m_SoundMenuPanel);
     }
 
-    public void QuitMenu() {
+    public void QuitMenu()
+    {
+        PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
+            QuitGame,
+            null,
+            "게임을 종료하시겠습니까?",
+            "Are you really want to exit?"
+            ));
+    }
+
+    private void QuitGame() {
         if (CriticalStateSystem.InCriticalState)
             return;
         
-        GoToTargetMenu(m_QuitMenuPanel);
+        m_PauseManager.QuitGame();
     }
     
     public void Resume() {

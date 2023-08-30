@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -15,6 +16,22 @@ public abstract class MenuHandler : MonoBehaviour
     public bool IsActive => _isActive;
     
     private static readonly Dictionary<MenuHandler, Selectable> _lastSelected = new();
+
+    public struct PopupMenuContext
+    {
+        public UnityAction onPositive;
+        public UnityAction onNegative;
+        public string nativeMessage;
+        public string message;
+
+        public PopupMenuContext(UnityAction onPositive, UnityAction onNegative, string nativeMessage, string message)
+        {
+            this.onPositive = onPositive;
+            this.onNegative = onNegative;
+            this.nativeMessage = nativeMessage;
+            this.message = message;
+        }
+    }
 
     protected abstract void Init();
 
@@ -42,6 +59,29 @@ public abstract class MenuHandler : MonoBehaviour
         
         _isActive = false;
         targetMenu._isActive = true;
+    }
+
+    protected void PopupMessageMenu(PopupMenuHandler popupMenuHandler, PopupMenuContext popupMenuContext)
+    {
+        if (CriticalStateSystem.InCriticalState)
+            return;
+        
+        CriticalStateSystem.SetCriticalState(10);
+
+        var popupMenu = Instantiate(popupMenuHandler, transform);
+        popupMenu.Action_OnPositive += popupMenuContext.onPositive;
+        popupMenu.Action_OnNegative += popupMenuContext.onNegative;
+        popupMenu.SetMessageText(popupMenuContext.nativeMessage, popupMenuContext.message);
+        
+        _previousMenuStack.Push(this);
+
+        SaveLastSelection(false);
+        FindNextSelection(popupMenu);
+        
+        AudioService.PlaySound("ConfirmUI");
+        
+        _isActive = false;
+        popupMenu._isActive = true;
     }
 
     public virtual void Apply()

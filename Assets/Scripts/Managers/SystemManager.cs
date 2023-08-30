@@ -142,7 +142,7 @@ public class SystemManager : MonoBehaviour
     public void FinishEndingCredit()
     {
         Action_OnFinishEndingCredit?.Invoke();
-        SceneManager.LoadScene("EndingRanking");
+        SceneManager.LoadScene("EndingRecord");
     }
 
     public void QuitGame(Action onCompleted) {

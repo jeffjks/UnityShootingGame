@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 
 public class RegisterLocalRankingMenuHandler : MenuHandler
 {
+    public MenuHandler m_SaveReplayPanel;
     public TMP_InputField m_InputFieldID;
     public Button m_ConfirmButton;
     public TextErrorMessage m_TextErrorMessage;
@@ -20,8 +21,14 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
     private int _totalMiss;
     private long _clearedTime;
 
+    private void OnEnable()
+    {
+        Init();
+    }
+
     protected override void Init()
     {
+        Debug.Log("Init");
         _totalScore = InGameDataManager.Instance.TotalScore;
         _shipAttributes = InGameDataManager.Instance.CurrentShipAttributes;
         _totalMiss = InGameDataManager.Instance.TotalMiss;
@@ -51,34 +58,24 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
 
         AudioService.PlaySound("SallyUI");
         CriticalStateSystem.SetCriticalState(120);
-        LeaveMenu();
+        SaveReplayMenu();
     }
 
     public override void Back()
     {
         AudioService.PlaySound("CancelUI");
-        LeaveMenu();
+        SaveReplayMenu();
     }
 
-    private void LeaveMenu()
+    private void SaveReplayMenu()
     {
-        EventSystem.current.sendNavigationEvents = false;
+        GoToTargetMenu(m_SaveReplayPanel);
+        //EventSystem.current.sendNavigationEvents = false;
         m_InputFieldID.DeactivateInputField();
-
-        StartCoroutine(ReturnToMainMenu());
     }
 
     public void SelectConfirm()
     {
         m_ConfirmButton.Select();
-    }
-    
-    private IEnumerator ReturnToMainMenu()
-    {
-        
-        FadeScreenService.ScreenFadeOut(2f);
-        yield return new WaitForSeconds(3f);
-
-        SceneManager.LoadScene("MainMenu");
     }
 }

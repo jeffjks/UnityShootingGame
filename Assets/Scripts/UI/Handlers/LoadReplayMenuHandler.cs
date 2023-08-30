@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ReplayMenuHandler : MenuHandler
+public class LoadReplayMenuHandler : MenuHandler
 {
     public GameObject m_ReplaySlotPanel;
     private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
@@ -42,6 +42,7 @@ public class ReplayMenuHandler : MenuHandler
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");
                 _canvasGroups[i].interactable = false;
+                _replayInfos[i] = null;
                 continue;
             }
             var fileStream = new FileStream(filePath, FileMode.Open);

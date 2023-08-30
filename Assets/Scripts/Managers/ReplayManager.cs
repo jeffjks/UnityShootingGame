@@ -126,7 +126,7 @@ public class ReplayManager : MonoBehaviour
             _fileStream = new FileStream(ReplayFilePath, FileMode.Append, FileAccess.Write);
             _bw = new BinaryWriter(_fileStream);
             
-            var replayInfo = new ReplayInfo(
+            _replayInfo = new ReplayInfo(
                 SystemManager.CurrentSeed,
                 DateTime.Now.Ticks,
                 Application.version,
@@ -137,7 +137,7 @@ public class ReplayManager : MonoBehaviour
                 SystemManager.Difficulty
             );
 
-            WriteBinaryHeader(replayInfo);
+            WriteBinaryHeader(_replayInfo);
             Debug.Log($"Start writing replay file: {ReplayFilePath}");
         }
         catch (Exception e)

@@ -49,9 +49,9 @@ public class Stage1Manager : StageManager
         AudioService.PlayMusic("Boss1");
         StartCoroutine(BossStart(new Vector3(0f, 4.5f, Depth.ENEMY), 1000));
         yield return new WaitForMillisecondFrames(2000);
-        BackgroundCamera.SetBackgroundSpeed(0f);
-        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
-        yield break;
+        BackgroundCamera.RepeatBackground(16f);
+        //BackgroundCamera.SetBackgroundSpeed(0f);
+        //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 240f;
     }
 
     protected override IEnumerator EnemyTimeline()

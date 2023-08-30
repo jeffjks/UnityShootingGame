@@ -283,10 +283,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     }
 
     public void OutOfBound() { // 경계 바깥 파괴
-        if (m_EnemyType == EnemyType.Boss) {
-            return;
-        }
-
         m_EnemyDeath.RemoveEnemy();
     }
 

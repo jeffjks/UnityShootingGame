@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
     public void PlayerDead(Vector2Int dead_position) {
         IsPlayerAlive = false;
         StartCoroutine(RevivePlayer());
-        Vector3 item_pos = new Vector3(dead_position.x / 256, dead_position.y / 256, Depth.ITEMS);
+        Vector3 item_pos = new Vector3(dead_position.x / 256f, dead_position.y / 256f, Depth.ITEMS);
         int item_num;
 
         if (InGameDataManager.Instance.TotalMiss == 0) {

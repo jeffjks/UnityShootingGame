@@ -35,26 +35,13 @@ public class GameBoundary : MonoBehaviour
             if (enemyUnit.transform == enemyUnit.transform.root) { // 본체일 경우
                 if (!enemyUnit.IsColliderInit)
                     return;
-                if (!enemyUnit.m_EnemyDeath.IsDead) {
-                    enemyUnit.OutOfBound();
-                }
-            }
-        }
-
-        /*
-        else if (other.CompareTag("ItemGem")) {
-            if (other.gameObject.activeSelf) {
-                ItemGem item_gem = other.gameObject.GetComponentInParent<ItemGem>();
-                if (item_gem == null)
+                if (enemyUnit.m_EnemyType == EnemyType.Boss)
                     return;
-                item_gem.m_EnemyDeath.OnDying();
+                if (enemyUnit.m_EnemyDeath.IsDead)
+                    return;
+                enemyUnit.OutOfBound();
             }
         }
-
-        else if (other.CompareTag("ItemBox")) {
-            ItemBox item_box = other.gameObject.GetComponentInParent<ItemBox>();
-            Destroy(item_box.gameObject);
-        }*/
 
         else if (other.CompareTag("Debris")) {
             if (other.gameObject.activeSelf) {
@@ -65,19 +52,4 @@ public class GameBoundary : MonoBehaviour
             }
         }
     }
-
-    /*
-    void OnTriggerStay2D(Collider2D other) // 탄 소거
-    {
-        if (m_SystemManager.m_BulletsEraseTimer > 0) {
-            if (other.CompareTag("EnemyBullet")) {
-                if (other.gameObject.activeSelf) {
-                    if (other.transform.parent.gameObject.activeSelf) {
-                        EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                        enemyBullet.m_EnemyDeath.OnDying();
-                    }
-                }
-            }
-        }
-    }*/
 }

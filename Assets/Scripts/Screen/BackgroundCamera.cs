@@ -6,8 +6,9 @@ public class BackgroundCamera : MonoBehaviour
 {
     public static Camera Camera;
     
-    public static BackgroundCamera Instance { get; private set; }
+    private static BackgroundCamera Instance { get; set; }
 
+    private static bool _isRepeating;
     private Vector3 _backgroundCameraDefaultLocalPos;
     private Vector3 _backgroundMoveVector;
 
@@ -68,6 +69,36 @@ public class BackgroundCamera : MonoBehaviour
         Instance.StartCoroutine(Instance.MoveBackgroundCameraCoroutine(relative, position_z, millisecond));
     }
 
+    public static void RepeatBackground(float repeatLength)
+    {
+        if (repeatLength > 0f)
+        {
+            _isRepeating = true;
+            Instance.StartCoroutine(Instance.RepeatBackgroundCoroutine(repeatLength));
+        }
+        else
+        {
+            _isRepeating = false;
+        }
+    }
+
+    private IEnumerator RepeatBackgroundCoroutine(float repeatLength)
+    {
+        var pivot = transform.position.z;
+
+        while (_isRepeating)
+        {
+            if (transform.position.z >= pivot + repeatLength)
+            {
+                var pos = transform.position;
+                pos.z -= repeatLength;
+                transform.position = pos;
+            }
+
+            yield return null;
+        }
+    }
+
     private IEnumerator BackgroundSpeedCoroutine(float target, int millisecond = 0) {
         int frame = millisecond * Application.targetFrameRate / 1000;
         if (frame == 0) { // 즉시 종료
@@ -123,12 +154,12 @@ public class BackgroundCamera : MonoBehaviour
 
     public static Vector2 GetScreenPosition(Vector3 pos)
     {
+        var viewportPosition = Camera.WorldToViewportPoint(pos);
         var mainCameraX = MainCamera.Instance.GetCameraScreenPosition().x;
-        Vector3 screenPos = Camera.WorldToScreenPoint(pos);
-        Vector2 newPos = new Vector2(
-            screenPos[0]*Size.MAIN_CAMERA_WIDTH/Screen.width - Size.MAIN_CAMERA_WIDTH/2 + mainCameraX,
-            screenPos[1]*Size.MAIN_CAMERA_HEIGHT/Screen.height - Size.MAIN_CAMERA_HEIGHT
+        var screenPosition = new Vector2(
+            (viewportPosition.x - 0.5f) * Size.MAIN_CAMERA_WIDTH + mainCameraX,
+            (viewportPosition.y - 1f) * Size.MAIN_CAMERA_HEIGHT
         );
-        return newPos;
+        return screenPosition;
     }
 }

@@ -18,8 +18,9 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     void Start()
     {
+        IsColliderInit = false;
         m_Rotator.rotation = Quaternion.Euler(0f, 36f, 20f);
-
+        
         DisableInteractableAll();
         
         StartCoroutine(AppearanceSequence());
@@ -82,6 +83,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(0);
         }
         
+        IsColliderInit = true;
         OnAppearanceComplete();
     }
 

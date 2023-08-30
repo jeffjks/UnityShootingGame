@@ -49,8 +49,9 @@ public class Stage2Manager : StageManager
         yield return new WaitForMillisecondFrames(3000);
         ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
-        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
-        BackgroundCamera.SetBackgroundSpeed(0f);
+        BackgroundCamera.RepeatBackground(16f);
+        //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
+        //BackgroundCamera.SetBackgroundSpeed(0f);
         AudioService.PlayMusic("Boss1");
     }
 

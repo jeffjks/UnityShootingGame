@@ -2812,6 +2812,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  m_SpawnDirection: -40
 --- !u!1 &1984301459
 GameObject:
   m_ObjectHideFlags: 0

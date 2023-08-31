@@ -151,7 +151,6 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
             m_MainTurret.StopPattern("C");
             break;
         }
-        yield break;
     }
 
 

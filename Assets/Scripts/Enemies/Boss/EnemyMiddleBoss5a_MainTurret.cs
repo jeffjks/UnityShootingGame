@@ -9,6 +9,7 @@ public class EnemyMiddleBoss5a_MainTurret : EnemyUnit
     private void Start()
     {
         CurrentAngle = AngleToPlayer;
+        SetRotatePattern(new RotatePattern_TargetPlayer(150f, 100f));
     }
 
     protected override void Update()

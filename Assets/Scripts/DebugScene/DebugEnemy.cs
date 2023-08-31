@@ -11,6 +11,7 @@ public class DebugEnemy : MonoBehaviour
     public TextMeshProUGUI m_EnemyText;
     public EnemyUnitPrefabDatas m_EnemyUnitPrefabData;
     public List<AnimationCurve> m_AnimationCurves;
+    public float m_SpawnDirection;
 
     private readonly List<EnemyUnitPrefabDatas.EnemyUnitPrefab> _enemyPrefabs = new();
     private EnemyUnit _currentEnemyUnit;
@@ -108,6 +109,8 @@ public class DebugEnemy : MonoBehaviour
         }
         var enemyPrefab = _enemyPrefabs[_enemyIndex];
         _currentEnemyUnit = Instantiate(enemyPrefab.enemyUnit, enemyPrefab.defaultPosition, Quaternion.identity);
+        _currentEnemyUnit.m_MoveVector.direction = m_SpawnDirection;
+        _currentEnemyUnit.CurrentAngle = m_SpawnDirection;
 
         if (_currentEnemyUnit.m_IsAir)
         {

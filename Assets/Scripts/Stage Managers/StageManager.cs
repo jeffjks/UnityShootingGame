@@ -24,7 +24,7 @@ public abstract class StageManager : MonoBehaviour
         new (15.98016000f, 50.00000000f, 76.13345000f + 64f),
         new (-24.95980000f, 50.00000000f, 29.27469000f + 64f),
         new (14.00522000f, 50.00000000f, 83.86731000f + 64f),
-        new (0.00000000f, 50.00000000f, 387.63410000f + 64f)
+        new (0.00000000f, 50.00000000f, 387.40050000f + 64f)
     };
     private readonly Vector3[] m_BossOnlyBackgroundMoveVectors = {
         new (0f, 0f, 2.7f),

@@ -15,6 +15,7 @@ public class EnemyShipCarrier : EnemyUnit
         m_CustomDirection[0] = Random.Range(0f, 360f);
         StartPattern("A", new BulletPattern_EnemyShipCarrier_A(this));
         StartPattern("B", new BulletPattern_EnemyShipCarrier_B(this));
+        UpdateCargoUnitDirection();
     }
     
     protected override void Update()
@@ -23,6 +24,18 @@ public class EnemyShipCarrier : EnemyUnit
         
         m_CustomDirection[0] += 120f / Application.targetFrameRate * Time.timeScale;
         m_CustomDirection[1] += 180f / Application.targetFrameRate * Time.timeScale;
+        UpdateCargoUnitDirection();
+    }
+
+    private void UpdateCargoUnitDirection()
+    {
+        foreach (var enemyUnit in _enemyUnits)
+        {
+            if (enemyUnit != null)
+            {
+                enemyUnit.m_MoveVector.direction = m_MoveVector.direction;
+            }
+        }
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정

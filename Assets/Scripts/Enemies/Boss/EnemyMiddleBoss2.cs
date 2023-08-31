@@ -14,6 +14,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     void Start()
     {
+        IsColliderInit = false;
         _phase = 1;
         m_MoveVector = new MoveVector(-3f, 120f + 180f);
         m_CustomDirection = new CustomDirection();
@@ -67,7 +68,6 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_MoveVector.direction = Mathf.Lerp(init_moveVector.direction, target_moveVector.direction, t_dir);
             yield return new WaitForMillisecondFrames(0);
         }
-        yield break;
     }
 
 
@@ -86,8 +86,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase1()
     {
+        yield return new WaitForFrames(3);
+        IsColliderInit = true;
         StartPattern("1A", new BulletPattern_EnemyMiddleBoss2_1A(this));
-        yield break;
     }
 
     public void ToNextPhase()

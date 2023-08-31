@@ -19,7 +19,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         {
             _currentAngle = value;
             _currentAngle = Mathf.Repeat(_currentAngle, 360f);
-            OnCurrentAngleChanged();
+            OnCurrentAngleChanged(_currentAngle);
         }
     }
 
@@ -287,17 +287,17 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     }
 
 
-    private void OnCurrentAngleChanged()
+    private void OnCurrentAngleChanged(float currentAngle)
     {
-        Quaternion target_rotation;
+        Quaternion targetRotation;
 
         if (m_IsAir) {
-            target_rotation = Quaternion.AngleAxis(CurrentAngle, (transform == transform.root) ? _airEnemyAxis : Vector3.down);
+            targetRotation = Quaternion.AngleAxis(currentAngle, (transform == transform.root) ? _airEnemyAxis : Vector3.down);
         }
         else {
-            target_rotation = Quaternion.AngleAxis(CurrentAngle, Vector3.down);
+            targetRotation = Quaternion.AngleAxis(currentAngle, Vector3.down);
         }
-        transform.rotation = _defaultRotation * target_rotation;
+        transform.rotation = _defaultRotation * targetRotation;
     }
 }
 

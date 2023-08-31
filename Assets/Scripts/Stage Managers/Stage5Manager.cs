@@ -193,8 +193,9 @@ public class Stage5Manager : StageManager
         BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
         yield return new WaitForMillisecondFrames(4000);
         BackgroundCamera.SetBackgroundSpeed(1f, 1000);;
+        yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_PlaneMedium_4, new Vector2(4f, 3f)); // New
-        yield return new WaitForMillisecondFrames(6700);
+        yield return new WaitForMillisecondFrames(3700);
         CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(12.1f, 3.51f, 177.6f), new MoveVector(1.2f, -45f), new [] {new MovePattern(10000, 2000, true, 0f)});
         yield return new WaitForMillisecondFrames(5000);
         CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));

@@ -62,7 +62,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
             {
                 enemyObject.m_EnemyDeath.KillEnemy();
             }
-            else // 관통 공격이며 적이 소형이 아닌 경우에는 데미지 주고 자신 파괴
+            else // 관통 공격이 아니며 적이 소형이 아닌 경우에는 데미지 주고 자신 파괴
             {
                 DealDamage(enemyObject);
                 _appliedDamage = true;

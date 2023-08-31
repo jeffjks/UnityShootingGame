@@ -165,8 +165,15 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     private void UpdateColorBlend() {
-        if (m_EnemyDeath.IsDead)
-            return;
+        try
+        {
+            if (m_EnemyDeath.IsDead)
+                return;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"{e}: {name}");
+        }
 
         Action_DamagingBlend?.Invoke();
         

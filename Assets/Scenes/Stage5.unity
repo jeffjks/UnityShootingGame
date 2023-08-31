@@ -9428,6 +9428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankSmall2 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 37082ba0f130558408b298430506019a, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -11718,6 +11722,10 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
       propertyPath: m_Name
       value: EnemyTankSmall1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
       propertyPath: m_RootOrder

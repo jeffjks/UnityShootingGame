@@ -58,6 +58,8 @@ public class BossHealthBarHandler : MonoBehaviour
         StartScrollDownBar();
         enemyUnit.m_EnemyDeath.Action_OnKilled += StartScrollUpBar;
         enemyUnit.m_EnemyDeath.Action_OnRemoved += StartScrollUpBar;
+        SetHealthRate();
+        CheckHealthBarLowState();
     }
 
     private void StartScrollDownBar() {

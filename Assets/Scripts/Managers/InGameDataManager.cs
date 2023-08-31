@@ -123,21 +123,29 @@ public class InGameDataManager : MonoBehaviour
     }
 
     public void DisplayTextEffect(string text, float timeScale = 1f) {
-        Vector3 pos = PlayerManager.GetPlayerPosition();
+        var playerPos = PlayerManager.GetPlayerPosition();
+        var playerViewportPos = MainCamera.Instance.Camera.WorldToViewportPoint(playerPos);
+        Debug.Log(playerViewportPos);
+        
+        var isTextOnRight = (playerPos.x < 0f);
+        if (isTextOnRight)
+            playerPos.x += 1f;
+        else
+            playerPos.x -= 1f;
+        playerPos.y += 1f;
+        
+        var pos = new Vector3(
+            playerViewportPos.x * Screen.width,
+            playerViewportPos.y * Screen.height,
+            0f
+            );
         
         GameObject obj = PoolingManager.PopFromPool("ScoreText", PoolingParent.ScoreText);
         obj.transform.SetParent(m_InGameWorldCanvasTransform);
-        bool dir = (pos.x > 0f);
-        if (dir)
-            pos.x += 1f;
-        else
-            pos.x -= 1f;
-        pos.y += 1f;
-        pos.z = Depth.SCORE_TEXT;
         
         obj.SetActive(true);
         ScoreText score_text = obj.GetComponent<ScoreText>();
-        score_text.OnStart(pos, text, timeScale, dir);
+        score_text.OnStart(pos, text, timeScale, isTextOnRight);
     }
 
     public void InitBombNumber() {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainCamera : MonoBehaviour
 {
     [SerializeField] private Transform m_CameraShakingTransform;
+    public Camera Camera;
     
     private Vector2 _shakingPosition;
     private const float CAMERA_MOVE_RATE = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScoreText : MonoBehaviour, IObjectPooling
 {
+    public RectTransform m_RectTransform;
+    
     private TextMeshProUGUI _textUI;
     private Animator _animator;
     private Color _defaultTextColor;
@@ -23,13 +25,15 @@ public class ScoreText : MonoBehaviour, IObjectPooling
         _defaultTextColor = _textUI.color;
     }
 
-    public void OnStart(Vector3 pos, string text, float timeScale, bool dir)
+    public void OnStart(Vector3 pos, string text, float timeScale, bool isTextOnRight)
     {
+        m_RectTransform.pivot = new Vector2(isTextOnRight ? 1f : 0f, 0f);
+        _textUI.text = text;
+        _textUI.alignment = isTextOnRight ? TextAlignmentOptions.Left : TextAlignmentOptions.Right;
         transform.position = pos;
         transform.localScale = new Vector3(1f, 1f, 1f);
-        _textUI.text = text;
         
-        _animator.SetTrigger(dir ? _textLeft : _textRight);
+        _animator.SetTrigger(isTextOnRight ? _textRight : _textLeft);
         _animator.speed = timeScale;
         StartCoroutine(BlinkEffect());
     }

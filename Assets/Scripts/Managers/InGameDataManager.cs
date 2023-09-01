@@ -21,6 +21,10 @@ public class InGameDataManager : MonoBehaviour
     private readonly int[] _stageMiss = {0, 0, 0, 0, 0};
     private readonly Dictionary<ItemType, int> _itemCount = new();
     
+#if UNITY_EDITOR
+    private PlayerUnit _debugPlayerUnit;
+#endif
+    
     public long TotalScore
     {
         get => _totalScore;
@@ -95,6 +99,11 @@ public class InGameDataManager : MonoBehaviour
         CurrentShipAttributes = PlayerManager.CurrentAttributes;
         MaxBombNumber = CurrentShipAttributes.GetAttributes(AttributeType.Bomb) + 2;
         InitBombNumber();
+        
+#if UNITY_EDITOR
+        if (DebugOption.SceneMode == 1)
+            _debugPlayerUnit = FindObjectOfType<PlayerUnit>();
+#endif
     }
 
     public void AddScore(long score, bool effect, ItemType itemType)
@@ -123,16 +132,16 @@ public class InGameDataManager : MonoBehaviour
     }
 
     public void DisplayTextEffect(string text, float timeScale = 1f) {
+#if UNITY_EDITOR
+        var playerPos = (DebugOption.SceneMode == 1) ? _debugPlayerUnit.transform.position : PlayerManager.GetPlayerPosition();
+#else
         var playerPos = PlayerManager.GetPlayerPosition();
+#endif
+        var isTextOnRight = (playerPos.x <= 0f);
+
+        playerPos += new Vector3(isTextOnRight ? 1f : -1f, 1f);
+        playerPos.y = Mathf.Min(playerPos.y, -1f);
         var playerViewportPos = MainCamera.Instance.Camera.WorldToViewportPoint(playerPos);
-        Debug.Log(playerViewportPos);
-        
-        var isTextOnRight = (playerPos.x < 0f);
-        if (isTextOnRight)
-            playerPos.x += 1f;
-        else
-            playerPos.x -= 1f;
-        playerPos.y += 1f;
         
         var pos = new Vector3(
             playerViewportPos.x * Screen.width,
@@ -144,8 +153,8 @@ public class InGameDataManager : MonoBehaviour
         obj.transform.SetParent(m_InGameWorldCanvasTransform);
         
         obj.SetActive(true);
-        ScoreText score_text = obj.GetComponent<ScoreText>();
-        score_text.OnStart(pos, text, timeScale, isTextOnRight);
+        ScoreText scoreText = obj.GetComponent<ScoreText>();
+        scoreText.OnStart(pos, text, timeScale, isTextOnRight);
     }
 
     public void InitBombNumber() {

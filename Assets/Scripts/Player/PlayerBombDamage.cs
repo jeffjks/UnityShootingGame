@@ -23,7 +23,8 @@ public class PlayerBombDamage : PlayerObject
 
     void OnTriggerStay2D(Collider2D other) // 충돌 감지
     {
-        if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
+        if (other.gameObject.CompareTag("Enemy"))
+        {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             DealDamage(enemyObject);
         }
@@ -32,7 +33,6 @@ public class PlayerBombDamage : PlayerObject
     private IEnumerator BombDamageEnd() {
         yield return new WaitForMillisecondFrames(m_BombDuration);
         OnBombRemoved();
-        yield break;
     }
 
     private void OnBombRemoved() {

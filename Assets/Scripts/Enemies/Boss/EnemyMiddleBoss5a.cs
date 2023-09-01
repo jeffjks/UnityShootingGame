@@ -6,16 +6,17 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     public EnemyMiddleBoss5a_MainTurret m_MainTurret;
     public EnemyMiddleBoss5a_SubTurret[] m_SubTurret = new EnemyMiddleBoss5a_SubTurret[2];
     
-    private int m_Phase;
+    private int _phase;
     private EnemyMissile[] _enemyMissiles;
+    private EnemyItemCreater[] _enemyMissileItemCreaters;
     
     private readonly Vector3 TARGET_POSITION = new (0f, -4f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2500;
     private const int TIME_LIMIT = 38000;
 
-    private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
-    private IEnumerator m_TimeLimit;
-    private bool m_Pattern1B;
+    private IEnumerator _currentPhase;
+    private IEnumerator _timeLimit;
+    private IEnumerator _missileLaunch;
 
     void Start()
     {
@@ -28,13 +29,18 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         SystemManager.OnMiddleBossStart();
 
         _enemyMissiles = GetComponentsInChildren<EnemyMissile>();
+        _enemyMissileItemCreaters = new EnemyItemCreater[_enemyMissiles.Length];
+        for (var i = 0; i < _enemyMissileItemCreaters.Length; ++i)
+        {
+            _enemyMissileItemCreaters[i] = _enemyMissiles[i].GetComponent<EnemyItemCreater>();
+        }
     }
 
     protected override void Update()
     {
         base.Update();
         
-        if (!TimeLimitState && m_Phase > 0) {
+        if (!TimeLimitState && _phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 0.6f) {
                 m_MoveVector.direction = Random.Range(-100f, -80f);
             }
@@ -67,12 +73,12 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     private void OnAppearanceComplete() {
         float random_direction = Random.Range(80f, 100f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.4f, random_direction);
-        m_Phase = 1;
-        m_CurrentPhase = Phase1();
-        StartCoroutine(m_CurrentPhase);
+        _phase = 1;
+        _currentPhase = Phase1();
+        StartCoroutine(_currentPhase);
 
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimit = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimit);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0)
@@ -94,7 +100,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 1)
+        while (_phase == 1)
         {
             m_MainTurret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5a_MainTurret_A(m_MainTurret));
             yield return new WaitForMillisecondFrames(2000);
@@ -116,7 +122,8 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
             m_MainTurret.StopPattern("D");
 
             yield return new WaitForMillisecondFrames(500);
-            StartCoroutine(LaunchMissile());
+            _missileLaunch = LaunchMissile();
+            StartCoroutine(_missileLaunch);
             yield return new WaitForMillisecondFrames(1000);
             m_MainTurret.StartPattern("B", new BulletPattern_EnemyMiddleBoss5a_MainTurret_B(m_MainTurret));
             yield return new WaitForMillisecondFrames(6000);
@@ -157,20 +164,26 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     private IEnumerator LaunchMissile() {
         for (int i = 0; i < 4; i++) {
             yield return new WaitForMillisecondFrames(2000);
-            if (m_Phase > 0) {
-                _enemyMissiles[i*2].enabled = true;
-                _enemyMissiles[i*2 + 1].enabled = true;
+            if (_phase > 0) {
+                _enemyMissiles[i * 2].enabled = true;
+                _enemyMissiles[i * 2 + 1].enabled = true;
+                _enemyMissileItemCreaters[i * 2].enabled = true;
+                _enemyMissileItemCreaters[i * 2 + 1].enabled = true;
             }
         }
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
         BulletManager.BulletsToGems(2500);
-        if (m_TimeLimit != null)
-            StopCoroutine(m_TimeLimit);
+        if (_currentPhase != null)
+            StopCoroutine(_currentPhase);
+        if (_timeLimit != null)
+            StopCoroutine(_timeLimit);
+        if (_missileLaunch != null)
+            StopCoroutine(_missileLaunch);
         m_MoveVector = new MoveVector(1.5f, 0f);
         
-        m_Phase = -1;
+        _phase = -1;
         
         yield break;
     }

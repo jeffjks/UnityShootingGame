@@ -77,6 +77,11 @@ public class DebugPlayer : MonoBehaviour
         SubWeaponIndex = m_PlayerShotHandler.SubWeaponIndex;
     }
 
+    public void OnClickScoreText()
+    {
+        InGameDataManager.Instance.DisplayTextEffect(1000);
+    }
+
     public void OnClickPowerDown()
     {
         AttackLevel--;

@@ -134,6 +134,7 @@ public abstract class PlayerObject : UnitObject
     private void Awake()
     {
         _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
+        OnDamageLevelChanged();
     }
 
     protected virtual void OnDamageLevelChanged()

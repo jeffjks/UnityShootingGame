@@ -11,10 +11,6 @@ public class ScoreText : MonoBehaviour, IObjectPooling
     private Color _defaultTextColor;
     private const int BLINK_FRAME_WAIT = 25;
     
-    //private IEnumerator m_BlinkEffect, m_FadeOutEffect;
-    //private float _hSpeed;
-    //private const float SPEED_START = 0.6f;
-    //private const float SPEED_ACCEL = 4f;
     private readonly int _textLeft = Animator.StringToHash("Text_Left");
     private readonly int _textRight = Animator.StringToHash("Text_Right");
 
@@ -27,16 +23,18 @@ public class ScoreText : MonoBehaviour, IObjectPooling
 
     public void OnStart(Vector3 pos, string text, float timeScale, bool isTextOnRight)
     {
-        m_RectTransform.pivot = new Vector2(isTextOnRight ? 1f : 0f, 0f);
-        _textUI.text = text;
-        _textUI.alignment = isTextOnRight ? TextAlignmentOptions.Left : TextAlignmentOptions.Right;
         transform.position = pos;
         transform.localScale = new Vector3(1f, 1f, 1f);
+        m_RectTransform.pivot = new Vector2(isTextOnRight ? 0f : 1f, 0f);
+        m_RectTransform.localPosition = Vector3.zero;
+        _textUI.text = text;
+        _textUI.alignment = isTextOnRight ? TextAlignmentOptions.Left : TextAlignmentOptions.Right;
         
         _animator.SetTrigger(isTextOnRight ? _textRight : _textLeft);
         _animator.speed = timeScale;
         StartCoroutine(BlinkEffect());
     }
+    
     private IEnumerator BlinkEffect() {
         yield return new WaitForFrames(BLINK_FRAME_WAIT);
         while (true)

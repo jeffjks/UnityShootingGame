@@ -11,7 +11,7 @@ public interface IHasGroundCollider
 [RequireComponent(typeof(EnemyColorBlender))]
 public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 {
-    private EnemyDeath m_EnemyDeath;
+    private EnemyDeath _enemyDeath;
     [Tooltip("None: 독립적인 Blend, 자체 체력이 있지만 본체에도 데미지 전달\nIndependent: 독립적인 Blend, 독립적인 자체 체력\nShare: 본체와 Blend와 체력 모두 공유")]
     public HealthType m_HealthType;
     [DrawIf("m_HealthType", HealthType.Share, ComparisonType.NotEqual)]
@@ -40,12 +40,13 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
     public float HealthPercent => (float) _currentHealth / m_DefaultHealth;
 
-    void Start()
+    private void Awake()
     {
         if (transform != transform.root) {
             _parentEnemyHealth = transform.parent.GetComponentInParent<EnemyHealth>();
+            Debug.Log(name);
         }
-        m_EnemyDeath = GetComponent<EnemyDeath>();
+        _enemyDeath = GetComponent<EnemyDeath>();
         
         CurrentHealth = m_DefaultHealth;
 
@@ -164,16 +165,10 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         _remainingFrame = 0;
     }
 
-    private void UpdateColorBlend() {
-        try
-        {
-            if (m_EnemyDeath.IsDead)
-                return;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"{e}: {name}");
-        }
+    private void UpdateColorBlend()
+    {
+        if (_enemyDeath.IsDead)
+            return;
 
         Action_DamagingBlend?.Invoke();
         
@@ -200,6 +195,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     private void OnHpZero() {
-        m_EnemyDeath.KillEnemy();
+        _enemyDeath.KillEnemy();
     }
 }

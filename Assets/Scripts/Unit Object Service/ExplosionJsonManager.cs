@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
 using Newtonsoft.Json;
+using Random = UnityEngine.Random;
 
 public class ExplosionJsonManager : MonoBehaviour
 {
@@ -21,8 +23,14 @@ public class ExplosionJsonManager : MonoBehaviour
         Instance = this;
         
         InitExplosionEffectString();
+        SystemManager.Action_OnQuitInGame += StopAllCoroutines;
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnQuitInGame -= StopAllCoroutines;
     }
 
     private void OnEnable()

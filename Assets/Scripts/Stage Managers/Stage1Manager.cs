@@ -115,39 +115,39 @@ public class Stage1Manager : StageManager
         yield return new WaitForMillisecondFrames(5000); // Middle Boss ==========================
 
         for (int i = 0; i < 10; i++) {
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(-5f, -1f), 3f));
                 CreateEnemy(m_PlaneSmall_1, new Vector2(Random.Range(1f, 5f), 3f));
             }
             yield return new WaitForMillisecondFrames(1000);
         }
 
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneMedium_3, new Vector2(-4f, 3f));
             if (SystemManager.Difficulty >= GameDifficulty.Hell)
                 CreateEnemy(m_PlaneMedium_3, new Vector2(4f, 3f));
         }
         yield return new WaitForMillisecondFrames(2000);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -3f), Random.Range(1200, 1500));
             CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), Random.Range(1200, 1500));
         }
         yield return new WaitForMillisecondFrames(1500);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneMedium_3, new Vector2(0f, 3f));
         }
         yield return new WaitForMillisecondFrames(1500);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             if (SystemManager.Difficulty >= GameDifficulty.Expert)
                 CreateEnemy(m_PlaneMedium_3, new Vector2(3f, 3f));
         }
         yield return new WaitForMillisecondFrames(1000);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneSmall_1, new Vector2(-3f, 3f));
             CreateEnemy(m_PlaneSmall_1, new Vector2(-6f, 3f));
         }
         yield return new WaitForMillisecondFrames(500);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneSmall_1, new Vector2(-3f, 3f));
             CreateEnemy(m_PlaneSmall_1, new Vector2(-6f, 3f));
         }

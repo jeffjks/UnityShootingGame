@@ -17,8 +17,7 @@ public enum AttributeType
 
 public enum PlayState
 {
-    OutGame = -1,
-    OnField,
+    None,
     OnMiddleBoss,
     OnBoss,
     OnBossCleared,

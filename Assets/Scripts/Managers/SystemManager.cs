@@ -16,7 +16,8 @@ public class SystemManager : MonoBehaviour
     public static GameDifficulty Difficulty { get; private set; }
     public static GameDifficulty DebugDifficulty;
     public static TrainingInfo TrainingInfo;
-    public static PlayState PlayState = PlayState.OutGame;
+    public static PlayState PlayState = PlayState.None;
+    public static bool IsInGame;
     public static int Stage = -1;
     public static int CurrentSeed;
     
@@ -39,6 +40,8 @@ public class SystemManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
 
+        Action_OnQuitInGame += () => IsInGame = false;
+
         if (DebugOption.SceneMode == 3)
             StartNextStageCoroutine();
     }
@@ -54,14 +57,14 @@ public class SystemManager : MonoBehaviour
     }
 
     public static void OnMiddleBossClear() {
-        PlayState = PlayState.OnField;
+        PlayState = PlayState.None;
     }
 
     public static void OnBossClear()
     {
         if (DebugOption.SceneMode == 1 || DebugOption.SceneMode == 2)
         {
-            PlayState = PlayState.OnField;
+            PlayState = PlayState.None;
             return;
         }
         
@@ -75,12 +78,10 @@ public class SystemManager : MonoBehaviour
     private IEnumerator StageClear() {
         if (StageManager.IsTrueBossEnabled)
             yield break;
-        yield return new WaitForMillisecondFrames(3000);
+        yield return new WaitForMillisecondFrames(4000);
         PlayState = PlayState.OnStageResult;
         AudioService.PlayMusic("StageClear");
         Action_OnStageClear?.Invoke();
-        
-        yield return new WaitForMillisecondFrames(2000);
         Action_OnShowOverview?.Invoke();
     }
 
@@ -102,13 +103,13 @@ public class SystemManager : MonoBehaviour
     {
         CurrentSeed = seed;
         SceneManager.LoadScene($"Stage{stage + 1}");
-        PlayState = PlayState.OnField;
+        IsInGame = true;
         Stage = stage;
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터
         PlayState = PlayState.OnStageTransition;
-        InGameScreenEffectService.TransitionOut();
+        FadeScreenService.ScreenFadeOut(2f);
         yield return new WaitForMillisecondFrames(2000);
 
         if (GameMode == GameMode.Training && !DebugOption.InvincibleMod) {
@@ -121,8 +122,6 @@ public class SystemManager : MonoBehaviour
             Stage++;
             Action_OnNextStage?.Invoke(true);
             SceneManager.LoadScene(sceneName);
-
-            PlayState = PlayState.OnField;
         }
         else {
             var sceneName = "EndingCredit";
@@ -131,11 +130,9 @@ public class SystemManager : MonoBehaviour
             //gameObject.SetActive(false);
             Action_OnNextStage?.Invoke(false);
             SceneManager.LoadScene(sceneName);
-
-            PlayState = PlayState.OnStageResult;
             
             yield return new WaitForMillisecondFrames(1000);
-            InGameScreenEffectService.TransitionOut(1.5f);
+            FadeScreenService.ScreenFadeOut(1.5f);
         }
     }
 
@@ -175,23 +172,5 @@ public class SystemManager : MonoBehaviour
     public static void SetDifficulty(GameDifficulty gameDifficulty)
     {
         Difficulty = gameDifficulty;
-    }
-
-    public static bool IsOnGamePlayState()
-    {
-        if (PlayState == PlayState.OnField)
-        {
-            return true;
-        }
-        if (PlayState == PlayState.OnMiddleBoss)
-        {
-            return true;
-        }
-        if (PlayState == PlayState.OnBoss)
-        {
-            return true;
-        }
-
-        return false;
     }
 }

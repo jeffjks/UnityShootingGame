@@ -38,8 +38,16 @@ public class PlayerLaserHandler : MonoBehaviour
                 return;
             StopLaser();
         };
+        if (!m_PlayerUnit.m_IsPreviewObject)
+            SystemManager.Action_OnBossClear += StopLaser;
         
         LaserIndex = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.LaserIndex);
+    }
+
+    private void OnDestroy()
+    {
+        if (!m_PlayerUnit.m_IsPreviewObject)
+            SystemManager.Action_OnBossClear -= StopLaser;
     }
     
     private void ResetLaserIndex() {

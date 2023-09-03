@@ -22,7 +22,7 @@ public class PlayerHomingMissile : PlayerWeapon {
         if (Time.timeScale == 0)
             return;
 
-        if (SystemManager.PlayState != PlayState.OutGame) {
+        if (SystemManager.IsInGame) {
             m_MainCameraPosition = MainCamera.Instance.transform.position;
             
             if (_target == null) {

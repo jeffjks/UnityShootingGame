@@ -103,7 +103,10 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     public Coroutine StartPattern(string key, IBulletPattern bulletPattern)
     {
         if (!m_IsInteractable)
+        {
+            Debug.Log("!m_IsInteractable");
             return null;
+        }
 
         if (bulletPattern == null)
             return null;

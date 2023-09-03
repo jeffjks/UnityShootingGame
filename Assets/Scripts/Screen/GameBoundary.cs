@@ -30,6 +30,9 @@ public class GameBoundary : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (InGameDataManager.Instance == null)
+            return;
+        
         if (other.CompareTag("Enemy")) {
             EnemyUnit enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
             if (enemyUnit.transform == enemyUnit.transform.root) { // 본체일 경우

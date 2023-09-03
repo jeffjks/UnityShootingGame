@@ -69,7 +69,7 @@ public class DebugPlayer : MonoBehaviour
 
     private void Start()
     {
-        SystemManager.PlayState = PlayState.OnField;
+        SystemManager.IsInGame = true;
         
         AttackLevel = m_PlayerUnit.PlayerAttackLevel;
         ShotIndex = m_PlayerShotHandler.ShotIndex;

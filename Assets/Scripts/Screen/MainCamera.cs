@@ -7,6 +7,7 @@ public class MainCamera : MonoBehaviour
     [SerializeField] private Transform m_CameraShakingTransform;
     public Camera Camera;
     
+    private bool _destroySingleton;
     private Vector2 _shakingPosition;
     private const float CAMERA_MOVE_RATE = CAMERA_MARGIN / Size.CAMERA_MOVE_LIMIT;
     private const float CAMERA_MARGIN = (Size.GAME_WIDTH - Size.MAIN_CAMERA_WIDTH) / 2; // 1.555
@@ -17,6 +18,12 @@ public class MainCamera : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            _destroySingleton = true;
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
 
         InitCamera();
@@ -26,6 +33,8 @@ public class MainCamera : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_destroySingleton)
+            return;
         SystemManager.Action_OnNextStage -= InitCamera;
     }
 

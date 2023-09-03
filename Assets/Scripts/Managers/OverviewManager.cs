@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,19 @@ using UnityEngine;
 public class OverviewManager : MonoBehaviour
 {
     public GameObject m_OverviewPanel;
-    
+    public OverviewGemRenderer m_OverviewGemRenderer;
+
+    private void Awake()
+    {
+        Instantiate(m_OverviewGemRenderer, new Vector3(-100f, 0f, 0f), Quaternion.identity);
+    }
+
+    private void OnDestroy()
+    {
+        if (OverviewGemRenderer.Instance != null)
+            Destroy(OverviewGemRenderer.Instance.gameObject);
+    }
+
     private void OnEnable()
     {
         SystemManager.Action_OnShowOverview += OpenWindow;

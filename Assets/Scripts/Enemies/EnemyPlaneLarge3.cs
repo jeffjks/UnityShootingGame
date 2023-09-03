@@ -58,7 +58,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
         base.Update();
         
         if (!TimeLimitState) { // Retreat when boss or middle boss state
-            if (SystemManager.PlayState != PlayState.OnField) {
+            if (SystemManager.PlayState != PlayState.None) {
                 if (m_TimeLimit != null)
                     StopCoroutine(m_TimeLimit);
                 m_TimeLimit = TimeLimit();

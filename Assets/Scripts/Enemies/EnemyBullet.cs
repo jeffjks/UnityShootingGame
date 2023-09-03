@@ -14,20 +14,9 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public CapsuleCollider2D m_CapsuleCollider;
     public Animator[] m_EraseAnimator;
     
-    /*
-    [HideInInspector] public int m_Timer;
-    [HideInInspector] public OldBulletType m_Type;
-    [HideInInspector] public byte m_NewImageType, m_NewDirectionType;
-    [HideInInspector] public float m_NewDirectionAdder;
-    [HideInInspector] public Vector2Int m_SecondTimer;
-    [HideInInspector] public int m_NewNumber;
-    [HideInInspector] public float m_NewInterval;
-    public MoveVector m_NewMoveVector;
-    public BulletAccel m_NewBulletAccel;*/
     private int _imageDepth;
     private bool _isRotating;
     
-    private bool _isPlayingEraseAnimation;
     private GameObject _bulletImageObject;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
@@ -39,6 +28,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     //private Tween m_Tween = null;
 
+    public bool IsPlayingEraseAnimation { get; private set; }
     public EnemyObject OwnerEnemyObject { private get; set; }
 
     public BulletImage BulletImage
@@ -90,7 +80,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public void OnStart(BulletProperty bulletProperty)
     {
         SetSortingLayer();
-        _isPlayingEraseAnimation = false;
+        IsPlayingEraseAnimation = false;
 
         var pivotDirection = 0f;
         switch (bulletProperty.pivot)
@@ -115,22 +105,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             PlayEraseAnimation();
             return;
         }
-
-        /*
-        switch(m_Type) {
-            case BulletSpawnType.Create: // n초후 다른 총알 생성
-                if (m_SecondTimer == Vector2Int.zero)
-                    StartCoroutine(CreateSubBullet(m_Timer));
-                else
-                    StartCoroutine(CreateSubBullet(m_Timer, Random.Range(m_SecondTimer.x, m_SecondTimer.y)));
-                break;
-            case BulletSpawnType.EraseAndCreate: // n초후 다른 총알 생성 후 파괴
-                StartCoroutine(CreateSubBullet(m_Timer));
-                StartCoroutine(StopAndDeath(m_Timer));
-                break;
-            default:
-                break;
-        }*/
 
         if (bulletProperty.accel.duration > 0)
             StartCoroutine(ApplyBulletAccel(bulletProperty.accel));
@@ -280,43 +254,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         }
     }
 
-    /*
-    private IEnumerator CreateSubBullet(int millisecond, int repeatMillisecond = -1) {
-        if (millisecond != 0) {
-            yield return new WaitForMillisecondFrames(millisecond);
-        }
-
-        while (true) {
-            switch(m_NewDirectionType) {
-                case BulletPivot.Fixed:
-                    m_NewMoveVector.direction = 0f;
-                    break;
-                case BulletPivot.Player:
-                    m_NewMoveVector.direction = GetAngleToTarget(transform.position, PlayerManager.GetPlayerPosition());
-                    break;
-                case BulletPivot.Current:
-                    m_NewMoveVector.direction = m_MoveVector.direction;
-                    break;
-                default:
-                    m_NewMoveVector.direction = 0f;
-                    break;
-            }
-            Vector3 pos = transform.position;
-            if (m_NewNumber == 0)
-                CreateBullet(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewBulletAccel);
-            else
-                CreateBulletsSector(m_NewImageType, pos, m_NewMoveVector.speed, m_NewMoveVector.direction + m_NewDirectionAdder, m_NewBulletAccel, m_NewNumber, m_NewInterval);
-            
-            if (repeatMillisecond == -1) {
-                break;
-            }
-            else {
-                yield return new WaitForMillisecondFrames(repeatMillisecond);
-            }
-        }
-        yield break;
-    }*/
-
     public void PlayEraseAnimation()
     {
         PlayEraseAnimation(true);
@@ -324,11 +261,11 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private void PlayEraseAnimation(bool hasSpeed)
     {
-        if (_isPlayingEraseAnimation)
+        if (IsPlayingEraseAnimation)
             return;
         if (!hasSpeed)
             m_MoveVector.speed = 0f;
-        _isPlayingEraseAnimation = true;
+        IsPlayingEraseAnimation = true;
         StopAllCoroutines();
         _bulletImageObject.SetActive(false);
         _currentCollider.gameObject.SetActive(false);
@@ -347,25 +284,9 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void ReturnToPool() {
         StopAllCoroutines();
-        _isPlayingEraseAnimation = false;
+        IsPlayingEraseAnimation = false;
         _currentCollider.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
     }
-
-    /*
-    protected override bool CanCreateBullet(Vector3 pos) {
-        float camera_x = MainCamera.Camera.transform.position.x;
-
-        if (!PlayerManager.IsPlayerAlive)
-            return false;
-        if (!SystemManager.IsOnGamePlayState())
-            return false;
-        if (2 * Mathf.Abs(pos.x - camera_x) > Size.MAIN_CAMERA_WIDTH)
-            return false;
-        if (pos.y is > 0 or < - Size.MAIN_CAMERA_HEIGHT)
-            return false;
-        
-        return true;
-    }*/
 }

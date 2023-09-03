@@ -15,16 +15,15 @@ public class PauseMenuHandler : MenuHandler
 
     private void OnEnable()
     {
-        InGameInputController.Instance.Action_OnPauseInput += Resume;
-        InGameInputController.Instance.Action_OnEscapeInput += Resume;
+        _isActive = true;
+        InGameInputController.Action_OnPauseInput += Resume;
+        InGameInputController.Action_OnEscapeInput += Resume;
     }
 
     private void OnDisable()
     {
-        if (!InGameInputController.Instance)
-            return;
-        InGameInputController.Instance.Action_OnPauseInput -= Resume;
-        InGameInputController.Instance.Action_OnEscapeInput -= Resume;
+        InGameInputController.Action_OnPauseInput -= Resume;
+        InGameInputController.Action_OnEscapeInput -= Resume;
     }
 
     public override void Back()
@@ -34,15 +33,20 @@ public class PauseMenuHandler : MenuHandler
     public void SoundSettings() {
         if (CriticalStateSystem.InCriticalState)
             return;
+        if (!_isActive)
+            return;
         
         GoToTargetMenu(m_SoundMenuPanel);
     }
 
     public void QuitMenu()
     {
+        if (!_isActive)
+            return;
+        
         PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
             QuitGame,
-            null,
+            () => _isActive = true,
             "게임을 종료하시겠습니까?",
             "Are you really want to exit?"
             ));
@@ -52,11 +56,14 @@ public class PauseMenuHandler : MenuHandler
         if (CriticalStateSystem.InCriticalState)
             return;
         
+        _previousMenuStack.Clear();
         m_PauseManager.QuitGame();
     }
     
     public void Resume() {
         if (CriticalStateSystem.InCriticalState)
+            return;
+        if (!_isActive)
             return;
         
         AudioService.PlaySound("CancelUI");

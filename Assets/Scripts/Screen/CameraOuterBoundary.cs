@@ -33,6 +33,9 @@ public class CameraOuterBoundary : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (InGameDataManager.Instance == null)
+            return;
+        
         var otherObject = other.gameObject;
         
         if (other.CompareTag("PlayerWeapon")) {

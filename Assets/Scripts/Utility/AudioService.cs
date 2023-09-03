@@ -165,16 +165,14 @@ public class AudioService : MonoBehaviour
             Debug.LogError($"'{musicName}' can not be played in this scene.");
             return;
         }
-        if (IsMusicPaused)
-        {
-            Debug.LogWarning($"Music is paused state. Unpause music first.");
-            return;
-        }
         if (currentMusic == musicName)
         {
             Debug.LogWarning($"'{musicName}' is already playing.");
             return;
         }
+
+        if (IsMusicPaused)
+            return;
         
         Instance.StopAllCoroutines();
         StopMusic();
@@ -210,24 +208,28 @@ public class AudioService : MonoBehaviour
 
     private static void PauseMusic()
     {
+        if (!IsMusicPlaying)
+            return;
+        
         IsMusicPaused = true;
         Instance.DOPause();
         var audioSource = GetCurrentMusic();
         if (!audioSource)
             return;
         audioSource.Pause();
-        IsMusicPlaying = false;
     }
 
     private static void UnpauseMusic()
     {
+        if (!IsMusicPlaying)
+            return;
+        
         IsMusicPaused = false;
         Instance.DOPlay();
         var audioSource = GetCurrentMusic();
         if (!audioSource)
             return;
         audioSource.UnPause();
-        IsMusicPlaying = true;
     }
 
     private static void PauseSound()
@@ -267,6 +269,8 @@ public class AudioService : MonoBehaviour
     {
         if (!IsMusicPlaying)
             return;
+        if (!IsMusicPaused)
+            UnpauseMusic();
         
         Instance.StopAllCoroutines();
         IsMusicPaused = false;
@@ -343,6 +347,30 @@ public class AudioService : MonoBehaviour
             {
                 return;
             }
+            audioSource.Stop();
+        }
+    }
+
+    public static void StopAllSound()
+    {
+        foreach (var keyValuePair in m_AudioSourceSoundDict)
+        {
+            var audioSource = keyValuePair.Value;
+            
+            if (!audioSource)
+                return;
+            if (!audioSource.isPlaying)
+                return;
+            audioSource.Stop();
+        }
+        foreach (var keyValuePair in m_AudioSourceExplosionDict)
+        {
+            var audioSource = keyValuePair.Value;
+            
+            if (!audioSource)
+                return;
+            if (!audioSource.isPlaying)
+                return;
             audioSource.Stop();
         }
     }

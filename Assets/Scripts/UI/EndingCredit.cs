@@ -17,17 +17,23 @@ public class EndingCredit : MonoBehaviour
     private float _currentScrollSpeed;
     private bool _isQuitting;
     private bool _isFirePress;
-    private InGameInputController _inGameInputController;
 
     private void Start()
     {
+        SystemManager.PlayState = PlayState.OnStageResult;
         _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.streamingAssetsPath, "resources2.dat").jsonData;
         m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
         
-        _inGameInputController = InGameInputController.Instance;
-        _inGameInputController.Action_OnFireInput += OnFireInvoked;
-        _inGameInputController.Action_OnBombInput += QuitEndingCredit;
-        _inGameInputController.Action_OnEscapeInput += QuitEndingCredit;
+        InGameInputController.Action_OnFireInput += OnFireInvoked;
+        InGameInputController.Action_OnBombInput += QuitEndingCredit;
+        InGameInputController.Action_OnEscapeInput += QuitEndingCredit;
+    }
+
+    private void OnDestroy()
+    {
+        InGameInputController.Action_OnFireInput -= OnFireInvoked;
+        InGameInputController.Action_OnBombInput -= QuitEndingCredit;
+        InGameInputController.Action_OnEscapeInput -= QuitEndingCredit;
     }
 
     private void OnEnable()

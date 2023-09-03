@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class BackgroundCamera : MonoBehaviour
 {
-    public static Camera Camera;
-    
-    private static BackgroundCamera Instance { get; set; }
+    public Camera m_GroundUnitCamera;
+
+    public static BackgroundCamera Instance { get; private set; }
 
     private static bool _isRepeating;
     private Vector3 _backgroundCameraDefaultLocalPos;
     private Vector3 _backgroundMoveVector;
+    private PositionConstraint _groundCameraPositionConstraint;
 
     private void Awake()
     {
@@ -19,8 +21,8 @@ public class BackgroundCamera : MonoBehaviour
             return;
         }
         Instance = this;
-        
-        Camera = GetComponent<Camera>();
+
+        _groundCameraPositionConstraint = m_GroundUnitCamera.GetComponent<PositionConstraint>();
         _backgroundCameraDefaultLocalPos = transform.localPosition;
 
         InitCamera();
@@ -67,6 +69,18 @@ public class BackgroundCamera : MonoBehaviour
 
     public static void MoveBackgroundCamera(bool relative, float position_z, int millisecond = 0) { // Overloading
         Instance.StartCoroutine(Instance.MoveBackgroundCameraCoroutine(relative, position_z, millisecond));
+    }
+
+    public static void SeparateGroundCamera()
+    {
+        Instance._groundCameraPositionConstraint.constraintActive = false;
+    }
+
+    public static void CombineGroundCamera()
+    {
+        Instance._groundCameraPositionConstraint.translationAtRest = Vector3.zero;
+        Instance._groundCameraPositionConstraint.translationOffset = Vector3.zero;
+        Instance._groundCameraPositionConstraint.constraintActive = true;
     }
 
     public static void RepeatBackground(float repeatLength)
@@ -154,7 +168,7 @@ public class BackgroundCamera : MonoBehaviour
 
     public static Vector2 GetScreenPosition(Vector3 pos)
     {
-        var viewportPosition = Camera.WorldToViewportPoint(pos);
+        var viewportPosition = Instance.m_GroundUnitCamera.WorldToViewportPoint(pos);
         var mainCameraX = MainCamera.Instance.GetCameraScreenPosition().x;
         var screenPosition = new Vector2(
             (viewportPosition.x - 0.5f) * Size.MAIN_CAMERA_WIDTH + mainCameraX,

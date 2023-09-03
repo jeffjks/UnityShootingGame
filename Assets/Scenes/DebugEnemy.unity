@@ -1986,6 +1986,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6090565632742941223, guid: 00a8f52df6297a641adda81b97f9435b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090565632742941223, guid: 00a8f52df6297a641adda81b97f9435b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090565632742941223, guid: 00a8f52df6297a641adda81b97f9435b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a8f52df6297a641adda81b97f9435b, type: 3}
 --- !u!1 &1382870167
@@ -2812,7 +2827,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_SpawnDirection: -40
+  m_SpawnDirection: 0
 --- !u!1 &1984301459
 GameObject:
   m_ObjectHideFlags: 0

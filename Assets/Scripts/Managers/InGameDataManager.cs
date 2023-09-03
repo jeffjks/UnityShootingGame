@@ -8,11 +8,12 @@ using Random = System.Random;
 
 public class InGameDataManager : MonoBehaviour
 {
-    public Transform m_InGameWorldCanvasTransform;
+    public RectTransform m_UICanvas;
     
     public event Action<long> Action_OnUpdateScore;
     public event Action<int, int> Action_OnUpdateBombNumber;
     
+    private bool _destroySingleton;
     private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
@@ -64,7 +65,9 @@ public class InGameDataManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
@@ -90,6 +93,8 @@ public class InGameDataManager : MonoBehaviour
     
     private void OnDestroy()
     {
+        if (_destroySingleton)
+            return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 
@@ -131,9 +136,10 @@ public class InGameDataManager : MonoBehaviour
         DisplayTextEffect(score.ToString());
     }
 
-    public void DisplayTextEffect(string text, float timeScale = 1f) {
+    public void DisplayTextEffect(string text, float timeScale = 1f)
+    {
 #if UNITY_EDITOR
-        var playerPos = (DebugOption.SceneMode == 1) ? _debugPlayerUnit.transform.position : PlayerManager.GetPlayerPosition();
+        var playerPos = (DebugOption.SceneMode > 0) ? _debugPlayerUnit.transform.position : PlayerManager.GetPlayerPosition();
 #else
         var playerPos = PlayerManager.GetPlayerPosition();
 #endif
@@ -142,15 +148,22 @@ public class InGameDataManager : MonoBehaviour
         playerPos += new Vector3(isTextOnRight ? 1f : -1f, 1f);
         playerPos.y = Mathf.Min(playerPos.y, -1f);
         var playerViewportPos = MainCamera.Instance.Camera.WorldToViewportPoint(playerPos);
+
+        var uiCanvasSize = new Vector2(
+            m_UICanvas.rect.width * m_UICanvas.lossyScale.x,
+            m_UICanvas.rect.height * m_UICanvas.lossyScale.y
+        );
+
+        var leftBottom = new Vector2((Screen.width - uiCanvasSize.x) / 2f, (Screen.height - uiCanvasSize.y) / 2f);
         
         var pos = new Vector3(
-            playerViewportPos.x * Screen.width,
-            playerViewportPos.y * Screen.height,
+            playerViewportPos.x * uiCanvasSize.x + leftBottom.x,
+            playerViewportPos.y * uiCanvasSize.y + leftBottom.y,
             0f
             );
         
         GameObject obj = PoolingManager.PopFromPool("ScoreText", PoolingParent.ScoreText);
-        obj.transform.SetParent(m_InGameWorldCanvasTransform);
+        obj.transform.SetParent(m_UICanvas);
         
         obj.SetActive(true);
         ScoreText scoreText = obj.GetComponent<ScoreText>();

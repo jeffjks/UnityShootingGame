@@ -22,6 +22,7 @@ public class NetworkAccount : MonoBehaviour
         
         if (!DebugOption.NetworkAvailable) {
             SceneManager.LoadScene(_sceneList[DebugOption.SceneMode]);
+            return;
         }
 
         m_LoginPanel.SetActive(true);

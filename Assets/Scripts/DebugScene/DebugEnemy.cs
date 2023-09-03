@@ -39,7 +39,7 @@ public class DebugEnemy : MonoBehaviour
         }
 
         GameManager.IsDebugScene = true;
-        SystemManager.PlayState = PlayState.OnField;
+        SystemManager.IsInGame = true;
         
         _enemyPrefabs.AddRange(m_EnemyUnitPrefabData.AirEnemyPrefabs);
         _enemyPrefabs.AddRange(m_EnemyUnitPrefabData.GroundEnemyPrefabs);

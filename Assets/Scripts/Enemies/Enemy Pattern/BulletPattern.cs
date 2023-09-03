@@ -212,7 +212,7 @@ public class BulletFactory
         
         if (!PlayerManager.IsPlayerAlive)
             return false;
-        if (!SystemManager.IsOnGamePlayState())
+        if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
             return false;
         
         return true;

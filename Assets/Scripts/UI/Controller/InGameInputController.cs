@@ -2,39 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InGameInputController : MonoBehaviour
 {
-    public event Action Action_OnPauseInput;
-    public event Action<InputValue> Action_OnFireInput;
-    public event Action Action_OnBombInput;
-    public event Action Action_OnEscapeInput;
-    public event Action<InputValue> Action_OnMove;
-    
-    public static InGameInputController Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null) {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-
-        SystemManager.Action_OnQuitInGame += DestroySelf;
-        SystemManager.Action_OnNextStage += DestroySelf;
-        SystemManager.Action_OnFinishEndingCredit += DestroySelf;
-        
-        //DontDestroyOnLoad(gameObject);
-    }
-    
-    private void OnDestroy()
-    {
-        SystemManager.Action_OnQuitInGame -= DestroySelf;
-        SystemManager.Action_OnNextStage -= DestroySelf;
-        SystemManager.Action_OnFinishEndingCredit -= DestroySelf;
-    }
+    public static event Action Action_OnPauseInput;
+    public static event Action<InputValue> Action_OnFireInput;
+    public static event Action Action_OnBombInput;
+    public static event Action Action_OnEscapeInput;
+    public static event Action<InputValue> Action_OnMove;
 
     public void OnPause()
     {
@@ -60,17 +38,5 @@ public class InGameInputController : MonoBehaviour
     public void OnMove(InputValue inputValue)
     {
         Action_OnMove?.Invoke(inputValue);
-    }
-
-    private void DestroySelf()
-    {
-        Instance = null;
-        //Destroy(gameObject);
-    }
-
-    private void DestroySelf(bool hasNextStage)
-    {
-        if (!hasNextStage)
-            DestroySelf();
     }
 }

@@ -29,7 +29,7 @@ public class Stage5Manager : StageManager
     {
         //StartCoroutine(BossTimeline());
         //yield break;
-        BackgroundCamera.Camera.transform.position = new Vector3(0f, 40f, 389.4f);
+        BackgroundCamera.Instance.transform.position = new Vector3(0f, 40f, 389.4f);
         BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(3000);
         AudioService.FadeOutMusic(5f);
@@ -64,7 +64,7 @@ public class Stage5Manager : StageManager
         BackgroundCamera.SetBackgroundSpeed(1f, 4000);
         yield return new WaitForMillisecondFrames(9000);
         StartBossTimeline();
-        Debug.Log(BackgroundCamera.Camera.transform.localPosition.z.ToString("N8"));
+        Debug.Log(BackgroundCamera.Instance.transform.localPosition.z.ToString("N8"));
     }
 
     protected override IEnumerator BossTimeline()
@@ -232,7 +232,7 @@ public class Stage5Manager : StageManager
 
         StartCoroutine(SpawnPlaneMedium_3s(10000));
         yield return new WaitForMillisecondFrames(4000);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             StartCoroutine(SpawnPlaneSmalls_C(m_PlaneSmall_1, true));
         }
         yield return new WaitForMillisecondFrames(2000);
@@ -243,7 +243,7 @@ public class Stage5Manager : StageManager
             CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -9f), 1200);
         }
         yield return new WaitForMillisecondFrames(2000);
-        if (SystemManager.PlayState == PlayState.OnField) {
+        if (SystemManager.PlayState == PlayState.None) {
             StartCoroutine(SpawnPlaneSmalls_C(m_PlaneSmall_1, false));
         }
         
@@ -447,7 +447,7 @@ public class Stage5Manager : StageManager
     {
         int timer = 0;
         while (timer < duration) {
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(plane, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, Random.Range(-2f, -3f)));
                 CreateEnemy(plane, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, Random.Range(-2f, -3f)));
             }
@@ -474,13 +474,13 @@ public class Stage5Manager : StageManager
     {
         int timer = 0;
         while (timer < duration) {
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-7f, -5f), Random.Range(1f, 4f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 4f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(5f, 7f), Random.Range(1f, 4f)));
             }
             yield return new WaitForMillisecondFrames(period);
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-4f, -2f), Random.Range(1f, 4f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2f, 4f), Random.Range(1f, 4f)));
             }
@@ -495,11 +495,11 @@ public class Stage5Manager : StageManager
         int[] period = { 1100, 850, 700 };
         while (timer < duration) {
             rand_period = Random.Range(0, 300);
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 6f), 3f));
             }
             yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty] - rand_period);
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 6f), 3f));
             }
             yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty] + rand_period);
@@ -519,7 +519,7 @@ public class Stage5Manager : StageManager
     }
 
     private float GetBackgroundZ() {
-        return BackgroundCamera.Camera.transform.position.z;
+        return BackgroundCamera.Instance.transform.position.z;
     }
 
     private void CheckFinalBossState() {

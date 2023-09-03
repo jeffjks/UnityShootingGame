@@ -24,23 +24,20 @@ public class PlayerInvincibility : MonoBehaviour
     
     private static int _remainingFrame;
 
-    private void Awake()
-    {
-        Action_OnInvincibilityChanged += SetPlayerShield;
-    }
-
-    private void OnDestroy()
-    {
-        Action_OnInvincibilityChanged -= SetPlayerShield;
-    }
-
     private void Start()
     {
+        Action_OnInvincibilityChanged += SetPlayerShield;
+        
         if (DebugOption.InvincibleMod)
         {
             IsInvincible = true;
             _remainingFrame = -1;
         }
+    }
+
+    private void OnDestroy()
+    {
+        Action_OnInvincibilityChanged -= SetPlayerShield;
     }
 
     private void Update()

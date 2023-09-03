@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 0
-  m_DefaultHealth: 16000
+  m_DefaultHealth: 17500
   m_Collider2D:
   - {fileID: 4034648354030224631}
 --- !u!114 &5008286825400514406
@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 0
-  m_DefaultHealth: 3000
+  m_DefaultHealth: 3500
   m_Collider2D:
   - {fileID: 6046542414855019159}
 --- !u!114 &3621604697863329020
@@ -2032,7 +2032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 0
-  m_DefaultHealth: 3000
+  m_DefaultHealth: 3500
   m_Collider2D:
   - {fileID: 2878320449272859808}
 --- !u!114 &5640588887376963424

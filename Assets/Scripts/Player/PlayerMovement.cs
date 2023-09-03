@@ -44,16 +44,8 @@ public class PlayerMovement : MonoBehaviour
         _playerCollisionDetector.Action_OnDeath += KillPlayer;
         _playerCollisionDetector.Action_OnDeath += ResetPosition;
     }
-    
-    private void OnDestroy()
-    {
-        SystemManager.Action_OnBossClear -= OnBossClear;
-        SystemManager.Action_OnStageClear -= OnStageClear;
-        SystemManager.Action_OnNextStage -= OnNextStage;
-        SystemManager.Action_OnQuitInGame -= OnRemove;
-    }
 
-    void Start()
+    private void Start()
     {
         m_PlayerUnit.m_MoveVector.direction = 180f;
         transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.CurrentAngle, Vector3.forward); // Vector3.forward
@@ -64,19 +56,27 @@ public class PlayerMovement : MonoBehaviour
         
         PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
     }
+    
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnBossClear -= OnBossClear;
+        SystemManager.Action_OnStageClear -= OnStageClear;
+        SystemManager.Action_OnNextStage -= OnNextStage;
+        SystemManager.Action_OnQuitInGame -= OnRemove;
+    }
 
     public void MovePlayer(Vector2 inputVector)
     {
         MoveRawHorizontal = System.Math.Sign(inputVector.x);
         MoveRawVertical = System.Math.Sign(inputVector.y);
-
-        OverviewPosition();
     }
 
     private void Update()
     {
         if (PauseManager.IsGamePaused)
             return;
+
+        //OverviewPosition();
         
         ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
         
@@ -90,7 +90,8 @@ public class PlayerMovement : MonoBehaviour
             moveVector *= _defaultSpeed;
         }
         
-        if (PlayerUnit.IsControllable) {
+        if (PlayerUnit.IsControllable)
+        {
             var moveVectorInt = Vector2Int.RoundToInt(moveVector);
             PositionInt2D += moveVectorInt;
             PositionInt2D = new Vector2Int

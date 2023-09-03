@@ -12,14 +12,13 @@ public class PauseManager : MonoBehaviour
     public GameObject m_PauseMenuUI;
     public Transform m_InGameTransform;
     
-    private InGameInputController _inGameInputController;
     private bool _pauseEnabled = true;
     private const float PAUSE_DELAY = 2f;
 
     public static bool IsGamePaused = false;
     public static PauseManager Instance { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null) {
             Destroy(gameObject);
@@ -29,25 +28,24 @@ public class PauseManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         
-        _inGameInputController = InGameInputController.Instance;
-        _inGameInputController.Action_OnPauseInput += Pause;
-        _inGameInputController.Action_OnEscapeInput += Pause;
+        InGameInputController.Action_OnPauseInput += Pause;
+        InGameInputController.Action_OnEscapeInput += Pause;
     }
 
-    private void Pause() {
-        if (!_pauseEnabled)
-        {
-            return;
-        }
-        if (SystemManager.PlayState == PlayState.OnStageResult)
-        {
-            return;
-        }
-        if (IsGamePaused)
-        {
-            return;
-        }
+    private void OnDestroy()
+    {
+        InGameInputController.Action_OnPauseInput -= Pause;
+        InGameInputController.Action_OnEscapeInput -= Pause;
+    }
 
+    private void Pause()
+    {
+        if (!_pauseEnabled)
+            return;
+        if (SystemManager.PlayState is PlayState.OnStageResult or PlayState.OnStageTransition)
+            return;
+        if (IsGamePaused)
+            return;
 
         IsGamePaused = true;
         Time.timeScale = 0f;
@@ -93,6 +91,8 @@ public class PauseManager : MonoBehaviour
         
         IsGamePaused = false;
         _pauseEnabled = true;
-        SystemManager.Instance.QuitGame(AudioService.UnpauseAudio);
+        AudioService.StopMusic();
+        AudioService.StopAllSound();
+        SystemManager.Instance.QuitGame(null);
     }
 }

@@ -8,8 +8,11 @@ public class PopupMenuHandler : MenuHandler
     public UnityAction Action_OnNegative;
     [SerializeField] private TextStyling m_TextStyling;
     [SerializeField] private TextMeshProUGUI m_Message;
-    
-    protected override void Init() { }
+
+    protected override void Init()
+    {
+        _isActive = true;
+    }
 
     public void OnPositive()
     {

@@ -15,11 +15,14 @@ public class PoolingManager : MonoBehaviour
     public PoolingDatas m_PoolingData;
     private readonly Dictionary<string, PooledObject> m_ObjectPoolDictionary = new(); // 오브젝트 풀 큐를 종류별로 담은 딕셔너리
 
+    private bool _destroySingleton;
     private static PoolingManager Instance;
 
-    private void Awake()
+    private void Start()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
@@ -28,23 +31,16 @@ public class PoolingManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         SystemManager.Action_OnQuitInGame += DestroySelf;
+        
+        InitOutGame();
+        InitInGame();
     }
 
     private void OnDestroy()
     {
+        if (_destroySingleton)
+            return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
-    }
-
-
-    private void Start()
-    {
-        InitOutGame();
-        InitInGame();
-        //PlayerManager.Action_OnStartStartNewGame += InitInGame;
-        //SystemManager.Action_OnQuitInGame += ClearAllObjectPool;
-        
-        //if (m_TestMode)
-        //    InitInGame();
     }
 
     private void InitOutGame()

@@ -147,12 +147,26 @@ public abstract class ItemGem : Item, IObjectPooling
 
     public abstract void ReturnToPool();
 
+    private void Awake()
+    {
+        SystemManager.Action_OnNextStage += RemoveItemOnNextStage;
+    }
+
+    private void OnDestroy()
+    {
+        SystemManager.Action_OnNextStage -= RemoveItemOnNextStage;
+    }
+
+    private void RemoveItemOnNextStage(bool hasNextStage)
+    {
+        ReturnToPool();
+    }
+
+    
+    /*
     protected override void Update()
     {
         base.Update();
-        if (SystemManager.PlayState == PlayState.OnStageTransition) {
-            ReturnToPool();
-        }
 
         SetBrightness();
     }
@@ -171,5 +185,5 @@ public abstract class ItemGem : Item, IObjectPooling
             m_Brightness += 1;
         else
             m_Brightness -= 1;
-    }
+    }*/
 }

@@ -50,6 +50,7 @@ public class Stage2Manager : StageManager
         ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
         BackgroundCamera.RepeatBackground(16f);
+        BackgroundCamera.SeparateGroundCamera();
         //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
         //BackgroundCamera.SetBackgroundSpeed(0f);
         AudioService.PlayMusic("Boss1");
@@ -65,7 +66,7 @@ public class Stage2Manager : StageManager
         CreateEnemyWithTarget(m_Helicopter, new Vector2(4.5f, 3f), new Vector2(4.5f, -3f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-6.2f, 3f, 11f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1.2f, 3f, 12f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1.2f, 3f, 12f), new MoveVector(1f, 0f), StopAfterMilliseconds(5000));
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(2f, 3f, 10f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-6f, 3f), new Vector2(-6f, -5f), Random.Range(1200, 1500));
@@ -121,13 +122,13 @@ public class Stage2Manager : StageManager
 
         sbyte side = 1;
         for (int i = 0; i < 4; i++) {
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneMedium_2, new Vector2(3.5f*side, 3f));
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-1f*side, 3f), new Vector2(-1f*side, -3f), Random.Range(1200, 1500));
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f*side, 3f), new Vector2(-4f*side, -3f), Random.Range(1200, 1500));
             }
             yield return new WaitForMillisecondFrames(1500);
-            if (SystemManager.PlayState == PlayState.OnField) {
+            if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-1f*side, 3f), new Vector2(-1f*side, -3f), Random.Range(1200, 1500));
                 CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f*side, 3f), new Vector2(-4f*side, -3f), Random.Range(1200, 1500));
             }

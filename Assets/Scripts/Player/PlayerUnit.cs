@@ -68,6 +68,11 @@ public class PlayerUnit : PlayerObject
                 IsAttacking = false;
             };
             SystemManager.Action_OnStageClear += () => IsControllable = false;
+            SystemManager.Action_OnNextStage += (hasNextStage) =>
+            {
+                if (hasNextStage)
+                    IsControllable = true;
+            };
         }
         
         //CurrentAngle = 180f;

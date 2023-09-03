@@ -48,10 +48,17 @@ public abstract class StageManager : MonoBehaviour
 
     void Start ()
     {
+        if (Instance != null) {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        
+        SystemManager.PlayState = PlayState.None;
+        BackgroundCamera.CombineGroundCamera();
         Init();
         
-        UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
+        //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;
         PoolingManager.ResetPool();
         FadeScreenService.ScreenFadeIn(0f);
         
@@ -85,16 +92,16 @@ public abstract class StageManager : MonoBehaviour
     protected void StartBossTimeline() {
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             int stage = SystemManager.Stage;
-            BackgroundCamera.Camera.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
+            BackgroundCamera.Instance.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
             BackgroundCamera.SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
         }
         StartCoroutine(BossTimeline());
     }
 
     protected void BackgroundLoop(float z, float subtract) {
-        Vector3 pos = BackgroundCamera.Camera.transform.position;
+        Vector3 pos = BackgroundCamera.Instance.transform.position;
         if (pos.z > z - 24f) {
-            BackgroundCamera.Camera.transform.position = new Vector3(pos.x, pos.y, pos.z - subtract);
+            BackgroundCamera.Instance.transform.position = new Vector3(pos.x, pos.y, pos.z - subtract);
         }
     }
 

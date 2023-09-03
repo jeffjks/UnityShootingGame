@@ -44,7 +44,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     {
         if (transform != transform.root) {
             _parentEnemyHealth = transform.parent.GetComponentInParent<EnemyHealth>();
-            Debug.Log(name);
         }
         _enemyDeath = GetComponent<EnemyDeath>();
         

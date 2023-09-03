@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
+    private bool _destroySingleton;
     public static int BulletNumber;
     private static int _bulletsSortingLayer;
     public static int BulletsSortingLayer
@@ -36,13 +37,27 @@ public class BulletManager : MonoBehaviour
     
     void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
         Instance = this;
 
-        SystemManager.Action_OnNextStage += (hasNextStage) => _bulletsSortingLayer = 0;
+        SystemManager.Action_OnNextStage += InitSortingLayer;
+    }
+
+    private void OnDestroy()
+    {
+        if (_destroySingleton)
+            return;
+        SystemManager.Action_OnNextStage -= InitSortingLayer;
+    }
+
+    private void InitSortingLayer(bool hasNextStage)
+    {
+        _bulletsSortingLayer = 0;
     }
 
     public static void SetBulletFreeState(int millisecond)
@@ -60,24 +75,33 @@ public class BulletManager : MonoBehaviour
     public static void BulletsToGems(int millisecond)
     {
         List<GameObject> bulletList = GameObject.FindGameObjectsWithTag("EnemyBulletParent").ToList();
-        int index, num = 0, count = bulletList.Count;
+        int num = 0, count = bulletList.Count;
 
-        while (count > 0) {
-            index = UnityEngine.Random.Range(0, count);
+        while (count > 0)
+        {
+            var index = UnityEngine.Random.Range(0, count);
+            var enemyBullet = bulletList[index].GetComponent<EnemyBullet>();
+            
             if (num < 50) {
-                Vector3 pos = bulletList[index].transform.position;
-                if (pos.x is > Size.GAME_BOUNDARY_LEFT and < Size.GAME_BOUNDARY_RIGHT) {
-                    if (pos.y is > Size.GAME_BOUNDARY_BOTTOM and < Size.GAME_BOUNDARY_TOP) {
-                        GameObject gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
-                        pos.z = Depth.ITEMS;
-                        gem.transform.position = pos;
-                        gem.SetActive(true);
-                        num++;
-                    }
-                }
+                var pos = bulletList[index].transform.position;
+
+                do
+                {
+                    if (pos.x is <= Size.GAME_BOUNDARY_LEFT or >= Size.GAME_BOUNDARY_RIGHT)
+                        break;
+                    if (pos.y is <= Size.GAME_BOUNDARY_BOTTOM or >= Size.GAME_BOUNDARY_TOP)
+                        break;
+                    if (enemyBullet.IsPlayingEraseAnimation)
+                        break;
+
+                    var gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
+                    pos.z = Depth.ITEMS;
+                    gem.transform.position = pos;
+                    gem.SetActive(true);
+                    num++;
+                } while (false);
             }
-            EnemyBullet enemy_bullet = bulletList[index].GetComponent<EnemyBullet>();
-            enemy_bullet.ReturnToPool();
+            enemyBullet.ReturnToPool();
             bulletList.RemoveAt(index);
 
             count--;

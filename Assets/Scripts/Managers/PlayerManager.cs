@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public ReplayManager m_ReplayManager;
     
     public GameObject Player { get; private set; }
+    private bool _destroySingleton;
     private PlayerUnit _playerUnit;
     
     public const float REVIVE_POSITION_Y = -13f;
@@ -27,7 +28,9 @@ public class PlayerManager : MonoBehaviour
     
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
@@ -40,11 +43,13 @@ public class PlayerManager : MonoBehaviour
         SystemManager.Action_OnQuitInGame += DestroySelf;
         Action_OnStartStartNewGame?.Invoke();
         
-        BackgroundCamera.Camera.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+        BackgroundCamera.Instance.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
     
     private void OnDestroy()
     {
+        if (_destroySingleton)
+            return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 
@@ -100,7 +105,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public static Vector3 GetPlayerPosition() {
-        if (IsPlayerAlive)
+        if (IsPlayerAlive && Instance._playerUnit)
             return Instance._playerUnit.transform.position;
         return new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
     }

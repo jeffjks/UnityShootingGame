@@ -13,13 +13,12 @@ public class PlayerController : MonoBehaviour
     private PlayerShotHandler _playerShotHandler;
     private PlayerMovement _playerMovement;
     private PlayerUnit _playerUnit;
-    private InGameInputController _inGameInputController;
 
     public bool IsFirePressed { get; private set; }
     public bool IsBombPressed { get; private set; }
     private int _firePressFrame;
     
-    void Awake()
+    private void Awake()
     {
         _playerBombHandler = Instantiate(m_PlayerBomb);
         _playerLaserHandler = GetComponentInChildren<PlayerLaserHandler>();
@@ -29,12 +28,25 @@ public class PlayerController : MonoBehaviour
         
         if (!_playerUnit.m_IsPreviewObject)
         {
-            _inGameInputController = InGameInputController.Instance;
-
-            _inGameInputController.Action_OnFireInput += OnFireInvoked;
-            _inGameInputController.Action_OnBombInput += OnBombInvoked;
-            _inGameInputController.Action_OnMove += OnMoveInvoked;
+            InGameInputController.Action_OnFireInput += OnFireInvoked;
+            InGameInputController.Action_OnBombInput += OnBombInvoked;
+            InGameInputController.Action_OnMove += OnMoveInvoked;
             _playerUnit.Action_OnControllableChanged += OnControllableChanged;
+            
+            SystemManager.Action_OnBossClear += StopAttack;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (!_playerUnit.m_IsPreviewObject)
+        {
+            InGameInputController.Action_OnFireInput -= OnFireInvoked;
+            InGameInputController.Action_OnBombInput -= OnBombInvoked;
+            InGameInputController.Action_OnMove -= OnMoveInvoked;
+            _playerUnit.Action_OnControllableChanged -= OnControllableChanged;
+            
+            SystemManager.Action_OnBossClear -= StopAttack;
         }
     }
 
@@ -61,11 +73,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnFireInvoked(InputValue inputValue)
     {
+        IsFirePressed = false;
+
         if (!PlayerUnit.IsControllable)
-        {
-            IsFirePressed = false;
             return;
-        }
+        if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
+            return;
+        
         ExecuteFire(inputValue.isPressed);
     }
 
@@ -123,7 +137,7 @@ public class PlayerController : MonoBehaviour
             return;
         if (_playerBombHandler.IsBombInUse)
             return;
-        if (!SystemManager.IsOnGamePlayState())
+        if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
             return;
 
         ExecuteBomb();
@@ -159,13 +173,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        IsFirePressed = false;
-        _firePressFrame = 0;
-        
-        // _playerUnit.SlowMode = false;
-        // _playerUnit.IsAttacking = false;
-        // _playerUnit.IsShooting = false;
-        
         _playerLaserHandler.StopLaser();
+    }
+
+    private void StopAttack()
+    {
+        IsFirePressed = false;
+        _playerLaserHandler.StopLaser();
+        _firePressFrame = 0;
+        _playerUnit.IsAttacking = false;
+        _playerUnit.SlowMode = false;
+        _playerShotHandler.AutoShot = 0;
     }
 }

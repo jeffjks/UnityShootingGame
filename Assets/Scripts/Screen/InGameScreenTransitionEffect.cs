@@ -66,7 +66,7 @@ public class InGameScreenTransitionEffect : MonoBehaviour
             Alpha = 0f;
         }
 
-        for (float i = Alpha; (i - Time.deltaTime / duration) > 0; i -= Time.deltaTime / duration)
+        for (float i = Alpha; (i - Time.deltaTime / duration) < 1; i += Time.deltaTime / duration)
         {
             Alpha = i;
             yield return null;

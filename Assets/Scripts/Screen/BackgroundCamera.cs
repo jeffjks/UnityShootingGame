@@ -5,7 +5,7 @@ using UnityEngine.Animations;
 
 public class BackgroundCamera : MonoBehaviour
 {
-    public Camera m_GroundUnitCamera;
+    public Camera m_BackgroundCamera;
     public Transform m_BackgroundOffsetTransform;
 
     public static BackgroundCamera Instance { get; private set; }
@@ -13,7 +13,7 @@ public class BackgroundCamera : MonoBehaviour
     private static bool _isRepeating;
     private Vector3 _backgroundCameraDefaultLocalPos;
     private Vector3 _backgroundMoveVector;
-    private PositionConstraint _groundCameraPositionConstraint;
+    private readonly HashSet<EnemyUnit> _repeatingEnemies = new();
 
     private void Awake()
     {
@@ -22,8 +22,7 @@ public class BackgroundCamera : MonoBehaviour
             return;
         }
         Instance = this;
-
-        _groundCameraPositionConstraint = m_GroundUnitCamera.GetComponent<PositionConstraint>();
+        
         _backgroundCameraDefaultLocalPos = transform.localPosition;
 
         InitCamera();
@@ -70,24 +69,17 @@ public class BackgroundCamera : MonoBehaviour
 
     public static void MoveBackgroundCameraOffset(float offsetZ, int millisecond = 0)
     {
-        if (Instance._groundCameraPositionConstraint.constraintActive)
-        {
-            Debug.LogError($"GroundUnitCamera is not separated from background camera.");
-            return;
-        }
         Instance.StartCoroutine(Instance.MoveBackgroundCameraOffsetCoroutine(offsetZ, millisecond));
     }
 
-    public static void SeparateGroundCamera()
+    public static bool AddRepeatingEnemy(EnemyUnit enemyUnit)
     {
-        Instance._groundCameraPositionConstraint.constraintActive = false;
+        return Instance._repeatingEnemies.Add(enemyUnit);
     }
 
-    public static void CombineGroundCamera()
+    public static bool RemoveRepeatingEnemy(EnemyUnit enemyUnit)
     {
-        Instance._groundCameraPositionConstraint.translationAtRest = Vector3.zero;
-        Instance._groundCameraPositionConstraint.translationOffset = Vector3.zero;
-        Instance._groundCameraPositionConstraint.constraintActive = true;
+        return Instance._repeatingEnemies.Remove(enemyUnit);
     }
 
     public static void RepeatBackground(float repeatLength)
@@ -114,6 +106,13 @@ public class BackgroundCamera : MonoBehaviour
                 var pos = transform.position;
                 pos.z -= repeatLength;
                 transform.position = pos;
+
+                foreach (var enemyUnit in _repeatingEnemies)
+                {
+                    var tempPosition = enemyUnit.transform.position;
+                    tempPosition.z -= repeatLength;
+                    enemyUnit.transform.position = tempPosition;
+                }
             }
 
             yield return null;
@@ -155,30 +154,24 @@ public class BackgroundCamera : MonoBehaviour
         var frame = millisecond * Application.targetFrameRate / 1000;
         var initPositionZ = m_BackgroundOffsetTransform.localPosition.z;
         var targetPositionZ = initPositionZ + offsetZ;
-        var initGroundUnitCameraPositionZ = m_GroundUnitCamera.transform.position.z;
-        var targetGroundUnitCameraPositionZ = initGroundUnitCameraPositionZ + offsetZ;
 
         for (int i = 0; i < frame; ++i)
         {
             float t_pos_z = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
             
             var backgroundOffsetZ = Mathf.Lerp(initPositionZ, targetPositionZ, t_pos_z);
-            var groundUnitCameraOffsetZ = Mathf.Lerp(initGroundUnitCameraPositionZ, targetGroundUnitCameraPositionZ, t_pos_z);
             
             var backgroundOffset = m_BackgroundOffsetTransform.localPosition;
             backgroundOffset.z = backgroundOffsetZ;
             m_BackgroundOffsetTransform.localPosition = backgroundOffset;
             
-            var groundUnitOffset = m_GroundUnitCamera.transform.position;
-            groundUnitOffset.z = groundUnitCameraOffsetZ;
-            m_GroundUnitCamera.transform.position = groundUnitOffset;
             yield return new WaitForMillisecondFrames(0);
         }
     }
 
     public static Vector2 GetScreenPosition(Vector3 pos)
     {
-        var viewportPosition = Instance.m_GroundUnitCamera.WorldToViewportPoint(pos);
+        var viewportPosition = Instance.m_BackgroundCamera.WorldToViewportPoint(pos);
         var mainCameraX = MainCamera.Instance.GetCameraScreenPosition().x;
         var screenPosition = new Vector2(
             (viewportPosition.x - 0.5f) * Size.MAIN_CAMERA_WIDTH + mainCameraX,

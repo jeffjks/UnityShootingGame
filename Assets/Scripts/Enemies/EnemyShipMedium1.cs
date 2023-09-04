@@ -7,6 +7,7 @@ public class EnemyShipMedium1 : EnemyUnit
 {
     void Start()
     {
+        CurrentAngle = m_MoveVector.direction;
         StartPattern("A", new BulletPattern_EnemyPlaneMedium1_A(this));
         SetRotatePattern(new RotatePattern_MoveDirection());
     }

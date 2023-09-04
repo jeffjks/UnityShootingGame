@@ -55,7 +55,6 @@ public abstract class StageManager : MonoBehaviour
         Instance = this;
         
         SystemManager.PlayState = PlayState.None;
-        BackgroundCamera.CombineGroundCamera();
         Init();
         
         //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;

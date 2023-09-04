@@ -10,6 +10,7 @@ public class EnemyShipCarrier : EnemyUnit
     void Start()
     {
         _enemyUnits = GetComponentsInChildren<EnemyUnit>();
+        CurrentAngle = m_MoveVector.direction;
         SetRotatePattern(new RotatePattern_MoveDirection());
         m_CustomDirection = new CustomDirection(2);
         m_CustomDirection[0] = Random.Range(0f, 360f);

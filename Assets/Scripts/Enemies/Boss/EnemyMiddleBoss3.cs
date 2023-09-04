@@ -14,6 +14,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     void Start()
     {
+        IsColliderInit = false;
         m_TargetPosition = new Vector2(0f, -4.3f);
         m_CustomDirection = new CustomDirection(2);
 
@@ -49,6 +50,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 2)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
+        IsColliderInit = true;
         StartCoroutine(m_CurrentPhase);
 
         EnableInteractableAll();

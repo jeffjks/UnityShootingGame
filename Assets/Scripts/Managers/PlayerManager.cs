@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public static Vector3 GetPlayerPosition() {
-        if (IsPlayerAlive && Instance._playerUnit)
+        if (Instance._playerUnit)
             return Instance._playerUnit.transform.position;
         return new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER);
     }

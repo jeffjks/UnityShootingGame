@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
         SystemManager.Action_OnQuitInGame += DestroySelf;
         Action_OnStartStartNewGame?.Invoke();
         
-        BackgroundCamera.Instance.transform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
+        BackgroundCamera.Instance.m_BackgroundOffsetTransform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
     
     private void OnDestroy()

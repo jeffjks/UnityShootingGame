@@ -110,7 +110,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             }
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
-            BackgroundCamera.MoveBackgroundCamera(true, 13f, NEXT_PHASE_DELAY);
+            BackgroundCamera.MoveBackgroundCameraOffset(13f, NEXT_PHASE_DELAY);
             
             m_Phase++;
             BulletManager.SetBulletFreeState(2000);
@@ -132,7 +132,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
             m_CurrentPhase = Phase3();
             StartCoroutine(m_CurrentPhase);
-            BackgroundCamera.MoveBackgroundCamera(true, -7.5f, NEXT_PHASE_DELAY);
+            BackgroundCamera.MoveBackgroundCameraOffset(-7.5f, NEXT_PHASE_DELAY);
             
             m_Phase++;
             BulletManager.SetBulletFreeState(2000);

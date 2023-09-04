@@ -59,10 +59,9 @@ public class OverviewHandler : MonoBehaviour
 
     private readonly Queue<OverviewFlow> _overviewFlowQueue = new();
     private bool _inputSkip;
-    private int _missBonusPercent;
     private long _finalBonusScore;
 
-    public long FinalBonusScore
+    private long FinalBonusScore
     {
         get => _finalBonusScore;
         set
@@ -79,7 +78,21 @@ public class OverviewHandler : MonoBehaviour
     private void Awake()
     {
         InGameInputController.Action_OnFireInput += SkipOverviewPhase;
+    }
+
+    private void OnEnable()
+    {
         StartOverview();
+    }
+
+    private void OnDisable()
+    {
+        _overviewFlowQueue.Clear();
+        
+        foreach (var overviewContent in m_OverviewContents)
+        {
+            overviewContent.SetActive(false);
+        }
     }
 
     private void StartOverview() {
@@ -283,26 +296,14 @@ public class OverviewHandler : MonoBehaviour
 
     private void SetOverviewText()
     {
-        foreach (var overviewContent in m_OverviewContents)
-        {
-            overviewContent.SetActive(false);
-        }
-        
-        int gemGroundCount = InGameDataManager.Instance.GetItemCount(ItemType.GemGround);
-        long gemGroundScore = m_GemGroundData.itemScore * gemGroundCount;
-        int gemAirCount = InGameDataManager.Instance.GetItemCount(ItemType.GemAir);
-        long gemAirScore = m_GemAirData.itemScore * gemAirCount;
-        int stageMiss = InGameDataManager.Instance.GetCurrentStageMiss();
-        long stageScore = InGameDataManager.Instance.GetCurrentStageScore();
-        
-        if (stageMiss < _missBonusPercents.Length)
-        {
-            _missBonusPercent = _missBonusPercents[stageMiss];
-        }
-        else
-        {
-            _missBonusPercent = 0;
-        }
+        var gemGroundCount = InGameDataManager.Instance.GetItemCount(ItemType.GemGround);
+        var gemGroundScore = m_GemGroundData.itemScore * gemGroundCount;
+        var gemAirCount = InGameDataManager.Instance.GetItemCount(ItemType.GemAir);
+        var gemAirScore = m_GemAirData.itemScore * gemAirCount;
+        var stageMiss = InGameDataManager.Instance.GetCurrentStageMiss();
+        var stageScore = InGameDataManager.Instance.GetCurrentStageScore();
+
+        var missBonusPercent = (stageMiss < _missBonusPercents.Length) ? _missBonusPercents[stageMiss] : 0;
         
         m_GemGroundNumberText.SetText($"X {gemGroundCount}");
         m_GemGroundScoreText.SetText($"{gemGroundScore}");
@@ -311,18 +312,8 @@ public class OverviewHandler : MonoBehaviour
         m_RemainText.SetText($"{stageScore - gemGroundScore - gemAirScore}");
         m_TotalStageText.SetText($"{stageScore}");
         m_MissText.SetText($"{stageMiss}");
-        m_MissBonusScaleText.SetText($"[ + {_missBonusPercent}% ]");
+        m_MissBonusScaleText.SetText($"[ + {missBonusPercent}% ]");
 
-        FinalBonusScore = stageScore * _missBonusPercent / 100;
-
-        /*
-        ground_gem[0].text = "X " + m_SystemManager.GemsGround;
-        ground_gem[1].text = "" + ground_gem_score;
-        air_gem[0].text = "X " + m_SystemManager.GemsAir;
-        air_gem[1].text = "" + air_gem_score;
-        remains_score[1].text = "" + (stage_score - ground_gem_score - air_gem_score);
-        total_stage_score[1].text = "" + stage_score;
-        miss[0].text = stage_miss + " Miss";
-        miss[1].text = bonus_scale;*/
+        FinalBonusScore = stageScore * missBonusPercent / 100;
     }
 }

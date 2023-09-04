@@ -167,7 +167,7 @@ public class AudioService : MonoBehaviour
         }
         if (currentMusic == musicName)
         {
-            Debug.LogWarning($"'{musicName}' is already playing.");
+            Debug.Log($"'{musicName}' is already playing.");
             return;
         }
 

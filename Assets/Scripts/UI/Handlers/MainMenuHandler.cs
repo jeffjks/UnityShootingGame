@@ -19,7 +19,6 @@ public class MainMenuHandler : MenuHandler
     private void Start()
     {
         Time.timeScale = 1;
-        CriticalStateSystem.SetCriticalState(20);
         Init();
     }
 

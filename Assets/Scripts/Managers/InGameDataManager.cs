@@ -20,7 +20,7 @@ public class InGameDataManager : MonoBehaviour
     
     private readonly long[] _stageScore = {0, 0, 0, 0, 0};
     private readonly int[] _stageMiss = {0, 0, 0, 0, 0};
-    private readonly Dictionary<ItemType, int> _itemCount = new();
+    private readonly Dictionary<ItemType, int>[] _itemCount = new Dictionary<ItemType, int>[5];
     
 #if UNITY_EDITOR
     private PlayerUnit _debugPlayerUnit;
@@ -76,10 +76,14 @@ public class InGameDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
-        
-        foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
+
+        for (var i = 0; i < _itemCount.Length; ++i)
         {
-            _itemCount[itemType] = 0;
+            _itemCount[i] = new Dictionary<ItemType, int>();
+            foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
+            {
+                _itemCount[i][itemType] = 0;
+            }
         }
 
         if (DebugOption.SceneMode == 3)
@@ -115,7 +119,7 @@ public class InGameDataManager : MonoBehaviour
     {
         AddScore(score, effect);
 
-        _itemCount[itemType]++;
+        _itemCount[SystemManager.Stage][itemType]++;
     }
 
     public void AddScore(long score, bool effect = false)
@@ -204,7 +208,7 @@ public class InGameDataManager : MonoBehaviour
 
     public int GetItemCount(ItemType itemType)
     {
-        if (_itemCount.TryGetValue(itemType, out int count))
+        if (_itemCount[SystemManager.Stage].TryGetValue(itemType, out int count))
         {
             return count;
         }

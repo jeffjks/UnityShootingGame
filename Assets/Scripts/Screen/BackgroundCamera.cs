@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 public class BackgroundCamera : MonoBehaviour
 {
     public Camera m_GroundUnitCamera;
+    public Transform m_BackgroundOffsetTransform;
 
     public static BackgroundCamera Instance { get; private set; }
 
@@ -67,8 +68,14 @@ public class BackgroundCamera : MonoBehaviour
         Instance.StartCoroutine(Instance.BackgroundSpeedCoroutine(target, millisecond));
     }
 
-    public static void MoveBackgroundCamera(bool relative, float position_z, int millisecond = 0) { // Overloading
-        Instance.StartCoroutine(Instance.MoveBackgroundCameraCoroutine(relative, position_z, millisecond));
+    public static void MoveBackgroundCameraOffset(float offsetZ, int millisecond = 0)
+    {
+        if (Instance._groundCameraPositionConstraint.constraintActive)
+        {
+            Debug.LogError($"GroundUnitCamera is not separated from background camera.");
+            return;
+        }
+        Instance.StartCoroutine(Instance.MoveBackgroundCameraOffsetCoroutine(offsetZ, millisecond));
     }
 
     public static void SeparateGroundCamera()
@@ -143,25 +150,28 @@ public class BackgroundCamera : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveBackgroundCameraCoroutine(bool relative, float position_z, int millisecond) {
-        int frame = millisecond * Application.targetFrameRate / 1000;
-        float init_position_z = Instance.transform.position.z;
-        float target_position_z;
+    private IEnumerator MoveBackgroundCameraOffsetCoroutine(float offsetZ, int millisecond)
+    {
+        var frame = millisecond * Application.targetFrameRate / 1000;
+        var initPositionZ = m_BackgroundOffsetTransform.localPosition.z;
+        var targetPositionZ = initPositionZ + offsetZ;
+        var initGroundUnitCameraPositionZ = m_GroundUnitCamera.transform.position.z;
+        var targetGroundUnitCameraPositionZ = initGroundUnitCameraPositionZ + offsetZ;
 
-        if (relative) {
-            target_position_z = init_position_z + position_z;
-        }
-        else {
-            target_position_z = position_z;
-        }
-
-        for (int i = 0; i < frame; ++i) {
+        for (int i = 0; i < frame; ++i)
+        {
             float t_pos_z = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
             
-            position_z = Mathf.Lerp(init_position_z, target_position_z, t_pos_z);
-            Vector3 temp = transform.position;
-            temp.z = position_z;
-            transform.position = temp;
+            var backgroundOffsetZ = Mathf.Lerp(initPositionZ, targetPositionZ, t_pos_z);
+            var groundUnitCameraOffsetZ = Mathf.Lerp(initGroundUnitCameraPositionZ, targetGroundUnitCameraPositionZ, t_pos_z);
+            
+            var backgroundOffset = m_BackgroundOffsetTransform.localPosition;
+            backgroundOffset.z = backgroundOffsetZ;
+            m_BackgroundOffsetTransform.localPosition = backgroundOffset;
+            
+            var groundUnitOffset = m_GroundUnitCamera.transform.position;
+            groundUnitOffset.z = groundUnitCameraOffsetZ;
+            m_GroundUnitCamera.transform.position = groundUnitOffset;
             yield return new WaitForMillisecondFrames(0);
         }
     }

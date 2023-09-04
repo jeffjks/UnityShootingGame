@@ -12,11 +12,10 @@ public class PauseManager : MonoBehaviour
     public GameObject m_PauseMenuUI;
     public Transform m_InGameTransform;
     
-    private bool _pauseEnabled = true;
-    private const float PAUSE_DELAY = 2f;
+    private const int PAUSE_DELAY_FRAME = 120;
 
     public static bool IsGamePaused = false;
-    public static PauseManager Instance { get; private set; }
+    private static PauseManager Instance { get; set; }
 
     private void Awake()
     {
@@ -40,7 +39,7 @@ public class PauseManager : MonoBehaviour
 
     private void Pause()
     {
-        if (!_pauseEnabled)
+        if (CriticalStateSystem.InCriticalState)
             return;
         if (SystemManager.PlayState is PlayState.OnStageResult or PlayState.OnStageTransition)
             return;
@@ -51,6 +50,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f;
         AudioService.PauseAudio();
         PlayerUnit.IsControllable = false;
+        CriticalStateSystem.SetCriticalState(20);
         
         //m_EventSystemUI.SetActive(true);
         m_PauseMenuHandler.gameObject.SetActive(true);
@@ -62,35 +62,28 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
-        if (!IsGamePaused)
-        {
+        if (CriticalStateSystem.InCriticalState)
             return;
-        }
+        if (!IsGamePaused)
+            return;
         
         IsGamePaused = false;
-        _pauseEnabled = false;
         AudioService.UnpauseAudio();
         Time.timeScale = 1;
         PlayerUnit.IsControllable = true;
         
-        CriticalStateSystem.SetCriticalState(10);
+        CriticalStateSystem.SetCriticalState(PAUSE_DELAY_FRAME);
         
         //m_EventSystemUI.SetActive(false);
         m_PauseMenuHandler.gameObject.SetActive(false);
         m_PauseMenuUI.SetActive(false);
-        StartCoroutine(PauseEnabled());
-    }
-
-    private IEnumerator PauseEnabled() {
-        yield return new WaitForSeconds(PAUSE_DELAY);
-        _pauseEnabled = true;
     }
 
     public void QuitGame() {
         StopAllCoroutines();
         
         IsGamePaused = false;
-        _pauseEnabled = true;
+        CriticalStateSystem.SetCriticalState(20);
         AudioService.StopMusic();
         AudioService.StopAllSound();
         SystemManager.Instance.QuitGame(null);

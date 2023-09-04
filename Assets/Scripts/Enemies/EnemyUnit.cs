@@ -104,7 +104,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     {
         if (!m_IsInteractable)
         {
-            Debug.Log("!m_IsInteractable");
             return null;
         }
 

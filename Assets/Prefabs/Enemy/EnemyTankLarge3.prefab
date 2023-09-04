@@ -261,7 +261,7 @@ MonoBehaviour:
   m_HealthType: 0
   m_DefaultHealth: 5000
   m_Collider2D:
-  - {fileID: 0}
+  - {fileID: 7741329550041444642}
 --- !u!114 &7427637404073788237
 MonoBehaviour:
   m_ObjectHideFlags: 0

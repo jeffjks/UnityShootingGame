@@ -129,6 +129,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
     
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
+        yield return new WaitForFrames(5);
         m_Turret[0].StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(m_Turret[0]));
         m_Turret[1].StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(m_Turret[1]));
         while (m_Phase == 1)
@@ -138,7 +139,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
-        yield return new WaitForMillisecondFrames(100);
+        yield return new WaitForFrames(5);
         m_Turret[0].StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(m_Turret[0], -1));
         m_Turret[1].StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(m_Turret[1], 1));
         while (m_Phase == 2)

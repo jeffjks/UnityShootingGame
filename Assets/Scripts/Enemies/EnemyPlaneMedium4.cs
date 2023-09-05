@@ -135,7 +135,7 @@ public class EnemyPlaneMedium4_BulletPattern_Turret_A : BulletFactory, IBulletPa
                 var pos0 = GetFirePos(0);
                 var pos1 = GetFirePos(1);
                 CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, 0f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, -180f));
+                CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, -180f));
                 yield return new WaitForMillisecondFrames(160);
             }
         }
@@ -145,7 +145,7 @@ public class EnemyPlaneMedium4_BulletPattern_Turret_A : BulletFactory, IBulletPa
                 var pos0 = GetFirePos(0);
                 var pos1 = GetFirePos(1);
                 CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, 0f, 2, 1f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, -180f, 2, 1f));
+                CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, -180f, 2, 1f));
                 yield return new WaitForMillisecondFrames(100);
             }
         }
@@ -155,7 +155,7 @@ public class EnemyPlaneMedium4_BulletPattern_Turret_A : BulletFactory, IBulletPa
                 var pos0 = GetFirePos(0);
                 var pos1 = GetFirePos(1);
                 CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, 0f, 2, 2f));
-                CreateBullet(new BulletProperty(pos0, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, -180f, 2, 2f));
+                CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 6f * factor, BulletPivot.Current, -180f, 2, 2f));
                 yield return new WaitForMillisecondFrames(80);
             }
         }

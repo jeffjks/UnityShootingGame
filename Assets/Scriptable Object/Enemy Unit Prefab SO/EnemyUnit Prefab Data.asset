@@ -77,7 +77,7 @@ MonoBehaviour:
   - enemyName: TankSmall1
     enemyUnit: {fileID: 8068312687421605875, guid: 1843e9acf2d3dc5418f615bcf5a7b86e,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 20}
   - enemyName: TankSmall2
     enemyUnit: {fileID: 148231667775193918, guid: 37082ba0f130558408b298430506019a,
       type: 3}
@@ -89,63 +89,63 @@ MonoBehaviour:
   - enemyName: TankMarauder
     enemyUnit: {fileID: 4987848309060957489, guid: 7f71ca8d301cd5e42952884da283fcd1,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 39}
+    defaultPosition: {x: 0, y: 3, z: 19}
   - enemyName: TankArtillery
     enemyUnit: {fileID: 8177157520491495044, guid: 19b5952420e31a846b47201d539459d9,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 39}
+    defaultPosition: {x: 0, y: 3, z: 19}
   - enemyName: TankFlak
     enemyUnit: {fileID: 4641978124879329762, guid: 2d57fa3eedf91944e9c8d8310d670f1a,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 39}
+    defaultPosition: {x: 0, y: 3, z: 19}
   - enemyName: TankArclite
     enemyUnit: {fileID: 611388499316022645, guid: 5cd4761de8f774c47a3d30064b3f4e96,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 37}
+    defaultPosition: {x: 0, y: 3, z: 17}
   - enemyName: TankScorpion
     enemyUnit: {fileID: 8398379833720575597, guid: fee8a48d14e5e3a40ae478a182c83325,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 38}
+    defaultPosition: {x: 0, y: 3, z: 18}
   - enemyName: TankTurtle
     enemyUnit: {fileID: 1954327149335142907, guid: b9bdbda092004034e839df5181db4bc1,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 38}
+    defaultPosition: {x: 0, y: 3, z: 18}
   - enemyName: Turret1
     enemyUnit: {fileID: 7225392929717830585, guid: 209a7fe0ffb83614d91a7658db0b1dcb,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 20}
   - enemyName: Turret2
     enemyUnit: {fileID: 5666303648770411826, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 20}
   - enemyName: Turret3
     enemyUnit: {fileID: 8259466801933660769, guid: 36679f8f89b3ec247a08ac00572e9cd0,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 20}
   - enemyName: ShipSmall1
     enemyUnit: {fileID: 3119006708911008031, guid: fde099b61cee14345a24c27a878ea83a,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 20}
   - enemyName: ShipSmall2
     enemyUnit: {fileID: 3214695909034335811, guid: a6416b0ddb7a93e45b2dc48b34f355d1,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 40}
+    defaultPosition: {x: 0, y: 3, z: 20}
   - enemyName: ShipDestroyer
     enemyUnit: {fileID: 6257076432406510264, guid: 27f1241ee78b41e438b446db2c8ba5bf,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 39}
+    defaultPosition: {x: 0, y: 3, z: 19}
   - enemyName: ShipCruiser
     enemyUnit: {fileID: 4199735894588476970, guid: ac3860b22313225478f27a97e5eb442d,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 38}
+    defaultPosition: {x: 0, y: 3, z: 18}
   - enemyName: ShipCarrier_Aircraft
     enemyUnit: {fileID: 5934066734732574098, guid: a1c2794f8e78bfa439b3da14accdddf3,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 36}
+    defaultPosition: {x: 0, y: 3, z: 16}
   - enemyName: ShipCarrier_Tank
     enemyUnit: {fileID: 1843840746731019506, guid: 2b679c15f9e294c4198a62e1972ef6e3,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 36}
+    defaultPosition: {x: 0, y: 3, z: 16}
   MiddleBossPrefabs:
   - enemyName: MiddleBoss1
     enemyUnit: {fileID: 5087952380757828139, guid: dacfe637feedf844fbd6790127b33c58,
@@ -154,11 +154,11 @@ MonoBehaviour:
   - enemyName: MiddleBoss2
     enemyUnit: {fileID: 4334012117464872134, guid: 4612e62690a6d004db7718900a70e812,
       type: 3}
-    defaultPosition: {x: -12.5, y: 3, z: 30}
+    defaultPosition: {x: -12.5, y: 3, z: 10}
   - enemyName: MiddleBoss3
     enemyUnit: {fileID: 8674409897457576518, guid: 473812caa50370642aef744627df5d27,
       type: 3}
-    defaultPosition: {x: 0, y: -1, z: 38}
+    defaultPosition: {x: 0, y: -1, z: 18}
   - enemyName: MiddleBoss4
     enemyUnit: {fileID: 4802451315995933633, guid: ae73eb2b8ca4dd3479eb24692bc3ff9d,
       type: 3}
@@ -179,7 +179,7 @@ MonoBehaviour:
   - enemyName: Boss2
     enemyUnit: {fileID: 4034944517753554836, guid: 01bdc9a859a9fd54d8b56ff22302f2ea,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 44}
+    defaultPosition: {x: 0, y: 3, z: 24}
   - enemyName: Boss3
     enemyUnit: {fileID: 4634525837565633629, guid: c93e1719d14959746ba1d22a8ec1f6f4,
       type: 3}
@@ -187,7 +187,7 @@ MonoBehaviour:
   - enemyName: Boss4
     enemyUnit: {fileID: 2827427694812776932, guid: aaa4d9b9720cad04c99d4e0321cfdcd4,
       type: 3}
-    defaultPosition: {x: 0, y: 3, z: 39}
+    defaultPosition: {x: 0, y: 3, z: 19}
   - enemyName: Boss5
     enemyUnit: {fileID: 3070432210736135170, guid: e061956d714bf2942bba9f5c7c918046,
       type: 3}

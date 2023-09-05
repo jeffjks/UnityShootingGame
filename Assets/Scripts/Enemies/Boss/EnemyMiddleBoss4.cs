@@ -18,6 +18,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     void Start()
     {
+        IsColliderInit = false;
         DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
@@ -76,6 +77,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         float[] random_direction = { 80f, 100f, -80f, -100f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_Phase = 1;
+        IsColliderInit = true;
+        
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
         m_SubPattern = SubPattern();

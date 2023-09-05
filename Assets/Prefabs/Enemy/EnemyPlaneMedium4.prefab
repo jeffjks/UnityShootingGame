@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 1
+  m_FirePosition: []
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
@@ -315,7 +316,6 @@ MonoBehaviour:
   m_DefaultHealth: 3000
   m_Collider2D:
   - {fileID: 4299144413204223592}
-  m_HealthPercent: 100
 --- !u!114 &5385556361113366454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!114 &9057547264738936292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +469,7 @@ GameObject:
   - component: {fileID: 7063822756911544178}
   - component: {fileID: 7374840255471386084}
   m_Layer: 10
-  m_Name: TurretL
+  m_Name: TurretR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,15 +482,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511500518935233166}
-  m_LocalRotation: {x: 0, y: 0, z: -0.92387956, w: 0.38268343}
-  m_LocalPosition: {x: -0.3166, y: 0.0566, z: -0.16}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -0.37, y: 0.1, z: -0.16}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400002}
   m_Father: {fileID: 7375213627355559722}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!114 &7063822756911544178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,14 +504,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 4535824600152872987}
+  - {fileID: 879432672186699012}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 4535824600152872987}
-  - {fileID: 879432672186699012}
 --- !u!114 &7374840255471386084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,7 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &581017435104495366
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +601,7 @@ GameObject:
   - component: {fileID: 3945339041960502641}
   - component: {fileID: 5879385109361227879}
   m_Layer: 10
-  m_Name: TurretR
+  m_Name: TurretL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -616,15 +614,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3065935045327939144}
-  m_LocalRotation: {x: 0, y: 0, z: 0.92387956, w: 0.38268343}
-  m_LocalPosition: {x: 0.3166, y: 0.0566, z: -0.16}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0.37, y: 0.1, z: -0.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400000}
   m_Father: {fileID: 7375213627355559722}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &3945339041960502641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,14 +636,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsAir: 0
+  m_FirePosition:
+  - {fileID: 317767575830022494}
+  - {fileID: 8162862019165525776}
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 0
   m_IsRoot: 0
-  m_FirePosition:
-  - {fileID: 317767575830022494}
-  - {fileID: 8162862019165525776}
 --- !u!114 &5879385109361227879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,7 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0658fb1322ef4e8c928bbe7dc60da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsDead: 0
 --- !u!1 &4430706422067994145
 GameObject:
   m_ObjectHideFlags: 0

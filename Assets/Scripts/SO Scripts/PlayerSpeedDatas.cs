@@ -9,8 +9,8 @@ public class PlayerSpeedDatas : ScriptableObject
     [Serializable]
     public struct PlayerSpeed
     {
-        public int defaultSpeed;
-        public int slowSpeed;
+        public float defaultSpeed;
+        public float slowSpeed;
     }
 
     public PlayerSpeed[] playerSpeed;

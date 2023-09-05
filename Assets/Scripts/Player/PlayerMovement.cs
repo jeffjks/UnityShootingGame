@@ -8,26 +8,16 @@ public class PlayerMovement : MonoBehaviour
     public PlayerUnit m_PlayerUnit;
     public PlayerSpeedDatas m_PlayerSpeedData;
     
-    private const int MAX_PLAYER_CAMERA = (int) (Size.CAMERA_MOVE_LIMIT * 256);
-    private int _overviewSpeed;
-    private int _defaultSpeed;
-    private int _slowSpeed;
+    private float _overviewSpeed;
+    private float _defaultSpeed;
+    private float _slowSpeed;
     private PlayerCollisionDetector _playerCollisionDetector;
 
-    private const int BOUNDARY_PLAYER_X_MIN = -1792; // -7f
-    private const int BOUNDARY_PLAYER_X_MAX = 1792; // 7f
-    private const int BOUNDARY_PLAYER_Y_MIN = -3789; // -14.8f
-    private const int BOUNDARY_PLAYER_Y_MAX = -256; // -1f
-
-    private Vector2Int _positionInt2D;
-    public Vector2Int PositionInt2D
-    {
-        get => _positionInt2D;
-        set {
-            _positionInt2D = value;
-            transform.position = new Vector3((float) _positionInt2D.x / 256, (float) _positionInt2D.y / 256, Depth.PLAYER);
-        }
-    }
+    private const float BOUNDARY_PLAYER_X_MIN = -7f; // -7f
+    private const float BOUNDARY_PLAYER_X_MAX = 7f; // 7f
+    private const float BOUNDARY_PLAYER_Y_MIN = -14.8f; // -14.8f
+    private const float BOUNDARY_PLAYER_Y_MAX = -1f; // -1f
+    
     private int MoveRawHorizontal { get; set; }
     private int MoveRawVertical { get; set; }
 
@@ -42,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
         
         _playerCollisionDetector.Action_OnCollideWithEnemy += m_PlayerUnit.DealCollisionDamage;
         _playerCollisionDetector.Action_OnDeath += KillPlayer;
-        _playerCollisionDetector.Action_OnDeath += ResetPosition;
     }
 
     private void Start()
@@ -51,10 +40,8 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.CurrentAngle, Vector3.forward); // Vector3.forward
 
         var index = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed);
-        _defaultSpeed = m_PlayerSpeedData.playerSpeed[index].defaultSpeed;
-        _slowSpeed = m_PlayerSpeedData.playerSpeed[index].slowSpeed;
-        
-        PositionInt2D = Vector2Int.RoundToInt(new Vector2(transform.position.x * 256, transform.position.y * 256));
+        _defaultSpeed = m_PlayerSpeedData.playerSpeed[index].defaultSpeed / 256f;
+        _slowSpeed = m_PlayerSpeedData.playerSpeed[index].slowSpeed / 256f;
     }
     
     private void OnDestroy()
@@ -92,12 +79,13 @@ public class PlayerMovement : MonoBehaviour
         
         if (PlayerUnit.IsControllable)
         {
-            var moveVectorInt = Vector2Int.RoundToInt(moveVector);
-            PositionInt2D += moveVectorInt;
-            PositionInt2D = new Vector2Int
+            transform.position += (Vector3) moveVector;
+            
+            transform.position = new Vector3
             (
-                Mathf.Clamp(PositionInt2D.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
-                Mathf.Clamp(PositionInt2D.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX)
+                Mathf.Clamp(transform.position.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
+                Mathf.Clamp(transform.position.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX),
+                Depth.PLAYER
             );
         }
     }
@@ -109,15 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void KillPlayer()
     {
-        PlayerManager.Instance.PlayerDead(PositionInt2D);
-    }
-
-    private void ResetPosition()
-    {
-        int playerReviveX = Mathf.Clamp(PositionInt2D.x, -MAX_PLAYER_CAMERA, MAX_PLAYER_CAMERA);
-        int playerReviveY = (int) PlayerManager.REVIVE_POSITION_Y * 256;
-
-        PositionInt2D = new Vector2Int(playerReviveX, playerReviveY);
+        transform.position = PlayerManager.Instance.PlayerDead(transform.position);
     }
 
     private void OverviewPosition()
@@ -125,26 +105,30 @@ public class PlayerMovement : MonoBehaviour
         if (Time.timeScale == 0)
             return;
         
-        Vector2Int target_pos;
-        if (SystemManager.Stage < 4) {
-            target_pos = new Vector2Int(0, (int) PlayerManager.REVIVE_POSITION_Y * 256);
-            if (SystemManager.PlayState != PlayState.OnStageResult) {
-                _overviewSpeed = Mathf.Max(Mathf.Abs(PositionInt2D.x - target_pos.x), Mathf.Abs(PositionInt2D.y - target_pos.y));
-                _overviewSpeed = Mathf.Min(_overviewSpeed, 820);
+        Vector3 targetPos;
+        if (SystemManager.Stage < 4)
+        {
+            targetPos = new Vector3(0f, PlayerManager.REVIVE_POSITION_Y, Depth.PLAYER);
+            if (SystemManager.PlayState != PlayState.OnStageResult)
+            {
+                _overviewSpeed = Mathf.Max(Mathf.Abs(transform.position.x - targetPos.x), Mathf.Abs(transform.position.y - targetPos.y));
+                _overviewSpeed = Mathf.Min(_overviewSpeed, 820f);
+                _overviewSpeed /= 256f;
                 return;
             }
         }
         else {
-            target_pos = new Vector2Int(PositionInt2D.x, 2*256);
-            if (SystemManager.PlayState != PlayState.OnStageResult) {
-                _overviewSpeed = 12*256;
+            targetPos = new Vector3(transform.position.x, 2f, Depth.PLAYER);
+            if (SystemManager.PlayState != PlayState.OnStageResult)
+            {
+                _overviewSpeed = 12f;
                 return;
             }
         }
         // m_PlayState가 3일때만 이하 내용 실행
         //m_Vector2 = Vector2Int.zero;
         var maxDistanceDelta = _overviewSpeed / (Application.targetFrameRate * Time.timeScale);
-        PositionInt2D = Vector2Int.RoundToInt(Vector2.MoveTowards(PositionInt2D, target_pos, maxDistanceDelta));
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, maxDistanceDelta);
     }
 
     private void OnRemove()
@@ -169,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
             OnRemove();
             return;
         }
-        PositionInt2D = new Vector2Int(0, (int)PlayerManager.REVIVE_POSITION_Y * 256);
+        transform.position = new Vector3(0f, PlayerManager.REVIVE_POSITION_Y, Depth.PLAYER);
         PlayerUnit.IsControllable = true;
         PlayerInvincibility.SetInvincibility(3000);
     }

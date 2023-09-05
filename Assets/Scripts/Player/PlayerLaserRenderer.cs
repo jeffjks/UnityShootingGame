@@ -114,22 +114,23 @@ public class PlayerLaserRenderer : MonoBehaviour
             CurrentLaserLength += LASER_SPEED / Application.targetFrameRate * Time.timeScale;
         }
 
-        var maxClampLength = _playerUnit.m_IsPreviewObject ? _playerUnit.m_MaxLaserLength : -transform.position.y;
+        var maxClampLength = _playerUnit.m_IsPreviewObject ? _playerUnit.m_MaxLaserLength : -transform.position.y + 1f;
         CurrentLaserLength = Mathf.Clamp(CurrentLaserLength, 0f, maxClampLength);
     }
 
     private void OnChangedLaserLength()
     {
-        var endPoint = transform.position + Vector3.up * _currentLaserLength;
+        var endPoint = transform.position + Vector3.up * CurrentLaserLength;
         _lineRenderer.SetPosition(1, endPoint);
         m_HitEffect.transform.position = endPoint;
         m_RushEffect.transform.position = endPoint;
 
         if (_stormParticles.Length > 0)
-            _particleMainModule.startLifetime = - _currentLaserLength / _stormSpeed * 0.6f;
+            _particleMainModule.startLifetime = - CurrentLaserLength / _stormSpeed * 0.6f;
 
-        _collider2D.offset = new Vector2(_collider2D.offset.x, _currentLaserLength / 2f);
-        _collider2D.size = new Vector2(_collider2D.size.x, _currentLaserLength);
+        var colliderLength = Mathf.Min(CurrentLaserLength, -transform.position.y);
+        _collider2D.offset = new Vector2(_collider2D.offset.x, colliderLength / 2f);
+        _collider2D.size = new Vector2(_collider2D.size.x, colliderLength);
     }
 
     private void OnStartLaser() {

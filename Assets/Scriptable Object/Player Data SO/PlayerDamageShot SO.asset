@@ -18,4 +18,4 @@ MonoBehaviour:
     middleBossEnemy: 100
     bossEnemy: 100
   cooldownByLevel: 4001000040010000400100004001000040010000
-  damageByLevel: b004000008070000c4090000
+  damageByLevel: 0c0000001200000019000000

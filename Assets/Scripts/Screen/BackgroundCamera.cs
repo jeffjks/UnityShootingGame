@@ -10,10 +10,11 @@ public class BackgroundCamera : MonoBehaviour
 
     public static BackgroundCamera Instance { get; private set; }
 
-    private static bool _isRepeating;
+    private static bool _isRepeatingCamera;
+    private static bool _isRepeatingBackground;
     private Vector3 _backgroundCameraDefaultLocalPos;
-    private Vector3 _backgroundMoveVector;
-    private readonly HashSet<EnemyUnit> _repeatingEnemies = new();
+    private Vector3 _backgroundCameraMoveVector;
+    private readonly HashSet<Transform> _repeatingBackgrounds = new();
 
     private void Awake()
     {
@@ -28,7 +29,7 @@ public class BackgroundCamera : MonoBehaviour
         InitCamera();
 
         SystemManager.Action_OnNextStage += InitCamera;
-        SystemManager.Action_OnShowOverview += StopBackground;
+        SystemManager.Action_OnShowOverview += StopBackgroundCamera;
     }
 
     private void Update()
@@ -37,7 +38,7 @@ public class BackgroundCamera : MonoBehaviour
     }
 
     private void MoveBackgroundCamera() {
-        transform.position += _backgroundMoveVector / Application.targetFrameRate * Time.timeScale;
+        transform.position += _backgroundCameraMoveVector / Application.targetFrameRate * Time.timeScale;
     }
 
     private void InitCamera(bool hasNextStage = true)
@@ -46,73 +47,122 @@ public class BackgroundCamera : MonoBehaviour
         {
             return;
         }
+        StopAllCoroutines();
+        _repeatingBackgrounds.Clear();
+        _isRepeatingBackground = false;
+        _isRepeatingCamera = false;
         Instance.transform.localPosition = _backgroundCameraDefaultLocalPos;
+        Instance.m_BackgroundOffsetTransform.localPosition = Vector3.zero;
     }
 
-    private void StopBackground()
+    private void StopBackgroundCamera()
     {
-        SetBackgroundSpeed(0f);
+        SetBackgroundCameraSpeed(0f);
     }
 
-    public static Vector3 GetBackgroundVector()
+    public static Vector3 GetBackgroundCameraMoveVector()
     {
-        return Instance._backgroundMoveVector;
+        return Instance._backgroundCameraMoveVector;
     }
 
-    public static void SetBackgroundSpeed(float target, int millisecond = 0) {
+    public static void SetBackgroundCameraSpeed(float target, int millisecond = 0) {
         Instance.StartCoroutine(Instance.BackgroundSpeedCoroutine(target, millisecond));
     }
 
-    public static void SetBackgroundSpeed(Vector3 target, int millisecond = 0) { // Overloading
+    public static void SetBackgroundCameraSpeed(Vector3 target, int millisecond = 0) { // Overloading
         Instance.StartCoroutine(Instance.BackgroundSpeedCoroutine(target, millisecond));
     }
 
-    public static void MoveBackgroundCameraOffset(float offsetZ, int millisecond = 0)
+    public static void MoveBackgroundCameraOffset(bool relative, float positionZ, int millisecond = 0)
     {
-        Instance.StartCoroutine(Instance.MoveBackgroundCameraOffsetCoroutine(offsetZ, millisecond));
+        Instance.StartCoroutine(Instance.MoveBackgroundCameraOffsetCoroutine(relative, positionZ, millisecond));
     }
 
-    public static bool AddRepeatingEnemy(EnemyUnit enemyUnit)
+    private IEnumerator MoveBackgroundCameraOffsetCoroutine(bool relative, float positionZ, int millisecond)
     {
-        return Instance._repeatingEnemies.Add(enemyUnit);
+        var frame = millisecond * Application.targetFrameRate / 1000;
+        var initPositionZ = Instance.m_BackgroundOffsetTransform.localPosition.z;
+        var targetPositionZ = relative ? initPositionZ + positionZ : positionZ;
+        
+        for (var i = 0; i < frame; ++i)
+        {
+            var t_pos_z = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
+            
+            positionZ = Mathf.Lerp(initPositionZ, targetPositionZ, t_pos_z);
+            Vector3 temp = m_BackgroundOffsetTransform.localPosition;
+            temp.z = positionZ;
+            m_BackgroundOffsetTransform.localPosition = temp;
+            yield return null;
+        }
     }
 
-    public static bool RemoveRepeatingEnemy(EnemyUnit enemyUnit)
-    {
-        return Instance._repeatingEnemies.Remove(enemyUnit);
-    }
-
-    public static void RepeatBackground(float repeatLength)
+    public static void RepeatBackground(float repeatLength, float speed)
     {
         if (repeatLength > 0f)
         {
-            _isRepeating = true;
-            Instance.StartCoroutine(Instance.RepeatBackgroundCoroutine(repeatLength));
+            _isRepeatingBackground = true;
+            Instance.StartCoroutine(Instance.RepeatBackgroundCoroutine(repeatLength, speed));
         }
         else
         {
-            _isRepeating = false;
+            _isRepeatingBackground = false;
         }
     }
 
-    private IEnumerator RepeatBackgroundCoroutine(float repeatLength)
+    private IEnumerator RepeatBackgroundCoroutine(float repeatLength, float speed)
+    {
+        var current = 0f;
+
+        while (_isRepeatingBackground)
+        {
+            var prevCurrent = current;
+            current = Mathf.Repeat(current + speed / Application.targetFrameRate * Time.timeScale, repeatLength);
+            
+            foreach (var background in _repeatingBackgrounds)
+            {
+                var tempPosition = background.position;
+                tempPosition.z -= current - prevCurrent;
+                background.position = tempPosition;
+            }
+
+            yield return null;
+        }
+    }
+
+    public static bool AddRepeatingBackground(Transform backgroundTransform)
+    {
+        return Instance._repeatingBackgrounds.Add(backgroundTransform);
+    }
+
+    public static bool RemoveRepeatingBackground(Transform backgroundTransform)
+    {
+        return Instance._repeatingBackgrounds.Remove(backgroundTransform);
+    }
+
+    public static void RepeatBackgroundCamera(float repeatLength)
+    {
+        if (repeatLength > 0f)
+        {
+            _isRepeatingCamera = true;
+            Instance.StartCoroutine(Instance.RepeatBackgroundCameraCoroutine(repeatLength));
+        }
+        else
+        {
+            _isRepeatingCamera = false;
+        }
+    }
+
+    private IEnumerator RepeatBackgroundCameraCoroutine(float repeatLength)
     {
         var pivot = transform.position.z;
 
-        while (_isRepeating)
+        while (_isRepeatingCamera)
         {
             if (transform.position.z >= pivot + repeatLength)
             {
                 var pos = transform.position;
                 pos.z -= repeatLength;
                 transform.position = pos;
-
-                foreach (var enemyUnit in _repeatingEnemies)
-                {
-                    var tempPosition = enemyUnit.transform.position;
-                    tempPosition.z -= repeatLength;
-                    enemyUnit.transform.position = tempPosition;
-                }
             }
 
             yield return null;
@@ -122,14 +172,14 @@ public class BackgroundCamera : MonoBehaviour
     private IEnumerator BackgroundSpeedCoroutine(float target, int millisecond = 0) {
         int frame = millisecond * Application.targetFrameRate / 1000;
         if (frame == 0) { // 즉시 종료
-            _backgroundMoveVector.z = target;
+            _backgroundCameraMoveVector.z = target;
             yield break;
         }
 
-        float init_vector_z = _backgroundMoveVector.z;
+        float init_vector_z = _backgroundCameraMoveVector.z;
         
         for (int i = 0; i < frame; ++i) {
-            _backgroundMoveVector.z = init_vector_z + (target - init_vector_z)*(i+1) / frame;
+            _backgroundCameraMoveVector.z = init_vector_z + (target - init_vector_z)*(i+1) / frame;
             yield return new WaitForFrames(0);
         }
     }
@@ -137,35 +187,15 @@ public class BackgroundCamera : MonoBehaviour
     private IEnumerator BackgroundSpeedCoroutine(Vector3 target_vector, int millisecond = 0) { // Overloading
         int frame = millisecond * Application.targetFrameRate / 1000;
         if (frame == 0) { // 즉시 종료
-            _backgroundMoveVector = target_vector;
+            _backgroundCameraMoveVector = target_vector;
             yield break;
         }
 
-        Vector3 init_vector = _backgroundMoveVector;
+        Vector3 init_vector = _backgroundCameraMoveVector;
 
         for (int i = 0; i < frame; ++i) {
-            _backgroundMoveVector = init_vector + (target_vector - init_vector)*(i+1) / frame;
+            _backgroundCameraMoveVector = init_vector + (target_vector - init_vector)*(i+1) / frame;
             yield return new WaitForFrames(0);
-        }
-    }
-
-    private IEnumerator MoveBackgroundCameraOffsetCoroutine(float offsetZ, int millisecond)
-    {
-        var frame = millisecond * Application.targetFrameRate / 1000;
-        var initPositionZ = m_BackgroundOffsetTransform.localPosition.z;
-        var targetPositionZ = initPositionZ + offsetZ;
-
-        for (int i = 0; i < frame; ++i)
-        {
-            float t_pos_z = AC_Ease.ac_ease[(int)EaseType.InOutQuad].Evaluate((float) (i+1) / frame);
-            
-            var backgroundOffsetZ = Mathf.Lerp(initPositionZ, targetPositionZ, t_pos_z);
-            
-            var backgroundOffset = m_BackgroundOffsetTransform.localPosition;
-            backgroundOffset.z = backgroundOffsetZ;
-            m_BackgroundOffsetTransform.localPosition = backgroundOffset;
-            
-            yield return new WaitForMillisecondFrames(0);
         }
     }
 

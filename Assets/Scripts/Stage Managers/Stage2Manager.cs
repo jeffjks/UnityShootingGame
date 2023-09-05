@@ -6,6 +6,8 @@ public class Stage2Manager : StageManager
     [Space(10)]
     public GameObject m_TankSmall_1, m_TankSmall_2, m_ShipSmall_1, m_ShipSmall_2, m_Helicopter, m_PlaneSmall_1, m_ItemHeliRed, m_ItemHeliGreen, m_Gunship, m_PlaneMedium_2, m_PlaneMedium_3;
 
+    public Transform[] repeatingBackgrounds;
+
     private const float WATER_HEIGHT = 2.32f;
     private IEnumerator m_CurrentSpawn;
 
@@ -15,21 +17,26 @@ public class Stage2Manager : StageManager
         
         AudioService.LoadMusics("Stage2");
         AudioService.PlayMusic("Stage2");
+
+        foreach (var background in repeatingBackgrounds)
+        {
+            BackgroundCamera.AddRepeatingBackground(background);
+        }
     }
 
     protected override IEnumerator MainTimeline()
     {
         InitEnemies();
-        BackgroundCamera.SetBackgroundSpeed(0.96f);
+        BackgroundCamera.SetBackgroundCameraSpeed(0.96f);
 
         yield return new WaitForMillisecondFrames(35000);
         StartCoroutine(MiddleBossStart(new Vector3(-12.5f, 4.23f, 29f), 1000)); // Middle Boss (36s)
 
         yield return new WaitForMillisecondFrames(35000);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(1.2f, 0f, 0.6f), 750);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(1.2f, 0f, 0.6f), 750);
         
         yield return new WaitForMillisecondFrames(13320);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 0.96f), 750);
 
         yield return new WaitForMillisecondFrames(26000);
         StartBossTimeline();
@@ -49,9 +56,10 @@ public class Stage2Manager : StageManager
         yield return new WaitForMillisecondFrames(3000);
         ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
-        BackgroundCamera.RepeatBackground(16f);
+        BackgroundCamera.RepeatBackground(16f, BackgroundCamera.GetBackgroundCameraMoveVector().z);
+        BackgroundCamera.SetBackgroundCameraSpeed(0f);
         //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 32f;
-        //BackgroundCamera.SetBackgroundSpeed(0f);
+        //BackgroundCamera.SetBackgroundCameraSpeed(0f);
         AudioService.PlayMusic("Boss1");
     }
 
@@ -229,7 +237,7 @@ public class Stage2Manager : StageManager
     }
 
     private MovePattern[] StopAfterMilliseconds(int delay) {
-        MovePattern[] movePatterns = { new MovePattern(delay, 1000, true, 0f) };
+        MovePattern[] movePatterns = { new (delay, 1000, true, 0f) };
         return movePatterns;
     }
 }

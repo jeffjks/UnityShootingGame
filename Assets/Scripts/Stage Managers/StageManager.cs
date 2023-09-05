@@ -63,7 +63,7 @@ public abstract class StageManager : MonoBehaviour
         
         InGameScreenEffectService.TransitionIn();
 
-        BackgroundCamera.SetBackgroundSpeed(0f);
+        BackgroundCamera.SetBackgroundCameraSpeed(0f);
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             StartBossTimeline();
         }
@@ -92,7 +92,7 @@ public abstract class StageManager : MonoBehaviour
         if (SystemManager.GameMode == GameMode.Training && SystemManager.TrainingInfo.bossOnly) {
             int stage = SystemManager.Stage;
             BackgroundCamera.Instance.transform.localPosition = m_BossOnlyBackgroundLocalPositions[stage];
-            BackgroundCamera.SetBackgroundSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
+            BackgroundCamera.SetBackgroundCameraSpeed(m_BossOnlyBackgroundMoveVectors[stage]);
         }
         StartCoroutine(BossTimeline());
     }
@@ -167,7 +167,7 @@ public abstract class StageManager : MonoBehaviour
     }
 
     public void StartFinalBoss(Vector3 pos) {
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 8f));
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 8f));
         AudioService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss
     }

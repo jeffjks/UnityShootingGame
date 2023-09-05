@@ -30,7 +30,7 @@ public class Stage5Manager : StageManager
         //StartCoroutine(BossTimeline());
         //yield break;
         BackgroundCamera.Instance.transform.position = new Vector3(0f, 40f, 389.4f);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(3000);
         AudioService.FadeOutMusic(5f);
         yield return new WaitForMillisecondFrames(5000);
@@ -42,26 +42,26 @@ public class Stage5Manager : StageManager
 
     protected override IEnumerator MainTimeline()
     {
-        BackgroundCamera.SetBackgroundSpeed(1f);
+        BackgroundCamera.SetBackgroundCameraSpeed(1f);
         yield return new WaitForMillisecondFrames(1000);
         InitEnemies();
         yield return new WaitForMillisecondFrames(100000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 0)); // Middle Boss 1
-        BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(40000);
-        BackgroundCamera.SetBackgroundSpeed(1f, 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(1f, 1000);
         yield return new WaitForMillisecondFrames(48000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 5f, Depth.ENEMY), 500, 1)); // Middle Boss 2
         yield return new WaitForMillisecondFrames(3000);
-        BackgroundCamera.SetBackgroundSpeed(0.9f, 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(0.9f, 1000);
         yield return new WaitForMillisecondFrames(47000);
-        BackgroundCamera.SetBackgroundSpeed(1f, 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(1f, 1000);
         yield return new WaitForMillisecondFrames(30000);
-        BackgroundCamera.SetBackgroundSpeed(1.2f, 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(1.2f, 1000);
         yield return new WaitForMillisecondFrames(41000);
-        BackgroundCamera.SetBackgroundSpeed(7f, 2000);
+        BackgroundCamera.SetBackgroundCameraSpeed(7f, 2000);
         yield return new WaitForMillisecondFrames(13000);
-        BackgroundCamera.SetBackgroundSpeed(1f, 4000);
+        BackgroundCamera.SetBackgroundCameraSpeed(1f, 4000);
         yield return new WaitForMillisecondFrames(9000);
         StartBossTimeline();
         Debug.Log(BackgroundCamera.Instance.transform.localPosition.z.ToString("N8"));
@@ -190,9 +190,9 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(SpawnHelicopters_B(false));
         yield return new WaitForMillisecondFrames(5000);
-        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
+        BackgroundCamera.SetBackgroundCameraSpeed(0.4f, 2000);
         yield return new WaitForMillisecondFrames(4000);
-        BackgroundCamera.SetBackgroundSpeed(1f, 1000);;
+        BackgroundCamera.SetBackgroundCameraSpeed(1f, 1000);;
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_PlaneMedium_4, new Vector2(4f, 3f)); // New
         yield return new WaitForMillisecondFrames(3700);
@@ -200,9 +200,9 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(5000);
         CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
         yield return new WaitForMillisecondFrames(1000);
-        BackgroundCamera.SetBackgroundSpeed(0.4f, 2000);
+        BackgroundCamera.SetBackgroundCameraSpeed(0.4f, 2000);
         yield return new WaitForMillisecondFrames(4000);
-        BackgroundCamera.SetBackgroundSpeed(1f, 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(1f, 1000);
         CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f)); // New
         yield return new WaitForMillisecondFrames(2000);
         if (SystemManager.Difficulty != 0) // New

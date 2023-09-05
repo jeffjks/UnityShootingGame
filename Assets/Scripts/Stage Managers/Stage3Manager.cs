@@ -19,23 +19,24 @@ public class Stage3Manager : StageManager
 
     private void Update()
     {
+        Debug.Log(SystemManager.PlayState);
         BackgroundLoop(98f, 24f);
     }
 
     protected override IEnumerator MainTimeline()
     {
         InitEnemies();
-        BackgroundCamera.SetBackgroundSpeed(0.96f);
+        BackgroundCamera.SetBackgroundCameraSpeed(0.96f);
 
         yield return new WaitForMillisecondFrames(55000);
-        BackgroundCamera.SetBackgroundSpeed(-0.96f, 2000);
+        BackgroundCamera.SetBackgroundCameraSpeed(-0.96f, 2000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, -1f, 52f), 3000)); // Middle Boss (56s)
 
         yield return new WaitForMillisecondFrames(26000);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(-1.92f, 0f, -0.72f), 750);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(-1.92f, 0f, -0.72f), 750);
         
         yield return new WaitForMillisecondFrames(13000);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 0.96f), 750);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 0.96f), 750);
 
         yield return new WaitForMillisecondFrames(35000);
         StartBossTimeline();
@@ -55,7 +56,7 @@ public class Stage3Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         StartCoroutine(BossStart(new Vector3(9.5f, -12.5f, Depth.ENEMY), 3000)); // Boss
         yield return new WaitForMillisecondFrames(2000);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 3.84f), 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 3.84f), 1000);
         AudioService.PlayMusic("Boss1");
     }
 
@@ -220,9 +221,9 @@ public class Stage3Manager : StageManager
     }
 
     private IEnumerator SpawnPlaneSmall2s_B() {
-        int timer = 0;
+        var timer = 0;
         int[] period = { 1800, 1000, 600 };
-        while (timer < 19.8f) {
+        while (timer < 19800) {
             if (SystemManager.PlayState == PlayState.None) {
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-8f, -6f), Random.Range(2f, 3f)));
                 CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-5f, -2.5f), Random.Range(2f, 3f)));

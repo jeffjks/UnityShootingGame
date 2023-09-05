@@ -25,22 +25,22 @@ public class Stage4Manager : StageManager
     protected override IEnumerator MainTimeline()
     {
         InitEnemies();
-        BackgroundCamera.SetBackgroundSpeed(1.12f);
+        BackgroundCamera.SetBackgroundCameraSpeed(1.12f);
 
         yield return new WaitForMillisecondFrames(74000);
         StartCoroutine(MiddleBossStart(new Vector3(0f, 2.5f, Depth.ENEMY), 1000)); // Middle Boss
 
         yield return new WaitForMillisecondFrames(22000);
-        BackgroundCamera.SetBackgroundSpeed(0f, 1200);
+        BackgroundCamera.SetBackgroundCameraSpeed(0f, 1200);
         yield return new WaitForMillisecondFrames(1200);
 
         while(m_BackgroundPos < 270f) {
             float c_horizontal = 0.9783f, c_vertical = 1f;
-            BackgroundCamera.SetBackgroundSpeed(new Vector3(c_horizontal*Mathf.Cos(Mathf.Deg2Rad * (180f + m_BackgroundPos)), 0f, c_vertical*Mathf.Sin(Mathf.Deg2Rad * (180f + m_BackgroundPos))));
+            BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(c_horizontal*Mathf.Cos(Mathf.Deg2Rad * (180f + m_BackgroundPos)), 0f, c_vertical*Mathf.Sin(Mathf.Deg2Rad * (180f + m_BackgroundPos))));
             m_BackgroundPos += 4f / Application.targetFrameRate * Time.timeScale;
             yield return new WaitForFrames(0);
         }
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 1f));
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(14000);
         StartBossTimeline();
     }
@@ -55,13 +55,13 @@ public class Stage4Manager : StageManager
         yield return new WaitForMillisecondFrames(2000);
         AudioService.FadeOutMusic();
         StartCoroutine(BossStart(new Vector3(14f, 3f, 121.5f), 7500)); // Boss
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 1.5f), 1000);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 1.5f), 1000);
         yield return new WaitForMillisecondFrames(3000);
         ShowBossWarningSign();
         yield return new WaitForMillisecondFrames(4000);
         AudioService.PlayMusic("Boss1");
         yield return new WaitForMillisecondFrames(64000);
-        BackgroundCamera.SetBackgroundSpeed(new Vector3(0f, 0f, 0f), 2000);
+        BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 0f), 2000);
     }
 
     protected override IEnumerator EnemyTimeline()

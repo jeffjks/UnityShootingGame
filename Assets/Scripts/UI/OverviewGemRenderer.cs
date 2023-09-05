@@ -5,17 +5,34 @@ using UnityEngine;
 
 public class OverviewGemRenderer : MonoBehaviour
 {
-    public static OverviewGemRenderer Instance { get; private set; }
+    private bool _destroySingleton;
+    private static OverviewGemRenderer Instance { get; set; }
     
     private void Start()
     {
         if (Instance != null)
         {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
+
+        SystemManager.Action_OnQuitInGame += DestroySelf;
+    }
+    
+    private void OnDestroy()
+    {
+        if (_destroySingleton)
+            return;
+        SystemManager.Action_OnQuitInGame -= DestroySelf;
+    }
+
+    private void DestroySelf()
+    {
+        Instance = null;
+        Destroy(gameObject);
     }
 }

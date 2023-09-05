@@ -870,9 +870,6 @@ MonoBehaviour:
   findCamerasAutomatically: 0
   letterBoxCameraColor: {r: 0, g: 0, b: 0, a: 1}
   cameras:
-  - camera: {fileID: 0}
-    anchor: 0
-    vectorAnchor: {x: 0, y: 0}
   - camera: {fileID: 2859131885718784968}
     anchor: 0
     vectorAnchor: {x: 0, y: 0}

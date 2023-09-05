@@ -438,6 +438,8 @@ MonoBehaviour:
   m_Gunship: {fileID: 100006, guid: 3e3304ed2d033014780a68963f571825, type: 3}
   m_PlaneMedium_2: {fileID: 100020, guid: 115679294ce48084e99d458150e3af61, type: 3}
   m_PlaneMedium_3: {fileID: 100040, guid: f152f960cd4bd53408ba28b300a96fbf, type: 3}
+  repeatingBackgrounds:
+  - {fileID: 1541672704}
 --- !u!1 &133249239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,26 +2109,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -2378,6 +2360,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4079609951991084315, guid: 36b0725163b06b849bdda3a107c2ba87,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b0725163b06b849bdda3a107c2ba87, type: 3}
 --- !u!1001 &1582646004
@@ -2435,6 +2422,11 @@ PrefabInstance:
     - target: {fileID: 6090565632742941223, guid: 00a8f52df6297a641adda81b97f9435b,
         type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090565632742941223, guid: 00a8f52df6297a641adda81b97f9435b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7148374621239708662, guid: 00a8f52df6297a641adda81b97f9435b,

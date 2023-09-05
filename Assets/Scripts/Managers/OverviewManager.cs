@@ -13,12 +13,6 @@ public class OverviewManager : MonoBehaviour
         Instantiate(m_OverviewGemRenderer, new Vector3(-100f, 0f, 0f), Quaternion.identity);
     }
 
-    private void OnDestroy()
-    {
-        if (OverviewGemRenderer.Instance != null)
-            Destroy(OverviewGemRenderer.Instance.gameObject);
-    }
-
     private void OnEnable()
     {
         SystemManager.Action_OnShowOverview += OpenWindow;

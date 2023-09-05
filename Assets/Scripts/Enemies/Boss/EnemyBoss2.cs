@@ -30,8 +30,6 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
-
-        BackgroundCamera.AddRepeatingEnemy(this);
     }
 
     protected override void Update()
@@ -67,14 +65,6 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             if (m_EnemyHealth.CurrentHealth <= 7000) { // 체력 7000 이하
                 ToNextPhase();
             }
-        }
-
-        if (m_Phase != 0)
-        {
-            var followingPosition = transform.position;
-            followingPosition.z +=
-                BackgroundCamera.GetBackgroundVector().z / Application.targetFrameRate * Time.timeScale;
-            transform.position = followingPosition;
         }
     }
 
@@ -121,7 +111,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             }
             m_CurrentPhase = Phase2();
             StartCoroutine(m_CurrentPhase);
-            BackgroundCamera.MoveBackgroundCameraOffset(13f, NEXT_PHASE_DELAY);
+            BackgroundCamera.MoveBackgroundCameraOffset(true, 13f, NEXT_PHASE_DELAY);
             
             m_Phase++;
             BulletManager.SetBulletFreeState(2000);
@@ -143,7 +133,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
             m_CurrentPhase = Phase3();
             StartCoroutine(m_CurrentPhase);
-            BackgroundCamera.MoveBackgroundCameraOffset(-7.5f, NEXT_PHASE_DELAY);
+            BackgroundCamera.MoveBackgroundCameraOffset(true, -7.5f, NEXT_PHASE_DELAY);
             
             m_Phase++;
             BulletManager.SetBulletFreeState(2000);
@@ -268,7 +258,6 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     public void OnEndBossDeathAnimation() {
-        BackgroundCamera.RemoveRepeatingEnemy(this);
         SystemManager.Instance.StartStageClearCoroutine();
         InGameScreenEffectService.WhiteEffect(true);
         MainCamera.ShakeCamera(1f);

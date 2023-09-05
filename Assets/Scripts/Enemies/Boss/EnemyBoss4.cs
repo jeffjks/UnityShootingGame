@@ -50,7 +50,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(APPEARANCE_TIME);
 
         float init_speed = m_MoveVector.speed;
-        float target_speed = BackgroundCamera.GetBackgroundVector().z;
+        float target_speed = BackgroundCamera.GetBackgroundCameraMoveVector().z;
         int frame = 1000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
@@ -86,7 +86,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             return;
         }
         if (_followingBackground) {
-            m_MoveVector.speed = BackgroundCamera.GetBackgroundVector().z; // 배경 속도에 맞추기
+            m_MoveVector.speed = BackgroundCamera.GetBackgroundCameraMoveVector().z; // 배경 속도에 맞추기
         }
     }
 

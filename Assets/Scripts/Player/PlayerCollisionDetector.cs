@@ -7,16 +7,25 @@ public class PlayerCollisionDetector : MonoBehaviour
 {
     public string m_Explosion;
 
-    public Action<EnemyUnit> Action_OnCollideWithEnemy;
-    public Action Action_OnDeath;
-    
+    private PlayerUnit _playerUnit;
     private bool _hasCollided;
 
-    private void OnEnable()
+    private void Awake()
+    {
+        _playerUnit = GetComponent<PlayerUnit>();
+
+        PlayerManager.Action_OnPlayerRevive += ResetCollisionState;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerManager.Action_OnPlayerRevive -= ResetCollisionState;
+    }
+
+    private void ResetCollisionState()
     {
         _hasCollided = false;
     }
-    
     
     void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
@@ -40,7 +49,7 @@ public class PlayerCollisionDetector : MonoBehaviour
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
 
                 if (Utility.CheckLayer(other.gameObject, Layer.AIR)) {
-                    Action_OnCollideWithEnemy?.Invoke(enemyObject);
+                    _playerUnit.DealCollisionDamage(enemyObject);
                     OnDeath();
                 }
             }
@@ -56,9 +65,7 @@ public class PlayerCollisionDetector : MonoBehaviour
                 obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
                 
-                Action_OnDeath?.Invoke();
-                
-                transform.root.gameObject.SetActive(false);
+                transform.position = PlayerManager.Instance.PlayerDead(transform.position);
             }
         }
     }

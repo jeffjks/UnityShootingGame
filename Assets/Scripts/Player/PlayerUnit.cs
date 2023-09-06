@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerUnit : PlayerObject
 {
     public bool m_IsPreviewObject;
+    public GameObject m_PlayerRenderer;
     [DrawIf("m_IsPreviewObject", true, ComparisonType.Equals)]
     public float m_MaxLaserLength;
     

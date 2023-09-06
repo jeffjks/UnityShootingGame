@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class BackgroundCamera : MonoBehaviour
 {
     public Camera m_BackgroundCamera;
     public Transform m_BackgroundOffsetTransform;
+    private bool _destroySingleton;
 
     public static BackgroundCamera Instance { get; private set; }
 
@@ -18,7 +20,9 @@ public class BackgroundCamera : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
@@ -30,6 +34,14 @@ public class BackgroundCamera : MonoBehaviour
 
         SystemManager.Action_OnNextStage += InitCamera;
         SystemManager.Action_OnShowOverview += StopBackgroundCamera;
+    }
+
+    private void OnDestroy()
+    {
+        if (_destroySingleton)
+            return;
+        SystemManager.Action_OnNextStage -= InitCamera;
+        SystemManager.Action_OnShowOverview -= StopBackgroundCamera;
     }
 
     private void Update()

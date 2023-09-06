@@ -19,7 +19,6 @@ public class Stage3Manager : StageManager
 
     private void Update()
     {
-        Debug.Log(SystemManager.PlayState);
         BackgroundLoop(98f, 24f);
     }
 

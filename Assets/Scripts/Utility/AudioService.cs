@@ -22,16 +22,16 @@ public class AudioService : MonoBehaviour
     public SoundDatas[] m_SO_Sounds;
     public AudioMixerGroup[] m_AudioMixerGroupSound;
     
-    private static Dictionary<string, MusicInfo> m_MusicInfoDict = new Dictionary<string, MusicInfo>();
-    private static Dictionary<string, HashSet<string>> m_SceneMusicDict = new Dictionary<string, HashSet<string>>();
+    private static Dictionary<string, MusicInfo> m_MusicInfoDict = new ();
+    private static Dictionary<string, HashSet<string>> m_SceneMusicDict = new ();
     private static string currentScene = String.Empty;
-    private static Dictionary<string, AudioSource> m_AudioSourceMusicDict = new Dictionary<string, AudioSource>();
+    private static Dictionary<string, AudioSource> m_AudioSourceMusicDict = new ();
     private static string currentMusic = String.Empty;
     private static bool IsMusicPaused;
     private static bool IsMusicPlaying;
     
-    private static Dictionary<string, AudioSource> m_AudioSourceSoundDict = new Dictionary<string, AudioSource>();
-    private static Dictionary<ExplAudioType, AudioSource> m_AudioSourceExplosionDict = new Dictionary<ExplAudioType, AudioSource>();
+    private static Dictionary<string, AudioSource> m_AudioSourceSoundDict = new ();
+    private static Dictionary<ExplAudioType, AudioSource> m_AudioSourceExplosionDict = new ();
 
     private float _loopStartPoint;
     private float _loopEndPoint;
@@ -140,7 +140,7 @@ public class AudioService : MonoBehaviour
         // 현재 : m_SceneMusicDict[currentScene]
         // 신규 : m_SceneMusicDict[sceneString]
         // 겹치는건 유지 현재에만 있는건 Unload, 신규에만 있는건 Load
-        HashSet<string> currentMusicNames = m_SceneMusicDict[currentScene];
+        HashSet<string> currentMusicNames = new (m_SceneMusicDict[currentScene]);
 
         foreach (var musicName in m_SceneMusicDict[sceneString])
         {
@@ -162,7 +162,7 @@ public class AudioService : MonoBehaviour
     {
         if (!m_SceneMusicDict[currentScene].Contains(musicName))
         {
-            Debug.LogError($"'{musicName}' can not be played in this scene.");
+            Debug.LogError($"'{musicName}' can not be played in scene '{currentScene}'.");
             return;
         }
         if (currentMusic == musicName)

@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 7525156068199041478}
   m_Layer: 10
   m_Name: EnemyPlaneLarge1
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -963,7 +963,7 @@ GameObject:
   - component: {fileID: 9084659962668667413}
   m_Layer: 10
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

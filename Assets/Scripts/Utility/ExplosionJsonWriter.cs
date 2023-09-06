@@ -390,7 +390,7 @@ public class ExplosionJsonWriter : MonoBehaviour
     private void WriteJsonEnemyMiddleBoss4_Part(string enemyKey) {
         list.Clear();
 
-        CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.None, new Vector3(0.1f, 0f, 1.6f), 0.3f);
+        CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.Large, new Vector3(0.1f, 0f, 1.6f), 0.3f);
         CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.None, new Vector3(0.1f, 0f, 0.6f), 0.3f);
         CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.None, new Vector3(0.1f, 0f, -0.4f), 0.3f);
         CreateExplosionEffect(ExplType.Normal_3, ExplAudioType.None, new Vector3(0.1f, 0f, -1.4f), 0.3f);

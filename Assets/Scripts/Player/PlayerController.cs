@@ -154,9 +154,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnMoveInvoked(InputValue inputValue)
     {
-        if (!PlayerUnit.IsControllable)
-            return;
-        
         var moveInput = inputValue.Get<Vector2>();
 
         _playerMovement.MovePlayer(moveInput);
@@ -173,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        _playerLaserHandler.StopLaser();
+        StopAttack();
     }
 
     private void StopAttack()

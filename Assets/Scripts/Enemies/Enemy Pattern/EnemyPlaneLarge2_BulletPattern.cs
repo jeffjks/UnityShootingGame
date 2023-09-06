@@ -13,6 +13,7 @@ public class EnemyPlaneLarge2_BulletPattern_1A : BulletFactory, IBulletPattern
 
         while(true)
         {
+            var playerAngle = _enemyObject.AngleToPlayer;
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 break;
             }
@@ -20,7 +21,7 @@ public class EnemyPlaneLarge2_BulletPattern_1A : BulletFactory, IBulletPattern
                 for (int i = 0; i < 16; i++) {
                     var pos = GetFirePos(0);
                     var dir = 115f - 4.8f * i;
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 10f, BulletPivot.Player, 0f, 2, dir));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 10f, BulletPivot.Fixed, playerAngle, 2, dir));
                     yield return new WaitForFrames(3);
                 }
             }
@@ -29,8 +30,8 @@ public class EnemyPlaneLarge2_BulletPattern_1A : BulletFactory, IBulletPattern
                     var pos = GetFirePos(0);
                     var dir1 = 120f - 5.3f * i;
                     var dir2 = 120f - 4.8f * i;
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 9.5f, BulletPivot.Player, 0f, 2, dir1));
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 13f, BulletPivot.Player, 0f, 2, dir2));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 9.5f, BulletPivot.Fixed, playerAngle, 2, dir1));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 13f, BulletPivot.Fixed, playerAngle, 2, dir2));
                     yield return new WaitForFrames(3);
                 }
             }

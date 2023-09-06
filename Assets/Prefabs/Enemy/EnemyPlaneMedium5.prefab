@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 4708092984958876778}
   m_Layer: 10
   m_Name: EnemyPlaneMedium5
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -985,7 +985,7 @@ MonoBehaviour:
   m_HealthType: 0
   m_DefaultHealth: 3000
   m_Collider2D:
-  - {fileID: 0}
+  - {fileID: 3340336468712952810}
 --- !u!114 &1499310381098499890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,7 +1246,7 @@ GameObject:
   - component: {fileID: 3340336468712952810}
   m_Layer: 10
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     
     private bool _destroySingleton;
     private PlayerUnit _playerUnit;
+    private GameObject _playerParent;
 
     public const float REVIVE_POSITION_Y = -13f;
     private static Vector3 RevivePosition = new (0f, REVIVE_POSITION_Y, Depth.PLAYER);
@@ -22,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     
     private const int REVIVE_DELAY = 1500;
 
-    public static Action Action_OnStartStartNewGame;
+    public static Action Action_OnPlayerRevive;
 
     public static PlayerManager Instance { get; private set; }
     
@@ -41,7 +42,6 @@ public class PlayerManager : MonoBehaviour
         m_ReplayManager.Init();
 
         SystemManager.Action_OnQuitInGame += DestroySelf;
-        Action_OnStartStartNewGame?.Invoke();
         
         BackgroundCamera.Instance.m_BackgroundOffsetTransform.rotation = Quaternion.AngleAxis(90f - Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
     }
@@ -61,27 +61,25 @@ public class PlayerManager : MonoBehaviour
     {
         CurrentAttributes = attributes;
         IsPlayerAlive = true;
-        GameObject spawnedPlayer;
-        
-        if (SystemManager.Instance.SpawnAtSpawnPointCondition()) {
-            spawnedPlayer = Instantiate(m_PlayerPrefab, m_SpawnPoint, Quaternion.identity);
-        }
-        else {
-            spawnedPlayer = Instantiate(m_PlayerPrefab, new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER), Quaternion.identity);
-        }
-        _playerUnit = spawnedPlayer.GetComponentInChildren<PlayerUnit>();
 
+        _playerParent = SystemManager.Instance.SpawnAtSpawnPointCondition()
+            ? Instantiate(m_PlayerPrefab, m_SpawnPoint, Quaternion.identity)
+            : Instantiate(m_PlayerPrefab, new Vector3(0f, REVIVE_POSITION_Y, Depth.PLAYER), Quaternion.identity);
+        
+        _playerUnit = _playerParent.GetComponentInChildren<PlayerUnit>();
         _playerUnit.PlayerAttackLevel = playerAttackLevel;
 
-        return spawnedPlayer;
+        return _playerParent;
     }
 
     public Vector3 PlayerDead(Vector3 deadPosition)
     {
+        _playerUnit.m_PlayerRenderer.SetActive(false);
         var playerReviveX = Mathf.Clamp(deadPosition.x, -Size.CAMERA_MOVE_LIMIT, Size.CAMERA_MOVE_LIMIT);
         RevivePosition = new Vector3(playerReviveX, REVIVE_POSITION_Y, Depth.PLAYER);
         
         IsPlayerAlive = false;
+        PlayerUnit.IsControllable = false;
         StartCoroutine(RevivePlayer());
         var itemPos = new Vector3(deadPosition.x, deadPosition.y, Depth.ITEMS);
         int itemNumber;
@@ -107,8 +105,10 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator RevivePlayer()
     {
         yield return new WaitForMillisecondFrames(REVIVE_DELAY);
+        Action_OnPlayerRevive?.Invoke();
         IsPlayerAlive = true;
-        _playerUnit.gameObject.SetActive(true);
+        PlayerUnit.IsControllable = true;
+        _playerUnit.m_PlayerRenderer.SetActive(true);
         PlayerInvincibility.SetInvincibility(PlayerInvincibility.REVIVE_TIME);
     }
 

@@ -78,13 +78,13 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_Phase = 1;
         IsColliderInit = true;
+
+        EnableInteractableAll();
         
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
         m_SubPattern = SubPattern();
         StartCoroutine(m_SubPattern);
-
-        EnableInteractableAll();
 
         SystemManager.OnMiddleBossStart();
 
@@ -115,6 +115,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         BulletManager.SetBulletFreeState(1000);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
+        m_FrontTurret.StopAllPatterns();
+        m_BackTurret.StopAllPatterns();
 
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);

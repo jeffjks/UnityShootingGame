@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private float _overviewSpeed;
     private float _defaultSpeed;
     private float _slowSpeed;
-    private PlayerCollisionDetector _playerCollisionDetector;
 
     private const float BOUNDARY_PLAYER_X_MIN = -7f; // -7f
     private const float BOUNDARY_PLAYER_X_MAX = 7f; // 7f
@@ -23,15 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _playerCollisionDetector = GetComponent<PlayerCollisionDetector>();
-
         SystemManager.Action_OnBossClear += OnBossClear;
         SystemManager.Action_OnStageClear += OnStageClear;
         SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnQuitInGame += OnRemove;
-        
-        _playerCollisionDetector.Action_OnCollideWithEnemy += m_PlayerUnit.DealCollisionDamage;
-        _playerCollisionDetector.Action_OnDeath += KillPlayer;
     }
 
     private void Start()
@@ -65,8 +59,6 @@ public class PlayerMovement : MonoBehaviour
 
         //OverviewPosition();
         
-        ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
-        
         Vector2 moveVector = new Vector2(MoveRawHorizontal, MoveRawVertical);
         moveVector.Normalize();
         
@@ -79,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
         
         if (PlayerUnit.IsControllable)
         {
+            ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
+            
             transform.position += (Vector3) moveVector;
             
             transform.position = new Vector3
@@ -93,11 +87,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         m_PlayerUnit.SlowMode = false;
-    }
-
-    private void KillPlayer()
-    {
-        transform.position = PlayerManager.Instance.PlayerDead(transform.position);
     }
 
     private void OverviewPosition()

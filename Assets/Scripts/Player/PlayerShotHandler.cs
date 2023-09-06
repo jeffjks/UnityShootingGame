@@ -107,6 +107,8 @@ public class PlayerShotHandler : MonoBehaviour
 
     public void ReceiveHorizontalMovement(float movement)
     {
+        if (!PlayerUnit.IsControllable)
+            return;
         PiercingShotTargetDirection = - MAX_PIERCING_SHOT_DIRECTION * Math.Sign(movement);
     }
 

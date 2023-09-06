@@ -311,7 +311,7 @@ public class OverviewHandler : MonoBehaviour
         m_GemAirScoreText.SetText($"{gemAirScore}");
         m_RemainText.SetText($"{stageScore - gemGroundScore - gemAirScore}");
         m_TotalStageText.SetText($"{stageScore}");
-        m_MissText.SetText($"{stageMiss}");
+        m_MissText.SetText($"{stageMiss} Miss");
         m_MissBonusScaleText.SetText($"[ + {missBonusPercent}% ]");
 
         FinalBonusScore = stageScore * missBonusPercent / 100;

@@ -556,8 +556,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1203070630789412584}
-  - component: {fileID: 68537464001249492}
   - component: {fileID: 6233752065279466796}
+  - component: {fileID: 68537464001249492}
   m_Layer: 11
   m_Name: Collider
   m_TagString: Enemy
@@ -580,22 +580,6 @@ Transform:
   m_Father: {fileID: 6022974842258049012}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &68537464001249492
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4295618940245938096}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!50 &6233752065279466796
 Rigidbody2D:
   serializedVersion: 4
@@ -617,6 +601,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &68537464001249492
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4295618940245938096}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &7860808079222825841
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +647,7 @@ Transform:
   m_Children:
   - {fileID: 400014}
   - {fileID: 400012}
+  - {fileID: 7437550274669414510}
   m_Father: {fileID: 6022974842258049012}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -676,13 +677,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8024664847682237406}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.3960342, z: -0.3078261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400006}
-  m_Father: {fileID: 6022974842258049012}
+  m_Father: {fileID: 5403512910497850937}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3112153527212686602
@@ -762,7 +763,6 @@ Transform:
   m_Children:
   - {fileID: 1203070630789412584}
   - {fileID: 5403512910497850937}
-  - {fileID: 7437550274669414510}
   m_Father: {fileID: 400010}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

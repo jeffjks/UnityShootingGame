@@ -507,14 +507,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5008916903217643604}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2.375, z: 0}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5802298881462302261}
-  m_Father: {fileID: 3640109115039248805}
-  m_RootOrder: 2
+  m_Father: {fileID: 636589910696652763}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6581753055472979929
 MonoBehaviour:
@@ -592,6 +592,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400004}
+  - {fileID: 5418079972243381598}
   m_Father: {fileID: 3640109115039248805}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -604,8 +605,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1338945817588538131}
-  - component: {fileID: 6192040104998937505}
   - component: {fileID: 3451086790861629782}
+  - component: {fileID: 6192040104998937505}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -628,22 +629,6 @@ Transform:
   m_Father: {fileID: 3640109115039248805}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &6192040104998937505
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7518568227773377715}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.8
 --- !u!50 &3451086790861629782
 Rigidbody2D:
   serializedVersion: 4
@@ -665,6 +650,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &6192040104998937505
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7518568227773377715}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.8
 --- !u!1 &8162417348542934593
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +696,6 @@ Transform:
   m_Children:
   - {fileID: 1338945817588538131}
   - {fileID: 636589910696652763}
-  - {fileID: 5418079972243381598}
   m_Father: {fileID: 400000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

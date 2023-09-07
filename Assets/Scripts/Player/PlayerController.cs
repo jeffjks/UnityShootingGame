@@ -74,9 +74,7 @@ public class PlayerController : MonoBehaviour
     private void OnFireInvoked(InputValue inputValue)
     {
         IsFirePressed = false;
-
-        if (!PlayerUnit.IsControllable)
-            return;
+        
         if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
             return;
         
@@ -86,6 +84,9 @@ public class PlayerController : MonoBehaviour
     public void ExecuteFire(bool isPressed)
     {
         IsFirePressed = isPressed;
+        
+        if (!PlayerUnit.IsControllable)
+            return;
 
         if (IsFirePressed) // 누르는 순간
         {
@@ -159,21 +160,8 @@ public class PlayerController : MonoBehaviour
         _playerMovement.MovePlayer(moveInput);
         _playerShotHandler.ReceiveHorizontalMovement(moveInput.x);
     }
-    
-    private void OnEnable()
-    {
-        //_playerShotHandler.AutoShot = 0;
-        
-        if (!_playerUnit.m_IsPreviewObject)
-            InGameDataManager.Instance.InitBombNumber();
-    }
 
-    private void OnDisable()
-    {
-        StopAttack();
-    }
-
-    private void StopAttack()
+    public void StopAttack()
     {
         IsFirePressed = false;
         _playerLaserHandler.StopLaser();

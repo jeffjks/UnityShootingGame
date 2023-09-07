@@ -13,7 +13,8 @@ public class PlayerUnit : PlayerObject
     public bool SlowMode { get; set; }
     public bool IsAttacking { get; set; }
     public bool IsShooting { get; set; }
-
+    
+    private bool _destroySingleton;
     private int _playerAttackLevel;
     public int PlayerAttackLevel
     {
@@ -53,32 +54,62 @@ public class PlayerUnit : PlayerObject
         }
         else
         {
-            if (Instance != null) {
+            if (Instance != null)
+            {
+                _destroySingleton = true;
                 Destroy(gameObject);
                 return;
             }
             Instance = this;
             
+            Action_OnControllableChanged += OnControllableChanged;
+            PlayerManager.Action_OnPlayerRevive += InitBomb;
+            SystemManager.Action_OnStageClear += OnStageClear;
+            SystemManager.Action_OnNextStage += OnNextStage;
+            
             DontDestroyOnLoad(transform.parent);
-
-            Action_OnControllableChanged += (controllable) =>
-            {
-                if (controllable)
-                    return;
-                SlowMode = false;
-                IsAttacking = false;
-            };
-            SystemManager.Action_OnStageClear += () => IsControllable = false;
-            SystemManager.Action_OnNextStage += (hasNextStage) =>
-            {
-                if (hasNextStage)
-                    IsControllable = true;
-            };
         }
         
         //CurrentAngle = 180f;
     }
+
+    private void OnDestroy()
+    {
+        if (m_IsPreviewObject)
+            return;
+        if (_destroySingleton)
+            return;
+        Action_OnControllableChanged -= OnControllableChanged;
+        PlayerManager.Action_OnPlayerRevive -= InitBomb;
+        SystemManager.Action_OnStageClear -= OnStageClear;
+        SystemManager.Action_OnNextStage -= OnNextStage;
+    }
+
+    private void OnControllableChanged(bool controllable)
+    {
+        if (controllable)
+            return;
+        SlowMode = false;
+        IsAttacking = false;
+    }
+
+    private void OnStageClear()
+    {
+        IsControllable = false;
+    }
+
+    private void OnNextStage(bool hasNextStage)
+    {
+        if (hasNextStage)
+            IsControllable = true;
+    }
     
+    private void InitBomb()
+    {
+        if (!m_IsPreviewObject)
+            InGameDataManager.Instance.InitBombNumber();
+    }
+
     public void DealCollisionDamage(EnemyUnit enemyUnit)
     {
         DealDamage(enemyUnit);

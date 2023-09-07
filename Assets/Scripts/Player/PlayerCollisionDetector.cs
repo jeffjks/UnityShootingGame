@@ -8,11 +8,13 @@ public class PlayerCollisionDetector : MonoBehaviour
     public string m_Explosion;
 
     private PlayerUnit _playerUnit;
+    private PlayerController _playerController;
     private bool _hasCollided;
 
     private void Awake()
     {
         _playerUnit = GetComponent<PlayerUnit>();
+        _playerController = GetComponent<PlayerController>();
 
         PlayerManager.Action_OnPlayerRevive += ResetCollisionState;
     }
@@ -65,6 +67,7 @@ public class PlayerCollisionDetector : MonoBehaviour
                 obj.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.EXPLOSION);
                 obj.SetActive(true);
                 
+                _playerController.StopAttack();
                 transform.position = PlayerManager.Instance.PlayerDead(transform.position);
             }
         }

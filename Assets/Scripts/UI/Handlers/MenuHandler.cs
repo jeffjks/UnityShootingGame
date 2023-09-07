@@ -10,6 +10,7 @@ public abstract class MenuHandler : MonoBehaviour
     public int m_InitialSelection;
     public bool m_PreserveLastSelection;
 
+    private bool _isNewPanel;
     protected bool _isActive;
     protected static readonly Stack<MenuHandler> _previousMenuStack = new();
 
@@ -59,6 +60,7 @@ public abstract class MenuHandler : MonoBehaviour
         
         _isActive = false;
         targetMenu._isActive = true;
+        targetMenu._isNewPanel = activateNewPanel;
     }
 
     protected void PopupMessageMenu(PopupMenuHandler popupMenuHandler, PopupMenuContext popupMenuContext)
@@ -158,8 +160,11 @@ public abstract class MenuHandler : MonoBehaviour
         CriticalStateSystem.SetCriticalState(10);
         
         var previousMenu = _previousMenuStack.Peek();
-        previousMenu.gameObject.SetActive(true);
-        previousMenu.Init();
+        if (_isNewPanel)
+        {
+            previousMenu.gameObject.SetActive(true);
+            previousMenu.Init();
+        }
         _previousMenuStack.Pop();
 
         SaveLastSelection();

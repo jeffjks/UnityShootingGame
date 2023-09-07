@@ -5,8 +5,10 @@ using UnityEngine.Events;
 
 public class EnemyShipSmall2 : EnemyUnit
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = m_MoveVector.direction;
         SetRotatePattern(new RotatePattern_MoveDirection());
     }

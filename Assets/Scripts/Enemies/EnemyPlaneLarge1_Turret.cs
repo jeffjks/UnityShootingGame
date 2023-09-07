@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyPlaneLarge1_Turret : EnemyUnit
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer(24f));
     }

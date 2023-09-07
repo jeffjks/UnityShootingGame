@@ -6,8 +6,10 @@ public class EnemyMiddleBoss2_SubTurret : EnemyUnit
 {
     private int _killScore;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         _killScore = m_Score;
         m_Score = 0;

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyBoss2_Part1_Turret2 : EnemyUnit
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         SetRotatePattern(new RotatePattern_TargetPlayer(180f));
     }
 }

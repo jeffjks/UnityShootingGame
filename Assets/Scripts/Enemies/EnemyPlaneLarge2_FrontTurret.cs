@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyPlaneLarge2_FrontTurret : EnemyUnit
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         StartPattern("A", new EnemyPlaneLarge2_BulletPattern_FrontTurret_A(this));
     }
 }

@@ -6,8 +6,10 @@ public class EnemyMiddleBoss5a_MainTurret : EnemyUnit
 {
     public int PlayerSweepRotatePattern { private get; set; }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer(150f, 100f));
     }

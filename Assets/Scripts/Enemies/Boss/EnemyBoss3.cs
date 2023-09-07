@@ -21,8 +21,10 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator _currentPhase;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         _defaultScale = transform.localScale;
         transform.localScale = new Vector3(2f, 2f, 2f);
         m_MoveVector = new MoveVector(1f, -125f);

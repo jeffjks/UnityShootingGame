@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyMiddleBoss4_BackTurret : EnemyUnit
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer(0f, 100f).SetOffsetPosition(new Vector2(0f, 1.5f)));
     }

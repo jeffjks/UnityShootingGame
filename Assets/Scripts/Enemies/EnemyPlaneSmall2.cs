@@ -9,8 +9,10 @@ public class EnemyPlaneSmall2 : EnemyUnit
     private bool _isTargetingPlayer = true;
     private const float DEFAULT_SPEED = 7.2f;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         StartPattern("A", new BulletPattern_EnemyPlaneSmall2_A(this));
         CurrentAngle = AngleToPlayer;
         m_MoveVector = new MoveVector(DEFAULT_SPEED, AngleToPlayer);

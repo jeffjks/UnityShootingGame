@@ -37,20 +37,26 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     public event Action Action_StartInteractable;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         if (m_IsRoot)
         {
+            var childEnemies = GetComponentsInChildren<EnemyUnit>();
+            foreach (var enemy in childEnemies)
+            {
+                enemy.m_IsAir = m_IsAir;
+            }
+            
             if (transform.parent)
             {
                 transform.SetParent(null);
             }
         }
-        else
-        {
-            var rootEnemyUnit = transform.root.GetComponent<EnemyUnit>();
-            m_IsAir = rootEnemyUnit.m_IsAir;
-        }
+        // else
+        // {
+        //     var rootEnemyUnit = transform.root.GetComponentInParent<EnemyUnit>();
+        //     m_IsAir = rootEnemyUnit.m_IsAir;
+        // }
         
         Transform root = transform.root;
         if (transform == root)

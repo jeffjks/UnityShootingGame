@@ -9,8 +9,10 @@ public class EnemyTurret3_Turret : EnemyUnit
     public Animator m_BarrelAnimator;
     private readonly int _barrelAnimationTrigger = Animator.StringToHash("BarrelShoot");
     
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         StartPattern("A", new EnemyTurret3_BulletPattern_Turret_A(this, _barrelAnimationTrigger));
         SetRotatePattern(new RotatePattern_TargetPlayer());

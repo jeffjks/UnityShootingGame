@@ -23,8 +23,10 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator m_CurrentPhase;
     private IEnumerator m_CurrentMovement;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         m_TargetPosition[0] = new Vector3(4f, -1f, Depth.ENEMY);
         m_TargetPosition[1] = new Vector3(0f, -5f, Depth.ENEMY);
 
@@ -38,7 +40,8 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
         m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
-        m_Part.m_EnemyDeath.Action_OnKilled += ToNextPhase;
+        if (m_Part != null)
+            m_Part.m_EnemyDeath.Action_OnKilled += ToNextPhase;
     }
 
     protected override void Update()

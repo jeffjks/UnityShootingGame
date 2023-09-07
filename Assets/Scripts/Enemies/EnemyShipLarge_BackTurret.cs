@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyShipLarge_BackTurret : EnemyUnit
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         StartPattern("A", new EnemyShipLarge_BulletPattern_BackTurret_A(this));
         SetRotatePattern(new RotatePattern_TargetPlayer());

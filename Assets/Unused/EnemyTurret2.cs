@@ -6,8 +6,9 @@ public class EnemyTurret2 : EnemyUnit
 {
     public EnemyUnit m_Turret;
     
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
         SetRotatePattern(new RotatePattern_MoveDirection());
     }

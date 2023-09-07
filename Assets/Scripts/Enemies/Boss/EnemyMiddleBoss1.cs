@@ -16,8 +16,10 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator m_CurrentPhase;
     private IEnumerator m_TimeLimit;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         IsColliderInit = false;
         m_Rotator.rotation = Quaternion.Euler(0f, 36f, 20f);
         

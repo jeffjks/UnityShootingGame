@@ -7,8 +7,10 @@ public class EnemyTurretBody : EnemyUnit
     public EnemyUnit m_Turret;
     public int m_HealthPercentTurretDestroying;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         if (m_HealthPercentTurretDestroying > 0f)
             m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
         SetRotatePattern(new RotatePattern_MoveDirection());

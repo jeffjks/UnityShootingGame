@@ -7,7 +7,10 @@ public class EnemyPlaneLarge2 : EnemyUnit
     public EnemyUnit[] m_Turret = new EnemyUnit[4];
     private int _phase;
 
-    void Start() {
+    protected override void Start()
+    {
+        base.Start();
+
         m_MoveVector = new MoveVector(0.8f, 0f);
     }
     

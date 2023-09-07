@@ -173,6 +173,7 @@ namespace LetterboxCamera
             // If requested, a Camera will be generated that renders a letter box Color
             if (createCameraForLetterBoxRendering) {
                 letterBoxCamera = new GameObject().AddComponent<Camera>();
+                letterBoxCamera.gameObject.AddComponent<LetterBoxCamera>();
                 letterBoxCamera.backgroundColor = letterBoxCameraColor;
                 letterBoxCamera.cullingMask = 0;
                 letterBoxCamera.depth = -100;

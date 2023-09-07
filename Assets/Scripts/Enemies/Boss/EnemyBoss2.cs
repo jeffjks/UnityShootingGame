@@ -17,8 +17,10 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator m_CurrentPhase;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         RotateUnit(180f);
 
         TARGET_POSITION = transform.position;

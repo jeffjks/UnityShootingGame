@@ -6,8 +6,10 @@ public class EnemyBoss4_SmallTurret : EnemyUnit
 {
     private int _killScore;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         _killScore = m_Score;
         m_Score = 0;

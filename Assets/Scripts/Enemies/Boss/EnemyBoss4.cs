@@ -26,8 +26,10 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator m_CurrentPhase;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         m_MoveVector = new MoveVector(0f, 180f); // new MoveVector(-4.5f, 180f);
         m_CustomDirection = new CustomDirection();
         

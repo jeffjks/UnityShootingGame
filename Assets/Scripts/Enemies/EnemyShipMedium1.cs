@@ -5,8 +5,10 @@ using UnityEngine.Events;
 
 public class EnemyShipMedium1 : EnemyUnit
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = m_MoveVector.direction;
         StartPattern("A", new BulletPattern_EnemyPlaneMedium1_A(this));
         SetRotatePattern(new RotatePattern_MoveDirection());

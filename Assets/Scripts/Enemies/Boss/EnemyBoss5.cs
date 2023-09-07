@@ -26,8 +26,10 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator m_CurrentPhase;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         for (int i = 0; i < _wingMeshRenderers.Length; i++) {
             _wingMeshRenderers[i] = m_EnemyBoss5Wings[i].GetComponentInChildren<MeshRenderer>();
             _wingMeshRenderers[i].gameObject.SetActive(false);

@@ -6,8 +6,10 @@ public class EnemyShipLarge_SubTurret : EnemyUnit
 {
     private int _side;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer());
 

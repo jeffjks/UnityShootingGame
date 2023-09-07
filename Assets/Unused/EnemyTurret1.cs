@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyTurret1 : EnemyUnit
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         SetRotatePattern(new RotatePattern_MoveDirection());
     }
 }

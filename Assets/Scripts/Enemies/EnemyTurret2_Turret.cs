@@ -5,10 +5,8 @@ using UnityEngine.Events;
 
 public class EnemyTurret2_Turret : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         StartPattern("A", new EnemyTurret2_BulletPattern_Turret_A(this));
         SetRotatePattern(new RotatePattern_TargetPlayer(90f, 100f));

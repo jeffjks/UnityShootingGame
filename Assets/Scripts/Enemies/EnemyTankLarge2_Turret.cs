@@ -6,10 +6,8 @@ public class EnemyTankLarge2_Turret : EnemyUnit
 {
     private readonly IRotatePattern _defaultRotatePattern = new RotatePattern_TargetPlayer(64f, 100f);
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         StartPattern("A", new EnemyTankLarge2_BulletPattern_Turret_A(this, _defaultRotatePattern));
         SetRotatePattern(_defaultRotatePattern);

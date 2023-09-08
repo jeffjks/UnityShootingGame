@@ -37,7 +37,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     public event Action Action_StartInteractable;
 
-    protected virtual void Start()
+    private void Awake()
     {
         if (m_IsRoot)
         {

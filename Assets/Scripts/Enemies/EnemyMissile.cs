@@ -10,10 +10,8 @@ public class EnemyMissile : EnemyUnit
 
     //private Quaternion m_Rotation;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-        
         CurrentAngle = 0f;
         //m_Rotation = m_Renderer.rotation;
 

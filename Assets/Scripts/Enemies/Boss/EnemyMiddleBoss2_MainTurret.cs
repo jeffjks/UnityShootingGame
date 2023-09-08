@@ -6,10 +6,8 @@ public class EnemyMiddleBoss2_MainTurret : EnemyUnit
 {
     public Animator m_BarrelAnimator;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         
         SetRotatePattern(new RotatePattern_TargetPlayer(45f, 100f));

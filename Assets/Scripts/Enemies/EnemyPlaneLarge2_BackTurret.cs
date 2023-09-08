@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemyPlaneLarge2_BackTurret : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         
         var targetAngle = GetAngleToTarget(transform.root.position, PlayerManager.GetPlayerPosition()); // Special (Parent 기준)

@@ -6,10 +6,8 @@ public class EnemyBoss4_FrontTurret : EnemyUnit
 {
     private int _killScore;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer());
         _killScore = m_Score;

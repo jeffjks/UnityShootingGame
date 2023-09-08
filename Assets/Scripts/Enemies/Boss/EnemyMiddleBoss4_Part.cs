@@ -8,10 +8,8 @@ public class EnemyMiddleBoss4_Part : EnemyUnit
 {
     public EnemyItemCreater m_EnemyItemCreater;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
         m_CustomDirection = new CustomDirection();
     }

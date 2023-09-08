@@ -10,10 +10,8 @@ public class EnemyPlaneMedium1 : EnemyUnit
     private const float VERTICAL_SPEED = 0.2f;
     private IEnumerator m_TimeLimit;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_MoveVector.speed = 4.3f;
 
         StartPattern("A", new EnemyPlaneMedium1_BulletPattern_A(this, APPEARANCE_TIME));

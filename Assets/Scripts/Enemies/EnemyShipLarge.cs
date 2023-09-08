@@ -9,10 +9,8 @@ public class EnemyShipLarge : EnemyUnit, IHasPhase
     public EnemyShipLarge_BackTurret m_BackTurret;
     private int _phase = 1;
     
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = m_MoveVector.direction;
     }
     

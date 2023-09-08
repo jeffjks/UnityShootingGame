@@ -6,10 +6,8 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
 {
     private const int TIME_LIMIT = 8000;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         StartPattern("A", new BulletPattern_EnemyGunship(this));
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer());

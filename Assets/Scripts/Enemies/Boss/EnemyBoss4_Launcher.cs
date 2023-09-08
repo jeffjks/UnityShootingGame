@@ -11,10 +11,8 @@ public class EnemyBoss4_Launcher : EnemyUnit
     public float CustomDirectionDelta { get; set; }
     public int CustomDirectionSide { get; set; }
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_CustomDirection = new CustomDirection();
         
         _side = transform.localPosition.x < 0f ? -1 : 1;

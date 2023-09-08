@@ -7,10 +7,8 @@ public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
     private IEnumerator m_TimeLimit;
     private const int TIME_LIMIT = 5000;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         StartPattern("A", new BulletPattern_EnemyPlaneSmall3_A(this));
         CurrentAngle = AngleToPlayer;
         m_TimeLimit = TimeLimit(TIME_LIMIT);

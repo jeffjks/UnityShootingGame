@@ -7,10 +7,8 @@ public class EnemyBoss2_Part3_Turret1 : EnemyUnit
 {
     public int Side { private get; set; }
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-        
         m_CustomDirection = new CustomDirection();
     }
 

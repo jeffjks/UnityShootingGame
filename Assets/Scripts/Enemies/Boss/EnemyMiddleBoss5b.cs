@@ -14,10 +14,8 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
     private const int APPEARANCE_TIME = 2000;
     private int m_Phase;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
         

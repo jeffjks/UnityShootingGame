@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemyBoss2_Part3_Turret3 : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-        
         CurrentAngle = 0f;
     }
 }

@@ -17,10 +17,8 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator m_CurrentPhase;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         RotateUnit(180f);
 
         TARGET_POSITION = transform.position;
@@ -85,10 +83,12 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
+        float[] rotatePatternSpeed = { 0f, 180f, 180f };
 
-        foreach (var part1Turret in m_Part1Turrets)
+        for (var i = 0; i < m_Part1Turrets.Length; ++i)
         {
-            part1Turret.EnableInteractable();
+            m_Part1Turrets[i].EnableInteractable();
+            m_Part1Turrets[i].SetRotatePattern(new RotatePattern_TargetPlayer(rotatePatternSpeed[i]));
         }
         
         SystemManager.OnBossStart();

@@ -5,10 +5,8 @@ using UnityEngine.Events;
 
 public class EnemyMiddleBoss1_Turret : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = 0f;
         SetRotatePattern(new RotatePattern_TargetPlayer(90f));
     }

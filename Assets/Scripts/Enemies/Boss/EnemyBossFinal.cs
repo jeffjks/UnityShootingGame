@@ -17,10 +17,8 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator m_CurrentPhase;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_CustomDirection = new CustomDirection(2);
         
         DisableInteractableAll();

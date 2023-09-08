@@ -5,10 +5,8 @@ using UnityEngine.Events;
 
 public class EnemyPlaneMedium5_BackTurret : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer());
         StartPattern("A", new EnemyPlaneMedium5_BulletPattern_BackTurret_A(this));

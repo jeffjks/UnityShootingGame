@@ -17,10 +17,8 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
     private readonly Vector3 TARGET_POSITION = new (0f, -5.2f, Depth.ENEMY);
     private int m_Phase;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         IsColliderInit = false;
         m_Rotator.rotation = Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f);
 

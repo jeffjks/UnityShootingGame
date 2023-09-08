@@ -9,10 +9,8 @@ public class EnemyBoss1_Part : EnemyUnit
 
     private readonly int _openedBoolAnimation = Animator.StringToHash("Opened");
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-        
         m_EnemyHealth.Action_OnHealthChanged += DestroyBonus;
     }
 

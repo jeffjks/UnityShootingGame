@@ -16,10 +16,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator m_CurrentPhase, m_SubPattern;
     private IEnumerator m_TimeLimit;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         IsColliderInit = false;
         DisableInteractableAll();
 

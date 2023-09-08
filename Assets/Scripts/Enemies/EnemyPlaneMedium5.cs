@@ -13,10 +13,8 @@ public class EnemyPlaneMedium5 : EnemyUnit
     private IEnumerator m_TimeLimit;
     private int _side;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         if (transform.position.x < 0)
             _side = -1;
         else

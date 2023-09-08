@@ -12,10 +12,8 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator _currentPhase;
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         IsColliderInit = false;
         _phase = 1;
         m_MoveVector = new MoveVector(-3f, 120f + 180f);

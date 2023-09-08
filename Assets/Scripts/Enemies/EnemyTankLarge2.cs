@@ -5,10 +5,8 @@ using UnityEngine.Events;
 
 public class EnemyTankLarge2 : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_CustomDirection = new CustomDirection();
         StartPattern("A", new EnemyTankLarge2_BulletPattern_A(this));
         SetRotatePattern(new RotatePattern_MoveDirection());

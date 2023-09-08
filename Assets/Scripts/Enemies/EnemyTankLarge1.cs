@@ -13,10 +13,8 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
     private bool _isSubTurretStart;
     private readonly int _rotateAnimationTrigger = Animator.StringToHash("Rotate");
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         SetRotatePattern(new RotatePattern_MoveDirection());
     }
 

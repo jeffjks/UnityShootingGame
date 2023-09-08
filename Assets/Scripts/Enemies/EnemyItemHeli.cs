@@ -14,10 +14,8 @@ public class EnemyItemHeli : EnemyUnit {
     private const float VERTICAL_SPEED = 1f;
     private IEnumerator m_TimeLimit;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         m_MoveVector.speed = 4f;
         
         StartPattern("A", new BulletPattern_EnemyItemHeli(this));

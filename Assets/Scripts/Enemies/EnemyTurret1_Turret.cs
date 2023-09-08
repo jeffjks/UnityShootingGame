@@ -7,10 +7,8 @@ public class EnemyTurret1_Turret : EnemyUnit
 {
     private readonly IRotatePattern _defaultRotatePattern = new RotatePattern_TargetPlayer(90f, 100f);
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(_defaultRotatePattern);
         StartPattern("A", new EnemyTurret1_BulletPattern_Turret_A(this, _defaultRotatePattern));

@@ -11,10 +11,8 @@ public class EnemyTankMedium2 : EnemyUnit
 
     private bool _isStartShooing;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         SetRotatePattern(new RotatePattern_MoveDirection());
     }
     

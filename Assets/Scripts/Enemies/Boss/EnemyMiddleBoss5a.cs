@@ -18,10 +18,8 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     private IEnumerator _timeLimit;
     private IEnumerator _missileLaunch;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         StartCoroutine(AppearanceSequence());
 
         m_EnemyDeath.Action_OnKilled += OnBossKilled;

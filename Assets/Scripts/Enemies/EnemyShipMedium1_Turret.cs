@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemyShipMedium1_Turret : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = -transform.localRotation.eulerAngles.y;
         StartPattern("A", new BulletPattern_EnemyPlaneMedium1_Turret_A(this));
     }

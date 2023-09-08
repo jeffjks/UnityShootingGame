@@ -7,10 +7,8 @@ public class EnemyShipCarrier : EnemyUnit
 {
     private EnemyUnit[] _enemyUnits;
     
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         _enemyUnits = GetComponentsInChildren<EnemyUnit>();
         CurrentAngle = m_MoveVector.direction;
         SetRotatePattern(new RotatePattern_MoveDirection());

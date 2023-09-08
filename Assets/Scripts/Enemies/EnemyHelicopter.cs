@@ -9,10 +9,8 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     
     private const int TIME_LIMIT = 4000;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
         StartPattern("A", new BulletPattern_EnemyHelicopter(this));
         SetRotatePattern(new RotatePattern_TargetPlayer());

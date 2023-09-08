@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemyMiddleBoss5a_SubTurret : EnemyUnit
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         CurrentAngle = AngleToPlayer;
     }
 }

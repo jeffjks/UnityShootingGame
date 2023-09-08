@@ -12,10 +12,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator m_CurrentPhase, m_CurrentPattern1, m_CurrentPattern2;
     private const int APPEARANCE_TIME = 3500;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         IsColliderInit = false;
         m_TargetPosition = new Vector2(0f, -4.3f);
         m_CustomDirection = new CustomDirection(2);

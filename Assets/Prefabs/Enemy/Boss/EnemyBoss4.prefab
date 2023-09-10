@@ -3139,7 +3139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 1
-  m_DefaultHealth: 5000
+  m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 2714358893465278300}
 --- !u!114 &240741888577068434
@@ -3252,7 +3252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 1
-  m_DefaultHealth: 5000
+  m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 157164651920185090}
 --- !u!114 &2166348856357856252
@@ -3945,7 +3945,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
-  m_Score: 50000
+  m_Score: 45000
   m_IsRoot: 1
   m_SmallTurrets:
   - {fileID: 3099317777960356510}

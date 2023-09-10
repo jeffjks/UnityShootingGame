@@ -165,8 +165,10 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         while (m_Phase == 1) {
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
-            m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
-            m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
+            if (m_FrontTurrets[0] != null)
+                m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
+            if (m_FrontTurrets[1] != null)
+                m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
             yield return new WaitForMillisecondFrames(2000);
             foreach (var smallTurret in m_SmallTurrets)
             {
@@ -192,8 +194,10 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(6000);
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(130f, 100f));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(130f, 100f));
-            m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer());
-            m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer());
+            if (m_FrontTurrets[0] != null)
+                m_FrontTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer());
+            if (m_FrontTurrets[1] != null)
+                m_FrontTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer());
             StopAllSubUnitPattern();
             StopAllPatterns();
             

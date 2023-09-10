@@ -9,6 +9,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     private int _phase;
     private EnemyMissile[] _enemyMissiles;
     private EnemyItemCreater[] _enemyMissileItemCreaters;
+    private Collider2D[] _enemyMissileCollider2Ds;
     
     private readonly Vector3 TARGET_POSITION = new (0f, -4f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2500;
@@ -33,6 +34,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         for (var i = 0; i < _enemyMissileItemCreaters.Length; ++i)
         {
             _enemyMissileItemCreaters[i] = _enemyMissiles[i].GetComponent<EnemyItemCreater>();
+            _enemyMissileCollider2Ds[i] = _enemyMissiles[i].GetComponent<Collider2D>();
         }
     }
 
@@ -169,6 +171,8 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
                 _enemyMissiles[i * 2 + 1].enabled = true;
                 _enemyMissileItemCreaters[i * 2].enabled = true;
                 _enemyMissileItemCreaters[i * 2 + 1].enabled = true;
+                _enemyMissileCollider2Ds[i * 2].enabled = true;
+                _enemyMissileCollider2Ds[i * 2 + 1].enabled = true;
             }
         }
     }

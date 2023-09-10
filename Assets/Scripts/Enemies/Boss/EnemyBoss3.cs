@@ -9,6 +9,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     public GameObject[] m_PartOnDeath = new GameObject[2];
     public Animator m_BarrelAnimator;
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
+    public GameObject m_Engine;
 
     private int m_Phase;
     
@@ -234,6 +235,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
         BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(1f, 0f);
+        m_Engine.SetActive(false);
         
         yield return new WaitForMillisecondFrames(1600);
         m_PartOnDeath[0].SetActive(false);

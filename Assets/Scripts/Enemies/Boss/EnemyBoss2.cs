@@ -83,13 +83,13 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
-        float[] rotatePatternSpeed = { 0f, 180f, 180f };
 
-        for (var i = 0; i < m_Part1Turrets.Length; ++i)
+        foreach (var part1Turret in m_Part1Turrets)
         {
-            m_Part1Turrets[i].EnableInteractable();
-            m_Part1Turrets[i].SetRotatePattern(new RotatePattern_TargetPlayer(rotatePatternSpeed[i]));
+            part1Turret.EnableInteractable();
         }
+        m_Part1Turrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(180f));
+        m_Part1Turrets[2].SetRotatePattern(new RotatePattern_TargetPlayer(180f));
         
         SystemManager.OnBossStart();
     }

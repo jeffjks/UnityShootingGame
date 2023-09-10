@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PlayerSpeed SO
   m_EditorClassIdentifier: 
   playerSpeed:
+  - defaultSpeed: 28
+    slowSpeed: 14
   - defaultSpeed: 32
     slowSpeed: 16
   - defaultSpeed: 36
     slowSpeed: 18
-  - defaultSpeed: 40
-    slowSpeed: 20

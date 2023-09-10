@@ -17,10 +17,10 @@ public class EnemyColorBlender : MonoBehaviour
     private Material[] m_MaterialsAll;
     private int m_DamagingBlendTimer;
     private Color[] m_DefaultAlbedo;
-    private readonly Color m_DamagingAlbedo = new Color(0.64f, 0.64f, 1f, 1f); // blue
+    private readonly Color m_DamagingAlbedo = new (0.64f, 0.64f, 1f, 1f); // blue
     private readonly Color m_LowHealthAlbedo = Color.red;
     private IEnumerator m_LowHealthBlendEffect;
-    private BitArray m_ColorBitArray = new BitArray(2);
+    private readonly BitArray m_ColorBitArray = new (2);
 
     private const int DAMAGING_BLEND_FRAME = 3;
 

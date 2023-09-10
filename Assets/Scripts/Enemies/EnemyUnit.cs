@@ -68,7 +68,8 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             _defaultRotation = transform.rotation * Quaternion.Inverse(root.rotation);
         }
         
-        m_MoveVector.direction = - _defaultRotation.eulerAngles.y;
+        if (!m_IsAir)
+            m_MoveVector.direction = - transform.rotation.eulerAngles.y;
         
         m_EnemyDeath = GetComponent<EnemyDeath>();
         

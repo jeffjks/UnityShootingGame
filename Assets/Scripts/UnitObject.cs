@@ -106,6 +106,7 @@ public abstract class EnemyObject : UnitObject // 적 개체 + 총알
     public void SetRotatePattern(IRotatePattern rotatePattern)
     {
         m_RotatePattern = rotatePattern;
+        m_RotatePattern.ExecuteRotatePattern(this);
     }
 }
 

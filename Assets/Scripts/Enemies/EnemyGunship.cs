@@ -66,20 +66,26 @@ public class BulletPattern_EnemyGunship : BulletFactory, IBulletPattern
                 var pos2 = GetFirePos(1);
                 if (SystemManager.Difficulty == GameDifficulty.Normal)
                 {
-                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 6.7f, BulletPivot.Current, -2.5f));
-                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 6.7f, BulletPivot.Current, 2.5f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 6.7f, BulletPivot.Current, -8f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 6.7f, BulletPivot.Current, 8f));
                     break;
                 }
                 if (SystemManager.Difficulty == GameDifficulty.Expert)
                 {
-                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8f, BulletPivot.Current, -2.5f));
-                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 2.5f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 18f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8f, BulletPivot.Current, -8f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 8f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 18f));
                 }
                 else {
-                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -9f));
-                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -2.5f));
-                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 2.5f));
-                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 9f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -38f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -28f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -18f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, -8f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 8f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 18f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 28f));
+                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8.5f, BulletPivot.Current, 38f));
                 }
                 yield return new WaitForMillisecondFrames(140);
             }

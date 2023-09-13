@@ -12,6 +12,7 @@ public class EnemyMissile : EnemyUnit
 
     private void Start()
     {
+        Debug.Log("Checker");
         CurrentAngle = 0f;
         //m_Rotation = m_Renderer.rotation;
 

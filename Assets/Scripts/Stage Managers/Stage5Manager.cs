@@ -249,22 +249,22 @@ public class Stage5Manager : StageManager
         
         yield return new WaitForMillisecondFrames(2000); // Sea
         CreateEnemyWithMoveVector(m_ShipLarge, new Vector3(-4f, WATER_HEIGHT, GetBackgroundZ() + 32f),
-        new MoveVector(0.6f, 15f));
+        new MoveVector(0.6f, 15f), new MovePattern[] {new (7500, 1000, true, 0f)});
         yield return new WaitForMillisecondFrames(2000);
         StartCoroutine(SpawnPlaneSmalls_A(m_PlaneSmall_2, 6000, 1500));
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(Size.GAME_BOUNDARY_RIGHT + 2f, WATER_HEIGHT, GetBackgroundZ() + 30f),
-        new MoveVector(2.5f, -64f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
+        new MoveVector(2.5f, -64f), new MovePattern[] {new (3000, 1000, true, 0f)});
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(Size.GAME_BOUNDARY_RIGHT + 2.5f, WATER_HEIGHT, GetBackgroundZ() + 28f),
-        new MoveVector(2.5f, -64f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
+        new MoveVector(2.5f, -64f), new MovePattern[] {new (3000, 1000, true, 0f)});
         CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(Size.GAME_BOUNDARY_RIGHT + 3f, WATER_HEIGHT, GetBackgroundZ() + 26f),
-        new MoveVector(2.5f, -64f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
+        new MoveVector(2.5f, -64f), new MovePattern[] {new (3000, 1000, true, 0f)});
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(Size.GAME_BOUNDARY_RIGHT + 6f, WATER_HEIGHT, GetBackgroundZ() + 31f),
-        new MoveVector(2.5f, -64f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
+        new MoveVector(2.5f, -64f), new MovePattern[] {new (3000, 1000, true, 0f)});
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(Size.GAME_BOUNDARY_RIGHT + 6.5f, WATER_HEIGHT, GetBackgroundZ() + 29f),
-        new MoveVector(2.5f, -64f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
+        new MoveVector(2.5f, -64f), new MovePattern[] {new (3000, 1000, true, 0f)});
         CreateEnemyWithMoveVector(m_ShipSmall_2, new Vector3(Size.GAME_BOUNDARY_RIGHT + 7f, WATER_HEIGHT, GetBackgroundZ() + 27f),
-        new MoveVector(2.5f, -64f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
+        new MoveVector(2.5f, -64f), new MovePattern[] {new (3000, 1000, true, 0f)});
         yield return new WaitForMillisecondFrames(3000);
 
         CreateEnemyWithMoveVector(m_ShipCarrier_2, new Vector3(Size.GAME_BOUNDARY_RIGHT, WATER_HEIGHT, GetBackgroundZ() + 31f),

@@ -34,7 +34,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         for (var i = 0; i < _enemyMissileItemCreaters.Length; ++i)
         {
             _enemyMissileItemCreaters[i] = _enemyMissiles[i].GetComponent<EnemyItemCreater>();
-            _enemyMissileCollider2Ds[i] = _enemyMissiles[i].GetComponent<Collider2D>();
+            _enemyMissileCollider2Ds[i] = _enemyMissiles[i].GetComponentInParent<Collider2D>();
         }
     }
 

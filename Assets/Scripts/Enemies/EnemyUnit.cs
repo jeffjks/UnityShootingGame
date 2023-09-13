@@ -39,26 +39,31 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     private void Awake()
     {
-        if (m_IsRoot)
+        if (!m_IsRoot)
+            return;
+        
+        var childEnemies = GetComponentsInChildren<EnemyUnit>();
+        foreach (var childEnemy in childEnemies)
         {
-            var childEnemies = GetComponentsInChildren<EnemyUnit>();
-            foreach (var enemy in childEnemies)
-            {
-                enemy.m_IsAir = m_IsAir;
-            }
-            
-            if (transform.parent)
-            {
-                transform.SetParent(null);
-            }
+            childEnemy.m_IsAir = m_IsAir;
+            childEnemy.Init(transform);
         }
+            
+        if (transform.parent)
+        {
+            transform.SetParent(null);
+        }
+
+        Init(transform);
         // else
         // {
         //     var rootEnemyUnit = transform.root.GetComponentInParent<EnemyUnit>();
         //     m_IsAir = rootEnemyUnit.m_IsAir;
         // }
-        
-        Transform root = transform.root;
+    }
+
+    private void Init(Transform root)
+    {
         if (transform == root)
         {
             _defaultRotation = Quaternion.identity;

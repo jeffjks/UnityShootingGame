@@ -193,42 +193,19 @@ public class Stage5Manager : StageManager
         BackgroundCamera.SetBackgroundCameraSpeed(0.4f, 2000);
         yield return new WaitForMillisecondFrames(4000);
         BackgroundCamera.SetBackgroundCameraSpeed(1f, 1000);;
-        yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_PlaneMedium_4, new Vector2(4f, 3f)); // New
-        yield return new WaitForMillisecondFrames(3700);
+        yield return new WaitForMillisecondFrames(4000);
+        CreateEnemy(m_PlaneMedium_4, new Vector2(2f, 3f));
+        yield return new WaitForMillisecondFrames(2700);
+        if (SystemManager.Difficulty != 0)
+            CreateEnemy(m_PlaneMedium_4, new Vector2(-3f, 3f));
         CreateEnemyWithMoveVector(m_TankLarge_1, new Vector3(12.1f, 3.51f, 177.6f), new MoveVector(1.2f, -45f), new [] {new MovePattern(10000, 2000, true, 0f)});
-        yield return new WaitForMillisecondFrames(5000);
-        CreateEnemy(m_PlaneMedium_2, new Vector2(0f, 3f));
-        yield return new WaitForMillisecondFrames(1000);
+        yield return new WaitForMillisecondFrames(6000);
         BackgroundCamera.SetBackgroundCameraSpeed(0.4f, 2000);
         yield return new WaitForMillisecondFrames(4000);
         BackgroundCamera.SetBackgroundCameraSpeed(1f, 1000);
-        CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f)); // New
-        yield return new WaitForMillisecondFrames(2000);
-        if (SystemManager.Difficulty != 0) // New
-            CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f)); // New
-        yield return new WaitForMillisecondFrames(5300); // 9300 -> 5300
-        //if (SystemManager.Difficulty != 0)
-        //    CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f));
-        // yield return new WaitForMillisecondFrames(1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -2f), new Vector2(-4f, -2f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -4f), new Vector2(-2.5f, -4f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4f, -3f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(2.5f, -5f), 1000);
-        // yield return new WaitForMillisecondFrames(1000);
-        // CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f));
-        //CreateEnemy(m_PlaneMedium_4, new Vector2(4f, 3f));
-        // yield return new WaitForMillisecondFrames(2000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -4f), new Vector2(-3f, -3f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-5f, -6f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -4f), new Vector2(3f, -3f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(5f, -6f), 1000);
-        // yield return new WaitForMillisecondFrames(2000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(-5f, 2f), new Vector2(-4f, -2f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -5f), new Vector2(-6f, -5f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(5f, 2f), new Vector2(4f, -2f), 1000);
-        // CreateEnemyWithTarget(m_PlaneSmall_3, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -5f), new Vector2(6f, -5f), 1000);
-        yield return new WaitForMillisecondFrames(20000); // Middle Boss 2 (207s)
+        CreateEnemy(m_PlaneMedium_4, new Vector2(-4f, 3f));
+        yield return new WaitForMillisecondFrames(7300); // 9300 -> 7300
+        yield return new WaitForMillisecondFrames(14000); // Middle Boss 2 (207s)
 
         StartCoroutine(SpawnPlaneMedium_3s(10000));
         yield return new WaitForMillisecondFrames(4000);
@@ -236,6 +213,8 @@ public class Stage5Manager : StageManager
             StartCoroutine(SpawnPlaneSmalls_C(m_PlaneSmall_1, true));
         }
         yield return new WaitForMillisecondFrames(2000);
+        CreateEnemy(m_PlaneLarge_3, new Vector2(1f, 3f));
+        yield return new WaitForMillisecondFrames(6000);
         if (SystemManager.Difficulty == GameDifficulty.Hell) {
             CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -9f), 1200);
             CreateEnemyWithTarget(m_Helicopter, new Vector2(-2f, 5f), new Vector2(-2f, -7f), 1200);

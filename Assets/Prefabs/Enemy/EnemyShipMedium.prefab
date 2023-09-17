@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
   m_Score: 500
-  m_IsRoot: 0
+  m_IsRoot: 1
 --- !u!114 &8620984854170658003
 MonoBehaviour:
   m_ObjectHideFlags: 0

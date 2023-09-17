@@ -15,7 +15,7 @@ MonoBehaviour:
   playerDamageType: 0
   damageScale:
     zakoEnemy: 100
-    middleBossEnemy: 100
-    bossEnemy: 100
+    middleBossEnemy: 75
+    bossEnemy: 75
   cooldownByLevel: 4001000040010000400100004001000040010000
   damageByLevel: 10000000180000001e000000

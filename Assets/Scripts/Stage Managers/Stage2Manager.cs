@@ -74,7 +74,7 @@ public class Stage2Manager : StageManager
         yield return new WaitForMillisecondFrames(1000);
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-6.2f, 3f, 11f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
         CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(-1.2f, 3f, 12f), new MoveVector(1f, 0f), StopAfterMilliseconds(5000));
-        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(2f, 3f, 10f), new MoveVector(1f, 0f), StopAfterMilliseconds(7000));
+        CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(2f, 3f, 10f), new MoveVector(1f, 0f), StopAfterMilliseconds(4500));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-6f, 3f), new Vector2(-6f, -5f), Random.Range(1200, 1500));
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), Random.Range(1200, 1500));

@@ -17,7 +17,8 @@ public class EnemyItemCreater : MonoBehaviour
         _itemElementList = m_ItemData.itemElementList;
     }
 
-    private void CreateItems() {
+    private void CreateItems()
+    {
         if (m_ItemType == ItemType.None)
             return;
         

@@ -150,9 +150,9 @@ public abstract class StageManager : MonoBehaviour
         //SystemManager.PlayState = PlayState.OnMiddleBoss;
     }
 
-    protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화
-        GameObject boss;
-        boss = CreateEnemy(m_BossUnit[number], pos);
+    protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) // millisecond 후 체력바 활성화
+    {
+        var boss = CreateEnemy(m_BossUnit[number], pos);
         EnemyUnit enemy_unit = boss.GetComponent<EnemyUnit>();
 
         yield return new WaitForMillisecondFrames(millisecond);
@@ -166,7 +166,8 @@ public abstract class StageManager : MonoBehaviour
             m_EnemyPreloaded[i].SetActive(true);
     }
 
-    public void StartFinalBoss(Vector3 pos) {
+    public void StartFinalBoss(Vector3 pos)
+    {
         BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 8f));
         AudioService.PlayMusic("FinalBoss");
         StartCoroutine(BossStart(pos, 1700, 1)); // True Last Boss

@@ -10,24 +10,16 @@ public class EnemyDeath : MonoBehaviour
     public event Action Action_OnRemoved;
     public bool IsDead { get; set; }
 
-    void Start()
+    public void KillEnemy()
     {
-        Action_OnKilled += SetDeadState;
-    }
-
-    private void SetDeadState() {
-        IsDead = true;
-    }
-
-    public void KillEnemy() {
-        if (IsDead) {
-            return;
-        }
         Action_OnKilled?.Invoke();
         
-        EnemyDeath[] enemyDeath = GetComponentsInChildren<EnemyDeath>();
-        for (int i = 0; i < enemyDeath.Length; ++i) {
-            enemyDeath[i].KillEnemy();
+        EnemyDeath[] enemyDeaths = GetComponentsInChildren<EnemyDeath>();
+        foreach (var enemyDeath in enemyDeaths)
+        {
+            if (enemyDeath == this)
+                continue;
+            enemyDeath.KillEnemy();
         }
     }
 

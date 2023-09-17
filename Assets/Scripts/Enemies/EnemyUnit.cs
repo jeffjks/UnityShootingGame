@@ -215,7 +215,11 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         EnableInteractable();
     }
 
-    private void HandleOnKilled() {
+    private void HandleOnKilled()
+    {
+        if (m_EnemyDeath.IsDead) {
+            return;
+        }
         m_EnemyDeath.IsDead = true;
         InGameDataManager.Instance.AddScore(m_Score);
         StartCoroutine(DyingEffect());

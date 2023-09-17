@@ -5,22 +5,21 @@ using UnityEngine.Events;
 
 public class EnemyMissile : EnemyUnit
 {
-    public Transform m_Renderer;
     public GameObject m_Engine;
+    private bool _isLaunched;
 
     //private Quaternion m_Rotation;
 
     private void Start()
     {
-        Debug.Log("Checker");
         CurrentAngle = 0f;
-        //m_Rotation = m_Renderer.rotation;
 
         DisableInteractableAll();
     }
 
-    void OnEnable()
+    public void Launch()
     {
+        _isLaunched = true;
         transform.SetParent(null);
         m_IsRoot = true;
         m_MoveVector = new MoveVector(1f, 0f);
@@ -47,6 +46,8 @@ public class EnemyMissile : EnemyUnit
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
+        if (!_isLaunched)
+            yield break;
         yield return StartPattern("A", new BulletPattern_EnemyMissile(this));
     }
 }

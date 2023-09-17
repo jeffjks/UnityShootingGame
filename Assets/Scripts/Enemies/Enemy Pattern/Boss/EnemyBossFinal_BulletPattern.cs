@@ -36,9 +36,9 @@ public class EnemyBossFinal_BulletPattern_1A2 : BulletFactory, IBulletPattern
         var timerDelta = 110;
         const float randomDistribution = 2f;
         
-        const int bulletNum1 = 25;
+        const int bulletNum1 = 28;
         const float interval1 = 360f / bulletNum1;
-        const int bulletNum2 = 30;
+        const int bulletNum2 = 36;
         const float interval2 = 360f / bulletNum1;
 
         timer = 0;

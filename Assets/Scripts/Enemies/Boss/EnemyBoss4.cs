@@ -212,8 +212,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             }
             yield return new WaitForMillisecondFrames(1000);
             
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_RotateAround(140f * rand));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_RotateAround(140f * rand));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_RotateAround(190f * rand));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_RotateAround(190f * rand));
             m_SubTurrets[0].StartPattern("1C", new BulletPattern_EnemyBoss4_SubTurret_1C(m_SubTurrets[0]));
             m_SubTurrets[1].StartPattern("1C", new BulletPattern_EnemyBoss4_SubTurret_1C(m_SubTurrets[1]));
             StartPattern("1C1", new BulletPattern_EnemyBoss4_1C1(this, m_Launchers));
@@ -283,8 +283,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(1500);
 
             var side = Random.Range(0, 2) * 2 - 1;
-            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(m_SubTurrets[0].AngleToPlayer).SetOffsetAngle(70f*side));
-            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(m_SubTurrets[1].AngleToPlayer).SetOffsetAngle(70f*side));
+            m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(120f, m_SubTurrets[0].AngleToPlayer).SetOffsetAngle(70f*side));
+            m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(120f, m_SubTurrets[1].AngleToPlayer).SetOffsetAngle(70f*side));
             yield return new WaitForMillisecondFrames(1000);
             m_SubTurrets[0].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[0], side));
             m_SubTurrets[1].StartPattern("2B", new BulletPattern_EnemyBoss4_SubTurret_2B(m_SubTurrets[1], side));

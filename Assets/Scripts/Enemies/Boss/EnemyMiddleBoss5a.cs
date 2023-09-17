@@ -31,10 +31,11 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
 
         _enemyMissiles = GetComponentsInChildren<EnemyMissile>();
         _enemyMissileItemCreaters = new EnemyItemCreater[_enemyMissiles.Length];
+        _enemyMissileCollider2Ds = new Collider2D[_enemyMissiles.Length];
         for (var i = 0; i < _enemyMissileItemCreaters.Length; ++i)
         {
             _enemyMissileItemCreaters[i] = _enemyMissiles[i].GetComponent<EnemyItemCreater>();
-            _enemyMissileCollider2Ds[i] = _enemyMissiles[i].GetComponentInParent<Collider2D>();
+            _enemyMissileCollider2Ds[i] = _enemyMissiles[i].GetComponentInChildren<Collider2D>();
         }
     }
 
@@ -167,8 +168,8 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         for (int i = 0; i < 4; i++) {
             yield return new WaitForMillisecondFrames(2000);
             if (_phase > 0) {
-                _enemyMissiles[i * 2].enabled = true;
-                _enemyMissiles[i * 2 + 1].enabled = true;
+                _enemyMissiles[i * 2].Launch();
+                _enemyMissiles[i * 2 + 1].Launch();
                 _enemyMissileItemCreaters[i * 2].enabled = true;
                 _enemyMissileItemCreaters[i * 2 + 1].enabled = true;
                 _enemyMissileCollider2Ds[i * 2].enabled = true;

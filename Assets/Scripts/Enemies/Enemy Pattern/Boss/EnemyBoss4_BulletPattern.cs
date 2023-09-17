@@ -775,7 +775,7 @@ public class BulletPattern_EnemyBoss4_SubTurret_1C : BulletFactory, IBulletPatte
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         const float gap = 0.6f;
-        int[] fireDelay = { 450, 250, 180 };
+        int[] fireDelay = { 450, 200, 150 };
         _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(140f));
         
         while (true) {
@@ -794,10 +794,10 @@ public class BulletPattern_EnemyBoss4_SubTurret_1C : BulletFactory, IBulletPatte
                 CreateBullet(new BulletProperty(pos1, BulletImage.BlueSmall, 6.7f, BulletPivot.Current, 0f, 5, 13f));
             }
             else {
-                CreateBullet(new BulletProperty(pos0, BulletImage.BlueLarge, 5.7f, BulletPivot.Current, -15f));
-                CreateBullet(new BulletProperty(pos1, BulletImage.BlueLarge, 5.7f, BulletPivot.Current, 0f));
-                CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 5.7f, BulletPivot.Current, 15f));
-                CreateBullet(new BulletProperty(pos1, BulletImage.BlueSmall, 6.7f, BulletPivot.Current, 0f, 5, 12f));
+                CreateBullet(new BulletProperty(pos0, BulletImage.BlueLarge, 6f, BulletPivot.Current, -15f));
+                CreateBullet(new BulletProperty(pos1, BulletImage.BlueLarge, 6f, BulletPivot.Current, 0f));
+                CreateBullet(new BulletProperty(pos2, BulletImage.BlueLarge, 6f, BulletPivot.Current, 15f));
+                CreateBullet(new BulletProperty(pos1, BulletImage.BlueSmall, 7.1f, BulletPivot.Current, 0f, 5, 12f));
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int)SystemManager.Difficulty]);
         }
@@ -906,7 +906,7 @@ public class BulletPattern_EnemyBoss4_SubTurret_2C : BulletFactory, IBulletPatte
         
         while (true) {
             Vector3 pos = GetFirePos(0);
-            var rand = Random.Range(-24f, 22f);
+            var rand = Random.Range(-28f, 28f);
             
             for (int i = 0; i < repeatNum[(int) SystemManager.Difficulty]; i++)
             {

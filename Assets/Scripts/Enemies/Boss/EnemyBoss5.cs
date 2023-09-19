@@ -68,7 +68,7 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         EnableInteractableAll();
         
-        SystemManager.OnBossStart();
+        // SystemManager.OnBossStart();
     }
 
     protected override void Update()

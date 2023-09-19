@@ -27,7 +27,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
-        SystemManager.OnMiddleBossStart();
+        // SystemManager.OnMiddleBossStart();
 
         _enemyMissiles = GetComponentsInChildren<EnemyMissile>();
         _enemyMissileItemCreaters = new EnemyItemCreater[_enemyMissiles.Length];

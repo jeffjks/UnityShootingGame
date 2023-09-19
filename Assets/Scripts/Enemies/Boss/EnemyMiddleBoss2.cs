@@ -14,7 +14,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void Start()
     {
-        IsColliderInit = false;
+        // IsColliderInit = false;
         _phase = 1;
         m_MoveVector = new MoveVector(-3f, 120f + 180f);
         m_CustomDirection = new CustomDirection();
@@ -33,7 +33,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         //m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
         SetRotatePattern(new RotatePattern_MoveDirection());
 
-        SystemManager.OnMiddleBossStart();
+        // SystemManager.OnMiddleBossStart();
     }
 
     private IEnumerator AppearanceSequence() {
@@ -87,7 +87,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator Phase1()
     {
         yield return new WaitForFrames(3);
-        IsColliderInit = true;
+        // IsColliderInit = true;
         StartPattern("1A", new BulletPattern_EnemyMiddleBoss2_1A(this));
     }
 

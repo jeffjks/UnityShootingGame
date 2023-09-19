@@ -48,8 +48,9 @@ public class GroundEnemySpawner : MonoBehaviour
         }
         enemyUnit.StartPlayTweenData();
         
-        if (m_EnemySpawnerDatas.RemoveTimer > 0) {
-            StartCoroutine(DestroySpawnedEnemy());
+        if (m_EnemySpawnerDatas.RemoveTimer > 0)
+        {
+            enemyUnit.RemoveTimer = m_EnemySpawnerDatas.RemoveTimer;
         }
     }
 
@@ -67,12 +68,6 @@ public class GroundEnemySpawner : MonoBehaviour
     private IEnumerator DestroySpawner()
     {
         yield return new WaitForMillisecondFrames(m_EnemySpawnerDatas.DeactivateTime);
-        Destroy(gameObject);
-    }
-
-    private IEnumerator DestroySpawnedEnemy()
-    {
-        yield return new WaitForMillisecondFrames(m_EnemySpawnerDatas.RemoveTimer);
         Destroy(gameObject);
     }
 

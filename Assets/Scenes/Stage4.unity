@@ -546,14 +546,6 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.3000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.3000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.5
       objectReference: {fileID: 0}
@@ -3355,14 +3347,6 @@ PrefabInstance:
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder
       value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.3000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.3000002
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6320,14 +6304,6 @@ PrefabInstance:
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.2999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.2999997
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9493,14 +9469,6 @@ PrefabInstance:
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder
       value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.3000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.3000002
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_LocalPosition.x

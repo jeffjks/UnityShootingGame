@@ -14,7 +14,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void Start()
     {
-        IsColliderInit = false;
+        // IsColliderInit = false;
         m_TargetPosition = new Vector2(0f, -4.3f);
         m_CustomDirection = new CustomDirection(2);
 
@@ -26,6 +26,8 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
+
+        // SystemManager.OnMiddleBossStart();
     }
 
     private IEnumerator AppearanceSequence(int delay) {
@@ -50,12 +52,10 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 2)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
-        IsColliderInit = true;
+        // IsColliderInit = true;
         StartCoroutine(m_CurrentPhase);
 
         EnableInteractableAll();
-
-        SystemManager.OnMiddleBossStart();
     }
 
     protected override void Update()

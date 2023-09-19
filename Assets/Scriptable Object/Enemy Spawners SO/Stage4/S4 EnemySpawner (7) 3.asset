@@ -37,5 +37,5 @@ MonoBehaviour:
     speed: 0
     keepDirection: 0
     direction: 275
-  ActivateTime: 120000
-  DeactivateTime: 165000
+  ActivateTime: 110000
+  DeactivateTime: 135000

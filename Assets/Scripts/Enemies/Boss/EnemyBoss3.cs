@@ -111,7 +111,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         EnableInteractableAll();
         
-        SystemManager.OnBossStart();
+        // SystemManager.OnBossStart();
     }
 
     private int RandomValue() {

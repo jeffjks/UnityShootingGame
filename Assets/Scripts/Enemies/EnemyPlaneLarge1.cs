@@ -19,7 +19,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
     private void Start()
     {
-        IsColliderInit = false;
+        // IsColliderInit = false;
         m_Rotator.rotation = Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f);
 
         DisableInteractableAll();
@@ -48,7 +48,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
     private void OnAppearanceComplete() {
         m_Phase = 1;
-        IsColliderInit = true;
+        // IsColliderInit = true;
         EnableInteractableAll();
 
         StartPattern("1A", new EnemyPlaneLarge1_BulletPattern_1A(this));

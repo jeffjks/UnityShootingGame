@@ -12,33 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85785014d93507946b4949dc4df377f4, type: 3}
   m_Name: S4 EnemySpawner (8) 3
   m_EditorClassIdentifier: 
-  Normal: 0
-  Expert: 0
-  Hell: 1
   EnemyUnits:
   - {fileID: 100006, guid: 1843e9acf2d3dc5418f615bcf5a7b86e, type: 3}
   - {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
   SpawnPeriod: 1400
   InteractableTimer: 800
-  RemoveTimer: 16000
+  RemoveTimer: 17000
   MovePatterns:
   - delay: 0
+    duration: 0
     keepSpeed: 0
     speed: 2
     keepDirection: 0
     direction: 336
-    duration: 0
   - delay: 2000
+    duration: 3000
     keepSpeed: 1
     speed: 0
     keepDirection: 0
     direction: 316
-    duration: 3000
   - delay: 3000
+    duration: 3000
     keepSpeed: 1
     speed: 0
     keepDirection: 0
     direction: 297
-    duration: 3000
   ActivateTime: 42000
   DeactivateTime: 170000

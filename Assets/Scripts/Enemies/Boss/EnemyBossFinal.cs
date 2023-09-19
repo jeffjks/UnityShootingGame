@@ -19,7 +19,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void Start()
     {
-        IsColliderInit = false;
+        // IsColliderInit = false;
         m_CustomDirection = new CustomDirection(2);
         
         DisableInteractableAll();
@@ -52,7 +52,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         float[] random_direction = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
 
-        IsColliderInit = true;
+        // IsColliderInit = true;
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
@@ -63,7 +63,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 
         EnableInteractableAll();
         
-        SystemManager.OnBossStart();
+        // SystemManager.OnBossStart();
     }
 
     protected override void Update()

@@ -18,7 +18,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void Start()
     {
-        IsColliderInit = false;
+        // IsColliderInit = false;
         m_Rotator.rotation = Quaternion.Euler(0f, 36f, 20f);
         
         DisableInteractableAll();
@@ -28,6 +28,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
+        
+        // SystemManager.OnMiddleBossStart();
     }
 
     protected override void Update()
@@ -83,7 +85,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(0);
         }
         
-        IsColliderInit = true;
+        // IsColliderInit = true;
         OnAppearanceComplete();
     }
 
@@ -95,8 +97,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentPhase);
         
         EnableInteractableAll();
-
-        SystemManager.OnMiddleBossStart();
+        
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);
     }

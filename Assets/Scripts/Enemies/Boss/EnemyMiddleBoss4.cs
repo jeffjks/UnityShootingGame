@@ -11,14 +11,14 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     private int m_Phase;
     private readonly Vector3 TARGET_POSITION = new (0f, -5f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 1500;
-    private const int TIME_LIMIT = 40000;
+    private const int TIME_LIMIT = 36000;
 
     private IEnumerator m_CurrentPhase, m_SubPattern;
     private IEnumerator m_TimeLimit;
 
     private void Start()
     {
-        IsColliderInit = false;
+        // IsColliderInit = false;
         DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
@@ -26,6 +26,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
+
+        // SystemManager.OnMiddleBossStart();
     }
 
     protected override void Update()
@@ -77,7 +79,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         float[] random_direction = { 80f, 100f, -80f, -100f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
         m_Phase = 1;
-        IsColliderInit = true;
+        // IsColliderInit = true;
 
         EnableInteractableAll();
         
@@ -85,8 +87,6 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentPhase);
         m_SubPattern = SubPattern();
         StartCoroutine(m_SubPattern);
-
-        SystemManager.OnMiddleBossStart();
 
         m_TimeLimit = TimeLimit(TIME_LIMIT);
         StartCoroutine(m_TimeLimit);

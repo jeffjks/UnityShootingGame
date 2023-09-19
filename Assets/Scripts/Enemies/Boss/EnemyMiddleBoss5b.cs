@@ -25,7 +25,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
-        SystemManager.OnMiddleBossStart();
+        // SystemManager.OnMiddleBossStart();
     }
 
     private IEnumerator AppearanceSequence() {

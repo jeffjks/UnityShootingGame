@@ -141,13 +141,12 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected IEnumerator MiddleBossStart(Vector3 pos, int millisecond, byte number = 0) { // millisecond 후 체력바 활성화, number = 중간보스 번호
-        GameObject middle_boss;
-        middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
-        EnemyUnit enemy_unit = middle_boss.GetComponent<EnemyUnit>();
+        var middle_boss = CreateEnemy(m_MiddleBossUnit[number], pos);
+        var enemy_unit = middle_boss.GetComponent<EnemyUnit>();
 
         yield return new WaitForMillisecondFrames(millisecond);
         Action_BossHealthBar?.Invoke(enemy_unit);
-        //SystemManager.PlayState = PlayState.OnMiddleBoss;
+        SystemManager.PlayState = PlayState.OnMiddleBoss;
     }
 
     protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) // millisecond 후 체력바 활성화
@@ -157,7 +156,7 @@ public abstract class StageManager : MonoBehaviour
 
         yield return new WaitForMillisecondFrames(millisecond);
         Action_BossHealthBar?.Invoke(enemy_unit);
-        //SystemManager.PlayState = PlayState.OnMiddleBoss;
+        SystemManager.PlayState = PlayState.OnBoss;
     }
 
     protected void InitEnemies() {

@@ -12,6 +12,19 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     [HideInInspector] public EnemyHealth m_EnemyHealth; // Can be null
     [HideInInspector] public EnemyDeath m_EnemyDeath;
 
+    public int RemoveTimer
+    {
+        set
+        {
+            if (_removeTimerCoroutine != null)
+                StopCoroutine(_removeTimerCoroutine);
+            _removeTimerCoroutine = SetRemoveTimer(value);
+            StartCoroutine(_removeTimerCoroutine);
+        }
+    }
+
+    private IEnumerator _removeTimerCoroutine;
+
     public override float CurrentAngle
     {
         get => _currentAngle;
@@ -91,7 +104,14 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         }
 
         SetColliderPosition();
-        IsColliderInit = true;
+        // IsColliderInit = true;
+    }
+
+    private IEnumerator SetRemoveTimer(int removeTimer)
+    {
+        yield return new WaitForMillisecondFrames(removeTimer);
+        m_EnemyDeath.RemoveEnemy();
+        _removeTimerCoroutine = null;
     }
 
     protected virtual void Update()

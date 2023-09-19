@@ -176,8 +176,10 @@ public class Stage4Manager : StageManager
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4.5f, -4.5f), 1200);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(4.5f, -4.5f), 1200);
         yield return new WaitForMillisecondFrames(8500);
-        m_TankLarge_2_Move = CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
-            new MovePattern[] {new (1000, 1000, true, 0f), new (2000, 1000, true, -0.8f), new (6000, 500, true, 0f)});
+        CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(12.7f, 3.03f, 106f), new MoveVector(2.5f, 14.785f),
+            new MovePattern[] {new (1000, 1000, true, 0f),
+                new (2000, 1000, true, -0.8f),
+                new (4500, 500, true, 0f)});
         yield return new WaitForMillisecondFrames(6500);
         CreateEnemy(m_ItemHeliRed, new Vector2(3f, 3f)); // Item Heli 1
     }

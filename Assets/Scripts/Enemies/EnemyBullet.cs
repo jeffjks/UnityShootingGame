@@ -209,6 +209,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private IEnumerator SubBulletPattern(BulletSpawnTiming spawnTiming, BulletProperty property)
     {
+        if (IsPlayingEraseAnimation)
+            yield break;
         if (spawnTiming.delay > 0)
             yield return new WaitForMillisecondFrames(spawnTiming.delay);
 

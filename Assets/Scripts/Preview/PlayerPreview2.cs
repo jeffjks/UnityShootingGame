@@ -16,7 +16,7 @@ public class PlayerPreview2 : PlayerPreviewManager
             _previewScreen.Action_OnTempAttributesChanged += SetPreviewDesign;
         
         m_DronePart.SetActive(false);
-        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
         m_DronePart.SetActive(true);
     }
     

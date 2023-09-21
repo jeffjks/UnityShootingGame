@@ -12,28 +12,27 @@ public class AircraftRollingService : MonoBehaviour
     public bool m_RelativeToCurrentAngle;
 
     private float m_PreviousDirection;
-    private float m_CurrentRollDegree;
+
+    private float _currentRollDegree;
+    public float CurrentRollDegree
+    {
+        get => _currentRollDegree;
+        set
+        {
+            _currentRollDegree = value;
+            m_Rotator.localRotation = Quaternion.AngleAxis(_currentRollDegree, Vector3.up);
+        }
+    }
     
     private void Update()
     {
-        float current_direction = m_UnitObject.m_MoveVector.direction;
-        float target_rollDegree;
-
-        if (m_RelativeToCurrentAngle) {
-            target_rollDegree = System.Math.Sign(current_direction % 180) * m_MaxRoll; // Mathf 대신 System.Math 사용
-        }
-        else {
-            target_rollDegree = System.Math.Sign(m_PreviousDirection - current_direction) * m_MaxRoll; // Mathf 대신 System.Math 사용
-        }
+        var current_direction = m_UnitObject.m_MoveVector.direction;
+        var target_rollDegree = m_RelativeToCurrentAngle // Mathf 대신 System.Math 사용
+            ? System.Math.Sign((int) current_direction - 180) * m_MaxRoll
+            : System.Math.Sign(m_PreviousDirection - current_direction) * m_MaxRoll;
         
-        m_CurrentRollDegree = Mathf.MoveTowards(m_CurrentRollDegree, target_rollDegree, m_RollSpeed / Application.targetFrameRate * Time.timeScale);
-
-        Roll();
+        CurrentRollDegree = Mathf.MoveTowards(CurrentRollDegree, target_rollDegree, m_RollSpeed / Application.targetFrameRate * Time.timeScale);
         
         m_PreviousDirection = m_UnitObject.m_MoveVector.direction;
-    }
-
-    private void Roll() {
-        m_Rotator.localRotation = Quaternion.AngleAxis(m_CurrentRollDegree, Vector3.up);
     }
 }

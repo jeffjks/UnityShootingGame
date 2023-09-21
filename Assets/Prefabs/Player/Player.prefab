@@ -618,6 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerUnit: {fileID: 6427289742828639506}
   m_PlayerSpeedData: {fileID: 11400000, guid: 79b03713ac68eb347a590a0b369119c8, type: 2}
+  m_AircraftRollingService: {fileID: 8056332426195801104}
 --- !u!114 &784749452946423656
 MonoBehaviour:
   m_ObjectHideFlags: 0

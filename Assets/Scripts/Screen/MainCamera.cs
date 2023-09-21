@@ -40,7 +40,7 @@ public class MainCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        var cameraPosX = PlayerManager.IsPlayerAlive ? PlayerManager.GetPlayerPosition().x * CAMERA_MOVE_RATE : transform.position.x;
+        var cameraPosX = PlayerManager.GetPlayerPosition().x * CAMERA_MOVE_RATE;
 
         cameraPosX = Mathf.Clamp(cameraPosX, - CAMERA_MARGIN, CAMERA_MARGIN);
         

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class EnemyGunship : EnemyUnit, ITargetPosition
 {
     private const int TIME_LIMIT = 8000;
+    private IEnumerator _timeLimitCoroutine;
 
     private void Start()
     {
@@ -12,7 +13,23 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
         CurrentAngle = AngleToPlayer;
         SetRotatePattern(new RotatePattern_TargetPlayer());
 
-        StartCoroutine(TimeLimit(TIME_LIMIT));
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        
+        if (!TimeLimitState) { // Retreat when boss or middle boss state
+            if (SystemManager.PlayState != PlayState.None) {
+                if (_timeLimitCoroutine != null)
+                    StopCoroutine(_timeLimitCoroutine);
+                _timeLimitCoroutine = TimeLimit();
+                StartCoroutine(_timeLimitCoroutine);
+                TimeLimitState = true;
+            }
+        }
     }
 
     public void MoveTowardsToTarget(Vector2 targetVector, int duration) {

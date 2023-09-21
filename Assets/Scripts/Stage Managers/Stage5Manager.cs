@@ -321,13 +321,25 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(5000);
         GameObject[] temp_tanks = new GameObject[3];
         temp_tanks[0] = CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(-5f, 2f, GetBackgroundZ() + 31f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(2500, 2000, true, -1f), new MovePattern(4000, 1000, true, 0f)});
+        new MoveVector(1f, 0f), new MovePattern[]
+        {
+            new (2500, 2000, true, -1f),
+            new (3500, 1000, true, 0f)
+        });
         yield return new WaitForMillisecondFrames(2500);
         temp_tanks[1] = CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(0f, 2f, GetBackgroundZ() + 31f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(2500, 2000, true, -1f), new MovePattern(4000, 1000, true, 0f)});
+        new MoveVector(1f, 0f), new MovePattern[]
+        {
+            new (2500, 2000, true, -1f),
+            new (3500, 1000, true, 0f)
+        });
         yield return new WaitForMillisecondFrames(2500);
         temp_tanks[2] = CreateEnemyWithMoveVector(m_TankLarge_3, new Vector3(5f, 2f, GetBackgroundZ() + 31f),
-        new MoveVector(1f, 0f), new MovePattern[] {new MovePattern(2500, 2000, true, -1f), new MovePattern(4000, 1000, true, 0f)});
+        new MoveVector(1f, 0f), new MovePattern[]
+        {
+            new (2500, 2000, true, -1f),
+            new (3500, 1000, true, 0f)
+        });
         yield return new WaitForMillisecondFrames(6600);
 
         for (int i = 0; i < 5; i++) {

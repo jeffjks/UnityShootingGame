@@ -25,15 +25,15 @@ public abstract class PlayerPreviewManager : MonoBehaviour
         SetPlayerPreviewColors(shipAttributes.GetAttributes(AttributeType.Color));
     }
 
-    private void SetPlayerPreviewColors(int attributeColor) {
-        for (int i = 0; i < m_PlayerColorData.playerColorMaterial.Length; i++) {
+    private void SetPlayerPreviewColors(int attributeColor)
+    {
+        for (var i = 0; i < m_PlayerColorData.playerColorMaterial.Length; i++) {
             if (i == attributeColor)
             {
-                for (int j = 0; j < _meshRenderers.Length; j++)
+                foreach (var meshRenderer in _meshRenderers)
                 {
-                    _meshRenderers[j].material = m_PlayerColorData.playerColorMaterial[i];
+                    meshRenderer.material = m_PlayerColorData.playerColorMaterial[i];
                 }
-
                 break;
             }
         }

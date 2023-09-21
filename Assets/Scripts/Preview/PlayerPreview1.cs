@@ -9,7 +9,7 @@ public class PlayerPreview1 : PlayerPreviewManager
         _previewScreen = FindObjectOfType<PreviewScreen>();
         _previewScreen.Action_OnTempAttributesChanged += SetPreviewDesign;
         
-        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
     }
     
     void Update()

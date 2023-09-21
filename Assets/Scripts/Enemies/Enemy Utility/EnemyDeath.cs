@@ -8,10 +8,15 @@ public class EnemyDeath : MonoBehaviour
     public event Action Action_OnKilled;
     public event Action Action_OnEndDeathAnimation;
     public event Action Action_OnRemoved;
-    public bool IsDead { get; set; }
+    public bool IsDead { get; private set; }
 
     public void KillEnemy()
     {
+        if (IsDead) {
+            return;
+        }
+        IsDead = true;
+        
         Action_OnKilled?.Invoke();
         
         EnemyDeath[] enemyDeaths = GetComponentsInChildren<EnemyDeath>();

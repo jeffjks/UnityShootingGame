@@ -155,13 +155,7 @@ public class Stage3Manager : StageManager
             yield return new WaitForMillisecondFrames(7000);
             CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
             yield return new WaitForMillisecondFrames(7000);
-            int random = Random.Range(0, 2);
-            if (random == 0) {
-                CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_LEFT - 3f, -2f));
-            }
-            else {
-                CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
-            }
+            CreateEnemy(m_PlaneMedium_5, new Vector2(Size.GAME_BOUNDARY_RIGHT + 3f, -2f));
         }
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_ItemHeliRed, new Vector2(0f, 3f)); // Item Heli 1

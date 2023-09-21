@@ -54,6 +54,11 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     {
         if (!m_IsRoot)
             return;
+
+        if (transform.parent)
+        {
+            transform.SetParent(null);
+        }
         
         var childEnemies = GetComponentsInChildren<EnemyUnit>();
         foreach (var childEnemy in childEnemies)
@@ -61,13 +66,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             childEnemy.m_IsAir = m_IsAir;
             childEnemy.Init(transform);
         }
-            
-        if (transform.parent)
-        {
-            transform.SetParent(null);
-        }
-
-        Init(transform);
+        
         // else
         // {
         //     var rootEnemyUnit = transform.root.GetComponentInParent<EnemyUnit>();
@@ -237,10 +236,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     private void HandleOnKilled()
     {
-        if (m_EnemyDeath.IsDead) {
-            return;
-        }
-        m_EnemyDeath.IsDead = true;
         InGameDataManager.Instance.AddScore(m_Score);
         StartCoroutine(DyingEffect());
     }

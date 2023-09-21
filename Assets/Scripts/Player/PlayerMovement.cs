@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
     public PlayerSpeedDatas m_PlayerSpeedData;
+    public AircraftRollingService m_AircraftRollingService;
     
     private float _overviewSpeed;
     private float _defaultSpeed;
@@ -26,11 +27,12 @@ public class PlayerMovement : MonoBehaviour
         SystemManager.Action_OnStageClear += OnStageClear;
         SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnQuitInGame += OnRemove;
+        PlayerManager.Action_OnPlayerRevive += Init;
     }
 
     private void Start()
     {
-        m_PlayerUnit.m_MoveVector.direction = 180f;
+        Init();
         transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.CurrentAngle, Vector3.forward); // Vector3.forward
 
         var index = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed);
@@ -44,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         SystemManager.Action_OnStageClear -= OnStageClear;
         SystemManager.Action_OnNextStage -= OnNextStage;
         SystemManager.Action_OnQuitInGame -= OnRemove;
+        PlayerManager.Action_OnPlayerRevive -= Init;
     }
 
     public void MovePlayer(Vector2 inputVector)
@@ -74,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
             ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
             
             transform.position += (Vector3) moveVector;
+            m_PlayerUnit.m_MoveVector.direction = 180f + 90f*MoveRawHorizontal;
             
             transform.position = new Vector3
             (
@@ -84,9 +88,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Init()
     {
         m_PlayerUnit.SlowMode = false;
+        m_PlayerUnit.m_MoveVector.direction = 180f;
+        m_AircraftRollingService.CurrentRollDegree = 0f;
     }
 
     private void OverviewPosition()

@@ -7,7 +7,7 @@ public class EnemyPlaneLarge3 : EnemyUnit
     public EnemyPlaneLarge3_Turret m_Turret;
     
     private const int APPEARANCE_TIME = 1700;
-    private const int TIME_LIMIT = 16000;
+    private const int TIME_LIMIT = 12000;
     //private float m_PositionY, m_AddPositionY;
     private float m_VSpeed = 0.06f;
     private IEnumerator m_TimeLimit;

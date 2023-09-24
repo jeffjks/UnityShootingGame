@@ -91,7 +91,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void OnAppearanceComplete() {
         float[] randomDirection = { 70f, 110f, -70f, -110f };
-        m_MoveVector = new MoveVector(0.8f, randomDirection[Random.Range(0, 4)]);
+        m_MoveVector = new MoveVector(0.8f, randomDirection[GameManager.RandomTest(0, 4)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);

@@ -53,10 +53,10 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         if (m_Phase > 0) {
             if (transform.position.x > _targetPosition.x + 0.7f) {
-                m_MoveVector.direction = Random.Range(-105f, -75f);
+                m_MoveVector.direction = GameManager.RandomTest(-105f, -75f);
             }
             if (transform.position.x < _targetPosition.x - 0.7f) {
-                m_MoveVector.direction = Random.Range(75f, 105f);
+                m_MoveVector.direction = GameManager.RandomTest(75f, 105f);
             }
             if (transform.position.y > _targetPosition.y + 0.2f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
@@ -102,7 +102,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void OnAppearanceComplete() {
-        float random_direction = Random.Range(75f, 105f) + 180f*Random.Range(0, 2);
+        float random_direction = GameManager.RandomTest(75f, 105f) + 180f*GameManager.RandomTest(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
         _targetPosition = transform.position;
         m_Phase = 1;
@@ -115,7 +115,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private int RandomValue() {
-        int random_value = Random.Range(0, 2);
+        int random_value = GameManager.RandomTest(0, 2);
         if (random_value == 0)
             random_value = -1;
         return random_value;
@@ -162,7 +162,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_Turret[1].StopPattern("1B");
             yield return new WaitForMillisecondFrames(2000);
 
-            m_CustomDirection[0] = Random.Range(0f, 360f);
+            m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
             _directionDelta = 71f * RandomValue();
             StartPattern("1C1", new BulletPattern_EnemyBoss3_1C1(this));
             StartPattern("1C2", new BulletPattern_EnemyBoss3_1C2(this));
@@ -190,7 +190,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
             StartPattern("2B1", new BulletPattern_EnemyBoss3_2B1(this, () => _directionDelta *= -1)); // Pink Wall
             
             for (int i = 0; i < 1; ++i) { // Repeat Once
-                var random_value = Random.Range(0, 2);
+                var random_value = GameManager.RandomTest(0, 2);
                 
                 m_Turret[0].StartPattern("2B", new BulletPattern_EnemyBoss3_Turret_2B(m_Turret[0], random_value));
                 m_Turret[1].StartPattern("2B", new BulletPattern_EnemyBoss3_Turret_2B(m_Turret[1], 1 - random_value));

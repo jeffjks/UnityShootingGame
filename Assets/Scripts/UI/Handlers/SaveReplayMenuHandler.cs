@@ -45,7 +45,7 @@ public class SaveReplayMenuHandler : MenuHandler
             }
             var fileStream = new FileStream(filePath, FileMode.Open);
             _replayInfos[i] = ReplayManager.ReadBinaryHeader(fileStream);
-            var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-hh-mm");
+            var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);
             fileStream.Close();
@@ -121,13 +121,13 @@ public class SaveReplayMenuHandler : MenuHandler
     {
         File.Copy(oldFilePath, newFilePath, true);
         File.Delete(oldFilePath);
+        AudioService.PlaySound("SallyUI");
         LeaveMenu();
     }
 
     private void LeaveMenu()
     {
         EventSystem.current.sendNavigationEvents = false;
-        AudioService.PlaySound("SallyUI");
         
         StartCoroutine(ReturnToMainMenu());
     }

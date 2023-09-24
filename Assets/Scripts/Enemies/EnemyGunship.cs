@@ -54,7 +54,7 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
         yield return new WaitForMillisecondFrames(timeLimit);
         TimeLimitState = true;
         var leaveDirection = Mathf.Sign(transform.position.x);
-        m_MoveVector.direction = leaveDirection > 0f ? Random.Range(80f, 100f) : Random.Range(-80f, -100f);
+        m_MoveVector.direction = leaveDirection > 0f ? GameManager.RandomTest(80f, 100f) : GameManager.RandomTest(-80f, -100f);
         
         float initSpeed = m_MoveVector.speed;
         int frame = 800 * Application.targetFrameRate / 1000;

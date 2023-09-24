@@ -92,10 +92,10 @@ public class EnemyPlaneMedium2_BulletPattern_A : BulletFactory, IBulletPattern
                 var pos = GetFirePos(0);
                 for (var i = 0; i < 2; ++i)
                 {
-                    var speed1 = 5f + Random.Range(0f, 1.2f);
-                    var speed2 = 5f + Random.Range(0f, 1.2f);
-                    var dir1 = Random.Range(-24f, 24f);
-                    var dir2 = Random.Range(-24f, 24f);
+                    var speed1 = 5f + GameManager.RandomTest(0f, 1.2f);
+                    var speed2 = 5f + GameManager.RandomTest(0f, 1.2f);
+                    var dir1 = GameManager.RandomTest(-24f, 24f);
+                    var dir2 = GameManager.RandomTest(-24f, 24f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed1, BulletPivot.Player, dir1));
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed2, BulletPivot.Player, dir2));
                 }
@@ -112,10 +112,10 @@ public class EnemyPlaneMedium2_BulletPattern_A : BulletFactory, IBulletPattern
                 var pos = GetFirePos(0);
                 for (var i = 0; i < 4; ++i)
                 {
-                    var speed1 = 5f + Random.Range(0f, 1.2f);
-                    var speed2 = 5f + Random.Range(0f, 1.2f);
-                    var dir1 = Random.Range(-24f, 24f);
-                    var dir2 = Random.Range(-24f, 24f);
+                    var speed1 = 5f + GameManager.RandomTest(0f, 1.2f);
+                    var speed2 = 5f + GameManager.RandomTest(0f, 1.2f);
+                    var dir1 = GameManager.RandomTest(-24f, 24f);
+                    var dir2 = GameManager.RandomTest(-24f, 24f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed1, BulletPivot.Player, dir1));
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed2, BulletPivot.Player, dir2));
                 }
@@ -155,15 +155,15 @@ public class EnemyPlaneMedium2_BulletPattern_B : BulletFactory, IBulletPattern
     {
         yield return new WaitForMillisecondFrames(_appearanceTime);
         while(!_enemyObject.TimeLimitState) {
-            yield return new WaitForMillisecondFrames(Random.Range(0, 1500));
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 1500));
 
             if (SystemManager.Difficulty == GameDifficulty.Hell) {
                 var pos = GetFirePos(0);
                 for (int i = 0; i < 6; i++) {
-                    var speed1 = 5.2f + Random.Range(0f, 1.8f);
-                    var speed2 = 5.2f + Random.Range(0f, 1.8f);
-                    var dir1 = Random.Range(-24f, 24f);
-                    var dir2 = Random.Range(-24f, 24f);
+                    var speed1 = 5.2f + GameManager.RandomTest(0f, 1.8f);
+                    var speed2 = 5.2f + GameManager.RandomTest(0f, 1.8f);
+                    var dir1 = GameManager.RandomTest(-24f, 24f);
+                    var dir2 = GameManager.RandomTest(-24f, 24f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed1, BulletPivot.Player, dir1));
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, speed2, BulletPivot.Player, dir2));
                 }

@@ -37,13 +37,15 @@ public class PauseManager : MonoBehaviour
         InGameInputController.Action_OnEscapeInput -= Pause;
     }
 
-    private void Pause()
+    private void Pause(bool isPressed)
     {
         if (CriticalStateSystem.InCriticalState)
             return;
         if (SystemManager.PlayState is PlayState.OnStageResult or PlayState.OnStageTransition)
             return;
         if (IsGamePaused)
+            return;
+        if (!isPressed)
             return;
 
         IsGamePaused = true;

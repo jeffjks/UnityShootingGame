@@ -25,7 +25,15 @@ public class ReplayManager : MonoBehaviour
 
     public static string ReplayFilePath;
 
+    public static bool IsUsingReplay => !PauseManager.IsGamePaused && SystemManager.PlayState < PlayState.OnStageResult;
+
     public static ReplayManager Instance { get; private set; }
+
+    public enum KeyType
+    {
+        Fire = 8,
+        Bomb = 10
+    }
 
     public class ReplayInfo
     {
@@ -58,6 +66,7 @@ public class ReplayManager : MonoBehaviour
             return;
         }
         Instance = this;
+        GameManager.CurrentFrame = 0;
         
         _replayDirectory = $"{Application.dataPath}/";
 
@@ -88,6 +97,7 @@ public class ReplayManager : MonoBehaviour
         {
             Random.InitState(SystemManager.CurrentSeed);
         }
+        Debug.Log($"Current Seed: {SystemManager.CurrentSeed}");
 
         if (SystemManager.GameMode == GameMode.Replay)
         {
@@ -165,14 +175,6 @@ public class ReplayManager : MonoBehaviour
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
-    private void Update()
-    {
-        if (PauseManager.IsGamePaused)
-            return;
-        
-        ReadUserInput();
-    }
-
     private int GetPlayerAttackLevel()
     {
         var power = 0;
@@ -203,12 +205,8 @@ public class ReplayManager : MonoBehaviour
         return power;
     }
 
-    private void ReadUserInput()
+    public void ReadUserInput()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
-            return;
-        if (!PlayerUnit.IsControllable)
-            return;
         if (_fileStream.Position >= _fileStream.Length)
         {
             if (!_eof)
@@ -219,50 +217,61 @@ public class ReplayManager : MonoBehaviour
         
         var context = _br.ReadInt32();
 
-        var moveLeft = (context >> 0) & 1;
-        var moveRight = (context >> 1) & 1;
-        var moveDown = (context >> 2) & 1;
-        var moveUp = (context >> 3) & 1;
-        var moveVector = new Vector2(moveRight - moveLeft, moveUp - moveDown);
+        var inputMove = (context >> 0) & 1;
+        if (inputMove == 1)
+        {
+            var moveLeft = (context >> 4) & 1;
+            var moveRight = (context >> 5) & 1;
+            var moveDown = (context >> 6) & 1;
+            var moveUp = (context >> 7) & 1;
+            var moveVectorInt = new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
+            _playerController.OnMoveInvoked(moveVectorInt);
+        }
 
-        var inputFire = (context >> 4) & 1;
-        var inputBomb = (context >> 5) & 1;
+        var inputFire = (context >> (int) KeyType.Fire) & 0b11;
+        var inputBomb = (context >> (int) KeyType.Bomb) & 0b11;
         
-        _playerMovement.MovePlayer(moveVector);
-        _playerController.ExecuteFire(inputFire == 1);
-        if (inputBomb == 1)
-            _playerController.ExecuteBomb();
+        if ((inputFire & 0b01) == 0b01)
+            _playerController.OnFireInvoked((inputFire & 0b10) == 0b10);
+        if ((inputBomb & 0b01) == 0b01)
+            _playerController.OnBombInvoked((inputBomb & 0b10) == 0b10);
     }
 
-    public void WriteUserMoveInput(int rawHorizontal, int rawVertical)
-    {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-        if (!PlayerUnit.IsControllable)
-            return;
-        
-        var moveLeft = rawHorizontal == -1 ? 1 : 0;
-        var moveRight = rawHorizontal == 1 ? 1 : 0;
-        var moveDown = rawVertical == -1 ? 1 : 0;
-        var moveUp = rawVertical == 1 ? 1 : 0;
-
-        _context |= moveLeft | (moveRight << 1) | (moveDown << 2)| (moveUp << 3);
-        _context |= (_playerController.IsFirePressed ? 1 : 0) << 4;
-        _context |= (_playerController.IsBombPressed ? 1 : 0) << 5;
-    }
-
-    public void WriteUserPressInput(bool isPressed, int offset)
+    public void WriteUserMovementInput(Vector2Int rawInputVector)
     {
         if (SystemManager.GameMode == GameMode.Replay)
             return;
         
-        var inputFire = isPressed ? 1 : 0;
+        var moveLeft = rawInputVector.x == -1 ? 1 : 0;
+        var moveRight = rawInputVector.x == 1 ? 1 : 0;
+        var moveDown = rawInputVector.y == -1 ? 1 : 0;
+        var moveUp = rawInputVector.y == 1 ? 1 : 0;
+
+        _context |= 1;
+        _context |= (moveLeft << 4) | (moveRight << 5) | (moveDown << 6)| (moveUp << 7);
+        // _context |= (_playerController.IsFirePressed ? 1 : 0) << 4;
+        // _context |= (_playerController.IsBombPressed ? 1 : 0) << 5;
+    }
+
+    public void WriteUserPressInput(bool isPressed, KeyType keyType)
+    {
+        if (SystemManager.GameMode == GameMode.Replay)
+            return;
+
+        var offset = (int) keyType;
+        
+        var inputFire = isPressed ? 0b11 : 0b01;
         
         _context |= inputFire << offset;
     }
 
-    public void LateUpdate()
+    public void WriteReplayData()
     {
+        //if (!PlayerUnit.IsControllable)
+        //    return;
+        
+        //Debug.Log($"{GameManager.CurrentFrame}: {_context}, {PlayerUnit.Instance.transform.position}");
+        
         _bw?.Write(_context);
         _context = 0;
     }

@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public static bool isOnline;
     public static bool IsDebugScene;
+    public static int CurrentFrame;
 
     private class EncryptedFile
     {
@@ -84,8 +86,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public static float RandomTest(float r1, float r2)
     {
+        var r = Random.Range(r1, r2);
+        //Debug.LogWarning($"{CurrentFrame}: {r}");
+        return r;
+    }
+
+    public static int RandomTest(int r1, int r2)
+    {
+        var r = Random.Range(r1, r2);
+        //Debug.LogWarning($"{CurrentFrame}: {r}");
+        return r;
+    }
+
+    private void LateUpdate()
+    {
+        CurrentFrame++;
     }
 
     public static string GetAccountID() {

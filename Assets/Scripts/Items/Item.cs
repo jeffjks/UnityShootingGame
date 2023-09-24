@@ -72,7 +72,7 @@ public abstract class ItemBox : Item
     private void Awake()
     {
         m_MoveVector.speed = SPEED;
-        float random_value = Random.Range(-45f, 45f);
+        float random_value = GameManager.RandomTest(-45f, 45f);
         m_MoveVector.direction = random_value;
 
         if (!m_Disappear) {
@@ -97,19 +97,19 @@ public abstract class ItemBox : Item
         if (!m_Disappear && m_IsAir) {
             float angle;
             if (transform.position.x <= MainCamera.Instance.transform.position.x - (Size.MAIN_CAMERA_WIDTH / 2f - PADDING)) { // left
-                angle = Random.Range(-45f, 45f);
+                angle = GameManager.RandomTest(-45f, 45f);
                 m_MoveVector.direction = 90f + angle;
             }
             else if (transform.position.x >= MainCamera.Instance.transform.position.x + (Size.MAIN_CAMERA_WIDTH / 2f - PADDING)) { // right
-                angle = Random.Range(-45f, 45f);
+                angle = GameManager.RandomTest(-45f, 45f);
                 m_MoveVector.direction = -90f + angle;
             }
             else if (transform.position.y <= MainCamera.Instance.transform.position.y - (Size.MAIN_CAMERA_HEIGHT / 2f - PADDING)) { // bottom
-                angle = Random.Range(-45f, 45f);
+                angle = GameManager.RandomTest(-45f, 45f);
                 m_MoveVector.direction = 180f + angle;
             }
             else if (transform.position.y >= MainCamera.Instance.transform.position.y + (Size.MAIN_CAMERA_HEIGHT / 2f - PADDING)) { // top
-                angle = Random.Range(-45f, 45f);
+                angle = GameManager.RandomTest(-45f, 45f);
                 m_MoveVector.direction = 0f + angle;
             }
         }

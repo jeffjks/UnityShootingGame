@@ -115,7 +115,7 @@ public class BulletPattern_EnemyMiddleBoss1_Turret_1A : BulletFactory, IBulletPa
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 4f, BulletPivot.Current, 0f));
-                yield return new WaitForMillisecondFrames(2000 + Random.Range(0, 1000));
+                yield return new WaitForMillisecondFrames(2000 + GameManager.RandomTest(0, 1000));
             }
         }
         if (SystemManager.Difficulty == GameDifficulty.Expert) {
@@ -130,7 +130,7 @@ public class BulletPattern_EnemyMiddleBoss1_Turret_1A : BulletFactory, IBulletPa
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 4.2f, BulletPivot.Current, 0f));
                 
                 _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(90f));
-                yield return new WaitForMillisecondFrames(1200 + Random.Range(0, 500));
+                yield return new WaitForMillisecondFrames(1200 + GameManager.RandomTest(0, 500));
             }
         }
         if (SystemManager.Difficulty == GameDifficulty.Hell) {
@@ -145,7 +145,7 @@ public class BulletPattern_EnemyMiddleBoss1_Turret_1A : BulletFactory, IBulletPa
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 5.6f, BulletPivot.Current, 0f));
                 
                 _enemyObject.SetRotatePattern(new RotatePattern_TargetPlayer(90f));
-                yield return new WaitForMillisecondFrames(1000 + Random.Range(0, 400));
+                yield return new WaitForMillisecondFrames(1000 + GameManager.RandomTest(0, 400));
             }
         }
         onCompleted?.Invoke();

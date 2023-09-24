@@ -30,7 +30,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator AppearanceSequence() {
         int duration = 3000;
-        int random_sign = Random.Range(-1, 1);
+        int random_sign = GameManager.RandomTest(-1, 1);
         if (random_sign == 0)
             random_sign = 1;
 

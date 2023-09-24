@@ -99,7 +99,7 @@ public class EnemyPlaneMedium4_BulletPattern_A : BulletFactory, IBulletPattern
                 {
                     var pos = _enemyObject.transform.position;
                     var speed = 7.2f + 0.7f * i;
-                    var dir = Random.Range(-1f, 1f);
+                    var dir = GameManager.RandomTest(-1f, 1f);
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, speed, BulletPivot.Player, dir));
                     yield return new WaitForFrames(3);
                 }
@@ -110,7 +110,7 @@ public class EnemyPlaneMedium4_BulletPattern_A : BulletFactory, IBulletPattern
                     var pos = _enemyObject.transform.position;
                     var speed1 = 6.8f + 0.7f * i;
                     var speed2 = 6.6f + 0.7f * i;
-                    var dir = Random.Range(-1f, 1f);
+                    var dir = GameManager.RandomTest(-1f, 1f);
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, speed1, BulletPivot.Player, dir, 2, 24f));
                     CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, speed2, BulletPivot.Player, dir));
                     yield return new WaitForFrames(3);

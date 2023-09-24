@@ -19,7 +19,7 @@ public class PlayerLaserFireLight : MonoBehaviour {
 
     private void Update()
     {
-        m_Light.intensity = Random.Range(8f, 16f);
+        m_Light.intensity = new System.Random().Next(8, 16);
     }
 
     public void SetLightColor(int index) {

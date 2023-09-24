@@ -60,10 +60,12 @@ public class PauseMenuHandler : MenuHandler
         m_PauseManager.QuitGame();
     }
     
-    public void Resume() {
+    public void Resume(bool isPressed) {
         if (CriticalStateSystem.InCriticalState)
             return;
         if (!_isActive)
+            return;
+        if (!isPressed)
             return;
         
         AudioService.PlaySound("CancelUI");

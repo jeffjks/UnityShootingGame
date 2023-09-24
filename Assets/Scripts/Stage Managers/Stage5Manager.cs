@@ -117,16 +117,16 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(5500);
         CreateEnemy(m_PlaneLarge_1, new Vector2(11f, -3f));
         yield return new WaitForMillisecondFrames(17500);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(3f, 5f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(3f, 5f), 3f));
         yield return new WaitForMillisecondFrames(500);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 3f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(-GameManager.RandomTest(1f, 3f), 3f));
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(3f, 5f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(3f, 5f), 3f));
         yield return new WaitForMillisecondFrames(500);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 2f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(-GameManager.RandomTest(1f, 2f), 3f));
         yield return new WaitForMillisecondFrames(1000);
         if (SystemManager.Difficulty >= GameDifficulty.Expert)
-            CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(3f, 4f), 3f));
+            CreateEnemy(m_PlaneMedium_3, new Vector2(-GameManager.RandomTest(3f, 4f), 3f));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneSmall_1, new Vector2(7f, 5f));
         CreateEnemy(m_PlaneSmall_1, new Vector2(9f, 2f));
@@ -275,8 +275,8 @@ public class Stage5Manager : StageManager
         yield return new WaitForMillisecondFrames(4000);
         CreateEnemy(m_PlaneMedium_2, new Vector2(3f, 3f));
         yield return new WaitForMillisecondFrames(5000);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 2f), new Vector2(Random.Range(-1f, 1f), -4f), 1200);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 4f), new Vector2(Random.Range(-1f, 1f), -7f), 1200);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 2f), new Vector2(GameManager.RandomTest(-1f, 1f), -4f), 1200);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 4f), new Vector2(GameManager.RandomTest(-1f, 1f), -7f), 1200);
         yield return new WaitForMillisecondFrames(1500);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 2f), new Vector2(-4f, -5f), 1200);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(6f, 2f), new Vector2(6f, -8f), 1200);
@@ -292,7 +292,7 @@ public class Stage5Manager : StageManager
         CreateEnemyWithMoveVector(m_ShipCarrier_2, new Vector3(Size.GAME_BOUNDARY_RIGHT, WATER_HEIGHT, GetBackgroundZ() + 31f),
         new MoveVector(0.7f, -75f), new MovePattern[] {new MovePattern(7000, 1000, true, 0f)});
         yield return new WaitForMillisecondFrames(6000);
-        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-Random.Range(5.5f, 6.5f), WATER_HEIGHT, GetBackgroundZ() + 28f),
+        CreateEnemyWithMoveVector(m_ShipSmall_1, new Vector3(-GameManager.RandomTest(5.5f, 6.5f), WATER_HEIGHT, GetBackgroundZ() + 28f),
         new MoveVector(2f, 0f), new MovePattern[] {new MovePattern(3000, 1000, true, 0f)});
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneMedium_2, new Vector2(-1.5f, 3f));
@@ -367,11 +367,11 @@ public class Stage5Manager : StageManager
     private IEnumerator SpawnSmallTanks()
     {
         for (int i = 0; i < 6; i++) {
-            CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(Random.Range(-2.5f, -1f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
-            CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(Random.Range(1f, 2.5f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
+            CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(GameManager.RandomTest(-2.5f, -1f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
+            CreateEnemyWithMoveVector(m_TankSmall_1, new Vector3(GameManager.RandomTest(1f, 2.5f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
             yield return new WaitForMillisecondFrames(1400);
-            CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(Random.Range(-2.5f, -1f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
-            CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(Random.Range(1f, 2.5f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
+            CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(GameManager.RandomTest(-2.5f, -1f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
+            CreateEnemyWithMoveVector(m_TankSmall_2, new Vector3(GameManager.RandomTest(1f, 2.5f), 2f, GetBackgroundZ() + 29f), new MoveVector(1f, 0f));
             yield return new WaitForMillisecondFrames(1400);
         }
     }
@@ -409,8 +409,8 @@ public class Stage5Manager : StageManager
         int timer = 0;
         float rand, target_y = -2f;
         while (timer < duration) {
-            rand = Random.Range(-7f, 7f);
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(rand, 3f), new Vector2(rand, target_y), Random.Range(1200, 1500));
+            rand = GameManager.RandomTest(-7f, 7f);
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(rand, 3f), new Vector2(rand, target_y), GameManager.RandomTest(1200, 1500));
             yield return new WaitForMillisecondFrames(period);
             target_y -= 1f;
             if (target_y > -5f)
@@ -423,12 +423,12 @@ public class Stage5Manager : StageManager
     {
         int timer = 0;
         while (timer < duration) {
-            CreateEnemy(plane, new Vector2(Random.Range(-7f, -5f), Random.Range(2f, 4f)));
-            CreateEnemy(plane, new Vector2(Random.Range(-1f, 1f), Random.Range(2f, 4f)));
-            CreateEnemy(plane, new Vector2(Random.Range(5f, 7f), Random.Range(2f, 4f)));
+            CreateEnemy(plane, new Vector2(GameManager.RandomTest(-7f, -5f), GameManager.RandomTest(2f, 4f)));
+            CreateEnemy(plane, new Vector2(GameManager.RandomTest(-1f, 1f), GameManager.RandomTest(2f, 4f)));
+            CreateEnemy(plane, new Vector2(GameManager.RandomTest(5f, 7f), GameManager.RandomTest(2f, 4f)));
             yield return new WaitForMillisecondFrames(period);
-            CreateEnemy(plane, new Vector2(Random.Range(-4f, -2f), Random.Range(2f, 4f)));
-            CreateEnemy(plane, new Vector2(Random.Range(2f, 4f), Random.Range(2f, 4f)));
+            CreateEnemy(plane, new Vector2(GameManager.RandomTest(-4f, -2f), GameManager.RandomTest(2f, 4f)));
+            CreateEnemy(plane, new Vector2(GameManager.RandomTest(2f, 4f), GameManager.RandomTest(2f, 4f)));
             yield return new WaitForMillisecondFrames(period);
             timer += period*2;
         }
@@ -439,8 +439,8 @@ public class Stage5Manager : StageManager
         int timer = 0;
         while (timer < duration) {
             if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(plane, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, Random.Range(-2f, -3f)));
-                CreateEnemy(plane, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, Random.Range(-2f, -3f)));
+                CreateEnemy(plane, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, GameManager.RandomTest(-2f, -3f)));
+                CreateEnemy(plane, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, GameManager.RandomTest(-2f, -3f)));
             }
             yield return new WaitForMillisecondFrames(period);
             timer += period;
@@ -466,14 +466,14 @@ public class Stage5Manager : StageManager
         int timer = 0;
         while (timer < duration) {
             if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-7f, -5f), Random.Range(1f, 4f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 4f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(5f, 7f), Random.Range(1f, 4f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(GameManager.RandomTest(-7f, -5f), GameManager.RandomTest(1f, 4f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(GameManager.RandomTest(-1f, 1f), GameManager.RandomTest(1f, 4f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(GameManager.RandomTest(5f, 7f), GameManager.RandomTest(1f, 4f)));
             }
             yield return new WaitForMillisecondFrames(period);
             if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(-4f, -2f), Random.Range(1f, 4f)));
-                CreateEnemy(m_PlaneSmall_2, new Vector2(Random.Range(2f, 4f), Random.Range(1f, 4f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(GameManager.RandomTest(-4f, -2f), GameManager.RandomTest(1f, 4f)));
+                CreateEnemy(m_PlaneSmall_2, new Vector2(GameManager.RandomTest(2f, 4f), GameManager.RandomTest(1f, 4f)));
             }
             yield return new WaitForMillisecondFrames(period);
             timer += period*2;
@@ -485,13 +485,13 @@ public class Stage5Manager : StageManager
         int timer = 0, rand_period;
         int[] period = { 1100, 850, 700 };
         while (timer < duration) {
-            rand_period = Random.Range(0, 300);
+            rand_period = GameManager.RandomTest(0, 300);
             if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(m_PlaneMedium_3, new Vector2(-Random.Range(1f, 6f), 3f));
+                CreateEnemy(m_PlaneMedium_3, new Vector2(-GameManager.RandomTest(1f, 6f), 3f));
             }
             yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty] - rand_period);
             if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 6f), 3f));
+                CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(1f, 6f), 3f));
             }
             yield return new WaitForMillisecondFrames(period[(int) SystemManager.Difficulty] + rand_period);
             timer += period[(int) SystemManager.Difficulty]*2;

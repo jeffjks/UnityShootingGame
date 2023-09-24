@@ -54,35 +54,45 @@ public class PlayerController : MonoBehaviour
     {
         if (controllable)
             return;
-        _playerMovement.MovePlayer(Vector2.zero);
+        _playerMovement.HandlePlayerMovement(Vector2Int.zero);
     }
-
+    
     private void Update()
     {
-        if (PauseManager.IsGamePaused)
+        if (!ReplayManager.IsUsingReplay)
             return;
+        
+        if (SystemManager.GameMode == GameMode.Replay)
+            ReplayManager.Instance.ReadUserInput();
+        else
+            ReplayManager.Instance.WriteReplayData();
 
         if (IsFirePressed)
         {
             _firePressFrame++;
         }
-
-        FireShot();
-        FireLaser();
+        
+        if (!PlayerUnit.IsControllable)
+            return;
+        ExecuteShot();
+        ExecuteLaser();
+        _playerMovement.ExecuteMovement();
     }
 
-    private void OnFireInvoked(InputValue inputValue)
+    public void OnFireInvoked(bool isPressed)
+    {
+        HandleFireInput(isPressed);
+        
+        ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
+    }
+
+    public void HandleFireInput(bool isPressed)
     {
         IsFirePressed = false;
         
         if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
             return;
         
-        ExecuteFire(inputValue.isPressed);
-    }
-
-    public void ExecuteFire(bool isPressed)
-    {
         IsFirePressed = isPressed;
         
         if (!PlayerUnit.IsControllable)
@@ -103,22 +113,21 @@ public class PlayerController : MonoBehaviour
             _playerLaserHandler.StopLaser();
             _playerUnit.IsAttacking = false;
         }
-        
-        ReplayManager.Instance.WriteUserPressInput(isPressed, 4);
     }
 
-    private void FireShot()
+    private void ExecuteShot()
     {
         if (_playerShotHandler.AutoShot > 0) {
             if (!_playerUnit.IsShooting) {
                 _playerUnit.IsShooting = true;
                 _playerShotHandler.StartShotCoroutine();
+                Debug.Log($"{GameManager.CurrentFrame}: StartShoot");
             }
             _playerUnit.IsAttacking = true;
         }
     }
 
-    private void FireLaser()
+    private void ExecuteLaser()
     {
         if (!_playerUnit.SlowMode) {
             if (_firePressFrame > Application.targetFrameRate / 2) { // 0.5초간 누르면 레이저 모드
@@ -126,39 +135,42 @@ public class PlayerController : MonoBehaviour
                 _playerLaserHandler.StartLaser();
                 _playerUnit.IsAttacking = true;
                 _playerShotHandler.AutoShot = 0;
+                Debug.Log($"{GameManager.CurrentFrame}: StartLaser");
             }
         }
     }
 
-    private void OnBombInvoked()
+    public void OnBombInvoked(bool isPressed)
     {
-        if (!PlayerUnit.IsControllable)
-            return;
+        ExecuteBomb(isPressed);
+        
+        ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Bomb);
+    }
+    
+    private void ExecuteBomb(bool isPressed)
+    {
         if (InGameDataManager.Instance.BombNumber <= 0)
             return;
         if (_playerBombHandler.IsBombInUse)
             return;
         if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
             return;
-
-        ExecuteBomb();
-    }
-    
-    public void ExecuteBomb()
-    {
+        if (!PlayerUnit.IsControllable)
+            return;
+        if (!isPressed)
+            return;
+        
         PlayerInvincibility.SetInvincibility(4000);
         _playerBombHandler.UseBomb(transform.position);
         InGameDataManager.Instance.BombNumber--;
-        
-        ReplayManager.Instance.WriteUserPressInput(true, 5);
     }
 
-    private void OnMoveInvoked(InputValue inputValue)
+    public void OnMoveInvoked(Vector2Int rawInputVector)
     {
-        var moveInput = inputValue.Get<Vector2>();
-
-        _playerMovement.MovePlayer(moveInput);
-        _playerShotHandler.ReceiveHorizontalMovement(moveInput.x);
+        _playerMovement.HandlePlayerMovement(rawInputVector);
+        _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
+        
+        ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
     }
 
     public void StopAttack()

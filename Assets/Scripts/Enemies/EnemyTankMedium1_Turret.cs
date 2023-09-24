@@ -20,7 +20,7 @@ public class EnemyTankMedium1_BulletPattern_Turret_A : BulletFactory, IBulletPat
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         const float gap = 0.07f;
-        yield return new WaitForMillisecondFrames(Random.Range(0, 1500));
+        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 1500));
         
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal)
@@ -58,8 +58,8 @@ public class EnemyTankMedium1_BulletPattern_Turret_A : BulletFactory, IBulletPat
                 for (int i = 0; i < 6; i++) {
                     var pos1 = GetFirePos(0, -gap);
                     var pos2 = GetFirePos(0, gap);
-                    var dir1 = Random.Range(-1f, 0f);
-                    var dir2 = Random.Range(0f, 1f);
+                    var dir1 = GameManager.RandomTest(-1f, 0f);
+                    var dir2 = GameManager.RandomTest(0f, 1f);
                     CreateBullet(new BulletProperty(pos1, BulletImage.PinkNeedle, 5f + i, BulletPivot.Current, dir1));
                     CreateBullet(new BulletProperty(pos2, BulletImage.PinkNeedle, 5f + i, BulletPivot.Current, dir2));
                     yield return new WaitForMillisecondFrames(70);

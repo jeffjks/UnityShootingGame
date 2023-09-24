@@ -21,10 +21,10 @@ public class EnemyTankSmall3_BulletPattern_Turret_A : BulletFactory, IBulletPatt
     {
         int[] fireDelay = { 3000, 2000, 1400 };
         float[] speedArray = { 6f, 7.4f, 8.6f };
-        yield return new WaitForMillisecondFrames(Random.Range(0, 500));
+        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 500));
         
         var accel = new BulletAccel(5.7f, 1200);
-        yield return new WaitForMillisecondFrames(Random.Range(0, 2000));
+        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 2000));
         
         while(true)
         {
@@ -32,7 +32,7 @@ public class EnemyTankSmall3_BulletPattern_Turret_A : BulletFactory, IBulletPatt
             var pos1 = GetFirePos(1); // Center
             var pos2 = GetFirePos(2);
             var speed = speedArray[(int)SystemManager.Difficulty];
-            var dir = Random.Range(-1f, 1f);
+            var dir = GameManager.RandomTest(-1f, 1f);
             
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {

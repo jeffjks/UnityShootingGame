@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using System;
-using Random = System.Random;
 
 public class InGameDataManager : MonoBehaviour
 {
@@ -88,9 +84,9 @@ public class InGameDataManager : MonoBehaviour
 
         if (DebugOption.SceneMode == 3)
         {
-            TotalScore = UnityEngine.Random.Range(0, 10000);
+            TotalScore = GameManager.RandomTest(0, 10000);
             CurrentShipAttributes = new ShipAttributes();
-            TotalMiss = UnityEngine.Random.Range(0, 50);
+            TotalMiss = GameManager.RandomTest(0, 50);
             ElapsedTime = DateTime.Now.Ticks;
         }
     }

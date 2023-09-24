@@ -42,9 +42,9 @@ public class EndingCredit : MonoBehaviour
         AudioService.PlayMusic("Ending");
     }
 
-    private void OnFireInvoked(InputValue inputValue)
+    private void OnFireInvoked(bool isPressed)
     {
-        _isFirePress = inputValue.isPressed;
+        _isFirePress = isPressed;
     }
 
     private void Update ()
@@ -63,8 +63,10 @@ public class EndingCredit : MonoBehaviour
         transform.localPosition = newLocalPos;
     }
 
-    private void QuitEndingCredit()
+    private void QuitEndingCredit(bool isPressed)
     {
+        if (!isPressed)
+            return;
         QuitEndingCredit(0f);
     }
 

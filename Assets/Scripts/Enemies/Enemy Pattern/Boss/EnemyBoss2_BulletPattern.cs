@@ -252,7 +252,7 @@ public class BulletPattern_EnemyBoss2_Part2_Turret1_2B : BulletFactory, IBulletP
                 for (int i = 0; i < repeatNum; i++) {
                     var property = new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 13.7f, BulletPivot.Current, 0f, accel1, 7, 18f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 800);
-                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, Random.Range(-6f, 6f), accel2);
+                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, GameManager.RandomTest(-6f, 6f), accel2);
                     CreateBullet(property, spawnTiming, subProperty);
                     yield return new WaitForMillisecondFrames(300);
                 }
@@ -265,7 +265,7 @@ public class BulletPattern_EnemyBoss2_Part2_Turret1_2B : BulletFactory, IBulletP
                 for (int i = 0; i < repeatNum; i++) {
                     var property = new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 13.7f, BulletPivot.Current, 0f, accel1, 13, 12f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 800);
-                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, Random.Range(-7f, 7f), accel2);
+                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, GameManager.RandomTest(-7f, 7f), accel2);
                     CreateBullet(property, spawnTiming, subProperty);
                     yield return new WaitForMillisecondFrames(200);
                 }
@@ -278,7 +278,7 @@ public class BulletPattern_EnemyBoss2_Part2_Turret1_2B : BulletFactory, IBulletP
                 for (int i = 0; i < repeatNum; i++) {
                     var property = new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 13.7f, BulletPivot.Current, 0f, accel1, 15, 10f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 800);
-                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, Random.Range(-8f, 8f), accel2);
+                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, GameManager.RandomTest(-8f, 8f), accel2);
                     CreateBullet(property, spawnTiming, subProperty);
                     yield return new WaitForMillisecondFrames(200);
                 }
@@ -381,7 +381,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret1_3A : BulletFactory, IBulletP
         BulletAccel accel2 = new BulletAccel(6.1f, 500); // Normal
         BulletAccel accel3 = new BulletAccel(7f, 500); // Expert, Hell
 
-        var side = Random.Range(0, 2) * 2 - 1;
+        var side = GameManager.RandomTest(0, 2) * 2 - 1;
         _action?.Invoke(side);
 
         while (true) {
@@ -434,7 +434,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret1_3B : BulletFactory, IBulletP
         BulletAccel accelInit = new BulletAccel(3f, duration);
         BulletAccel accel2 = new BulletAccel(6.7f, 500);
 
-        var side = Random.Range(0, 2) * 2 - 1;
+        var side = GameManager.RandomTest(0, 2) * 2 - 1;
         _action?.Invoke(side);
 
         while (true) {

@@ -116,15 +116,15 @@ public class BulletPattern_EnemyBoss3_Turret_1B : BulletFactory, IBulletPattern
         {
             Vector3 pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Current, Random.Range(-1f, 1f), 8, 20.6f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Current, GameManager.RandomTest(-1f, 1f), 8, 20.6f));
                 yield return new WaitForMillisecondFrames(640);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Current, Random.Range(-3f, 3f), 11, 15f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Current, GameManager.RandomTest(-3f, 3f), 11, 15f));
                 yield return new WaitForMillisecondFrames(320);
             }
             else {
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Current, Random.Range(-5f, 5f), 13, 13f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 6.5f, BulletPivot.Current, GameManager.RandomTest(-5f, 5f), 13, 13f));
                 yield return new WaitForMillisecondFrames(270);
             }
         }
@@ -161,30 +161,30 @@ public class BulletPattern_EnemyBoss3_1C2 : BulletFactory, IBulletPattern
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while (true) {
                 pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, Random.Range(0f, 360f), 20, 18f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 20, 18f));
                 yield return new WaitForMillisecondFrames(2400);
             }
         }
         if (SystemManager.Difficulty == GameDifficulty.Expert) {
             while (true) {
                 pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, Random.Range(0f, 360f), 30, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 30, 12f));
                 yield return new WaitForMillisecondFrames(220);
                 pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, Random.Range(0f, 360f), 36, 10f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 36, 10f));
                 yield return new WaitForMillisecondFrames(2000);
             }
         }
         if (SystemManager.Difficulty == GameDifficulty.Hell) {
             while (true) {
                 pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, Random.Range(0f, 360f), 30, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 30, 12f));
                 yield return new WaitForMillisecondFrames(220);
                 pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, Random.Range(0f, 360f), 36, 10f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 36, 10f));
                 yield return new WaitForMillisecondFrames(220);
                 pos = GetFirePos(0);
-                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, Random.Range(0f, 360f), 30, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 7f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 30, 12f));
                 yield return new WaitForMillisecondFrames(1500);
             }
         }
@@ -207,20 +207,20 @@ public class BulletPattern_EnemyBoss3_1D : BulletFactory, IBulletPattern
 
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
-            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, Random.Range(0, 100), new Vector2Int(200, 300));
+            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, GameManager.RandomTest(0, 100), new Vector2Int(200, 300));
             CreateBullet(property1, spawnTiming, subProperty);
             CreateBullet(property2, spawnTiming, subProperty);
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert)
         {
-            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, Random.Range(0, 100), new Vector2Int(100, 150));
+            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, GameManager.RandomTest(0, 100), new Vector2Int(100, 150));
             CreateBullet(property1, spawnTiming, subProperty);
             CreateBullet(property2, spawnTiming, subProperty);
         }
         else {
             var property3 = new BulletProperty(pos1, BulletImage.BlueLarge, 10f, BulletPivot.Fixed, 40f);
             var property4 = new BulletProperty(pos2, BulletImage.BlueLarge, 10f, BulletPivot.Fixed, -40f);
-            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, Random.Range(0, 100), new Vector2Int(100, 140));
+            var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, GameManager.RandomTest(0, 100), new Vector2Int(100, 140));
             CreateBullet(property1, spawnTiming, subProperty);
             CreateBullet(property2, spawnTiming, subProperty);
             CreateBullet(property3, spawnTiming, subProperty);
@@ -237,18 +237,17 @@ public class BulletPattern_EnemyBoss3_2A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        Vector3 pos;
         BulletAccel accel = new BulletAccel(0.5f, 1200);
         int[] fireDelay = { 6, 2, 1 };
         var duration = 0;
 
         while (duration < 300) {
-            pos = GetFirePos(0);
-            var property1 = new BulletProperty(pos, BulletImage.BlueNeedle, Random.Range(8f, 9f), BulletPivot.Fixed, Random.Range(0f, 360f), accel);
-            var property2 = new BulletProperty(pos, BulletImage.BlueNeedle, Random.Range(9f, 10f), BulletPivot.Fixed, Random.Range(0f, 360f), accel);
+            var pos = GetFirePos(0);
+            var property1 = new BulletProperty(pos, BulletImage.BlueNeedle, GameManager.RandomTest(8f, 9f), BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), accel);
+            var property2 = new BulletProperty(pos, BulletImage.BlueNeedle, GameManager.RandomTest(9f, 10f), BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), accel);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 1200);
-            var newProperty1 = new BulletProperty(pos, BulletImage.PinkLarge, 3.2f, BulletPivot.Fixed, Random.Range(0f, 360f), 2, Random.Range(0f, 360f));
-            var newProperty2 = new BulletProperty(pos, BulletImage.PinkSmall, 2.1f, BulletPivot.Fixed, Random.Range(0f, 360f), 2, Random.Range(0f, 360f));
+            var newProperty1 = new BulletProperty(pos, BulletImage.PinkLarge, 3.2f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 2, GameManager.RandomTest(0f, 360f));
+            var newProperty2 = new BulletProperty(pos, BulletImage.PinkSmall, 2.1f, BulletPivot.Fixed, GameManager.RandomTest(0f, 360f), 3, GameManager.RandomTest(0f, 360f));
             CreateBullet(property1, spawnTiming, newProperty1);
             CreateBullet(property1, spawnTiming, newProperty1);
             CreateBullet(property2, spawnTiming, newProperty2);
@@ -317,7 +316,7 @@ public class BulletPattern_EnemyBoss3_2B2 : BulletFactory, IBulletPattern
         
         while (duration < 2000) {
             Vector3 pos = GetFirePos(0);
-            CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 8f, BulletPivot.Player, Random.Range(-40f, 40f), accel, 2, 8f));
+            CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 8f, BulletPivot.Player, GameManager.RandomTest(-40f, 40f), accel, 2, 8f));
             
             duration += fireDelay[(int)SystemManager.Difficulty];
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
@@ -347,7 +346,7 @@ public class BulletPattern_EnemyBoss3_Turret_2B : BulletFactory, IBulletPattern
 
         while(true) {
             var pos = GetFirePos(0);
-            var random_value = Random.Range(-3f, 3f);
+            var random_value = GameManager.RandomTest(-3f, 3f);
             
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 3; i++)

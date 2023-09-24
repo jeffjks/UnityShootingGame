@@ -49,7 +49,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void OnAppearanceComplete() {
         float[] random_direction = { 90f, -90f };
-        m_MoveVector = new MoveVector(0.6f, random_direction[Random.Range(0, 2)]);
+        m_MoveVector = new MoveVector(0.6f, random_direction[GameManager.RandomTest(0, 2)]);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
         // IsColliderInit = true;

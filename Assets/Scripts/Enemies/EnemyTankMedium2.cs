@@ -36,7 +36,7 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        yield return new WaitForMillisecondFrames(Random.Range(800, 1800));
+        yield return new WaitForMillisecondFrames(GameManager.RandomTest(800, 1800));
         
         while(true)
         {
@@ -45,15 +45,15 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
                 pos = GetFirePos(0);
-                dir = Random.Range(0f, 360f);
+                dir = GameManager.RandomTest(0f, 360f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Fixed, dir, 18, 20f));
                 yield return new WaitForMillisecondFrames(1000);
                 
                 pos = GetFirePos(0);
-                dir = Random.Range(0f, 360f);
+                dir = GameManager.RandomTest(0f, 360f);
                 var property = new BulletProperty(pos, BulletImage.PinkSmall, 6.6f, BulletPivot.Fixed, dir, 10, 36f);
                 var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 200);
-                var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 5.8f, BulletPivot.Player, Random.Range(-2f, 2f));
+                var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 5.8f, BulletPivot.Player, GameManager.RandomTest(-2f, 2f));
                 CreateBullet(property, spawnTiming, subProperty);
                 yield return new WaitForMillisecondFrames(1000);
             }
@@ -61,17 +61,17 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
             {
                 for (int i = 0; i < 5; i++) {
                     pos = GetFirePos(0);
-                    dir = Random.Range(0f, 360f);
+                    dir = GameManager.RandomTest(0f, 360f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Fixed, dir, 30, 12f));
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
                 for (int i = 0; i < 3; i++) {
                     pos = GetFirePos(0);
-                    dir = Random.Range(0f, 360f);
+                    dir = GameManager.RandomTest(0f, 360f);
                     var property = new BulletProperty(pos, BulletImage.PinkSmall, 6.6f, BulletPivot.Fixed, dir, 24, 15f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 200);
-                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 6f, BulletPivot.Player, Random.Range(-2f, 2f));
+                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 6f, BulletPivot.Player, GameManager.RandomTest(-2f, 2f));
                     CreateBullet(property, spawnTiming, subProperty);
                     yield return new WaitForMillisecondFrames(380);
                 }
@@ -81,17 +81,17 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
             {
                 for (int i = 0; i < 5; i++) {
                     pos = GetFirePos(0);
-                    dir = Random.Range(0f, 360f);
+                    dir = GameManager.RandomTest(0f, 360f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Fixed, dir, 36, 10f));
                     yield return new WaitForMillisecondFrames(380);
                 }
                 yield return new WaitForMillisecondFrames(700);
                 for (int i = 0; i < 3; i++) {
                     pos = GetFirePos(0);
-                    dir = Random.Range(0f, 360f);
+                    dir = GameManager.RandomTest(0f, 360f);
                     var property = new BulletProperty(pos, BulletImage.PinkSmall, 6.6f, BulletPivot.Fixed, dir, 30, 12f);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 200);
-                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 6.5f, BulletPivot.Player, Random.Range(-2f, 2f));
+                    var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkNeedle, 6.5f, BulletPivot.Player, GameManager.RandomTest(-2f, 2f));
                     CreateBullet(property, spawnTiming, subProperty);
                     yield return new WaitForMillisecondFrames(380);
                 }

@@ -200,7 +200,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
     /// <summary>
     /// millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
     /// </summary>
-    protected void DisableInteractableAll(int millisecond = -1) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
+    public void DisableInteractableAll(int millisecond = -1) { // millisecond간 공격 불가. 0이면 미적용. -1이면 무기한 공격 불가
         if (millisecond == 0)
             return;
         
@@ -216,7 +216,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         m_IsInteractable = true;
         if (m_EnemyHealth != null)
             m_EnemyHealth.SetActiveColliders(true);
-        StartCoroutine(InteractableTimer());
         Action_StartInteractable?.Invoke();
     }
 

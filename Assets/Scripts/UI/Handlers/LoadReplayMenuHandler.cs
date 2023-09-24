@@ -14,21 +14,23 @@ public class LoadReplayMenuHandler : MenuHandler
     private const int MAX_REPLAY_NUMBER = 5;
     private int _currentSelectedSlot;
 
-    private CanvasGroup[] _canvasGroups = new CanvasGroup[MAX_REPLAY_NUMBER];
-    private ButtonStyling[] _buttonStylingArray = new ButtonStyling[MAX_REPLAY_NUMBER];
-    private TextMeshProUGUI[] _buttonTexts = new TextMeshProUGUI[MAX_REPLAY_NUMBER];
+    private CanvasGroup[] _canvasGroups;
+    private ButtonStyling[] _buttonStylingArray;
+    private Button[] _buttons;
+    private TextMeshProUGUI[] _buttonTexts;
 
     private void Awake()
     {
         _replayDirectory = $"{Application.dataPath}/";
         _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
+        _buttons = m_ReplaySlotPanel.GetComponentsInChildren<Button>();
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
         
 #if UNITY_EDITOR
         // Test Code
-        _currentSelectedSlot = -1;
-        Confirm();
+        //_currentSelectedSlot = -1;
+        //Confirm();
 #endif
     }
 
@@ -47,7 +49,7 @@ public class LoadReplayMenuHandler : MenuHandler
             }
             var fileStream = new FileStream(filePath, FileMode.Open);
             _replayInfos[i] = ReplayManager.ReadBinaryHeader(fileStream);
-            var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-hh-mm");
+            var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);
             fileStream.Close();
@@ -86,6 +88,11 @@ public class LoadReplayMenuHandler : MenuHandler
 
     public void Confirm()
     {
+        _currentSelectedSlot = -1;
+        foreach (var button in _buttons)
+        {
+            button.interactable = false;
+        }
         EventSystem.current.currentInputModule.enabled = false;
         FadeScreenService.ScreenFadeOut(2f, StartReplay);
         AudioService.FadeOutMusic(2f);

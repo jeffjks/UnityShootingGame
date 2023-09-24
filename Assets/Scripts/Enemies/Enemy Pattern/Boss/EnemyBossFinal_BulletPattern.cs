@@ -31,7 +31,7 @@ public class EnemyBossFinal_BulletPattern_1A2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        var dir = Random.Range(0f, 360f);
+        var dir = GameManager.RandomTest(0f, 360f);
         int timer;
         var timerDelta = 110;
         const float randomDistribution = 2f;
@@ -46,20 +46,20 @@ public class EnemyBossFinal_BulletPattern_1A2 : BulletFactory, IBulletPattern
         {
             var pos = GetFirePos(0);
             CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7f, BulletPivot.Fixed, dir, bulletNum1, interval1));
-            dir += Random.Range(180f/bulletNum1 - randomDistribution, interval1/2 + randomDistribution);
+            dir += GameManager.RandomTest(180f/bulletNum1 - randomDistribution, interval1/2 + randomDistribution);
             yield return new WaitForFrames(8);
             timer += timerDelta;
         }
 
         yield return new WaitForMillisecondFrames(500);
-        dir = Random.Range(0f, 360f);
+        dir = GameManager.RandomTest(0f, 360f);
 
         timer = 0;
         while (timer < 3500)
         {
             var pos = GetFirePos(0);
             CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 8.1f, BulletPivot.Fixed, dir, bulletNum2, interval2));
-            dir += Random.Range(180f/bulletNum2 - randomDistribution, interval2/2 + randomDistribution);
+            dir += GameManager.RandomTest(180f/bulletNum2 - randomDistribution, interval2/2 + randomDistribution);
             yield return new WaitForFrames(7);
             timer += timerDelta;
         }
@@ -79,7 +79,7 @@ public class EnemyBossFinal_BulletPattern_1B1 : BulletFactory, IBulletPattern
         while (true) {
             for (var i = 0; i < 3; i++)
             {
-                var dir = Random.Range(-45f, 45f);
+                var dir = GameManager.RandomTest(-45f, 45f);
                 var property = new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 6f, BulletPivot.Player, dir, accel1);
                 var spawnTiming = new BulletSpawnTiming(BulletSpawnType.Create, 600);
                 var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueLarge, 3f, BulletPivot.Current, 0f, accel2);
@@ -123,7 +123,7 @@ public class EnemyBossFinal_BulletPattern_1C1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = 29f;
         
         while (true)
@@ -149,7 +149,7 @@ public class EnemyBossFinal_BulletPattern_1C2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[1] = GameManager.RandomTest(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[1] = 67f;
 
         while (true) {
@@ -175,8 +175,8 @@ public class EnemyBossFinal_BulletPattern_1D1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
-        _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[1] = GameManager.RandomTest(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = 23f * _patternIndex;
         _typedEnemyObject.m_CustomDirectionDelta[1] = 43f;
 
@@ -243,7 +243,7 @@ public class EnemyBossFinal_BulletPattern_1E1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = -79f * _patternIndex;
 
         while (true)
@@ -302,7 +302,7 @@ public class EnemyBossFinal_BulletPattern_2A : BulletFactory, IBulletPattern
         for (int i = 0; i < 9; i++)
         {
             var pos = GetFirePos(0);
-            var dir = Random.Range(3.5f, 6.5f);
+            var dir = GameManager.RandomTest(3.5f, 6.5f);
             CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 10f, BulletPivot.Fixed, dir, 36, 10f));
             yield return new WaitForFrames(10);
             
@@ -315,12 +315,12 @@ public class EnemyBossFinal_BulletPattern_2A : BulletFactory, IBulletPattern
 
     private IEnumerator ExecuteSubPattern(BulletImage bulletImage, int num, float subDir)
     {
-        _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
         var accel1 = new BulletAccel(1f, 1000);
         var accel2 = new BulletAccel(9.2f, 500);
         var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 1000);
         var subProperty = new BulletProperty(Vector3.zero, bulletImage, 1f, BulletPivot.Current, subDir, accel2);
-        var rand = Random.Range(0, 2) * 2 - 1;
+        var rand = GameManager.RandomTest(0, 2) * 2 - 1;
         
         for (int i = 0; i < num; i++)
         {
@@ -355,8 +355,8 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         var accel = new BulletAccel(0.1f, BULLET_DELAY + 300);
-        _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
-        _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
+        _typedEnemyObject.m_CustomDirection[1] = GameManager.RandomTest(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = MAX_DIRECTION_DELTA_0;
         _typedEnemyObject.m_CustomDirectionDelta[1] = MAX_DIRECTION_DELTA_1;
         _currentBulletSpeed = MAX_BULLET_SPEED;
@@ -393,7 +393,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
         yield return new WaitForMillisecondFrames(2400);
         while (true)
         {
-            yield return new WaitForMillisecondFrames(Random.Range(8000, 10000) - 2400);
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(8000, 10000) - 2400);
 
             var initDirection = _typedEnemyObject.m_CustomDirectionDelta[0];
             var frame = 1200 * Application.targetFrameRate / 1000;
@@ -403,7 +403,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
                 _typedEnemyObject.m_CustomDirectionDelta[0] = Mathf.Lerp(initDirection, - MAX_DIRECTION_DELTA_0, t_dir);
                 yield return new WaitForMillisecondFrames(0);
             }
-            yield return new WaitForMillisecondFrames(Random.Range(8000, 10000) - 2400);
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(8000, 10000) - 2400);
 
             initDirection = _typedEnemyObject.m_CustomDirectionDelta[0];
             frame = 1200 * Application.targetFrameRate / 1000;
@@ -421,7 +421,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
         yield return new WaitForMillisecondFrames(1700);
         while (true)
         {
-            yield return new WaitForMillisecondFrames(Random.Range(7000, 9000) - 1700);
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(7000, 9000) - 1700);
 
             var initDirection = _typedEnemyObject.m_CustomDirectionDelta[1];
             var frame = 700 * Application.targetFrameRate / 1000;
@@ -431,7 +431,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
                 _typedEnemyObject.m_CustomDirectionDelta[1] = Mathf.Lerp(initDirection, - MAX_DIRECTION_DELTA_1, t_dir);
                 yield return new WaitForMillisecondFrames(0);
             }
-            yield return new WaitForMillisecondFrames(Random.Range(7000, 9000) - 1700);
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(7000, 9000) - 1700);
 
             initDirection = _typedEnemyObject.m_CustomDirectionDelta[1];
             frame = 700 * Application.targetFrameRate / 1000;
@@ -448,7 +448,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
     {
         yield return new WaitForMillisecondFrames(2000);
         while (true) {
-            yield return new WaitForMillisecondFrames(Random.Range(5000, 8000) - 2000);
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(5000, 8000) - 2000);
 
             var initSpeed = _currentBulletSpeed;
             var frame = 2000 * Application.targetFrameRate / 1000;
@@ -458,7 +458,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
                 _currentBulletSpeed = Mathf.Lerp(initSpeed, MIN_BULLET_SPEED, t_spd);
                 yield return new WaitForMillisecondFrames(0);
             }
-            yield return new WaitForMillisecondFrames(Random.Range(5000, 8000) - 2000);
+            yield return new WaitForMillisecondFrames(GameManager.RandomTest(5000, 8000) - 2000);
 
             initSpeed = _currentBulletSpeed;
             frame = 2000 * Application.targetFrameRate / 1000;

@@ -40,7 +40,7 @@ public class EnemyBoss1_Explosion : EnemyExplosionCreater
         int timer = 0, t_add = 0;
         Vector2 random_pos;
         while (timer < duration) {
-            t_add = Random.Range(450, 600);
+            t_add = GameManager.RandomTest(450, 600);
             random_pos = Random.insideUnitCircle * 2.5f;
             CreateExplosionEffect(ExplType.Normal_1, ExplAudioType.GroundSmall, random_pos);
             random_pos = Random.insideUnitCircle * 2.5f;
@@ -55,7 +55,7 @@ public class EnemyBoss1_Explosion : EnemyExplosionCreater
         int timer = 0, t_add = 0;
         Vector2 random_pos;
         while (timer < duration) {
-            t_add = Random.Range(150, 300);
+            t_add = GameManager.RandomTest(150, 300);
             random_pos = Random.insideUnitCircle * 2.5f;
             CreateExplosionEffect(ExplType.Normal_2, ExplAudioType.AirSmall, random_pos);
             random_pos = Random.insideUnitCircle * 2.5f;

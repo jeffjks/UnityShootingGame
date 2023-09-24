@@ -49,20 +49,15 @@ public class PlayerMovement : MonoBehaviour
         PlayerManager.Action_OnPlayerRevive -= Init;
     }
 
-    public void MovePlayer(Vector2 inputVector)
+    public void HandlePlayerMovement(Vector2Int inputVector)
     {
-        MoveRawHorizontal = System.Math.Sign(inputVector.x);
-        MoveRawVertical = System.Math.Sign(inputVector.y);
+        MoveRawHorizontal = inputVector.x;
+        MoveRawVertical = inputVector.y;
     }
 
-    private void Update()
+    public void ExecuteMovement()
     {
-        if (PauseManager.IsGamePaused)
-            return;
-
-        //OverviewPosition();
-        
-        Vector2 moveVector = new Vector2(MoveRawHorizontal, MoveRawVertical);
+        var moveVector = new Vector2(MoveRawHorizontal, MoveRawVertical);
         moveVector.Normalize();
         
         if (m_PlayerUnit.SlowMode) {
@@ -71,21 +66,16 @@ public class PlayerMovement : MonoBehaviour
         else {
             moveVector *= _defaultSpeed;
         }
-        
-        if (PlayerUnit.IsControllable)
-        {
-            ReplayManager.Instance.WriteUserMoveInput(MoveRawHorizontal, MoveRawVertical);
             
-            transform.position += (Vector3) moveVector;
-            m_PlayerUnit.m_MoveVector.direction = 180f + 90f*MoveRawHorizontal;
+        transform.position += (Vector3) moveVector;
+        m_PlayerUnit.m_MoveVector.direction = 180f + 90f*MoveRawHorizontal;
             
-            transform.position = new Vector3
-            (
-                Mathf.Clamp(transform.position.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
-                Mathf.Clamp(transform.position.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX),
-                Depth.PLAYER
-            );
-        }
+        transform.position = new Vector3
+        (
+            Mathf.Clamp(transform.position.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
+            Mathf.Clamp(transform.position.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX),
+            Depth.PLAYER
+        );
     }
 
     private void Init()

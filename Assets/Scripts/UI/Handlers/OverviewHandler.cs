@@ -181,9 +181,9 @@ public class OverviewHandler : MonoBehaviour
         }
     }
 
-    private void SkipOverviewPhase(InputValue inputValue)
+    private void SkipOverviewPhase(bool isPressed)
     {
-        if (!inputValue.isPressed)
+        if (!isPressed)
         {
             return;
         }

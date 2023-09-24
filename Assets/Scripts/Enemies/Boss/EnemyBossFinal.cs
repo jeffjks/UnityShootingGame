@@ -50,7 +50,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void OnAppearanceComplete() {
         float[] random_direction = { 70f, 110f, -70f, -110f };
-        m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
+        m_MoveVector = new MoveVector(1f, random_direction[GameManager.RandomTest(0, 4)]);
 
         // IsColliderInit = true;
         m_Phase = 1;

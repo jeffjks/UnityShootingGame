@@ -103,7 +103,7 @@ public class ExplosionJsonManager : MonoBehaviour
         ExplAudioType ExplAudioType = effect.explAudioType;
         Vector3 transformPosition = effect.position;
         float radius = effect.radius;
-        MoveVector moveVector = new MoveVector(Random.Range(effect.speed[0], effect.speed[1]), Random.Range(effect.direction[0], effect.direction[1]));
+        MoveVector moveVector = new MoveVector(GameManager.RandomTest(effect.speed[0], effect.speed[1]), GameManager.RandomTest(effect.direction[0], effect.direction[1]));
 
         if (ExplType != ExplType.None) {
             GameObject explosionObject = PoolingManager.PopFromPool(GetPoolingString(ExplType), PoolingParent.Explosion);
@@ -143,7 +143,7 @@ public class ExplosionJsonManager : MonoBehaviour
             for (int i = 0; i < number; ++i) {
                 CreateExplosionEffect(enemyDeath, effect, i);
             }
-            var timer_add = Random.Range(coroutine.timer_add[0], coroutine.timer_add[1]);
+            var timer_add = GameManager.RandomTest(coroutine.timer_add[0], coroutine.timer_add[1]);
             timer += timer_add;
             yield return new WaitForMillisecondFrames(timer_add);
         }

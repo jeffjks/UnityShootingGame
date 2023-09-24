@@ -21,7 +21,7 @@ public class EnemyTankSmall1_BulletPattern_Turret_A : BulletFactory, IBulletPatt
     {
         int[] fireDelay = { 2400, 1200, 600 };
         float[] speedArray = { 6.6f, 7.8f, 7.8f };
-        yield return new WaitForMillisecondFrames(Random.Range(0, 500));
+        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 500));
         
         while (true)
         {

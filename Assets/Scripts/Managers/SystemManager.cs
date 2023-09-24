@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using System;
-using Random = System.Random;
 
 public class SystemManager : MonoBehaviour
 {
@@ -131,8 +128,8 @@ public class SystemManager : MonoBehaviour
             Action_OnNextStage?.Invoke(false);
             SceneManager.LoadScene(sceneName);
             
-            yield return new WaitForMillisecondFrames(1000);
-            FadeScreenService.ScreenFadeOut(1.5f);
+            // yield return new WaitForMillisecondFrames(1000);
+            // FadeScreenService.ScreenFadeOut(1.5f);
         }
     }
 

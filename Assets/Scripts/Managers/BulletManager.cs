@@ -79,7 +79,7 @@ public class BulletManager : MonoBehaviour
 
         while (count > 0)
         {
-            var index = UnityEngine.Random.Range(0, count);
+            var index = GameManager.RandomTest(0, count);
             var enemyBullet = bulletList[index].GetComponent<EnemyBullet>();
             
             if (num < 50) {

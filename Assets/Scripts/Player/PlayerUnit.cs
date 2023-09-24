@@ -37,7 +37,7 @@ public class PlayerUnit : PlayerObject
         }
     }
     
-    private static PlayerUnit Instance { get; set; }
+    public static PlayerUnit Instance { get; set; }
     
     private const int MAX_PLAYER_ATTACK_LEVEL = 4;
 

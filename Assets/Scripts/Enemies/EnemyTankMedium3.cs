@@ -28,7 +28,7 @@ public class EnemyTankMedium3_BulletPattern_A : BulletFactory, IBulletPattern
     {
         int[] fireDelay = { 400, 160, 70 };
         float[] speedArray = { 5.2f, 5.2f, 6.4f };
-        _enemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
+        _enemyObject.m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
         
         while(true)
         {

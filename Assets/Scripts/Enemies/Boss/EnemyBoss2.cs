@@ -38,10 +38,10 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         if (m_Phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 1f) {
-                m_MoveVector.direction = Random.Range(-110f, -70f);
+                m_MoveVector.direction = GameManager.RandomTest(-110f, -70f);
             }
             else if (transform.position.x <= TARGET_POSITION.x - 1f) {
-                m_MoveVector.direction = Random.Range(70f, 110f);
+                m_MoveVector.direction = GameManager.RandomTest(70f, 110f);
             }
             else if (transform.position.z >= TARGET_POSITION.z + 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
@@ -78,7 +78,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void OnAppearanceComplete() {
-        float random_direction = Random.Range(70f, 110f) + 180f*Random.Range(0, 2);
+        float random_direction = GameManager.RandomTest(70f, 110f) + 180f*GameManager.RandomTest(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
         m_Phase = 1;
         m_CurrentPhase = Phase1();
@@ -154,7 +154,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         while (m_Phase == 1) {
             yield return Phase1_PatternA();
             
-            var side = Random.Range(0, 2) * 2 - 1;
+            var side = GameManager.RandomTest(0, 2) * 2 - 1;
             yield return Phase1_PatternB(side);
 
             yield return Phase1_PatternC(side);
@@ -163,7 +163,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase1_PatternA()
     {
-        var side = Random.Range(0, 2) * 2 - 1;
+        var side = GameManager.RandomTest(0, 2) * 2 - 1;
         m_Part1Turrets[0].StartPattern("1A", new BulletPattern_EnemyBoss2_Part1_Turret1_1A(m_Part1Turrets[0]));
         m_Part1Turrets[1].StartPattern("1A", new BulletPattern_EnemyBoss2_Part1_Turret2_1A(m_Part1Turrets[1], side));
         m_Part1Turrets[2].StartPattern("1A", new BulletPattern_EnemyBoss2_Part1_Turret2_1A(m_Part1Turrets[2], -side));

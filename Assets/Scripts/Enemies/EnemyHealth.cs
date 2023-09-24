@@ -131,7 +131,10 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         if (m_Collider2D.Length == 0)
             return;
         foreach (var colliderItem in m_Collider2D)
-            colliderItem.enabled = state;
+        {
+            colliderItem.gameObject.SetActive(state);
+            //colliderItem.enabled = state;
+        }
     }
 
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation)

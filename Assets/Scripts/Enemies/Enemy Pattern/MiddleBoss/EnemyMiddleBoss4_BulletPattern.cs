@@ -12,8 +12,8 @@ public class BulletPattern_EnemyMiddleBoss4_MainTurret_1A : BulletFactory, IBull
         int[] fireDelay = { 1000, 600, 500 };
         while (true) {
             var pos = GetFirePos(0);
-            var dir = Random.Range(-1.5f, 1.5f);
-            var interval = Random.Range(0.5f, 14f);
+            var dir = GameManager.RandomTest(-1.5f, 1.5f);
+            var interval = GameManager.RandomTest(0.5f, 14f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
@@ -77,7 +77,7 @@ public class BulletPattern_EnemyMiddleBoss4_MainTurret_2A1 : BulletFactory, IBul
         while (true)
         {
             var pos = GetFirePos(0);
-            var dir = Random.Range(-12f, 12f);
+            var dir = GameManager.RandomTest(-12f, 12f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
@@ -151,7 +151,7 @@ public class BulletPattern_EnemyMiddleBoss4_BackTurret_1A : BulletFactory, IBull
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         while (true) {
-            var random_value = Random.Range(0, 2);
+            var random_value = GameManager.RandomTest(0, 2);
 
             if (random_value == 0) {
                 if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -298,7 +298,7 @@ public class BulletPattern_EnemyMiddleBoss4_PartB : BulletFactory, IBulletPatter
 
         while (true) {
             var pos = GetFirePos(0);
-            var dir = Random.Range(0f, 360f);
+            var dir = GameManager.RandomTest(0f, 360f);
             var property = new BulletProperty(pos, BulletImage.BlueSmall, 3.2f, BulletPivot.Fixed, dir, accel);
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, timer);
             var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 8f, BulletPivot.Fixed, 0f);

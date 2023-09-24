@@ -40,7 +40,7 @@ public class GroundEnemySpawner : MonoBehaviour
         
         if (m_EnemySpawnerDatas.InteractableTimer != 0)
         {
-            enemyUnit.DisableInteractable(m_EnemySpawnerDatas.InteractableTimer);
+            enemyUnit.DisableInteractableAll(m_EnemySpawnerDatas.InteractableTimer);
         }
         
         for (int i = 0; i < m_MovePattern.Length; i++) {

@@ -28,7 +28,6 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
 
     protected override void Init()
     {
-        Debug.Log("Init");
         _totalScore = InGameDataManager.Instance.TotalScore;
         _shipAttributes = InGameDataManager.Instance.CurrentShipAttributes;
         _totalMiss = InGameDataManager.Instance.TotalMiss;
@@ -52,12 +51,18 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
             AudioService.PlaySound("CancelUI");
             return;
         }
+        if (id.Length < 3)
+        {
+            AudioService.PlaySound("CancelUI");
+            m_TextErrorMessage.DisplayText("InvalidIdException");
+            return;
+        }
+        
         rankingData.Add(localRankingData);
         
         Utility.SaveDataFile(Application.dataPath, $"ranking{difficulty}.dat", rankingData);
 
         AudioService.PlaySound("SallyUI");
-        CriticalStateSystem.SetCriticalState(120);
         SaveReplayMenu();
     }
 

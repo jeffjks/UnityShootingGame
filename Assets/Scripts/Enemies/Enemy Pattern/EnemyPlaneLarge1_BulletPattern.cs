@@ -15,14 +15,14 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         int[] fireDelay = { 1600, 800, 600 };
-        var state = Random.Range(0, 2) * 2 - 1;
+        var state = GameManager.RandomTest(0, 2) * 2 - 1;
         yield return new WaitForMillisecondFrames(200);
 
         while(!_enemyObject.TimeLimitState)
         {
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                var rand = Random.Range(-8f, 0f);
+                var rand = GameManager.RandomTest(-8f, 0f);
                 var targetAngle = _enemyObject.AngleToPlayer;
                 for (var i = 0; i < 4; i++)
                 {
@@ -36,7 +36,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert)
             {
-                var rand = Random.Range(-8f, 0f);
+                var rand = GameManager.RandomTest(-8f, 0f);
                 var targetAngle = _enemyObject.AngleToPlayer;
                 for (var i = 0; i < 6; i++)
                 {
@@ -50,7 +50,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
             }
             else
             {
-                var rand = Random.Range(-8f, 0f);
+                var rand = GameManager.RandomTest(-8f, 0f);
                 var targetAngle = _enemyObject.AngleToPlayer;
                 for (var i = 0; i < 8; i++)
                 {
@@ -67,7 +67,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
 
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                var rand = Random.Range(0f, 360f);
+                var rand = GameManager.RandomTest(0f, 360f);
                 for (int i = 0; i < 6; i++) {
                     var pos = GetFirePos(0);
                     var dir = rand + 12f * i * state;
@@ -77,7 +77,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert)
             {
-                var rand = Random.Range(0f, 360f);
+                var rand = GameManager.RandomTest(0f, 360f);
                 for (int i = 0; i < 6; i++) {
                     var pos = GetFirePos(0);
                     var dir = rand + 9f * i * state;
@@ -91,7 +91,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
             }
             else
             {
-                var rand = Random.Range(0f, 360f);
+                var rand = GameManager.RandomTest(0f, 360f);
                 for (int i = 0; i < 9; i++) {
                     var pos = GetFirePos(0);
                     var dir = rand + 9f * i * state;
@@ -125,7 +125,7 @@ public class EnemyPlaneLarge1_BulletPattern_2A : BulletFactory, IBulletPattern
         while(!_enemyObject.TimeLimitState)
         {
             var pos = GetFirePos(0);
-            var rand = Random.Range(-3f, 3f);
+            var rand = GameManager.RandomTest(-3f, 3f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {

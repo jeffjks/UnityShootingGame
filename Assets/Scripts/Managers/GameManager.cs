@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     public static bool isOnline;
     public static bool IsDebugScene;
-    public static int CurrentFrame;
 
     private class EncryptedFile
     {
@@ -98,11 +97,6 @@ public class GameManager : MonoBehaviour
         var r = Random.Range(r1, r2);
         //Debug.LogWarning($"{CurrentFrame}: {r}");
         return r;
-    }
-
-    private void LateUpdate()
-    {
-        CurrentFrame++;
     }
 
     public static string GetAccountID() {

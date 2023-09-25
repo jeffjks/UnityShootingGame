@@ -6,12 +6,48 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Random = UnityEngine.Random;
 
+public struct ReplayInput<T>
+{
+    public int timeStamp;
+    public T input;
+    
+    public ReplayInput(int timeStamp, T input)
+    {
+        this.timeStamp = timeStamp;
+        this.input = input;
+    }
+}
+
+public class ReplayData
+{
+    public Queue<ReplayInput<Vector2Int>> movementInput = new();
+    public Queue<ReplayInput<bool>> fireInput = new();
+    public Queue<ReplayInput<bool>> bombInput = new();
+
+    public void RecordMovementInput(ReplayInput<Vector2Int> input)
+    {
+        movementInput.Enqueue(input);
+    }
+
+    public void RecordPressInput(ReplayInput<bool> input, ReplayManager.KeyType keyType)
+    {
+        switch (keyType)
+        {
+            case ReplayManager.KeyType.Fire:
+                fireInput.Enqueue(input);
+                break;
+            case ReplayManager.KeyType.Bomb:
+                bombInput.Enqueue(input);
+                break;
+        }
+    }
+}
+
 public class ReplayManager : MonoBehaviour
 {
     public bool m_Activate;
     
     private FileStream _fileStream;
-    private PlayerMovement _playerMovement;
     private PlayerController _playerController;
     
     private PlayerManager _playerManager;
@@ -20,7 +56,7 @@ public class ReplayManager : MonoBehaviour
     private ReplayInfo _replayInfo;
     private BinaryReader _br;
     private BinaryWriter _bw;
-    private int _context;
+    private long _context;
     private bool _eof;
 
     public static string ReplayFilePath;
@@ -28,6 +64,8 @@ public class ReplayManager : MonoBehaviour
     public static bool IsUsingReplay => !PauseManager.IsGamePaused && SystemManager.PlayState < PlayState.OnStageResult;
 
     public static ReplayManager Instance { get; private set; }
+    public static int CurrentFrame;
+    //public static ReplayData CurrentReplayData;
 
     public enum KeyType
     {
@@ -66,16 +104,35 @@ public class ReplayManager : MonoBehaviour
             return;
         }
         Instance = this;
-        GameManager.CurrentFrame = 0;
+        CurrentFrame = 0;
+        _context = 0;
+        //CurrentReplayData = new ReplayData();
         
         _replayDirectory = $"{Application.dataPath}/";
 
         SystemManager.Action_OnQuitInGame += OnClose;
+        SystemManager.Action_OnNextStage += InitCurrentFrame;
     }
 
     private void OnDestroy()
     {
         SystemManager.Action_OnQuitInGame -= OnClose;
+        SystemManager.Action_OnNextStage -= InitCurrentFrame;
+    }
+
+    private void InitCurrentFrame(bool hasNextStage)
+    {
+        if (!hasNextStage)
+            return;
+        CurrentFrame = 0;
+        //CurrentReplayData = new ReplayData();
+    }
+
+    private void LateUpdate()
+    {
+        if (!IsUsingReplay)
+            return;
+        CurrentFrame++;
     }
 
     public void Init()
@@ -128,7 +185,7 @@ public class ReplayManager : MonoBehaviour
 
     private void StartWriteReplayFile()
     {
-        ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
+        ReplayFilePath = $"{_replayDirectory}replay0.rep";
         var playerAttackLevel = GetPlayerAttackLevel();
         
         try {
@@ -163,7 +220,6 @@ public class ReplayManager : MonoBehaviour
     {
         Random.InitState(_replayInfo.m_Seed);
         var player = _playerManager.SpawnPlayer(playerAttackLevel);
-        _playerMovement = player.GetComponentInChildren<PlayerMovement>();
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
@@ -171,7 +227,6 @@ public class ReplayManager : MonoBehaviour
     {
         Random.InitState(_replayInfo.m_Seed);
         var player = _playerManager.SpawnPlayer(shipAttributes, playerAttackLevel);
-        _playerMovement = player.GetComponentInChildren<PlayerMovement>();
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
@@ -207,48 +262,64 @@ public class ReplayManager : MonoBehaviour
 
     public void ReadUserInput()
     {
-        if (_fileStream.Position >= _fileStream.Length)
+        if (_context == 0)
         {
-            if (!_eof)
-                Debug.Log($"Replay file reached end of file.");
-            _eof = true;
-            return;
+            if (_fileStream.Position >= _fileStream.Length)
+            {
+                if (!_eof)
+                    Debug.Log($"Replay file reached end of file.");
+                _eof = true;
+                return;
+            }
+            
+            _context = _br.ReadInt64();
         }
-        
-        var context = _br.ReadInt32();
 
-        var inputMove = (context >> 0) & 1;
+        var inputFrame = (int)(_context >> 32);
+        if (CurrentFrame < inputFrame)
+            return;
+
+        var inputData = (int) (_context & 0xFFFFFFFF);
+
+        var inputMove = (inputData >> 0) & 1;
         if (inputMove == 1)
         {
-            var moveLeft = (context >> 4) & 1;
-            var moveRight = (context >> 5) & 1;
-            var moveDown = (context >> 6) & 1;
-            var moveUp = (context >> 7) & 1;
+            var moveLeft = (inputData >> 4) & 1;
+            var moveRight = (inputData >> 5) & 1;
+            var moveDown = (inputData >> 6) & 1;
+            var moveUp = (inputData >> 7) & 1;
             var moveVectorInt = new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
             _playerController.OnMoveInvoked(moveVectorInt);
         }
 
-        var inputFire = (context >> (int) KeyType.Fire) & 0b11;
-        var inputBomb = (context >> (int) KeyType.Bomb) & 0b11;
+        var inputFire = (inputData >> (int) KeyType.Fire) & 0b11;
+        var inputBomb = (inputData >> (int) KeyType.Bomb) & 0b11;
         
         if ((inputFire & 0b01) == 0b01)
             _playerController.OnFireInvoked((inputFire & 0b10) == 0b10);
         if ((inputBomb & 0b01) == 0b01)
             _playerController.OnBombInvoked((inputBomb & 0b10) == 0b10);
+
+        _context = 0;
     }
 
     public void WriteUserMovementInput(Vector2Int rawInputVector)
     {
         if (SystemManager.GameMode == GameMode.Replay)
             return;
-        
-        var moveLeft = rawInputVector.x == -1 ? 1 : 0;
-        var moveRight = rawInputVector.x == 1 ? 1 : 0;
-        var moveDown = rawInputVector.y == -1 ? 1 : 0;
-        var moveUp = rawInputVector.y == 1 ? 1 : 0;
 
+        // var input = new ReplayInput<Vector2Int>(CurrentFrame, rawInputVector);
+        // CurrentReplayData.RecordMovementInput(input);
+        
+        var moveLeft = (uint) (rawInputVector.x == -1 ? 1 : 0);
+        var moveRight = (uint) (rawInputVector.x == 1 ? 1 : 0);
+        var moveDown = (uint) (rawInputVector.y == -1 ? 1 : 0);
+        var moveUp = (uint) (rawInputVector.y == 1 ? 1 : 0);
+        
         _context |= 1;
-        _context |= (moveLeft << 4) | (moveRight << 5) | (moveDown << 6)| (moveUp << 7);
+        _context |= (long) (moveLeft << 4) | (moveRight << 5) | (moveDown << 6)| (moveUp << 7);
+        
+        
         // _context |= (_playerController.IsFirePressed ? 1 : 0) << 4;
         // _context |= (_playerController.IsBombPressed ? 1 : 0) << 5;
     }
@@ -258,19 +329,26 @@ public class ReplayManager : MonoBehaviour
         if (SystemManager.GameMode == GameMode.Replay)
             return;
 
+        // var input = new ReplayInput<bool>(CurrentFrame, isPressed);
+        // CurrentReplayData.RecordPressInput(input, keyType);
+
         var offset = (int) keyType;
         
         var inputFire = isPressed ? 0b11 : 0b01;
         
-        _context |= inputFire << offset;
+        _context |= (long) inputFire << offset;
     }
 
     public void WriteReplayData()
     {
+        // int = 0bAAAA_BBBB_CCCC_DDDD_EEEE_FFFF_GGGG_HHHH // HHHH: movementInputFlag, GGGG: movementInput, FFFF: fire/bomb 
         //if (!PlayerUnit.IsControllable)
         //    return;
         
         //Debug.Log($"{GameManager.CurrentFrame}: {_context}, {PlayerUnit.Instance.transform.position}");
+        if (_context == 0L)
+            return;
+        _context |= (long)CurrentFrame << 32;
         
         _bw?.Write(_context);
         _context = 0;

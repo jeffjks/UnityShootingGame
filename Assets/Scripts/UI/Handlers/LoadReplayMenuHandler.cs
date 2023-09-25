@@ -88,7 +88,6 @@ public class LoadReplayMenuHandler : MenuHandler
 
     public void Confirm()
     {
-        _currentSelectedSlot = -1;
         foreach (var button in _buttons)
         {
             button.interactable = false;

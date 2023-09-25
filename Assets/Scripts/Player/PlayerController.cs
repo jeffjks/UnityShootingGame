@@ -81,9 +81,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnFireInvoked(bool isPressed)
     {
+        if (!ReplayManager.IsUsingReplay)
+            return;
+        
         HandleFireInput(isPressed);
         
         ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
+        if (SystemManager.IsInGame)
+            Debug.Log($"{ReplayManager.CurrentFrame}: FireInvoked {isPressed}");
     }
 
     public void HandleFireInput(bool isPressed)
@@ -121,7 +126,6 @@ public class PlayerController : MonoBehaviour
             if (!_playerUnit.IsShooting) {
                 _playerUnit.IsShooting = true;
                 _playerShotHandler.StartShotCoroutine();
-                Debug.Log($"{GameManager.CurrentFrame}: StartShoot");
             }
             _playerUnit.IsAttacking = true;
         }
@@ -135,13 +139,15 @@ public class PlayerController : MonoBehaviour
                 _playerLaserHandler.StartLaser();
                 _playerUnit.IsAttacking = true;
                 _playerShotHandler.AutoShot = 0;
-                Debug.Log($"{GameManager.CurrentFrame}: StartLaser");
             }
         }
     }
 
     public void OnBombInvoked(bool isPressed)
     {
+        if (!ReplayManager.IsUsingReplay)
+            return;
+        
         ExecuteBomb(isPressed);
         
         ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Bomb);
@@ -167,10 +173,15 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInvoked(Vector2Int rawInputVector)
     {
+        if (!ReplayManager.IsUsingReplay)
+            return;
+        
         _playerMovement.HandlePlayerMovement(rawInputVector);
         _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
         
         ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
+        if (SystemManager.IsInGame)
+            Debug.Log($"{ReplayManager.CurrentFrame}: FireInvoked {rawInputVector}");
     }
 
     public void StopAttack()

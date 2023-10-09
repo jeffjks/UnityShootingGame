@@ -87,8 +87,6 @@ public class PlayerController : MonoBehaviour
         HandleFireInput(isPressed);
         
         ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
-        if (SystemManager.IsInGame)
-            Debug.Log($"{ReplayManager.CurrentFrame}: FireInvoked {isPressed}");
     }
 
     public void HandleFireInput(bool isPressed)
@@ -180,8 +178,6 @@ public class PlayerController : MonoBehaviour
         _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
         
         ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
-        if (SystemManager.IsInGame)
-            Debug.Log($"{ReplayManager.CurrentFrame}: FireInvoked {rawInputVector}");
     }
 
     public void StopAttack()

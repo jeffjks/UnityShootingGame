@@ -18,6 +18,7 @@ public struct ReplayInput<T>
     }
 }
 
+/*
 public class ReplayData
 {
     public Queue<ReplayInput<Vector2Int>> movementInput = new();
@@ -42,6 +43,7 @@ public class ReplayData
         }
     }
 }
+*/
 
 public class ReplayManager : MonoBehaviour
 {
@@ -56,7 +58,7 @@ public class ReplayManager : MonoBehaviour
     private ReplayInfo _replayInfo;
     private BinaryReader _br;
     private BinaryWriter _bw;
-    private long _context;
+    private ReplayData _context;
     private bool _eof;
 
     public static string ReplayFilePath;
@@ -69,8 +71,60 @@ public class ReplayManager : MonoBehaviour
 
     public enum KeyType
     {
-        Fire = 8,
-        Bomb = 10
+        Fire = 0,
+        Bomb = 2
+    }
+
+    // int = 0bAAAA_BBBB_CCCC_DDDD_EEEE_FFFF_GGGG_HHHH // GGGG_HHHH: movementInputFlag, EEEE_FFFF: movementInput, CCCC_DDDD: fire/bomb 
+    private struct ReplayData
+    {
+        public byte movementInputFlag;
+        public byte inputMovement;
+        public byte inputPress;
+        public byte unused;
+        public int frame;
+
+        public void SetData(long context)
+        {
+            frame = (int)(context >> 32);
+            var inputData = (int) (context & 0xFFFFFFFF);
+
+            movementInputFlag = (byte) ((inputData >> 0) & 0xFF);
+            inputMovement = (byte) ((inputData >> 8) & 0xFF);
+            inputPress = (byte) ((inputData >> 16) & 0xFF);
+            unused = (byte) ((inputData >> 24) & 0xFF);
+        }
+
+        public void SetMoveVectorData(Vector2Int rawInputVector)
+        {
+            var moveLeft = (byte) (rawInputVector.x == -1 ? 1 : 0);
+            var moveRight = (byte) (rawInputVector.x == 1 ? 1 : 0);
+            var moveDown = (byte) (rawInputVector.y == -1 ? 1 : 0);
+            var moveUp = (byte) (rawInputVector.y == 1 ? 1 : 0);
+
+            movementInputFlag = 1;
+            inputMovement = (byte) ((moveLeft << 0) | (moveRight << 1) | (moveDown << 2)| (moveUp << 3));
+        }
+
+        public long GetData()
+        {
+            long code = 0;
+            code |= (long) movementInputFlag << 0;
+            code |= (long) inputMovement << 8;
+            code |= (long) inputPress << 16;
+            code |= (long) unused << 24;
+            code |= (long) frame << 32;
+            return code;
+        }
+
+        public Vector2Int GetMoveVectorData()
+        {
+            var moveLeft = (inputMovement >> 0) & 1;
+            var moveRight = (inputMovement >> 1) & 1;
+            var moveDown = (inputMovement >> 2) & 1;
+            var moveUp = (inputMovement >> 3) & 1;
+            return new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
+        }
     }
 
     public class ReplayInfo
@@ -105,7 +159,7 @@ public class ReplayManager : MonoBehaviour
         }
         Instance = this;
         CurrentFrame = 0;
-        _context = 0;
+        _context = new ReplayData();
         //CurrentReplayData = new ReplayData();
         
         _replayDirectory = $"{Application.dataPath}/";
@@ -262,7 +316,7 @@ public class ReplayManager : MonoBehaviour
 
     public void ReadUserInput()
     {
-        if (_context == 0)
+        if (_context.GetData() == 0)
         {
             if (_fileStream.Position >= _fileStream.Length)
             {
@@ -272,35 +326,30 @@ public class ReplayManager : MonoBehaviour
                 return;
             }
             
-            _context = _br.ReadInt64();
+            _context.SetData(_br.ReadInt64());
         }
-
-        var inputFrame = (int)(_context >> 32);
-        if (CurrentFrame < inputFrame)
+        
+        if (CurrentFrame < _context.frame)
             return;
-
-        var inputData = (int) (_context & 0xFFFFFFFF);
-
-        var inputMove = (inputData >> 0) & 1;
-        if (inputMove == 1)
+        
+        if (_context.movementInputFlag == 1)
         {
-            var moveLeft = (inputData >> 4) & 1;
-            var moveRight = (inputData >> 5) & 1;
-            var moveDown = (inputData >> 6) & 1;
-            var moveUp = (inputData >> 7) & 1;
-            var moveVectorInt = new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
+            var moveVectorInt = _context.GetMoveVectorData();
             _playerController.OnMoveInvoked(moveVectorInt);
+            
+            if (SystemManager.IsInGame)
+                Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
-        var inputFire = (inputData >> (int) KeyType.Fire) & 0b11;
-        var inputBomb = (inputData >> (int) KeyType.Bomb) & 0b11;
+        var inputFire = (_context.inputPress >> (int) KeyType.Fire) & 0b11;
+        var inputBomb = (_context.inputPress >> (int) KeyType.Bomb) & 0b11;
         
         if ((inputFire & 0b01) == 0b01)
             _playerController.OnFireInvoked((inputFire & 0b10) == 0b10);
         if ((inputBomb & 0b01) == 0b01)
             _playerController.OnBombInvoked((inputBomb & 0b10) == 0b10);
 
-        _context = 0;
+        _context.SetData(0L);
     }
 
     public void WriteUserMovementInput(Vector2Int rawInputVector)
@@ -311,17 +360,7 @@ public class ReplayManager : MonoBehaviour
         // var input = new ReplayInput<Vector2Int>(CurrentFrame, rawInputVector);
         // CurrentReplayData.RecordMovementInput(input);
         
-        var moveLeft = (uint) (rawInputVector.x == -1 ? 1 : 0);
-        var moveRight = (uint) (rawInputVector.x == 1 ? 1 : 0);
-        var moveDown = (uint) (rawInputVector.y == -1 ? 1 : 0);
-        var moveUp = (uint) (rawInputVector.y == 1 ? 1 : 0);
-        
-        _context |= 1;
-        _context |= (long) (moveLeft << 4) | (moveRight << 5) | (moveDown << 6)| (moveUp << 7);
-        
-        
-        // _context |= (_playerController.IsFirePressed ? 1 : 0) << 4;
-        // _context |= (_playerController.IsBombPressed ? 1 : 0) << 5;
+        _context.SetMoveVectorData(rawInputVector);
     }
 
     public void WriteUserPressInput(bool isPressed, KeyType keyType)
@@ -335,23 +374,29 @@ public class ReplayManager : MonoBehaviour
         var offset = (int) keyType;
         
         var inputFire = isPressed ? 0b11 : 0b01;
-        
-        _context |= (long) inputFire << offset;
+
+        _context.inputPress |= (byte) (0b11 << offset);
+        _context.inputPress &= (byte) (inputFire << offset);
     }
 
     public void WriteReplayData()
     {
-        // int = 0bAAAA_BBBB_CCCC_DDDD_EEEE_FFFF_GGGG_HHHH // HHHH: movementInputFlag, GGGG: movementInput, FFFF: fire/bomb 
         //if (!PlayerUnit.IsControllable)
         //    return;
         
         //Debug.Log($"{GameManager.CurrentFrame}: {_context}, {PlayerUnit.Instance.transform.position}");
-        if (_context == 0L)
+        if (_context.GetData() == 0L)
             return;
-        _context |= (long)CurrentFrame << 32;
+        _context.frame = CurrentFrame;
         
-        _bw?.Write(_context);
-        _context = 0;
+        _bw?.Write(_context.GetData());
+        
+        var moveVectorInt = _context.GetMoveVectorData();
+            
+        if (SystemManager.IsInGame)
+            Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        
+        _context.SetData(0L);
     }
 
     private void BinarySerialize(int seed) {

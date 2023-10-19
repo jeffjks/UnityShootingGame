@@ -63,7 +63,7 @@ public class ReplayManager : MonoBehaviour
 
     public static string ReplayFilePath;
 
-    public static bool IsUsingReplay => !PauseManager.IsGamePaused && SystemManager.PlayState < PlayState.OnStageResult;
+    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable;
 
     public static ReplayManager Instance { get; private set; }
     public static int CurrentFrame;
@@ -338,7 +338,9 @@ public class ReplayManager : MonoBehaviour
             _playerController.OnMoveInvoked(moveVectorInt);
             
             if (SystemManager.IsInGame)
-                Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            {
+                //Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            }
         }
 
         var inputFire = (_context.inputPress >> (int) KeyType.Fire) & 0b11;
@@ -393,8 +395,8 @@ public class ReplayManager : MonoBehaviour
         
         var moveVectorInt = _context.GetMoveVectorData();
             
-        if (SystemManager.IsInGame)
-            Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        if (SystemManager.IsInGame && _context.movementInputFlag == 1)
+            //Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
         
         _context.SetData(0L);
     }

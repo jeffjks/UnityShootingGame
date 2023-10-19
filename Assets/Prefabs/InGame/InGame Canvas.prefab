@@ -5169,7 +5169,7 @@ PrefabInstance:
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}
@@ -5190,6 +5190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PauseMenuHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5647575213485255193, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
         type: 3}

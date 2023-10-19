@@ -74,7 +74,6 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 PlayerDead(Vector3 deadPosition)
     {
-        _playerUnit.m_PlayerRenderer.SetActive(false);
         var playerReviveX = Mathf.Clamp(deadPosition.x, -Size.CAMERA_MOVE_LIMIT, Size.CAMERA_MOVE_LIMIT);
         RevivePosition = new Vector3(playerReviveX, REVIVE_POSITION_Y, Depth.PLAYER);
         
@@ -99,6 +98,7 @@ public class PlayerManager : MonoBehaviour
             var item = Instantiate(m_ItemPowerUp, itemPos, Quaternion.identity);
         }
         _playerUnit.PlayerAttackLevel -= itemNumber;
+        _playerUnit.m_PlayerRenderer.SetActive(false);
         return RevivePosition;
     }
     

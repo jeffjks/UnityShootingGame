@@ -17,6 +17,7 @@ public enum AttributeType
 
 public enum PlayState
 {
+    OnPreparing = -1,
     None,
     OnMiddleBoss,
     OnBoss,

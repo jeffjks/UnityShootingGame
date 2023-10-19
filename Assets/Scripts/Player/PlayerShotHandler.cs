@@ -87,6 +87,7 @@ public class PlayerShotHandler : MonoBehaviour
         m_PlayerUnit.SlowMode = false;
         m_PlayerUnit.IsAttacking = false;
         m_PlayerUnit.IsShooting = false;
+        StopAllCoroutines();
     }
 
     private void Update()
@@ -151,7 +152,8 @@ public class PlayerShotHandler : MonoBehaviour
         }
     }
 
-    public void CreatePlayerAttack(string objectName, PlayerDamageDatas playerDamage, Vector3 pos, float dir, int damageLevel) {
+    public void CreatePlayerAttack(string objectName, PlayerDamageDatas playerDamage, Vector3 pos, float dir, int damageLevel)
+    {
         GameObject obj = PoolingManager.PopFromPool(objectName, PoolingParent.PlayerMissile);
         PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
         obj.transform.position = pos;

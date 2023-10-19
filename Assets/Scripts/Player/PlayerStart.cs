@@ -15,6 +15,7 @@ public class PlayerStart : MonoBehaviour
     void Start()
     {
         SetAttributes();
+        PlayerUnit.IsControllable = false;
 
         if (SystemManager.Instance.SpawnAtSpawnPointCondition()) {
             StartCoroutine(SpawnEvent());

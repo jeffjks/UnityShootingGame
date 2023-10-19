@@ -51,7 +51,7 @@ public class PauseManager : MonoBehaviour
         IsGamePaused = true;
         Time.timeScale = 0f;
         AudioService.PauseAudio();
-        PlayerUnit.IsControllable = false;
+        //PlayerUnit.IsControllable = false;
         CriticalStateSystem.SetCriticalState(20);
         
         //m_EventSystemUI.SetActive(true);
@@ -72,7 +72,7 @@ public class PauseManager : MonoBehaviour
         IsGamePaused = false;
         AudioService.UnpauseAudio();
         Time.timeScale = 1;
-        PlayerUnit.IsControllable = true;
+        //PlayerUnit.IsControllable = true;
         
         CriticalStateSystem.SetCriticalState(PAUSE_DELAY_FRAME);
         

@@ -71,7 +71,9 @@ public class MainCamera : MonoBehaviour
         var radiusInit = radius;
 
         while(timer < duration) {
-            Instance._shakingPosition = Random.insideUnitCircle * radius;
+            if (PauseManager.IsGamePaused)
+                continue;
+            Instance._shakingPosition = Utility.GetRandomPositionInsideCircle(radius);
     
             timer += Time.deltaTime;
             radius = Mathf.Lerp(radiusInit, 0f, timer / duration);

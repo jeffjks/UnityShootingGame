@@ -61,6 +61,8 @@ public class ReplayManager : MonoBehaviour
     private ReplayData _context;
     private bool _eof;
 
+    private StreamWriter _logFileStream;
+
     public static string ReplayFilePath;
 
     public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable;
@@ -153,19 +155,42 @@ public class ReplayManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         CurrentFrame = 0;
         _context = new ReplayData();
         //CurrentReplayData = new ReplayData();
-        
+
         _replayDirectory = $"{Application.dataPath}/";
 
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += InitCurrentFrame;
+
+        if (SystemManager.GameMode == GameMode.Replay)
+        {
+            if (!File.Exists($"{_replayDirectory}replayLog_Replay.txt"))
+            {
+                var file = File.CreateText($"{_replayDirectory}replayLog_Replay.txt");
+                file.Flush();
+                file.Close();
+            }
+            _logFileStream = new StreamWriter($"{_replayDirectory}replayLog_Replay.txt");
+        }
+        else
+        {
+            if (!File.Exists($"{_replayDirectory}replayLog_Play.txt"))
+            {
+                var file = File.CreateText($"{_replayDirectory}replayLog_Play.txt");
+                file.Flush();
+                file.Close();
+            }
+            _logFileStream = new StreamWriter($"{_replayDirectory}replayLog_Play.txt");
+        }
     }
 
     private void OnDestroy()
@@ -339,7 +364,7 @@ public class ReplayManager : MonoBehaviour
             
             if (SystemManager.IsInGame)
             {
-                //Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+                WriteDebugFile($"WritePressInput {moveVectorInt}, Move, {PlayerManager.GetPlayerPosition().ToString("N6")}");
             }
         }
 
@@ -347,9 +372,17 @@ public class ReplayManager : MonoBehaviour
         var inputBomb = (_context.inputPress >> (int) KeyType.Bomb) & 0b11;
         
         if ((inputFire & 0b01) == 0b01)
-            _playerController.OnFireInvoked((inputFire & 0b10) == 0b10);
+        {
+            var isFirePressed = (inputFire & 0b10) == 0b10;
+            _playerController.OnFireInvoked(isFirePressed);
+            WriteDebugFile($"WritePressInput {isFirePressed}, Fire, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        }
         if ((inputBomb & 0b01) == 0b01)
-            _playerController.OnBombInvoked((inputBomb & 0b10) == 0b10);
+        {
+            var isBombPressed = (inputFire & 0b10) == 0b10;
+            _playerController.OnBombInvoked(isBombPressed);
+            WriteDebugFile($"WritePressInput {isBombPressed}, Bomb, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        }
 
         _context.SetData(0L);
     }
@@ -379,6 +412,7 @@ public class ReplayManager : MonoBehaviour
 
         _context.inputPress |= (byte) (0b11 << offset);
         _context.inputPress &= (byte) (inputFire << offset);
+        WriteDebugFile($"WritePressInput {isPressed}, {keyType.ToString()}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
     }
 
     public void WriteReplayData()
@@ -394,9 +428,11 @@ public class ReplayManager : MonoBehaviour
         _bw?.Write(_context.GetData());
         
         var moveVectorInt = _context.GetMoveVectorData();
-            
+
         if (SystemManager.IsInGame && _context.movementInputFlag == 1)
+        {
             //Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        }
         
         _context.SetData(0L);
     }
@@ -520,6 +556,7 @@ public class ReplayManager : MonoBehaviour
     {
         Debug.Log($"Replay file closed");
         _fileStream?.Close();
+        _logFileStream?.Close();
         _br?.Close();
         _bw?.Close();
     }
@@ -527,5 +564,10 @@ public class ReplayManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         OnClose();
+    }
+
+    public void WriteDebugFile(string str)
+    {
+        _logFileStream.WriteLine($"{CurrentFrame}: {str}");
     }
 }

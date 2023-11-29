@@ -22,7 +22,6 @@ public class InGameInputController : MonoBehaviour
     public void OnFire(InputValue inputValue)
     {
         Action_OnFireInput?.Invoke(inputValue.isPressed);
-        //Debug.Log($"{inputValue.isPressed}, {inputValue.Get<float>()}");
     }
     
     public void OnBomb(InputValue inputValue)

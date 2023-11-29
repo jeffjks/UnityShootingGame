@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement _playerMovement;
     private PlayerUnit _playerUnit;
 
-    public bool IsFirePressed { get; private set; }
+    private string debugString = string.Empty;
+
+    private bool IsFirePressed { get; set; }
     public bool IsBombPressed { get; private set; }
     private int _firePressFrame;
     
@@ -72,8 +74,6 @@ public class PlayerController : MonoBehaviour
             _firePressFrame++;
         }
         
-        if (!PlayerUnit.IsControllable)
-            return;
         ExecuteShot();
         ExecuteLaser();
         _playerMovement.ExecuteMovement();
@@ -84,17 +84,20 @@ public class PlayerController : MonoBehaviour
         if (!ReplayManager.IsUsingReplay)
             return;
         
+        //Debug.Log($"{ReplayManager.CurrentFrame}: FirePressed {isPressed}");
+        debugString += $"{ReplayManager.CurrentFrame}: OnFireInvoked {isPressed}\n";
         HandleFireInput(isPressed);
         
         ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
     }
 
-    public void HandleFireInput(bool isPressed)
+    private void HandleFireInput(bool isPressed)
     {
-        IsFirePressed = false;
-        
         if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
+        {
+            IsFirePressed = false;
             return;
+        }
         
         IsFirePressed = isPressed;
         
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour
             if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
                 if (_playerShotHandler.AutoShot < 2) {
                     _playerShotHandler.AutoShot++;
+                    //Debug.Log($"{ReplayManager.CurrentFrame}: AutoShot Added {_playerShotHandler.AutoShot}");
                 }
             }
         }
@@ -123,6 +127,7 @@ public class PlayerController : MonoBehaviour
         if (_playerShotHandler.AutoShot > 0) {
             if (!_playerUnit.IsShooting) {
                 _playerUnit.IsShooting = true;
+                //Debug.Log($"{ReplayManager.CurrentFrame}: StartShotCoroutine, AutoShot {_playerShotHandler.AutoShot}");
                 _playerShotHandler.StartShotCoroutine();
             }
             _playerUnit.IsAttacking = true;
@@ -178,6 +183,7 @@ public class PlayerController : MonoBehaviour
         _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
         
         ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
+        debugString += $"{ReplayManager.CurrentFrame}: OnMoveInvoked {rawInputVector}\n";
     }
 
     public void StopAttack()

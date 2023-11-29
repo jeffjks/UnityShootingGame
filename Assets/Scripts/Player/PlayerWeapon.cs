@@ -29,6 +29,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     public virtual void OnStart() {
         _appliedDamage = false;
         _removeTimerCoroutine = SetRemoveTimer();
+        //Debug.Log($"{ReplayManager.CurrentFrame}: PlayerWeapon Spawned {name} at {transform.position}");
         StartCoroutine(_removeTimerCoroutine);
     }
 

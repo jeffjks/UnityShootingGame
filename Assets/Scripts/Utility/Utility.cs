@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = System.Random;
 
 public class IntegrityTestFailedException : Exception
 {
@@ -175,6 +176,19 @@ public static class Utility
         tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
         tex.Apply();
         return tex;
+    }
+    
+    public static Vector2 GetRandomPositionInsideCircle(float radius = 1f)
+    {
+        var random = new Random();
+        var azimuthalAngle = random.NextDouble() * 2d * Math.PI;
+        //var polarAngle = Math.Acos(2d * random.NextDouble() - 1d);
+        var distance = radius * Math.Cbrt(random.NextDouble());
+        //var sinPolarAngle = Math.Sin(polarAngle);
+        var x = (float)(distance * /*sinPolarAngle * */Math.Cos(azimuthalAngle));
+        var y = (float)(distance * /*sinPolarAngle * */Math.Sin(azimuthalAngle));
+        //var z = (float)(distance * Math.Cos(polarAngle));
+        return new Vector2(x, y);
     }
 
     public static void QuitGame()

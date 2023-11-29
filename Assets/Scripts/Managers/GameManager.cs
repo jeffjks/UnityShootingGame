@@ -88,14 +88,14 @@ public class GameManager : MonoBehaviour
     public static float RandomTest(float r1, float r2)
     {
         var r = Random.Range(r1, r2);
-        Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
+        //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
         return r;
     }
 
     public static int RandomTest(int r1, int r2)
     {
         var r = Random.Range(r1, r2);
-        Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
+        //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
         return r;
     }
 

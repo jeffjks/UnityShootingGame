@@ -114,7 +114,7 @@ public class ExplosionJsonManager : MonoBehaviour
             explosionEffecter.m_MoveVector = moveVector;
             
             Vector3 explosionPosition = enemyDeath.transform.TransformPoint(transformPosition);
-            Vector2 randomPos = (radius == 0f) ? Vector2.zero : Random.insideUnitCircle * radius;
+            Vector2 randomPos = (radius == 0f) ? Vector2.zero : Utility.GetRandomPositionInsideCircle(radius);
             
             if (Utility.CheckLayer(enemyDeath.gameObject, Layer.AIR)) {
                 explosionPosition = new Vector3(explosionPosition.x + randomPos.x, explosionPosition.y + randomPos.y, Depth.EXPLOSION);

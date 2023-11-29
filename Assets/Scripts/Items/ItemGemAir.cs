@@ -13,7 +13,7 @@ public class ItemGemAir : ItemGem
     void OnEnable()
     {
         m_Renderer.rotation = Random.rotation;
-        m_RandomAxis = Random.insideUnitCircle.normalized;
+        m_RandomAxis = Utility.GetRandomPositionInsideCircle().normalized;
         m_VerticalSpeed = 0f;
         m_HorizontalSpeed = GameManager.RandomTest(-0.8f, 0.8f);
         m_Scale = GameManager.RandomTest(-m_RandomScale, m_RandomScale);

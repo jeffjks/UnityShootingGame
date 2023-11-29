@@ -26,7 +26,7 @@ public class EnemyDeath : MonoBehaviour
                 continue;
             enemyDeath.KillEnemy();
         }
-        //Debug.Log($"{GameManager.CurrentFrame}: killed {name} at {transform.position}");
+        //Debug.Log($"{ReplayManager.CurrentFrame}: killed {name} at {transform.position}");
     }
 
     public void OnEndDeathAnimation() {

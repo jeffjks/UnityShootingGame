@@ -38,7 +38,7 @@ public class EnemyItemCreater : MonoBehaviour
             if (Utility.CheckLayer(gameObject, Layer.AIR)) {
                 for (int i = 0; i < m_ItemNumber; i++) {
                     GameObject obj = PoolingManager.PopFromPool(gemItem.m_ObjectName, PoolingParent.GemAir);
-                    Vector3 pos = transform.position + (Vector3) Random.insideUnitCircle * 0.8f;
+                    Vector3 pos = transform.position + (Vector3) Utility.GetRandomPositionInsideCircle(0.8f);
                     obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
                     obj.SetActive(true);
                 }
@@ -93,8 +93,8 @@ public class EnemyItemCreater : MonoBehaviour
                 break;
             default:
                 for (int i = 0; i < m_ItemNumber; i++) {
-                    Vector3 vec = Random.insideUnitSphere * (Mathf.Sqrt(m_ItemNumber) * 0.7f);
-                    obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.z);
+                    var vec = Utility.GetRandomPositionInsideCircle() * (Mathf.Sqrt(m_ItemNumber) * 0.7f);
+                    obj[i].transform.position = transform.position + new Vector3(vec.x, 0f, vec.y);
                 }
                 break;
         }

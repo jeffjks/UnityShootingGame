@@ -119,11 +119,13 @@ public class PlayerShotHandler : MonoBehaviour
     }
     
     private IEnumerator Shot() {
+        //Debug.Log($"{ReplayManager.CurrentFrame}: Shot {AutoShot}");
         if (AutoShot > 0)
             AutoShot--;
         var shotNumber = _shotNumbers[m_PlayerUnit.PlayerAttackLevel];
         
         for (int i = 0; i < shotNumber; i++) { // FIRE_RATE초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
+            // Debug.Log($"{ReplayManager.CurrentFrame}: ShotNumber {shotNumber}, ShotIndex {ShotIndex}");
             if (ShotIndex == 0)
                 CreateShotNormal(m_PlayerUnit.PlayerAttackLevel);
             else if (ShotIndex == 1)
@@ -135,7 +137,10 @@ public class PlayerShotHandler : MonoBehaviour
                 AudioService.PlaySound("PlayerShot1");
             yield return new WaitForMillisecondFrames(FIRE_RATE);
         }
-        yield return new WaitForMillisecondFrames(m_PlayerShotData.cooldownByLevel[0] - FIRE_RATE*shotNumber);
+
+        var cooldownByLevel = m_PlayerShotData.cooldownByLevel[m_PlayerUnit.PlayerAttackLevel];
+        //Debug.Log($"{ReplayManager.CurrentFrame}: {cooldownByLevel - FIRE_RATE*shotNumber}");
+        yield return new WaitForMillisecondFrames(cooldownByLevel - FIRE_RATE*shotNumber);
 
         m_PlayerUnit.IsShooting = false;
         CheckNowShooting();
@@ -154,6 +159,8 @@ public class PlayerShotHandler : MonoBehaviour
 
     public void CreatePlayerAttack(string objectName, PlayerDamageDatas playerDamage, Vector3 pos, float dir, int damageLevel)
     {
+        if (!m_PlayerUnit.m_IsPreviewObject && !PlayerManager.IsPlayerAlive)
+            return;
         GameObject obj = PoolingManager.PopFromPool(objectName, PoolingParent.PlayerMissile);
         PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
         obj.transform.position = pos;

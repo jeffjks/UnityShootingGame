@@ -64,11 +64,11 @@ public class FadeScreenService : MonoBehaviour
 		{
 			Alpha = timer / duration;
 			timer += Time.deltaTime;
-			yield return null;
+			yield return new WaitForFrames(1);
 		}
 
 		Alpha = 1f;
-		yield return null;
+		yield return new WaitForFrames(1);
 		_currentState = FadeState.FadeIn;
 
 		callback?.Invoke();
@@ -86,11 +86,11 @@ public class FadeScreenService : MonoBehaviour
 		{
 			Alpha = 1f - timer / duration;
 			timer += Time.deltaTime;
-			yield return null;
+			yield return new WaitForFrames(1);
 		}
 
 		Alpha = 0f;
-		yield return null;
+		yield return new WaitForFrames(1);
 		_currentState = FadeState.FadeOut;
 	}
 

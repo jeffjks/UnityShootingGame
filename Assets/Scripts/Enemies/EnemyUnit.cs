@@ -297,7 +297,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
                 m_MoveVector.speed = Mathf.Lerp(init_speed, movePattern.speed, t_lerp);
                 m_MoveVector.direction = Mathf.LerpAngle(init_direction, movePattern.direction, t_lerp);
-                yield return new WaitForFrames(0);
+                yield return new WaitForFrames(1);
             }
         }
     }

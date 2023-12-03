@@ -77,7 +77,7 @@ public class MainCamera : MonoBehaviour
     
             timer += Time.deltaTime;
             radius = Mathf.Lerp(radiusInit, 0f, timer / duration);
-            yield return null;
+            yield return new WaitForFrames(1);
         }
         Instance._shakingPosition = Vector2.zero;
     }

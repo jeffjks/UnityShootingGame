@@ -99,7 +99,7 @@ public class EnemyColorBlender : MonoBehaviour
                 m_MaterialsAll[i].SetColor("_EmissionColor", new Color(color, color, color, 1f));
                 m_MaterialsAll[i].EnableKeyword("_EMISSION");
             }
-            yield return new WaitForFrames(0);
+            yield return new WaitForFrames(1);
         }
         yield break;
     }

@@ -176,7 +176,7 @@ public class OverviewHandler : MonoBehaviour
             if (FinalBonusScore >= target_score) {
                 FinalBonusScore -= target_score;
                 InGameDataManager.Instance.AddScore(target_score);
-                yield return null;
+                yield return new WaitForFrames(1);
             }
         }
     }
@@ -227,7 +227,7 @@ public class OverviewHandler : MonoBehaviour
 
                 if (Time.time >= startTime + waitTime && waitTime >= 0f)
                     break;
-                yield return null;
+                yield return new WaitForFrames(1);
             }
             current.Action_OnExecute?.Invoke();
         }

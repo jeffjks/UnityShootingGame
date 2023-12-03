@@ -84,6 +84,8 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     public void TakeDamage(int amount, PlayerDamageType damageType = PlayerDamageType.Normal, bool blend = true)
     {
         // blend - ImageBlend 실행 여부
+        if (PauseManager.IsGamePaused)
+            return;
 
         if (m_HealthType == HealthType.None && _parentEnemyHealth != null) { // 본체와 자신에게 데미지 및 자신 색 blend
             _parentEnemyHealth.TakeDamage(amount, damageType, false);

@@ -38,7 +38,7 @@ public class Stage4Manager : StageManager
             float c_horizontal = 0.9783f, c_vertical = 1f;
             BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(c_horizontal*Mathf.Cos(Mathf.Deg2Rad * (180f + m_BackgroundPos)), 0f, c_vertical*Mathf.Sin(Mathf.Deg2Rad * (180f + m_BackgroundPos))));
             m_BackgroundPos += 4f / Application.targetFrameRate * Time.timeScale;
-            yield return new WaitForFrames(0);
+            yield return new WaitForFrames(1);
         }
         BackgroundCamera.SetBackgroundCameraSpeed(new Vector3(0f, 0f, 1f));
         yield return new WaitForMillisecondFrames(14000);

@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement _playerMovement;
     private PlayerUnit _playerUnit;
 
-    private string debugString = string.Empty;
-
     private bool IsFirePressed { get; set; }
     public bool IsBombPressed { get; private set; }
     private int _firePressFrame;
@@ -74,9 +72,20 @@ public class PlayerController : MonoBehaviour
             _firePressFrame++;
         }
         
+        _playerMovement.ExecuteMovement();
         ExecuteShot();
         ExecuteLaser();
-        _playerMovement.ExecuteMovement();
+    }
+
+    public void OnMoveInvoked(Vector2Int rawInputVector)
+    {
+        if (!ReplayManager.IsUsingReplay)
+            return;
+        
+        _playerMovement.HandlePlayerMovement(rawInputVector);
+        _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
+        
+        ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
     }
 
     public void OnFireInvoked(bool isPressed)
@@ -84,8 +93,6 @@ public class PlayerController : MonoBehaviour
         if (!ReplayManager.IsUsingReplay)
             return;
         
-        //Debug.Log($"{ReplayManager.CurrentFrame}: FirePressed {isPressed}");
-        debugString += $"{ReplayManager.CurrentFrame}: OnFireInvoked {isPressed}\n";
         HandleFireInput(isPressed);
         
         ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
@@ -172,18 +179,6 @@ public class PlayerController : MonoBehaviour
         PlayerInvincibility.SetInvincibility(4000);
         _playerBombHandler.UseBomb(transform.position);
         InGameDataManager.Instance.BombNumber--;
-    }
-
-    public void OnMoveInvoked(Vector2Int rawInputVector)
-    {
-        if (!ReplayManager.IsUsingReplay)
-            return;
-        
-        _playerMovement.HandlePlayerMovement(rawInputVector);
-        _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
-        
-        ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
-        debugString += $"{ReplayManager.CurrentFrame}: OnMoveInvoked {rawInputVector}\n";
     }
 
     public void StopAttack()

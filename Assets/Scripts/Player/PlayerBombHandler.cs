@@ -41,7 +41,7 @@ public class PlayerBombHandler : MonoBehaviour
             float t_pos = AC_Ease.ac_ease[(int)EaseType.OutQuad].Evaluate((float) (i+1) / frame);
             
             m_Bomb.transform.position = Vector3.Lerp(startPos, destPos, t_pos);
-            yield return null;
+            yield return new WaitForFrames(1);
         }
         m_Explosion.transform.position = destPos;
         

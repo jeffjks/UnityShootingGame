@@ -119,13 +119,48 @@ public class ReplayManager : MonoBehaviour
             return code;
         }
 
-        public Vector2Int GetMoveVectorData()
+        public bool TryGetMoveVectorData(out Vector2Int moveVectorInt)
         {
+            if (movementInputFlag == 0)
+            {
+                moveVectorInt = default;
+                return false;
+            }
             var moveLeft = (inputMovement >> 0) & 1;
             var moveRight = (inputMovement >> 1) & 1;
             var moveDown = (inputMovement >> 2) & 1;
             var moveUp = (inputMovement >> 3) & 1;
-            return new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
+            
+            moveVectorInt = new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
+            return true;
+        }
+
+        public bool TryGetFirePressed(out bool isFirePressed)
+        {
+            var inputFire = (inputPress >> (byte) KeyType.Fire) & 0b11;
+
+            if ((inputFire & 0b01) != 0b01)
+            {
+                isFirePressed = default;
+                return false;
+            }
+            
+            isFirePressed = (inputFire & 0b10) == 0b10;
+            return true;
+        }
+
+        public bool TryGetBombPressed(out bool isBombPressed)
+        {
+            var inputBomb = (inputPress >> (byte) KeyType.Bomb) & 0b11;
+
+            if ((inputBomb & 0b01) != 0b01)
+            {
+                isBombPressed = default;
+                return false;
+            }
+            
+            isBombPressed = (inputBomb & 0b10) == 0b10;
+            return true;
         }
     }
 
@@ -152,7 +187,7 @@ public class ReplayManager : MonoBehaviour
             m_Difficulty = difficulty;
         }
     }
-
+    
     private void Awake()
     {
         if (Instance != null)
@@ -171,6 +206,7 @@ public class ReplayManager : MonoBehaviour
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += InitCurrentFrame;
 
+#if UNITY_EDITOR
         if (SystemManager.GameMode == GameMode.Replay)
         {
             if (!File.Exists($"{_replayDirectory}replayLog_Replay.txt"))
@@ -191,6 +227,7 @@ public class ReplayManager : MonoBehaviour
             }
             _logFileStream = new StreamWriter($"{_replayDirectory}replayLog_Play.txt");
         }
+#endif
     }
 
     private void OnDestroy()
@@ -339,6 +376,7 @@ public class ReplayManager : MonoBehaviour
         return power;
     }
 
+    #region ReadReplayFile
     public void ReadUserInput()
     {
         if (_context.GetData() == 0)
@@ -354,48 +392,52 @@ public class ReplayManager : MonoBehaviour
             _context.SetData(_br.ReadInt64());
         }
         
-        if (CurrentFrame < _context.frame)
+        if (CurrentFrame != _context.frame)
             return;
-        
-        if (_context.movementInputFlag == 1)
+
+        if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
-            var moveVectorInt = _context.GetMoveVectorData();
             _playerController.OnMoveInvoked(moveVectorInt);
-            
-            if (SystemManager.IsInGame)
-            {
-                WriteDebugFile($"WritePressInput {moveVectorInt}, Move, {PlayerManager.GetPlayerPosition().ToString("N6")}");
-            }
+            WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
-        var inputFire = (_context.inputPress >> (int) KeyType.Fire) & 0b11;
-        var inputBomb = (_context.inputPress >> (int) KeyType.Bomb) & 0b11;
-        
-        if ((inputFire & 0b01) == 0b01)
+        if (_context.TryGetFirePressed(out var isFirePressed))
         {
-            var isFirePressed = (inputFire & 0b10) == 0b10;
             _playerController.OnFireInvoked(isFirePressed);
-            WriteDebugFile($"WritePressInput {isFirePressed}, Fire, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
-        if ((inputBomb & 0b01) == 0b01)
+
+        if (_context.TryGetBombPressed(out var isBombPressed))
         {
-            var isBombPressed = (inputFire & 0b10) == 0b10;
             _playerController.OnBombInvoked(isBombPressed);
-            WriteDebugFile($"WritePressInput {isBombPressed}, Bomb, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         _context.SetData(0L);
     }
 
+    private static T BinaryDeserialize<T>(FileStream fileStream)
+    {
+        T context = default;
+        try {
+            BinaryFormatter formatter = new BinaryFormatter();
+            context = (T) formatter.Deserialize(fileStream);
+        }
+        catch {
+            Debug.LogAssertion("File Error Has Occured");
+        }
+        return context;
+    }
+    #endregion
+
+    #region WriteReplayFile
     public void WriteUserMovementInput(Vector2Int rawInputVector)
     {
         if (SystemManager.GameMode == GameMode.Replay)
             return;
-
-        // var input = new ReplayInput<Vector2Int>(CurrentFrame, rawInputVector);
-        // CurrentReplayData.RecordMovementInput(input);
         
         _context.SetMoveVectorData(rawInputVector);
+        //WriteReplayLogFile($"WritePressInput {rawInputVector} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
     }
 
     public void WriteUserPressInput(bool isPressed, KeyType keyType)
@@ -403,41 +445,45 @@ public class ReplayManager : MonoBehaviour
         if (SystemManager.GameMode == GameMode.Replay)
             return;
 
-        // var input = new ReplayInput<bool>(CurrentFrame, isPressed);
-        // CurrentReplayData.RecordPressInput(input, keyType);
-
         var offset = (int) keyType;
         
         var inputFire = isPressed ? 0b11 : 0b01;
 
         _context.inputPress |= (byte) (0b11 << offset);
         _context.inputPress &= (byte) (inputFire << offset);
-        WriteDebugFile($"WritePressInput {isPressed}, {keyType.ToString()}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        //WriteReplayLogFile($"WritePressInput {isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition().ToString("N6")}");
     }
 
     public void WriteReplayData()
     {
-        //if (!PlayerUnit.IsControllable)
-        //    return;
+        var data = _context.GetData();
         
-        //Debug.Log($"{GameManager.CurrentFrame}: {_context}, {PlayerUnit.Instance.transform.position}");
-        if (_context.GetData() == 0L)
+        if (data == 0L)
             return;
         _context.frame = CurrentFrame;
         
         _bw?.Write(_context.GetData());
-        
-        var moveVectorInt = _context.GetMoveVectorData();
 
-        if (SystemManager.IsInGame && _context.movementInputFlag == 1)
+        if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
-            //Debug.Log($"{CurrentFrame}: {moveVectorInt}, {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        }
+
+        if (_context.TryGetFirePressed(out var isFirePressed))
+        {
+            WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        }
+
+        if (_context.TryGetBombPressed(out var isBombPressed))
+        {
+            WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
         
         _context.SetData(0L);
     }
 
-    private void BinarySerialize(int seed) {
+    private void BinarySerialize<T>(T seed)
+    {
         try {
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(_fileStream, seed);
@@ -446,48 +492,19 @@ public class ReplayManager : MonoBehaviour
             Debug.LogAssertion("File Error Has Occured");
         }
     }
-
-    private void BinarySerialize(long seed) {
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(_fileStream, seed);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-    }
-
-    private void BinarySerialize(string version) { // Overload
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(_fileStream, version);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-    }
-
-    private void BinarySerialize(ShipAttributes attributes) { // Overload
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(_fileStream, attributes);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-    }
+    #endregion
 
     public static ReplayInfo ReadBinaryHeader(FileStream fileStream)
     {
         var replayInfo = new ReplayInfo(
-            BinaryDeserializeInt(fileStream),
-            BinaryDeserializeLong(fileStream),
-            BinaryDeserializeString(fileStream),
-            BinaryDeserializeAttributes(fileStream),
-            BinaryDeserializeInt(fileStream),
-            (GameMode)BinaryDeserializeInt(fileStream),
-            BinaryDeserializeInt(fileStream),
-            (GameDifficulty)BinaryDeserializeInt(fileStream)
+            BinaryDeserialize<int>(fileStream),
+            BinaryDeserialize<long>(fileStream),
+            BinaryDeserialize<string>(fileStream),
+            BinaryDeserialize<ShipAttributes>(fileStream),
+            BinaryDeserialize<int>(fileStream),
+            BinaryDeserialize<GameMode>(fileStream),
+            BinaryDeserialize<int>(fileStream),
+            BinaryDeserialize<GameDifficulty>(fileStream)
             );
         return replayInfo;
     }
@@ -504,54 +521,6 @@ public class ReplayManager : MonoBehaviour
         BinarySerialize((int) replayInfo.m_Difficulty); // 난이도 쓰기
     }
 
-    private static int BinaryDeserializeInt(FileStream fileStream) {
-        int context = -1;
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            context = (int) formatter.Deserialize(fileStream);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-        return context;
-    }
-
-    private static long BinaryDeserializeLong(FileStream fileStream) {
-        long context = -1;
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            context = (long) formatter.Deserialize(fileStream);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-        return context;
-    }
-
-    private static string BinaryDeserializeString(FileStream fileStream) {
-        string context = string.Empty;
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            context = (string) formatter.Deserialize(fileStream);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-        return context;
-    }
-
-    private static ShipAttributes BinaryDeserializeAttributes(FileStream fileStream) {
-        ShipAttributes context = null;
-        try {
-            BinaryFormatter formatter = new BinaryFormatter();
-            context = (ShipAttributes) formatter.Deserialize(fileStream);
-        }
-        catch {
-            Debug.LogAssertion("File Error Has Occured");
-        }
-        return context;
-    }
-
     private void OnClose()
     {
         Debug.Log($"Replay file closed");
@@ -559,6 +528,8 @@ public class ReplayManager : MonoBehaviour
         _logFileStream?.Close();
         _br?.Close();
         _bw?.Close();
+        _fileStream = null;
+        _logFileStream = null;
     }
 
     private void OnApplicationQuit()
@@ -566,8 +537,12 @@ public class ReplayManager : MonoBehaviour
         OnClose();
     }
 
-    public void WriteDebugFile(string str)
+    public void WriteReplayLogFile(string str)
     {
-        _logFileStream.WriteLine($"{CurrentFrame}: {str}");
+#if UNITY_EDITOR
+        if (!SystemManager.IsInGame)
+            return;
+        _logFileStream?.WriteLine($"{CurrentFrame}: {str}");
+#endif
     }
 }

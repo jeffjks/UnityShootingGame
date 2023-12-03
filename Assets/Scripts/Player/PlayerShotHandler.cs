@@ -102,7 +102,7 @@ public class PlayerShotHandler : MonoBehaviour
                 _currentSubWeapon.Shoot(this, m_PlayerSubWeaponDamageData[SubWeaponIndex - 1], m_PlayerUnit.PlayerAttackLevel);
                 yield return new WaitForMillisecondFrames(_currentSubWeaponDelay[m_PlayerUnit.PlayerAttackLevel]);
             }
-            yield return new WaitForFrames(0);
+            yield return new WaitForFrames(1);
         }
     }
 

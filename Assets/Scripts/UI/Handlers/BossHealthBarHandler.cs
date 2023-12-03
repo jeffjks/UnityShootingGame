@@ -87,7 +87,7 @@ public class BossHealthBarHandler : MonoBehaviour
                 InterpolateY = 1f;
                 break;
             }
-            yield return null;
+            yield return new WaitForFrames(1);
         }
     }
 
@@ -100,7 +100,7 @@ public class BossHealthBarHandler : MonoBehaviour
                 InterpolateY = 0f;
                 break;
             }
-            yield return null;
+            yield return new WaitForFrames(1);
         }
     }
     

@@ -104,7 +104,7 @@ public class BackgroundCamera : MonoBehaviour
             Vector3 temp = m_BackgroundOffsetTransform.localPosition;
             temp.z = positionZ;
             m_BackgroundOffsetTransform.localPosition = temp;
-            yield return null;
+            yield return new WaitForFrames(1);
         }
     }
 
@@ -137,7 +137,7 @@ public class BackgroundCamera : MonoBehaviour
                 background.position = tempPosition;
             }
 
-            yield return null;
+            yield return new WaitForFrames(1);
         }
     }
 
@@ -177,7 +177,7 @@ public class BackgroundCamera : MonoBehaviour
                 transform.position = pos;
             }
 
-            yield return null;
+            yield return new WaitForFrames(1);
         }
     }
 
@@ -192,7 +192,7 @@ public class BackgroundCamera : MonoBehaviour
         
         for (int i = 0; i < frame; ++i) {
             _backgroundCameraMoveVector.z = init_vector_z + (target - init_vector_z)*(i+1) / frame;
-            yield return new WaitForFrames(0);
+            yield return new WaitForFrames(1);
         }
     }
 
@@ -207,7 +207,7 @@ public class BackgroundCamera : MonoBehaviour
 
         for (int i = 0; i < frame; ++i) {
             _backgroundCameraMoveVector = init_vector + (target_vector - init_vector)*(i+1) / frame;
-            yield return new WaitForFrames(0);
+            yield return new WaitForFrames(1);
         }
     }
 

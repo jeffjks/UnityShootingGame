@@ -43,12 +43,15 @@ public class SaveReplayMenuHandler : MenuHandler
                 _replayInfos[i] = null;
                 continue;
             }
-            var fileStream = new FileStream(filePath, FileMode.Open);
-            _replayInfos[i] = ReplayManager.ReadBinaryHeader(fileStream);
+            //var fileStream = new FileStream(filePath, FileMode.Open);
+            // var encryptedData = Utility.DecryptData(File.ReadAllBytes(filePath));
+            // var memoryStream = new MemoryStream(encryptedData);
+            // _replayInfos[i] = ReplayManager.ReadBinaryHeader(memoryStream);
+            _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);
-            fileStream.Close();
+            //fileStream.Close();
         }
     }
 

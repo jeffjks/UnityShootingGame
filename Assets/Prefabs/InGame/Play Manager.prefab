@@ -62,3 +62,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Activate: 1
+  m_ReplayFileController: {fileID: 0}

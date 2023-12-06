@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -167,6 +168,48 @@ public static class Utility
         var jsonData = decryptedStr.Substring(0, decryptedStr.Length - 32);
         var hash = decryptedStr.Substring(decryptedStr.Length - 32);
         return (jsonData, hash);
+    }
+
+    public static byte[] EncryptData(byte[] dataToEncrypt)
+    {
+        var key = "Key";
+        
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = Encoding.UTF8.GetBytes(key);
+            aesAlg.IV = new byte[16]; // 초기화 벡터 (IV)
+
+            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+            {
+                cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
+                cryptoStream.FlushFinalBlock();
+                return memoryStream.ToArray();
+            }
+        }
+    }
+
+    public static byte[] DecryptData(byte[] dataToDecrypt)
+    {
+        var key = "Key";
+        
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = Encoding.UTF8.GetBytes(key);
+            aesAlg.IV = new byte[16]; // 초기화 벡터 (IV)
+
+            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Write))
+            {
+                cryptoStream.Write(dataToDecrypt, 0, dataToDecrypt.Length);
+                cryptoStream.FlushFinalBlock();
+                return memoryStream.ToArray();
+            }
+        }
     }
         
     public static Texture2D ToTexture2D(this RenderTexture rTex, Vector2 imageSize)

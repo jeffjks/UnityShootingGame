@@ -47,12 +47,23 @@ public class LoadReplayMenuHandler : MenuHandler
                 _replayInfos[i] = null;
                 continue;
             }
-            var fileStream = new FileStream(filePath, FileMode.Open);
-            _replayInfos[i] = ReplayManager.ReadBinaryHeader(fileStream);
+
+            //var fileStream = new FileStream(filePath, FileMode.Open);
+            //var encryptedData = Utility.DecryptData(File.ReadAllBytes(filePath));
+            //var memoryStream = new MemoryStream(encryptedData);
+            //_replayInfos[i] = ReplayManager.ReadBinaryHeader(memoryStream);
+#if UNITY_EDITOR
+            if (i == 0)
+                _replayInfos[0] = ReplayFileController.ReadBinaryHeader(-1);
+            else
+                _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
+#else
+            _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
+#endif
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);
-            fileStream.Close();
+            //fileStream.Close();
         }
     }
 
@@ -121,14 +132,14 @@ public class LoadReplayMenuHandler : MenuHandler
         
         if (_currentSelectedSlot == -1)
         {
-            ReplayManager.ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
-            var fileStream = new FileStream(ReplayManager.ReplayFilePath, FileMode.Open);
-            replayInfo = ReplayManager.ReadBinaryHeader(fileStream);
-            fileStream.Close();
+            // ReplayFileController.ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
+            // var encryptedData = Utility.DecryptData(File.ReadAllBytes(ReplayFileController.ReplayFilePath));
+            // var memoryStream = new MemoryStream(encryptedData);
+            replayInfo = ReplayFileController.ReadBinaryHeader(_currentSelectedSlot);
         }
         else
         {
-            ReplayManager.ReplayFilePath = $"{_replayDirectory}replay{_currentSelectedSlot}.rep";
+            //ReplayFileController.ReplayFilePath = $"{_replayDirectory}replay{_currentSelectedSlot}.rep";
             replayInfo = _replayInfos[_currentSelectedSlot];
         }
 

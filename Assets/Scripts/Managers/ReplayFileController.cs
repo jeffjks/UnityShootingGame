@@ -18,17 +18,24 @@ public class ReplayFileController : MonoBehaviour
         Write
     }
     
+    private static ReplayFileMode _replayFileMode;
     private static CryptoStream _cryptoStream;
     private static FileStream _fileStream;
-    private static BinaryFormatter _bf;
-    private static ReplayFileMode _replayFileMode;
-    private const string Key = "key";
+    private static BinaryWriter _bw;
+    private static BinaryReader _br;
+    private static int _currentReplaySlot = -1;
+    
     private const int AesKeySize = 128;
     private const int AesBlockSize = 128;
 
-    private static int _currentReplaySlot = -1;
+    private static byte[] _initialVector;
+    private static byte[] _aesKey =
+    {
+        0xF2, 0x26, 0x09, 0xBA, 0xC6, 0x4E, 0x81, 0xCD,
+        0x0A, 0x3B, 0x61, 0x84, 0x7F, 0xDA, 0x50, 0xB9
+    };
 
-    public static string ReplayFilePath
+    private static string ReplayFilePath
     {
         get
         {
@@ -40,7 +47,6 @@ public class ReplayFileController : MonoBehaviour
 
     private void Awake()
     {
-        _bf = new BinaryFormatter();
         _replayFileMode = ReplayFileMode.None;
     }
 
@@ -58,11 +64,11 @@ public class ReplayFileController : MonoBehaviour
             aesAlg.BlockSize = AesBlockSize;
             aesAlg.Padding = PaddingMode.PKCS7;
             aesAlg.Mode = CipherMode.CBC;
-
-            byte[] keyBytes = Encoding.UTF8.GetBytes(Key);
-            Array.Resize(ref keyBytes, 16);
-            aesAlg.Key = keyBytes;
-            aesAlg.IV = keyBytes;
+            aesAlg.Key = _aesKey;
+            
+            aesAlg.GenerateIV();
+            _initialVector = aesAlg.IV;
+            _fileStream.Write(_initialVector, 0, _initialVector.Length);
 
             ICryptoTransform encryptor = aesAlg.CreateEncryptor();
 
@@ -90,11 +96,11 @@ public class ReplayFileController : MonoBehaviour
             aesAlg.BlockSize = AesBlockSize;
             aesAlg.Padding = PaddingMode.PKCS7;
             aesAlg.Mode = CipherMode.CBC;
-
-            byte[] keyBytes = Encoding.UTF8.GetBytes(Key);
-            Array.Resize(ref keyBytes, 16);
-            aesAlg.Key = keyBytes;
-            aesAlg.IV = keyBytes;
+            aesAlg.Key = _aesKey;
+            
+            if (_fileStream.Read(_initialVector, 0, 16) < 16)
+                throw new Exception("Failed to get initial vector");
+            aesAlg.IV = _initialVector;
 
             ICryptoTransform decryptor = aesAlg.CreateDecryptor();
 
@@ -109,24 +115,44 @@ public class ReplayFileController : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    public static void WriteReplayFile<T>(T obj)
+    public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
     {
-        _bf.Serialize(_cryptoStream, obj);
+        _bw.Write(data.m_Seed);
+        _bw.Write(data.m_DateTime);
+        _bw.Write(data.m_Version);
+        _bw.Write(data.m_Attributes.GetAttributesCode());
+        _bw.Write(data.m_PlayerAttackLevel);
+        _bw.Write((int)data.m_GameMode);
+        _bw.Write(data.m_Stage);
+        _bw.Write((int)data.m_Difficulty);
     }
 
-    public static bool TryReadReplayFile<T>(out T obj)
+    public static void WriteBinaryReplayData(ReplayManager.ReplayData data)
     {
-        if (_fileStream.Position < _fileStream.Length)
-        {
-            obj = (T)_bf.Deserialize(_cryptoStream);
-            return true;
-        }
-
-        obj = default;
-        return false;
+        _bw.Write(data.GetData());
     }
 
-    public static ReplayManager.ReplayInfo ReadBinaryHeader(int slot)
+    public static ReplayManager.ReplayInfo ReadBinaryReplayInfo()
+    {
+        var data = new ReplayManager.ReplayInfo(
+            _br.ReadInt32(),
+            _br.ReadInt64(),
+            _br.ReadString(),
+            new ShipAttributes(_br.ReadString()),
+            _br.ReadInt32(),
+            (GameMode) _br.ReadInt32(),
+            _br.ReadInt32(),
+            (GameDifficulty)_br.ReadInt32()
+            );
+        return data;
+    }
+
+    public static ReplayManager.ReplayData ReadBinaryReplayData()
+    {
+        return new ReplayManager.ReplayData(_br.ReadInt64());
+    }
+
+    public static ReplayManager.ReplayInfo ReadReplayHeader(int slot)
     {
         if (_replayFileMode != ReplayFileMode.None)
         {
@@ -135,11 +161,28 @@ public class ReplayFileController : MonoBehaviour
         }
 
         InitReadingReplayFile(null, slot);
-        //TryReadReplayFile(out ReplayManager.ReplayInfo replayInfo);
-        //Debug.Log(new DateTime(replayInfo.m_DateTime).ToString("yyyy-MM-dd-HH:mm"));
+        var replayInfo = ReadBinaryReplayInfo();
+        
+        DiscardRemainingCryptoStream();
+        
+        return replayInfo;
+    }
+
+    private static void DiscardRemainingCryptoStream()
+    {
+        const int bufferSize = 1024;
+        var buffer = new byte[bufferSize];
+        var cnt = 0;
+        while (_cryptoStream.Read(buffer, 0, buffer.Length) > 0)
+        {
+            cnt++;
+        }
+        
+#if UNITY_EDITOR
+        Debug.Log($"RemainingSize: {cnt * bufferSize}");
+#endif
+        
         OnClose();
-        return default;
-        //return replayInfo;
     }
 
     public static void OnClose()
@@ -150,13 +193,16 @@ public class ReplayFileController : MonoBehaviour
                 _cryptoStream.FlushFinalBlock();
                 _cryptoStream.Close();
                 _fileStream.Close();
+                _bw.Close();
                 break;
             case ReplayFileMode.Read:
                 _cryptoStream.Flush();
                 _cryptoStream.Close();
                 _fileStream.Close();
+                _br.Close();
                 break;
         }
         _replayFileMode = ReplayFileMode.None;
+        Debug.Log($"Replay file closed");
     }
 }

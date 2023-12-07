@@ -40,14 +40,14 @@ public class SaveReplayMenuHandler : MenuHandler
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");
                 //_canvasGroups[i].interactable = false;
-                _replayInfos[i] = null;
+                _replayInfos[i] = default;
                 continue;
             }
             //var fileStream = new FileStream(filePath, FileMode.Open);
             // var encryptedData = Utility.DecryptData(File.ReadAllBytes(filePath));
             // var memoryStream = new MemoryStream(encryptedData);
             // _replayInfos[i] = ReplayManager.ReadBinaryHeader(memoryStream);
-            _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
+            _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);

@@ -44,7 +44,7 @@ public class LoadReplayMenuHandler : MenuHandler
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");
                 _canvasGroups[i].interactable = false;
-                _replayInfos[i] = null;
+                _replayInfos[i] = default;
                 continue;
             }
 
@@ -54,9 +54,9 @@ public class LoadReplayMenuHandler : MenuHandler
             //_replayInfos[i] = ReplayManager.ReadBinaryHeader(memoryStream);
 #if UNITY_EDITOR
             if (i == 0)
-                _replayInfos[0] = ReplayFileController.ReadBinaryHeader(-1);
+                _replayInfos[0] = ReplayFileController.ReadReplayHeader(-1);
             else
-                _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
+                _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
 #else
             _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
 #endif
@@ -135,7 +135,7 @@ public class LoadReplayMenuHandler : MenuHandler
             // ReplayFileController.ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
             // var encryptedData = Utility.DecryptData(File.ReadAllBytes(ReplayFileController.ReplayFilePath));
             // var memoryStream = new MemoryStream(encryptedData);
-            replayInfo = ReplayFileController.ReadBinaryHeader(_currentSelectedSlot);
+            replayInfo = ReplayFileController.ReadReplayHeader(_currentSelectedSlot);
         }
         else
         {

@@ -10,7 +10,6 @@ public class LoadReplayMenuHandler : MenuHandler
 {
     public GameObject m_ReplaySlotPanel;
     private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
-    private string _replayDirectory;
     private const int MAX_REPLAY_NUMBER = 5;
     private int _currentSelectedSlot;
 
@@ -21,7 +20,6 @@ public class LoadReplayMenuHandler : MenuHandler
 
     private void Awake()
     {
-        _replayDirectory = $"{Application.dataPath}/";
         _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
         _buttons = m_ReplaySlotPanel.GetComponentsInChildren<Button>();
@@ -38,20 +36,6 @@ public class LoadReplayMenuHandler : MenuHandler
     {
         for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
         {
-            var filePath = $"{_replayDirectory}replay{i}.rep";
-            if (!File.Exists(filePath))
-            {
-                _buttonStylingArray[i].m_NativeText = "빈 슬롯";
-                _buttonTexts[i].SetText("Empty Slot");
-                _canvasGroups[i].interactable = false;
-                _replayInfos[i] = default;
-                continue;
-            }
-
-            //var fileStream = new FileStream(filePath, FileMode.Open);
-            //var encryptedData = Utility.DecryptData(File.ReadAllBytes(filePath));
-            //var memoryStream = new MemoryStream(encryptedData);
-            //_replayInfos[i] = ReplayManager.ReadBinaryHeader(memoryStream);
 #if UNITY_EDITOR
             if (i == 0)
                 _replayInfos[0] = ReplayFileController.ReadReplayHeader(-1);
@@ -60,6 +44,14 @@ public class LoadReplayMenuHandler : MenuHandler
 #else
             _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
 #endif
+            if (_replayInfos[i].Equals(default))
+            {
+                _buttonStylingArray[i].m_NativeText = "빈 슬롯";
+                _buttonTexts[i].SetText("Empty Slot");
+                _canvasGroups[i].interactable = false;
+                continue;
+            }
+            
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);

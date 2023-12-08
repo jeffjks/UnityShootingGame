@@ -9,7 +9,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
 {
     public string m_NativeText;
 
-    private Button _buttonUI;
+    private ColorTintButton _buttonUI;
     private TextMeshProUGUI _textUI;
     private MenuHandler _menuHandler;
     private string _englishText;
@@ -32,7 +32,7 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
 
     void Awake()
     {
-        _buttonUI = GetComponent<Button>();
+        _buttonUI = GetComponent<ColorTintButton>();
         _canvasGroup = GetComponent<CanvasGroup>();
         _textUI = GetComponentInChildren<TextMeshProUGUI>();
         _menuHandler = GetComponentInParent<MenuHandler>();
@@ -82,14 +82,12 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
     
     public void OnSelect(BaseEventData eventData)
     {
-        SetTextColor(true);
         Alpha = SELECTED_ALPHA;
         StartCoroutine(ShowSelectedEffect());
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        SetTextColor(false);
         Alpha = DEFAULT_ALPHA;
         StopAllCoroutines();
     }
@@ -112,14 +110,6 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
             }
             yield return null;
         }
-    }
-
-    private void SetTextColor(bool isSelected)
-    {
-        if (isSelected)
-            _textUI.color = new Color32(54, 219, 54, 255);
-        else
-            _textUI.color = new Color32(83, 221, 233, 255);
     }
 
     private void SetAlpha(float alpha)

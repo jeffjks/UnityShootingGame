@@ -184,7 +184,8 @@ GameObject:
   - component: {fileID: 5244883440960845509}
   - component: {fileID: 4301714506830487183}
   - component: {fileID: 8360612947418621942}
-  - component: {fileID: 5647575213485255193}
+  - component: {fileID: 3189451736110459613}
+  - component: {fileID: 5664998058972424465}
   - component: {fileID: 5204949247360068517}
   - component: {fileID: 4415620643265711111}
   - component: {fileID: 3158970133591440724}
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5647575213485255193
+--- !u!114 &3189451736110459613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,11 +264,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2620441171870082064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 92ab192afc65ae143ad13a21ba307fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 2
+    m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -275,10 +276,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.7529412}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.7529412}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.7529412}
+    m_SelectedColor: {r: 1, g: 1, b: 0, a: 0.7529412}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -298,6 +299,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5664998058972424465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2620441171870082064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc62299ffbe2d3428f0a39d8307f1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ButtonText: {fileID: 3935219774332601998}
+  m_DefaultButtonTextColor: {fileID: 11400000, guid: 25f635be174cfb0418e6ba0c94da2137,
+    type: 2}
 --- !u!114 &5204949247360068517
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,22 +9,25 @@ using UnityEngine.UI;
 public class LoadReplayMenuHandler : MenuHandler
 {
     public GameObject m_ReplaySlotPanel;
+    public ReplayVersionDatas m_ReplayVersionData;
+    public PopupMenuHandler m_PopupMenuHandler;
+    
     private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
     private const int MAX_REPLAY_NUMBER = 5;
     private int _currentSelectedSlot;
 
     private CanvasGroup[] _canvasGroups;
     private ButtonStyling[] _buttonStylingArray;
-    private Button[] _buttons;
+    private ColorTintButton[] _buttons;
     private TextMeshProUGUI[] _buttonTexts;
 
     private void Awake()
     {
         _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
-        _buttons = m_ReplaySlotPanel.GetComponentsInChildren<Button>();
+        _buttons = m_ReplaySlotPanel.GetComponentsInChildren<ColorTintButton>();
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
-        
+
 #if UNITY_EDITOR
         // Test Code
         //_currentSelectedSlot = -1;
@@ -55,7 +58,23 @@ public class LoadReplayMenuHandler : MenuHandler
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
             _buttonTexts[i].SetText(dateTimeString);
-            //fileStream.Close();
+            if (_replayInfos[i].m_Version != m_ReplayVersionData.replayVersion)
+            {
+                _buttonTexts[i].color = Color.red;
+                _buttons[i].ButtonTextColor = new ColorBlock()
+                {
+                    normalColor = Color.red,
+                    highlightedColor = Color.red,
+                    selectedColor = Color.red,
+                    pressedColor = Color.red,
+                    colorMultiplier = 1f,
+                    fadeDuration = 0.1f
+                };
+            }
+            else
+            {
+                _buttons[i].ResetButtonTextColor();
+            }
         }
     }
 
@@ -91,6 +110,14 @@ public class LoadReplayMenuHandler : MenuHandler
 
     public void Confirm()
     {
+        CriticalStateSystem.SetCriticalState(120);
+        
+        if (!CheckReplayAvailable())
+        {
+            AudioService.PlaySound("ConfirmUI");
+            return;
+        }
+        
         foreach (var button in _buttons)
         {
             button.interactable = false;
@@ -99,42 +126,33 @@ public class LoadReplayMenuHandler : MenuHandler
         FadeScreenService.ScreenFadeOut(2f, StartReplay);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");
-        CriticalStateSystem.SetCriticalState(120);
+    }
+
+    private bool CheckReplayAvailable()
+    {
+        if (_replayInfos[_currentSelectedSlot].m_Version != m_ReplayVersionData.replayVersion)
+        {
+            PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
+                () => _isActive = true,
+                null,
+                "리플레이 버전이 달라 리플레이를 실행할 수 없습니다.",
+                "This replay can't be viewed as the replay version is different."
+            ));
+            m_PopupMenuHandler.m_ButtonNegative.gameObject.SetActive(false);
+            return false;
+        }
+
+        return true;
     }
 
     private void StartReplay()
     {
-        var replayInfo = GetReplayInfo();
-
-        if (replayInfo.m_Version != Application.version)
-        {
-            // TODO. 버전이 다름
-        }
+        var replayInfo = _replayInfos[_currentSelectedSlot];
         
         PlayerManager.CurrentAttributes = replayInfo.m_Attributes;
         SystemManager.SetDifficulty(replayInfo.m_Difficulty);
         SystemManager.Instance.StartStage(replayInfo.m_Stage, replayInfo.m_Seed);
         
         _previousMenuStack.Clear();
-    }
-
-    private ReplayManager.ReplayInfo GetReplayInfo()
-    {
-        ReplayManager.ReplayInfo replayInfo;
-        
-        if (_currentSelectedSlot == -1)
-        {
-            // ReplayFileController.ReplayFilePath = $"{_replayDirectory}replayTemp.rep";
-            // var encryptedData = Utility.DecryptData(File.ReadAllBytes(ReplayFileController.ReplayFilePath));
-            // var memoryStream = new MemoryStream(encryptedData);
-            replayInfo = ReplayFileController.ReadReplayHeader(_currentSelectedSlot);
-        }
-        else
-        {
-            //ReplayFileController.ReplayFilePath = $"{_replayDirectory}replay{_currentSelectedSlot}.rep";
-            replayInfo = _replayInfos[_currentSelectedSlot];
-        }
-
-        return replayInfo;
     }
 }

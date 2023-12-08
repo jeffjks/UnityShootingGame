@@ -21,6 +21,7 @@ public struct ReplayInput<T>
 public class ReplayManager : MonoBehaviour
 {
     public bool m_Activate;
+    public ReplayVersionDatas m_ReplayVersionData;
     
     private PlayerController _playerController;
     private PlayerManager _playerManager;
@@ -333,7 +334,7 @@ public class ReplayManager : MonoBehaviour
         _replayInfo = new ReplayInfo(
             SystemManager.CurrentSeed,
             DateTime.Now.Ticks,
-            Application.version,
+            m_ReplayVersionData.replayVersion,
             PlayerManager.CurrentAttributes,
             playerAttackLevel,
             SystemManager.GameMode,

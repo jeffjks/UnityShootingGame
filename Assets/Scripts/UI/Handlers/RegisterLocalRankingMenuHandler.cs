@@ -66,7 +66,9 @@ public class RegisterLocalRankingMenuHandler : MenuHandler
         SaveReplayMenu();
     }
 
-    public override void Back()
+    public override void Back() { }
+
+    public void Cancel()
     {
         AudioService.PlaySound("CancelUI");
         SaveReplayMenu();

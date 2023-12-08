@@ -176,7 +176,7 @@ public class ReplayFileController : MonoBehaviour
         
         var replayInfo = ReadBinaryReplayInfo();
         
-        DiscardRemainingCryptoStream();
+        OnClose();
         
         return replayInfo;
     }
@@ -194,8 +194,6 @@ public class ReplayFileController : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log($"RemainingSize: {cnt * bufferSize}");
 #endif
-        
-        OnClose();
     }
 
     public static void OnClose()
@@ -209,6 +207,7 @@ public class ReplayFileController : MonoBehaviour
                 _bw.Close();
                 break;
             case ReplayFileMode.Read:
+                DiscardRemainingCryptoStream();
                 _cryptoStream.Flush();
                 _cryptoStream.Close();
                 _fileStream.Close();

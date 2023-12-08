@@ -9,7 +9,17 @@ public class ColorTintButton : Button
 {
     private TextMeshProUGUI _buttonText;
     private DefaultButtonTextColorDatas _defaultButtonTextColor;
-    public ColorBlock ButtonTextColor { get; set; }
+    private ColorBlock _buttonTextColor;
+
+    public ColorBlock ButtonTextColor
+    {
+        get => _buttonTextColor;
+        set
+        {
+            _buttonTextColor = value;
+            DoStateTransition(currentSelectionState, true);
+        }
+    }
 
     protected override void Awake()
     {

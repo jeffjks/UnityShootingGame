@@ -29,10 +29,8 @@ public class TrainingStartingPointButtonController : MonoBehaviour, IMoveHandler
 
     public void OnMove(AxisEventData axisEventData)
     {
-        if (EventSystem.current.currentSelectedGameObject != gameObject)
-        {
+        if (axisEventData.moveDir is MoveDirection.Up or MoveDirection.Down)
             return;
-        }
 
         SystemManager.TrainingInfo.bossOnly = !SystemManager.TrainingInfo.bossOnly;
 

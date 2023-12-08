@@ -60,7 +60,6 @@ public class LoadReplayMenuHandler : MenuHandler
             _buttonTexts[i].SetText(dateTimeString);
             if (_replayInfos[i].m_Version != m_ReplayVersionData.replayVersion)
             {
-                _buttonTexts[i].color = Color.red;
                 _buttons[i].ButtonTextColor = new ColorBlock()
                 {
                     normalColor = Color.red,
@@ -110,13 +109,13 @@ public class LoadReplayMenuHandler : MenuHandler
 
     public void Confirm()
     {
-        CriticalStateSystem.SetCriticalState(120);
-        
         if (!CheckReplayAvailable())
         {
             AudioService.PlaySound("ConfirmUI");
             return;
         }
+        
+        CriticalStateSystem.SetCriticalState(120);
         
         foreach (var button in _buttons)
         {
@@ -135,7 +134,7 @@ public class LoadReplayMenuHandler : MenuHandler
             PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
                 () => _isActive = true,
                 null,
-                "리플레이 버전이 달라 리플레이를 실행할 수 없습니다.",
+                "리플레이 버전이 맞지 않아 리플레이를 실행할 수 없습니다.",
                 "This replay can't be viewed as the replay version is different."
             ));
             m_PopupMenuHandler.m_ButtonNegative.gameObject.SetActive(false);

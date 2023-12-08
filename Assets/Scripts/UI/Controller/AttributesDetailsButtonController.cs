@@ -50,10 +50,8 @@ public class AttributesDetailsButtonController : MonoBehaviour, ISelectHandler, 
 
     public void OnMove(AxisEventData axisEventData)
     {
-        if (EventSystem.current.currentSelectedGameObject != gameObject)
-        {
+        if (axisEventData.moveDir is MoveDirection.Up or MoveDirection.Down)
             return;
-        }
 
         var moveInputX = (int) axisEventData.moveVector.x;
         if (moveInputX != 0)

@@ -73,6 +73,10 @@ public abstract class MenuHandler : MonoBehaviour
         var popupMenu = Instantiate(popupMenuHandler, transform);
         popupMenu.Action_OnPositive += popupMenuContext.onPositive;
         popupMenu.Action_OnNegative += popupMenuContext.onNegative;
+        if (popupMenuContext.onPositive == null)
+            popupMenu.m_ButtonPositive.transform.parent.gameObject.SetActive(false);
+        if (popupMenuContext.onNegative == null)
+            popupMenu.m_ButtonNegative.transform.parent.gameObject.SetActive(false);
         popupMenu.SetMessageText(popupMenuContext.nativeMessage, popupMenuContext.message);
         
         _previousMenuStack.Push(this);
@@ -83,7 +87,7 @@ public abstract class MenuHandler : MonoBehaviour
         AudioService.PlaySound("ConfirmUI");
         
         _isActive = false;
-        popupMenu._isActive = true;
+        popupMenu.Init();
     }
 
     public virtual void Apply()
@@ -195,7 +199,7 @@ public abstract class MenuHandler : MonoBehaviour
             selectable.Select();
             return;
         }
-        Selectable[] selectables = menu.GetComponentsInChildren<Selectable>();
-        selectables[menu.m_InitialSelection].Select();
+        Selectable[] selectables = menu.GetComponentsInChildren<Selectable>(false);
+        selectables[menu.m_InitialSelection % selectables.Length].Select();
     }
 }

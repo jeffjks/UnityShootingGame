@@ -24,6 +24,7 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
+*.dwlt
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -36,3 +37,11 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.log
+
+# Project
+Assets/ranking0.dat
+Assets/ranking1.dat
+Assets/ranking2.dat
+Assets/replayLog_Play.txt
+Assets/replayLog_Replay.txt
+*.rep

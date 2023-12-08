@@ -19,10 +19,8 @@ public class ResolutionButtonController : MonoBehaviour, IMoveHandler
 
     public void OnMove(AxisEventData axisEventData)
     {
-        if (EventSystem.current.currentSelectedGameObject != gameObject)
-        {
+        if (axisEventData.moveDir is MoveDirection.Up or MoveDirection.Down)
             return;
-        }
 
         var moveInputX = (int) axisEventData.moveVector.x;
         GameSetting.GraphicsResolution += moveInputX;

@@ -45,7 +45,7 @@ public class LoadReplayMenuHandler : MenuHandler
             else
                 _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
 #else
-            _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
+            _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
 #endif
             if (_replayInfos[i].IsDefault())
             {

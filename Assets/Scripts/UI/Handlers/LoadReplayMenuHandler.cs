@@ -44,7 +44,7 @@ public class LoadReplayMenuHandler : MenuHandler
 #else
             _replayInfos[i] = ReplayFileController.ReadBinaryHeader(i);
 #endif
-            if (_replayInfos[i].Equals(default))
+            if (_replayInfos[i].IsDefault())
             {
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");

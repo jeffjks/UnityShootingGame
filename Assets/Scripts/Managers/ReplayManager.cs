@@ -18,39 +18,6 @@ public struct ReplayInput<T>
     }
 }
 
-/*
-TODO. use this code when save replay file
-var key = "Key";
-EncryptData(ReplayFilePath, _memoryStream?.ToArray(), key);
-*/
-
-/*
-public class ReplayData
-{
-    public Queue<ReplayInput<Vector2Int>> movementInput = new();
-    public Queue<ReplayInput<bool>> fireInput = new();
-    public Queue<ReplayInput<bool>> bombInput = new();
-
-    public void RecordMovementInput(ReplayInput<Vector2Int> input)
-    {
-        movementInput.Enqueue(input);
-    }
-
-    public void RecordPressInput(ReplayInput<bool> input, ReplayManager.KeyType keyType)
-    {
-        switch (keyType)
-        {
-            case ReplayManager.KeyType.Fire:
-                fireInput.Enqueue(input);
-                break;
-            case ReplayManager.KeyType.Bomb:
-                bombInput.Enqueue(input);
-                break;
-        }
-    }
-}
-*/
-
 public class ReplayManager : MonoBehaviour
 {
     public bool m_Activate;
@@ -71,32 +38,17 @@ public class ReplayManager : MonoBehaviour
     {
         get
         {
-            var power = 0;
-            if (SystemManager.GameMode == GameMode.Training) {
-                switch (SystemManager.Stage) {
-                    case 0:
-                        if (SystemManager.TrainingInfo.bossOnly) {
-                            power = 2;
-                        }
-                        else {
-                            power = 0;
-                        }
-                        break;
-                    case 1:
-                        if (SystemManager.TrainingInfo.bossOnly) {
-                            power = 4;
-                        }
-                        else {
-                            power = 2;
-                        }
-                        break;
-                    default:
-                        power = 4;
-                        break;
-                }
+            if (SystemManager.GameMode != GameMode.Training)
+                return 0;
+            
+            switch (SystemManager.Stage) {
+                case 0:
+                    return SystemManager.TrainingInfo.bossOnly ? 2 : 0;
+                case 1:
+                    return SystemManager.TrainingInfo.bossOnly ? 4 : 2;
+                default:
+                    return 4;
             }
-
-            return power;
         }
     }
 
@@ -221,6 +173,11 @@ public class ReplayManager : MonoBehaviour
             m_GameMode = gameMode;
             m_Stage = stage;
             m_Difficulty = difficulty;
+        }
+
+        public bool IsDefault()
+        {
+            return m_Version == null;
         }
     }
     

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEditor.Rendering.LookDev;
@@ -23,7 +22,6 @@ public class ReplayFileController : MonoBehaviour
     private static FileStream _fileStream;
     private static BinaryWriter _bw;
     private static BinaryReader _br;
-    private static int _currentReplaySlot = -1;
     
     private const int AesKeySize = 128;
     private const int AesBlockSize = 128;
@@ -34,29 +32,31 @@ public class ReplayFileController : MonoBehaviour
         0x0A, 0x3B, 0x61, 0x84, 0x7F, 0xDA, 0x50, 0xB9
     };
 
-    private static string ReplayFilePath
-    {
-        get
-        {
-            if (_currentReplaySlot == -1)
-                return $"{Application.dataPath}/replayTemp.rep";
-            return $"{Application.dataPath}/replay{_currentReplaySlot}.rep";
-        }
-    }
-
     private void Awake()
     {
         _replayFileMode = ReplayFileMode.None;
     }
 
+    private static string GetReplayFilePath(int slot = -1)
+    {
+        if (slot == -1)
+            return $"{Application.dataPath}/replayTemp.rep";
+        return $"{Application.dataPath}/replay{slot}.rep";
+    }
+
     public static void InitWritingReplayFile(UnityAction onComplete, int slot = -1)
     {
+        if (_replayFileMode != ReplayFileMode.None)
+        {
+            Debug.LogError($"Replay file is already in use!");
+            return;
+        }
+        
         // Init Writing
         try
         {
-            _replayFileMode = ReplayFileMode.Write;
-            _currentReplaySlot = slot;
-            _fileStream = new FileStream(ReplayFilePath, FileMode.Create, FileAccess.Write);
+            var filePath = GetReplayFilePath(slot);
+            _fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
 
             using var aesAlg = Aes.Create();
             aesAlg.KeySize = AesKeySize;
@@ -73,22 +73,29 @@ public class ReplayFileController : MonoBehaviour
             _cryptoStream = new CryptoStream(_fileStream, encryptor, CryptoStreamMode.Write);
             _bw = new BinaryWriter(_cryptoStream);
 
-            Debug.Log($"Start writing replay file: {ReplayFilePath}");
+            Debug.Log($"Start writing replay file: {filePath}");
         }
         catch (Exception e)
         {
             Debug.LogError($"Error has occured while writing replay file: {e}");
         }
+        
+        _replayFileMode = ReplayFileMode.Write;
         onComplete?.Invoke();
     }
 
-    public static void InitReadingReplayFile(UnityAction onComplete, int slot = -1)
+    public static bool InitReadingReplayFile(UnityAction onComplete, int slot = -1)
     {
+        if (_replayFileMode != ReplayFileMode.None)
+        {
+            Debug.LogError($"Replay file is already in use!");
+            return false;
+        }
+        
         try
         {
-            _replayFileMode = ReplayFileMode.Read;
-            _currentReplaySlot = slot;
-            _fileStream = new FileStream(ReplayFilePath, FileMode.Open, FileAccess.Read);
+            var filePath = GetReplayFilePath(slot);
+            _fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 
             using var aesAlg = Aes.Create();
             aesAlg.KeySize = AesKeySize;
@@ -96,22 +103,29 @@ public class ReplayFileController : MonoBehaviour
             aesAlg.Padding = PaddingMode.PKCS7;
             aesAlg.Mode = CipherMode.CBC;
             aesAlg.Key = _aesKey;
-            
-            if (_fileStream.Read(aesAlg.IV, 0, aesAlg.IV.Length) < aesAlg.IV.Length)
-                throw new Exception("Failed to get initial vector");
+
+            var initialVector = new byte[16];
+            var initialVectorLength = _fileStream.Read(initialVector, 0, 16);
+            if (initialVectorLength < 16)
+                throw new CryptographicException();
+            aesAlg.IV = initialVector;
 
             ICryptoTransform decryptor = aesAlg.CreateDecryptor();
 
             _cryptoStream = new CryptoStream(_fileStream, decryptor, CryptoStreamMode.Read);
             _br = new BinaryReader(_cryptoStream);
             
-            Debug.Log($"Start reading replay file: {ReplayFilePath}");
+            Debug.Log($"Start reading replay file: {filePath}");
         }
         catch (Exception e)
         {
             Debug.LogError($"Error has occured while reading replay file: {e}");
+            return false;
         }
+        
+        _replayFileMode = ReplayFileMode.Read;
         onComplete?.Invoke();
+        return true;
     }
 
     public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
@@ -153,16 +167,13 @@ public class ReplayFileController : MonoBehaviour
 
     public static ReplayManager.ReplayInfo ReadReplayHeader(int slot)
     {
-        if (_replayFileMode != ReplayFileMode.None)
-        {
-            Debug.LogWarning($"현재 ReplayFileController가 이미 사용중입니다.");
-            return default;
-        }
-
-        if (!File.Exists(ReplayFilePath))
+        var filePath = GetReplayFilePath(slot);
+        if (!File.Exists(filePath))
             return default;
 
-        InitReadingReplayFile(null, slot);
+        if (!InitReadingReplayFile(null, slot))
+            return default;
+        
         var replayInfo = ReadBinaryReplayInfo();
         
         DiscardRemainingCryptoStream();

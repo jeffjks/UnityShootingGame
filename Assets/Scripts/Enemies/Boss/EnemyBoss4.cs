@@ -184,7 +184,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
                     frontTurret.StartPattern("1B", new BulletPattern_EnemyBoss4_FrontTurret_1B(frontTurret));
             }
             
-            var rand1B = GameManager.RandomTest(0, 2);
+            var rand1B = Random.Range(0, 2);
             m_Launchers[0].StartPattern("1B", new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[0], rand1B));
             m_Launchers[1].StartPattern("1B", new BulletPattern_EnemyBoss4_Launcher_1B(m_Launchers[1], 1 - rand1B));
             
@@ -267,7 +267,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         yield return new WaitForMillisecondFrames(1000);
 
         while (m_Phase == 2) {
-            var rand = GameManager.RandomTest(0, 2) * 2 - 1;
+            var rand = Random.Range(0, 2) * 2 - 1;
             m_Launchers[0].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[0], rand));
             m_Launchers[1].StartPattern("2A", new BulletPattern_EnemyBoss4_Launcher_2A(m_Launchers[1], rand));
             m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, true);
@@ -282,7 +282,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             }
             yield return new WaitForMillisecondFrames(1500);
 
-            var side = GameManager.RandomTest(0, 2) * 2 - 1;
+            var side = Random.Range(0, 2) * 2 - 1;
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(120f, m_SubTurrets[0].AngleToPlayer).SetOffsetAngle(70f*side));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(120f, m_SubTurrets[1].AngleToPlayer).SetOffsetAngle(70f*side));
             yield return new WaitForMillisecondFrames(1000);
@@ -313,7 +313,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private IEnumerator Phase3() { // 페이즈3 패턴 ============================
-        var rand = GameManager.RandomTest(0, 2) * 2 - 1;
+        var rand = Random.Range(0, 2) * 2 - 1;
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetAngle(0f, 150f));
         yield return new WaitForMillisecondFrames(2500);

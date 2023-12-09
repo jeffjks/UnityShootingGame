@@ -64,9 +64,9 @@ public class ButtonStyling : MonoBehaviour, ISelectHandler, IDeselectHandler, IC
         StopAllCoroutines();
     }
 
-    private void SetText()
+    public void SetText()
     {
-        if (m_NativeText == "..." || m_NativeText == String.Empty)
+        if (m_NativeText == "..." || m_NativeText == string.Empty)
         {
             return;
         }

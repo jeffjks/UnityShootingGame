@@ -13,7 +13,7 @@ public class EnemyShipCarrier : EnemyUnit
         CurrentAngle = m_MoveVector.direction;
         SetRotatePattern(new RotatePattern_MoveDirection());
         m_CustomDirection = new CustomDirection(2);
-        m_CustomDirection[0] = GameManager.RandomTest(0f, 360f);
+        m_CustomDirection[0] = Random.Range(0f, 360f);
         StartPattern("A", new BulletPattern_EnemyShipCarrier_A(this));
         StartPattern("B", new BulletPattern_EnemyShipCarrier_B(this));
         UpdateCargoUnitDirection();

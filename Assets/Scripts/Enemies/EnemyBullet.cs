@@ -231,7 +231,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
                     {
                         break;
                     }
-                    var period = GameManager.RandomTest(spawnTiming.period.x, spawnTiming.period.y);
+                    var period = Random.Range(spawnTiming.period.x, spawnTiming.period.y);
                     yield return new WaitForMillisecondFrames(period);
                 }
                 break;

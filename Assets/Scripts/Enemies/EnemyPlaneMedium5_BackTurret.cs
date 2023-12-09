@@ -25,7 +25,7 @@ public class EnemyPlaneMedium5_BulletPattern_BackTurret_A : BulletFactory, IBull
 
         while (true)
         {
-            var rand = GameManager.RandomTest(0, 2) * 2 - 1;
+            var rand = Random.Range(0, 2) * 2 - 1;
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 var pos = GetFirePos(0);

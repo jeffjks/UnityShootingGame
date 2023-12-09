@@ -18,22 +18,22 @@ public class BulletPattern_EnemyBoss5_1A1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        float rand = GameManager.RandomTest(0f, 360f);
+        float rand = Random.Range(0f, 360f);
 
         while (_func_fireDelay.Invoke() < _targetDelay) {
             Vector3 pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.7f, BulletPivot.Fixed,rand, 18, 20f));
-                rand += GameManager.RandomTest(8.4375f, 14.0625f);
+                rand += Random.Range(8.4375f, 14.0625f);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7f, BulletPivot.Fixed,rand, 24, 15f));
-                rand += GameManager.RandomTest(6.75f, 11.25f);
+                rand += Random.Range(6.75f, 11.25f);
             }
             else {
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7f, BulletPivot.Fixed,rand, 30, 12f));
-                rand += GameManager.RandomTest(4.5f, 7.5f);
+                rand += Random.Range(4.5f, 7.5f);
             }
             yield return new WaitForMillisecondFrames(_func_fireDelay.Invoke());
         }
@@ -58,8 +58,8 @@ public class BulletPattern_EnemyBoss5_1A2 : BulletFactory, IBulletPattern
 
         while (_func_fireDelay.Invoke() > _targetDelay) {
             Vector3 pos = GetFirePos(0);
-            var dir = GameManager.RandomTest(-6f, 6f);
-            var interval = GameManager.RandomTest(0f, 24f);
+            var dir = Random.Range(-6f, 6f);
+            var interval = Random.Range(0f, 24f);
             
             var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 600);
             var subProperty = new BulletProperty(pos, BulletImage.PinkNeedle, 2f, BulletPivot.Current, 0f, accel, 2, 20f + interval);
@@ -93,7 +93,7 @@ public class BulletPattern_EnemyBoss5_1B1 : BulletFactory, IBulletPattern
         while (true)
         {
             var pos = GetFirePos(0);
-            var dir = GameManager.RandomTest(-5f, 5f);
+            var dir = Random.Range(-5f, 5f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.2f, BulletPivot.Player, dir - 2f, 7, 19f));
                 CreateBullet(new BulletProperty(pos, BulletImage.PinkNeedle, 5.4f, BulletPivot.Player, dir, 7, 19f));
@@ -154,19 +154,19 @@ public class BulletPattern_EnemyBoss5_1C1 : BulletFactory, IBulletPattern
         while (true) {
             var pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                var dir = GameManager.RandomTest(-10f, 10f);
+                var dir = Random.Range(-10f, 10f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 4f, BulletPivot.Player, dir, 7, 17f));
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, dir, 7, 13f));
                 yield return new WaitForMillisecondFrames(1200);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                var dir = GameManager.RandomTest(-8f, 8f);
+                var dir = Random.Range(-8f, 8f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 4f, BulletPivot.Player, dir, 8, 14f));
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, dir, 8, 10f));
                 yield return new WaitForMillisecondFrames(600);
             }
             else {
-                var dir = GameManager.RandomTest(-6f, 6f);
+                var dir = Random.Range(-6f, 6f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 4f, BulletPivot.Player, dir, 9, 12f));
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, dir, 9, 8f));
                 yield return new WaitForMillisecondFrames(400);
@@ -220,7 +220,7 @@ public class BulletPattern_EnemyBoss5_1D1 : BulletFactory, IBulletPattern
         int[] durationScale = { 50, 80, 100 }; // 난이도에 따른 duration 비율 (%)
         _duration = _duration * durationScale[(int) SystemManager.Difficulty] / 100;
 
-        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 1200));
+        yield return new WaitForMillisecondFrames(Random.Range(0, 1200));
 
         while (true) {
             while (time < _duration) {
@@ -300,7 +300,7 @@ public class BulletPattern_EnemyBoss5_2A1a : BulletFactory, IBulletPattern
                     continue;
 
                 var dir = _enemyObject.m_CustomDirection[0];
-                var randDir = GameManager.RandomTest(-2f, 2f);
+                var randDir = Random.Range(-2f, 2f);
                 if (SystemManager.Difficulty == GameDifficulty.Normal)
                 {
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 7.5f, BulletPivot.Fixed, dir + randDir));
@@ -367,7 +367,7 @@ public class BulletPattern_EnemyBoss5_2A2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
-        var interval = GameManager.RandomTest(0f, 260f);
+        var interval = Random.Range(0f, 260f);
 
         while (true) {
             var pos = GetFirePos(0);
@@ -484,7 +484,7 @@ public class BulletPattern_EnemyBoss5_2B2_Old : BulletFactory, IBulletPattern
             yield return new WaitForMillisecondFrames(80);
         }
         interval = min_interval[(int) SystemManager.Difficulty];
-        var rand = GameManager.RandomTest(0, 2) * 2 - 1;
+        var rand = Random.Range(0, 2) * 2 - 1;
         var dir = 0f;
         
         while (true) {
@@ -530,7 +530,7 @@ public class BulletPattern_EnemyBoss5_2C1 : BulletFactory, IBulletPattern
                 if (pos.z > _bottomLine.position.z)
                     continue;
 
-                var dir = GameManager.RandomTest(-18f, 18f);
+                var dir = Random.Range(-18f, 18f);
                 if (SystemManager.Difficulty == GameDifficulty.Normal)
                 {
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueNeedle, 2f, BulletPivot.Fixed, dir, accel1));
@@ -560,7 +560,7 @@ public class BulletPattern_EnemyBoss5_2C2 : BulletFactory, IBulletPattern
         int[] fireDelay = { 1800, 1000, 500 };
         int[] subFireDelay = { 500, 350, 200 };
         int[] subRepeatNum = { 3, 5, 7 };
-        var rand = GameManager.RandomTest(0, 2) * 2 - 1;
+        var rand = Random.Range(0, 2) * 2 - 1;
 
         var currentNum = 0;
         while (currentNum < repeatNum[(int) SystemManager.Difficulty])

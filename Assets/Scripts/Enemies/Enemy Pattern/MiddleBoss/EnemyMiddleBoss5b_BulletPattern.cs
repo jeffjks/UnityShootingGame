@@ -103,7 +103,7 @@ public class BulletPattern_EnemyMiddleBoss5b_B : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         yield return new WaitForMillisecondFrames(2000);
-        var rand = GameManager.RandomTest(-6f, 6f);
+        var rand = Random.Range(-6f, 6f);
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 4; i++) {
@@ -147,7 +147,7 @@ public class BulletPattern_EnemyMiddleBoss5b_Turret_A : BulletFactory, IBulletPa
         
         while(true) {
             var pos = GetFirePos(0);
-            var dir = GameManager.RandomTest(-3, 3f);
+            var dir = Random.Range(-3, 3f);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 2.4f, BulletPivot.Current, dir, accel, 5, 16f));
             }

@@ -37,7 +37,7 @@ public class PlayerPreviewSimulator : MonoBehaviour
         yield return new WaitForMillisecondFrames(0);
         while(true)
         {
-            yield return new WaitForMillisecondFrames(GameManager.RandomTest(1000, 3000));
+            yield return new WaitForMillisecondFrames(Random.Range(1000, 3000));
             ToggleShotMode();
         }
     }

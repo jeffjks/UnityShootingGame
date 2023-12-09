@@ -124,7 +124,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
-        int rand = GameManager.RandomTest(0, 2);
+        int rand = Random.Range(0, 2);
         m_MoveVector = new MoveVector(1f, 90f + 180f*rand);
 
         EnableInteractableAll();
@@ -158,7 +158,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
             
             if (transform.position.x < 0f) {
                 init_vector = transform.position;
-                target_vector = new Vector3(GameManager.RandomTest(1f, 2f), GameManager.RandomTest(-4.5f, -5.5f), Depth.ENEMY);
+                target_vector = new Vector3(Random.Range(1f, 2f), Random.Range(-4.5f, -5.5f), Depth.ENEMY);
                 init_quaternion = m_Rotator.rotation;
 
                 for (int i = 0; i < frame; ++i) {
@@ -173,7 +173,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
             }
             else {
                 init_vector = transform.position;
-                target_vector = new Vector3(GameManager.RandomTest(-2f, -1f), GameManager.RandomTest(-4.5f, -5.5f), Depth.ENEMY);
+                target_vector = new Vector3(Random.Range(-2f, -1f), Random.Range(-4.5f, -5.5f), Depth.ENEMY);
                 init_quaternion = m_Rotator.rotation;
 
                 for (int i = 0; i < frame; ++i) {
@@ -216,7 +216,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
 
     private IEnumerator Phase1_PatternA() {
-        int random_value = GameManager.RandomTest(0, 2);
+        int random_value = Random.Range(0, 2);
         
         m_Turret3[0].StartPattern("1A", new BulletPattern_EnemyBoss1_Turret3_1A(m_Turret3[0]));
         m_Turret3[1].StartPattern("1A", new BulletPattern_EnemyBoss1_Turret3_1A(m_Turret3[1]));
@@ -249,7 +249,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Turret1.StartPattern("2A", new BulletPattern_EnemyBoss1_Turret1_2A(m_Turret1));
         yield return new WaitForMillisecondFrames(900 + difficulty_timer);
 
-        random_value = GameManager.RandomTest(0, 2);
+        random_value = Random.Range(0, 2);
         m_Turret2[0].StartPattern("2A", new BulletPattern_EnemyBoss1_Turret2_2A(m_Turret2[0], 1 - random_value));
         m_Turret2[1].StartPattern("2A", new BulletPattern_EnemyBoss1_Turret2_2A(m_Turret2[1], random_value));
         yield return new WaitForMillisecondFrames(2000);
@@ -259,7 +259,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Turret2[0].StartPattern("2B", new BulletPattern_EnemyBoss1_Turret2_2B(m_Turret2[0]));
         m_Turret2[1].StartPattern("2B", new BulletPattern_EnemyBoss1_Turret2_2B(m_Turret2[1]));
 
-        random_value = GameManager.RandomTest(0, 2);
+        random_value = Random.Range(0, 2);
         m_Turret3[random_value].StartPattern("2A", new BulletPattern_EnemyBoss1_Turret3_2A(m_Turret3[random_value]));
         yield return new WaitForMillisecondFrames(500 + difficulty_timer);
         m_Turret3[1 - random_value].StartPattern("2A", new BulletPattern_EnemyBoss1_Turret3_2A(m_Turret3[1 - random_value]));

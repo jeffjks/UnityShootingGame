@@ -133,10 +133,12 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     public Coroutine StartPattern(string key, IBulletPattern bulletPattern)
     {
+#if UNITY_EDITOR
         if (!m_IsInteractable)
         {
-            return null;
+            Debug.LogWarning("EnemyUnit which is not interactable has started pattern.");
         }
+#endif
 
         if (bulletPattern == null)
             return null;

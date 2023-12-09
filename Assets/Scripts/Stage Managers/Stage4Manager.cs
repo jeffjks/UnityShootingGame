@@ -79,12 +79,12 @@ public class Stage4Manager : StageManager
         CreateEnemy(m_PlaneMedium_4, new Vector2(2f, 3f));
         yield return new WaitForMillisecondFrames(6000);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-3f, -4f), 1200);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(GameManager.RandomTest(-1f, 1f), -3f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(GameManager.RandomTest(-1f, 1f), -5f), GameManager.RandomTest(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(Random.Range(-1f, 1f), -3f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(Random.Range(-1f, 1f), -5f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_RIGHT + 2f, -3f), new Vector2(3f, -4f), 1200);
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-7f, 3f), new Vector2(GameManager.RandomTest(-6f, 5f), -3f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(7f, 3f), new Vector2(GameManager.RandomTest(5f, 6f), -5f), GameManager.RandomTest(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-7f, 3f), new Vector2(Random.Range(-6f, 5f), -3f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(7f, 3f), new Vector2(Random.Range(5f, 6f), -5f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(5000);
         CreateEnemy(m_PlaneMedium_4, new Vector2(0f, 3f));
         yield return new WaitForMillisecondFrames(7000);
@@ -99,11 +99,11 @@ public class Stage4Manager : StageManager
         yield return new WaitForMillisecondFrames(4000);
         CreateEnemyWithTarget(m_Gunship, new Vector2(Size.GAME_BOUNDARY_LEFT - 2f, -3f), new Vector2(-4f, -4f), 1200);
         yield return new WaitForMillisecondFrames(5000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(-4f, -1f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(-4f, -1f), 3f));
         yield return new WaitForMillisecondFrames(2000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(1f, 4f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(1f, 4f), 3f));
         yield return new WaitForMillisecondFrames(2000);
-        int rand = 1 - 2*GameManager.RandomTest(0, 2); // -1 or 1
+        int rand = 1 - 2*Random.Range(0, 2); // -1 or 1
         if (SystemManager.Difficulty != GameDifficulty.Normal) {
             CreateEnemy(m_PlaneMedium_4, new Vector2(4.5f * rand, 3f));
         }
@@ -133,7 +133,7 @@ public class Stage4Manager : StageManager
         }
         yield return new WaitForMillisecondFrames(4000);
         if (SystemManager.PlayState == PlayState.None) {
-            CreateEnemy(m_PlaneLarge_3, new Vector2(1f, 3f));
+            CreateEnemy(m_PlaneLarge_3, new Vector2(2.5f, 3f));
         }
         for (int i = 0; i < 6; i++) {
             yield return new WaitForMillisecondFrames(500);
@@ -146,28 +146,28 @@ public class Stage4Manager : StageManager
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-24.35f, 3.21f, 84.5f), new MoveVector(-4f, -90f), new MovePattern[] {new MovePattern(2100, 1400, true, 0f)});
         yield return new WaitForMillisecondFrames(6000);
         CreateEnemy(m_ItemHeliRed, new Vector2(2f, 3f)); // Item Heli 1
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-5f, 3f), new Vector2(-5f, -3f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4.5f, 3f), new Vector2(-4f, -6f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -3f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -6f), GameManager.RandomTest(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-5f, 3f), new Vector2(-5f, -3f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-4.5f, 3f), new Vector2(-4f, -6f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -3f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(0f, 3f), new Vector2(0f, -6f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_ItemHeliGreen, new Vector2(-3f, 3f)); // Item Heli 2
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -3f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(4.5f, 3f), new Vector2(4.5f, -6f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -3f), GameManager.RandomTest(1200, 1500));
-        CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -6f), GameManager.RandomTest(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(4f, 3f), new Vector2(4f, -3f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(4.5f, 3f), new Vector2(4.5f, -6f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -3f), Random.Range(1200, 1500));
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(1f, 3f), new Vector2(1f, -6f), Random.Range(1200, 1500));
         yield return new WaitForMillisecondFrames(2000);
         CreateEnemy(m_PlaneLarge_2, new Vector2(2.5f, 5f));
         yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(-4f, -3f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(-4f, -3f), 3f));
         yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(-4f, -3f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(-4f, -3f), 3f));
         yield return new WaitForMillisecondFrames(4000);
         CreateEnemy(m_PlaneLarge_3, new Vector2(-3f, 3f));
         yield return new WaitForMillisecondFrames(1000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(3f, 4f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(3f, 4f), 3f));
         yield return new WaitForMillisecondFrames(3000);
-        CreateEnemy(m_PlaneMedium_3, new Vector2(GameManager.RandomTest(3f, 4f), 3f));
+        CreateEnemy(m_PlaneMedium_3, new Vector2(Random.Range(3f, 4f), 3f));
         yield return new WaitForMillisecondFrames(3000);
         CreateEnemy(m_PlaneLarge_2, new Vector2(-2f, 5f));
         yield return new WaitForMillisecondFrames(6000);
@@ -187,8 +187,8 @@ public class Stage4Manager : StageManager
     private IEnumerator SpawnHelicopters1()
     {
         for (int i = 0; i < 8; i++) {
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(GameManager.RandomTest(-6f, -2f), 3f), new Vector2(GameManager.RandomTest(-6f, -2f), GameManager.RandomTest(-2f, -7f)), GameManager.RandomTest(1200, 1500));
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(GameManager.RandomTest(2f, 6f), 3f), new Vector2(GameManager.RandomTest(2f, 6f), GameManager.RandomTest(-2f, -7f)), GameManager.RandomTest(1200, 1500));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(-6f, -2f), 3f), new Vector2(Random.Range(-6f, -2f), Random.Range(-2f, -7f)), Random.Range(1200, 1500));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(2f, 6f), 3f), new Vector2(Random.Range(2f, 6f), Random.Range(-2f, -7f)), Random.Range(1200, 1500));
             yield return new WaitForMillisecondFrames(500);
         }
         yield break;
@@ -197,8 +197,8 @@ public class Stage4Manager : StageManager
     private IEnumerator SpawnHelicopters2()
     {
         for (int i = 0; i < 8; i++) {
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(GameManager.RandomTest(-3f, -0.5f), 3f), new Vector2(GameManager.RandomTest(-3f, -0.5f), GameManager.RandomTest(-2f, -8f)), GameManager.RandomTest(1200, 1500));
-            CreateEnemyWithTarget(m_Helicopter, new Vector2(GameManager.RandomTest(0.5f, 3f), 3f), new Vector2(GameManager.RandomTest(0.5f, 3f), GameManager.RandomTest(-2f, -8f)), GameManager.RandomTest(1200, 1500));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(-3f, -0.5f), 3f), new Vector2(Random.Range(-3f, -0.5f), Random.Range(-2f, -8f)), Random.Range(1200, 1500));
+            CreateEnemyWithTarget(m_Helicopter, new Vector2(Random.Range(0.5f, 3f), 3f), new Vector2(Random.Range(0.5f, 3f), Random.Range(-2f, -8f)), Random.Range(1200, 1500));
             yield return new WaitForMillisecondFrames(500);
         }
         yield break;

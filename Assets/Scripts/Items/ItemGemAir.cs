@@ -15,8 +15,8 @@ public class ItemGemAir : ItemGem
         m_Renderer.rotation = Random.rotation;
         m_RandomAxis = Utility.GetRandomPositionInsideCircle().normalized;
         m_VerticalSpeed = 0f;
-        m_HorizontalSpeed = GameManager.RandomTest(-0.8f, 0.8f);
-        m_Scale = GameManager.RandomTest(-m_RandomScale, m_RandomScale);
+        m_HorizontalSpeed = Random.Range(-0.8f, 0.8f);
+        m_Scale = Random.Range(-m_RandomScale, m_RandomScale);
         //Debug.Log(m_Scale);
         transform.localScale = new Vector3(1f, 1f, 1f) * (0.3f + m_Scale);
     }

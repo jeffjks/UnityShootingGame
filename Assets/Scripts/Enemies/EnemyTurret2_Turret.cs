@@ -22,7 +22,7 @@ public class EnemyTurret2_BulletPattern_Turret_A : BulletFactory, IBulletPattern
         int[] fireDelay = { 1250, 500, 250 };
         float[] speedArray = { 5.7f, 6.8f, 6.8f };
         
-        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, fireDelay[(int) SystemManager.Difficulty]));
+        yield return new WaitForMillisecondFrames(Random.Range(0, fireDelay[(int) SystemManager.Difficulty]));
         while(true)
         {
             var pos = GetFirePos(0);

@@ -33,7 +33,7 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
         int[] fireDelay = { 2000, 2000, 1800 };
         List<EnemyBullet> enemyBullets = new (16);
         
-        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, fireDelay[(int) SystemManager.Difficulty]));
+        yield return new WaitForMillisecondFrames(Random.Range(0, fireDelay[(int) SystemManager.Difficulty]));
         while(true)
         {
             var pos0 = GetFirePos(0);

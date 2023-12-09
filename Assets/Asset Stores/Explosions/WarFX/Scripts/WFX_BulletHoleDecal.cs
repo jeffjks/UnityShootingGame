@@ -35,7 +35,7 @@ public class WFX_BulletHoleDecal : MonoBehaviour
 	void OnEnable()
 	{
 		//Random UVs
-		int random = GameManager.RandomTest(0, (int)(frames.x*frames.y));
+		int random = new System.Random().Next((int)(frames.x * frames.y));
 		int fx = (int)(random%frames.x);
 		int fy = (int)(random/frames.y);
 		//Set new UVs
@@ -49,7 +49,7 @@ public class WFX_BulletHoleDecal : MonoBehaviour
 		
 		//Random rotate
 		if(randomRotation)
-			this.transform.Rotate(0f,0f,GameManager.RandomTest(0f,360f), Space.Self);
+			this.transform.Rotate(0f,0f,new System.Random().Next(0,360), Space.Self);
 		
 		//Start lifetime coroutine
 		life = lifetime;

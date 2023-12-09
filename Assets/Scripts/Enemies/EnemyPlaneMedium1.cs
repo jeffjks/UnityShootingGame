@@ -102,7 +102,7 @@ public class EnemyPlaneMedium1_BulletPattern_A : BulletFactory, IBulletPattern
             {
                 for (int i = 0; i < 3; i++) {
                     var pos = GetFirePos(0);
-                    var dir = GameManager.RandomTest(-3f, 3f);
+                    var dir = Random.Range(-3f, 3f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, dir, 9, 10f));
                     yield return new WaitForMillisecondFrames(200);
                 }
@@ -123,7 +123,7 @@ public class EnemyPlaneMedium1_BulletPattern_A : BulletFactory, IBulletPattern
                 yield return new WaitForMillisecondFrames(200);
                 for (int i = 0; i < 4; i++) {
                     pos = GetFirePos(0);
-                    var dir = GameManager.RandomTest(-3f, 3f);
+                    var dir = Random.Range(-3f, 3f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.4f, BulletPivot.Player, dir, 9, 10f));
                     yield return new WaitForMillisecondFrames(200);
                 }

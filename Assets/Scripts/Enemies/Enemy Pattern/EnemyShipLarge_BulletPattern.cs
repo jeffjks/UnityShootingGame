@@ -18,8 +18,8 @@ public class EnemyShipLarge_BulletPattern_2A : BulletFactory, IBulletPattern
             {
                 var num = SystemManager.Difficulty == GameDifficulty.Hell ? 3 : 1;
                 var pos = GetFirePos(i);
-                var dir = GameManager.RandomTest(0f, 360f);
-                var newDir = GameManager.RandomTest(-18f, 18f);
+                var dir = Random.Range(0f, 360f);
+                var newDir = Random.Range(-18f, 18f);
                 var property = new BulletProperty(pos, BulletImage.PinkLarge, 3.6f, BulletPivot.Fixed, dir, accel);
                 var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 600);
                 var subProperty = new BulletProperty(Vector3.zero, BulletImage.BlueNeedle, 8f, BulletPivot.Player, newDir, num, 25f);

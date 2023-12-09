@@ -25,8 +25,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                 for (int i = 0; i < 2; i++)
                 {
                     var pos = GetFirePos(0);
-                    var dir1 = GameManager.RandomTest(-8f, 8f);
-                    var dir2 = GameManager.RandomTest(-8f, 8f);
+                    var dir1 = Random.Range(-8f, 8f);
+                    var dir2 = Random.Range(-8f, 8f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 3, 23f));
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 4, 23f));
                     yield return new WaitForMillisecondFrames(800);
@@ -37,8 +37,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                 for (int i = 0; i < 3; i++)
                 {
                     var pos = GetFirePos(0);
-                    var dir1 = GameManager.RandomTest(-5f, 5f);
-                    var dir2 = GameManager.RandomTest(-5f, 5f);
+                    var dir1 = Random.Range(-5f, 5f);
+                    var dir2 = Random.Range(-5f, 5f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir1, 5, 17f));
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.2f, BulletPivot.Current, dir2, 6, 17f));
                     yield return new WaitForMillisecondFrames(500);
@@ -49,8 +49,8 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
                 for (int i = 0; i < 4; i++)
                 {
                     var pos = GetFirePos(0);
-                    var dir1 = GameManager.RandomTest(-5f, 5f);
-                    var dir2 = GameManager.RandomTest(-5f, 5f);
+                    var dir1 = Random.Range(-5f, 5f);
+                    var dir2 = Random.Range(-5f, 5f);
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6.8f, BulletPivot.Current, dir1, 9, 12f));
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 8.2f, BulletPivot.Current, dir2, 10, 12f));
                     yield return new WaitForMillisecondFrames(400);
@@ -58,7 +58,7 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
 
-            bool rand = GameManager.RandomTest(0, 2) == 0;
+            bool rand = Random.Range(0, 2) == 0;
             
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (int i = 0; i < 4; i++)

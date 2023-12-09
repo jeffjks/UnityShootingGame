@@ -14,11 +14,11 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_A : BulletFactory, IBull
             var pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5f, BulletPivot.Current, GameManager.RandomTest(-4f, 4f), 10, 13f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5f, BulletPivot.Current, Random.Range(-4f, 4f), 10, 13f));
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert)
             {
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 3.5f, BulletPivot.Current, GameManager.RandomTest(-3f, 3f), 11, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 3.5f, BulletPivot.Current, Random.Range(-3f, 3f), 11, 12f));
                 for (var i = 0; i < 4; i++)
                 {
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5f, BulletPivot.Current, - 2.25f + 1.5f * i, 7, 15f));
@@ -26,7 +26,7 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_A : BulletFactory, IBull
             }
             else
             {
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 3f, BulletPivot.Current, GameManager.RandomTest(-3f, 3f), 11, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 3f, BulletPivot.Current, Random.Range(-3f, 3f), 11, 12f));
                 for (var i = 0; i < 4; i++)
                 {
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 4.5f, BulletPivot.Current, - 2.25f + 1.5f * i, 9, 12f));
@@ -118,15 +118,15 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_D : BulletFactory, IBull
         while(true) {
             var pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
-                var dir = GameManager.RandomTest(-4f, 4f);
+                var dir = Random.Range(-4f, 4f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5f, BulletPivot.Current, dir, 10, 14f));
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert) {
-                var dir = GameManager.RandomTest(-3f, 3f);
+                var dir = Random.Range(-3f, 3f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.5f, BulletPivot.Current, dir, 15, 9f));
             }
             else {
-                var dir = GameManager.RandomTest(-3f, 3f);
+                var dir = Random.Range(-3f, 3f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 6f, BulletPivot.Current, dir, 15, 9f));
             }
             yield return new WaitForMillisecondFrames(1000);

@@ -45,10 +45,10 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         
         if (!TimeLimitState && _phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 0.6f) {
-                m_MoveVector.direction = GameManager.RandomTest(-100f, -80f);
+                m_MoveVector.direction = Random.Range(-100f, -80f);
             }
             else if (transform.position.x <= TARGET_POSITION.x - 0.6f) {
-                m_MoveVector.direction = GameManager.RandomTest(80f, 100f);
+                m_MoveVector.direction = Random.Range(80f, 100f);
             }
             else if (transform.position.y >= TARGET_POSITION.y + 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
@@ -74,7 +74,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     }
 
     private void OnAppearanceComplete() {
-        float random_direction = GameManager.RandomTest(80f, 100f) + 180f*GameManager.RandomTest(0, 2);
+        float random_direction = Random.Range(80f, 100f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.4f, random_direction);
         _phase = 1;
         _currentPhase = Phase1();
@@ -137,7 +137,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
             
             m_MainTurret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5a_MainTurret_A(m_MainTurret));
             yield return new WaitForMillisecondFrames(1000);
-            var rand = GameManager.RandomTest(0, 2);
+            var rand = Random.Range(0, 2);
             m_SubTurret[0].StartPattern("B", new BulletPattern_EnemyMiddleBoss5a_SubTurret_B(m_SubTurret[0], rand));
             m_SubTurret[1].StartPattern("B", new BulletPattern_EnemyMiddleBoss5a_SubTurret_B(m_SubTurret[1], 1 - rand));
             yield return new WaitForMillisecondFrames(6000);
@@ -145,7 +145,7 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
             m_SubTurret[0].StopPattern("B");
             m_SubTurret[1].StopPattern("B");
 
-            rand = GameManager.RandomTest(0, 2);
+            rand = Random.Range(0, 2);
             m_SubTurret[rand].SetRotatePattern(new RotatePattern_TargetAngle(0f, 120f));
             m_SubTurret[1 - rand].SetRotatePattern(new RotatePattern_TargetAngle(180f, 120f));
             yield return new WaitForMillisecondFrames(2000);

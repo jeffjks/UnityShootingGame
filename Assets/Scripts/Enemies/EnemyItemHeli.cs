@@ -78,7 +78,7 @@ public class BulletPattern_EnemyItemHeli : BulletFactory, IBulletPattern
         yield return new WaitForMillisecondFrames(1500);
         
         while (!_enemyObject.TimeLimitState) {
-            var dir = GameManager.RandomTest(-1f, 1f);
+            var dir = Random.Range(-1f, 1f);
             
             for (int i = 0; i < 3; i++)
             {

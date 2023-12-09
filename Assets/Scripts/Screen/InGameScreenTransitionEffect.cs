@@ -76,8 +76,8 @@ public class InGameScreenTransitionEffect : MonoBehaviour
 
     private IEnumerator TransitionIn(Action callback) {
         int duration = 660;
-        //int delay = 1000 - (int) (transform.position.y*1000f/12f) + GameManager.RandomTest(1000, 300);
-        yield return new WaitForMillisecondFrames(Delay + GameManager.RandomTest(0, 500));
+        //int delay = 1000 - (int) (transform.position.y*1000f/12f) + Random.Range(1000, 300);
+        yield return new WaitForMillisecondFrames(Delay + Random.Range(0, 500));
 
         float init_scale_x = transform.localScale.x;
         int frame = duration * Application.targetFrameRate / 1000;

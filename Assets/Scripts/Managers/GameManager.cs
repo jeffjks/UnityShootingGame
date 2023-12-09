@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     public static float RandomTest(float r1, float r2)
     {
         var r = Random.Range(r1, r2);
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
         //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
         return r;
     }
+#endif
 
     public static string GetAccountID() {
         return m_AccountID;

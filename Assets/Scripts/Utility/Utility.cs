@@ -71,7 +71,7 @@ public static class Utility
         }
 
         if (wrapAround)
-            return (T)array.GetValue(0);
+            return (T)array.GetValue(array.Length - 1);
         return source;
     }
 

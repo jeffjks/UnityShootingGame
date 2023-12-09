@@ -27,7 +27,7 @@ public class BulletPattern_EnemyPlaneMedium1_A : BulletFactory, IBulletPattern
             for (var i = 0; i < 2; i++)
             {
                 var pos = GetFirePos(i);
-                var dir = GameManager.RandomTest(0f, 360f);
+                var dir = Random.Range(0f, 360f);
                 if (SystemManager.Difficulty == GameDifficulty.Normal)
                 {
                     CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 2f, BulletPivot.Fixed, dir, accel, 12, 30f));

@@ -30,7 +30,7 @@ public class EnemyTurret1_BulletPattern_Turret_A : BulletFactory, IBulletPattern
         int[] fireDelay = { 1600, 800, 400 };
         int[] subFireDelay = { 5, 5, 5 };
         float[] speedArray = { 5.5f, 6f, 6.5f };
-        yield return new WaitForMillisecondFrames(GameManager.RandomTest(0, 1000));
+        yield return new WaitForMillisecondFrames(Random.Range(0, 1000));
         
         while(true)
         {

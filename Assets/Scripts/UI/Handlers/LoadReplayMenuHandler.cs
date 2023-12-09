@@ -51,12 +51,14 @@ public class LoadReplayMenuHandler : MenuHandler
             {
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");
+                _buttonStylingArray[i].SetText();
                 _canvasGroups[i].interactable = false;
                 continue;
             }
             
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
+            _buttonStylingArray[i].SetText();
             _buttonTexts[i].SetText(dateTimeString);
             if (_replayInfos[i].m_Version != m_ReplayVersionData.replayVersion)
             {

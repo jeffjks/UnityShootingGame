@@ -60,9 +60,9 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void OnAppearanceComplete() {
-        float random_direction = 180f*GameManager.RandomTest(0, 2);
+        float random_direction = 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.05f, random_direction);
-        m_MoveDirection = GameManager.RandomTest(0, 2)*2 - 1;
+        m_MoveDirection = Random.Range(0, 2)*2 - 1;
         ToNextPhase();
         StartCoroutine(InitMaterial());
 

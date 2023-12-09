@@ -15,8 +15,8 @@ public class BulletPattern_EnemyMiddleBoss3_1A1 : BulletFactory, IBulletPattern
 
         while (true)
         {
-            var dir1 = GameManager.RandomTest(-70f, 70f);
-            var dir2 = GameManager.RandomTest(-3f, 3f);
+            var dir1 = Random.Range(-70f, 70f);
+            var dir2 = Random.Range(-3f, 3f);
 
             var pos = GetFirePos(2);
             if (SystemManager.Difficulty == GameDifficulty.Normal)
@@ -51,7 +51,7 @@ public class BulletPattern_EnemyMiddleBoss3_1A2 : BulletFactory, IBulletPattern
         while (true)
         {
             var pos = GetFirePos(1);
-            var dir = GameManager.RandomTest(0f, 360f);
+            var dir = Random.Range(0f, 360f);
 
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 for (var i = 0; i < 4; i++) {
@@ -132,20 +132,20 @@ public class BulletPattern_EnemyMiddleBoss3_1B2 : BulletFactory, IBulletPattern
 
             if (SystemManager.Difficulty == GameDifficulty.Normal)
             {
-                var dir = GameManager.RandomTest(-45f, 45f);
+                var dir = Random.Range(-45f, 45f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, 5.3f, BulletPivot.Player, dir));
                 yield return new WaitForMillisecondFrames(80);
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert)
             {
-                var dir = GameManager.RandomTest(-40f, 40f);
-                var speed = GameManager.RandomTest(5f, 5.8f);
+                var dir = Random.Range(-40f, 40f);
+                var speed = Random.Range(5f, 5.8f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Player, dir));
                 yield return new WaitForMillisecondFrames(40);
             }
             else {
-                var dir = GameManager.RandomTest(-40f, 40f);
-                var speed = GameManager.RandomTest(5f, 6f);
+                var dir = Random.Range(-40f, 40f);
+                var speed = Random.Range(5f, 6f);
                 CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Player, dir));
                 yield return new WaitForMillisecondFrames(20);
             }

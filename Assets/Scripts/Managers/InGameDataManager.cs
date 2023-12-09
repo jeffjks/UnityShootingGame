@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Events;
 
 public class InGameDataManager : MonoBehaviour
 {
     public RectTransform m_UICanvas;
     
-    public event Action<long> Action_OnUpdateScore;
-    public event Action<int, int> Action_OnUpdateBombNumber;
+    public event UnityAction<long> Action_OnUpdateScore;
+    public event UnityAction<int, int> Action_OnUpdateBombNumber;
     
     private bool _destroySingleton;
     private long _totalScore;
@@ -84,9 +85,9 @@ public class InGameDataManager : MonoBehaviour
 
         if (DebugOption.SceneMode == 3)
         {
-            TotalScore = GameManager.RandomTest(0, 10000);
+            TotalScore = UnityEngine.Random.Range(0, 10000);
             CurrentShipAttributes = new ShipAttributes();
-            TotalMiss = GameManager.RandomTest(0, 50);
+            TotalMiss = UnityEngine.Random.Range(0, 50);
             ElapsedTime = DateTime.Now.Ticks;
         }
     }

@@ -204,11 +204,11 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
                 foreach (var posTransform in _enemyObject.m_FirePosition)
                 {
                     var pos = posTransform.position;
-                    var speed = GameManager.RandomTest(7f, 15f);
-                    var dir = _enemyObject.CurrentAngle + GameManager.RandomTest(-20f, 20f);
+                    var speed = Random.Range(7f, 15f);
+                    var dir = _enemyObject.CurrentAngle + Random.Range(-20f, 20f);
                     var property = new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Fixed, dir, accel1);
                     var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, accelDuration1);
-                    var subDir = GameManager.RandomTest(-25f, 25f);
+                    var subDir = Random.Range(-25f, 25f);
                     var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkLarge, 0.1f, BulletPivot.Player, subDir, accel2);
                     CreateBullet(property, spawnTiming, subProperty);
                 }
@@ -223,11 +223,11 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
                     foreach (var posTransform in _enemyObject.m_FirePosition)
                     {
                         var pos = posTransform.position;
-                        var speed = GameManager.RandomTest(7f, 15f);
-                        var dir = _enemyObject.CurrentAngle + GameManager.RandomTest(-20f, 20f);
+                        var speed = Random.Range(7f, 15f);
+                        var dir = _enemyObject.CurrentAngle + Random.Range(-20f, 20f);
                         var property = new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Fixed, dir, accel1);
                         var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, accelDuration1);
-                        var subDir = GameManager.RandomTest(-25f, 25f);
+                        var subDir = Random.Range(-25f, 25f);
                         var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkLarge, 0.1f, BulletPivot.Player, subDir, accel2);
                         CreateBullet(property, spawnTiming, subProperty);
                     }
@@ -243,11 +243,11 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
                     foreach (var posTransform in _enemyObject.m_FirePosition)
                     {
                         var pos = posTransform.position;
-                        var speed = GameManager.RandomTest(7f, 15f);
-                        var dir = _enemyObject.CurrentAngle + GameManager.RandomTest(-20f, 20f);
+                        var speed = Random.Range(7f, 15f);
+                        var dir = _enemyObject.CurrentAngle + Random.Range(-20f, 20f);
                         var property = new BulletProperty(pos, BulletImage.PinkLarge, speed, BulletPivot.Fixed, dir, accel1);
                         var spawnTiming = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, accelDuration1);
-                        var subDir = GameManager.RandomTest(-25f, 25f);
+                        var subDir = Random.Range(-25f, 25f);
                         var subProperty = new BulletProperty(Vector3.zero, BulletImage.PinkLarge, 0.1f, BulletPivot.Player, subDir, accel2);
                         CreateBullet(property, spawnTiming, subProperty);
                     }

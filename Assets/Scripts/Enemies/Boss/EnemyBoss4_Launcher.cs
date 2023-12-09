@@ -17,7 +17,7 @@ public class EnemyBoss4_Launcher : EnemyUnit
         
         _side = transform.localPosition.x < 0f ? -1 : 1;
         _moveDirection = _side;
-        CustomDirectionSide = GameManager.RandomTest(0, 2) * 2 - 1;
+        CustomDirectionSide = Random.Range(0, 2) * 2 - 1;
     }
 
     protected override void Update() {

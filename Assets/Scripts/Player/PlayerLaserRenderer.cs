@@ -159,7 +159,7 @@ public class PlayerLaserRenderer : MonoBehaviour
         _lineRenderer.startWidth = laserWidth;
         _lineRenderer.endWidth = laserWidth;
         
-        var hitBoxWidth = laserWidth*0.9f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
+        var hitBoxWidth = laserWidth*0.75f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
         _laserHitBoxWidth = new Vector2(hitBoxWidth*0.5f, 0f);
         _collider2D.size = new Vector2(hitBoxWidth, 0f);
     }

@@ -110,7 +110,10 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(_currentPhase);
 
         EnableInteractableAll();
-        
+
+        m_Turret[0].SetRotatePattern(new RotatePattern_TargetPlayer(100f));
+        m_Turret[1].SetRotatePattern(new RotatePattern_TargetPlayer(100f));
+
         // SystemManager.OnBossStart();
     }
 

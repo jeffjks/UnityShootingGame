@@ -426,12 +426,12 @@ public class ReplayManager : MonoBehaviour
         OnClose();
     }
 
-    public void WriteReplayLogFile(string str)
+    public static void WriteReplayLogFile(string str)
     {
 #if UNITY_EDITOR
         if (!SystemManager.IsInGame)
             return;
-        _logFileStream?.WriteLine($"{CurrentFrame}: {str}");
+        Instance._logFileStream?.WriteLine($"{CurrentFrame}: {str}");
 #endif
     }
 }

@@ -19,7 +19,7 @@ public class EnemyDeath : MonoBehaviour
         
         Action_OnKilled?.Invoke();
 #if UNITY_EDITOR
-        ReplayManager.Instance.WriteReplayLogFile($"KillEnemy {transform.position.ToString("N6")}");
+        ReplayManager.WriteReplayLogFile($"KillEnemy {transform.position.ToString("N6")}");
 #endif
         
         EnemyDeath[] enemyDeaths = GetComponentsInChildren<EnemyDeath>();
@@ -40,7 +40,7 @@ public class EnemyDeath : MonoBehaviour
     public void RemoveEnemy() {
         Action_OnRemoved?.Invoke();
 #if UNITY_EDITOR
-        ReplayManager.Instance.WriteReplayLogFile($"RemoveEnemy {transform.position.ToString("N6")}");
+        ReplayManager.WriteReplayLogFile($"RemoveEnemy {transform.position.ToString("N6")}");
 #endif
         Destroy(gameObject);
     }

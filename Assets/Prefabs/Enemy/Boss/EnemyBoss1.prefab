@@ -3311,7 +3311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 0
-  m_DefaultHealth: 10000
+  m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 146527624299374687}
   - {fileID: 6299213922551753239}

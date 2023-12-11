@@ -29,7 +29,7 @@ MonoBehaviour:
     defaultNumber: 6
     poolingParent: 0
   - objectName: PlayerPiercingShot
-    poolingObject: {fileID: 1475708882005642, guid: 22b7e2985e2cbda4cbbb9d50d8537c79,
+    poolingObject: {fileID: 1475708882005642, guid: 00c5e50a512885640bae5d166851cfad,
       type: 3}
     defaultNumber: 8
     poolingParent: 0

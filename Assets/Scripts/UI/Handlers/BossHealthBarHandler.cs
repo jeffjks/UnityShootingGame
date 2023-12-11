@@ -13,9 +13,10 @@ public enum BossHealthBarState {
 
 public class BossHealthBarHandler : MonoBehaviour
 {
-    [SerializeField] private RectTransform m_BossHealthBar = null;
-    [SerializeField] private Image m_HealthBar = null;
-    [SerializeField] private Sprite m_HealthBarGreen = null, m_HealthBarRed = null;
+    [SerializeField] private RectTransform m_BossHealthBar;
+    [SerializeField] private Image m_HealthBar;
+    [SerializeField] private Color m_IdleColor;
+    [SerializeField] private Color m_LowHealthColor;
 
     private EnemyUnit _enemyUnit;
     private float _interpolateY;
@@ -25,6 +26,8 @@ public class BossHealthBarHandler : MonoBehaviour
     private float _deltaHeight;
     
     private const float SCROLLING_SPEED = 1f;
+    private const string ProgressBarMaterialVarName = "_ProgressBar";
+    private const string MaterialColorVarName = "_ColorMask";
 
     private void Awake()
     {
@@ -36,6 +39,19 @@ public class BossHealthBarHandler : MonoBehaviour
     {
         StageManager.Action_BossHealthBar -= StartHealthListener;
     }
+
+    // private void Update()
+    // {
+    //     if (_healthRate <= 0f)
+    //         return;
+    //     HealthAnimTime += Time.deltaTime;
+    //     Health = Mathf.Lerp(FromHealth, ToHealth, HealthAnimTime / DamageDelay);
+    //     if (Health < 0)
+    //     {
+    //         ToHealth = Health = HealthMax;
+    //         HealthAnimTime = 0;
+    //     }
+    // }
 
     private float InterpolateY
     {
@@ -108,20 +124,18 @@ public class BossHealthBarHandler : MonoBehaviour
         try {
             _healthRate = _enemyUnit.m_EnemyHealth.HealthPercent;
         }
-        catch(System.NullReferenceException) {
+        catch(NullReferenceException) {
             _healthRate = 0f;
         }
 
-        m_HealthBar.fillAmount = _healthRate;
+        var propId = Shader.PropertyToID(ProgressBarMaterialVarName);
+        m_HealthBar.material.SetFloat(propId, _healthRate);
+        //m_HealthBar.fillAmount = _healthRate;
     }
 
     private void CheckHealthBarLowState() {
-        if (_healthRate <= 0.1f) {
-            m_HealthBar.sprite = m_HealthBarRed;
-            _enemyUnit.m_EnemyHealth.Action_OnHealthChanged -= CheckHealthBarLowState;
-        }
-        else {
-            m_HealthBar.sprite = m_HealthBarGreen;
-        }
+        var propId = Shader.PropertyToID(MaterialColorVarName);
+        var barColor = (_healthRate <= 0.1f) ? m_LowHealthColor : m_IdleColor;
+        m_HealthBar.material.SetColor(propId, barColor);
     }
 }

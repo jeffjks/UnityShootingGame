@@ -9,42 +9,26 @@ using Newtonsoft.Json;
 public class EndingCreditJsonWriter : MonoBehaviour
 {
 #if UNITY_EDITOR
-    [TextArea(0, 10)]
-    public string credit;
-    [TextArea(0, 10)]
-    public string[] assetLists;
-
-    public string creditDate;
-    
+    [SerializeField] private EndingCreditMessageDatas _messageDataEng;
+    [SerializeField] private EndingCreditMessageDatas _messageDataKor;
     private readonly Dictionary<Language, string> _endingCreditText = new();
-    private const string unityVersion = "2021.3.24f1";
-
-    private struct CreditText
-    {
-        public string creditWord;
-        public string usedAssetsWord;
-        public List<string> categories;
-
-        public CreditText(string creditWord, string usedAssetsWord, List<string> categories)
-        {
-            this.creditWord = creditWord;
-            this.usedAssetsWord = usedAssetsWord;
-            this.categories = categories;
-        }
-    }
     
-    private void WriteJson(Language language, CreditText creditText)
+    private void WriteJson(Language language, EndingCreditMessageDatas messageData)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append(MakeRichText(creditText.creditWord));
+        var credit = messageData.credit;
+        var creditDate = messageData.creditDate;
+        var unityVersion = messageData.unityVersion;
+        
+        sb.Append(MakeRichText(messageData.categoryCredit));
         sb.Append("\n");
         sb.Append($"{credit}\n\nMade With Unity {unityVersion}\n\n\n\n");
-        sb.Append(MakeRichText(creditText.usedAssetsWord));
+        sb.Append(MakeRichText(messageData.categoryAssetList));
         sb.Append("\n\n");
 
-        for (var i = 0; i < creditText.categories.Count; ++i)
+        foreach (var assetList in messageData.assetLists)
         {
-            sb.Append(MakeAssetList(creditText.categories[i], i));
+            sb.Append(MakeAssetList(assetList));
         }
         sb.Append("\n\n\n\n\n\n\n\n\n\n\n");
         sb.Append(MakeRichText("Dead Planet 2"));
@@ -55,19 +39,17 @@ public class EndingCreditJsonWriter : MonoBehaviour
 
     public void GenerateJsonFile()
     {
-        WriteJson(Language.English, new CreditText("Credit", "UsedAsset",
-            new List<string> { "Models", "Images / Textures", "Effects", "Sounds", "Terrain", "Others" }));
-        WriteJson(Language.Korean, new CreditText("제작", "사용한 에셋",
-            new List<string> { "모델링", "이미지 / 텍스처", "이펙트", "사운드", "지형", "기타" }));
+        WriteJson(Language.English, _messageDataEng);
+        WriteJson(Language.Korean, _messageDataKor);
         
         Utility.SaveDataFile(Application.streamingAssetsPath, "resources2.dat", _endingCreditText);
     }
 
-    private StringBuilder MakeAssetList(string category, int index)
+    private StringBuilder MakeAssetList(AssetList assetList)
     {
-        StringBuilder tempSb = new StringBuilder(MakeRichText(category));
+        StringBuilder tempSb = new StringBuilder(MakeRichText(assetList.assetCategory));
         tempSb.Append("\n");
-        tempSb.Append(assetLists[index]);
+        tempSb.Append(assetList.assetNames);
         tempSb.Append("\n\n\n");
         return tempSb;
     }

@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2d3b138bbc5754ebf04d46d27fdded, type: 3}
+  m_Name: EndingCreditMessageDataKor SO
+  m_EditorClassIdentifier: 
+  categoryCredit: "\uC81C\uC791"
+  credit: "\uAC15\uB0AD\uB545\uCF69 (Bean Peanut)\r\njeff_jks@naver.com\r\nhttps://jeff-jks.tistory.com/"
+  categoryAssetList: "\uC0AC\uC6A9\uD55C \uC5D0\uC14B"
+  assetLists:
+  - assetCategory: "\uBAA8\uB378\uB9C1"
+    assetNames: 'Ballistic Turret
+
+      Chainlink Fences
+
+      EnergyShieldEffect
+
+      Futuristic
+      Aircrafts
+
+      Free SF Fighter
+
+      Hyper Falcon Modular Spaceship
+
+      Low
+      poly combat drone
+
+      Military Helicopter
+
+      Modular Space Platform
+      Kit
+
+      PBR RPG/FPS Game Assets (Industrial Set v1.0)
+
+      Powerup Crate
+
+      Rock
+      and Boulders 2
+
+      RPG/FPS Game Assets for PCbile (Industrial Set v2.0)
+
+      Scifi
+      RTS Series Mega Pack I
+
+      Scifi RTS Series Mega Pack II
+
+      Simple Gems
+      Ultimate Animated Customizable Pack
+
+      Simple Sci-Fi Turret
+
+      Spaceship+Fighter+Set
+      of...+
+
+      Space Missiles
+
+      Spaceships Fleet III Mega Pack I
+
+      UXR
+      Tetrahedron (by ENEA LE FONS, Sketchfab)'
+  - assetCategory: "\uC774\uBBF8\uC9C0 / \uD14D\uC2A4\uCCD0"
+    assetNames: 'https://www.freepik.com/
+
+      Sci Fi UI Pack
+
+      Sci-Fi Skill
+      Icon Pack
+
+      Sci-Fi Texture Pack
+
+      VFX Ui Progress Bar'
+  - assetCategory: VFX
+    assetNames: 'Effect textures and prefabs
+
+      Glowing orbs pack Vol 4
+
+      Ground
+      Crack
+
+      Magic Hits
+
+      Quality Explosion SpriteKit
+
+      Shockwave
+      Effects
+
+      Space Shooter Projectile 2.5D Part 1 Package
+
+      Waf FX'
+  - assetCategory: "\uC0AC\uC6B4\uB4DC"
+    assetNames: 'CAVE Interactive CO. LTD (Ketsui Arrange)
+
+      Fantasy Menu SFX'
+  - assetCategory: "\uBC30\uACBD \uBAA8\uB378\uB9C1"
+    assetNames: 'City Highways Construction Kit
+
+      City Street Props
+
+      Grass
+      And Flowers Pack 1
+
+      LowPoly Trees and Rocks
+
+      Race Tracks
+
+      Seamless
+      Textures
+
+      Simple Water Shader URP
+
+      Standard Asset
+
+      Windridge
+      City
+
+      World Space Trees'
+  - assetCategory: "\uAE30\uD0C0"
+    assetNames: 'Asset Usage Detector
+
+      Auto Letterbox
+
+      DOTween'
+  creditDate: 2023/06/29
+  unityVersion: 2021.3.24f1

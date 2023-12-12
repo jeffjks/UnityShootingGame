@@ -206,7 +206,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
                 yield return new WaitForMillisecondFrames(1000);
             }
             StopAllPatterns();
-            yield return new WaitForMillisecondFrames(1200);
+            yield return new WaitForMillisecondFrames(200);
         }
     }
 

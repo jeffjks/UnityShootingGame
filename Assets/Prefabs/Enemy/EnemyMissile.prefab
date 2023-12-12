@@ -127,7 +127,6 @@ MonoBehaviour:
   m_EnemyType: 0
   m_Score: 1000
   m_IsRoot: 0
-  m_Renderer: {fileID: 3320463751626211907}
   m_Engine: {fileID: 6445723642785642097}
 --- !u!114 &4561686346761756346
 MonoBehaviour:
@@ -329,7 +328,7 @@ ParticleSystem:
   lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
-  cullingMode: 1
+  cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0

@@ -152,7 +152,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         foreach (var smallTurret in m_SmallTurrets)
         {
-            smallTurret.StartPattern("0", new BulletPattern_EnemyBoss4_SmallTurret_0(smallTurret));
+            if (smallTurret != null)
+                smallTurret.StartPattern("0", new BulletPattern_EnemyBoss4_SmallTurret_0(smallTurret));
         }
         yield return new WaitForMillisecondFrames(1000);
 
@@ -172,7 +173,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(2000);
             foreach (var smallTurret in m_SmallTurrets)
             {
-                smallTurret.StopPattern("0");
+                if (smallTurret != null)
+                    smallTurret.StopPattern("0");
             }
             
             foreach (var subTurret in m_SubTurrets) {
@@ -208,7 +210,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             
             foreach (var smallTurret in m_SmallTurrets)
             {
-                smallTurret.StartPattern("0", new BulletPattern_EnemyBoss4_SmallTurret_0(smallTurret));
+                if (smallTurret != null)
+                    smallTurret.StartPattern("0", new BulletPattern_EnemyBoss4_SmallTurret_0(smallTurret));
             }
             yield return new WaitForMillisecondFrames(1000);
             
@@ -262,7 +265,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         foreach (var smallTurret in m_SmallTurrets)
         {
-            smallTurret.StartPattern("0", new BulletPattern_EnemyBoss4_SmallTurret_0(smallTurret));
+            if (smallTurret != null)
+                smallTurret.StartPattern("0", new BulletPattern_EnemyBoss4_SmallTurret_0(smallTurret));
         }
         yield return new WaitForMillisecondFrames(1000);
 

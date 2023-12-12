@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4162767928492738121}
   - component: {fileID: 4162767928492738120}
   m_Layer: 18
-  m_Name: PlayerShot_Missile
+  m_Name: PlayerShot_MissileA
   m_TagString: PlayerShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

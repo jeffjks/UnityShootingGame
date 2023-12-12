@@ -68,7 +68,7 @@ Material:
     - _OverMask_Speed_Y: 0
     - _OverMask_Tiling_X: 5
     - _OverMask_Tiling_Y: 2.49
-    - _ProgressBar: 0.9831333
+    - _ProgressBar: 1
     m_Colors:
     - _Color0: {r: 1, g: 1, b: 1, a: 1}
     - _Color1: {r: 1, g: 1, b: 1, a: 1}

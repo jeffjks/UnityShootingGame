@@ -85,12 +85,12 @@ public class ReplayManager : MonoBehaviour
             unused = (byte) ((inputData >> 24) & 0xFF);
         }
 
-        public void SetMoveVectorData(Vector2Int rawInputVector)
+        public void SetMoveVectorData(Vector2Int inputVector)
         {
-            var moveLeft = (byte) (rawInputVector.x == -1 ? 1 : 0);
-            var moveRight = (byte) (rawInputVector.x == 1 ? 1 : 0);
-            var moveDown = (byte) (rawInputVector.y == -1 ? 1 : 0);
-            var moveUp = (byte) (rawInputVector.y == 1 ? 1 : 0);
+            var moveLeft = (byte) (inputVector.x == -1 ? 1 : 0);
+            var moveRight = (byte) (inputVector.x == 1 ? 1 : 0);
+            var moveDown = (byte) (inputVector.y == -1 ? 1 : 0);
+            var moveUp = (byte) (inputVector.y == 1 ? 1 : 0);
 
             movementInputFlag = 1;
             inputMovement = (byte) ((moveLeft << 0) | (moveRight << 1) | (moveDown << 2)| (moveUp << 3));
@@ -346,13 +346,13 @@ public class ReplayManager : MonoBehaviour
         InitPlayer(playerAttackLevel);
     }
     
-    public void WriteUserMovementInput(Vector2Int rawInputVector)
+    public void WriteUserMovementInput(Vector2Int inputVector)
     {
         if (SystemManager.GameMode == GameMode.Replay)
             return;
         
-        _context.SetMoveVectorData(rawInputVector);
-        //WriteReplayLogFile($"WritePressInput {rawInputVector} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        _context.SetMoveVectorData(inputVector);
+        //WriteReplayLogFile($"WritePressInput {inputVector} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
     }
 
     public void WriteUserPressInput(bool isPressed, KeyType keyType)

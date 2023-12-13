@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool IsFirePressed { get; set; }
     public bool IsBombPressed { get; private set; }
     private int _firePressFrame;
+
+    private Vector2Int _rawInputVector;
     
     private void Awake()
     {
@@ -53,7 +55,10 @@ public class PlayerController : MonoBehaviour
     private void OnControllableChanged(bool controllable)
     {
         if (controllable)
+        {
+            _playerMovement.HandlePlayerMovement(_rawInputVector);
             return;
+        }
         _playerMovement.HandlePlayerMovement(Vector2Int.zero);
     }
     
@@ -77,15 +82,17 @@ public class PlayerController : MonoBehaviour
         ExecuteLaser();
     }
 
-    public void OnMoveInvoked(Vector2Int rawInputVector)
+    public void OnMoveInvoked(Vector2Int inputVector)
     {
+        _rawInputVector = inputVector;
+        
         if (!ReplayManager.IsUsingReplay)
             return;
         
-        _playerMovement.HandlePlayerMovement(rawInputVector);
-        _playerShotHandler.ReceiveHorizontalMovement(rawInputVector.x);
+        _playerMovement.HandlePlayerMovement(inputVector);
+        _playerShotHandler.ReceiveHorizontalMovement(inputVector.x);
         
-        ReplayManager.Instance.WriteUserMovementInput(rawInputVector);
+        ReplayManager.Instance.WriteUserMovementInput(inputVector);
     }
 
     public void OnFireInvoked(bool isPressed)

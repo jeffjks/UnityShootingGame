@@ -36,8 +36,8 @@ public class InGameInputController : MonoBehaviour
 
     public void OnMove(InputValue inputValue)
     {
-        var inputVector = inputValue.Get<Vector2>();
-        var rawInputVector = new Vector2Int(Math.Sign(inputVector.x), Math.Sign(inputVector.y));
-        Action_OnMove?.Invoke(rawInputVector);
+        var inputValueVector = inputValue.Get<Vector2>();
+        var inputVector = new Vector2Int(Math.Sign(inputValueVector.x), Math.Sign(inputValueVector.y));
+        Action_OnMove?.Invoke(inputVector);
     }
 }

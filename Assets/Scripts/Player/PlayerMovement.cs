@@ -118,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnRemove()
     {
+        PlayerManager.IsPlayerAlive = false;
         Destroy(transform.root.gameObject);
     }
 

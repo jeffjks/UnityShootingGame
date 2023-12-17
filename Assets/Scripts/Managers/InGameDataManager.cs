@@ -98,12 +98,12 @@ public class InGameDataManager : MonoBehaviour
         UpdateHitCountBonus();
     }
 
-    private void EndHitCount()
+    private void BreakDownHitCount()
     {
         _hitCount = 0;
         _hitCountDecreasingTimer = -1;
         _hitCountLaserCounter = 0;
-        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.End);
+        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.BreakDown);
         UpdateHitCountBonus();
     }
 
@@ -149,10 +149,10 @@ public class InGameDataManager : MonoBehaviour
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
         SystemManager.Action_OnNextStage += InitHitCount;
-        SystemManager.Action_OnBossClear += EndHitCount;
+        SystemManager.Action_OnBossClear += BreakDownHitCount;
         PlayerManager.Action_OnPlayerRevive += InitHitCount;
-        PlayerManager.Action_OnPlayerDead += EndHitCount;
-        PlayerBombHandler.Action_OnBombUse += BreakHitCount;
+        PlayerManager.Action_OnPlayerDead += BreakDownHitCount;
+        PlayerBombHandler.Action_OnBombUse += DecreaseHitCount;
 
         for (var i = 0; i < _itemCount.Length; ++i)
         {
@@ -178,10 +178,10 @@ public class InGameDataManager : MonoBehaviour
             return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
         SystemManager.Action_OnNextStage -= InitHitCount;
-        SystemManager.Action_OnBossClear -= EndHitCount;
+        SystemManager.Action_OnBossClear -= BreakDownHitCount;
         PlayerManager.Action_OnPlayerRevive -= InitHitCount;
-        PlayerManager.Action_OnPlayerDead -= EndHitCount;
-        PlayerBombHandler.Action_OnBombUse -= BreakHitCount;
+        PlayerManager.Action_OnPlayerDead -= BreakDownHitCount;
+        PlayerBombHandler.Action_OnBombUse -= DecreaseHitCount;
     }
 
     private void Start()
@@ -203,13 +203,13 @@ public class InGameDataManager : MonoBehaviour
         if (_hitCountDecreasingTimer > 0)
             _hitCountDecreasingTimer -= 1;
         else if (_hitCountDecreasingTimer == 0)
-            BreakHitCount();
+            DecreaseHitCount();
     }
 
-    private void BreakHitCount()
+    private void DecreaseHitCount()
     {
         _hitCountDecreasingTimer = -1;
-        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.Fade);
+        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.Decreasing);
     }
 
     private IEnumerator HitCountDecreasingController()

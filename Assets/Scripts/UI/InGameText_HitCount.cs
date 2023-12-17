@@ -9,8 +9,8 @@ public class InGameText_HitCount : MonoBehaviour
     public enum HitCountState
     {
         Default,
-        Fade,
-        End
+        Decreasing,
+        BreakDown
     }
     
     public TextMeshProUGUI m_HitCountText;
@@ -66,10 +66,10 @@ public class InGameText_HitCount : MonoBehaviour
             case HitCountState.Default:
                 m_HitCountText.color = _defaultColor;
                 break;
-            case HitCountState.Fade:
+            case HitCountState.Decreasing:
                 m_HitCountText.color = m_FadeColor;
                 break;
-            case HitCountState.End:
+            case HitCountState.BreakDown:
                 m_HitCountText.color = m_EndColor;
                 _hitCountEndCoroutine = HideHitCountText();
                 StartCoroutine(_hitCountEndCoroutine);
@@ -84,7 +84,7 @@ public class InGameText_HitCount : MonoBehaviour
     {
         yield return new WaitForMillisecondFrames(3000);
         Debug.Log("ABC 2");
-        if (_hitCountState == HitCountState.End)
+        if (_hitCountState == HitCountState.BreakDown)
             m_HitCountText.gameObject.SetActive(false);
         _hitCountEndCoroutine = null;
     }

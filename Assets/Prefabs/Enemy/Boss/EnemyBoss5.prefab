@@ -482,7 +482,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
-  m_Score: 100000
+  m_Score: 30000
   m_IsRoot: 1
   m_BottomLine: {fileID: 6861017930850652933}
   m_AllWings: {fileID: 8024313439898444883}

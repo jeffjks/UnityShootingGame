@@ -98,6 +98,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
         
         StopAllPatterns();
         StartPattern("2A", new EnemyPlaneLarge1_BulletPattern_2A(this));
+        StartPattern("2B", new EnemyPlaneLarge1_BulletPattern_2B(this));
 
         NextPhaseExplosion();
     }

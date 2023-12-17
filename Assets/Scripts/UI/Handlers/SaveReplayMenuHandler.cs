@@ -14,9 +14,8 @@ public class SaveReplayMenuHandler : MenuHandler
     public TextErrorMessage m_TextErrorMessage;
     
     private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
-    private string _replayDirectory;
     private const int MAX_REPLAY_NUMBER = 5;
-    private int _currentSelectedSlot;
+    private string _currentReplayDateTime;
 
     private CanvasGroup[] _canvasGroups = new CanvasGroup[MAX_REPLAY_NUMBER];
     private ButtonStyling[] _buttonStylingArray = new ButtonStyling[MAX_REPLAY_NUMBER];
@@ -24,7 +23,6 @@ public class SaveReplayMenuHandler : MenuHandler
 
     private void Awake()
     {
-        _replayDirectory = $"{Application.dataPath}/";
         _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
@@ -32,9 +30,12 @@ public class SaveReplayMenuHandler : MenuHandler
 
     protected override void Init()
     {
+        var currentReplayInfo = ReplayFileController.ReadReplayHeader(-1);
+        _currentReplayDateTime = new DateTime(currentReplayInfo.m_DateTime).ToString("yyyy-MM-dd-HH:mm");
+        
         for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
         {
-            var filePath = $"{_replayDirectory}replay{i}.rep";
+            var filePath = ReplayFileController.GetReplayFilePath(i);
             if (!File.Exists(filePath))
             {
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
@@ -55,34 +56,9 @@ public class SaveReplayMenuHandler : MenuHandler
         }
     }
 
-    public void SaveReplaySlot1()
+    public void SaveReplaySlot(int slot)
     {
-        _currentSelectedSlot = 0;
-        SaveReplay();
-    }
-
-    public void SaveReplaySlot2()
-    {
-        _currentSelectedSlot = 1;
-        SaveReplay();
-    }
-
-    public void SaveReplaySlot3()
-    {
-        _currentSelectedSlot = 2;
-        SaveReplay();
-    }
-
-    public void SaveReplaySlot4()
-    {
-        _currentSelectedSlot = 3;
-        SaveReplay();
-    }
-
-    public void SaveReplaySlot5()
-    {
-        _currentSelectedSlot = 4;
-        SaveReplay();
+        SaveReplay(slot);
     }
 
     public override void Back() { }
@@ -93,10 +69,10 @@ public class SaveReplayMenuHandler : MenuHandler
         LeaveMenu();
     }
 
-    private void SaveReplay()
+    private void SaveReplay(int slot)
     {
-        var oldFilePath = $"{_replayDirectory}replayTemp.rep";
-        var newFilePath = $"{_replayDirectory}replay{_currentSelectedSlot}.rep";
+        var oldFilePath = ReplayFileController.GetReplayFilePath();
+        var newFilePath = ReplayFileController.GetReplayFilePath(slot);
         
         if (!File.Exists(oldFilePath))
         {
@@ -118,6 +94,10 @@ public class SaveReplayMenuHandler : MenuHandler
         {
             CopyAndDelete(oldFilePath, newFilePath);
         }
+        
+        _buttonTexts[slot].SetText(_currentReplayDateTime);
+        
+        Debug.Log($"리플레이 파일을 성공적으로 저장하였습니다: {newFilePath}");
     }
 
     private void CopyAndDelete(string oldFilePath, string newFilePath)
@@ -140,6 +120,6 @@ public class SaveReplayMenuHandler : MenuHandler
         FadeScreenService.ScreenFadeOut(2f);
         yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadScene("MainMenu");
+        SystemManager.QuitGame(null);
     }
 }

@@ -249,8 +249,6 @@ public class BulletPattern_EnemyBoss3_2A : BulletFactory, IBulletPattern
             var newProperty1 = new BulletProperty(pos, BulletImage.PinkLarge, 3.2f, BulletPivot.Fixed, Random.Range(0f, 360f), 2, Random.Range(0f, 360f));
             var newProperty2 = new BulletProperty(pos, BulletImage.PinkSmall, 2.1f, BulletPivot.Fixed, Random.Range(0f, 360f), 3, Random.Range(0f, 360f));
             CreateBullet(property1, spawnTiming, newProperty1);
-            CreateBullet(property1, spawnTiming, newProperty1);
-            CreateBullet(property2, spawnTiming, newProperty2);
             CreateBullet(property2, spawnTiming, newProperty2);
             
             duration += fireDelay[(int)SystemManager.Difficulty];

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78215c75488d9e94cab871c6ff7bfb36, type: 3}
+  m_Name: Hit Count Const Data
+  m_EditorClassIdentifier: 
+  HitCountDecreasingFrame: 80
+  HitCountDecreasingPeriodFrame: 12
+  HitCountLaserMaxCount: 20
+  MaxHitCount: 99999
+  MinHitCount: 0
+  hitCountBonus:
+  - hitCount: 100
+    bonusPercent: 150
+  - hitCount: 200
+    bonusPercent: 200
+  - hitCount: 300
+    bonusPercent: 250
+  - hitCount: 500
+    bonusPercent: 300

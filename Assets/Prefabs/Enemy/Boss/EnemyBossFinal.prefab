@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 0
-  m_Score: 150000
+  m_Score: 50000
   m_IsRoot: 1
   m_BombBarrier: {fileID: 4541800789654134177}
   m_ParticleFireEffect: {fileID: 9052990528080305766}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthType: 0
-  m_DefaultHealth: 125000
+  m_DefaultHealth: 120000
   m_Collider2D:
   - {fileID: 9131807691566928912}
 --- !u!114 &1730303417453691176

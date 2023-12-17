@@ -50,7 +50,7 @@ public class PlayerCollisionDetector : MonoBehaviour
             if (!PlayerInvincibility.IsInvincible) {
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
 
-                if (Utility.CheckLayer(other.gameObject, Layer.AIR)) {
+                if (gameObject.CheckLayer(Layer.AIR)) {
                     _playerUnit.DealCollisionDamage(enemyObject);
                     OnDeath();
                 }

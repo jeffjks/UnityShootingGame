@@ -105,7 +105,7 @@ public abstract class StageManager : MonoBehaviour
     }
 
     protected GameObject CreateEnemy(GameObject obj, Vector3 pos) {
-        if (Utility.CheckLayer(obj, Layer.AIR)) {
+        if (obj.CheckLayer(Layer.AIR)) {
             pos = new Vector3(pos.x, pos.y, Depth.ENEMY);
         }
         GameObject ins = Instantiate(obj, pos, Quaternion.identity);

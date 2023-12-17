@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: SO Item GemGround
   m_EditorClassIdentifier: 
   itemType: 3
-  itemScore: 200
+  itemScore: 500
   activeTimer: -1
-  isAir: 0

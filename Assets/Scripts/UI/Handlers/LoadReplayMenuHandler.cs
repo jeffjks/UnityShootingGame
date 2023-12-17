@@ -79,33 +79,9 @@ public class LoadReplayMenuHandler : MenuHandler
         }
     }
 
-    public void PlayReplaySlot1()
+    public void PlayReplaySlot(int slot)
     {
-        _currentSelectedSlot = 0;
-        Confirm();
-    }
-
-    public void PlayReplaySlot2()
-    {
-        _currentSelectedSlot = 1;
-        Confirm();
-    }
-
-    public void PlayReplaySlot3()
-    {
-        _currentSelectedSlot = 2;
-        Confirm();
-    }
-
-    public void PlayReplaySlot4()
-    {
-        _currentSelectedSlot = 3;
-        Confirm();
-    }
-
-    public void PlayReplaySlot5()
-    {
-        _currentSelectedSlot = 4;
+        _currentSelectedSlot = slot;
         Confirm();
     }
 
@@ -149,7 +125,8 @@ public class LoadReplayMenuHandler : MenuHandler
     private void StartReplay()
     {
         var replayInfo = _replayInfos[_currentSelectedSlot];
-        
+
+        ReplayManager.CurrentReplaySlot = _currentSelectedSlot;
         PlayerManager.CurrentAttributes = replayInfo.m_Attributes;
         SystemManager.SetDifficulty(replayInfo.m_Difficulty);
         SystemManager.Instance.StartStage(replayInfo.m_Stage, replayInfo.m_Seed);

@@ -833,6 +833,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UICanvas: {fileID: 6090565632742941223}
+  m_HitCountConstData: {fileID: 11400000, guid: f5951b6d10d6ecc4e9c0eca4016b488c,
+    type: 2}
 --- !u!114 &1920078058679409277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +912,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 976423
+    m_Bits: 960034
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

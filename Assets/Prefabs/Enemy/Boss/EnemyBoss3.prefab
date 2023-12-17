@@ -1639,7 +1639,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
-  m_Score: 35000
+  m_Score: 15000
   m_IsRoot: 1
   m_Turret:
   - {fileID: 4825628901128920826}
@@ -16494,7 +16494,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 2
-  m_Score: 15000
+  m_Score: 5000
   m_IsRoot: 0
 --- !u!114 &842011555084163259
 MonoBehaviour:

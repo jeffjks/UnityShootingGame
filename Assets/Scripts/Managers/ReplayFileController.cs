@@ -35,7 +35,7 @@ public class ReplayFileController : MonoBehaviour
         _replayFileMode = ReplayFileMode.None;
     }
 
-    private static string GetReplayFilePath(int slot = -1)
+    public static string GetReplayFilePath(int slot = -1)
     {
         if (slot == -1)
             return $"{Application.dataPath}/replayTemp.rep";
@@ -82,7 +82,7 @@ public class ReplayFileController : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    public static bool InitReadingReplayFile(UnityAction onComplete, int slot = -1)
+    public static bool InitReadingReplayFile(UnityAction onComplete, int slot)
     {
         if (_replayFileMode != ReplayFileMode.None)
         {
@@ -211,6 +211,8 @@ public class ReplayFileController : MonoBehaviour
                 _fileStream.Close();
                 _br.Close();
                 break;
+            default:
+                return;
         }
         _replayFileMode = ReplayFileMode.None;
         Debug.Log($"Replay file closed");

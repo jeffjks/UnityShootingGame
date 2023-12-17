@@ -52,8 +52,10 @@ public class ReplayManager : MonoBehaviour
             }
         }
     }
+    
+    public static int CurrentReplaySlot { private get; set; }
 
-    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable;
+    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable && SystemManager.IsInGame;
 
     public static ReplayManager Instance { get; private set; }
     public static int CurrentFrame;
@@ -197,9 +199,13 @@ public class ReplayManager : MonoBehaviour
         _replayDirectory = $"{Application.dataPath}/";
 
         SystemManager.Action_OnQuitInGame += OnClose;
+        SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnNextStage += InitCurrentFrame;
 
 #if UNITY_EDITOR
+        if (!IsUsingReplay)
+            return;
+        
         if (SystemManager.GameMode == GameMode.Replay)
         {
             if (!File.Exists($"{_replayDirectory}replayLog_Replay.txt"))
@@ -226,6 +232,7 @@ public class ReplayManager : MonoBehaviour
     private void OnDestroy()
     {
         SystemManager.Action_OnQuitInGame -= OnClose;
+        SystemManager.Action_OnNextStage -= OnNextStage;
         SystemManager.Action_OnNextStage -= InitCurrentFrame;
     }
 
@@ -266,7 +273,7 @@ public class ReplayManager : MonoBehaviour
 
         if (SystemManager.GameMode == GameMode.Replay)
         {
-            ReplayFileController.InitReadingReplayFile(OnCompleteInitReading);
+            ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
         }
         else
         {
@@ -412,10 +419,21 @@ public class ReplayManager : MonoBehaviour
         _playerController = player.GetComponentInChildren<PlayerController>();
     }
 
+    private void OnNextStage(bool hasNextStage)
+    {
+        if (!hasNextStage)
+            OnClose();
+    }
+
     private void OnClose()
     {
         ReplayFileController.OnClose();
+        
+        if (_logFileStream == null)
+            return;
 #if UNITY_EDITOR
+        if (!IsUsingReplay)
+            return;
         _logFileStream.Close();
         _logFileStream = null;
 #endif
@@ -429,7 +447,7 @@ public class ReplayManager : MonoBehaviour
     public static void WriteReplayLogFile(string str)
     {
 #if UNITY_EDITOR
-        if (!SystemManager.IsInGame)
+        if (!IsUsingReplay)
             return;
         Instance._logFileStream?.WriteLine($"{CurrentFrame}: {str}");
 #endif

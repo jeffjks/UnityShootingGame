@@ -59,7 +59,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             
-            if (m_IsPenetrate && Utility.CheckLayer(other.gameObject, Layer.SMALL))
+            if (m_IsPenetrate && gameObject.CheckLayer(Layer.SMALL))
             {
                 enemyObject.m_EnemyDeath.KillEnemy();
             }

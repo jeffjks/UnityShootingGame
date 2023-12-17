@@ -88,6 +88,6 @@ public class PauseManager : MonoBehaviour
         CriticalStateSystem.SetCriticalState(20);
         AudioService.StopMusic();
         AudioService.StopAllSound();
-        SystemManager.Instance.QuitGame(null);
+        SystemManager.QuitGame(null);
     }
 }

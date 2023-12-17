@@ -57,7 +57,7 @@ public class EnemyPlaneLarge1_BulletPattern_1A : BulletFactory, IBulletPattern
                     var pos = GetFirePos(0);
                     var speed = 5.6f + 0.4f * i;
                     var dir = targetAngle + (rand + 2f * i) * state;
-                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Fixed, dir, 5, 20f));
+                    CreateBullet(new BulletProperty(pos, BulletImage.BlueLarge, speed, BulletPivot.Fixed, dir, 7, 20f));
                     yield return new WaitForMillisecondFrames(70);
                 }
             }
@@ -134,17 +134,47 @@ public class EnemyPlaneLarge1_BulletPattern_2A : BulletFactory, IBulletPattern
             }
             else if (SystemManager.Difficulty == GameDifficulty.Expert)
             {
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, rand, 6, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.1f, BulletPivot.Player, rand, 12, 6f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Player, rand, 6, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.1f, BulletPivot.Player, rand, 6, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, rand, 6, 16f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.1f, BulletPivot.Player, rand, 12, 8f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Player, rand, 6, 16f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.1f, BulletPivot.Player, rand, 6, 16f));
             }
             else
             {
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, rand, 8, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.1f, BulletPivot.Player, rand, 14, 6f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Player, rand, 8, 12f));
-                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.1f, BulletPivot.Player, rand, 8, 12f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 5.6f, BulletPivot.Player, rand, 8, 14f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.1f, BulletPivot.Player, rand, 14, 7f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 6.6f, BulletPivot.Player, rand, 8, 14f));
+                CreateBullet(new BulletProperty(pos, BulletImage.BlueSmall, 7.1f, BulletPivot.Player, rand, 8, 14f));
+            }
+            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+        }
+        onCompleted?.Invoke();
+    }
+}
+
+public class EnemyPlaneLarge1_BulletPattern_2B : BulletFactory, IBulletPattern
+{
+    public EnemyPlaneLarge1_BulletPattern_2B(EnemyObject enemyObject) : base(enemyObject) { }
+
+    public IEnumerator ExecutePattern(UnityAction onCompleted)
+    {
+        int[] fireDelay = { 1350, 900, 700 };
+        yield return new WaitForMillisecondFrames(1500);
+
+        while(!_enemyObject.TimeLimitState)
+        {
+            var pos = GetFirePos(0);
+            var rand = Random.Range(0f, 360f);
+            
+            if (SystemManager.Difficulty == GameDifficulty.Hell)
+            {
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 5f, BulletPivot.Fixed, rand, 20, 18f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 5.4f, BulletPivot.Fixed, rand + 9f, 20, 18f));
+                yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+                
+                rand = Random.Range(0f, 360f);
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 5f, BulletPivot.Fixed, rand, 20, 18f));
+                CreateBullet(new BulletProperty(pos, BulletImage.PinkSmall, 5.4f, BulletPivot.Fixed, rand + 9f, 20, 18f));
             }
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
         }

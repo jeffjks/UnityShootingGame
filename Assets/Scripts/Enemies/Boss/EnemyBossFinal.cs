@@ -71,7 +71,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         base.Update();
         
         if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.50f) { // 체력 50% 이하
+            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }
@@ -196,6 +196,8 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         StopAllPatterns();
         PlayerInvincibility.Action_OnInvincibilityChanged -= SetBombBarrier;
         m_BombBarrier.SetActive(false);
+        m_ParticleFireEffect.gameObject.SetActive(false);
+        m_ParticleLightningEffect.gameObject.SetActive(false);
         
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);

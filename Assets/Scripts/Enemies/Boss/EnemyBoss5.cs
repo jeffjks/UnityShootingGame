@@ -123,14 +123,20 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator InitMaterial() {
         yield return new WaitForMillisecondFrames(400);
-        for (int i = 0; i < _wingMeshRenderers.Length; i++) {
-            _wingMeshRenderers[i].material.SetColor("_EmissionColor", Color.white);
+
+        foreach (var meshRenderer in _wingMeshRenderers)
+        {
+            if (meshRenderer == null)
+                continue;
+            meshRenderer.material.SetColor("_EmissionColor", Color.white);
         }
         m_WingsForAppearance.SetActive(false);
-        for (int i = 0; i < _wingMeshRenderers.Length; i++) {
-            _wingMeshRenderers[i].gameObject.SetActive(true);
+        foreach (var meshRenderer in _wingMeshRenderers)
+        {
+            if (meshRenderer == null)
+                continue;
+            meshRenderer.gameObject.SetActive(true);
         }
-        yield break;
     }
 
     public void ToNextPhase() {

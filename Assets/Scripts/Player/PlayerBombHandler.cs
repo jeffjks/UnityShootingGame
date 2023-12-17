@@ -2,12 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerBombHandler : MonoBehaviour
 {
     public GameObject m_Bomb, m_Explosion, m_BombDamage;
-    
-    public bool IsBombInUse { get; private set; }
+
+    public static event UnityAction Action_OnBombUse;
+    private static bool _isBombInUse;
+
+    public static bool IsBombInUse
+    {
+        get => _isBombInUse;
+        private set
+        {
+            _isBombInUse = value;
+            Action_OnBombUse?.Invoke();
+        }
+    }
 
     private const int TARGET_TIMER = 400;
     private const int REMOVE_TIMER = 2600; // TARGET_TIMER 이후

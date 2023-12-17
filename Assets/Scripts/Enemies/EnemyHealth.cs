@@ -38,6 +38,25 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         }
     }
 
+    private bool IsLowHealth {
+        get
+        {
+            if (m_DefaultHealth < 10000)
+            {
+                if (HealthPercent < 0.30f) // 30% 미만
+                    return true;
+            }
+            else
+            {
+                // 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
+                if (CurrentHealth < 3000)
+                    return true;
+            }
+
+            return false;
+        }
+    }
+
     public float HealthPercent => (float) _currentHealth / m_DefaultHealth;
 
     private void Awake()
@@ -109,7 +128,9 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         if (m_DefaultHealth >= 0f) {
             CurrentHealth -= amount;
 
-            if (CurrentHealth <= 0) {
+            if (CurrentHealth <= 0)
+            {
+                CurrentHealth = 0;
                 OnHpZero();
             }
         }
@@ -177,28 +198,16 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         Action_DamagingBlend?.Invoke();
         
         if (!_isLowHealthState) {
-            if (IsLowHealth()) {
+            if (IsLowHealth) {
                 _isLowHealthState = true;
                 Action_LowHealthState?.Invoke();
             }
         }
     }
 
-    private bool IsLowHealth() {
-        if (m_DefaultHealth < 10000) {
-            if (HealthPercent < 0.30f) { // 30% 미만
-                return true;
-            }
-        }
-        else { // 최대 체력이 10000 이상이면 체력 3000 미만시 붉은색 점멸
-            if (CurrentHealth < 3000) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void OnHpZero() {
-        _enemyDeath.KillEnemy();
+    private void OnHpZero()
+    {
+        if (_enemyDeath.KillEnemy())
+            InGameDataManager.Instance.AddHitCount();
     }
 }

@@ -23,7 +23,7 @@ public class EnemyItemCreater : MonoBehaviour
             return;
         
         Vector3 itemPos;
-        if (Utility.CheckLayer(gameObject, Layer.AIR)) {
+        if (gameObject.CheckLayer(Layer.AIR)) {
             itemPos = new Vector3(transform.position.x, transform.position.y, Depth.ITEMS);
         }
         else {
@@ -35,7 +35,7 @@ public class EnemyItemCreater : MonoBehaviour
         var gemItem = item as ItemGem;
         if (gemItem)
         {
-            if (Utility.CheckLayer(gameObject, Layer.AIR)) {
+            if (gameObject.CheckLayer(Layer.AIR)) {
                 for (int i = 0; i < m_ItemNumber; i++) {
                     GameObject obj = PoolingManager.PopFromPool(gemItem.m_ObjectName, PoolingParent.GemAir);
                     Vector3 pos = transform.position + (Vector3) Utility.GetRandomPositionInsideCircle(0.8f);

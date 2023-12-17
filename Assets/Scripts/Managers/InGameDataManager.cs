@@ -1,19 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 using UnityEngine.Events;
 
 public class InGameDataManager : MonoBehaviour
 {
     public RectTransform m_UICanvas;
+    [SerializeField] private HitCountConstData m_HitCountConstData;
     
     public event UnityAction<long> Action_OnUpdateScore;
     public event UnityAction<int, int> Action_OnUpdateBombNumber;
+    public event UnityAction<int, bool> Action_OnUpdateHitCount;
+    public event UnityAction Action_OnFadeHitCount;
     
     private bool _destroySingleton;
     private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
+    private int _hitCount;
+    private int _hitCountDecreasingTimer;
+    private int _hitCountLaserCounter;
+    private int _currentHitCountBonusPercent = 100;
     
     private readonly long[] _stageScore = {0, 0, 0, 0, 0};
     private readonly int[] _stageMiss = {0, 0, 0, 0, 0};
@@ -57,6 +65,59 @@ public class InGameDataManager : MonoBehaviour
             Action_OnUpdateBombNumber?.Invoke(BombNumber, value);
         }
     }
+
+    public void AddHitCount(int value = 1)
+    {
+        if (!PlayerManager.IsPlayerAlive)
+            return;
+        if (PlayerBombHandler.IsBombInUse)
+            return;
+        _hitCount += value;
+        _hitCount = Mathf.Min(_hitCount, m_HitCountConstData.MaxHitCount);
+        Action_OnUpdateHitCount?.Invoke(_hitCount, true);
+        UpdateHitCountBonus();
+        _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
+    }
+
+    private void SubtractHitCount(int value = 1)
+    {
+        if (!PlayerManager.IsPlayerAlive)
+            return;
+        _hitCount -= value;
+        _hitCount = Mathf.Max(_hitCount, m_HitCountConstData.MinHitCount);
+        Action_OnUpdateHitCount?.Invoke(_hitCount, false);
+        UpdateHitCountBonus();
+    }
+
+    private void InitHitCount()
+    {
+        _hitCount = 0;
+        _hitCountDecreasingTimer = 0;
+        _hitCountLaserCounter = 0;
+        Action_OnUpdateHitCount?.Invoke(_hitCount, true);
+        UpdateHitCountBonus();
+    }
+
+    private void InitHitCount(bool hasNextStage)
+    {
+        InitHitCount();
+    }
+
+    public int HitCountLaserCounter
+    {
+        get => _hitCountLaserCounter;
+        set
+        {
+            _hitCountLaserCounter = value;
+            _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
+            
+            if (_hitCountLaserCounter >= m_HitCountConstData.HitCountLaserMaxCount)
+            {
+                _hitCountLaserCounter %= m_HitCountConstData.HitCountLaserMaxCount;
+                AddHitCount();
+            }
+        }
+    }
     
     public static InGameDataManager Instance { get; private set; }
 
@@ -73,6 +134,8 @@ public class InGameDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
+        SystemManager.Action_OnNextStage += InitHitCount;
+        PlayerManager.Action_OnPlayerRevive += InitHitCount;
 
         for (var i = 0; i < _itemCount.Length; ++i)
         {
@@ -97,6 +160,8 @@ public class InGameDataManager : MonoBehaviour
         if (_destroySingleton)
             return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
+        SystemManager.Action_OnNextStage -= InitHitCount;
+        PlayerManager.Action_OnPlayerRevive -= InitHitCount;
     }
 
     private void Start()
@@ -105,6 +170,7 @@ public class InGameDataManager : MonoBehaviour
         CurrentShipAttributes = PlayerManager.CurrentAttributes;
         MaxBombNumber = CurrentShipAttributes.GetAttributes(AttributeType.Bomb) + 2;
         InitBombNumber();
+        StartCoroutine(HitCountDecreasingController());
         
 #if UNITY_EDITOR
         if (DebugOption.SceneMode == 1)
@@ -112,29 +178,61 @@ public class InGameDataManager : MonoBehaviour
 #endif
     }
 
-    public void AddScore(long score, bool effect, ItemType itemType)
+    private void Update()
     {
-        AddScore(score, effect);
+        if (_hitCountDecreasingTimer > 0)
+            _hitCountDecreasingTimer -= 1;
+        else if (_hitCountDecreasingTimer == 0)
+        {
+            _hitCountDecreasingTimer = -1;
+            Action_OnFadeHitCount?.Invoke();
+        }
+    }
+
+    private IEnumerator HitCountDecreasingController()
+    {
+        while (true)
+        {
+            while (_hitCountDecreasingTimer != -1)
+                yield return new WaitForFrames(1);
+            SubtractHitCount();
+            yield return new WaitForFrames(m_HitCountConstData.HitCountDecreasingPeriodFrame);
+        }
+    }
+
+    public void AddScore(long score, bool displayText, ItemType itemType)
+    {
+        AddScore(score, displayText, false);
 
         _itemCount[SystemManager.Stage][itemType]++;
     }
 
-    public void AddScore(long score, bool effect = false)
+    public void AddScore(long score, bool displayText, bool applyHitCountBonus)
     {
         if (SystemManager.Stage == -1)
             return;
-        TotalScore += score;
-        _stageScore[SystemManager.Stage] += score;
 
-        if (effect)
+        var bonusPercent = applyHitCountBonus ? _currentHitCountBonusPercent : 100;
+        
+        TotalScore += score * bonusPercent / 100;
+        _stageScore[SystemManager.Stage] += score * bonusPercent / 100;
+        Debug.Log(bonusPercent);
+
+        if (displayText)
         {
-            DisplayTextEffect(score);
+            DisplayTextEffect(score, bonusPercent);
         }
     }
 
-    public void DisplayTextEffect(long score)
+    public void DisplayTextEffect(long score, int bonusPercent = 100)
     {
-        DisplayTextEffect(score.ToString());
+        string scoreText;
+        if (bonusPercent == 100)
+            scoreText = score.ToString();
+        else
+            scoreText = ((float)bonusPercent / 100).ToString("F2");
+            
+        DisplayTextEffect(scoreText);
     }
 
     public void DisplayTextEffect(string text, float timeScale = 1f)
@@ -169,6 +267,20 @@ public class InGameDataManager : MonoBehaviour
         obj.SetActive(true);
         ScoreText scoreText = obj.GetComponent<ScoreText>();
         scoreText.OnStart(pos, text, timeScale, isTextOnRight);
+    }
+
+    private void UpdateHitCountBonus()
+    {
+        var lastBonusPercent = 100;
+        foreach (var hitCountBonus in m_HitCountConstData.hitCountBonus)
+        {
+            if (_hitCount < hitCountBonus.hitCount)
+                break;
+
+            lastBonusPercent = hitCountBonus.bonusPercent;
+        }
+
+        _currentHitCountBonusPercent = lastBonusPercent;
     }
 
     public void InitBombNumber() {
@@ -221,6 +333,7 @@ public class InGameDataManager : MonoBehaviour
     private void DestroySelf()
     {
         Instance = null;
+        StopAllCoroutines();
         Destroy(gameObject);
     }
 }

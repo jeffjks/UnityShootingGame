@@ -15,16 +15,10 @@ public class FadeScreenService : MonoBehaviour
 	public static event Action<float> Action_OnChangeScreenAlpha;
 	private static FadeState _currentState = FadeState.FadeIn;
     private static FadeScreenService Instance { get; set; }
-
-    private static float _alpha;
+    
     private static float Alpha
     {
-	    get => _alpha;
-	    set
-	    {
-		    _alpha = value;
-		    SetScreenAlpha(_alpha);
-	    }
+	    set => Action_OnChangeScreenAlpha?.Invoke(value);
     }
     
     private void Awake()
@@ -92,10 +86,5 @@ public class FadeScreenService : MonoBehaviour
 		Alpha = 0f;
 		yield return new WaitForFrames(1);
 		_currentState = FadeState.FadeOut;
-	}
-
-	private static void SetScreenAlpha(float alpha)
-	{
-		Action_OnChangeScreenAlpha?.Invoke(alpha);
 	}
 }

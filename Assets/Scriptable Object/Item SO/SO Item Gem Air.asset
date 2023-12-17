@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: SO Item Gem Air
   m_EditorClassIdentifier: 
   itemType: 4
-  itemScore: 100
+  itemScore: 200
   activeTimer: -1
-  isAir: 1

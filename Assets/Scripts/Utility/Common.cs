@@ -621,7 +621,7 @@ public class EnemyBuilder {
     }
 
     public EnemyBuilder SetPosition(Vector3 pos) {
-        if (Utility.CheckLayer(_prefab, Layer.AIR)) {
+        if (_prefab.CheckLayer(Layer.AIR)) {
             _spawnPosition = new Vector3(pos.x, pos.y, Depth.ENEMY);
         }
         else

@@ -25,11 +25,13 @@ public class PlayerLaser : PlayerObject
             if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 유닛이고
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
                 
-                if (Utility.CheckLayer(other.gameObject, Layer.LARGE)) { // 대형이면
+                if (other.gameObject.CheckLayer(Layer.LARGE)) { // 대형이면
                     DealDamage(enemyObject); // 데미지 줌
+                    InGameDataManager.Instance.HitCountLaserCounter++;
                 }
                 else { // 소형이면 기냥 죽임
-                    enemyObject.m_EnemyDeath.KillEnemy();
+                    if (enemyObject.m_EnemyDeath.KillEnemy())
+                        InGameDataManager.Instance.AddHitCount();
                 }
             }
         }

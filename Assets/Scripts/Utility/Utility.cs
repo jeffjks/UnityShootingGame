@@ -82,7 +82,7 @@ public static class Utility
     }
     
 
-    public static bool CheckLayer(GameObject obj, int layerValue)
+    public static bool CheckLayer(this GameObject obj, int layerValue)
     {
         if ((1 << obj.layer & layerValue) != 0)
         {

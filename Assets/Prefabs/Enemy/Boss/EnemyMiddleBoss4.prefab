@@ -725,7 +725,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
-  m_Score: 10000
+  m_Score: 7500
   m_IsRoot: 1
   m_FrontTurret: {fileID: 8222217728715106486}
   m_BackTurret: {fileID: 22921206767153171}
@@ -5833,7 +5833,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
-  m_Score: 4000
+  m_Score: 2500
   m_IsRoot: 0
   m_EnemyItemCreater: {fileID: 4173229431830863216}
 --- !u!114 &8101644495367498339
@@ -6394,7 +6394,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
-  m_Score: 4000
+  m_Score: 2500
   m_IsRoot: 0
   m_EnemyItemCreater: {fileID: 8101009540537406445}
 --- !u!114 &5750560266306257331

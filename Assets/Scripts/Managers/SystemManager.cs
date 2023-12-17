@@ -27,7 +27,7 @@ public class SystemManager : MonoBehaviour
     public static event Action Action_OnFinishEndingCredit;
     public static event Action Action_OnQuitInGame;
     
-    void Awake()
+    private void Awake()
     {
         if (Instance != null) {
             Destroy(gameObject);
@@ -139,9 +139,9 @@ public class SystemManager : MonoBehaviour
         SceneManager.LoadScene("EndingRecord");
     }
 
-    public void QuitGame(Action onCompleted) {
+    public static void QuitGame(Action onCompleted) {
         Action_OnQuitInGame?.Invoke();
-        StopAllCoroutines();
+        Instance.StopAllCoroutines();
         SceneManager.LoadScene("MainMenu");
         onCompleted?.Invoke();
     }

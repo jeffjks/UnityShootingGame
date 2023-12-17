@@ -116,7 +116,7 @@ public class ExplosionJsonManager : MonoBehaviour
             Vector3 explosionPosition = enemyDeath.transform.TransformPoint(transformPosition);
             Vector2 randomPos = (radius == 0f) ? Vector2.zero : Utility.GetRandomPositionInsideCircle(radius);
             
-            if (Utility.CheckLayer(enemyDeath.gameObject, Layer.AIR)) {
+            if (enemyDeath.gameObject.CheckLayer(Layer.AIR)) {
                 explosionPosition = new Vector3(explosionPosition.x + randomPos.x, explosionPosition.y + randomPos.y, Depth.EXPLOSION);
             }
             else {

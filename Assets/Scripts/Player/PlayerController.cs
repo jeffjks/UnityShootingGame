@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
     {
         if (InGameDataManager.Instance.BombNumber <= 0)
             return;
-        if (_playerBombHandler.IsBombInUse)
+        if (PlayerBombHandler.IsBombInUse)
             return;
         if (SystemManager.PlayState is not (PlayState.None or PlayState.OnBoss or PlayState.OnMiddleBoss))
             return;

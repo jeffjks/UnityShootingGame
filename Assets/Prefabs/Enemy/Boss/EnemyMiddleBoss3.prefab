@@ -58,7 +58,7 @@ MonoBehaviour:
   m_EnemyHealth: {fileID: 0}
   m_EnemyDeath: {fileID: 0}
   m_EnemyType: 1
-  m_Score: 12500
+  m_Score: 10000
   m_IsRoot: 1
   m_NextPhaseExplosionCreater: {fileID: 7336781965597172946}
 --- !u!114 &696288135215100546

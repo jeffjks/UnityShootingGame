@@ -23,7 +23,8 @@ public class PlayerManager : MonoBehaviour
     
     private const int REVIVE_DELAY = 1500;
 
-    public static Action Action_OnPlayerRevive;
+    public static event Action Action_OnPlayerDead;
+    public static event Action Action_OnPlayerRevive;
 
     public static PlayerManager Instance { get; private set; }
     
@@ -76,6 +77,7 @@ public class PlayerManager : MonoBehaviour
     {
         var playerReviveX = Mathf.Clamp(deadPosition.x, -Size.CAMERA_MOVE_LIMIT, Size.CAMERA_MOVE_LIMIT);
         RevivePosition = new Vector3(playerReviveX, REVIVE_POSITION_Y, Depth.PLAYER);
+        Action_OnPlayerDead?.Invoke();
         
         IsPlayerAlive = false;
         PlayerUnit.IsControllable = false;

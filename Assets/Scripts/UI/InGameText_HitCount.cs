@@ -6,38 +6,36 @@ using TMPro;
 
 public class InGameText_HitCount : MonoBehaviour
 {
+    public enum HitCountState
+    {
+        Default,
+        Fade,
+        End
+    }
+    
     public TextMeshProUGUI m_HitCountText;
+    public Color m_FadeColor;
+    public Color m_EndColor;
 
     private InGameDataManager _inGameDataManager;
     private int _currentHitCount;
-    private bool _isFade;
-    private bool IsFade
-    {
-        set
-        {
-            if (_isFade == value)
-                return;
-            _isFade = value;
-
-            SetTextAlpha(_isFade ? 0.5f : 1f);
-        }
-    }
+    private Color _defaultColor;
+    private HitCountState _hitCountState = HitCountState.Default;
+    private IEnumerator _hitCountEndCoroutine;
 
     private void Awake()
     {
+        _defaultColor = m_HitCountText.color;
         _inGameDataManager = FindObjectOfType<InGameDataManager>();
+        
         _inGameDataManager.Action_OnUpdateHitCount += UpdateHitCount;
-        _inGameDataManager.Action_OnFadeHitCount += OnFadeHitCount;
-        PlayerManager.Action_OnPlayerDead += OnFadeHitCount;
-        PlayerBombHandler.Action_OnBombUse += OnFadeHitCount;
+        _inGameDataManager.Action_OnChangeHitCountState += SetHitCountState;
     }
 
     private void OnDestroy()
     {
         _inGameDataManager.Action_OnUpdateHitCount -= UpdateHitCount;
-        _inGameDataManager.Action_OnFadeHitCount -= OnFadeHitCount;
-        PlayerManager.Action_OnPlayerDead -= OnFadeHitCount;
-        PlayerBombHandler.Action_OnBombUse -= OnFadeHitCount;
+        _inGameDataManager.Action_OnChangeHitCountState -= SetHitCountState;
     }
 
     private void UpdateHitCount(int value, bool isIncreasing)
@@ -50,18 +48,44 @@ public class InGameText_HitCount : MonoBehaviour
         if (PlayerBombHandler.IsBombInUse)
             return;
         if (isIncreasing)
-            IsFade = false;
+            SetHitCountState(HitCountState.Default);
     }
 
-    private void OnFadeHitCount()
+    private void SetHitCountState(HitCountState hitCountState)
     {
-        IsFade = true;
+        if (_hitCountState == hitCountState)
+            return;
+        
+        if (_hitCountEndCoroutine != null)
+            StopCoroutine(_hitCountEndCoroutine);
+        _hitCountState = hitCountState;
+        Debug.Log(_hitCountState);
+        
+        switch (_hitCountState)
+        {
+            case HitCountState.Default:
+                m_HitCountText.color = _defaultColor;
+                break;
+            case HitCountState.Fade:
+                m_HitCountText.color = m_FadeColor;
+                break;
+            case HitCountState.End:
+                m_HitCountText.color = m_EndColor;
+                _hitCountEndCoroutine = HideHitCountText();
+                StartCoroutine(_hitCountEndCoroutine);
+                break;
+            default:
+                m_HitCountText.color = _defaultColor;
+                break;
+        }
     }
 
-    private void SetTextAlpha(float alpha)
+    private IEnumerator HideHitCountText()
     {
-        var oldColor = m_HitCountText.color;
-        oldColor.a = alpha;
-        m_HitCountText.color = oldColor;
+        yield return new WaitForMillisecondFrames(3000);
+        Debug.Log("ABC 2");
+        if (_hitCountState == HitCountState.End)
+            m_HitCountText.gameObject.SetActive(false);
+        _hitCountEndCoroutine = null;
     }
 }

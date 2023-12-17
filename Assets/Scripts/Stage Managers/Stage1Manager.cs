@@ -153,8 +153,7 @@ public class Stage1Manager : StageManager
         }
         yield return new WaitForMillisecondFrames(20000);
         CreateEnemy(m_ItemHeliRed, new Vector2(1.5f, 3f)); // Item Heli
-        yield return new WaitForMillisecondFrames(14000);
+        yield return new WaitForMillisecondFrames(13000);
         CreateEnemy(m_PlaneMedium_1, new Vector2(3f, 3f));
-        yield break;
     }
 }

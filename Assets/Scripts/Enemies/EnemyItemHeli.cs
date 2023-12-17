@@ -12,7 +12,7 @@ public class EnemyItemHeli : EnemyUnit {
     private const int TIME_LIMIT = 9000;
     //private float m_PositionY, m_AddPositionY;
     private const float VERTICAL_SPEED = 1f;
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
 
     private void Start()
     {
@@ -35,8 +35,8 @@ public class EnemyItemHeli : EnemyUnit {
             m_MoveVector.speed = Mathf.Lerp(init_speed, VERTICAL_SPEED, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {

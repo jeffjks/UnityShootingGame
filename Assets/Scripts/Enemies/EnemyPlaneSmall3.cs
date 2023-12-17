@@ -4,15 +4,15 @@ using UnityEngine.Events;
 
 public class EnemyPlaneSmall3 : EnemyUnit, ITargetPosition
 {
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
     private const int TIME_LIMIT = 5000;
 
     private void Start()
     {
         StartPattern("A", new BulletPattern_EnemyPlaneSmall3_A(this));
         CurrentAngle = AngleToPlayer;
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
         SetRotatePattern(new RotatePattern_TargetPlayer(0f, 100f));
     }
 

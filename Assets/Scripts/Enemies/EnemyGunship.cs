@@ -17,18 +17,15 @@ public class EnemyGunship : EnemyUnit, ITargetPosition
         StartCoroutine(_timeLimitCoroutine);
     }
 
-    protected override void Update()
+    protected override void Retreat()
     {
-        base.Update();
-        
-        if (!TimeLimitState) { // Retreat when boss or middle boss state
-            if (SystemManager.PlayState != PlayState.None) {
-                if (_timeLimitCoroutine != null)
-                    StopCoroutine(_timeLimitCoroutine);
-                _timeLimitCoroutine = TimeLimit();
-                StartCoroutine(_timeLimitCoroutine);
-                TimeLimitState = true;
-            }
+        if (!TimeLimitState) // Retreat when boss or middle boss state
+        {
+            if (_timeLimitCoroutine != null)
+                StopCoroutine(_timeLimitCoroutine);
+            _timeLimitCoroutine = TimeLimit();
+            StartCoroutine(_timeLimitCoroutine);
+            TimeLimitState = true;
         }
     }
 

@@ -8,7 +8,7 @@ public class EnemyPlaneMedium1 : EnemyUnit
     private const int TIME_LIMIT = 10000;
     //private float m_PositionY, m_AddPositionY;
     private const float VERTICAL_SPEED = 0.2f;
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
 
     private void Start()
     {
@@ -31,8 +31,8 @@ public class EnemyPlaneMedium1 : EnemyUnit
             m_MoveVector.speed = Mathf.Lerp(init_speed, VERTICAL_SPEED, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {
@@ -50,18 +50,15 @@ public class EnemyPlaneMedium1 : EnemyUnit
         }
     }
 
-    protected override void Update()
+    protected override void Retreat()
     {
-        base.Update();
-        
-        if (!TimeLimitState) { // Retreat when boss or middle boss state
-            if (SystemManager.PlayState != PlayState.None) {
-                if (m_TimeLimit != null)
-                    StopCoroutine(m_TimeLimit);
-                m_TimeLimit = TimeLimit();
-                StartCoroutine(m_TimeLimit);
-                TimeLimitState = true;
-            }
+        if (!TimeLimitState) // Retreat when boss or middle boss state
+        {
+            if (_timeLimitCoroutine != null)
+                StopCoroutine(_timeLimitCoroutine);
+            _timeLimitCoroutine = TimeLimit();
+            StartCoroutine(_timeLimitCoroutine);
+            TimeLimitState = true;
         }
     }
 }

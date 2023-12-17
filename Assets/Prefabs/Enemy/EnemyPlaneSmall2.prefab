@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 6605831065219055242}
   - component: {fileID: 2311702644509920796}
   - component: {fileID: 1641708564027445760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttachementSmall2RightWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 2514272775849922987}
   - component: {fileID: 612429121498685066}
   - component: {fileID: 865773816529073552}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttachementSmall2LeftWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 3002515813066231996}
   - component: {fileID: 159964741152989642}
   - component: {fileID: 6086935472491610636}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing13LeftWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 5123974276913787007}
   - component: {fileID: 8678322836535820366}
   - component: {fileID: 8845209466998801546}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing15RightWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 1836270966981405962}
   - component: {fileID: 6808522411200409365}
   - component: {fileID: 1200329391938281562}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cockpit5White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 2292453246219114944}
   - component: {fileID: 6510674633773473571}
   - component: {fileID: 471368056483590519}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing13RightWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 6315279272834395681}
   - component: {fileID: 5952732264390044039}
   - component: {fileID: 7575405422278843259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EngineSmallThrustersRightWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 4658379340075297002}
   - component: {fileID: 13316591992840393}
   - component: {fileID: 4650750795849669238}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EngineSmallThrustersLeftWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 7555961654700986676}
   - component: {fileID: 2714037388304767125}
   - component: {fileID: 902355655564384869}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hull5White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1065,7 @@ GameObject:
   - component: {fileID: 280584663327378856}
   - component: {fileID: 3456961817215578797}
   - component: {fileID: 6362097016977326955}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MinelayerUnitWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 923383480804457606}
   - component: {fileID: 2684591054190257249}
   - component: {fileID: 1209428232128035330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing15LeftWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ public class InGameDataManager : MonoBehaviour
     public event UnityAction<long> Action_OnUpdateScore;
     public event UnityAction<int, int> Action_OnUpdateBombNumber;
     public event UnityAction<int, bool> Action_OnUpdateHitCount;
-    public event UnityAction Action_OnFadeHitCount;
+    public event UnityAction<InGameText_HitCount.HitCountState> Action_OnChangeHitCountState;
     
     private bool _destroySingleton;
     private long _totalScore;
@@ -92,9 +92,18 @@ public class InGameDataManager : MonoBehaviour
     private void InitHitCount()
     {
         _hitCount = 0;
-        _hitCountDecreasingTimer = 0;
+        _hitCountDecreasingTimer = -1;
         _hitCountLaserCounter = 0;
         Action_OnUpdateHitCount?.Invoke(_hitCount, true);
+        UpdateHitCountBonus();
+    }
+
+    private void EndHitCount()
+    {
+        _hitCount = 0;
+        _hitCountDecreasingTimer = -1;
+        _hitCountLaserCounter = 0;
+        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.End);
         UpdateHitCountBonus();
     }
 
@@ -108,6 +117,11 @@ public class InGameDataManager : MonoBehaviour
         get => _hitCountLaserCounter;
         set
         {
+            if (!PlayerManager.IsPlayerAlive)
+                return;
+            if (PlayerBombHandler.IsBombInUse)
+                return;
+            
             _hitCountLaserCounter = value;
             _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
             
@@ -135,7 +149,10 @@ public class InGameDataManager : MonoBehaviour
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
         SystemManager.Action_OnNextStage += InitHitCount;
+        SystemManager.Action_OnBossClear += EndHitCount;
         PlayerManager.Action_OnPlayerRevive += InitHitCount;
+        PlayerManager.Action_OnPlayerDead += EndHitCount;
+        PlayerBombHandler.Action_OnBombUse += BreakHitCount;
 
         for (var i = 0; i < _itemCount.Length; ++i)
         {
@@ -161,7 +178,10 @@ public class InGameDataManager : MonoBehaviour
             return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
         SystemManager.Action_OnNextStage -= InitHitCount;
+        SystemManager.Action_OnBossClear -= EndHitCount;
         PlayerManager.Action_OnPlayerRevive -= InitHitCount;
+        PlayerManager.Action_OnPlayerDead -= EndHitCount;
+        PlayerBombHandler.Action_OnBombUse -= BreakHitCount;
     }
 
     private void Start()
@@ -183,10 +203,13 @@ public class InGameDataManager : MonoBehaviour
         if (_hitCountDecreasingTimer > 0)
             _hitCountDecreasingTimer -= 1;
         else if (_hitCountDecreasingTimer == 0)
-        {
-            _hitCountDecreasingTimer = -1;
-            Action_OnFadeHitCount?.Invoke();
-        }
+            BreakHitCount();
+    }
+
+    private void BreakHitCount()
+    {
+        _hitCountDecreasingTimer = -1;
+        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.Fade);
     }
 
     private IEnumerator HitCountDecreasingController()
@@ -216,7 +239,6 @@ public class InGameDataManager : MonoBehaviour
         
         TotalScore += score * bonusPercent / 100;
         _stageScore[SystemManager.Stage] += score * bonusPercent / 100;
-        Debug.Log(bonusPercent);
 
         if (displayText)
         {

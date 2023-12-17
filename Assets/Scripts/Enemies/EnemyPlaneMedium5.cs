@@ -10,7 +10,7 @@ public class EnemyPlaneMedium5 : EnemyUnit
     public EnemyUnit m_BackTurret;
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 8500;
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
     private int _side;
 
     private void Start()
@@ -37,8 +37,8 @@ public class EnemyPlaneMedium5 : EnemyUnit
             m_MoveVector.speed = Mathf.Lerp(init_speed, 0f, t_spd);
             yield return new WaitForMillisecondFrames(0);
         }
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {

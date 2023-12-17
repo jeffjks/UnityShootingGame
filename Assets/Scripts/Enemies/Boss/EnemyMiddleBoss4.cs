@@ -14,7 +14,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     private const int TIME_LIMIT = 36000;
 
     private IEnumerator m_CurrentPhase, m_SubPattern;
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
 
     private void Start()
     {
@@ -88,8 +88,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_SubPattern = SubPattern();
         StartCoroutine(m_SubPattern);
 
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0)
@@ -208,8 +208,8 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
 
         BulletManager.BulletsToGems(2000);
-        if (m_TimeLimit != null)
-            StopCoroutine(m_TimeLimit);
+        if (_timeLimitCoroutine != null)
+            StopCoroutine(_timeLimitCoroutine);
         m_MoveVector = new MoveVector(1.4f, 0f);
         m_Phase = -1;
         

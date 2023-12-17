@@ -66,12 +66,8 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             childEnemy.m_IsAir = m_IsAir;
             childEnemy.Init(transform);
         }
-        
-        // else
-        // {
-        //     var rootEnemyUnit = transform.root.GetComponentInParent<EnemyUnit>();
-        //     m_IsAir = rootEnemyUnit.m_IsAir;
-        // }
+
+        StageManager.Action_BossWarningSign += Retreat;
     }
 
     private void Init(Transform root)
@@ -119,6 +115,8 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         m_RotatePattern?.ExecuteRotatePattern(this);
         SetColliderPosition();
     }
+
+    protected virtual void Retreat() { }
 
     private void SetColliderPosition() {
         if (m_IsAir)
@@ -325,6 +323,11 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             targetRotation = Quaternion.AngleAxis(currentAngle, Vector3.down);
         }
         transform.rotation = _defaultRotation * targetRotation;
+    }
+
+    private void OnDestroy()
+    {
+        StageManager.Action_BossWarningSign -= Retreat;
     }
 }
 

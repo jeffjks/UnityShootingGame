@@ -10,7 +10,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
     
     private IEnumerator m_CurrentPattern1, m_CurrentPattern2;
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
     private const int APPEARANCE_TIME = 2800;
     private const int TIME_LIMIT = 20000;
     private const float ROLLING_ANGLE_MAX = 30f;
@@ -53,8 +53,8 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
         StartPattern("1A", new EnemyPlaneLarge1_BulletPattern_1A(this));
 
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
     }
 
     private IEnumerator TimeLimit(int time_limit = 0) {

@@ -14,7 +14,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     private const float ROLLING_ANGLE_MAX = 30f;
 
     private IEnumerator m_CurrentPhase;
-    private IEnumerator m_TimeLimit;
+    private IEnumerator _timeLimitCoroutine;
 
     private void Start()
     {
@@ -98,8 +98,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         EnableInteractableAll();
         
-        m_TimeLimit = TimeLimit(TIME_LIMIT);
-        StartCoroutine(m_TimeLimit);
+        _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
+        StartCoroutine(_timeLimitCoroutine);
     }
 
     private IEnumerator TimeLimit(int timeLimit = 0)
@@ -175,8 +175,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
         BulletManager.BulletsToGems(2000);
-        if (m_TimeLimit != null)
-            StopCoroutine(m_TimeLimit);
+        if (_timeLimitCoroutine != null)
+            StopCoroutine(_timeLimitCoroutine);
         m_MoveVector = new MoveVector(1f, 0f);
         m_Phase = -1;
         

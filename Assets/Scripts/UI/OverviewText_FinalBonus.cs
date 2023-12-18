@@ -9,7 +9,7 @@ public class OverviewText_FinalBonus : MonoBehaviour
 
     private void Start()
     {
-        m_OverviewHandler.Action_OnUpdateFinalBonus += UpdateFinalBonusText;
+        //m_OverviewHandler.Action_OnUpdateFinalBonus += UpdateFinalBonusText;
     }
 
     private void UpdateFinalBonusText(long value)

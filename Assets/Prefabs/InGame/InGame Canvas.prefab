@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6654397908490551094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_GemTotalScoreText: {fileID: 6359847290462744440}
   m_MissText: {fileID: 5520835651350634917}
   m_MissBonusScaleText: {fileID: 7750841655951669536}
+  m_FinalBonusText: {fileID: 3225555379239659048}
 --- !u!1 &2247251278766223232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,7 +2406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6793390130291733582
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2537,7 +2538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5707155042989293758
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2566,7 +2567,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5209647746859841771}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bd6cb2367f74ec45904ef547798be77, type: 3}
   m_Name: 
@@ -2782,7 +2783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7252670623984597277
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2893,7 +2894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4805642407008035628
 RectTransform:
   m_ObjectHideFlags: 0

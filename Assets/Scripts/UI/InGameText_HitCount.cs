@@ -59,7 +59,6 @@ public class InGameText_HitCount : MonoBehaviour
         if (_hitCountEndCoroutine != null)
             StopCoroutine(_hitCountEndCoroutine);
         _hitCountState = hitCountState;
-        Debug.Log(_hitCountState);
         
         switch (_hitCountState)
         {

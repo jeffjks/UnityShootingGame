@@ -4,17 +4,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class OverviewFlow
 {
     public readonly float waitTime;
-    public Action Action_OnExecute;
+    public event UnityAction Action_OnExecute;
 
     public OverviewFlow(float waitTime)
     {
         this.waitTime = waitTime;
+    }
+
+    public void Execute()
+    {
+        Action_OnExecute?.Invoke();
     }
 }
 
@@ -27,7 +33,7 @@ public class OverviewFlowBuilder
         _overviewFlow = new OverviewFlow(waitTime);
     }
 
-    public OverviewFlowBuilder AddAction(Action action)
+    public OverviewFlowBuilder AddAction(UnityAction action)
     {
         _overviewFlow.Action_OnExecute += action;
         return this;
@@ -55,8 +61,7 @@ public class OverviewHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_GemTotalScoreText;
     [SerializeField] private TextMeshProUGUI m_MissText;
     [SerializeField] private TextMeshProUGUI m_MissBonusScaleText;
-    
-    public event Action<long> Action_OnUpdateFinalBonus;
+    [SerializeField] private TextMeshProUGUI m_FinalBonusText;
 
     private readonly Queue<OverviewFlow> _overviewFlowQueue = new();
     private bool _inputSkip;
@@ -68,7 +73,7 @@ public class OverviewHandler : MonoBehaviour
         set
         {
             _finalBonusScore = value;
-            Action_OnUpdateFinalBonus?.Invoke(_finalBonusScore);
+            m_FinalBonusText.SetText($"{_finalBonusScore}");
         }
     }
 
@@ -77,6 +82,11 @@ public class OverviewHandler : MonoBehaviour
     private void Awake()
     {
         InGameInputController.Action_OnFireInput += SkipOverviewPhase;
+    }
+
+    private void OnDestroy()
+    {
+        InGameInputController.Action_OnFireInput -= SkipOverviewPhase;
     }
 
     private void OnEnable()
@@ -97,7 +107,7 @@ public class OverviewHandler : MonoBehaviour
     private void StartOverview() {
         SetOverviewText();
 
-        EnqueueOverviewFlow(new OverviewFlowBuilder(1f) // Gem 점수
+        EnqueueOverviewFlow(new OverviewFlowBuilder(2f) // Gem 점수
             .AddAction(OverviewFlowAction1)
             .Build());
 
@@ -158,7 +168,7 @@ public class OverviewHandler : MonoBehaviour
         {
             StopCoroutine(_calculateFinalBonusCoroutine);
         }
-        InGameDataManager.Instance.AddScore(_finalBonusScore, false, false);
+        InGameDataManager.Instance.AddScore(FinalBonusScore, false, false);
         FinalBonusScore = 0;
     }
 
@@ -169,42 +179,21 @@ public class OverviewHandler : MonoBehaviour
 
     private IEnumerator CalculateFinalBonus()
     {
-        for (int i = 10; i >= 0; i--) {
-            long target_score = (long) Mathf.Pow(7, i);
-            if (FinalBonusScore >= target_score) {
+        const int digit = 12;
+        for (int i = 0; i < digit + 1; ++i) {
+            var target_score = (long) Mathf.Pow(3, digit - i);
+            while (FinalBonusScore >= target_score)
+            {
                 FinalBonusScore -= target_score;
                 InGameDataManager.Instance.AddScore(target_score, false, false);
-                yield return new WaitForFrames(1);
+                yield return new WaitForFrames(2);
             }
         }
     }
 
     private void SkipOverviewPhase(bool isPressed)
     {
-        if (!isPressed)
-        {
-            return;
-        }
-        _inputSkip = true;
-        /*
-        switch(m_OverviewPhase) {
-            case 4:
-                GoToNextOverviewPhase();
-                break;
-            case 5:
-                m_SystemManager.AddScore(FinalBonusScore);
-                FinalBonusScore = 0;
-                m_OverviewTimer = 0f;
-                UpdateFinalBonusScore();
-                break;
-            case 6:
-                GoToNextOverviewPhase();
-                GoToNextStage(); // 6일때 버튼 클릭시 다음 스테이지
-                break;
-            default:
-                m_OverviewTimer = 90f;
-                break;
-        }*/
+        _inputSkip = isPressed;
     }
 
     private IEnumerator OverviewFlow()
@@ -227,12 +216,13 @@ public class OverviewHandler : MonoBehaviour
                     break;
                 yield return new WaitForFrames(1);
             }
-            current.Action_OnExecute?.Invoke();
+            current.Execute();
         }
     }
 
+    /*
     void LateUpdate()
-    {   /*
+    {   
         //if (m_OverviewPhase < 4) // 최종 점수 화면 이전에는 점수판 자동 진행
                                  // //m_OverviewTimer += Time.deltaTime*60f;
             
@@ -280,13 +270,14 @@ public class OverviewHandler : MonoBehaviour
             if (FinalBonusScore == 0) {
                 GoToNextOverviewPhase();
             }
-        }*/
+        }
     }
 
     private void GoToNextOverviewPhase() {
         //m_OverviewTimer = 0f;
         //m_OverviewPhase++;
     }
+    */
     
     private void GoToNextStage() {
         SystemManager.Instance.StartNextStageCoroutine();
@@ -313,7 +304,7 @@ public class OverviewHandler : MonoBehaviour
         m_GemTotalScoreText.SetText($"{gemTotalScore}");
         m_MissText.SetText($"{stageMiss} Miss");
         m_MissBonusScaleText.SetText($"[ x {missBonusScale} ]");
-
+        
         FinalBonusScore = gemTotalScore * missBonusScale;
     }
 }

@@ -429,9 +429,9 @@ public class ReplayManager : MonoBehaviour
     {
         ReplayFileController.OnClose();
         
+#if UNITY_EDITOR
         if (_logFileStream == null)
             return;
-#if UNITY_EDITOR
         if (!IsUsingReplay)
             return;
         _logFileStream.Close();

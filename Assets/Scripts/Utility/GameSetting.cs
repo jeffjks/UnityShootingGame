@@ -18,18 +18,9 @@ public class GameSetting : MonoBehaviour
 
     public AudioMixer m_AudioMixer;
 
-    private static readonly List<Vector2Int> _graphicsResolutionList = new List<Vector2Int>()
-    {
-        new(680, 900),
-        new(1600, 900),
-        new(720, 960),
-        new(1280, 960),
-        new(768, 1024),
-        new(1280, 1024),
-        new(810, 1080),
-        new(1920, 1080),
-        new(3840, 2160)
-    };
+    [SerializeField] private GraphicOptionSettingData m_GraphicOptionSettingData;
+
+    private static Vector2Int[] _resolutionList;
 
     public const int MAX_VOLUME = 100;
     public const int RESOLUTION_SETTING_COUNT = 9;
@@ -47,6 +38,7 @@ public class GameSetting : MonoBehaviour
         Application.targetFrameRate = 60;
         Cursor.visible = (DebugOption.SceneMode != 0);
         DOTween.SetTweensCapacity(512, 64);
+        _resolutionList = m_GraphicOptionSettingData.GraphicResolutionList;
         
         DontDestroyOnLoad(gameObject);
     }
@@ -59,8 +51,8 @@ public class GameSetting : MonoBehaviour
     private void LoadSettings()
     {
         if (!PlayerPrefs.HasKey("SoundEffectVolume")) {
-            PlayerPrefs.SetInt("ResolutionWidth", 1920);
-            PlayerPrefs.SetInt("ResolutionHeight", 1080);
+            PlayerPrefs.SetInt("ResolutionWidth", _resolutionList[2].x);
+            PlayerPrefs.SetInt("ResolutionHeight", _resolutionList[2].y);
             PlayerPrefs.SetInt("FullScreen", 1);
             PlayerPrefs.SetInt("GraphicsQuality", (int) QualitySetting.Ultra);
             PlayerPrefs.SetInt("AntiAliasing", 1);
@@ -70,8 +62,8 @@ public class GameSetting : MonoBehaviour
             PlayerPrefs.Save();
         }
         
-        var width = PlayerPrefs.GetInt("ResolutionWidth", 1920);
-        var height = PlayerPrefs.GetInt("ResolutionHeight", 1080);
+        var width = PlayerPrefs.GetInt("ResolutionWidth", _resolutionList[2].x);
+        var height = PlayerPrefs.GetInt("ResolutionHeight", _resolutionList[2].y);
 
         GraphicsResolution = GetResolutionIndex(width, height);
         GraphicsScreenMode = (ScreenModeSetting) PlayerPrefs.GetInt("FullScreen", 1);
@@ -89,15 +81,15 @@ public class GameSetting : MonoBehaviour
 
     private int GetResolutionIndex(int width, int height)
     {
-        for (int i = 0; i < _graphicsResolutionList.Count; ++i)
+        for (int i = 0; i < _resolutionList.Length; ++i)
         {
-            if (_graphicsResolutionList[i] == new Vector2Int(width, height))
+            if (_resolutionList[i] == new Vector2Int(width, height))
             {
                 return i;
             }
         }
 
-        return -1;
+        return 0;
     }
 
     public static Resolution GetCurrentResolution()
@@ -105,8 +97,8 @@ public class GameSetting : MonoBehaviour
         var index = GraphicsResolution;
         
         Resolution resolution = new Resolution();
-        resolution.width = _graphicsResolutionList[index].x;
-        resolution.height = _graphicsResolutionList[index].y;
+        resolution.width = _resolutionList[index].x;
+        resolution.height = _resolutionList[index].y;
         return resolution;
     }
 
@@ -138,8 +130,8 @@ public class GameSetting : MonoBehaviour
     private static void SetScreenSettings()
     {
         var index = GraphicsResolution;
-        var width = _graphicsResolutionList[index].x;
-        var height = _graphicsResolutionList[index].y;
+        var width = _resolutionList[index].x;
+        var height = _resolutionList[index].y;
         Screen.SetResolution(width, height, GraphicsScreenMode == ScreenModeSetting.FullScreen);
         Debug.Log($"[Screen Settings] Resolution: {width}x{height}, FullScreen: {Screen.fullScreen}");
     }
@@ -147,8 +139,8 @@ public class GameSetting : MonoBehaviour
     private static void SaveScreenSettings()
     {
         var index = GraphicsResolution;
-        var width = _graphicsResolutionList[index].x;
-        var height = _graphicsResolutionList[index].y;
+        var width = _resolutionList[index].x;
+        var height = _resolutionList[index].y;
         
         PlayerPrefs.SetInt("FullScreen", GraphicsScreenMode == ScreenModeSetting.FullScreen ? 1 : 0);
         PlayerPrefs.SetInt("ResolutionWidth", width);

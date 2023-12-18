@@ -14,6 +14,7 @@ public class PlayerShield : MonoBehaviour {
     private Material m_ShieldMaterial;
     private float m_OffsetY = 1;
     private Quaternion m_DefaultQuaternion;
+    private readonly int _scanningOffsetYPropId = Shader.PropertyToID("_ScanningOffsetY");
 
 	void Start ()
     {
@@ -30,7 +31,7 @@ public class PlayerShield : MonoBehaviour {
 
         if (m_IsShining) {
             m_OffsetY += 0.025f * Time.timeScale;
-            m_ShieldMaterial.SetFloat("_ScanningOffsetY", m_OffsetY);
+            m_ShieldMaterial.SetFloat(_scanningOffsetYPropId, m_OffsetY);
             if (m_OffsetY > 0.63) {
                 m_OffsetY = -0.64f;
                 m_IsShining = false;

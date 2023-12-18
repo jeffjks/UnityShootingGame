@@ -32,6 +32,13 @@ namespace UnityStandardAssets.Water
         private int m_OldReflectionTextureSize;
         private int m_OldRefractionTextureSize;
         private static bool s_InsideWater;
+        
+        private readonly int _reflectionTexPropId = Shader.PropertyToID("_ReflectionTex");
+        private readonly int _refractionTexPropId = Shader.PropertyToID("_RefractionTex");
+        private readonly int _waveSpeedPropId = Shader.PropertyToID("WaveSpeed");
+        private readonly int _waveOffsetPropId = Shader.PropertyToID("_WaveOffset");
+        private readonly int _waveScalePropId = Shader.PropertyToID("_WaveScale");
+        private readonly int _waveScale4PropId = Shader.PropertyToID("_WaveScale4");
 
 
         // This is called when it's known that the object will be rendered by some
@@ -40,7 +47,7 @@ namespace UnityStandardAssets.Water
         // camera will just work!
         public void OnWillRenderObject()
         {
-            if (!enabled || !GetComponent<Renderer>() || !GetComponent<Renderer>().sharedMaterial ||
+            if (!enabled || !GetComponent<Renderer>() || !GetComponent<Renderer>().material ||
                 !GetComponent<Renderer>().enabled)
             {
                 return;
@@ -114,7 +121,7 @@ namespace UnityStandardAssets.Water
                     reflectionCamera.Render();
                 reflectionCamera.transform.position = oldpos;
                 GL.invertCulling = oldCulling;
-                GetComponent<Renderer>().sharedMaterial.SetTexture("_ReflectionTex", m_ReflectionTexture);
+                GetComponent<Renderer>().material.SetTexture(_reflectionTexPropId, m_ReflectionTexture);
             }
 
             // Render refraction
@@ -135,7 +142,7 @@ namespace UnityStandardAssets.Water
                 refractionCamera.transform.position = cam.transform.position;
                 refractionCamera.transform.rotation = cam.transform.rotation;
                 refractionCamera.Render();
-                GetComponent<Renderer>().sharedMaterial.SetTexture("_RefractionTex", m_RefractionTexture);
+                GetComponent<Renderer>().material.SetTexture(_refractionTexPropId, m_RefractionTexture);
             }
 
             // Restore pixel light count
@@ -202,15 +209,15 @@ namespace UnityStandardAssets.Water
             {
                 return;
             }
-            Material mat = GetComponent<Renderer>().sharedMaterial;
+            Material mat = GetComponent<Renderer>().material;
             if (!mat)
             {
                 return;
             }
 
-            Vector4 waveSpeed = mat.GetVector("WaveSpeed");
-            Vector4 waveOffset = mat.GetVector("_WaveOffset");
-            float waveScale = mat.GetFloat("_WaveScale");
+            Vector4 waveSpeed = mat.GetVector(_waveSpeedPropId);
+            Vector4 waveOffset = mat.GetVector(_waveOffsetPropId);
+            float waveScale = mat.GetFloat(_waveScalePropId);
             Vector4 waveScale4 = new Vector4(waveScale, waveScale, waveScale * 0.4f, waveScale * 0.45f);
 
             // Time since level load, and do intermediate calculations with doubles
@@ -222,8 +229,8 @@ namespace UnityStandardAssets.Water
                 (float)Math.IEEERemainder((waveSpeed.w + m_WaveSpeed) * waveScale4.w * Time.deltaTime / 20, 1.0)
                 );
 
-            mat.SetVector("_WaveOffset", waveOffset);
-            mat.SetVector("_WaveScale4", waveScale4);
+            mat.SetVector(_waveOffsetPropId, waveOffset);
+            mat.SetVector(_waveScale4PropId, waveScale4);
         }
 
         public static void SetWaveSpeed() {
@@ -354,7 +361,7 @@ namespace UnityStandardAssets.Water
                 return WaterMode.Simple;
             }
 
-            Material mat = GetComponent<Renderer>().sharedMaterial;
+            Material mat = GetComponent<Renderer>().material;
             if (!mat)
             {
                 return WaterMode.Simple;

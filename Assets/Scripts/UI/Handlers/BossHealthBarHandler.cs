@@ -22,17 +22,20 @@ public class BossHealthBarHandler : MonoBehaviour
     private float _interpolateY;
     private float _healthRate = 1f;
     private IEnumerator _currentScrollCoroutine;
-    private BossHealthBarState m_BossHealthBarState = BossHealthBarState.ScrollUp;
+    private BossHealthBarState _bossHealthBarState = BossHealthBarState.ScrollUp;
     private float _deltaHeight;
+    private Material _bossHealthMaterial;
     
-    private const float SCROLLING_SPEED = 1f;
-    private const string ProgressBarMaterialVarName = "_ProgressBar";
-    private const string MaterialColorVarName = "_ColorMask";
+    private const float ScrollingSpeed = 1f;
+    private readonly int _progressBarPropId = Shader.PropertyToID("_ProgressBar");
+    private readonly int _colorMaskPropId = Shader.PropertyToID("_ColorMask");
 
     private void Awake()
     {
         _deltaHeight = GetComponent<RectTransform>().rect.height;
         StageManager.Action_BossHealthBar += StartHealthListener;
+        _bossHealthMaterial = new Material(m_HealthBar.material);
+        m_HealthBar.material = _bossHealthMaterial;
     }
 
     private void OnDestroy()
@@ -95,11 +98,11 @@ public class BossHealthBarHandler : MonoBehaviour
     }
 
     private IEnumerator ScrollDownBar() {
-        m_BossHealthBarState = BossHealthBarState.ScrollingDown;
-        while (m_BossHealthBarState == BossHealthBarState.ScrollingDown) {
-            InterpolateY = Mathf.MoveTowards(InterpolateY, 1f, SCROLLING_SPEED * Time.deltaTime);
+        _bossHealthBarState = BossHealthBarState.ScrollingDown;
+        while (_bossHealthBarState == BossHealthBarState.ScrollingDown) {
+            InterpolateY = Mathf.MoveTowards(InterpolateY, 1f, ScrollingSpeed * Time.deltaTime);
             if (InterpolateY >= 1f) {
-                m_BossHealthBarState = BossHealthBarState.ScrollDown;
+                _bossHealthBarState = BossHealthBarState.ScrollDown;
                 InterpolateY = 1f;
                 break;
             }
@@ -108,11 +111,11 @@ public class BossHealthBarHandler : MonoBehaviour
     }
 
     private IEnumerator ScrollUpBar() {
-        m_BossHealthBarState = BossHealthBarState.ScrollingUp;
-        while (m_BossHealthBarState == BossHealthBarState.ScrollingUp) {
-            InterpolateY = Mathf.MoveTowards(InterpolateY, 0f, SCROLLING_SPEED * Time.deltaTime);
+        _bossHealthBarState = BossHealthBarState.ScrollingUp;
+        while (_bossHealthBarState == BossHealthBarState.ScrollingUp) {
+            InterpolateY = Mathf.MoveTowards(InterpolateY, 0f, ScrollingSpeed * Time.deltaTime);
             if (InterpolateY <= 0f) {
-                m_BossHealthBarState = BossHealthBarState.ScrollUp;
+                _bossHealthBarState = BossHealthBarState.ScrollUp;
                 InterpolateY = 0f;
                 break;
             }
@@ -127,15 +130,13 @@ public class BossHealthBarHandler : MonoBehaviour
         catch(NullReferenceException) {
             _healthRate = 0f;
         }
-
-        var propId = Shader.PropertyToID(ProgressBarMaterialVarName);
-        m_HealthBar.material.SetFloat(propId, _healthRate);
+        
+        _bossHealthMaterial.SetFloat(_progressBarPropId, _healthRate);
         //m_HealthBar.fillAmount = _healthRate;
     }
 
     private void CheckHealthBarLowState() {
-        var propId = Shader.PropertyToID(MaterialColorVarName);
         var barColor = (_healthRate <= 0.1f) ? m_LowHealthColor : m_IdleColor;
-        m_HealthBar.material.SetColor(propId, barColor);
+        _bossHealthMaterial.SetColor(_colorMaskPropId, barColor);
     }
 }

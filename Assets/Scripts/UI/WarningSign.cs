@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class WarningSign : MonoBehaviour
 {
     public Material m_WarningSignMat;
+    
+    private const string Emission = "_Emission";
+    private readonly int _emissionId = Shader.PropertyToID(Emission);
 
     public void StartBlinkAnimation(int duration)
     {
@@ -24,7 +27,7 @@ public class WarningSign : MonoBehaviour
 
     private void SetEmissionColor(float value)
     {
-        m_WarningSignMat.SetColor("_Emission", new Color(value, value, value, 1f));
+        m_WarningSignMat.SetColor(_emissionId, new Color(value, value, value, 1f));
     }
 
     private void StopWarningSign()

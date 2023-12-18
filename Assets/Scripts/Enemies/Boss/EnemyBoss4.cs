@@ -17,6 +17,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private readonly int _missileLauncherMoving = Animator.StringToHash("Moving");
     private const int APPEARANCE_TIME = 8000;
+    
+    private readonly int _baseMapPropId = Shader.PropertyToID("_BaseMap");
     //private int m_MoveDirection;
     //private float m_MoveSpeed, m_DefaultSpeed = 0.005f;
     private float _trackPos;
@@ -113,7 +115,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void RunTracks() {
-        _trackMaterial.SetTextureOffset("_BaseMap", new Vector2(_trackPos, 0f));
+        _trackMaterial.SetTextureOffset(_baseMapPropId, new Vector2(_trackPos, 0f));
         _trackPos += m_MoveVector.speed / Application.targetFrameRate * Time.timeScale;
         _trackPos = Mathf.Repeat(_trackPos, 1f);
     }

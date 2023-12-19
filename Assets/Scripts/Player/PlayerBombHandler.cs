@@ -17,7 +17,8 @@ public class PlayerBombHandler : MonoBehaviour
         private set
         {
             _isBombInUse = value;
-            Action_OnBombUse?.Invoke();
+            if (_isBombInUse)
+                Action_OnBombUse?.Invoke();
         }
     }
 

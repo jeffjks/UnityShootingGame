@@ -8,6 +8,7 @@ public class HitCountController : MonoBehaviour
 {
     public enum HitCountType
     {
+        None = -1,
         Field,
         Boss
     }
@@ -23,15 +24,15 @@ public class HitCountController : MonoBehaviour
     [SerializeField] private HitCountConstData m_HitCountConstData;
     public int CurrentHitCountBonusPercent { get; private set; } = 100;
     
-    public event UnityAction<int, bool> Action_OnUpdateHitCount;
-    public event UnityAction<HitCountState> Action_OnChangeHitCountState;
-    public event UnityAction<HitCountType> Action_OnChangeHitCountType;
+    public static event UnityAction<int, bool> Action_OnUpdateHitCount;
+    public static event UnityAction<HitCountState> Action_OnChangeHitCountState;
+    public static event UnityAction<HitCountType> Action_OnChangeHitCountType;
     
     private int _hitCount;
     private int _hitCountDecreasingTimer;
     private int _hitCountLaserCounter;
     private HitCountState _currentHitCountState = HitCountState.Default;
-    private HitCountType _currentHitCountType;
+    private HitCountType _currentHitCountType = HitCountType.None;
 
     public HitCountType CurrentHitCountType
     {
@@ -57,8 +58,7 @@ public class HitCountController : MonoBehaviour
         }
         Instance = this;
         
-        SystemManager.Action_OnNextStage += OnNextStage;
-        SystemManager.Action_OnBossClear += BreakDownHitCount;
+        //SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnPlayStateChanged += EndFieldHitCount;
         SystemManager.Action_OnBossInteractable += OnBossInteractable;
         PlayerManager.Action_OnPlayerRevive += InitHitCount;
@@ -70,8 +70,7 @@ public class HitCountController : MonoBehaviour
     {
         Instance = null;
         
-        SystemManager.Action_OnNextStage -= OnNextStage;
-        SystemManager.Action_OnBossClear -= BreakDownHitCount;
+        //SystemManager.Action_OnNextStage -= OnNextStage;
         SystemManager.Action_OnPlayStateChanged -= EndFieldHitCount;
         SystemManager.Action_OnBossInteractable -= OnBossInteractable;
         PlayerManager.Action_OnPlayerRevive -= InitHitCount;
@@ -106,6 +105,7 @@ public class HitCountController : MonoBehaviour
         _hitCount += value;
         _hitCount = Mathf.Min(_hitCount, m_HitCountConstData.MaxHitCount);
         Action_OnUpdateHitCount?.Invoke(_hitCount, true);
+        SetHitCountState(HitCountState.Default);
         UpdateHitCountBonus();
         _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
     }
@@ -144,7 +144,7 @@ public class HitCountController : MonoBehaviour
 
     private void EndFieldHitCount(PlayState playState)
     {
-        if (playState == PlayState.OnBoss)
+        if (playState is PlayState.OnBoss or PlayState.OnBossCleared)
             SetHitCountState(HitCountState.EndField);
     }
 

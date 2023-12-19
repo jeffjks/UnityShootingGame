@@ -117,7 +117,7 @@ public static class Utility
         str += md5;
         string encryptedStr = AESEncrypter.AESEncrypt128(str);
         
-        FileStream fileStream = new FileStream($"{filePath}/{fileName}", FileMode.Create);
+        FileStream fileStream = new FileStream($"{filePath}{fileName}", FileMode.Create);
         byte[] data = Encoding.UTF8.GetBytes(encryptedStr);
         
         #if UNITY_EDITOR
@@ -152,7 +152,7 @@ public static class Utility
     }
 
     public static (string, string) LoadDataFileString(string filePath, string fileName) {
-        FileStream fileStream = new FileStream($"{filePath}/{fileName}", FileMode.Open);
+        FileStream fileStream = new FileStream($"{filePath}{fileName}", FileMode.Open);
         byte[] data = new byte[fileStream.Length];
         fileStream.Read(data, 0, data.Length);
         fileStream.Close();

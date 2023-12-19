@@ -25,11 +25,11 @@ public class PlayerLaserAura : PlayerObject
                 
                 if (other.gameObject.CheckLayer(Layer.LARGE)) { // 대형이면
                     DealDamage(enemyObject); // 데미지 줌
-                    InGameDataManager.Instance.HitCountLaserCounter++;
+                    HitCountController.Instance.HitCountLaserCounter++;
                 }
                 else { // 소형이면 기냥 죽임
                     if (enemyObject.m_EnemyDeath.KillEnemy())
-                        InGameDataManager.Instance.AddHitCount();
+                        HitCountController.Instance.AddHitCount();
                 }
             }
         }

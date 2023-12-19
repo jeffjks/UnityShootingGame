@@ -26,10 +26,12 @@ public class ReplayManager : MonoBehaviour
     private PlayerController _playerController;
     private PlayerManager _playerManager;
     
-    private string _replayDirectory;
     private ReplayInfo _replayInfo;
     private ReplayData _context;
     private bool _eof;
+
+    private const string ReplayWriteFile = "replayLog_Play.log";
+    private const string ReplayReadFile = "replayLog_Replay.log";
 
 #if UNITY_EDITOR
     private StreamWriter _logFileStream;
@@ -196,8 +198,6 @@ public class ReplayManager : MonoBehaviour
         CurrentFrame = 0;
         _context = new ReplayData();
 
-        _replayDirectory = $"{Application.dataPath}/";
-
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnNextStage += InitCurrentFrame;
@@ -208,23 +208,23 @@ public class ReplayManager : MonoBehaviour
         
         if (SystemManager.GameMode == GameMode.Replay)
         {
-            if (!File.Exists($"{_replayDirectory}replayLog_Replay.txt"))
+            if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayReadFile}"))
             {
-                var file = File.CreateText($"{_replayDirectory}replayLog_Replay.txt");
+                var file = File.CreateText($"{GameManager.ReplayLogFilePath}{ReplayReadFile}");
                 file.Flush();
                 file.Close();
             }
-            _logFileStream = new StreamWriter($"{_replayDirectory}replayLog_Replay.txt");
+            _logFileStream = new StreamWriter($"{GameManager.ReplayLogFilePath}{ReplayReadFile}");
         }
         else
         {
-            if (!File.Exists($"{_replayDirectory}replayLog_Play.txt"))
+            if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}"))
             {
-                var file = File.CreateText($"{_replayDirectory}replayLog_Play.txt");
+                var file = File.CreateText($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}");
                 file.Flush();
                 file.Close();
             }
-            _logFileStream = new StreamWriter($"{_replayDirectory}replayLog_Play.txt");
+            _logFileStream = new StreamWriter($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}");
         }
 #endif
     }

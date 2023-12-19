@@ -156,8 +156,8 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1B : BulletFactory, IBulletP
         }
         if (SystemManager.Difficulty == GameDifficulty.Hell) {
             while (true) {
-                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6f, BulletPivot.Current, 0f, 7, 11f));
-                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.2f, BulletPivot.Current, 0f, 7, 11f));
+                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 5.8f, BulletPivot.Current, 0f, 7, 11f));
+                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.6f, BulletPivot.Current, 2f, 7, 11f));
                 yield return new WaitForMillisecondFrames(80);
             }
         }
@@ -217,7 +217,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1C : BulletFactory, IBulletP
         }
         else {
             for (int i = 0; i < 36; i++) {
-                var property1 = new BulletProperty(GetFirePos(0, gap), BulletImage.PinkNeedle, 9f, BulletPivot.Current, 0f, accel1, 2, 6f);
+                var property1 = new BulletProperty(GetFirePos(0, gap), BulletImage.PinkNeedle, 8.5f, BulletPivot.Current, 0f, accel1, 2, 6f);
                 var property2 = new BulletProperty(GetFirePos(0, -gap), BulletImage.PinkNeedle, 10f, BulletPivot.Current, 0f, accel1, 2, 6f);
                 var spawnTiming1 = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 360);
                 var spawnTiming2 = new BulletSpawnTiming(BulletSpawnType.EraseAndCreate, 560);

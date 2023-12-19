@@ -794,6 +794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3751866176514020007}
   - component: {fileID: 3751866176514020003}
+  - component: {fileID: 5533562260624555344}
   - component: {fileID: 1920078058679409277}
   m_Layer: 0
   m_Name: InGame System
@@ -833,6 +834,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UICanvas: {fileID: 6090565632742941223}
+--- !u!114 &5533562260624555344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751866176514020006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7397c35ab9893614ca8740901cca4ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_HitCountConstData: {fileID: 11400000, guid: f5951b6d10d6ecc4e9c0eca4016b488c,
     type: 2}
 --- !u!114 &1920078058679409277

@@ -63,7 +63,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 
         EnableInteractableAll();
         
-        // SystemManager.OnBossStart();
+        SystemManager.OnBossInteractable();
     }
 
     protected override void Update()

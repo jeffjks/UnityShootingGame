@@ -9,23 +9,35 @@ public class SystemManager : MonoBehaviour
     
     private Vector3 m_BackgroundCameraDefaultLocalPos;
 
+    private static PlayState _playState = PlayState.None;
     public static GameMode GameMode  { get; private set; }
     public static GameDifficulty Difficulty { get; private set; }
     public static GameDifficulty DebugDifficulty;
     public static TrainingInfo TrainingInfo;
-    public static PlayState PlayState = PlayState.None;
     public static bool IsInGame;
     public static int Stage = -1;
     public static int CurrentSeed;
+
+    public static PlayState PlayState
+    {
+        get => _playState;
+        set
+        {
+            _playState = value;
+            Action_OnPlayStateChanged?.Invoke(_playState);
+        }
+    }
     
     public static SystemManager Instance { get; private set; }
     
+    public static event Action Action_OnBossInteractable;
     public static event Action Action_OnBossClear;
     public static event Action Action_OnStageClear;
     public static event Action Action_OnShowOverview;
     public static event Action<bool> Action_OnNextStage;
     public static event Action Action_OnFinishEndingCredit;
     public static event Action Action_OnQuitInGame;
+    public static event Action<PlayState> Action_OnPlayStateChanged;
     
     private void Awake()
     {
@@ -48,9 +60,9 @@ public class SystemManager : MonoBehaviour
         PlayState = PlayState.OnMiddleBoss;
     }
 
-    public static void OnBossStart()
+    public static void OnBossInteractable()
     {
-        PlayState = PlayState.OnBoss;
+        Action_OnBossInteractable?.Invoke();
     }
 
     public static void OnMiddleBossClear() {

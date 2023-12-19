@@ -129,7 +129,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         EnableInteractableAll();
 
-        // SystemManager.OnBossStart();
+        SystemManager.OnBossInteractable();
     }
 
     private void OnPhase1() {

@@ -7,25 +7,19 @@ using UnityEngine.Events;
 public class InGameDataManager : MonoBehaviour
 {
     public RectTransform m_UICanvas;
-    [SerializeField] private HitCountConstData m_HitCountConstData;
     
     public event UnityAction<long> Action_OnUpdateScore;
     public event UnityAction<int, int> Action_OnUpdateBombNumber;
-    public event UnityAction<int, bool> Action_OnUpdateHitCount;
-    public event UnityAction<InGameText_HitCount.HitCountState> Action_OnChangeHitCountState;
     
     private bool _destroySingleton;
     private long _totalScore;
     private int _bombNumber;
     private int _maxBombNumber;
-    private int _hitCount;
-    private int _hitCountDecreasingTimer;
-    private int _hitCountLaserCounter;
-    private int _currentHitCountBonusPercent = 100;
     
     private readonly long[] _stageScore = {0, 0, 0, 0, 0};
     private readonly int[] _stageMiss = {0, 0, 0, 0, 0};
     private readonly Dictionary<ItemType, int>[] _itemCount = new Dictionary<ItemType, int>[5];
+    private HitCountController _hitCountController;
     
 #if UNITY_EDITOR
     private PlayerUnit _debugPlayerUnit;
@@ -65,73 +59,6 @@ public class InGameDataManager : MonoBehaviour
             Action_OnUpdateBombNumber?.Invoke(BombNumber, value);
         }
     }
-
-    public void AddHitCount(int value = 1)
-    {
-        if (!PlayerManager.IsPlayerAlive)
-            return;
-        if (PlayerBombHandler.IsBombInUse)
-            return;
-        _hitCount += value;
-        _hitCount = Mathf.Min(_hitCount, m_HitCountConstData.MaxHitCount);
-        Action_OnUpdateHitCount?.Invoke(_hitCount, true);
-        UpdateHitCountBonus();
-        _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
-    }
-
-    private void SubtractHitCount(int value = 1)
-    {
-        if (!PlayerManager.IsPlayerAlive)
-            return;
-        _hitCount -= value;
-        _hitCount = Mathf.Max(_hitCount, m_HitCountConstData.MinHitCount);
-        Action_OnUpdateHitCount?.Invoke(_hitCount, false);
-        UpdateHitCountBonus();
-    }
-
-    private void InitHitCount()
-    {
-        _hitCount = 0;
-        _hitCountDecreasingTimer = -1;
-        _hitCountLaserCounter = 0;
-        Action_OnUpdateHitCount?.Invoke(_hitCount, true);
-        UpdateHitCountBonus();
-    }
-
-    private void BreakDownHitCount()
-    {
-        _hitCount = 0;
-        _hitCountDecreasingTimer = -1;
-        _hitCountLaserCounter = 0;
-        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.BreakDown);
-        UpdateHitCountBonus();
-    }
-
-    private void InitHitCount(bool hasNextStage)
-    {
-        InitHitCount();
-    }
-
-    public int HitCountLaserCounter
-    {
-        get => _hitCountLaserCounter;
-        set
-        {
-            if (!PlayerManager.IsPlayerAlive)
-                return;
-            if (PlayerBombHandler.IsBombInUse)
-                return;
-            
-            _hitCountLaserCounter = value;
-            _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
-            
-            if (_hitCountLaserCounter >= m_HitCountConstData.HitCountLaserMaxCount)
-            {
-                _hitCountLaserCounter %= m_HitCountConstData.HitCountLaserMaxCount;
-                AddHitCount();
-            }
-        }
-    }
     
     public static InGameDataManager Instance { get; private set; }
 
@@ -148,11 +75,8 @@ public class InGameDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         SystemManager.Action_OnQuitInGame += DestroySelf;
-        SystemManager.Action_OnNextStage += InitHitCount;
-        SystemManager.Action_OnBossClear += BreakDownHitCount;
-        PlayerManager.Action_OnPlayerRevive += InitHitCount;
-        PlayerManager.Action_OnPlayerDead += BreakDownHitCount;
-        PlayerBombHandler.Action_OnBombUse += DecreaseHitCount;
+
+        _hitCountController = GetComponent<HitCountController>();
 
         for (var i = 0; i < _itemCount.Length; ++i)
         {
@@ -177,11 +101,6 @@ public class InGameDataManager : MonoBehaviour
         if (_destroySingleton)
             return;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
-        SystemManager.Action_OnNextStage -= InitHitCount;
-        SystemManager.Action_OnBossClear -= BreakDownHitCount;
-        PlayerManager.Action_OnPlayerRevive -= InitHitCount;
-        PlayerManager.Action_OnPlayerDead -= BreakDownHitCount;
-        PlayerBombHandler.Action_OnBombUse -= DecreaseHitCount;
     }
 
     private void Start()
@@ -190,37 +109,11 @@ public class InGameDataManager : MonoBehaviour
         CurrentShipAttributes = PlayerManager.CurrentAttributes;
         MaxBombNumber = CurrentShipAttributes.GetAttributes(AttributeType.Bomb) + 2;
         InitBombNumber();
-        StartCoroutine(HitCountDecreasingController());
         
 #if UNITY_EDITOR
         if (DebugOption.SceneMode == 1)
             _debugPlayerUnit = FindObjectOfType<PlayerUnit>();
 #endif
-    }
-
-    private void Update()
-    {
-        if (_hitCountDecreasingTimer > 0)
-            _hitCountDecreasingTimer -= 1;
-        else if (_hitCountDecreasingTimer == 0)
-            DecreaseHitCount();
-    }
-
-    private void DecreaseHitCount()
-    {
-        _hitCountDecreasingTimer = -1;
-        Action_OnChangeHitCountState?.Invoke(InGameText_HitCount.HitCountState.Decreasing);
-    }
-
-    private IEnumerator HitCountDecreasingController()
-    {
-        while (true)
-        {
-            while (_hitCountDecreasingTimer != -1)
-                yield return new WaitForFrames(1);
-            SubtractHitCount();
-            yield return new WaitForFrames(m_HitCountConstData.HitCountDecreasingPeriodFrame);
-        }
     }
 
     public void AddScore(long score, bool displayText, ItemType itemType)
@@ -235,7 +128,7 @@ public class InGameDataManager : MonoBehaviour
         if (SystemManager.Stage == -1)
             return;
 
-        var bonusPercent = applyHitCountBonus ? _currentHitCountBonusPercent : 100;
+        var bonusPercent = applyHitCountBonus ? _hitCountController.CurrentHitCountBonusPercent : 100;
         
         TotalScore += score * bonusPercent / 100;
         _stageScore[SystemManager.Stage] += score * bonusPercent / 100;
@@ -291,20 +184,6 @@ public class InGameDataManager : MonoBehaviour
         scoreText.OnStart(pos, text, timeScale, isTextOnRight);
     }
 
-    private void UpdateHitCountBonus()
-    {
-        var lastBonusPercent = 100;
-        foreach (var hitCountBonus in m_HitCountConstData.hitCountBonus)
-        {
-            if (_hitCount < hitCountBonus.hitCount)
-                break;
-
-            lastBonusPercent = hitCountBonus.bonusPercent;
-        }
-
-        _currentHitCountBonusPercent = lastBonusPercent;
-    }
-
     public void InitBombNumber() {
         BombNumber = _maxBombNumber;
     }
@@ -355,7 +234,6 @@ public class InGameDataManager : MonoBehaviour
     private void DestroySelf()
     {
         Instance = null;
-        StopAllCoroutines();
         Destroy(gameObject);
     }
 }

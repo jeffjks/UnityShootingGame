@@ -15,8 +15,8 @@ public class RankingJsonWriter : MonoBehaviour
     {
         foreach (var fileName in _fileList)
         {
-            if (!File.Exists($"{Application.dataPath}/{fileName}"))
-                Utility.SaveDataFile(Application.dataPath, fileName, _localRankingData);
+            if (!File.Exists($"{GameManager.RankingFilePath}{fileName}"))
+                Utility.SaveDataFile(GameManager.RankingFilePath, fileName, _localRankingData);
         }
     }
 }

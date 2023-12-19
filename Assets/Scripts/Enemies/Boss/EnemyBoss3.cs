@@ -114,7 +114,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Turret[0].SetRotatePattern(new RotatePattern_TargetPlayer(100f));
         m_Turret[1].SetRotatePattern(new RotatePattern_TargetPlayer(100f));
 
-        // SystemManager.OnBossStart();
+        SystemManager.OnBossInteractable();
     }
 
     private int RandomValue() {

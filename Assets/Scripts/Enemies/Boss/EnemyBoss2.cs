@@ -91,7 +91,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Part1Turrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(180f));
         m_Part1Turrets[2].SetRotatePattern(new RotatePattern_TargetPlayer(180f));
         
-        // SystemManager.OnBossStart();
+        SystemManager.OnBossInteractable();
     }
 
     public void ToNextPhase() {

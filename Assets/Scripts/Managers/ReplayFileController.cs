@@ -38,8 +38,8 @@ public class ReplayFileController : MonoBehaviour
     public static string GetReplayFilePath(int slot = -1)
     {
         if (slot == -1)
-            return $"{Application.dataPath}/replayTemp.rep";
-        return $"{Application.dataPath}/replay{slot}.rep";
+            return $"{GameManager.ReplayFilePath}replayTemp.rep";
+        return $"{GameManager.ReplayFilePath}replay{slot}.rep";
     }
 
     public static void InitWritingReplayFile(UnityAction onComplete, int slot = -1)

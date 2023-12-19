@@ -7,7 +7,11 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     private bool _destroySingleton;
-    public static int BulletNumber;
+    private const int GridRegionWidth = 30;
+    private const int GridRegionHeight = 32;
+    private static readonly bool[,] _gridRegion = new bool[GridRegionWidth,GridRegionHeight];
+    
+    public static LinkedList<EnemyBullet> EnemyBulletList = new();
     private static int _bulletsSortingLayer;
     public static int BulletsSortingLayer
     {
@@ -74,6 +78,27 @@ public class BulletManager : MonoBehaviour
 
     public static void BulletsToGems(int millisecond)
     {
+        var node = EnemyBulletList.First;
+        while (node != null)
+        {
+            var currentNode = node;
+            node = node.Next;
+            
+            var bulletPosition = currentNode.Value.transform.position;
+            if (!IsGridRegionAssignable(bulletPosition))
+                continue;
+            
+            var gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
+            bulletPosition.z = Depth.ITEMS;
+            gem.transform.position = bulletPosition;
+            gem.SetActive(true);
+
+            currentNode.Value.RemoveFromBulletList();
+        }
+        
+        SetBulletFreeState(millisecond);
+        return;
+        
         List<GameObject> bulletList = GameObject.FindGameObjectsWithTag("EnemyBulletParent").ToList();
         int num = 0, count = bulletList.Count;
 
@@ -109,6 +134,24 @@ public class BulletManager : MonoBehaviour
         SetBulletFreeState(millisecond);
     }
 
+    private static bool IsGridRegionAssignable(Vector2 position)
+    {
+        var wIndex = (int) ((position.x - Size.GAME_BOUNDARY_LEFT) / Size.GAME_WIDTH * GridRegionWidth);
+        var hIndex = (int) ((position.y - Size.GAME_BOUNDARY_BOTTOM) / Size.GAME_HEIGHT * GridRegionHeight);
+
+        if (wIndex is < 0 or >= GridRegionWidth)
+            return false;
+        if (hIndex is < 0 or >= GridRegionHeight)
+            return false;
+        
+        if (!_gridRegion[wIndex, hIndex]);
+        {
+            _gridRegion[wIndex, hIndex] = true;
+            return true;
+        }
+        return false;
+    }
+
     private void Update()
     {
         if (_remainingFrame > 0)
@@ -127,5 +170,10 @@ public class BulletManager : MonoBehaviour
         {
             _bulletsSortingLayer = int.MinValue;
         }
+    }
+
+    public static int GetBulletCount()
+    {
+        return EnemyBulletList.Count;
     }
 }

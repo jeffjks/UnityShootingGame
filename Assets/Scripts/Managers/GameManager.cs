@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     public static bool isOnline;
     public static bool IsDebugScene;
 
+    public static string ResourceFilePath;
+    public static string ReplayFilePath;
+    public static string RankingFilePath;
+    public static string ReplayLogFilePath;
+
     private class EncryptedFile
     {
         public string filePath;
@@ -45,6 +50,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         //m_CurrentAttributes = new ShipAttribute(0, 0, 0, 0, 0, 0, 0);
+        ResourceFilePath = $"{Application.streamingAssetsPath}/";
+        ReplayFilePath = $"{Application.dataPath}/replay/";
+        RankingFilePath = $"{Application.dataPath}/ranking/";
+        ReplayLogFilePath = $"{Application.dataPath}/";
 
         foreach (var animationCurve in m_AnimationCurves)
         {
@@ -115,18 +124,22 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            var resourceFile = new EncryptedFile(Application.streamingAssetsPath, new List<string> { "resources1.dat", "resources2.dat" });
-            var rankingFile = new EncryptedFile(Application.dataPath, new List<string> { "ranking0.dat", "ranking1.dat", "ranking2.dat" });
+            var resourceFile = new EncryptedFile(ResourceFilePath, new List<string> { "resources1.dat", "resources2.dat" });
+            var rankingFile = new EncryptedFile(RankingFilePath, new List<string> { "ranking0.dat", "ranking1.dat", "ranking2.dat" });
             List<EncryptedFile> encryptedFiles = new () { resourceFile, rankingFile };
 
             foreach (var encryptedFile in encryptedFiles)
             {
+                var directoryInfo = new DirectoryInfo(encryptedFile.filePath);
+                if (!directoryInfo.Exists)
+                    directoryInfo.Create();
+                
                 foreach (var fileName in encryptedFile.fileList)
                 {
-                    if (!File.Exists($"{encryptedFile.filePath}/{fileName}"))
+                    if (!File.Exists($"{encryptedFile.filePath}{fileName}"))
                     {
-                        if (resourceFile.filePath == Application.dataPath)
-                            continue;
+                        // if (resourceFile.filePath == Application.dataPath)
+                        //     continue;
                         Debug.LogError("게임 실행에 필요한 파일을 찾을 수 없습니다.");
                     }
                     var (jsonData, hash) = Utility.LoadDataFileString(encryptedFile.filePath, fileName);

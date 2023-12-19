@@ -42,7 +42,7 @@ public class EndingCreditJsonWriter : MonoBehaviour
         WriteJson(Language.English, _messageDataEng);
         WriteJson(Language.Korean, _messageDataKor);
         
-        Utility.SaveDataFile(Application.streamingAssetsPath, "resources2.dat", _endingCreditText);
+        Utility.SaveDataFile(GameManager.ResourceFilePath, "resources2.dat", _endingCreditText);
     }
 
     private StringBuilder MakeAssetList(AssetList assetList)

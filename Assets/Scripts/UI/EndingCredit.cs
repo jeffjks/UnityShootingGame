@@ -21,7 +21,7 @@ public class EndingCredit : MonoBehaviour
     private void Start()
     {
         SystemManager.PlayState = PlayState.OnStageResult;
-        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(Application.streamingAssetsPath, "resources2.dat").jsonData;
+        _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(GameManager.ResourceFilePath, "resources2.dat").jsonData;
         m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
         
         FadeScreenService.ScreenFadeIn(0f);

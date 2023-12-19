@@ -208,6 +208,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     private void OnHpZero()
     {
         if (_enemyDeath.KillEnemy())
-            InGameDataManager.Instance.AddHitCount();
+            HitCountController.Instance.AddHitCount();
     }
 }

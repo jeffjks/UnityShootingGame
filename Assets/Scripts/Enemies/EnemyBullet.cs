@@ -25,6 +25,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     private Bullet _currentBullet;
     private BulletImage _bulletImage;
     private SubBulletPattern _subBulletPattern;
+    private bool _isInList;
 
     //private Tween m_Tween = null;
 
@@ -67,14 +68,13 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private void OnEnable()
     {
-        BulletManager.BulletNumber++;
+        AddToBulletList();
         BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
     }
 
     private void OnDisable()
     {
         BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
-        BulletManager.BulletNumber--;
     }
 
     public void OnStart(BulletProperty bulletProperty)
@@ -258,6 +258,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void PlayEraseAnimation()
     {
+        BulletManager.EnemyBulletList.Remove(this);
         PlayEraseAnimation(true);
     }
 
@@ -278,6 +279,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     }
 
     private IEnumerator ReturnToPoolDelayed(int millisecond) {
+        RemoveFromBulletList();
         if (millisecond != 0) {
             yield return new WaitForMillisecondFrames(millisecond);
         }
@@ -285,10 +287,32 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     }
 
     public void ReturnToPool() {
+        RemoveFromBulletList();
         StopAllCoroutines();
         IsPlayingEraseAnimation = false;
         _currentCollider.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
+    }
+
+    private void OnDestroy()
+    {
+        RemoveFromBulletList();
+    }
+
+    private void AddToBulletList()
+    {
+        if (_isInList)
+            return;
+        _isInList = true;
+        BulletManager.EnemyBulletList.AddLast(this);
+    }
+
+    public void RemoveFromBulletList()
+    {
+        if (!_isInList)
+            return;
+        _isInList = false;
+        BulletManager.EnemyBulletList.Remove(this);
     }
 }

@@ -24,6 +24,7 @@ public class ExplosionJsonManager : MonoBehaviour
         
         InitExplosionEffectString();
         SystemManager.Action_OnQuitInGame += StopAllCoroutines;
+        _explosionJsonData = Utility.LoadDataFile<Dictionary<string, List<ExplosionData>>>(GameManager.ResourceFilePath, "resources1.dat").jsonData;
 
         DontDestroyOnLoad(gameObject);
     }
@@ -31,11 +32,6 @@ public class ExplosionJsonManager : MonoBehaviour
     private void OnDestroy()
     {
         SystemManager.Action_OnQuitInGame -= StopAllCoroutines;
-    }
-
-    private void OnEnable()
-    {
-        _explosionJsonData = Utility.LoadDataFile<Dictionary<string, List<ExplosionData>>>(Application.streamingAssetsPath, "resources1.dat").jsonData;
     }
 
     private void InitExplosionEffectString()

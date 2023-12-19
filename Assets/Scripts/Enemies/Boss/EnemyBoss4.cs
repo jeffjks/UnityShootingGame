@@ -74,7 +74,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         EnableInteractableAll();
         
-        // SystemManager.OnBossStart();
+        SystemManager.OnBossInteractable();
     }
 
     private void ControlSpeed() {

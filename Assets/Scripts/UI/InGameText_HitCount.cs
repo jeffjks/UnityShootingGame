@@ -6,85 +6,96 @@ using TMPro;
 
 public class InGameText_HitCount : MonoBehaviour
 {
-    public enum HitCountState
-    {
-        Default,
-        Decreasing,
-        BreakDown
-    }
-    
-    public TextMeshProUGUI m_HitCountText;
-    public Color m_FadeColor;
-    public Color m_EndColor;
+    public HitCountController.HitCountType m_HitCountType;
+    public GameObject m_HitText;
+    public TextMeshProUGUI m_HitNumText;
+    public Color m_DecreasingColor;
+    public Color m_BreakDownColor;
+    public Color m_EndFieldColor;
 
-    private InGameDataManager _inGameDataManager;
+    private HitCountController _hitCountController;
     private int _currentHitCount;
     private Color _defaultColor;
-    private HitCountState _hitCountState = HitCountState.Default;
     private IEnumerator _hitCountEndCoroutine;
+    private bool _isActive;
 
     private void Awake()
     {
-        _defaultColor = m_HitCountText.color;
-        _inGameDataManager = FindObjectOfType<InGameDataManager>();
+        _defaultColor = m_HitNumText.color;
+        _hitCountController = HitCountController.Instance;
+        m_HitText.SetActive(_isActive);
         
-        _inGameDataManager.Action_OnUpdateHitCount += UpdateHitCount;
-        _inGameDataManager.Action_OnChangeHitCountState += SetHitCountState;
+        _hitCountController.Action_OnUpdateHitCount += UpdateHitCount;
+        _hitCountController.Action_OnChangeHitCountState += SetHitCountState;
+        _hitCountController.Action_OnChangeHitCountType += SetHitCountType;
     }
 
     private void OnDestroy()
     {
-        _inGameDataManager.Action_OnUpdateHitCount -= UpdateHitCount;
-        _inGameDataManager.Action_OnChangeHitCountState -= SetHitCountState;
+        _hitCountController.Action_OnUpdateHitCount -= UpdateHitCount;
+        _hitCountController.Action_OnChangeHitCountState -= SetHitCountState;
+        _hitCountController.Action_OnChangeHitCountType -= SetHitCountType;
     }
 
     private void UpdateHitCount(int value, bool isIncreasing)
     {
+        if (_isActive)
+            return;
+        
         _currentHitCount = value;
-        m_HitCountText.SetText($"<mspace=0.48em>{_currentHitCount}</mspace><size=80>\tHit</size>");
+        m_HitNumText.SetText($"<mspace=0.48em>{_currentHitCount}</mspace>");
 
-        m_HitCountText.gameObject.SetActive(_currentHitCount >= 10);
+        m_HitText.SetActive(_currentHitCount >= 10);
 
         if (PlayerBombHandler.IsBombInUse)
             return;
         if (isIncreasing)
-            SetHitCountState(HitCountState.Default);
+            SetHitCountState(HitCountController.HitCountState.Default);
     }
 
-    private void SetHitCountState(HitCountState hitCountState)
+    private void SetHitCountState(HitCountController.HitCountState hitCountState)
     {
-        if (_hitCountState == hitCountState)
+        if (_isActive)
             return;
-        
         if (_hitCountEndCoroutine != null)
             StopCoroutine(_hitCountEndCoroutine);
-        _hitCountState = hitCountState;
         
-        switch (_hitCountState)
+        switch (hitCountState)
         {
-            case HitCountState.Default:
-                m_HitCountText.color = _defaultColor;
+            case HitCountController.HitCountState.Default:
+                m_HitNumText.color = _defaultColor;
                 break;
-            case HitCountState.Decreasing:
-                m_HitCountText.color = m_FadeColor;
+            case HitCountController.HitCountState.Decreasing:
+                m_HitNumText.color = m_DecreasingColor;
                 break;
-            case HitCountState.BreakDown:
-                m_HitCountText.color = m_EndColor;
+            case HitCountController.HitCountState.BreakDown:
+                m_HitNumText.color = m_BreakDownColor;
+                _hitCountEndCoroutine = HideHitCountText();
+                StartCoroutine(_hitCountEndCoroutine);
+                break;
+            case HitCountController.HitCountState.EndField:
+                m_HitNumText.color = m_EndFieldColor;
                 _hitCountEndCoroutine = HideHitCountText();
                 StartCoroutine(_hitCountEndCoroutine);
                 break;
             default:
-                m_HitCountText.color = _defaultColor;
+                m_HitNumText.color = _defaultColor;
                 break;
         }
     }
 
     private IEnumerator HideHitCountText()
     {
-        yield return new WaitForMillisecondFrames(3000);
-        Debug.Log("ABC 2");
-        if (_hitCountState == HitCountState.BreakDown)
-            m_HitCountText.gameObject.SetActive(false);
+        yield return new WaitForMillisecondFrames(2500);
+        if (_hitCountEndCoroutine == null)
+            yield break;
+        m_HitText.SetActive(false);
         _hitCountEndCoroutine = null;
+    }
+
+    private void SetHitCountType(HitCountController.HitCountType hitCountType)
+    {
+        _isActive = m_HitCountType == hitCountType;
+        m_HitText.SetActive(_isActive);
     }
 }

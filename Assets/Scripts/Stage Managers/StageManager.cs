@@ -55,6 +55,7 @@ public abstract class StageManager : MonoBehaviour
         Instance = this;
         
         SystemManager.PlayState = PlayState.None;
+        HitCountController.Instance.CurrentHitCountType = HitCountController.HitCountType.Field;
         Init();
         
         //UnityStandardAssets.Water.TerrainWater.m_WaveSpeed = 0f;

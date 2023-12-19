@@ -55,7 +55,7 @@ public class RankingDataLoader : MonoBehaviour
     private void LoadLocalRanking() {
         if (!_localRankingDataList.ContainsKey(m_GameDifficulty))
         {
-            var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(Application.dataPath, $"ranking{(int)m_GameDifficulty}.dat").jsonData;
+            var rankingData = Utility.LoadDataFile<List<LocalRankingData>>(GameManager.RankingFilePath, $"ranking{(int)m_GameDifficulty}.dat").jsonData;
             if (rankingData == null)
             {
                 m_TextErrorMessage.DisplayText("FileLoadException");

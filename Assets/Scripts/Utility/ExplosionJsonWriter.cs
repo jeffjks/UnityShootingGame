@@ -694,7 +694,7 @@ public class ExplosionJsonWriter : MonoBehaviour
         WriteJsonEnemyTankLarge2("EnemyTankLarge2");
         WriteJsonEnemyTankLarge3("EnemyTankLarge3");
 
-        Utility.SaveDataFile(Application.streamingAssetsPath, "resources1.dat", dictionary);
+        Utility.SaveDataFile(GameManager.ResourceFilePath, "resources1.dat", dictionary);
     }
 
 

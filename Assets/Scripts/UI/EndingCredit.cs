@@ -9,6 +9,7 @@ public class EndingCredit : MonoBehaviour
 {
     public TextMeshProUGUI m_CreditText;
     public RectTransform m_CreditTextRectTransform;
+    public TextErrorMessage m_TextErrorMessage;
 
     private Dictionary<Language, string> _creditJsonData = new();
 
@@ -22,7 +23,10 @@ public class EndingCredit : MonoBehaviour
     {
         SystemManager.PlayState = PlayState.OnStageResult;
         _creditJsonData = Utility.LoadDataFile<Dictionary<Language, string>>(GameManager.ResourceFilePath, "resources2.dat").jsonData;
-        m_CreditText.SetText(_creditJsonData[GameSetting.CurrentLanguage]);
+        if (_creditJsonData.TryGetValue(GameSetting.CurrentLanguage, out var creditText))
+            m_CreditText.SetText(creditText);
+        else
+            m_TextErrorMessage.DisplayText("FileLoadException");
         
         FadeScreenService.ScreenFadeIn(0f);
         AudioService.LoadMusics("Main");

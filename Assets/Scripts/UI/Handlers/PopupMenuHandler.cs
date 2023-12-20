@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PopupMenuHandler : MenuHandler
 {
-    public UnityAction Action_OnPositive;
-    public UnityAction Action_OnNegative;
+    public event UnityAction Action_OnPositive;
+    public event UnityAction Action_OnNegative;
     [SerializeField] private TextStyling m_TextStyling;
     [SerializeField] private TextMeshProUGUI m_Message;
     public Button m_ButtonPositive;

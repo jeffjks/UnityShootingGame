@@ -273,10 +273,12 @@ public class ReplayManager : MonoBehaviour
 
         if (SystemManager.GameMode == GameMode.Replay)
         {
+            // TODO. 리플레이 reading 실패 시 동작
             ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
         }
         else
         {
+            // TODO. 리플레이 writing 실패 시 동작
             ReplayFileController.InitWritingReplayFile(OnCompleteInitWriting);
         }
     }

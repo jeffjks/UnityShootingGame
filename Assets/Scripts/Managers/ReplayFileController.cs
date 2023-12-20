@@ -42,12 +42,12 @@ public class ReplayFileController : MonoBehaviour
         return $"{GameManager.ReplayFilePath}replay{slot}.rep";
     }
 
-    public static void InitWritingReplayFile(UnityAction onComplete, int slot = -1)
+    public static bool InitWritingReplayFile(UnityAction onComplete, int slot = -1)
     {
         if (_replayFileMode != ReplayFileMode.None)
         {
             Debug.LogError($"Replay file is already in use!");
-            return;
+            return false;
         }
         
         // Init Writing
@@ -76,10 +76,12 @@ public class ReplayFileController : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"Error has occured while writing replay file: {e}");
+            return false;
         }
         
         _replayFileMode = ReplayFileMode.Write;
         onComplete?.Invoke();
+        return true;
     }
 
     public static bool InitReadingReplayFile(UnityAction onComplete, int slot)

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public static class DebugOption
 {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     public static bool InvincibleMod => EditorPrefsGetBool("InvincibleMod", false);
     public static bool NetworkAvailable => EditorPrefsGetBool("NetworkAvailable", false);
     public static bool GenerateJsonFile => EditorPrefsGetBool("GenerateJsonFile", false);
+    public static bool LoadTempReplayFile => EditorPrefsGetBool("LoadTempReplayFile", false);
     public static int SceneMode => EditorPrefsGetInt("SceneMode", 0);
     private static bool EditorPrefsGetBool(string key, bool defaultValue)
     {
@@ -18,10 +19,11 @@ public static class DebugOption
     {
         return EditorPrefs.GetInt(key, defaultValue);
     }
-    #else
+#else
     public static bool InvincibleMod => false;
     public static bool NetworkAvailable => false;
     public static bool GenerateJsonFile => false;
+    public static bool LoadTempReplayFile => false;
     public static int SceneMode => 0;
-    #endif
+#endif
 }

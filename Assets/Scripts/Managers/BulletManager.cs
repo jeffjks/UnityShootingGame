@@ -93,13 +93,13 @@ public class BulletManager : MonoBehaviour
             node = node.Next;
             
             var bulletPosition = currentNode.Value.transform.position;
-            if (!IsGridRegionAssignable(bulletPosition))
-                continue;
-            
-            var gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
-            bulletPosition.z = Depth.ITEMS;
-            gem.transform.position = bulletPosition;
-            gem.SetActive(true);
+            if (IsGridRegionAssignable(bulletPosition))
+            {
+                var gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
+                bulletPosition.z = Depth.ITEMS;
+                gem.transform.position = bulletPosition;
+                gem.SetActive(true);
+            }
 
             currentNode.Value.RemoveFromBulletList();
         }

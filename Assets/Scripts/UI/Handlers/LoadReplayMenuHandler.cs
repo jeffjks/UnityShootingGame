@@ -12,8 +12,8 @@ public class LoadReplayMenuHandler : MenuHandler
     public ReplayVersionDatas m_ReplayVersionData;
     public PopupMenuHandler m_PopupMenuHandler;
     
-    private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
     private const int MAX_REPLAY_NUMBER = 5;
+    private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
     private int _currentSelectedSlot;
 
     private CanvasGroup[] _canvasGroups;
@@ -29,9 +29,8 @@ public class LoadReplayMenuHandler : MenuHandler
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
 
 #if UNITY_EDITOR
-        // Test Code
-        //_currentSelectedSlot = -1;
-        //Confirm();
+        if (DebugOption.LoadTempReplayFile)
+            PlayReplaySlot(-1);
 #endif
     }
 
@@ -39,14 +38,8 @@ public class LoadReplayMenuHandler : MenuHandler
     {
         for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
         {
-#if UNITY_EDITOR
-            if (i == 0)
-                _replayInfos[0] = ReplayFileController.ReadReplayHeader(-1);
-            else
-                _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
-#else
             _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
-#endif
+            
             if (_replayInfos[i].IsDefault())
             {
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";

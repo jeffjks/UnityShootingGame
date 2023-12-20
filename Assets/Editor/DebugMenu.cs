@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DebugMenu : EditorWindow
 {
-    private static readonly string[] sceneModeRadioMenus =
+    private static readonly string[] SceneModeRadioMenus =
     {
         "Tools/Scene Mode/Default",
         "Tools/Scene Mode/Debug Player",
@@ -62,12 +62,29 @@ public class DebugMenu : EditorWindow
         Menu.SetChecked("Tools/Generate Json File", value);
         return true;
     }
+    
+    [MenuItem("Tools/Load Temp Replay File")]
+    private static void ToggleLoadTempReplayFile()
+    {
+        var value = EditorPrefsGetBool("LoadTempReplayFile", false);
+        value = !value;
+        EditorPrefsSetBool("LoadTempReplayFile", value);
+        Menu.SetChecked("Tools/Load Temp Replay File", value);
+    }
+    
+    [MenuItem("Tools/Load Temp Replay File", true)]
+    private static bool ToggleLoadTempReplayFileValidate()
+    {
+        var value = EditorPrefsGetBool("LoadTempReplayFile", false);
+        Menu.SetChecked("Tools/Load Temp Replay File", value);
+        return true;
+    }
 
     [MenuItem("Tools/Scene Mode/Default")]
     private static void RadioButtonSceneModeDefault()
     {
         EditorPrefsSetInt("SceneMode", 0);
-        foreach (var menuPath in sceneModeRadioMenus)
+        foreach (var menuPath in SceneModeRadioMenus)
         {
             Menu.SetChecked(menuPath, false);
         }
@@ -86,7 +103,7 @@ public class DebugMenu : EditorWindow
     private static void RadioButtonSceneModePlayerDebug()
     {
         EditorPrefsSetInt("SceneMode", 1);
-        foreach (var menuPath in sceneModeRadioMenus)
+        foreach (var menuPath in SceneModeRadioMenus)
         {
             Menu.SetChecked(menuPath, false);
         }
@@ -105,7 +122,7 @@ public class DebugMenu : EditorWindow
     private static void RadioButtonSceneModeEnemyDebug()
     {
         EditorPrefsSetInt("SceneMode", 2);
-        foreach (var menuPath in sceneModeRadioMenus)
+        foreach (var menuPath in SceneModeRadioMenus)
         {
             Menu.SetChecked(menuPath, false);
         }
@@ -124,7 +141,7 @@ public class DebugMenu : EditorWindow
     private static void RadioButtonSceneModeEndingDebug()
     {
         EditorPrefsSetInt("SceneMode", 3);
-        foreach (var menuPath in sceneModeRadioMenus)
+        foreach (var menuPath in SceneModeRadioMenus)
         {
             Menu.SetChecked(menuPath, false);
         }

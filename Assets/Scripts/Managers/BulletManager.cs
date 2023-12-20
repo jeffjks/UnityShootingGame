@@ -9,7 +9,7 @@ public class BulletManager : MonoBehaviour
     private bool _destroySingleton;
     private const int GridRegionWidth = 30;
     private const int GridRegionHeight = 32;
-    private static readonly bool[,] _gridRegion = new bool[GridRegionWidth,GridRegionHeight];
+    private static readonly bool[][] _gridRegion = new bool[GridRegionWidth][];
     
     public static LinkedList<EnemyBullet> EnemyBulletList = new();
     private static int _bulletsSortingLayer;
@@ -38,6 +38,14 @@ public class BulletManager : MonoBehaviour
     }
     private static int _remainingFrame;
     private static BulletManager Instance { get; set; }
+
+    static BulletManager()
+    {
+        for (var i = 0; i < GridRegionWidth; ++i)
+        {
+            _gridRegion[i] = new bool[GridRegionHeight];
+        }
+    }
     
     void Awake()
     {
@@ -144,9 +152,9 @@ public class BulletManager : MonoBehaviour
         if (hIndex is < 0 or >= GridRegionHeight)
             return false;
         
-        if (!_gridRegion[wIndex, hIndex]);
+        if (!_gridRegion[wIndex][hIndex])
         {
-            _gridRegion[wIndex, hIndex] = true;
+            _gridRegion[wIndex][hIndex] = true;
             return true;
         }
         return false;

@@ -9,6 +9,6 @@ public class RankingPageText : MonoBehaviour
 
     public void SetText(int currentPage, int maxPage)
     {
-        _textUI.SetText($"{currentPage + 1} / {maxPage + 1}");
+        _textUI.SetText($"<mspace=0.5em>{currentPage + 1} / {maxPage + 1}</mspace>");
     }
 }

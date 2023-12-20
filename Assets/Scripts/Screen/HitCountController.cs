@@ -18,13 +18,13 @@ public class HitCountController : MonoBehaviour
         Default,
         Decreasing,
         BreakDown,
-        EndField
+        Completed
     }
 
     [SerializeField] private HitCountConstData m_HitCountConstData;
     public int CurrentHitCountBonusPercent { get; private set; } = 100;
     
-    public static event UnityAction<int, bool> Action_OnUpdateHitCount;
+    public static event UnityAction<int> Action_OnUpdateHitCount;
     public static event UnityAction<HitCountState> Action_OnChangeHitCountState;
     public static event UnityAction<HitCountType> Action_OnChangeHitCountType;
     
@@ -59,7 +59,8 @@ public class HitCountController : MonoBehaviour
         Instance = this;
         
         //SystemManager.Action_OnNextStage += OnNextStage;
-        SystemManager.Action_OnPlayStateChanged += EndFieldHitCount;
+        //SystemManager.Action_OnPlayStateChanged += EndFieldHitCount;
+        StageManager.Action_BossWarningSign += EndFieldHitCount;
         SystemManager.Action_OnBossInteractable += OnBossInteractable;
         PlayerManager.Action_OnPlayerRevive += InitHitCount;
         PlayerManager.Action_OnPlayerDead += BreakDownHitCount;
@@ -71,7 +72,8 @@ public class HitCountController : MonoBehaviour
         Instance = null;
         
         //SystemManager.Action_OnNextStage -= OnNextStage;
-        SystemManager.Action_OnPlayStateChanged -= EndFieldHitCount;
+        //SystemManager.Action_OnPlayStateChanged -= EndFieldHitCount;
+        StageManager.Action_BossWarningSign -= EndFieldHitCount;
         SystemManager.Action_OnBossInteractable -= OnBossInteractable;
         PlayerManager.Action_OnPlayerRevive -= InitHitCount;
         PlayerManager.Action_OnPlayerDead -= BreakDownHitCount;
@@ -99,27 +101,27 @@ public class HitCountController : MonoBehaviour
             return;
         if (PlayerBombHandler.IsBombInUse)
             return;
-        if (_currentHitCountState == HitCountState.EndField)
+        if (_currentHitCountState == HitCountState.Completed)
             return;
         
         _hitCount += value;
         _hitCount = Mathf.Min(_hitCount, m_HitCountConstData.MaxHitCount);
-        Action_OnUpdateHitCount?.Invoke(_hitCount, true);
-        SetHitCountState(HitCountState.Default);
-        UpdateHitCountBonus();
+        Action_OnUpdateHitCount?.Invoke(_hitCount);
         _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
+        UpdateHitCountBonus();
+        SetHitCountState(HitCountState.Default);
     }
 
     private void SubtractHitCount(int value = 1)
     {
         if (!PlayerManager.IsPlayerAlive)
             return;
-        if (_currentHitCountState == HitCountState.EndField)
+        if (_currentHitCountState == HitCountState.Completed)
             return;
         
         _hitCount -= value;
         _hitCount = Mathf.Max(_hitCount, m_HitCountConstData.MinHitCount);
-        Action_OnUpdateHitCount?.Invoke(_hitCount, false);
+        Action_OnUpdateHitCount?.Invoke(_hitCount);
         UpdateHitCountBonus();
     }
 
@@ -128,7 +130,7 @@ public class HitCountController : MonoBehaviour
         _hitCount = 0;
         _hitCountDecreasingTimer = -1;
         _hitCountLaserCounter = 0;
-        Action_OnUpdateHitCount?.Invoke(_hitCount, true);
+        Action_OnUpdateHitCount?.Invoke(_hitCount);
         UpdateHitCountBonus();
         SetHitCountState(HitCountState.Default);
     }
@@ -138,21 +140,21 @@ public class HitCountController : MonoBehaviour
         _hitCount = 0;
         _hitCountDecreasingTimer = -1;
         _hitCountLaserCounter = 0;
-        SetHitCountState(HitCountState.BreakDown);
         UpdateHitCountBonus();
+        SetHitCountState(HitCountState.BreakDown);
     }
 
-    private void EndFieldHitCount(PlayState playState)
+    private void EndFieldHitCount()
     {
-        if (playState is PlayState.OnBoss or PlayState.OnBossCleared)
-            SetHitCountState(HitCountState.EndField);
+        //if (playState is PlayState.OnBoss or PlayState.OnBossCleared)
+        SetHitCountState(HitCountState.Completed);
     }
 
     private void SetHitCountState(HitCountState hitCountState)
     {
         if (_currentHitCountState == hitCountState)
             return;
-        if (_currentHitCountState == HitCountState.EndField && hitCountState != HitCountState.Default)
+        if (_currentHitCountState == HitCountState.Completed && hitCountState != HitCountState.Default)
             return;
         _currentHitCountState = hitCountState;
         

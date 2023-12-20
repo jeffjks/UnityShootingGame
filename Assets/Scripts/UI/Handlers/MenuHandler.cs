@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -199,7 +200,8 @@ public abstract class MenuHandler : MonoBehaviour
             selectable.Select();
             return;
         }
-        Selectable[] selectables = menu.GetComponentsInChildren<Selectable>(false);
-        selectables[menu.m_InitialSelection % selectables.Length].Select();
+
+        var selectableList = menu.GetComponentsInChildren<Selectable>(false).ToList().FindAll(x => x.interactable);
+        selectableList[menu.m_InitialSelection % selectableList.Count].Select();
     }
 }

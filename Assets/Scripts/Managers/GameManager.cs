@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         ResourceFilePath = $"{Application.streamingAssetsPath}/";
         ReplayFilePath = $"{Application.dataPath}/replay/";
         RankingFilePath = $"{Application.dataPath}/ranking/";
-        ReplayLogFilePath = $"{Application.dataPath}/";
+        ReplayLogFilePath = $"{Application.dataPath}/Logs/";
 
         foreach (var animationCurve in m_AnimationCurves)
         {

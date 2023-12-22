@@ -13,6 +13,7 @@ public class InGameText_HitCount : MonoBehaviour
     
     private int _currentHitCount;
     private IEnumerator _hitCountEndCoroutine;
+    private HitCountController.HitCountType _currentHitCountType;
     private bool _isActive;
 
     private readonly int _animationIdle = Animator.StringToHash("Idle");
@@ -38,13 +39,10 @@ public class InGameText_HitCount : MonoBehaviour
 
     private void UpdateHitCount(int value)
     {
-        if (!_isActive)
-            return;
-        
         _currentHitCount = value;
         m_HitNumText.SetText($"<mspace=0.48em>{_currentHitCount}</mspace>\t");
 
-        m_HitText.SetActive(_currentHitCount >= 10);
+        UpdateActiveState();
     }
 
     private void SetHitCountColor(HitCountController.HitCountState hitCountState)
@@ -74,7 +72,13 @@ public class InGameText_HitCount : MonoBehaviour
 
     private void SetHitCountType(HitCountController.HitCountType hitCountType)
     {
-        _isActive = m_HitCountType == hitCountType;
+        _currentHitCountType = hitCountType;
+        UpdateActiveState();
+    }
+
+    private void UpdateActiveState()
+    {
+        _isActive = m_HitCountType == _currentHitCountType && _currentHitCount >= 10;
         m_HitText.SetActive(_isActive);
     }
 }

@@ -30,7 +30,7 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
-        //m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
+        m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
         SetRotatePattern(new RotatePattern_MoveDirection());
 
         // SystemManager.OnMiddleBossStart();
@@ -93,6 +93,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
+        if (_phase > 1)
+            return;
+        
         _phase++;
         
         if (_currentPhase != null)

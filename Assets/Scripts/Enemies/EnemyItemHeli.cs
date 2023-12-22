@@ -66,6 +66,18 @@ public class EnemyItemHeli : EnemyUnit {
 		m_FanR.transform.Rotate(0, m_FanRotationSpeed * Time.deltaTime, 0);
 		m_FanB.transform.Rotate(- m_FanRotationSpeed * Time.deltaTime, 0 , 0);
     }
+
+    protected override void Retreat()
+    {
+        if (!TimeLimitState) // Retreat when boss or middle boss state
+        {
+            if (_timeLimitCoroutine != null)
+                StopCoroutine(_timeLimitCoroutine);
+            _timeLimitCoroutine = TimeLimit();
+            StartCoroutine(_timeLimitCoroutine);
+            TimeLimitState = true;
+        }
+    }
 }
 
 public class BulletPattern_EnemyItemHeli : BulletFactory, IBulletPattern

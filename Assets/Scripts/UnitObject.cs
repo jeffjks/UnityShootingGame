@@ -147,8 +147,8 @@ public abstract class PlayerObject : UnitObject
     {
         var damageScale = _playerDamageData.damageScale[enemyObject.m_EnemyType];
         var finalDamage = Damage * damageScale / 100;
-        var damage_type = _playerDamageData.playerDamageType;
-        enemyObject.m_EnemyHealth.TakeDamage(finalDamage, damage_type);
+        var damageType = _playerDamageData.playerDamageType;
+        enemyObject.m_EnemyHealth.TakeDamage(finalDamage, damageType);
     }
 }
 

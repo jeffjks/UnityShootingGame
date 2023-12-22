@@ -31,6 +31,7 @@ public class HitCountController : MonoBehaviour
     private int _hitCount;
     private int _hitCountDecreasingTimer;
     private int _hitCountLaserCounter;
+    private int _hitCountLaserMaxCounter = 20;
     private HitCountState _currentHitCountState = HitCountState.Default;
     private HitCountType _currentHitCountType = HitCountType.None;
 
@@ -42,6 +43,20 @@ public class HitCountController : MonoBehaviour
             if (_currentHitCountType == value)
                 return;
             _currentHitCountType = value;
+            
+            switch (_currentHitCountType)
+            {
+                case HitCountType.Field:
+                    _hitCountLaserMaxCounter = m_HitCountConstData.HitCountLaserMaxCountField;
+                    break;
+                case HitCountType.Boss:
+                    _hitCountLaserMaxCounter = m_HitCountConstData.HitCountLaserMaxCountBoss;
+                    break;
+                default:
+                    _hitCountLaserMaxCounter = 20;
+                    break;
+            }
+
             InitHitCount();
             Action_OnChangeHitCountType?.Invoke(_currentHitCountType);
         }
@@ -163,12 +178,8 @@ public class HitCountController : MonoBehaviour
 
     private void OnBossInteractable()
     {
-        CurrentHitCountType = HitCountType.Boss;
-    }
-
-    private void OnNextStage(bool hasNextStage)
-    {
         InitHitCount();
+        CurrentHitCountType = HitCountType.Boss;
     }
 
     public int HitCountLaserCounter
@@ -184,9 +195,9 @@ public class HitCountController : MonoBehaviour
             _hitCountLaserCounter = value;
             _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
             
-            if (_hitCountLaserCounter >= m_HitCountConstData.HitCountLaserMaxCount)
+            if (_hitCountLaserCounter >= _hitCountLaserMaxCounter)
             {
-                _hitCountLaserCounter %= m_HitCountConstData.HitCountLaserMaxCount;
+                _hitCountLaserCounter %= _hitCountLaserMaxCounter;
                 AddHitCount();
             }
         }

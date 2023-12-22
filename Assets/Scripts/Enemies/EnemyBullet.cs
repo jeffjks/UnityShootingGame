@@ -68,7 +68,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private void OnEnable()
     {
-        AddToBulletList();
         BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
     }
 
@@ -105,6 +104,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             PlayEraseAnimation();
             return;
         }
+        
+        AddToBulletList();
 
         if (bulletProperty.accel.duration > 0)
             StartCoroutine(ApplyBulletAccel(bulletProperty.accel));
@@ -308,7 +309,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         BulletManager.EnemyBulletList.AddLast(this);
     }
 
-    public void RemoveFromBulletList()
+    private void RemoveFromBulletList()
     {
         if (!_isInList)
             return;

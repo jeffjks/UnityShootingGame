@@ -7,11 +7,15 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     private bool _destroySingleton;
-    private const int GridRegionWidth = 30;
-    private const int GridRegionHeight = 32;
+    private const int GridRegionWidth = 10; // 30
+    private const int GridRegionHeight = 11; // 32
     private static readonly bool[][] _gridRegion = new bool[GridRegionWidth][];
     
-    public static LinkedList<EnemyBullet> EnemyBulletList = new();
+#if UNITY_EDITOR
+    [SerializeField] private GameObject m_DebugObject;
+#endif
+    
+    public static readonly LinkedList<EnemyBullet> EnemyBulletList = new();
     private static int _bulletsSortingLayer;
     public static int BulletsSortingLayer
     {
@@ -47,7 +51,7 @@ public class BulletManager : MonoBehaviour
         }
     }
     
-    void Awake()
+    private void Awake()
     {
         if (Instance != null)
         {
@@ -84,8 +88,21 @@ public class BulletManager : MonoBehaviour
         _remainingFrame = frame;
     }
 
+    private static void InitGridRegion()
+    {
+        for (var i = 0; i < GridRegionWidth; ++i)
+        {
+            for (var j = 0; j < GridRegionHeight; ++j)
+            {
+                _gridRegion[i][j] = false;
+            }
+        }
+    }
+
     public static void BulletsToGems(int millisecond)
     {
+        InitGridRegion();
+        
         var node = EnemyBulletList.First;
         while (node != null)
         {
@@ -101,10 +118,12 @@ public class BulletManager : MonoBehaviour
                 gem.SetActive(true);
             }
 
-            currentNode.Value.RemoveFromBulletList();
+            currentNode.Value.ReturnToPool();
         }
         
         SetBulletFreeState(millisecond);
+        
+        /*
         return;
         
         List<GameObject> bulletList = GameObject.FindGameObjectsWithTag("EnemyBulletParent").ToList();
@@ -140,12 +159,13 @@ public class BulletManager : MonoBehaviour
             count--;
         }
         SetBulletFreeState(millisecond);
+        */
     }
 
     private static bool IsGridRegionAssignable(Vector2 position)
     {
-        var wIndex = (int) ((position.x - Size.GAME_BOUNDARY_LEFT) / Size.GAME_WIDTH * GridRegionWidth);
-        var hIndex = (int) ((position.y - Size.GAME_BOUNDARY_BOTTOM) / Size.GAME_HEIGHT * GridRegionHeight);
+        var wIndex = (int) ((position.x - Size.GAME_BOUNDARY_LEFT) * GridRegionWidth / Size.GAME_WIDTH);
+        var hIndex = (int) ((position.y - Size.GAME_BOUNDARY_BOTTOM) * GridRegionHeight / Size.GAME_HEIGHT);
 
         if (wIndex is < 0 or >= GridRegionWidth)
             return false;
@@ -155,6 +175,12 @@ public class BulletManager : MonoBehaviour
         if (!_gridRegion[wIndex][hIndex])
         {
             _gridRegion[wIndex][hIndex] = true;
+#if UNITY_EDITOR
+            Vector3 pos = position;
+            pos.z = Depth.ENEMY_BULLET;
+            //var ins = Instantiate(Instance.m_DebugObject, pos, Quaternion.identity);
+            //Debug.Log($"Bullet: {ins.transform.position} -> {wIndex}, {hIndex}");
+#endif
             return true;
         }
         return false;

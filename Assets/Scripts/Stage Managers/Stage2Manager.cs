@@ -190,9 +190,9 @@ public class Stage2Manager : StageManager
         CreateEnemy(m_PlaneMedium_2, new Vector2(2f, 3f));
         StopCoroutine(m_CurrentSpawn);
 
-        yield return new WaitForMillisecondFrames(4000);
-        CreateEnemy(m_ItemHeliRed, new Vector2(-2f, 3f)); // Item Heli 1
         yield return new WaitForMillisecondFrames(2000);
+        CreateEnemy(m_ItemHeliRed, new Vector2(-2f, 3f)); // Item Heli 1
+        yield return new WaitForMillisecondFrames(1000);
         CreateEnemy(m_ItemHeliGreen, new Vector2(3.5f, 3f)); // Item Heli 2
         yield break;
     }

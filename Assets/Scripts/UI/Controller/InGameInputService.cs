@@ -40,6 +40,7 @@ public class InGameInputService : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
         SystemManager.Action_OnNextStage -= DestroySelf;
         SystemManager.Action_OnFinishEndingCredit -= DestroySelf;

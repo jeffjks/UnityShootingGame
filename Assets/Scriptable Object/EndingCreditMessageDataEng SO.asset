@@ -17,7 +17,6 @@ MonoBehaviour:
   categoryAssetList: Used Assets
   assetLists:
   - assetCategory: Models
-    assetCategoryNative: "\uBAA8\uB378\uB9C1"
     assetNames: 'Ballistic Turret
 
       Chainlink Fences
@@ -68,7 +67,6 @@ MonoBehaviour:
       UXR
       Tetrahedron (by ENEA LE FONS, Sketchfab)'
   - assetCategory: Images / Textures
-    assetCategoryNative: "\uC774\uBBF8\uC9C0 / \uD14D\uC2A4\uCCD0"
     assetNames: 'https://www.freepik.com/
 
       Sci Fi UI Pack
@@ -80,7 +78,6 @@ MonoBehaviour:
 
       VFX Ui Progress Bar'
   - assetCategory: VFX
-    assetCategoryNative: VFX
     assetNames: 'Effect textures and prefabs
 
       Glowing orbs pack Vol 4
@@ -99,12 +96,10 @@ MonoBehaviour:
 
       Waf FX'
   - assetCategory: Sounds
-    assetCategoryNative: "\uC0AC\uC6B4\uB4DC"
     assetNames: 'CAVE Interactive CO. LTD (Ketsui Arrange)
 
       Fantasy Menu SFX'
   - assetCategory: Terrain
-    assetCategoryNative: "\uBC30\uACBD \uBAA8\uB378\uB9C1"
     assetNames: 'City Highways Construction Kit
 
       City Street Props
@@ -127,12 +122,5 @@ MonoBehaviour:
       City
 
       World Space Trees'
-  - assetCategory: Others
-    assetCategoryNative: "\uAE30\uD0C0"
-    assetNames: 'Asset Usage Detector
-
-      Auto Letterbox
-
-      DOTween'
   creditDate: 2023/06/29
   unityVersion: 2021.3.24f1

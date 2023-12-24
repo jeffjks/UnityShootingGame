@@ -20,7 +20,6 @@ public class EndingCreditMessageDatas : ScriptableObject
     [Space(10)]
     public string categoryAssetList;
     public AssetList[] assetLists;
-
-    public string creditDate;
+    
     public string unityVersion;
 }

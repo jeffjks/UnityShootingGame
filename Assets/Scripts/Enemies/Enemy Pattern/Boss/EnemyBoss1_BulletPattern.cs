@@ -87,9 +87,9 @@ public class BulletPattern_EnemyBoss1_Turret1_2A : BulletFactory, IBulletPattern
         const float gap = 0.03f;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
-            for (int i = 0; i < 6; i++) {
-                CreateBullet(new BulletProperty(GetFirePos(0, gap), BulletImage.BlueLarge, 5f + 0.7f*i, BulletPivot.Current, -3f));
-                CreateBullet(new BulletProperty(GetFirePos(0, -gap), BulletImage.BlueLarge, 5f + 0.7f*i, BulletPivot.Current, 3f));
+            for (int i = 0; i < 3; i++) {
+                CreateBullet(new BulletProperty(GetFirePos(0, gap), BulletImage.BlueLarge, 5f + 1f*i, BulletPivot.Current, -3f));
+                CreateBullet(new BulletProperty(GetFirePos(0, -gap), BulletImage.BlueLarge, 5f + 1f*i, BulletPivot.Current, 3f));
                 yield return new WaitForMillisecondFrames(60);
             }
         }

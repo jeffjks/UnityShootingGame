@@ -156,9 +156,9 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1B : BulletFactory, IBulletP
         }
         if (SystemManager.Difficulty == GameDifficulty.Hell) {
             while (true) {
-                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 5.8f, BulletPivot.Current, 0f, 7, 11f));
-                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.6f, BulletPivot.Current, 2f, 7, 11f));
-                yield return new WaitForMillisecondFrames(80);
+                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 5.8f, BulletPivot.Current, 0f, 6, 12f));
+                CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 6.6f, BulletPivot.Current, 0f, 6, 12f));
+                yield return new WaitForMillisecondFrames(100);
             }
         }
         onCompleted?.Invoke();

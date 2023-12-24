@@ -12,18 +12,17 @@ public class SaveReplayMenuHandler : MenuHandler
     public GameObject m_ReplaySlotPanel;
     public PopupMenuHandler m_PopupMenuHandler;
     public TextErrorMessage m_TextErrorMessage;
+    public CanvasGroup m_CanvasGroup;
     
     private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
     private const int MAX_REPLAY_NUMBER = 5;
     private string _currentReplayDateTime;
 
-    private CanvasGroup[] _canvasGroups = new CanvasGroup[MAX_REPLAY_NUMBER];
-    private ButtonStyling[] _buttonStylingArray = new ButtonStyling[MAX_REPLAY_NUMBER];
-    private TextMeshProUGUI[] _buttonTexts = new TextMeshProUGUI[MAX_REPLAY_NUMBER];
+    private ButtonStyling[] _buttonStylingArray;
+    private TextMeshProUGUI[] _buttonTexts;
 
     private void Awake()
     {
-        _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
     }
@@ -111,6 +110,7 @@ public class SaveReplayMenuHandler : MenuHandler
     private void LeaveMenu()
     {
         EventSystem.current.sendNavigationEvents = false;
+        m_CanvasGroup.interactable = false;
         
         StartCoroutine(ReturnToMainMenu());
     }

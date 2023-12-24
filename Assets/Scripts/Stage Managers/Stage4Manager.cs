@@ -116,33 +116,24 @@ public class Stage4Manager : StageManager
         if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(-2f, 3f));
         }
+        StartCoroutine(SpawnPlaneSmalls3(3, 1000));
         yield return new WaitForMillisecondFrames(4000);
         if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(3f, 3f));
         }
+        StartCoroutine(SpawnPlaneSmalls3(4, 1000));
         yield return new WaitForMillisecondFrames(6000);
         if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(-1f, 3f));
         }
-        for (int i = 0; i < 6; i++) {
-            yield return new WaitForMillisecondFrames(500);
-            if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(m_PlaneSmall_1, new Vector2(-5f, 3f));
-                CreateEnemy(m_PlaneSmall_1, new Vector2(5f, 3f));
-            }
-        }
-        yield return new WaitForMillisecondFrames(4000);
+        StartCoroutine(SpawnPlaneSmalls3(6, 500));
+        yield return new WaitForMillisecondFrames(7000);
         if (SystemManager.PlayState == PlayState.None) {
             CreateEnemy(m_PlaneLarge_3, new Vector2(2.5f, 3f));
         }
-        for (int i = 0; i < 6; i++) {
-            yield return new WaitForMillisecondFrames(500);
-            if (SystemManager.PlayState == PlayState.None) {
-                CreateEnemy(m_PlaneSmall_1, new Vector2(-5f, 3f));
-                CreateEnemy(m_PlaneSmall_1, new Vector2(5f, 3f));
-            }
-        }
-        yield return new WaitForMillisecondFrames(4000);
+        StartCoroutine(SpawnPlaneSmalls3(6, 500));
+        
+        yield return new WaitForMillisecondFrames(7000);
         CreateEnemyWithMoveVector(m_TankLarge_2, new Vector3(-24.35f, 3.21f, 84.5f), new MoveVector(-4f, -90f), new MovePattern[] {new MovePattern(2100, 1400, true, 0f)});
         yield return new WaitForMillisecondFrames(6000);
         CreateEnemy(m_ItemHeliRed, new Vector2(2f, 3f)); // Item Heli 1
@@ -222,5 +213,16 @@ public class Stage4Manager : StageManager
             yield return new WaitForMillisecondFrames(400);
         }
         yield break;
+    }
+
+    private IEnumerator SpawnPlaneSmalls3(int repeatNum, int periodMillisecond)
+    {
+        for (int i = 0; i < repeatNum; i++) {
+            yield return new WaitForMillisecondFrames(periodMillisecond);
+            if (SystemManager.PlayState == PlayState.None) {
+                CreateEnemy(m_PlaneSmall_1, new Vector2(-5f, 3f));
+                CreateEnemy(m_PlaneSmall_1, new Vector2(5f, 3f));
+            }
+        }
     }
 }

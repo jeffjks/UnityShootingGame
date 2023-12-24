@@ -40,6 +40,7 @@ public class PoolingManager : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 

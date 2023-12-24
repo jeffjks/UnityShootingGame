@@ -69,6 +69,6 @@ public class SelectAttributesMenuHandler : MenuHandler
         _attributeCost[attributeType] = cost;
         _totalCost += _attributeCost[attributeType];
         _isExceedMaximumCost = m_AttributesCostWindowController.SetCostText(_totalCost);
-        m_AttributeConfirmMenuHandler.m_ConfirmButton.interactable = !_isExceedMaximumCost;
+        m_AttributeConfirmMenuHandler.m_CanvasGroup.interactable = !_isExceedMaximumCost;
     }
 }

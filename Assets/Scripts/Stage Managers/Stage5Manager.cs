@@ -64,7 +64,6 @@ public class Stage5Manager : StageManager
         BackgroundCamera.SetBackgroundCameraSpeed(1f, 4000);
         yield return new WaitForMillisecondFrames(9000);
         StartBossTimeline();
-        Debug.Log(BackgroundCamera.Instance.transform.localPosition.z.ToString("N8"));
     }
 
     protected override IEnumerator BossTimeline()

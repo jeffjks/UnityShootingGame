@@ -34,7 +34,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public BulletImage BulletImage
     {
-        set
+        get => _bulletImage;
+        private set
         {
             _bulletImage = value;
             OnBulletImageChanged();

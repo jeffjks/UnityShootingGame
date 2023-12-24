@@ -152,9 +152,10 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase1() { // 페이즈 1 패턴 =================
         yield return new WaitForMillisecondFrames(1000);
+        var repeatedNum = 0;
         while (m_Phase == 1) {
             yield return Pattern1A();
-            yield return new WaitForMillisecondFrames(500);
+            yield return new WaitForMillisecondFrames(repeatedNum == 0 ? 1500 : 300);
             
             var side = RandomValue();
             m_Turret[0].StartPattern("1B", new BulletPattern_EnemyBoss3_Turret_1B(m_Turret[0], side));
@@ -176,6 +177,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_BarrelAnimator.SetTrigger(_barrelAnimationTrigger);
             yield return StartPattern("1D", new BulletPattern_EnemyBoss3_1D(this));
             yield return new WaitForMillisecondFrames(2500);
+            repeatedNum++;
         }
     }
 
@@ -218,8 +220,12 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartPattern("1A1", new BulletPattern_EnemyBoss3_1A1(this));
         StartPattern("1A2", new BulletPattern_EnemyBoss3_1A2(this));
 
-        for (int i = 0; i < 3; i++) {
+        const int repeatNum = 3;
+        for (int i = 0; i < repeatNum; i++) {
             m_CustomDirection[0] = GetAngleToTarget(m_FirePosition[0].position, PlayerManager.GetPlayerPosition()) - 45f * Mathf.Sign(_directionDelta);
+
+            if (i == repeatNum - 1)
+                break;
             yield return new WaitForFrames(64);
             _directionDelta *= -1;
         }

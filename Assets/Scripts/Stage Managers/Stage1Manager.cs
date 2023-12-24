@@ -110,6 +110,7 @@ public class Stage1Manager : StageManager
         CreateEnemy(m_PlaneMedium_1, new Vector2(2f, 3f));
         yield return new WaitForMillisecondFrames(5000);
         random_duration = Random.Range(1200, 1500);
+        CreateEnemyWithTarget(m_Helicopter, new Vector2(-5f, 4f), new Vector2(-6f, -4f), random_duration);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-4f, 3f), new Vector2(-4f, -3f), random_duration);
         CreateEnemyWithTarget(m_Helicopter, new Vector2(-2f, 3f), new Vector2(-1f, -5f), random_duration);
         yield return new WaitForMillisecondFrames(5000); // Middle Boss ==========================

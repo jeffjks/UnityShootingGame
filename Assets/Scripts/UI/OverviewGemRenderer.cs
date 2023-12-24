@@ -27,6 +27,7 @@ public class OverviewGemRenderer : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 

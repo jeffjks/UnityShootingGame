@@ -26,6 +26,7 @@ public class LetterBoxCamera : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 

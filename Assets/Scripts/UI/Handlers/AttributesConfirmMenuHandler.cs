@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class AttributesConfirmMenuHandler : MenuHandler
 {
-    public Button m_ConfirmButton;
+    public CanvasGroup m_CanvasGroup;
     
     protected override void Init() { }
 
     public void Confirm()
     {
         EventSystem.current.currentInputModule.enabled = false;
-        m_ConfirmButton.interactable = false;
+        m_CanvasGroup.interactable = false;
         FadeScreenService.ScreenFadeOut(2f, StartInGame);
         AudioService.FadeOutMusic(2f);
         AudioService.PlaySound("SallyUI");

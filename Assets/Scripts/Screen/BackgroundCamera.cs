@@ -40,6 +40,7 @@ public class BackgroundCamera : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnNextStage -= InitCamera;
         SystemManager.Action_OnShowOverview -= StopBackgroundCamera;
     }

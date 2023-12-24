@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 3076100973455674239}
   - component: {fileID: 702314969701033092}
   - component: {fileID: 6911442044286071706}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14713,7 +14713,7 @@ GameObject:
   - component: {fileID: 7104905263442798697}
   - component: {fileID: 6793747842524772662}
   - component: {fileID: 5798608091467431376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19595,7 +19595,7 @@ GameObject:
   - component: {fileID: 5943471930278978073}
   - component: {fileID: 1978703900050188682}
   - component: {fileID: 3456666478038035540}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24477,7 +24477,7 @@ GameObject:
   - component: {fileID: 4533180007306928468}
   - component: {fileID: 8250414374859733768}
   - component: {fileID: 4137863940704814892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29626,7 +29626,7 @@ GameObject:
   - component: {fileID: 6756309061685721899}
   - component: {fileID: 4712546369702223305}
   - component: {fileID: 5004967948701958834}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShineLightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44023,7 +44023,7 @@ GameObject:
   - component: {fileID: 7127964761811222441}
   - component: {fileID: 325519884935844340}
   - component: {fileID: 7658836949482484343}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LightningEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

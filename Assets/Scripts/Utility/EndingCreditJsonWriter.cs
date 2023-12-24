@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ public class EndingCreditJsonWriter : MonoBehaviour
     {
         StringBuilder sb = new StringBuilder();
         var credit = messageData.credit;
-        var creditDate = messageData.creditDate;
+        var creditDate = DateTime.Now.ToString("yyyy/MM/dd");
         var unityVersion = messageData.unityVersion;
         
         sb.Append(MakeRichText(messageData.categoryCredit));

@@ -3564,18 +3564,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 330550781}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &330550783 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3189451736110459613, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-    type: 3}
-  m_PrefabInstance: {fileID: 330550781}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330550784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ab192afc65ae143ad13a21ba307fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &330550784 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2620441171870082064, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
@@ -10907,6 +10895,7 @@ GameObject:
   - component: {fileID: 1074893950}
   - component: {fileID: 1074893952}
   - component: {fileID: 1074893951}
+  - component: {fileID: 1074893954}
   - component: {fileID: 1074893953}
   m_Layer: 5
   m_Name: Panel (Confirm)
@@ -10984,7 +10973,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitialSelection: 0
   m_PreserveLastSelection: 0
-  m_ConfirmButton: {fileID: 330550783}
+  m_CanvasGroup: {fileID: 1074893954}
+--- !u!225 &1074893954
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074893949}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1113142101
 PrefabInstance:
   m_ObjectHideFlags: 0

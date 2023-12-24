@@ -41,4 +41,5 @@ sysinfo.txt
 # Project
 Assets/ranking/**
 Assets/replay/**
+Assets/logs/**
 *.rep

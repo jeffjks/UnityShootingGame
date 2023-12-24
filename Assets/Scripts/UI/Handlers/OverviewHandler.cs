@@ -179,15 +179,14 @@ public class OverviewHandler : MonoBehaviour
 
     private IEnumerator CalculateFinalBonus()
     {
-        const int digit = 12;
-        for (int i = 0; i < digit + 1; ++i) {
-            var target_score = (long) Mathf.Pow(3, digit - i);
-            while (FinalBonusScore >= target_score)
-            {
-                FinalBonusScore -= target_score;
-                InGameDataManager.Instance.AddScore(target_score, false, false);
-                yield return new WaitForFrames(2);
-            }
+        const long limitDelta = 25000;
+        var target_score = FinalBonusScore <= limitDelta ? 
+            (long) Mathf.Sqrt(FinalBonusScore) : FinalBonusScore / (long) Mathf.Sqrt(limitDelta);
+        while (FinalBonusScore >= target_score)
+        {
+            FinalBonusScore -= target_score;
+            InGameDataManager.Instance.AddScore(target_score, false, false);
+            yield return new WaitForFrames(1);
         }
     }
 

@@ -68,6 +68,7 @@ public class BulletManager : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnNextStage -= InitSortingLayer;
     }
 

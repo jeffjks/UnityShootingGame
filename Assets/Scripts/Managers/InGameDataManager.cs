@@ -100,6 +100,7 @@ public class InGameDataManager : MonoBehaviour
     {
         if (_destroySingleton)
             return;
+        Instance = null;
         SystemManager.Action_OnQuitInGame -= DestroySelf;
     }
 

@@ -122,11 +122,5 @@ MonoBehaviour:
       City
 
       World Space Trees'
-  - assetCategory: "\uAE30\uD0C0"
-    assetNames: 'Asset Usage Detector
-
-      Auto Letterbox
-
-      DOTween'
   creditDate: 2023/06/29
   unityVersion: 2021.3.24f1

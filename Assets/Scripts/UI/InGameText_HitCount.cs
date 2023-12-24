@@ -7,7 +7,7 @@ using TMPro;
 public class InGameText_HitCount : MonoBehaviour
 {
     public HitCountController.HitCountType m_HitCountType;
-    public GameObject m_HitText;
+    public CanvasGroup m_CanvasGroup;
     public TextMeshProUGUI m_HitNumText;
     public Animator m_Animator;
     
@@ -16,6 +16,16 @@ public class InGameText_HitCount : MonoBehaviour
     private HitCountController.HitCountType _currentHitCountType;
     private bool _isActive;
 
+    private bool IsActive
+    {
+        get => _isActive;
+        set
+        {
+            _isActive = value;
+            m_CanvasGroup.alpha = _isActive ? 1f : 0f;
+        }
+    }
+
     private readonly int _animationIdle = Animator.StringToHash("Idle");
     private readonly int _animationBreakDown = Animator.StringToHash("BreakDown");
     private readonly int _animationCompleted = Animator.StringToHash("Completed");
@@ -23,8 +33,6 @@ public class InGameText_HitCount : MonoBehaviour
 
     private void Awake()
     {
-        m_HitText.SetActive(_isActive);
-        
         HitCountController.Action_OnUpdateHitCount += UpdateHitCount;
         HitCountController.Action_OnChangeHitCountState += SetHitCountColor;
         HitCountController.Action_OnChangeHitCountType += SetHitCountType;
@@ -47,9 +55,6 @@ public class InGameText_HitCount : MonoBehaviour
 
     private void SetHitCountColor(HitCountController.HitCountState hitCountState)
     {
-        if (!_isActive)
-            return;
-        
         switch (hitCountState)
         {
             case HitCountController.HitCountState.Default:
@@ -78,7 +83,6 @@ public class InGameText_HitCount : MonoBehaviour
 
     private void UpdateActiveState()
     {
-        _isActive = m_HitCountType == _currentHitCountType && _currentHitCount >= 10;
-        m_HitText.SetActive(_isActive);
+        IsActive = m_HitCountType == _currentHitCountType && _currentHitCount >= 10;
     }
 }

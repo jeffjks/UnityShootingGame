@@ -21,6 +21,16 @@ public class LoadReplayMenuHandler : MenuHandler
     private ColorTintButton[] _buttons;
     private TextMeshProUGUI[] _buttonTexts;
 
+    private ReplayManager.ReplayInfo CurrentReplaySlot
+    {
+        get
+        {
+            if (_currentSelectedSlot == -1)
+                return ReplayFileController.ReadReplayHeader(_currentSelectedSlot);
+            return _replayInfos[_currentSelectedSlot];
+        }
+    }
+
     private void Awake()
     {
         _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
@@ -100,13 +110,27 @@ public class LoadReplayMenuHandler : MenuHandler
 
     private bool CheckReplayAvailable()
     {
-        if (_replayInfos[_currentSelectedSlot].m_Version != m_ReplayVersionData.replayVersion)
+        try
+        {
+            if (CurrentReplaySlot.m_Version != m_ReplayVersionData.replayVersion)
+            {
+                PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
+                    () => _isActive = true,
+                    null,
+                    "리플레이 버전이 맞지 않아 리플레이를 실행할 수 없습니다.",
+                    "This replay can't be viewed as the replay version is different."
+                ));
+                m_PopupMenuHandler.m_ButtonNegative.gameObject.SetActive(false);
+                return false;
+            }
+        }
+        catch (Exception e)
         {
             PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
                 () => _isActive = true,
                 null,
-                "리플레이 버전이 맞지 않아 리플레이를 실행할 수 없습니다.",
-                "This replay can't be viewed as the replay version is different."
+                $"오류가 발생하여 리플레이를 실행할 수 없습니다.\n{e}",
+                $"Error has occured while reading replay\n{e}"
             ));
             m_PopupMenuHandler.m_ButtonNegative.gameObject.SetActive(false);
             return false;
@@ -117,7 +141,7 @@ public class LoadReplayMenuHandler : MenuHandler
 
     private void StartReplay()
     {
-        var replayInfo = _replayInfos[_currentSelectedSlot];
+        var replayInfo = CurrentReplaySlot;
 
         ReplayManager.CurrentReplaySlot = _currentSelectedSlot;
         PlayerManager.CurrentAttributes = replayInfo.m_Attributes;

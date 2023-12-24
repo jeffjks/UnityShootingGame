@@ -79,6 +79,7 @@ public class PlayerUnit : PlayerObject
             return;
         if (_destroySingleton)
             return;
+        Instance = null;
         Action_OnControllableChanged -= OnControllableChanged;
         PlayerManager.Action_OnPlayerRevive -= InitBomb;
         SystemManager.Action_OnStageClear -= OnStageClear;

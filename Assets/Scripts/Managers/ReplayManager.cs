@@ -203,13 +203,14 @@ public class ReplayManager : MonoBehaviour
         SystemManager.Action_OnNextStage += InitCurrentFrame;
 
 #if UNITY_EDITOR
-        if (!IsUsingReplay)
+        if (!SystemManager.IsInGame)
             return;
         
         if (SystemManager.GameMode == GameMode.Replay)
         {
             if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayReadFile}"))
             {
+                Directory.CreateDirectory(GameManager.ReplayLogFilePath);
                 var file = File.CreateText($"{GameManager.ReplayLogFilePath}{ReplayReadFile}");
                 file.Flush();
                 file.Close();
@@ -220,6 +221,7 @@ public class ReplayManager : MonoBehaviour
         {
             if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}"))
             {
+                Directory.CreateDirectory(GameManager.ReplayLogFilePath);
                 var file = File.CreateText($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}");
                 file.Flush();
                 file.Close();

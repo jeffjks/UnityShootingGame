@@ -28,6 +28,7 @@ public class HitCountController : MonoBehaviour
     public static event UnityAction<HitCountState> Action_OnChangeHitCountState;
     public static event UnityAction<HitCountType> Action_OnChangeHitCountType;
     
+    private bool _destroySingleton;
     private int _hitCount;
     private int _hitCountDecreasingTimer;
     private int _hitCountLaserCounter;
@@ -68,6 +69,7 @@ public class HitCountController : MonoBehaviour
     {
         if (Instance != null)
         {
+            _destroySingleton = true;
             Destroy(gameObject);
             return;
         }
@@ -75,8 +77,9 @@ public class HitCountController : MonoBehaviour
         
         //SystemManager.Action_OnNextStage += OnNextStage;
         //SystemManager.Action_OnPlayStateChanged += EndFieldHitCount;
-        StageManager.Action_BossWarningSign += EndFieldHitCount;
+        StageManager.Action_BossWarningSign += CompleteHitCount;
         SystemManager.Action_OnBossInteractable += OnBossInteractable;
+        SystemManager.Action_OnBossClear += CompleteHitCount;
         PlayerManager.Action_OnPlayerRevive += InitHitCount;
         PlayerManager.Action_OnPlayerDead += BreakDownHitCount;
         PlayerBombHandler.Action_OnBombUse += DecreaseHitCount;
@@ -84,12 +87,15 @@ public class HitCountController : MonoBehaviour
     
     private void OnDestroy()
     {
+        if (_destroySingleton)
+            return;
         Instance = null;
         
         //SystemManager.Action_OnNextStage -= OnNextStage;
         //SystemManager.Action_OnPlayStateChanged -= EndFieldHitCount;
-        StageManager.Action_BossWarningSign -= EndFieldHitCount;
+        StageManager.Action_BossWarningSign -= CompleteHitCount;
         SystemManager.Action_OnBossInteractable -= OnBossInteractable;
+        SystemManager.Action_OnBossClear -= CompleteHitCount;
         PlayerManager.Action_OnPlayerRevive -= InitHitCount;
         PlayerManager.Action_OnPlayerDead -= BreakDownHitCount;
         PlayerBombHandler.Action_OnBombUse -= DecreaseHitCount;
@@ -159,7 +165,7 @@ public class HitCountController : MonoBehaviour
         SetHitCountState(HitCountState.BreakDown);
     }
 
-    private void EndFieldHitCount()
+    private void CompleteHitCount()
     {
         //if (playState is PlayState.OnBoss or PlayState.OnBossCleared)
         SetHitCountState(HitCountState.Completed);

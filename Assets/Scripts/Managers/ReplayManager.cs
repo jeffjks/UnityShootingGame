@@ -39,6 +39,7 @@ public class ReplayManager : MonoBehaviour
     public bool m_KillLog;
     public bool m_RemoveLog;
     public bool m_PlayerInputLog;
+    public bool m_PlayerWeaponStartLog;
     public bool m_PlayerWeaponHitLog;
 #endif
 

@@ -27,6 +27,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     private bool _appliedDamage;
     
     public virtual void OnStart() {
+#if UNITY_EDITOR
+        if (SystemManager.IsInGame && ReplayManager.Instance.m_PlayerWeaponStartLog)
+            ReplayManager.WriteReplayLogFile($"PlayerWeaponStart {name}: {transform.position.ToString("N6")}");
+#endif
+        
         _appliedDamage = false;
         _removeTimerCoroutine = SetRemoveTimer();
         //Debug.Log($"{ReplayManager.CurrentFrame}: PlayerWeapon Spawned {name} at {transform.position}");
@@ -59,6 +64,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             
+#if UNITY_EDITOR
+            if (ReplayManager.Instance.m_PlayerWeaponHitLog)
+                ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyObject.name}, {transform.position.ToString("N6")}");
+#endif
+            
             if (m_IsPenetrate && gameObject.CheckLayer(Layer.SMALL))
             {
                 enemyObject.m_EnemyDeath.KillEnemy();
@@ -69,11 +79,6 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
                 _appliedDamage = true;
                 OnDeath();
             }
-            
-#if UNITY_EDITOR
-            if (ReplayManager.Instance.m_PlayerWeaponHitLog)
-                ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyObject.name}, {transform.position.ToString("N6")}");
-#endif
         }
     }
 

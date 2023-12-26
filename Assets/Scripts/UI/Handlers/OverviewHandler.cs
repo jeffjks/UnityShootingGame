@@ -180,12 +180,13 @@ public class OverviewHandler : MonoBehaviour
     private IEnumerator CalculateFinalBonus()
     {
         const long limitDelta = 25000;
-        var target_score = FinalBonusScore <= limitDelta ? 
-            (long) Mathf.Sqrt(FinalBonusScore) : FinalBonusScore / (long) Mathf.Sqrt(limitDelta);
-        while (FinalBonusScore >= target_score)
+        var targetScore = FinalBonusScore <= limitDelta ? 
+            (long) Mathf.Sqrt(FinalBonusScore) * 2 : FinalBonusScore / (long) Mathf.Sqrt(limitDelta) * 2;
+        while (FinalBonusScore > 0)
         {
-            FinalBonusScore -= target_score;
-            InGameDataManager.Instance.AddScore(target_score, false, false);
+            var deltaScore = (long) Mathf.Min(FinalBonusScore, targetScore);
+            FinalBonusScore -= deltaScore;
+            InGameDataManager.Instance.AddScore(deltaScore, false, false);
             yield return new WaitForFrames(1);
         }
     }

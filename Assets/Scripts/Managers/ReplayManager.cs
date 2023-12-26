@@ -35,6 +35,11 @@ public class ReplayManager : MonoBehaviour
 
 #if UNITY_EDITOR
     private StreamWriter _logFileStream;
+
+    public bool m_KillLog;
+    public bool m_RemoveLog;
+    public bool m_PlayerInputLog;
+    public bool m_PlayerWeaponHitLog;
 #endif
 
     private int PlayerAttackLevel
@@ -318,19 +323,22 @@ public class ReplayManager : MonoBehaviour
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
             _playerController.OnMoveInvoked(moveVectorInt);
-            WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            if (m_PlayerInputLog)
+                WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
             _playerController.OnFireInvoked(isFirePressed);
-            WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            if (m_PlayerInputLog)
+                WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
             _playerController.OnBombInvoked(isBombPressed);
-            WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            if (m_PlayerInputLog)
+                WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         _context = new ReplayData();
@@ -392,17 +400,20 @@ public class ReplayManager : MonoBehaviour
 
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
-            WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            if (m_PlayerInputLog)
+                WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
-            WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            if (m_PlayerInputLog)
+                WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
-            WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            if (m_PlayerInputLog)
+                WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
         
         _context = new ReplayData();
@@ -438,6 +449,7 @@ public class ReplayManager : MonoBehaviour
             return;
         if (!IsUsingReplay)
             return;
+        _logFileStream.Flush();
         _logFileStream.Close();
         _logFileStream = null;
 #endif

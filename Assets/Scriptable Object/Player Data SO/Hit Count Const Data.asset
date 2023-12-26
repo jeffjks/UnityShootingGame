@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hit Count Const Data
   m_EditorClassIdentifier: 
   HitCountDecreasingFrame: 80
-  HitCountDecreasingPeriodFrame: 12
+  HitCountDecreasingPeriodFrame: 4
   HitCountLaserMaxCountField: 20
   HitCountLaserMaxCountBoss: 10
   MaxHitCount: 99999

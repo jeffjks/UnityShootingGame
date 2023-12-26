@@ -69,7 +69,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
                 _appliedDamage = true;
                 OnDeath();
             }
-            //Debug.Log($"{GameManager.CurrentFrame}: {name}->{enemyObject.name}");
+            
+#if UNITY_EDITOR
+            if (ReplayManager.Instance.m_PlayerWeaponHitLog)
+                ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyObject.name}, {transform.position.ToString("N6")}");
+#endif
         }
     }
 

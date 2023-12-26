@@ -64,3 +64,7 @@ MonoBehaviour:
   m_Activate: 1
   m_ReplayVersionData: {fileID: 11400000, guid: 6a98e7c3b1e337643a4d23ddfdee0516,
     type: 2}
+  m_KillLog: 1
+  m_RemoveLog: 0
+  m_PlayerInputLog: 0
+  m_PlayerWeaponHitLog: 1

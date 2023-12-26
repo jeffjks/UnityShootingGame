@@ -89,6 +89,13 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         m_EnemyDeath.Action_OnKilled += HandleOnKilled;
         m_EnemyDeath.Action_OnKilled += DisableInteractable;
         m_EnemyDeath.Action_OnKilled += StopAllPatterns;
+#if UNITY_EDITOR
+        if (ReplayManager.Instance.m_KillLog)
+            m_EnemyDeath.Action_OnKilled += WriteReplayKillLog;
+        if (ReplayManager.Instance.m_RemoveLog)
+            m_EnemyDeath.Action_OnRemoved += WriteReplayRemoveLogFile;
+#endif
+        
         if (m_EnemyType != EnemyType.Zako || m_IsAir) { // 지상 자코가 아닐 경우
             if (TryGetComponent(out EnemyColorBlender enemyColorBlender)) {
                 Action_StartInteractable += enemyColorBlender.StartInteractableEffect;
@@ -101,6 +108,22 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         SetColliderPosition();
         // IsColliderInit = true;
     }
+
+#if UNITY_EDITOR
+    private void WriteReplayKillLog()
+    {
+        if (!m_IsRoot)
+            return;
+        ReplayManager.WriteReplayLogFile($"KillEnemy {gameObject.name}: {transform.position.ToString("N6")}");
+    }
+
+    private void WriteReplayRemoveLogFile()
+    {
+        if (!m_IsRoot)
+            return;
+        ReplayManager.WriteReplayLogFile($"RemoveEnemy {gameObject.name}: {transform.position.ToString("N6")}");
+    }
+#endif
 
     private IEnumerator SetRemoveTimer(int removeTimer)
     {

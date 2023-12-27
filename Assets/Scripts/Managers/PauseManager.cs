@@ -9,13 +9,14 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     public PauseMenuHandler m_PauseMenuHandler;
+    public PausePopupMenuHandler m_PausePopupMenuHandler;
     public GameObject m_PauseMenuUI;
     public Transform m_InGameTransform;
     
     private const int PAUSE_DELAY_FRAME = 120;
 
     public static bool IsGamePaused = false;
-    private static PauseManager Instance { get; set; }
+    public static PauseManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -27,17 +28,17 @@ public class PauseManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         
-        InGameInputController.Action_OnPauseInput += Pause;
-        InGameInputController.Action_OnEscapeInput += Pause;
+        InGameInputController.Action_OnPauseInput += OpenPauseMenu;
+        InGameInputController.Action_OnEscapeInput += OpenPauseMenu;
     }
 
     private void OnDestroy()
     {
-        InGameInputController.Action_OnPauseInput -= Pause;
-        InGameInputController.Action_OnEscapeInput -= Pause;
+        InGameInputController.Action_OnPauseInput -= OpenPauseMenu;
+        InGameInputController.Action_OnEscapeInput -= OpenPauseMenu;
     }
 
-    private void Pause(bool isPressed)
+    private void OpenPauseMenu(bool isPressed)
     {
         if (CriticalStateSystem.InCriticalState)
             return;
@@ -48,13 +49,10 @@ public class PauseManager : MonoBehaviour
         if (!isPressed)
             return;
 
-        IsGamePaused = true;
-        Time.timeScale = 0f;
-        AudioService.PauseAudio();
-        //PlayerUnit.IsControllable = false;
+        Pause();
+        
         CriticalStateSystem.SetCriticalState(20);
         
-        //m_EventSystemUI.SetActive(true);
         m_PauseMenuHandler.gameObject.SetActive(true);
         m_PauseMenuUI.SetActive(true);
         
@@ -62,23 +60,41 @@ public class PauseManager : MonoBehaviour
         EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>().Select();
     }
 
-    public void Resume()
+    public void OpenPopupMenu(string messageNative, string message)
+    {
+        Pause();
+        
+        m_PausePopupMenuHandler.ShowPopupMessage(messageNative, message);
+    }
+
+    private void Pause()
+    {
+        IsGamePaused = true;
+        Time.timeScale = 0f;
+        AudioService.PauseAudio();
+    }
+
+    public void ClosePauseMenu()
     {
         if (CriticalStateSystem.InCriticalState)
             return;
         if (!IsGamePaused)
             return;
-        
-        IsGamePaused = false;
-        AudioService.UnpauseAudio();
-        Time.timeScale = 1;
-        //PlayerUnit.IsControllable = true;
+
+        Unpause();
         
         CriticalStateSystem.SetCriticalState(PAUSE_DELAY_FRAME);
         
         //m_EventSystemUI.SetActive(false);
         m_PauseMenuHandler.gameObject.SetActive(false);
         m_PauseMenuUI.SetActive(false);
+    }
+
+    private void Unpause()
+    {
+        IsGamePaused = false;
+        Time.timeScale = 1f;
+        AudioService.UnpauseAudio();
     }
 
     public void QuitGame() {

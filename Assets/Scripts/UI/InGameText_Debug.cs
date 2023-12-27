@@ -10,11 +10,16 @@ public class InGameText_Debug : MonoBehaviour
 {
     public TextMeshProUGUI m_DebugText;
 
+#if UNITY_EDITOR
     private void Update()
     {
-#if UNITY_EDITOR
         var count = BulletManager.EnemyBulletList.Count;
         m_DebugText.SetText($"Bullet: {count}");
-#endif
     }
+#else
+    private void Start()
+    {
+        m_DebugText.enabled = false;
+    }
+#endif
 }

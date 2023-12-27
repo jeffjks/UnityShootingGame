@@ -63,10 +63,11 @@ public class ReplayManager : MonoBehaviour
     
     public static int CurrentReplaySlot { private get; set; }
 
-    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable && SystemManager.IsInGame;
+    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable && SystemManager.IsInGame && !LoadSucceed;
 
     public static ReplayManager Instance { get; private set; }
     public static int CurrentFrame;
+    private static bool LoadSucceed;
 
     public enum KeyType
     {
@@ -254,8 +255,22 @@ public class ReplayManager : MonoBehaviour
     private void LateUpdate()
     {
         if (!IsUsingReplay)
+        {
+            if (!LoadSucceed && !PauseManager.IsGamePaused)
+                OpenPopupMenu();
             return;
+        }
         CurrentFrame++;
+    }
+
+    private void OpenPopupMenu()
+    {
+        if (SystemManager.GameMode == GameMode.Replay)
+            PauseManager.Instance.OpenPopupMenu("리플레이 파일을 읽는 중 오류가 발생하였습니다.",
+                "Error has occured while reading replay file.");
+        else
+            PauseManager.Instance.OpenPopupMenu("리플레이 파일을 쓰는 중 오류가 발생하였습니다.",
+                "Error has occured while writing replay file.");
     }
 
     public void Init()
@@ -281,13 +296,11 @@ public class ReplayManager : MonoBehaviour
 
         if (SystemManager.GameMode == GameMode.Replay)
         {
-            // TODO. 리플레이 reading 실패 시 동작
-            ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
+            LoadSucceed = ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
         }
         else
         {
-            // TODO. 리플레이 writing 실패 시 동작
-            ReplayFileController.InitWritingReplayFile(OnCompleteInitWriting);
+            LoadSucceed = ReplayFileController.InitWritingReplayFile(OnCompleteInitWriting);
         }
     }
 

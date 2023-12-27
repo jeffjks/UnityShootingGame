@@ -66,9 +66,6 @@ public abstract class MenuHandler : MonoBehaviour
 
     protected void PopupMessageMenu(PopupMenuHandler popupMenuHandler, PopupMenuContext popupMenuContext)
     {
-        if (CriticalStateSystem.InCriticalState)
-            return;
-        
         CriticalStateSystem.SetCriticalState(10);
 
         var popupMenu = Instantiate(popupMenuHandler, transform);

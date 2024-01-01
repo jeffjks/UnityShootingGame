@@ -21,7 +21,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         // IsColliderInit = false;
         m_Rotator.rotation = Quaternion.Euler(0f, 36f, 20f);
         
-        DisableInteractableAll();
+        //DisableInteractableAll();
+        m_EnemyHealth.SetInvincibility();
         
         StartCoroutine(AppearanceSequence());
 
@@ -96,7 +97,10 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
         
-        EnableInteractableAll();
+        if (TryGetComponent(out EnemyColorBlender enemyColorBlender)) {
+            enemyColorBlender.StartInteractableEffect();
+        }
+        m_EnemyHealth.DisableInvincibility();
         
         _timeLimitCoroutine = TimeLimit(TIME_LIMIT);
         StartCoroutine(_timeLimitCoroutine);

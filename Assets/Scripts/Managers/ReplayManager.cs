@@ -63,7 +63,7 @@ public class ReplayManager : MonoBehaviour
     
     public static int CurrentReplaySlot { private get; set; }
 
-    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable && SystemManager.IsInGame && !LoadSucceed;
+    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable && SystemManager.IsInGame && LoadSucceed;
 
     public static ReplayManager Instance { get; private set; }
     public static int CurrentFrame;

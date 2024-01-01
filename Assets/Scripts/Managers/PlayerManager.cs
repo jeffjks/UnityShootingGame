@@ -76,6 +76,9 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 PlayerDead(Vector3 deadPosition)
     {
+#if UNITY_EDITOR
+        ReplayManager.WriteReplayLogFile($"PlayerDead {deadPosition.ToString("N6")}");
+#endif
         var playerReviveX = Mathf.Clamp(deadPosition.x, -Size.CAMERA_MOVE_LIMIT, Size.CAMERA_MOVE_LIMIT);
         RevivePosition = new Vector3(playerReviveX, REVIVE_POSITION_Y, Depth.PLAYER);
         Action_OnPlayerDead?.Invoke();
@@ -113,6 +116,9 @@ public class PlayerManager : MonoBehaviour
         PlayerUnit.IsControllable = true;
         _playerUnit.m_PlayerRenderer.SetActive(true);
         PlayerInvincibility.SetInvincibility(PlayerInvincibility.REVIVE_TIME);
+#if UNITY_EDITOR
+        ReplayManager.WriteReplayLogFile($"PlayerRevive {PlayerUnit.Instance.transform.position.ToString("N6")}");
+#endif
     }
 
     public static Vector3 GetPlayerPosition()

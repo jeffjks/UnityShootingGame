@@ -44,7 +44,6 @@ public class ReplayFileController : MonoBehaviour
 
     public static bool InitWritingReplayFile(UnityAction onComplete, int slot = -1)
     {
-        return false;
         if (_replayFileMode != ReplayFileMode.None)
         {
             Debug.LogError($"Replay file is already in use!");
@@ -87,7 +86,6 @@ public class ReplayFileController : MonoBehaviour
 
     public static bool InitReadingReplayFile(UnityAction onComplete, int slot)
     {
-        return false;
         if (_replayFileMode != ReplayFileMode.None)
         {
             Debug.LogError($"Replay file is already in use!");

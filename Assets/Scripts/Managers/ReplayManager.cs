@@ -63,7 +63,7 @@ public class ReplayManager : MonoBehaviour
     
     public static int CurrentReplaySlot { private get; set; }
 
-    public static bool IsUsingReplay => !PauseManager.IsGamePaused && PlayerUnit.IsControllable && SystemManager.IsInGame && LoadSucceed;
+    public static bool IsReplayAvailable => !PauseManager.IsGamePaused && SystemManager.IsInGame && LoadSucceed;
 
     public static ReplayManager Instance { get; private set; }
     public static int CurrentFrame;
@@ -254,7 +254,7 @@ public class ReplayManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!IsUsingReplay)
+        if (!IsReplayAvailable)
         {
             if (!LoadSucceed && !PauseManager.IsGamePaused)
                 OpenPopupMenu();
@@ -461,7 +461,7 @@ public class ReplayManager : MonoBehaviour
 #if UNITY_EDITOR
         if (_logFileStream == null)
             return;
-        if (!IsUsingReplay)
+        if (!IsReplayAvailable)
             return;
         _logFileStream.Flush();
         _logFileStream.Close();
@@ -477,7 +477,7 @@ public class ReplayManager : MonoBehaviour
     public static void WriteReplayLogFile(string str)
     {
 #if UNITY_EDITOR
-        if (!IsUsingReplay)
+        if (!IsReplayAvailable)
             return;
         Instance._logFileStream?.WriteLine($"{CurrentFrame}: {str}");
 #endif

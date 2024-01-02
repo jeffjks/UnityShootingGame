@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool IsFirePressed { get; set; }
     public bool IsBombPressed { get; private set; }
     private int _firePressFrame;
+    private bool IsInputInvokable => ReplayManager.IsReplayAvailable && PlayerUnit.IsControllable;
 
     private Vector2Int _rawInputVector;
     
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
-        if (!ReplayManager.IsUsingReplay)
+        if (!IsInputInvokable)
             return;
         
         if (SystemManager.GameMode == GameMode.Replay)
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         _rawInputVector = inputVector;
         
-        if (!ReplayManager.IsUsingReplay)
+        if (!IsInputInvokable)
             return;
         
         _playerMovement.HandlePlayerMovement(inputVector);
@@ -97,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnFireInvoked(bool isPressed)
     {
-        if (!ReplayManager.IsUsingReplay)
+        if (!IsInputInvokable)
             return;
         
         HandleFireInput(isPressed);
@@ -162,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnBombInvoked(bool isPressed)
     {
-        if (!ReplayManager.IsUsingReplay)
+        if (!IsInputInvokable)
             return;
         
         ExecuteBomb(isPressed);

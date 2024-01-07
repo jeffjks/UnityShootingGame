@@ -92,8 +92,6 @@ public class PlayerController : MonoBehaviour
         
         _playerMovement.HandlePlayerMovement(inputVector);
         _playerShotHandler.ReceiveHorizontalMovement(inputVector.x);
-        
-        ReplayManager.Instance.WriteUserMovementInput(inputVector);
     }
 
     public void OnFireInvoked(bool isPressed)

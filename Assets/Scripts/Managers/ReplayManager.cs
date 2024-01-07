@@ -38,7 +38,8 @@ public class ReplayManager : MonoBehaviour
 
     public bool m_KillLog;
     public bool m_RemoveLog;
-    public bool m_PlayerInputLog;
+    public bool m_PlayerMovementInputLog;
+    public bool m_PlayerAttackInputLog;
     public bool m_PlayerWeaponStartLog;
     public bool m_PlayerWeaponHitLog;
 #endif
@@ -337,21 +338,21 @@ public class ReplayManager : MonoBehaviour
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
             _playerController.OnMoveInvoked(moveVectorInt);
-            if (m_PlayerInputLog)
+            if (m_PlayerMovementInputLog)
                 WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
             _playerController.OnFireInvoked(isFirePressed);
-            if (m_PlayerInputLog)
+            if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
             _playerController.OnBombInvoked(isBombPressed);
-            if (m_PlayerInputLog)
+            if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
@@ -414,19 +415,19 @@ public class ReplayManager : MonoBehaviour
 
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
-            if (m_PlayerInputLog)
+            if (m_PlayerMovementInputLog)
                 WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
-            if (m_PlayerInputLog)
+            if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
 
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
-            if (m_PlayerInputLog)
+            if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
         }
         

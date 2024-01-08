@@ -338,22 +338,28 @@ public class ReplayManager : MonoBehaviour
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
             _playerController.OnMoveInvoked(moveVectorInt);
+#if UNITY_EDITOR
             if (m_PlayerMovementInputLog)
                 WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
 
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
             _playerController.OnFireInvoked(isFirePressed);
+#if UNITY_EDITOR
             if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
 
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
             _playerController.OnBombInvoked(isBombPressed);
+#if UNITY_EDITOR
             if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
 
         _context = new ReplayData();
@@ -415,20 +421,26 @@ public class ReplayManager : MonoBehaviour
 
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
+#if UNITY_EDITOR
             if (m_PlayerMovementInputLog)
                 WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
 
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
+#if UNITY_EDITOR
             if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
 
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
+#if UNITY_EDITOR
             if (m_PlayerAttackInputLog)
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
         
         _context = new ReplayData();
@@ -475,12 +487,12 @@ public class ReplayManager : MonoBehaviour
         OnClose();
     }
 
+#if UNITY_EDITOR
     public static void WriteReplayLogFile(string str)
     {
-#if UNITY_EDITOR
         if (!IsReplayAvailable)
             return;
         Instance._logFileStream?.WriteLine($"{CurrentFrame}: {str}");
-#endif
     }
+#endif
 }

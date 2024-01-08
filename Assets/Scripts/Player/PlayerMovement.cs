@@ -53,8 +53,6 @@ public class PlayerMovement : MonoBehaviour
     {
         MoveRawHorizontal = inputVector.x;
         MoveRawVertical = inputVector.y;
-        
-        ReplayManager.Instance.WriteUserMovementInput(inputVector);
     }
 
     public void ExecuteMovement()

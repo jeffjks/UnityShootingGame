@@ -55,12 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllableChanged(bool controllable)
     {
-        if (controllable)
-        {
-            _playerMovement.HandlePlayerMovement(_rawInputVector);
-            return;
-        }
-        _playerMovement.HandlePlayerMovement(Vector2Int.zero);
+        OnMoveInvoked(controllable ? _rawInputVector : Vector2Int.zero);
     }
     
     private void Update()
@@ -92,6 +87,8 @@ public class PlayerController : MonoBehaviour
         
         _playerMovement.HandlePlayerMovement(inputVector);
         _playerShotHandler.ReceiveHorizontalMovement(inputVector.x);
+        
+        ReplayManager.Instance.WriteUserMovementInput(inputVector);
     }
 
     public void OnFireInvoked(bool isPressed)

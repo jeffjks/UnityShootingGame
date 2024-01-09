@@ -63,13 +63,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         if (DebugOption.GenerateJsonFile)
         {
             GetComponent<ExplosionJsonWriter>().GenerateJsonFile();
             GetComponent<EndingCreditJsonWriter>().GenerateJsonFile();
         }
-        #endif
+#endif
         GetComponent<RankingJsonWriter>().GenerateJsonFile();
 
         if (!TestIntegrityAll())

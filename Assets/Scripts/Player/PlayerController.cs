@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour
             if (!_playerUnit.SlowMode) { // 샷 모드일 경우 AutoShot 증가
                 if (_playerShotHandler.AutoShot < 2) {
                     _playerShotHandler.AutoShot++;
-                    //Debug.Log($"{ReplayManager.CurrentFrame}: AutoShot Added {_playerShotHandler.AutoShot}");
                 }
             }
         }
@@ -137,7 +136,6 @@ public class PlayerController : MonoBehaviour
         if (_playerShotHandler.AutoShot > 0) {
             if (!_playerUnit.IsShooting) {
                 _playerUnit.IsShooting = true;
-                //Debug.Log($"{ReplayManager.CurrentFrame}: StartShotCoroutine, AutoShot {_playerShotHandler.AutoShot}");
                 _playerShotHandler.StartShotCoroutine();
             }
             _playerUnit.IsAttacking = true;

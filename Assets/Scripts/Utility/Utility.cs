@@ -7,46 +7,14 @@ using Newtonsoft.Json;
 using UnityEngine;
 using Random = System.Random;
 
-public class IntegrityTestFailedException : Exception
-{
-    public IntegrityTestFailedException(string message) : base(message)
-    {
-    }
-}
-
 public static class Utility
 {
-    public static AnimationCurve[] AnimationCurves = new AnimationCurve[4];
-
-    static Utility()
-    {
-        /*
-        AnimationCurves[0] = new AnimationCurve();
-        AnimationCurves[0].AddKey(0f, 0f);
-        AnimationCurves[0].AddKey(1f, 1f);
-        AnimationCurves[0].keys[0].*/
-
-        /*
-        for (int i = 0; i < m_AnimationCurve.Length; ++i) {
-            AC_Ease.ac_ease[i] = m_AnimationCurve[i];
-        }
-        
-        Debug.Log(m_AnimationCurve[4].keys[0].inWeight);
-        Debug.Log(m_AnimationCurve[4].keys[0].outWeight);
-        Debug.Log(m_AnimationCurve[4].keys[0].inTangent);
-        Debug.Log(m_AnimationCurve[4].keys[0].outTangent);
-        Debug.Log(m_AnimationCurve[4].keys[0].weightedMode);
-        AnimationUtility.SetKeyRightTangentMode(m_AnimationCurve[4], 0, AnimationUtility.TangentMode.Linear);
-        AnimationUtility.SetKeyLeftTangentMode(m_AnimationCurve[4], 1, AnimationUtility.TangentMode.Linear);*/
-    }
-    
     // <summary>
     // Enum 다음값 가져오기
     // </summary>
     // <typeparam name="T"></typeparam>
     // <param name="source"></param>
     // <returns></returns>
-    
     public static T GetEnumNext<T>(this T source, bool wrapAround) where T : Enum
     {
         var array = Enum.GetValues(typeof(T));
@@ -138,7 +106,7 @@ public static class Utility
             var (jsonData, hash) = LoadDataFileString(filePath, fileName);
             if (Md5Sum(jsonData) != hash)
             {
-                throw new IntegrityTestFailedException($"무결성 검사 실패: {fileName}");
+                throw new Exception($"무결성 검사 실패: {fileName}");
             }
             var deserializedData = JsonConvert.DeserializeObject<T>(jsonData);
             Debug.Log($"파일 열기에 성공했습니다: {fileName}");

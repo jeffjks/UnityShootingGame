@@ -208,7 +208,6 @@ public class ReplayManager : MonoBehaviour
 
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += OnNextStage;
-        SystemManager.Action_OnNextStage += InitCurrentFrame;
 
 #if UNITY_EDITOR
         if (!SystemManager.IsInGame)
@@ -243,14 +242,6 @@ public class ReplayManager : MonoBehaviour
     {
         SystemManager.Action_OnQuitInGame -= OnClose;
         SystemManager.Action_OnNextStage -= OnNextStage;
-        SystemManager.Action_OnNextStage -= InitCurrentFrame;
-    }
-
-    private void InitCurrentFrame(bool hasNextStage)
-    {
-        if (!hasNextStage)
-            return;
-        CurrentFrame = 0;
     }
 
     private void LateUpdate()
@@ -284,15 +275,7 @@ public class ReplayManager : MonoBehaviour
             return;
         }
         
-        if (SystemManager.CurrentSeed == -1)
-        {
-            SystemManager.CurrentSeed = Environment.TickCount;
-            Random.InitState(SystemManager.CurrentSeed);
-        }
-        else
-        {
-            Random.InitState(SystemManager.CurrentSeed);
-        }
+        Random.InitState(SystemManager.CurrentSeed);
         Debug.Log($"Current Seed: {SystemManager.CurrentSeed}");
 
         if (SystemManager.GameMode == GameMode.Replay)
@@ -392,7 +375,6 @@ public class ReplayManager : MonoBehaviour
             return;
         
         _context.SetMoveVectorData(inputVector);
-        //WriteReplayLogFile($"WritePressInput {inputVector} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
     }
 
     public void WriteUserPressInput(bool isPressed, KeyType keyType)
@@ -406,7 +388,6 @@ public class ReplayManager : MonoBehaviour
 
         _context.inputPress |= (byte) (0b11 << offset);
         _context.inputPress &= (byte) (inputFire << offset);
-        //WriteReplayLogFile($"WritePressInput {isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition().ToString("N6")}");
     }
 
     public void WriteReplayData()
@@ -464,7 +445,12 @@ public class ReplayManager : MonoBehaviour
     private void OnNextStage(bool hasNextStage)
     {
         if (!hasNextStage)
+        {
             OnClose();
+            return;
+        }
+        
+        CurrentFrame = 0;
     }
 
     private void OnClose()

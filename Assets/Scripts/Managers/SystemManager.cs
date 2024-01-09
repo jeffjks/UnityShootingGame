@@ -108,7 +108,7 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(NextStage());
     }
 
-    public void StartStage(int stage, int seed)
+    public static void StartStage(int stage, int seed)
     {
         CurrentSeed = seed;
         SceneManager.LoadScene($"Stage{stage + 1}");

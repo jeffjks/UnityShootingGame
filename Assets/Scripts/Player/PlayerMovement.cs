@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ExecuteMovement()
     {
+        var playerPos = transform.position;
         var moveVector = new Vector2(MoveRawHorizontal, MoveRawVertical);
         moveVector.Normalize();
         
@@ -67,15 +68,17 @@ public class PlayerMovement : MonoBehaviour
             moveVector *= _defaultSpeed;
         }
             
-        transform.position += (Vector3) moveVector;
+        playerPos += (Vector3) moveVector;
         m_PlayerUnit.m_MoveVector.direction = 180f + 90f*MoveRawHorizontal;
             
-        transform.position = new Vector3
+        playerPos = new Vector3
         (
-            Mathf.Clamp(transform.position.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
-            Mathf.Clamp(transform.position.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX),
+            Mathf.Clamp(playerPos.x, BOUNDARY_PLAYER_X_MIN, BOUNDARY_PLAYER_X_MAX), 
+            Mathf.Clamp(playerPos.y, BOUNDARY_PLAYER_Y_MIN, BOUNDARY_PLAYER_Y_MAX),
             Depth.PLAYER
         );
+
+        transform.position = playerPos;
     }
 
     private void Init()

@@ -29,6 +29,6 @@ public class AttributesConfirmMenuHandler : MenuHandler
         _previousMenuStack.Clear();
         
         var stage = (SystemManager.GameMode == GameMode.Training) ? SystemManager.TrainingInfo.stage : 0;
-        SystemManager.Instance.StartStage(stage, -1);
+        SystemManager.StartStage(stage, Environment.TickCount);
     }
 }

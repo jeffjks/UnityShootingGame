@@ -128,6 +128,10 @@ public class HitCountController : MonoBehaviour
         _hitCount += value;
         _hitCount = Mathf.Min(_hitCount, m_HitCountConstData.MaxHitCount);
         Action_OnUpdateHitCount?.Invoke(_hitCount);
+#if UNITY_EDITOR
+        if (ReplayManager.Instance.m_HitCountLog)
+            ReplayManager.WriteReplayLogFile($"AddHitCount (+{value}) {_hitCount}");
+#endif
         _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
         UpdateHitCountBonus();
         SetHitCountState(HitCountState.Default);
@@ -139,9 +143,15 @@ public class HitCountController : MonoBehaviour
             return;
         if (_currentHitCountState == HitCountState.Completed)
             return;
+        if (_hitCount == 0)
+            return;
         
         _hitCount -= value;
         _hitCount = Mathf.Max(_hitCount, m_HitCountConstData.MinHitCount);
+#if UNITY_EDITOR
+        if (ReplayManager.Instance.m_HitCountLog)
+            ReplayManager.WriteReplayLogFile($"SubtractHitCount (-{value}) {_hitCount}");
+#endif
         Action_OnUpdateHitCount?.Invoke(_hitCount);
         UpdateHitCountBonus();
     }

@@ -56,6 +56,10 @@ public abstract class Item : UnitObject, IHasGroundCollider
         if (other.gameObject.CompareTag("PlayerBody")) { // 대상이 플레이어 바디면 자신 파괴
             ItemEffect(other);
             OnItemRemoved();
+#if UNITY_EDITOR
+            if (ReplayManager.Instance.m_ItemLog)
+                ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition().ToString("N6")}");
+#endif
         }
     }
 }

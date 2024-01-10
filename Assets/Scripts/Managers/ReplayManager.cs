@@ -42,6 +42,8 @@ public class ReplayManager : MonoBehaviour
     public bool m_PlayerAttackInputLog;
     public bool m_PlayerWeaponStartLog;
     public bool m_PlayerWeaponHitLog;
+    public bool m_ItemLog;
+    public bool m_HitCountLog;
 #endif
 
     private int PlayerAttackLevel

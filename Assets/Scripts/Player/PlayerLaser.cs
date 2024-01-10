@@ -21,6 +21,9 @@ public class PlayerLaser : PlayerObject
 
     void OnTriggerStay2D(Collider2D other) // 닿을 때
     {
+        if (PauseManager.IsGamePaused)
+            return;
+        
         if (m_PlayerUnit.SlowMode) {
             if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 유닛이고
                 EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();

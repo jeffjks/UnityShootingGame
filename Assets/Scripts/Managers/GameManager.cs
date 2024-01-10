@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
 #endif
         GetComponent<RankingJsonWriter>().GenerateJsonFile();
 
+        CheckDirectory();
+        
         if (!TestIntegrityAll())
         {
             Utility.QuitGame();
@@ -120,6 +122,18 @@ public class GameManager : MonoBehaviour
         m_EncryptedAccountID = Utility.Md5Sum(m_AccountID);
     }
 
+    private static void CheckDirectory()
+    {
+        var directoryList = new List<string>() { ResourceFilePath, ReplayFilePath, RankingFilePath, ReplayLogFilePath };
+
+        foreach (var path in directoryList)
+        {
+            var directoryInfo = new DirectoryInfo(path);
+            if (!directoryInfo.Exists)
+                directoryInfo.Create();
+        }
+    }
+
     private static bool TestIntegrityAll()
     {
         try
@@ -130,10 +144,6 @@ public class GameManager : MonoBehaviour
 
             foreach (var encryptedFile in encryptedFiles)
             {
-                var directoryInfo = new DirectoryInfo(encryptedFile.filePath);
-                if (!directoryInfo.Exists)
-                    directoryInfo.Create();
-                
                 foreach (var fileName in encryptedFile.fileList)
                 {
                     if (!File.Exists($"{encryptedFile.filePath}{fileName}"))

@@ -64,11 +64,11 @@ public class ReplayManager : MonoBehaviour
     
     public static int CurrentReplaySlot { private get; set; }
 
-    public static bool IsReplayAvailable => !PauseManager.IsGamePaused && SystemManager.IsInGame && LoadSucceed;
+    public static bool IsReplayAvailable => !PauseManager.IsGamePaused && SystemManager.IsInGame && !ErrorOccured;
 
     public static ReplayManager Instance { get; private set; }
     public static int CurrentFrame;
-    private static bool LoadSucceed;
+    private static bool ErrorOccured;
 
     public enum KeyType
     {
@@ -165,7 +165,7 @@ public class ReplayManager : MonoBehaviour
     }
 
     [Serializable]
-    public struct ReplayInfo
+    public class ReplayInfo
     {
         public readonly int m_Seed;
         public readonly long m_DateTime;
@@ -213,11 +213,14 @@ public class ReplayManager : MonoBehaviour
         if (!SystemManager.IsInGame)
             return;
         
+        var directoryInfo = new DirectoryInfo(GameManager.ReplayLogFilePath);
+        if (!directoryInfo.Exists)
+            directoryInfo.Create();
+        
         if (SystemManager.GameMode == GameMode.Replay)
         {
             if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayReadFile}"))
             {
-                Directory.CreateDirectory(GameManager.ReplayLogFilePath);
                 var file = File.CreateText($"{GameManager.ReplayLogFilePath}{ReplayReadFile}");
                 file.Flush();
                 file.Close();
@@ -228,7 +231,6 @@ public class ReplayManager : MonoBehaviour
         {
             if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}"))
             {
-                Directory.CreateDirectory(GameManager.ReplayLogFilePath);
                 var file = File.CreateText($"{GameManager.ReplayLogFilePath}{ReplayWriteFile}");
                 file.Flush();
                 file.Close();
@@ -248,7 +250,7 @@ public class ReplayManager : MonoBehaviour
     {
         if (!IsReplayAvailable)
         {
-            if (!LoadSucceed && !PauseManager.IsGamePaused)
+            if (ErrorOccured && !PauseManager.IsGamePaused)
                 OpenPopupMenu();
             return;
         }
@@ -280,11 +282,11 @@ public class ReplayManager : MonoBehaviour
 
         if (SystemManager.GameMode == GameMode.Replay)
         {
-            LoadSucceed = ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
+            ErrorOccured = !ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
         }
         else
         {
-            LoadSucceed = ReplayFileController.InitWritingReplayFile(OnCompleteInitWriting);
+            ErrorOccured = !ReplayFileController.InitWritingReplayFile(OnCompleteInitWriting);
         }
     }
 
@@ -311,6 +313,13 @@ public class ReplayManager : MonoBehaviour
             {
                 Debug.Log($"Replay file reached end of file.");
                 _eof = true;
+                return;
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Error has occured while reading replay file: {e}");
+                OpenPopupMenu();
+                ErrorOccured = true;
                 return;
             }
         }

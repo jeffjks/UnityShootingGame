@@ -20,13 +20,22 @@ public class LoadReplayMenuHandler : MenuHandler
     private ButtonStyling[] _buttonStylingArray;
     private ColorTintButton[] _buttons;
     private TextMeshProUGUI[] _buttonTexts;
+    private readonly ColorBlock _colorRed = new ()
+    {
+        normalColor = Color.red,
+        highlightedColor = Color.red,
+        selectedColor = Color.red,
+        pressedColor = Color.red,
+        colorMultiplier = 1f,
+        fadeDuration = 0.1f
+    };
 
     private ReplayManager.ReplayInfo CurrentReplaySlot
     {
         get
         {
             if (_currentSelectedSlot == -1)
-                return ReplayFileController.ReadReplayHeader(_currentSelectedSlot);
+                return ReplayFileController.ReadReplayHeader(_currentSelectedSlot, out var result);
             return _replayInfos[_currentSelectedSlot];
         }
     }
@@ -37,20 +46,25 @@ public class LoadReplayMenuHandler : MenuHandler
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
         _buttons = m_ReplaySlotPanel.GetComponentsInChildren<ColorTintButton>();
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
-
-#if UNITY_EDITOR
-        if (DebugOption.LoadTempReplayFile)
-            PlayReplaySlot(-1);
-#endif
     }
 
     protected override void Init()
     {
         for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
         {
-            _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
+            _buttons[i].ResetButtonTextColor();
+
+            _replayInfos[i] = ReplayFileController.ReadReplayHeader(i, out var result);
             
-            if (_replayInfos[i].IsDefault())
+            if (result == ReplayFileController.ErrorCode.Error)
+            {
+                _buttonStylingArray[i].m_NativeText = "파일 오류";
+                _buttonTexts[i].SetText("File Error");
+                _buttonStylingArray[i].SetText();
+                _buttons[i].ButtonTextColor = _colorRed;
+                continue;
+            }
+            if (result == ReplayFileController.ErrorCode.NoFile)
             {
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");
@@ -65,22 +79,23 @@ public class LoadReplayMenuHandler : MenuHandler
             _buttonTexts[i].SetText(dateTimeString);
             if (_replayInfos[i].m_Version != m_ReplayVersionData.replayVersion)
             {
-                _buttons[i].ButtonTextColor = new ColorBlock()
-                {
-                    normalColor = Color.red,
-                    highlightedColor = Color.red,
-                    selectedColor = Color.red,
-                    pressedColor = Color.red,
-                    colorMultiplier = 1f,
-                    fadeDuration = 0.1f
-                };
-            }
-            else
-            {
-                _buttons[i].ResetButtonTextColor();
+                _buttons[i].ButtonTextColor = _colorRed;
             }
         }
+
+#if UNITY_EDITOR
+        StartCoroutine(LoadTempReplayFile());
+#endif
     }
+
+#if UNITY_EDITOR
+    private IEnumerator LoadTempReplayFile()
+    {
+        yield return null;
+        if (DebugOption.LoadTempReplayFile)
+            PlayReplaySlot(-1);
+    }
+#endif
 
     public void PlayReplaySlot(int slot)
     {
@@ -129,10 +144,11 @@ public class LoadReplayMenuHandler : MenuHandler
             PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
                 () => _isActive = true,
                 null,
-                $"오류가 발생하여 리플레이를 실행할 수 없습니다.\n{e}",
-                $"Error has occured while reading replay\n{e}"
+                $"오류가 발생하여 리플레이를 실행할 수 없습니다.",
+                $"Error has occured while reading replay."
             ));
             m_PopupMenuHandler.m_ButtonNegative.gameObject.SetActive(false);
+            Debug.LogError(e);
             return false;
         }
 

@@ -12,7 +12,15 @@ public class ReplayFileController : MonoBehaviour
     {
         None,
         Read,
-        Write
+        Write,
+        Error
+    }
+
+    public enum ErrorCode
+    {
+        None,
+        NoFile,
+        Error
     }
     
     private static ReplayFileMode _replayFileMode;
@@ -165,20 +173,36 @@ public class ReplayFileController : MonoBehaviour
         return new ReplayManager.ReplayData(_br.ReadInt64());
     }
 
-    public static ReplayManager.ReplayInfo ReadReplayHeader(int slot)
+    public static ReplayManager.ReplayInfo ReadReplayHeader(int slot, out ErrorCode result)
     {
         var filePath = GetReplayFilePath(slot);
         if (!File.Exists(filePath))
-            return default;
+        {
+            result = ErrorCode.NoFile;
+            return null;
+        }
 
         if (!InitReadingReplayFile(null, slot))
-            return default;
-        
-        var replayInfo = ReadBinaryReplayInfo();
-        
-        OnClose();
-        
-        return replayInfo;
+        {
+            result = ErrorCode.Error;
+            return null;
+        }
+
+        try
+        {
+            var replayInfo = ReadBinaryReplayInfo();
+            result = ErrorCode.None;
+            OnClose();
+            return replayInfo;
+        }
+        catch (Exception e)
+        {
+            _replayFileMode = ReplayFileMode.Error;
+            result = ErrorCode.Error;
+            Debug.LogError($"Error has occurred while reading replay header:\n{e}");
+            OnClose();
+            return null;
+        }
     }
 
     private static void DiscardRemainingCryptoStream()
@@ -212,6 +236,9 @@ public class ReplayFileController : MonoBehaviour
                 _cryptoStream.Close();
                 _fileStream.Close();
                 _br.Close();
+                break;
+            case ReplayFileMode.Error:
+                _fileStream.Close();
                 break;
             default:
                 return;

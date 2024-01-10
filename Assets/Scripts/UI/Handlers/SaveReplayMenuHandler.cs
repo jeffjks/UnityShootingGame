@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class SaveReplayMenuHandler : MenuHandler
 {
     public GameObject m_ReplaySlotPanel;
+    public ReplayVersionDatas m_ReplayVersionData;
     public PopupMenuHandler m_PopupMenuHandler;
     public TextErrorMessage m_TextErrorMessage;
     public CanvasGroup m_CanvasGroup;
@@ -18,40 +19,61 @@ public class SaveReplayMenuHandler : MenuHandler
     private const int MAX_REPLAY_NUMBER = 5;
     private string _currentReplayDateTime;
 
+    private CanvasGroup[] _canvasGroups;
     private ButtonStyling[] _buttonStylingArray;
+    private ColorTintButton[] _buttons;
     private TextMeshProUGUI[] _buttonTexts;
+    private readonly ColorBlock _colorRed = new ()
+    {
+        normalColor = Color.red,
+        highlightedColor = Color.red,
+        selectedColor = Color.red,
+        pressedColor = Color.red,
+        colorMultiplier = 1f,
+        fadeDuration = 0.1f
+    };
 
     private void Awake()
     {
+        _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
         _buttonStylingArray = m_ReplaySlotPanel.GetComponentsInChildren<ButtonStyling>();
+        _buttons = m_ReplaySlotPanel.GetComponentsInChildren<ColorTintButton>();
         _buttonTexts = m_ReplaySlotPanel.GetComponentsInChildren<TextMeshProUGUI>();
     }
 
     protected override void Init()
     {
-        var currentReplayInfo = ReplayFileController.ReadReplayHeader(-1);
-        _currentReplayDateTime = new DateTime(currentReplayInfo.m_DateTime).ToString("yyyy-MM-dd-HH:mm");
-        
         for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
         {
-            var filePath = ReplayFileController.GetReplayFilePath(i);
-            if (!File.Exists(filePath))
+            _buttons[i].ResetButtonTextColor();
+
+            _replayInfos[i] = ReplayFileController.ReadReplayHeader(i, out var result);
+            
+            if (result == ReplayFileController.ErrorCode.Error)
+            {
+                _buttonStylingArray[i].m_NativeText = "파일 오류";
+                _buttonTexts[i].SetText("File Error");
+                _buttonStylingArray[i].SetText();
+                _buttons[i].ButtonTextColor = _colorRed;
+                continue;
+            }
+            if (result == ReplayFileController.ErrorCode.NoFile)
             {
                 _buttonStylingArray[i].m_NativeText = "빈 슬롯";
                 _buttonTexts[i].SetText("Empty Slot");
-                //_canvasGroups[i].interactable = false;
-                _replayInfos[i] = default;
+                _buttonStylingArray[i].SetText();
+                _canvasGroups[i].interactable = false;
                 continue;
             }
-            //var fileStream = new FileStream(filePath, FileMode.Open);
-            // var encryptedData = Utility.DecryptData(File.ReadAllBytes(filePath));
-            // var memoryStream = new MemoryStream(encryptedData);
-            // _replayInfos[i] = ReplayManager.ReadBinaryHeader(memoryStream);
-            _replayInfos[i] = ReplayFileController.ReadReplayHeader(i);
+            
             var dateTimeString = new DateTime(_replayInfos[i].m_DateTime).ToString("yyyy-MM-dd-HH:mm");
             _buttonStylingArray[i].m_NativeText = dateTimeString;
+            _buttonStylingArray[i].SetText();
             _buttonTexts[i].SetText(dateTimeString);
-            //fileStream.Close();
+            if (_replayInfos[i].m_Version != m_ReplayVersionData.replayVersion)
+            {
+                _buttons[i].ButtonTextColor = _colorRed;
+            }
         }
     }
 

@@ -2834,6 +2834,8 @@ MonoBehaviour:
   m_InitialSelection: 5
   m_PreserveLastSelection: 0
   m_ReplaySlotPanel: {fileID: 1737955232}
+  m_ReplayVersionData: {fileID: 11400000, guid: 6a98e7c3b1e337643a4d23ddfdee0516,
+    type: 2}
   m_PopupMenuHandler: {fileID: 629982156685331527, guid: 65bdff47d448f8d4faa830bd048ecede,
     type: 3}
   m_TextErrorMessage: {fileID: 243221223}

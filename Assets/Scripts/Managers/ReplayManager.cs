@@ -471,8 +471,7 @@ public class ReplayManager : MonoBehaviour
 #if UNITY_EDITOR
         if (_logFileStream == null)
             return;
-        if (!IsReplayAvailable)
-            return;
+        
         _logFileStream.Flush();
         _logFileStream.Close();
         _logFileStream = null;

@@ -15,6 +15,9 @@ public class EnemyMiddleBoss5a_MainTurret : EnemyUnit
     protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
 
         if (PlayerSweepRotatePattern < 0)
         {

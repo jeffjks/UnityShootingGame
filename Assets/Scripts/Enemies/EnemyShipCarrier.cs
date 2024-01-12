@@ -23,6 +23,9 @@ public class EnemyShipCarrier : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         m_CustomDirection[0] += 120f / Application.targetFrameRate * Time.timeScale;
         m_CustomDirection[1] += 180f / Application.targetFrameRate * Time.timeScale;
         UpdateCargoUnitDirection();

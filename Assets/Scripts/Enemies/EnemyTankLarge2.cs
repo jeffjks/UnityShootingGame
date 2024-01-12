@@ -15,6 +15,9 @@ public class EnemyTankLarge2 : EnemyUnit
     protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             m_CustomDirection[0] += 97f / Application.targetFrameRate * Time.timeScale;

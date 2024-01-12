@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class ExplosionSoundPlayer : MonoBehaviour
 {
     public AudioMixerGroup m_AudioMixerGroup;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// UNUSED SCRIPT
+
 public class ScreenEffectFadeOut : MonoBehaviour // 게임 바깥에서의 효과
 {
     [SerializeField] private SpriteRenderer m_SpriteRenderer = null;

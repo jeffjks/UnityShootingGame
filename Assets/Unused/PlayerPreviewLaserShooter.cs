@@ -4,6 +4,8 @@ using System.Runtime.Serialization.Formatters;
 using System;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class PlayerPreviewLaserShooter : PlayerLaserHandler
 {
 /*

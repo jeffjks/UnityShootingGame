@@ -30,6 +30,9 @@ public class PlayerPreviewSimulator : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         SimulateShotMode();
     }
 

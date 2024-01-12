@@ -19,6 +19,9 @@ public class PlayerLaserFireLight : MonoBehaviour {
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         m_Light.intensity = new System.Random().Next(8, 16);
     }
 

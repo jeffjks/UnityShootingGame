@@ -26,6 +26,9 @@ public class AircraftRollingService : MonoBehaviour
     
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         var current_direction = m_UnitObject.m_MoveVector.direction;
         var target_rollDegree = m_RelativeToCurrentAngle // Mathf 대신 System.Math 사용
             ? System.Math.Sign((int) current_direction - 180) * m_MaxRoll

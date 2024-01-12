@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 // ============================================================================================ //
 
 public abstract class EnemyTurret : EnemyUnit // 적 개체, 포탑 (적 총알 제외)

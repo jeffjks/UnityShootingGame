@@ -92,6 +92,9 @@ public class PlayerShotHandler : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         PiercingShotDirection = Mathf.MoveTowardsAngle(PiercingShotDirection, PiercingShotTargetDirection, 3f);
         PiercingShotDirection = Mathf.Clamp(PiercingShotDirection, -MAX_PIERCING_SHOT_DIRECTION, MAX_PIERCING_SHOT_DIRECTION);
     }

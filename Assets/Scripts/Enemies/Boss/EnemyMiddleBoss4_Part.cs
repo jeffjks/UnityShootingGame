@@ -18,6 +18,9 @@ public class EnemyMiddleBoss4_Part : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         m_CustomDirection[0] -= 20f / Application.targetFrameRate * Time.timeScale;
     }
 

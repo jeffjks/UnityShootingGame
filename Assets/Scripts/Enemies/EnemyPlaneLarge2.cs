@@ -16,6 +16,9 @@ public class EnemyPlaneLarge2 : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (_phase == 0) {
             if (m_Position2D.y < - 1f)
             {

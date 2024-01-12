@@ -43,6 +43,9 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (!TimeLimitState && _phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 0.6f) {
                 m_MoveVector.direction = Random.Range(-100f, -80f);

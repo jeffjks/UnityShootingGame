@@ -19,6 +19,9 @@ public class EnemyPlaneSmall1 : EnemyUnit
     protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
 
         if (_isTargetingPlayer)
         {

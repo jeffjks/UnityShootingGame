@@ -14,6 +14,9 @@ public class PlayerPreview1 : PlayerPreviewManager
     
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         RotateSelf();
     }
 

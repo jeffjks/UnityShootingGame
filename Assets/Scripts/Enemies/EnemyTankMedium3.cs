@@ -16,6 +16,9 @@ public class EnemyTankMedium3 : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         m_CustomDirection[0] += 90f / Application.targetFrameRate * Time.timeScale;
     }
 }

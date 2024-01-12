@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
 
 public class EnemyBoss3_Barrel : MonoBehaviour
 {

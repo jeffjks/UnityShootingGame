@@ -13,6 +13,7 @@ public class SelectAttributesMenuHandler : MenuHandler
     public AttributesCostWindowController m_AttributesCostWindowController;
     public TextMeshProUGUI m_AttributesTypeText;
     public AttributesConfirmMenuHandler m_AttributeConfirmMenuHandler;
+    public ArrowSet m_ArrowSet;
 
     public const int MAXIMUM_COST = 500;
     
@@ -54,6 +55,7 @@ public class SelectAttributesMenuHandler : MenuHandler
             AudioService.PlaySound("CancelUI");
             return;
         }
+        m_ArrowSet.SetInteractable(false);
         GoToTargetMenu(m_AttributeConfirmMenuHandler, false);
     }
 

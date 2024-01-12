@@ -15,6 +15,9 @@ public class EnemyBoss2_Part3_Turret1 : EnemyUnit
     protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
 
         m_CustomDirection[0] += 80f / Application.targetFrameRate * Time.timeScale * Side;
     }

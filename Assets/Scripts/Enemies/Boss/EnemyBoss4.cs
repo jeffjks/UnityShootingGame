@@ -96,6 +96,9 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         ControlSpeed();
 
         if (m_Phase == 1) {

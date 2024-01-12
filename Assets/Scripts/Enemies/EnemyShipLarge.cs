@@ -18,6 +18,9 @@ public class EnemyShipLarge : EnemyUnit, IHasPhase
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (_phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.33f) { // 체력 33% 이하
                 ToNextPhase();

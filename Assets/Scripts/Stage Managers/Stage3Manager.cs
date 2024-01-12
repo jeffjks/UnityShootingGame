@@ -19,6 +19,9 @@ public class Stage3Manager : StageManager
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         BackgroundLoop(98f, 24f);
     }
 

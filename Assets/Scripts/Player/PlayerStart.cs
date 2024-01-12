@@ -29,7 +29,11 @@ public class PlayerStart : MonoBehaviour
         }
     }
 
-    void Update() {
+    private void Update()
+    {
+        if (Time.timeScale == 0)
+            return;
+        
         //m_PlayerMovement.m_MoveVector = new MoveVector(_verticalSpeed / Application.targetFrameRate * Time.timeScale, 180f);
         var playerPos = m_PlayerMovement.transform.position;
         playerPos.y += _verticalSpeed * Time.timeScale / Application.targetFrameRate / 256f;

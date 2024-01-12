@@ -44,6 +44,9 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
 
         OnPhase1();
     }

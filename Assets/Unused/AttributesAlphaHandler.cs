@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class AttributesAlphaHandler : MonoBehaviour
 {
     public RectTransform m_RectTransform;

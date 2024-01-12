@@ -22,6 +22,9 @@ public class EnemyHelicopter : EnemyUnit, ITargetPosition
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         RotateFan();
     }
     

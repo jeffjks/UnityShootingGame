@@ -29,6 +29,9 @@ public class ItemGemAir : ItemGem
 	protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
 
         RotateSelf();
 

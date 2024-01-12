@@ -8,6 +8,9 @@ public class PlayerDroneRotator : MonoBehaviour
     
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         RotateSelf();
     }
 

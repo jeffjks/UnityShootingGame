@@ -16,6 +16,9 @@ public abstract class Item : UnitObject, IHasGroundCollider
     
     protected virtual void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         CheckOutside();
         SetColliderPosition();
     }
@@ -96,6 +99,10 @@ public abstract class ItemBox : Item
     protected override void Update()
     {
         base.Update();
+        
+        if (Time.timeScale == 0)
+            return;
+        
         MoveDirection(m_MoveVector);
 
         if (!m_Disappear && m_IsAir) {

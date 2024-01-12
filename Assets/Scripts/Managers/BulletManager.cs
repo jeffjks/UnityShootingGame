@@ -189,6 +189,9 @@ public class BulletManager : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         if (_remainingFrame > 0)
         {
             _remainingFrame--;

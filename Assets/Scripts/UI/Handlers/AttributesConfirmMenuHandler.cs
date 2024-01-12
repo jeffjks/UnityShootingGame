@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class AttributesConfirmMenuHandler : MenuHandler
 {
     public CanvasGroup m_CanvasGroup;
+    public ArrowSet m_ArrowSet;
     
     protected override void Init() { }
 
@@ -22,6 +23,7 @@ public class AttributesConfirmMenuHandler : MenuHandler
     public override void Back()
     {
         base.Back(false);
+        m_ArrowSet.SetInteractable(true);
     }
 
     private void StartInGame()

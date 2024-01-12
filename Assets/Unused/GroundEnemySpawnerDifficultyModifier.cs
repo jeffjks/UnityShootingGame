@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class GroundEnemySpawnerDifficultyModifier : MonoBehaviour
 {
     public GroundEnemySpawner m_GroundEnemySpawner;

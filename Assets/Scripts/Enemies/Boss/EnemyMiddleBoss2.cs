@@ -75,6 +75,9 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (_phase == 1) {
             if (m_EnemyHealth.HealthPercent <= 0.375f) { // 체력 37.5% 이하
                 ToNextPhase();

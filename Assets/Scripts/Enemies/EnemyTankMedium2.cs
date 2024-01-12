@@ -20,6 +20,9 @@ public class EnemyTankMedium2 : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (!_isStartShooing) {
             if (m_IsInteractable && m_Position2D.y < - 1.2f) {
                 m_ArmorAnimator.SetBool(_armorOpenAnimationBool, true);

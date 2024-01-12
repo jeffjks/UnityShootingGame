@@ -36,6 +36,9 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (m_Phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 1f) {
                 m_MoveVector.direction = Random.Range(-110f, -70f);

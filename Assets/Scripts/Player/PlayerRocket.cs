@@ -21,6 +21,7 @@ public class PlayerRocket : PlayerWeapon
     {
         if (Time.timeScale == 0)
             return;
+        
         if (m_MoveVector.speed < m_MaxSpeed)
         {
             m_MoveVector.speed += m_Accel / Application.targetFrameRate * Time.timeScale;

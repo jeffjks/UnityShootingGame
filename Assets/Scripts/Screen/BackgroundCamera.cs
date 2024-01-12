@@ -47,6 +47,9 @@ public class BackgroundCamera : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         MoveBackgroundCamera();
     }
 

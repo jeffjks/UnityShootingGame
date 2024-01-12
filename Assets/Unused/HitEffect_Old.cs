@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class HitEffect_Old : MonoBehaviour, IObjectPooling
 {
     public string m_ObjectName;

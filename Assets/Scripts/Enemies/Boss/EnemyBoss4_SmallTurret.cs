@@ -19,6 +19,9 @@ public class EnemyBoss4_SmallTurret : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (PlayerManager.IsPlayerAlive)
             RotateUnit(AngleToPlayer);
         else

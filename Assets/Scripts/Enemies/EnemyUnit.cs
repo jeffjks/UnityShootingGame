@@ -134,6 +134,9 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     protected virtual void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         m_RotatePattern?.ExecuteRotatePattern(this);
         SetColliderPosition();

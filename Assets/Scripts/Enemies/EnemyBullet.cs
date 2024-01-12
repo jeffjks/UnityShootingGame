@@ -122,6 +122,9 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         CheckOutside();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();

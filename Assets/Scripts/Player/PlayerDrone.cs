@@ -44,6 +44,9 @@ public class PlayerDrone : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         SetDroneMode();
         var maxDistanceDelta = 12f / Application.targetFrameRate * Time.timeScale;
         _currentLocalP = Vector3.MoveTowards(_currentLocalP, _currentTargetLocalP, maxDistanceDelta);

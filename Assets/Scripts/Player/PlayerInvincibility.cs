@@ -42,10 +42,11 @@ public class PlayerInvincibility : MonoBehaviour
 
     private void Update()
     {
-        if (_remainingFrame == -1)
-        {
+        if (Time.timeScale == 0)
             return;
-        }
+        if (_remainingFrame == -1)
+            return;
+        
         if (_remainingFrame > 0)
         {
             _remainingFrame--;

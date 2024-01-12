@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class EnemyBoss4_MainTurretBarrel : MonoBehaviour
 {
     private float m_Pos_Z1;

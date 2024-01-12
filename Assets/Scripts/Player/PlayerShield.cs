@@ -24,6 +24,9 @@ public class PlayerShield : MonoBehaviour {
     
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         transform.localRotation = m_DefaultQuaternion;
         
         Ring1.transform.Rotate(Vector3.right, Time.deltaTime * RotateSpeed);

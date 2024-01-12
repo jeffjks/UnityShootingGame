@@ -22,6 +22,9 @@ public class ExplosionEffecter : MonoBehaviour, IObjectPooling
 
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         MoveDirection(m_MoveVector);
     }
 

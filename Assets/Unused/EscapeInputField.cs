@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
+// UNUSED SCRIPT
+
 public class EscapeInputField : MonoBehaviour, ISelectHandler
 {
     public EventSystem m_EventSystem;

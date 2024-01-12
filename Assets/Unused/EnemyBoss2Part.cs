@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class EnemyBoss2Part : EnemyUnit
 {
     public EnemyUnit[] m_Turret;

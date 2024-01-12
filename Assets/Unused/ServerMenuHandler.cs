@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// UNUSED SCRIPT
+
 public class ServerMenuHandler : GameUI
 {
     public NetworkAccount m_NetworkAccount;

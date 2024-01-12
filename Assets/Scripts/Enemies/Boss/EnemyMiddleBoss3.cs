@@ -62,6 +62,9 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         Vector3 pos = transform.position;
         var backgroundSpeed = BackgroundCamera.GetBackgroundCameraMoveVector().z;
         transform.position = new Vector3(pos.x, pos.y, pos.z + backgroundSpeed / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동

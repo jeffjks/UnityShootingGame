@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class PlayerPreviewDrone : PlayerDrone
 {
     /*

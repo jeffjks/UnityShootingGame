@@ -110,6 +110,9 @@ public class HitCountController : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         if (_hitCountDecreasingTimer > 0)
             _hitCountDecreasingTimer -= 1;
         else if (_hitCountDecreasingTimer == 0)

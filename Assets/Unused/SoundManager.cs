@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class SoundManager : MonoBehaviour
 {
     private AudioSource[] m_AudioSource;

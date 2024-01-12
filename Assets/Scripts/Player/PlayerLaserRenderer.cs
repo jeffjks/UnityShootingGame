@@ -62,6 +62,9 @@ public class PlayerLaserRenderer : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         var curPos = transform.position;
         
         _lineRenderer.SetPosition(0, curPos);

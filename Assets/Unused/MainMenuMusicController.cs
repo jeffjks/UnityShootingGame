@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class MainMenuMusicController : MonoBehaviour
 {
     [SerializeField] private AudioSource m_AudioMain = null;

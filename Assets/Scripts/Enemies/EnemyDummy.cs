@@ -9,6 +9,9 @@ public class EnemyDummy : EnemyUnit {
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+	        return;
+        
         RotateFan();
     }
 

@@ -21,6 +21,9 @@ public class EnemyPlaneSmall2 : EnemyUnit
     {
         base.Update();
         
+        if (Time.timeScale == 0)
+            return;
+        
         if (_isTargetingPlayer) {
             float player_distance = Vector2.Distance(transform.position, PlayerManager.GetPlayerPosition());
             m_MoveVector.direction = AngleToPlayer;

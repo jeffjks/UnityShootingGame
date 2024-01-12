@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 
 public class EnemyBoss4_Launcher : EnemyUnit
 {
-    private bool m_Moving = false;
     private int _side;
     private int _moveDirection;
     public float CustomDirectionDelta { get; set; }
@@ -23,10 +22,14 @@ public class EnemyBoss4_Launcher : EnemyUnit
     protected override void Update() {
         base.Update();
         
-        m_CustomDirection[0] += CustomDirectionDelta * CustomDirectionSide / Application.targetFrameRate * Time.timeScale;
+        if (Time.timeScale == 0)
+            return;
+
+        MoveSide();
     }
-    
-    public void SetMoving(bool boolean) {
-        m_Moving = boolean;
+
+    private void MoveSide()
+    {
+        m_CustomDirection[0] += CustomDirectionDelta * CustomDirectionSide / Application.targetFrameRate * Time.timeScale;
     }
 }

@@ -473,8 +473,10 @@ public class ReplayManager : MonoBehaviour
             return;
         
         _logFileStream.Flush();
+        _logFileStream.BaseStream.Flush();
         _logFileStream.Close();
         _logFileStream = null;
+        Debug.Log("LogFileStream has closed.");
 #endif
     }
 

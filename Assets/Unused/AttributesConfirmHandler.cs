@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// UNUSED SCRIPT
+
 public class AttributesConfirmHandler : GameUI
 {
     //public AttributesSelectHandler m_SelectAttributesHandler;

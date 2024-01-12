@@ -22,6 +22,9 @@ public class PlayerShot : PlayerWeapon
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+        
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         SimplifyMissilePosition();
     }

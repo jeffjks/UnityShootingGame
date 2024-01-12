@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
+// UNUSED SCRIPT
+
 public class PauseMenuController : MonoBehaviour
 {
     public PauseManager m_PauseManager;

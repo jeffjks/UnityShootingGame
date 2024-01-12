@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// UNUSED SCRIPT
+
 public class InGameMenuHandler : MenuHandler
 {
     public MenuHandler m_PausePanel;

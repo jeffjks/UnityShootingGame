@@ -1804,6 +1804,21 @@ MonoBehaviour:
   m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 4ccf13dd51735094f8466cc3206ff90c,
     type: 2}
+--- !u!114 &149000101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149000099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArrowHighlighters:
+  - {fileID: 298287160}
+  - {fileID: 298287159}
 --- !u!1001 &149966326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2639,6 +2654,21 @@ MonoBehaviour:
   m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 4efdd73c95bd2f9459a0c1128245a3e4,
     type: 2}
+--- !u!114 &223071560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223071558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArrowHighlighters:
+  - {fileID: 298287160}
+  - {fileID: 298287159}
 --- !u!1 &227012836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,6 +3144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db78541d1fcfbae4093b80855caa20d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &298287161 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1379436326857646201, guid: c4c9629fbcd44ba4f8b4a75d14262f68,
+    type: 3}
+  m_PrefabInstance: {fileID: 298287157}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1552ce41c8a190c459f07eef4f4a13b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &306586677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,27 +3606,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 330550781}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &330550784 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2620441171870082064, guid: e0792dd08d7f9bb4f8666df6a9985d7b,
-    type: 3}
-  m_PrefabInstance: {fileID: 330550781}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &330550785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330550784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ArrowHighlighters:
-  - {fileID: 298287160}
-  - {fileID: 298287159}
 --- !u!1 &344428860
 GameObject:
   m_ObjectHideFlags: 0
@@ -5684,6 +5705,7 @@ MonoBehaviour:
   m_AttributesCostWindowController: {fileID: 2117938321}
   m_AttributesTypeText: {fileID: 1009455932}
   m_AttributeConfirmMenuHandler: {fileID: 1074893953}
+  m_ArrowSet: {fileID: 298287161}
 --- !u!1001 &496637542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6299,6 +6321,21 @@ MonoBehaviour:
   m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 65ae9e93e95bfa943a80a38710cf1b1a,
     type: 2}
+--- !u!114 &516655910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516655908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArrowHighlighters:
+  - {fileID: 298287160}
+  - {fileID: 298287159}
 --- !u!1 &521130664
 GameObject:
   m_ObjectHideFlags: 0
@@ -6566,6 +6603,21 @@ MonoBehaviour:
   m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: dd282727b9df4f54bab648375dd5547e,
     type: 2}
+--- !u!114 &524454375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524454373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArrowHighlighters:
+  - {fileID: 298287160}
+  - {fileID: 298287159}
 --- !u!1001 &524579901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8068,6 +8120,21 @@ MonoBehaviour:
   m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 0e42e0aed1aa613439bb13baaf8c8f65,
     type: 2}
+--- !u!114 &650746912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650746910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArrowHighlighters:
+  - {fileID: 298287160}
+  - {fileID: 298287159}
 --- !u!1001 &662424683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10974,6 +11041,7 @@ MonoBehaviour:
   m_InitialSelection: 0
   m_PreserveLastSelection: 0
   m_CanvasGroup: {fileID: 1074893954}
+  m_ArrowSet: {fileID: 298287161}
 --- !u!225 &1074893954
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -16784,6 +16852,21 @@ MonoBehaviour:
   m_PreviewScreen: {fileID: 1830424808}
   m_AttributesDetailsWindowDatas: {fileID: 11400000, guid: 74d24a396b7dfb14583a1640db656919,
     type: 2}
+--- !u!114 &1658107688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658107686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a2890dc57e06f449dd8687bbef1d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArrowHighlighters:
+  - {fileID: 298287160}
+  - {fileID: 298287159}
 --- !u!1 &1670451774
 GameObject:
   m_ObjectHideFlags: 0

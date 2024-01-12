@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using System;
 using UnityEngine;
+
+// UNUSED SCRIPT
+
 public class PlayerLaserShooter : PlayerLaserHandler
 {
 /*

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class EnemyTurret3 : EnemyUnit
 {
     private void Start()

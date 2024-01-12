@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UNUSED SCRIPT
+
 public class EnemyMiddleBoss2_Barrel : MonoBehaviour
 {
     private float m_Pos_Z1; // 0.47f

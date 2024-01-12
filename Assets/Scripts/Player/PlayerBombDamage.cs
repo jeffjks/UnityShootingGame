@@ -27,6 +27,9 @@ public class PlayerBombDamage : PlayerObject
 
     void OnTriggerStay2D(Collider2D other) // 충돌 감지
     {
+        if (PauseManager.IsGamePaused)
+            return;
+        
         if (other.gameObject.CompareTag("Enemy"))
         {
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();

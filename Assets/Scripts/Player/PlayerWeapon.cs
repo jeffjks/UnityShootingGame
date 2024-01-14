@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     [SerializeField] private int _removeTimer;
 
     private IEnumerator _removeTimerCoroutine;
+    // private static int _playerWeaponIndex;
+    // private int _index;
 
     public override float CurrentAngle
     {
@@ -26,11 +29,16 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     private int _currentForm;
     private bool _appliedDamage;
     
-    public virtual void OnStart() {
+    public virtual void OnStart()
+    {
 #if UNITY_EDITOR
         if (SystemManager.IsInGame && ReplayManager.Instance.m_PlayerWeaponStartLog)
             ReplayManager.WriteReplayLogFile($"PlayerWeaponStart {name}: {transform.position.ToString("N6")}");
 #endif
+        // _index = _playerWeaponIndex;
+        // _playerWeaponIndex++;
+        // if (_playerWeaponIndex >= Int32.MaxValue)
+        //     _playerWeaponIndex = 0;
         
         _appliedDamage = false;
         _removeTimerCoroutine = SetRemoveTimer();
@@ -57,8 +65,8 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (_appliedDamage)
-            return;
+        // if (_appliedDamage)
+        //     return;
         
         if (other.gameObject.CompareTag("Enemy"))
         {

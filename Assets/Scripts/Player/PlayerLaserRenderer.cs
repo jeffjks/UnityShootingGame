@@ -71,13 +71,19 @@ public class PlayerLaserRenderer : MonoBehaviour
         //Debug.DrawRay(curPos - (Vector3)_laserHitBoxWidth, transform.forward, Color.red, 0.1f);
         //Debug.DrawRay(curPos + (Vector3)_laserHitBoxWidth, transform.forward, Color.red, 0.1f);
 
-        RaycastHit2D hit1 = Physics2D.Raycast((Vector2) curPos - _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
-        RaycastHit2D hit2 = Physics2D.Raycast((Vector2) curPos, Vector2.up, CurrentLaserLength, Layer.LARGE);
-        RaycastHit2D hit3 = Physics2D.Raycast((Vector2) curPos + _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
+        var curPos2D = (Vector2)curPos;
+        var hit = Physics2D.BoxCast(curPos2D, _laserHitBoxWidth, 0f, Vector2.up, CurrentLaserLength, Layer.LARGE);
 
-        if (hit1.collider || hit2.collider || hit3.collider) // 하나라도 충돌하면
+        // RaycastHit2D hit1 = Physics2D.Raycast((Vector2) curPos - _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
+        // RaycastHit2D hit2 = Physics2D.Raycast((Vector2) curPos, Vector2.up, CurrentLaserLength, Layer.LARGE);
+        // RaycastHit2D hit3 = Physics2D.Raycast((Vector2) curPos + _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
+
+        //if (hit1.collider || hit2.collider || hit3.collider) // 하나라도 충돌하면
+        if (hit.collider) // 하나라도 충돌하면
         {
-            float min_y = Mathf.Min(hit1.point.y, hit2.point.y, hit3.point.y);
+            //float min_y = Mathf.Min(hit1.point.y, hit2.point.y, hit3.point.y);
+            var min_y = hit.point.y;
+            
             //Vector3 endPoint = new Vector3(transform.position.x, min_y, Depth.PLAYER); // 가장 작은 y좌표를 endpoint로
             CurrentLaserLength = Mathf.Max(min_y - _playerLaserHandler.transform.position.y + ENDPOINT_ALPHA, MINIMUM_LASER_LENGTH);
 
@@ -163,7 +169,7 @@ public class PlayerLaserRenderer : MonoBehaviour
         _lineRenderer.endWidth = laserWidth;
         
         var hitBoxWidth = laserWidth*0.75f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
-        _laserHitBoxWidth = new Vector2(hitBoxWidth*0.5f, 0f);
+        _laserHitBoxWidth = new Vector2(hitBoxWidth, 0.01f);
         _collider2D.size = new Vector2(hitBoxWidth, 0f);
     }
 

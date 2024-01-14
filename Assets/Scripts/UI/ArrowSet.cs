@@ -10,6 +10,6 @@ public class ArrowSet : MonoBehaviour
     public void SetInteractable(bool state)
     {
         m_CanvasGroup.interactable = state;
-        m_CanvasGroup.alpha = state ? 1f : 0f;
+        m_CanvasGroup.alpha = state ? 1f : 0.5f;
     }
 }

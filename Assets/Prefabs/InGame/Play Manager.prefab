@@ -66,9 +66,9 @@ MonoBehaviour:
     type: 2}
   m_KillLog: 1
   m_RemoveLog: 1
-  m_PlayerMovementInputLog: 1
-  m_PlayerAttackInputLog: 1
-  m_PlayerWeaponStartLog: 1
+  m_PlayerMovementInputLog: 0
+  m_PlayerAttackInputLog: 0
+  m_PlayerWeaponStartLog: 0
   m_PlayerWeaponHitLog: 1
   m_ItemLog: 1
   m_HitCountLog: 1

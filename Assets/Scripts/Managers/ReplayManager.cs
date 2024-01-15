@@ -23,12 +23,12 @@ public class ReplayManager : MonoBehaviour
     public bool m_Activate;
     public ReplayVersionDatas m_ReplayVersionData;
     
-    private PlayerController _playerController;
+    private static PlayerController _playerController;
     private PlayerManager _playerManager;
     
     private ReplayInfo _replayInfo;
-    private ReplayData _context;
-    private bool _eof;
+    private static ReplayData _context;
+    private static bool _eof;
 
     private const string ReplayWriteFile = "replayLog_Play.log";
     private const string ReplayReadFile = "replayLog_Replay.log";
@@ -44,6 +44,15 @@ public class ReplayManager : MonoBehaviour
     public bool m_PlayerWeaponHitLog;
     public bool m_ItemLog;
     public bool m_HitCountLog;
+
+    public static bool KillLog => Instance != null && Instance.m_KillLog;
+    public static bool RemoveLog => Instance != null && Instance.m_RemoveLog;
+    public static bool PlayerMovementInputLog => Instance != null && Instance.m_PlayerMovementInputLog;
+    public static bool PlayerAttackInputLog => Instance != null && Instance.m_PlayerAttackInputLog;
+    public static bool PlayerWeaponStartLog => Instance != null && Instance.m_PlayerWeaponStartLog;
+    public static bool PlayerWeaponHitLog => Instance != null && Instance.m_PlayerWeaponHitLog;
+    public static bool ItemLog => Instance != null && Instance.m_ItemLog;
+    public static bool HitCountLog => Instance != null && Instance.m_HitCountLog;
 #endif
 
     private int PlayerAttackLevel
@@ -68,7 +77,8 @@ public class ReplayManager : MonoBehaviour
 
     public static bool IsReplayAvailable => !PauseManager.IsGamePaused && SystemManager.IsInGame && !ErrorOccured;
 
-    public static ReplayManager Instance { get; private set; }
+    private static ReplayManager Instance { get; set; }
+    
     public static int CurrentFrame;
     private static bool ErrorOccured;
 
@@ -259,7 +269,7 @@ public class ReplayManager : MonoBehaviour
         CurrentFrame++;
     }
 
-    private void OpenPopupMenu()
+    private static void OpenPopupMenu()
     {
         if (SystemManager.GameMode == GameMode.Replay)
             PauseManager.Instance.OpenPopupMenu("리플레이 파일을 읽는 중 오류가 발생하였습니다.",
@@ -300,7 +310,7 @@ public class ReplayManager : MonoBehaviour
         InitPlayer(PlayerManager.CurrentAttributes, _replayInfo.m_PlayerAttackLevel);
     }
     
-    public void ReadUserInput()
+    public static void ReadUserInput()
     {
         if (_eof)
             return;
@@ -333,7 +343,7 @@ public class ReplayManager : MonoBehaviour
         {
             _playerController.OnMoveInvoked(moveVectorInt);
 #if UNITY_EDITOR
-            if (m_PlayerMovementInputLog)
+            if (PlayerMovementInputLog)
                 WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }
@@ -342,7 +352,7 @@ public class ReplayManager : MonoBehaviour
         {
             _playerController.OnFireInvoked(isFirePressed);
 #if UNITY_EDITOR
-            if (m_PlayerAttackInputLog)
+            if (PlayerAttackInputLog)
                 WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }
@@ -351,7 +361,7 @@ public class ReplayManager : MonoBehaviour
         {
             _playerController.OnBombInvoked(isBombPressed);
 #if UNITY_EDITOR
-            if (m_PlayerAttackInputLog)
+            if (PlayerAttackInputLog)
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }
@@ -380,7 +390,7 @@ public class ReplayManager : MonoBehaviour
         InitPlayer(playerAttackLevel);
     }
     
-    public void WriteUserMovementInput(Vector2Int inputVector)
+    public static void WriteUserMovementInput(Vector2Int inputVector)
     {
         if (SystemManager.GameMode == GameMode.Replay)
             return;
@@ -388,7 +398,7 @@ public class ReplayManager : MonoBehaviour
         _context.SetMoveVectorData(inputVector);
     }
 
-    public void WriteUserPressInput(bool isPressed, KeyType keyType)
+    public static void WriteUserPressInput(bool isPressed, KeyType keyType)
     {
         if (SystemManager.GameMode == GameMode.Replay)
             return;
@@ -401,7 +411,7 @@ public class ReplayManager : MonoBehaviour
         _context.inputPress &= (byte) (inputFire << offset);
     }
 
-    public void WriteReplayData()
+    public static void WriteReplayData()
     {
         var data = _context.GetData();
         
@@ -414,7 +424,7 @@ public class ReplayManager : MonoBehaviour
         if (_context.TryGetMoveVectorData(out var moveVectorInt))
         {
 #if UNITY_EDITOR
-            if (m_PlayerMovementInputLog)
+            if (PlayerMovementInputLog)
                 WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }
@@ -422,7 +432,7 @@ public class ReplayManager : MonoBehaviour
         if (_context.TryGetFirePressed(out var isFirePressed))
         {
 #if UNITY_EDITOR
-            if (m_PlayerAttackInputLog)
+            if (PlayerAttackInputLog)
                 WriteReplayLogFile($"{isFirePressed} Fire {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }
@@ -430,7 +440,7 @@ public class ReplayManager : MonoBehaviour
         if (_context.TryGetBombPressed(out var isBombPressed))
         {
 #if UNITY_EDITOR
-            if (m_PlayerAttackInputLog)
+            if (PlayerAttackInputLog)
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }

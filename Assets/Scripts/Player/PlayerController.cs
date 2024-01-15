@@ -66,9 +66,9 @@ public class PlayerController : MonoBehaviour
             return;
         
         if (SystemManager.GameMode == GameMode.Replay)
-            ReplayManager.Instance.ReadUserInput();
+            ReplayManager.ReadUserInput();
         else
-            ReplayManager.Instance.WriteReplayData();
+            ReplayManager.WriteReplayData();
 
         if (IsFirePressed)
         {
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         _playerMovement.HandlePlayerMovement(inputVector);
         _playerShotHandler.ReceiveHorizontalMovement(inputVector.x);
         
-        ReplayManager.Instance.WriteUserMovementInput(inputVector);
+        ReplayManager.WriteUserMovementInput(inputVector);
     }
 
     public void OnFireInvoked(bool isPressed)
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         
         HandleFireInput(isPressed);
         
-        ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
+        ReplayManager.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
     }
 
     private void HandleFireInput(bool isPressed)
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
         
         ExecuteBomb(isPressed);
         
-        ReplayManager.Instance.WriteUserPressInput(isPressed, ReplayManager.KeyType.Bomb);
+        ReplayManager.WriteUserPressInput(isPressed, ReplayManager.KeyType.Bomb);
     }
     
     private void ExecuteBomb(bool isPressed)

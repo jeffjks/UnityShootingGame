@@ -90,9 +90,9 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         m_EnemyDeath.Action_OnKilled += DisableInteractable;
         m_EnemyDeath.Action_OnKilled += StopAllPatterns;
 #if UNITY_EDITOR
-        if (ReplayManager.Instance.m_KillLog)
+        if (ReplayManager.KillLog)
             m_EnemyDeath.Action_OnKilled += WriteReplayKillLog;
-        if (ReplayManager.Instance.m_RemoveLog)
+        if (ReplayManager.RemoveLog)
             m_EnemyDeath.Action_OnRemoved += WriteReplayRemoveLogFile;
 #endif
         

@@ -32,7 +32,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     public virtual void OnStart()
     {
 #if UNITY_EDITOR
-        if (SystemManager.IsInGame && ReplayManager.Instance.m_PlayerWeaponStartLog)
+        if (SystemManager.IsInGame && ReplayManager.PlayerWeaponStartLog)
             ReplayManager.WriteReplayLogFile($"PlayerWeaponStart {name}: {transform.position.ToString("N6")}");
 #endif
         // _index = _playerWeaponIndex;
@@ -73,7 +73,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
             EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             
 #if UNITY_EDITOR
-            if (ReplayManager.Instance.m_PlayerWeaponHitLog)
+            if (ReplayManager.PlayerWeaponHitLog)
                 ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyObject.name}, {transform.position.ToString("N6")}");
 #endif
             

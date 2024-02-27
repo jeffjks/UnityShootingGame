@@ -27,7 +27,7 @@ public class ReplayManager : MonoBehaviour
     private PlayerManager _playerManager;
     
     private ReplayInfo _replayInfo;
-    private static ReplayData _context;
+    private static ReplayMovementData _movementContext;
     private static bool _eof;
 
     private const string ReplayWriteFile = "replayLog_Play.log";
@@ -88,25 +88,36 @@ public class ReplayManager : MonoBehaviour
         Bomb = 2
     }
 
+    public enum ReplayDataType : short
+    {
+        PlayerControl = 1,
+        Collision = 2,
+    }
+
+    [Serializable]
+    public abstract class ReplayData
+    {
+        //public ReplayDataType replayDataType;
+        public int frame;
+    }
+
     // int = 0bAAAA_BBBB_CCCC_DDDD_EEEE_FFFF_GGGG_HHHH // GGGG_HHHH: movementInputFlag, EEEE_FFFF: movementInput, CCCC_DDDD: fire/bomb
     [Serializable]
-    public struct ReplayData
+    public class ReplayMovementData : ReplayData
     {
         public byte movementInputFlag;
         public byte inputMovement;
         public byte inputPress;
-        public byte unused;
-        public int frame;
 
-        public ReplayData(long context)
+        public ReplayMovementData() { }
+
+        public ReplayMovementData(int frame, byte movementInputFlag, byte inputMovement, byte inputPress)
         {
-            frame = (int)(context >> 32);
-            var inputData = (int) (context & 0xFFFFFFFF);
-
-            movementInputFlag = (byte) ((inputData >> 0) & 0xFF);
-            inputMovement = (byte) ((inputData >> 8) & 0xFF);
-            inputPress = (byte) ((inputData >> 16) & 0xFF);
-            unused = (byte) ((inputData >> 24) & 0xFF);
+            //replayDataType = ReplayDataType.PlayerControl;
+            this.frame = frame;
+            this.movementInputFlag = movementInputFlag;
+            this.inputMovement = inputMovement;
+            this.inputPress = inputPress;
         }
 
         public void SetMoveVectorData(Vector2Int inputVector)
@@ -118,17 +129,6 @@ public class ReplayManager : MonoBehaviour
 
             movementInputFlag = 1;
             inputMovement = (byte) ((moveLeft << 0) | (moveRight << 1) | (moveDown << 2)| (moveUp << 3));
-        }
-
-        public long GetData()
-        {
-            long code = 0;
-            code |= (long) movementInputFlag << 0;
-            code |= (long) inputMovement << 8;
-            code |= (long) inputPress << 16;
-            code |= (long) unused << 24;
-            code |= (long) frame << 32;
-            return code;
         }
 
         public bool TryGetMoveVectorData(out Vector2Int moveVectorInt)
@@ -177,6 +177,19 @@ public class ReplayManager : MonoBehaviour
     }
 
     [Serializable]
+    public class ReplayCollisionData : ReplayData
+    {
+        public int targetId;
+
+        public ReplayCollisionData(int frame, int targetId)
+        {
+            //replayDataType = ReplayDataType.Collision;
+            this.frame = frame;
+            this.targetId = targetId;
+        }
+    }
+
+    [Serializable]
     public class ReplayInfo
     {
         public readonly int m_Seed;
@@ -216,7 +229,7 @@ public class ReplayManager : MonoBehaviour
 
         Instance = this;
         CurrentFrame = 0;
-        _context = new ReplayData();
+        _movementContext = new ReplayMovementData();
 
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += OnNextStage;
@@ -315,11 +328,11 @@ public class ReplayManager : MonoBehaviour
         if (_eof)
             return;
         
-        if (_context.GetData() == 0)
+        if (_movementContext.GetData() == 0)
         {
             try
             {
-                _context = ReplayFileController.ReadBinaryReplayData();
+                _movementContext = ReplayFileController.ReadBinaryReplayData();
             }
             catch (EndOfStreamException)
             {
@@ -336,10 +349,10 @@ public class ReplayManager : MonoBehaviour
             }
         }
         
-        if (CurrentFrame != _context.frame)
+        if (CurrentFrame != _movementContext.frame)
             return;
 
-        if (_context.TryGetMoveVectorData(out var moveVectorInt))
+        if (_movementContext.TryGetMoveVectorData(out var moveVectorInt))
         {
             _playerController.OnMoveInvoked(moveVectorInt);
 #if UNITY_EDITOR
@@ -348,7 +361,7 @@ public class ReplayManager : MonoBehaviour
 #endif
         }
 
-        if (_context.TryGetFirePressed(out var isFirePressed))
+        if (_movementContext.TryGetFirePressed(out var isFirePressed))
         {
             _playerController.OnFireInvoked(isFirePressed);
 #if UNITY_EDITOR
@@ -357,7 +370,7 @@ public class ReplayManager : MonoBehaviour
 #endif
         }
 
-        if (_context.TryGetBombPressed(out var isBombPressed))
+        if (_movementContext.TryGetBombPressed(out var isBombPressed))
         {
             _playerController.OnBombInvoked(isBombPressed);
 #if UNITY_EDITOR
@@ -366,7 +379,7 @@ public class ReplayManager : MonoBehaviour
 #endif
         }
 
-        _context = new ReplayData();
+        _movementContext = new ReplayMovementData();
     }
     #endregion
 
@@ -395,7 +408,7 @@ public class ReplayManager : MonoBehaviour
         if (SystemManager.GameMode == GameMode.Replay)
             return;
         
-        _context.SetMoveVectorData(inputVector);
+        _movementContext.SetMoveVectorData(inputVector);
     }
 
     public static void WriteUserPressInput(bool isPressed, KeyType keyType)
@@ -407,21 +420,21 @@ public class ReplayManager : MonoBehaviour
         
         var inputFire = isPressed ? 0b11 : 0b01;
 
-        _context.inputPress |= (byte) (0b11 << offset);
-        _context.inputPress &= (byte) (inputFire << offset);
+        _movementContext.inputPress |= (byte) (0b11 << offset);
+        _movementContext.inputPress &= (byte) (inputFire << offset);
     }
 
     public static void WriteReplayData()
     {
-        var data = _context.GetData();
+        var data = _movementContext.GetData();
         
         if (data == 0L)
             return;
-        _context.frame = CurrentFrame;
+        _movementContext.frame = CurrentFrame;
         
-        ReplayFileController.WriteBinaryReplayData(_context);
+        ReplayFileController.WriteBinaryReplayData(_movementContext);
 
-        if (_context.TryGetMoveVectorData(out var moveVectorInt))
+        if (_movementContext.TryGetMoveVectorData(out var moveVectorInt))
         {
 #if UNITY_EDITOR
             if (PlayerMovementInputLog)
@@ -429,7 +442,7 @@ public class ReplayManager : MonoBehaviour
 #endif
         }
 
-        if (_context.TryGetFirePressed(out var isFirePressed))
+        if (_movementContext.TryGetFirePressed(out var isFirePressed))
         {
 #if UNITY_EDITOR
             if (PlayerAttackInputLog)
@@ -437,7 +450,7 @@ public class ReplayManager : MonoBehaviour
 #endif
         }
 
-        if (_context.TryGetBombPressed(out var isBombPressed))
+        if (_movementContext.TryGetBombPressed(out var isBombPressed))
         {
 #if UNITY_EDITOR
             if (PlayerAttackInputLog)
@@ -445,7 +458,7 @@ public class ReplayManager : MonoBehaviour
 #endif
         }
         
-        _context = new ReplayData();
+        _movementContext = new ReplayMovementData();
     }
     #endregion
     

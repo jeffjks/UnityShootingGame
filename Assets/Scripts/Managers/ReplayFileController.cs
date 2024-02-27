@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Events;
@@ -26,8 +27,7 @@ public class ReplayFileController : MonoBehaviour
     private static ReplayFileMode _replayFileMode;
     private static CryptoStream _cryptoStream;
     private static FileStream _fileStream;
-    private static BinaryWriter _bw;
-    private static BinaryReader _br;
+    private static BinaryFormatter _formatter;
     
     private const int AesKeySize = 128;
     private const int AesBlockSize = 128;
@@ -77,7 +77,7 @@ public class ReplayFileController : MonoBehaviour
             ICryptoTransform encryptor = aesAlg.CreateEncryptor();
 
             _cryptoStream = new CryptoStream(_fileStream, encryptor, CryptoStreamMode.Write);
-            _bw = new BinaryWriter(_cryptoStream);
+            //_bw = new BinaryWriter(_cryptoStream);
 
             Debug.Log($"Start writing replay file: {filePath}");
         }
@@ -121,7 +121,7 @@ public class ReplayFileController : MonoBehaviour
             ICryptoTransform decryptor = aesAlg.CreateDecryptor();
 
             _cryptoStream = new CryptoStream(_fileStream, decryptor, CryptoStreamMode.Read);
-            _br = new BinaryReader(_cryptoStream);
+            //_br = new BinaryReader(_cryptoStream);
             
             Debug.Log($"Start reading replay file: {filePath}");
         }
@@ -136,25 +136,28 @@ public class ReplayFileController : MonoBehaviour
         return true;
     }
 
-    public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
+    // public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
+    // {
+    //     _bw.Write(data.m_Seed);
+    //     _bw.Write(data.m_DateTime);
+    //     _bw.Write(data.m_Version);
+    //     _bw.Write(data.m_Attributes.GetAttributesCode());
+    //     _bw.Write(data.m_PlayerAttackLevel);
+    //     _bw.Write((int)data.m_GameMode);
+    //     _bw.Write(data.m_Stage);
+    //     _bw.Write((int)data.m_Difficulty);
+    //     _formatter.Serialize(_fileStream, data);
+    // }
+
+    public static void WriteBinaryReplayData(object data)
     {
-        _bw.Write(data.m_Seed);
-        _bw.Write(data.m_DateTime);
-        _bw.Write(data.m_Version);
-        _bw.Write(data.m_Attributes.GetAttributesCode());
-        _bw.Write(data.m_PlayerAttackLevel);
-        _bw.Write((int)data.m_GameMode);
-        _bw.Write(data.m_Stage);
-        _bw.Write((int)data.m_Difficulty);
+        _formatter.Serialize(_cryptoStream, data);
+        //_bw.Write(data.GetData());
     }
 
-    public static void WriteBinaryReplayData(ReplayManager.ReplayData data)
+    /*public static ReplayManager.ReplayInfo ReadBinaryReplayInfo()
     {
-        _bw.Write(data.GetData());
-    }
-
-    public static ReplayManager.ReplayInfo ReadBinaryReplayInfo()
-    {
+        var data = _formatter.Deserialize(_cryptoStream);
         var data = new ReplayManager.ReplayInfo(
             _br.ReadInt32(),
             _br.ReadInt64(),
@@ -166,11 +169,21 @@ public class ReplayFileController : MonoBehaviour
             (GameDifficulty)_br.ReadInt32()
             );
         return data;
-    }
+    }*/
 
     public static ReplayManager.ReplayData ReadBinaryReplayData()
     {
-        return new ReplayManager.ReplayData(_br.ReadInt64());
+        var dataType = (ReplayManager.ReplayDataType) _formatter.Deserialize(_cryptoStream);
+
+        switch (dataType)
+        {
+            case ReplayManager.ReplayDataType.PlayerControl:
+                return (ReplayManager.ReplayMovementData) _formatter.Deserialize(_cryptoStream);
+            case ReplayManager.ReplayDataType.Collision:
+                return (ReplayManager.ReplayCollisionData) _formatter.Deserialize(_cryptoStream);
+            default:
+                return null;
+        }
     }
 
     public static ReplayManager.ReplayInfo ReadReplayHeader(int slot, out ErrorCode result)

@@ -136,54 +136,33 @@ public class ReplayFileController : MonoBehaviour
         return true;
     }
 
-    // public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
-    // {
-    //     _bw.Write(data.m_Seed);
-    //     _bw.Write(data.m_DateTime);
-    //     _bw.Write(data.m_Version);
-    //     _bw.Write(data.m_Attributes.GetAttributesCode());
-    //     _bw.Write(data.m_PlayerAttackLevel);
-    //     _bw.Write((int)data.m_GameMode);
-    //     _bw.Write(data.m_Stage);
-    //     _bw.Write((int)data.m_Difficulty);
-    //     _formatter.Serialize(_fileStream, data);
-    // }
-
-    public static void WriteBinaryReplayData(object data)
+    public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
     {
+        _formatter.Serialize(_fileStream, data);
+    }
+
+    public static void WriteBinaryReplayData(ReplayManager.ReplayDataType dataType, ReplayManager.ReplayData data)
+    {
+        _formatter.Serialize(_cryptoStream, dataType);
         _formatter.Serialize(_cryptoStream, data);
         //_bw.Write(data.GetData());
     }
 
-    /*public static ReplayManager.ReplayInfo ReadBinaryReplayInfo()
+    public static ReplayManager.ReplayInfo ReadBinaryReplayInfo()
     {
-        var data = _formatter.Deserialize(_cryptoStream);
-        var data = new ReplayManager.ReplayInfo(
-            _br.ReadInt32(),
-            _br.ReadInt64(),
-            _br.ReadString(),
-            new ShipAttributes(_br.ReadString()),
-            _br.ReadInt32(),
-            (GameMode) _br.ReadInt32(),
-            _br.ReadInt32(),
-            (GameDifficulty)_br.ReadInt32()
-            );
+        var data = (ReplayManager.ReplayInfo) _formatter.Deserialize(_cryptoStream);
         return data;
-    }*/
+    }
 
-    public static ReplayManager.ReplayData ReadBinaryReplayData()
+    public static ReplayManager.ReplayDataType ReadBinaryReplayDataType()
     {
         var dataType = (ReplayManager.ReplayDataType) _formatter.Deserialize(_cryptoStream);
+        return dataType;
+    }
 
-        switch (dataType)
-        {
-            case ReplayManager.ReplayDataType.PlayerControl:
-                return (ReplayManager.ReplayMovementData) _formatter.Deserialize(_cryptoStream);
-            case ReplayManager.ReplayDataType.Collision:
-                return (ReplayManager.ReplayCollisionData) _formatter.Deserialize(_cryptoStream);
-            default:
-                return null;
-        }
+    public static T ReadBinaryReplayData<T>() where T : ReplayManager.ReplayData
+    {
+        return (T) _formatter.Deserialize(_cryptoStream);
     }
 
     public static ReplayManager.ReplayInfo ReadReplayHeader(int slot, out ErrorCode result)
@@ -241,14 +220,14 @@ public class ReplayFileController : MonoBehaviour
                 _cryptoStream.FlushFinalBlock();
                 _cryptoStream.Close();
                 _fileStream.Close();
-                _bw.Close();
+                //_bw.Close();
                 break;
             case ReplayFileMode.Read:
                 DiscardRemainingCryptoStream();
                 _cryptoStream.Flush();
                 _cryptoStream.Close();
                 _fileStream.Close();
-                _br.Close();
+                //_br.Close();
                 break;
             case ReplayFileMode.Error:
                 _fileStream.Close();

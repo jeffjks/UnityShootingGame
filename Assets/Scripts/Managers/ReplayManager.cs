@@ -28,7 +28,7 @@ public class ReplayManager : MonoBehaviour
     
     private ReplayInfo _replayInfo;
     private static ReplayMovementData _movementContext;
-    private static ReplayData _nextReplayData;
+    private static Queue<ReplayData> _replayDataQueue;
     private static bool _eof;
 
     private const string ReplayWriteFile = "replayLog_Play.log";
@@ -231,7 +231,6 @@ public class ReplayManager : MonoBehaviour
 
         Instance = this;
         CurrentFrame = 0;
-        _nextReplayData.frame = -1;
 
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += OnNextStage;
@@ -330,7 +329,7 @@ public class ReplayManager : MonoBehaviour
         if (_eof)
             return;
 
-        while (_nextReplayData.frame == -1 || _nextReplayData.frame >= CurrentFrame)
+        while (_replayDataQueue.frame == -1 || _replayDataQueue.frame >= CurrentFrame)
         {
             try
             {
@@ -338,12 +337,12 @@ public class ReplayManager : MonoBehaviour
                 switch (dataType)
                 {
                     case ReplayDataType.PlayerControl:
-                        _nextReplayData = ReplayFileController.ReadBinaryReplayData<ReplayMovementData>();
-                        ReadMovementData((ReplayMovementData) _nextReplayData);
+                        _replayDataQueue = ReplayFileController.ReadBinaryReplayData<ReplayMovementData>();
+                        ReadMovementData((ReplayMovementData) _replayDataQueue);
                         break;
                     case ReplayDataType.CollisionEvent:
-                        _nextReplayData = ReplayFileController.ReadBinaryReplayData<ReplayCollisionData>();
-                        ReadCollisionData((ReplayCollisionData) _nextReplayData);
+                        _replayDataQueue = ReplayFileController.ReadBinaryReplayData<ReplayCollisionData>();
+                        ReadCollisionData((ReplayCollisionData) _replayDataQueue);
                         break;
                 }
             }
@@ -392,12 +391,16 @@ public class ReplayManager : MonoBehaviour
                 WriteReplayLogFile($"{isBombPressed} Bomb {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
         }
+
+        _replayDataQueue.frame = -1;
     }
 
     private static void ReadCollisionData(ReplayCollisionData collisionData)
     {
         if (CurrentFrame != collisionData.frame)
             return;
+
+        _replayDataQueue.frame = -1;
     }
     
     #endregion

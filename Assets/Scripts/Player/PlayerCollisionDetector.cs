@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollisionDetector : MonoBehaviour
+public class PlayerCollisionDetector : PlayerObject
 {
     public string m_Explosion;
 
@@ -13,6 +13,8 @@ public class PlayerCollisionDetector : MonoBehaviour
 
     private void Awake()
     {
+        _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
+        
         _playerUnit = GetComponent<PlayerUnit>();
         _playerController = GetComponent<PlayerController>();
 
@@ -47,14 +49,14 @@ public class PlayerCollisionDetector : MonoBehaviour
         }
 
         else if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
-            if (!PlayerInvincibility.IsInvincible) {
-                EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-
-                if (gameObject.CheckLayer(Layer.AIR)) {
-                    _playerUnit.DealCollisionDamage(enemyObject);
-                    OnDeath();
-                }
-            }
+            if (PlayerInvincibility.IsInvincible)
+                return;
+            if (gameObject.CheckLayer(Layer.AIR) == false)
+                return;
+            
+            var enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
+            DealDamage(enemyObject);
+            OnDeath();
         }
     }
     

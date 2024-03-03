@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         if (SystemManager.GameMode == GameMode.Replay)
             ReplayManager.ReadUserInput();
         else
-            ReplayManager.WriteReplayData();
+            ReplayManager.WriteReplayMovementData();
 
         if (IsFirePressed)
         {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUnit : PlayerObject
+public class PlayerUnit : MonoBehaviour
 {
     public bool m_IsPreviewObject;
     public GameObject m_PlayerRenderer;
@@ -37,7 +37,7 @@ public class PlayerUnit : PlayerObject
         }
     }
     
-    public static PlayerUnit Instance { get; set; }
+    public static PlayerUnit Instance { get; private set; }
     
     private const int MAX_PLAYER_ATTACK_LEVEL = 4;
 
@@ -46,8 +46,6 @@ public class PlayerUnit : PlayerObject
 
     private void Awake()
     {
-        _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
-        
         if (m_IsPreviewObject)
         {
             PlayerAttackLevel = MAX_PLAYER_ATTACK_LEVEL;
@@ -109,11 +107,6 @@ public class PlayerUnit : PlayerObject
     {
         if (!m_IsPreviewObject)
             InGameDataManager.Instance.InitBombNumber();
-    }
-
-    public void DealCollisionDamage(EnemyUnit enemyUnit)
-    {
-        DealDamage(enemyUnit);
     }
 
     public bool PowerUp()

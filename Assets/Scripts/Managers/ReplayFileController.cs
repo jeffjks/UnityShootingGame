@@ -27,7 +27,7 @@ public class ReplayFileController : MonoBehaviour
     private static ReplayFileMode _replayFileMode;
     private static CryptoStream _cryptoStream;
     private static FileStream _fileStream;
-    private static BinaryFormatter _formatter;
+    private static readonly BinaryFormatter _formatter = new();
     
     private const int AesKeySize = 128;
     private const int AesBlockSize = 128;
@@ -138,7 +138,7 @@ public class ReplayFileController : MonoBehaviour
 
     public static void WriteBinaryReplayInfo(ReplayManager.ReplayInfo data)
     {
-        _formatter.Serialize(_fileStream, data);
+        _formatter.Serialize(_cryptoStream, data);
     }
 
     public static void WriteBinaryReplayData(ReplayManager.ReplayDataType dataType, ReplayManager.ReplayData data)

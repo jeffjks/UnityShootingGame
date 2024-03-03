@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemGemAir : ItemGem
 {
-    [SerializeField] private float m_RandomScale = 0f;
+    [SerializeField] private float m_RandomScale;
 
     private float m_VerticalSpeed, m_HorizontalSpeed;
     private Vector3 m_RandomAxis;

@@ -13,6 +13,7 @@ public class LoadReplayMenuHandler : MenuHandler
     public PopupMenuHandler m_PopupMenuHandler;
     
     private const int MAX_REPLAY_NUMBER = 5;
+    private ReplayManager.ReplayInfo _tempReplayInfo = null;
     private readonly ReplayManager.ReplayInfo[] _replayInfos = new ReplayManager.ReplayInfo[MAX_REPLAY_NUMBER];
     private int _currentSelectedSlot;
 
@@ -30,16 +31,8 @@ public class LoadReplayMenuHandler : MenuHandler
         fadeDuration = 0.1f
     };
 
-    private ReplayManager.ReplayInfo CurrentReplaySlot
-    {
-        get
-        {
-            if (_currentSelectedSlot == -1)
-                return ReplayFileController.ReadReplayHeader(_currentSelectedSlot, out var result);
-            return _replayInfos[_currentSelectedSlot];
-        }
-    }
-
+    private ReplayManager.ReplayInfo CurrentReplayInfo => (_currentSelectedSlot == -1) ? _tempReplayInfo : _replayInfos[_currentSelectedSlot];
+    
     private void Awake()
     {
         _canvasGroups = m_ReplaySlotPanel.GetComponentsInChildren<CanvasGroup>();
@@ -50,6 +43,8 @@ public class LoadReplayMenuHandler : MenuHandler
 
     protected override void Init()
     {
+        _tempReplayInfo = ReplayFileController.ReadReplayHeader(-1, out var tempResult);
+        
         for (var i = 0; i < MAX_REPLAY_NUMBER; ++i)
         {
             _buttons[i].ResetButtonTextColor();
@@ -127,7 +122,7 @@ public class LoadReplayMenuHandler : MenuHandler
     {
         try
         {
-            if (CurrentReplaySlot.m_Version != m_ReplayVersionData.replayVersion)
+            if (CurrentReplayInfo.m_Version != m_ReplayVersionData.replayVersion)
             {
                 PopupMessageMenu(m_PopupMenuHandler, new PopupMenuContext(
                     () => _isActive = true,
@@ -157,7 +152,7 @@ public class LoadReplayMenuHandler : MenuHandler
 
     private void StartReplay()
     {
-        var replayInfo = CurrentReplaySlot;
+        var replayInfo = CurrentReplayInfo;
 
         ReplayManager.CurrentReplaySlot = _currentSelectedSlot;
         PlayerManager.CurrentAttributes = replayInfo.m_Attributes;

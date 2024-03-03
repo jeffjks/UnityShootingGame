@@ -16,13 +16,13 @@ public class PlayerShield : MonoBehaviour {
     private Quaternion m_DefaultQuaternion;
     private readonly int _scanningOffsetYPropId = Shader.PropertyToID("_ScanningOffsetY");
 
-	void Start ()
+	private void Start ()
     {
         m_ShieldMaterial = ShieldBody.GetComponent<MeshRenderer>().material;
         m_DefaultQuaternion = transform.localRotation;
     }
     
-    void Update()
+    private void Update()
     {
         if (Time.timeScale == 0)
             return;

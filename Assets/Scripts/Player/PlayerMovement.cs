@@ -6,6 +6,7 @@ using System.Text;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerUnit m_PlayerUnit;
+    public PlayerCollisionDetector m_PlayerCollisionDetector;
     public PlayerSpeedDatas m_PlayerSpeedData;
     public AircraftRollingService m_AircraftRollingService;
     
@@ -33,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         Init();
-        transform.rotation = Quaternion.AngleAxis(m_PlayerUnit.CurrentAngle, Vector3.forward); // Vector3.forward
+        transform.rotation = Quaternion.AngleAxis(m_PlayerCollisionDetector.CurrentAngle, Vector3.forward); // Vector3.forward
 
         var index = PlayerManager.CurrentAttributes.GetAttributes(AttributeType.Speed);
         _defaultSpeed = m_PlayerSpeedData.playerSpeed[index].defaultSpeed / 256f;
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
             
         playerPos += (Vector3) moveVector;
-        m_PlayerUnit.m_MoveVector.direction = 180f + 90f*MoveRawHorizontal;
+        m_PlayerCollisionDetector.m_MoveVector.direction = 180f + 90f*MoveRawHorizontal;
             
         playerPos = new Vector3
         (
@@ -84,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     private void Init()
     {
         m_PlayerUnit.SlowMode = false;
-        m_PlayerUnit.m_MoveVector.direction = 180f;
+        m_PlayerCollisionDetector.m_MoveVector.direction = 180f;
         m_AircraftRollingService.CurrentRollDegree = 0f;
     }
 

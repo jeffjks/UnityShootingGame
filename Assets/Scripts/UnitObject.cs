@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public abstract class UnitObject : MonoBehaviour
     public MoveVector m_MoveVector;
     [DrawIf("m_IsRoot", true, ComparisonType.Equals)]
     public bool m_IsAir;
+    public uint ObjectId { get; set; }
+    private static uint NextObjectId = 1;
 
 	//[HideInInspector] public Vector2 m_Position2D;
 	protected float _currentAngle; // 현재 회전 각도
@@ -19,6 +22,12 @@ public abstract class UnitObject : MonoBehaviour
         set => _currentAngle = value;
     }
     public Vector2 m_Position2D => GetPosition2d();
+    
+    protected virtual void OnEnable()
+    {
+        ObjectId = NextObjectId;
+        NextObjectId = NextObjectId >= UInt32.MaxValue ? NextObjectId = 1 : NextObjectId++;
+    }
 
     protected void MoveDirection(float speed, float direction) // speed 속도로 direction 방향으로 이동. 0도는 아래, 90도는 오른쪽
     {

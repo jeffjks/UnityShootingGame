@@ -598,9 +598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc348cd0e159f841b730a14c7b28fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsAir: 1
-  m_ObjectName: Player
-  _playerDamageData: {fileID: 11400000, guid: 046a40f2cdbcec944be2538c2b20b547, type: 2}
   m_IsPreviewObject: 0
   m_PlayerRenderer: {fileID: 4450037419644196241}
   m_MaxLaserLength: 0
@@ -617,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerUnit: {fileID: 6427289742828639506}
+  m_PlayerCollisionDetector: {fileID: 784749452946423656}
   m_PlayerSpeedData: {fileID: 11400000, guid: 79b03713ac68eb347a590a0b369119c8, type: 2}
   m_AircraftRollingService: {fileID: 8056332426195801104}
 --- !u!114 &784749452946423656
@@ -631,6 +629,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e032bdc7810954aafd3e3dc6b95a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_IsAir: 1
+  m_ObjectName: Player
+  _playerDamageData: {fileID: 11400000, guid: 046a40f2cdbcec944be2538c2b20b547, type: 2}
   m_Explosion: PlayerExplosion
 --- !u!114 &7589513650664605256
 MonoBehaviour:
@@ -704,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b9e9aa8afaa6441bd2cfea3d5209ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UnitObject: {fileID: 6427289742828639506}
+  m_UnitObject: {fileID: 784749452946423656}
   m_Rotator: {fileID: 6584175958807724471}
   m_MaxRoll: 30
   m_RollSpeed: 120

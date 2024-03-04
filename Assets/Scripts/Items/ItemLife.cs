@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemLife : ItemBox
 {
-    protected override void ItemEffect(Collider2D other) {
+    protected override void ItemEffect(PlayerUnit playerUnit) {
         // m_PlayerManager.AddLife();
     }
 }

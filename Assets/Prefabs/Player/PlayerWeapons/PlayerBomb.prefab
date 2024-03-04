@@ -5034,7 +5034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Bomb: {fileID: 4745315900511269222}
   m_Explosion: {fileID: 5075908940287875810}
-  m_BombDamage: {fileID: 8759294813227080287}
+  m_PlayerBombDamage: {fileID: 3366579853204337647}
 --- !u!1 &3187321188887235405
 GameObject:
   m_ObjectHideFlags: 0

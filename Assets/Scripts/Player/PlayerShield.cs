@@ -8,6 +8,7 @@ public class PlayerShield : MonoBehaviour {
     public GameObject Ring2;
     public float RotateSpeed;
     public float ShieldOutShineTimeSpace;
+    public const float ShieldRadius = 1.4f;
 
     private float m_EffectTimer;
     private bool m_IsShining = false;
@@ -45,21 +46,6 @@ public class PlayerShield : MonoBehaviour {
             m_EffectTimer += Time.deltaTime * Time.timeScale;
             if (m_EffectTimer >= ShieldOutShineTimeSpace) {
                 m_IsShining = true;
-            }
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other) // 충돌 감지
-    {
-        var otherObject = other.gameObject;
-        
-        if (other.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상 파괴
-            EnemyBullet enemyBullet = otherObject.GetComponentInParent<EnemyBullet>();
-            try {
-                enemyBullet.PlayEraseAnimation();
-            }
-            catch (System.NullReferenceException) {
-                return;
             }
         }
     }

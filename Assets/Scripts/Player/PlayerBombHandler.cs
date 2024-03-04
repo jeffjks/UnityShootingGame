@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public class PlayerBombHandler : MonoBehaviour
 {
-    public GameObject m_Bomb, m_Explosion, m_BombDamage;
+    public GameObject m_Bomb, m_Explosion;
+    public PlayerBombDamage m_PlayerBombDamage;
 
     public static event UnityAction Action_OnBombUse;
     private static bool _isBombInUse;
@@ -61,13 +62,13 @@ public class PlayerBombHandler : MonoBehaviour
         BulletManager.SetBulletFreeState(2000);
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(true);
-        m_BombDamage.SetActive(true);
+        m_PlayerBombDamage.Activate();
         AudioService.PlaySound("PlayerBomb2");
 
         yield return new WaitForMillisecondFrames(REMOVE_TIMER);
         m_Bomb.SetActive(false);
         m_Explosion.SetActive(false);
-        m_BombDamage.SetActive(false);
+        m_PlayerBombDamage.Deactivate();
         IsBombInUse = false;
     }
 }

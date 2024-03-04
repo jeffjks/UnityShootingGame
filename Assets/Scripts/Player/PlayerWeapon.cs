@@ -63,30 +63,51 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         _activatedObject[_currentForm].transform.position = position;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // if (_appliedDamage)
         //     return;
         
         if (other.gameObject.CompareTag("Enemy"))
         {
-            EnemyUnit enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-            
+            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+
+            var targetId = enemyUnit.ObjectId;
+            ReplayManager.WriteReplayCollisionData(ObjectId, targetId);
+
+            TriggerEnter(enemyUnit);
+        }
+    }
+
+    public override void ExecuteCollisionEnter(int id)
+    {
+        var enemyUnit = ObjectIdList[id] as EnemyUnit;
+
+        if (enemyUnit == null)
+        {
+            Debug.LogError($"{ObjectIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            return;
+        }
+
+        TriggerEnter(enemyUnit);
+    }
+
+    private void TriggerEnter(EnemyUnit enemyUnit)
+    {
 #if UNITY_EDITOR
-            if (ReplayManager.PlayerWeaponHitLog)
-                ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyObject.name}, {transform.position.ToString("N6")}");
+        if (ReplayManager.PlayerWeaponHitLog)
+            ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyUnit.name}, {transform.position.ToString("N6")}");
 #endif
             
-            if (m_IsPenetrate && gameObject.CheckLayer(Layer.SMALL))
-            {
-                enemyObject.m_EnemyDeath.KillEnemy();
-            }
-            else // 관통 공격이 아니며 적이 소형이 아닌 경우에는 데미지 주고 자신 파괴
-            {
-                DealDamage(enemyObject);
-                _appliedDamage = true;
-                OnDeath();
-            }
+        if (m_IsPenetrate && gameObject.CheckLayer(Layer.SMALL))
+        {
+            enemyUnit.m_EnemyDeath.KillEnemy();
+        }
+        else // 관통 공격이 아니며 적이 소형이 아닌 경우에는 데미지 주고 자신 파괴
+        {
+            DealDamage(enemyUnit);
+            _appliedDamage = true;
+            OnDeath();
         }
     }
 

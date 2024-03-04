@@ -113,10 +113,13 @@ public class BulletManager : MonoBehaviour
             var bulletPosition = currentNode.Value.transform.position;
             if (IsGridRegionAssignable(bulletPosition))
             {
-                var gem = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
+                var obj = PoolingManager.PopFromPool("ItemGemAir", PoolingParent.GemAir); // Gem 생성
                 bulletPosition.z = Depth.ITEMS;
-                gem.transform.position = bulletPosition;
-                gem.SetActive(true);
+
+                var gemAir = obj.GetComponent<ItemGemAir>();
+                gemAir.transform.position = bulletPosition;
+                obj.SetActive(true);
+                gemAir.Init();
             }
 
             currentNode.Value.ReturnToPool();

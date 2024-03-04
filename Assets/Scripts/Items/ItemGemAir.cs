@@ -10,7 +10,7 @@ public class ItemGemAir : ItemGem
     private Vector3 m_RandomAxis;
     private float m_Angle, m_Scale;
 
-    void OnEnable()
+    public void Init()
     {
         m_Renderer.rotation = Random.rotation;
         m_RandomAxis = Utility.GetRandomPositionInsideCircle().normalized;
@@ -43,7 +43,7 @@ public class ItemGemAir : ItemGem
             m_VerticalSpeed = -7f;
     }
 
-    protected override void ItemEffect(Collider2D other) {
+    protected override void ItemEffect(PlayerUnit playerUnit) {
         InGameDataManager.Instance.AddScore(m_ItemData.itemScore, true, m_ItemData.itemType);
         AudioService.PlaySound("ItemGem");
     }

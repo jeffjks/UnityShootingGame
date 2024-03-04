@@ -31,33 +31,59 @@ public class PlayerCollisionDetector : PlayerObject
         _hasCollided = false;
     }
     
-    void OnTriggerEnter2D(Collider2D other) // 충돌 감지
+    private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
-        if (other.gameObject.CompareTag("EnemyBullet")) { // 대상이 총알이면 대상과 자신 파괴
-            if (!PlayerInvincibility.IsInvincible) {
-                if (!_hasCollided) {
-                    try {
-                        EnemyBullet enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
-                        enemyBullet.PlayEraseAnimation();
-                    }
-                    catch {
-                        return;
-                    }
-                }
-                OnDeath();
-            }
-        }
-
-        else if (other.gameObject.CompareTag("Enemy")) { // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
+        if (other.gameObject.CompareTag("EnemyBullet")) // 대상이 총알이면 대상과 자신 파괴
+        {
             if (PlayerInvincibility.IsInvincible)
                 return;
-            if (gameObject.CheckLayer(Layer.AIR) == false)
+            
+            var enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
+            TriggerEnter(enemyBullet);
+        }
+
+        else if (other.gameObject.CompareTag("Enemy")) // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
+        {
+            if (PlayerInvincibility.IsInvincible)
+                return;
+            if (other.gameObject.CheckLayer(Layer.AIR) == false)
                 return;
             
-            var enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
-            DealDamage(enemyObject);
-            OnDeath();
+            var enemyObject = other.gameObject.GetComponentInParent<EnemyBullet>();
+            TriggerEnter(enemyObject);
         }
+    }
+
+    public override void ExecuteCollisionEnter(int id)
+    {
+        if (PlayerInvincibility.IsInvincible)
+            return;
+        
+        var unitObject = ObjectIdList[id];
+        
+        if (unitObject is EnemyBullet enemyBullet)
+        {
+            TriggerEnter(enemyBullet);
+        }
+        else if (unitObject is EnemyUnit enemyUnit)
+        {
+            TriggerEnter(enemyUnit);
+        }
+    }
+
+    private void TriggerEnter(EnemyBullet enemyBullet)
+    {
+        if (!_hasCollided)
+        {
+            enemyBullet.PlayEraseAnimation();
+        }
+        OnDeath();
+    }
+
+    private void TriggerEnter(EnemyUnit enemyUnit)
+    {
+        DealDamage(enemyUnit);
+        OnDeath();
     }
     
     private void OnDeath() {

@@ -10,8 +10,9 @@ public abstract class Item : UnitObject, IHasGroundCollider
     public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
     public Transform m_Renderer;
     private const float BOUNDARY_PADDING = 0.5f;
+    [SerializeField] protected float m_Radius;
 
-    protected abstract void ItemEffect(Collider2D other);
+    protected abstract void ItemEffect(PlayerUnit playerUnit);
     protected abstract void OnItemRemoved();
     
     protected virtual void Update()
@@ -20,6 +21,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
             return;
         
         CheckOutside();
+        CheckPlayerCollision();
         SetColliderPosition();
     }
 
@@ -54,11 +56,20 @@ public abstract class Item : UnitObject, IHasGroundCollider
         m_Collider2D.transform.rotation = screenRotation;
     }
 
-    void OnTriggerEnter2D(Collider2D other) // 충돌 감지
+    private void CheckPlayerCollision() // 충돌 감지
     {
-        if (other.gameObject.CompareTag("PlayerBody")) { // 대상이 플레이어 바디면 자신 파괴
-            ItemEffect(other);
+        if (PlayerManager.IsPlayerAlive == false)
+            return;
+
+        var offset = PlayerUnit.Instance.transform.position - transform.position;
+        var distance = Vector3.SqrMagnitude(offset);
+        var sqrRadius = (PlayerUnit.ItemRangeRadius + m_Radius) * (PlayerUnit.ItemRangeRadius + m_Radius);
+        
+        if (distance < sqrRadius)
+        {
+            ItemEffect(PlayerUnit.Instance);
             OnItemRemoved();
+        
 #if UNITY_EDITOR
             if (ReplayManager.ItemLog)
                 ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition().ToString("N6")}");

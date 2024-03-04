@@ -114,6 +114,8 @@ public class SystemManager : MonoBehaviour
         SceneManager.LoadScene($"Stage{stage + 1}");
         IsInGame = true;
         Stage = stage;
+
+        UnitObject.InitObjectId();
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터

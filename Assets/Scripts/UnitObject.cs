@@ -8,8 +8,12 @@ public abstract class UnitObject : MonoBehaviour
     public MoveVector m_MoveVector;
     [DrawIf("m_IsRoot", true, ComparisonType.Equals)]
     public bool m_IsAir;
-    public uint ObjectId { get; set; }
-    private static uint NextObjectId = 1;
+
+    public int ObjectId { get; set; } = -1;
+    private const int DefaultObjectIdCapacity = 1024;
+    private static int NextObjectId;
+    public static List<UnitObject> ObjectIdList = new(DefaultObjectIdCapacity);
+    private static Queue<int> ObjectIdQueue = new(DefaultObjectIdCapacity);
 
 	//[HideInInspector] public Vector2 m_Position2D;
 	protected float _currentAngle; // 현재 회전 각도
@@ -22,12 +26,41 @@ public abstract class UnitObject : MonoBehaviour
         set => _currentAngle = value;
     }
     public Vector2 m_Position2D => GetPosition2d();
-    
-    protected virtual void OnEnable()
+
+    public static void InitObjectId()
     {
-        ObjectId = NextObjectId;
-        NextObjectId = NextObjectId >= UInt32.MaxValue ? NextObjectId = 1 : NextObjectId++;
+        ObjectIdList.Clear();
+        ObjectIdQueue.Clear();
+        ObjectIdList = new List<UnitObject>(DefaultObjectIdCapacity);
+        ObjectIdQueue = new Queue<int>(DefaultObjectIdCapacity);
+        NextObjectId = 0;
     }
+    
+    private void OnEnable()
+    {
+        if (ObjectIdQueue.Count > 0)
+        {
+            ObjectId = ObjectIdQueue.Dequeue();
+            ObjectIdList[ObjectId] = this;
+        }
+        else
+        {
+            ObjectId = NextObjectId;
+            NextObjectId = NextObjectId >= Int32.MaxValue ? NextObjectId = 1 : NextObjectId++;
+            ObjectIdList.Add(this);
+        }
+    }
+    
+    private void OnDisable()
+    {
+        ObjectIdList[ObjectId] = null;
+        ObjectIdQueue.Enqueue(ObjectId);
+        ObjectId = -1;
+    }
+
+    public virtual void ExecuteCollisionEnter(int targetId) { }
+
+    public virtual void ExecuteCollisionExit(int targetId) { }
 
     protected void MoveDirection(float speed, float direction) // speed 속도로 direction 방향으로 이동. 0도는 아래, 90도는 오른쪽
     {

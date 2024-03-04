@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemGemGround : ItemGem {
 
-    protected override void ItemEffect(Collider2D other) {
+    protected override void ItemEffect(PlayerUnit playerUnit) {
         InGameDataManager.Instance.AddScore(m_ItemData.itemScore, true, m_ItemData.itemType);
         AudioService.PlaySound("ItemGem");
     }

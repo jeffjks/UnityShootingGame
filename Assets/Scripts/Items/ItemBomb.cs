@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ItemBomb : ItemBox
 {
-    protected override void ItemEffect(Collider2D other) {
-        PlayerController playerController = other.GetComponentInParent<PlayerController>();
-        if (playerController != null) {
+    protected override void ItemEffect(PlayerUnit playerUnit)
+    {
+        if (playerUnit != null)
+        {
             AudioService.PlaySound("ItemGet");
             
             if (InGameDataManager.Instance.AddBomb())

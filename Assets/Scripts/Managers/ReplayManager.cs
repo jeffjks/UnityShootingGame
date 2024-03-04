@@ -95,7 +95,8 @@ public class ReplayManager : MonoBehaviour
     public enum ReplayDataType : short
     {
         PlayerControl = 1,
-        CollisionEvent = 2,
+        CollisionEnter = 2,
+        CollisionExit = 3
     }
 
     [Serializable]
@@ -222,12 +223,12 @@ public class ReplayManager : MonoBehaviour
     }
 
     [Serializable]
-    public class ReplayCollisionData : ReplayData
+    public class ReplayCollisionEnterData : ReplayData
     {
         private int selfId;
         private int targetId;
 
-        public ReplayCollisionData(int frame, int selfId, int targetId)
+        public ReplayCollisionEnterData(int frame, int selfId, int targetId)
         {
             this.frame = frame;
             this.selfId = selfId;
@@ -236,7 +237,33 @@ public class ReplayManager : MonoBehaviour
 
         public override void RunData()
         {
-            
+            UnitObject.ObjectIdList[selfId].ExecuteCollisionEnter(targetId);
+        }
+
+        public void SetCollisionData(int fromId, int toId)
+        {
+            selfId = fromId;
+            targetId = toId;
+            isActive = true;
+        }
+    }
+
+    [Serializable]
+    public class ReplayCollisionExitData : ReplayData
+    {
+        private int selfId;
+        private int targetId;
+
+        public ReplayCollisionExitData(int frame, int selfId, int targetId)
+        {
+            this.frame = frame;
+            this.selfId = selfId;
+            this.targetId = targetId;
+        }
+
+        public override void RunData()
+        {
+            UnitObject.ObjectIdList[selfId].ExecuteCollisionExit(targetId);
         }
 
         public void SetCollisionData(int fromId, int toId)
@@ -411,8 +438,11 @@ public class ReplayManager : MonoBehaviour
                     case ReplayDataType.PlayerControl:
                         _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayMovementData>());
                         break;
-                    case ReplayDataType.CollisionEvent:
-                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayCollisionData>());
+                    case ReplayDataType.CollisionEnter:
+                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayCollisionEnterData>());
+                        break;
+                    case ReplayDataType.CollisionExit:
+                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayCollisionExitData>());
                         break;
                 }
             }
@@ -513,6 +543,15 @@ public class ReplayManager : MonoBehaviour
         }
         
         _movementContext.isActive = false;
+    }
+
+    public static void WriteReplayCollisionData(int selfId, int targetId)
+    {
+        if (SystemManager.GameMode == GameMode.Replay)
+            return;
+
+        var replayData = new ReplayCollisionEnterData(CurrentFrame, selfId, targetId);
+        ReplayFileController.WriteBinaryReplayData(ReplayDataType.CollisionEnter, replayData);
     }
     #endregion
     

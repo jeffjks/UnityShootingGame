@@ -94,10 +94,15 @@ public class PoolingManager : MonoBehaviour
         if (pool == null)
             return null;
 
+        GameObject gameObject;
+
         if (child_number == PoolingParent.None)
-            return pool.PopFromPool(Instance.transform);
+            gameObject = pool.PopFromPool(Instance.transform);
         else
-            return pool.PopFromPool(Instance.GetChildByPoolingParent(child_number));
+            gameObject = pool.PopFromPool(Instance.GetChildByPoolingParent(child_number));
+
+        //gameObject.SetActive(true);
+        return gameObject;
     }
 
     private PooledObject GetPoolItem(string itemName)

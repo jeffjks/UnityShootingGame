@@ -67,18 +67,10 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         _subBulletPattern = new SubBulletPattern(this);
     }
 
-    private void OnEnable()
-    {
-        BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
-    }
-
-    private void OnDisable()
-    {
-        BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
-    }
-
     public void OnStart(BulletProperty bulletProperty)
     {
+        BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
+        
         SetSortingLayer();
         IsPlayingEraseAnimation = false;
 
@@ -120,12 +112,13 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             StartCoroutine(SubBulletPattern(bulletSpawnTiming, newBulletProperty));
     }
 
-    void Update()
+    private void Update()
     {
         if (Time.timeScale == 0)
             return;
         
         CheckOutside();
+        CheckPlayerCollision();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
         //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();
     }
@@ -140,6 +133,21 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         else if (transform.position.y is > 0f or < - Size.GAME_HEIGHT - gap)
         {
             ReturnToPool();
+        }
+    }
+
+    private void CheckPlayerCollision() // 쉴드 충돌 감지
+    {
+        if (PlayerInvincibility.IsInvincible == false)
+            return;
+        
+        var offset = PlayerUnit.Instance.transform.position - transform.position;
+        var distance = Vector3.SqrMagnitude(offset);
+        var sqrRadius = (PlayerShield.ShieldRadius) * (PlayerShield.ShieldRadius);
+        
+        if (distance < sqrRadius)
+        {
+            PlayEraseAnimation();
         }
     }
     
@@ -291,13 +299,16 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         ReturnToPool();
     }
 
-    public void ReturnToPool() {
+    public void ReturnToPool()
+    {
         RemoveFromBulletList();
         StopAllCoroutines();
         IsPlayingEraseAnimation = false;
         _currentCollider.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
+        
+        BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
     }
 
     private void OnDestroy()

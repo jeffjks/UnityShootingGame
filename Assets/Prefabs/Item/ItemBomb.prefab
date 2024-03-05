@@ -204,7 +204,7 @@ MonoBehaviour:
   m_ItemData: {fileID: 11400000, guid: d0e0abadee0476c4fa5543e9800eda00, type: 2}
   m_Collider2D: {fileID: 1608746193201346141}
   m_Renderer: {fileID: 400000}
-  m_RotatingAnimator: {fileID: 5455088906364823949}
+  m_Radius: 0.625
 --- !u!1 &1741342731609935177
 GameObject:
   m_ObjectHideFlags: 0

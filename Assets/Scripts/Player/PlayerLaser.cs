@@ -9,7 +9,7 @@ public class PlayerLaser : PlayerObject
     public PlayerDamageDatas[] m_PlayerLaserDamageData;
 
     private PlayerLaserHandler _playerLaserHandler;
-    private readonly HashSet<EnemyUnit> _enemySet = new();
+    //private readonly List<EnemyUnit> _enemyList = new();
 
     private void Start()
     {
@@ -20,6 +20,7 @@ public class PlayerLaser : PlayerObject
         m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += UpdatePlayerAttackLevel;
     }
 
+    /*
     private void LateUpdate()
     {
         if (PauseManager.IsGamePaused)
@@ -30,21 +31,48 @@ public class PlayerLaser : PlayerObject
 
     private void DealLaserDamage()
     {
-        if (_enemySet.Count == 0)
+        if (_enemyList.Count == 0)
             return;
         if (m_PlayerUnit.SlowMode == false)
             return;
+        if (PauseManager.IsGamePaused)
+            return;
 
-        foreach (var enemyUnit in _enemySet)
+        for (var i = _enemyList.Count - 1; i >= 0; --i)
         {
-            DealDamage(enemyUnit);
+            DealDamage(_enemyList[i]);
             HitCountController.Instance.HitCountLaserCounter++;
         }
     }
+    */
 
+    private void OnTriggerStay2D(Collider2D other) // 충돌 감지
+    {
+        if (m_PlayerUnit.SlowMode == false)
+            return;
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+            
+            if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
+            {
+                DealDamage(enemyUnit);
+                HitCountController.Instance.HitCountLaserCounter++;
+            }
+            else // 소형이면
+            {
+                if (enemyUnit.m_EnemyDeath.KillEnemy())
+                    HitCountController.Instance.AddHitCount();
+            }
+        }
+    }
+
+    
+    /*
     private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
-        if (PauseManager.IsGamePaused)
+        if (SystemManager.GameMode == GameMode.Replay)
             return;
         if (m_PlayerUnit.SlowMode == false)
             return;
@@ -58,7 +86,7 @@ public class PlayerLaser : PlayerObject
 
     private void OnTriggerExit2D(Collider2D other) // 충돌 감지
     {
-        if (PauseManager.IsGamePaused)
+        if (SystemManager.GameMode == GameMode.Replay)
             return;
         
         if (other.gameObject.CompareTag("Enemy"))
@@ -70,11 +98,11 @@ public class PlayerLaser : PlayerObject
 
     public override void ExecuteCollisionEnter(int id)
     {
-        var enemyUnit = ObjectIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{ObjectIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
@@ -83,11 +111,11 @@ public class PlayerLaser : PlayerObject
 
     public override void ExecuteCollisionExit(int id)
     {
-        var enemyUnit = ObjectIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{ObjectIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
@@ -96,12 +124,9 @@ public class PlayerLaser : PlayerObject
 
     private void TriggerEnter(EnemyUnit enemyUnit)
     {
-        if (PauseManager.IsGamePaused)
-            return;
-        
         if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
         {
-            _enemySet.Add(enemyUnit);
+            _enemyList.Add(enemyUnit);
         }
         else // 소형이면
         {
@@ -112,14 +137,12 @@ public class PlayerLaser : PlayerObject
 
     private void TriggerExit(EnemyUnit enemyUnit)
     {
-        if (PauseManager.IsGamePaused)
-            return;
-        
         if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
         {
-            _enemySet.Remove(enemyUnit);
+            _enemyList.Remove(enemyUnit);
         }
     }
+    */
 
     private void UpdateLaserIndex()
     {

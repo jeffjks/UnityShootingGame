@@ -63,8 +63,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         _activatedObject[_currentForm].transform.position = position;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    /*
+    private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
+        // if (SystemManager.GameMode == GameMode.Replay)
+        //     return;
         // if (_appliedDamage)
         //     return;
         
@@ -72,8 +75,8 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         {
             var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
 
-            var targetId = enemyUnit.ObjectId;
-            ReplayManager.WriteReplayCollisionData(ObjectId, targetId);
+            var targetId = enemyUnit.EnemyUnitId;
+            ReplayManager.WriteReplayCollisionData(EnemyId, targetId);
 
             TriggerEnter(enemyUnit);
         }
@@ -81,16 +84,17 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     public override void ExecuteCollisionEnter(int id)
     {
-        var enemyUnit = ObjectIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{ObjectIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
         TriggerEnter(enemyUnit);
     }
+    */
 
     private void TriggerEnter(EnemyUnit enemyUnit)
     {

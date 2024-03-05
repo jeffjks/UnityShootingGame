@@ -33,19 +33,19 @@ public class PlayerCollisionDetector : PlayerObject
     
     private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
+        // if (SystemManager.GameMode == GameMode.Replay)
+        //     return;
+        if (PlayerInvincibility.IsInvincible)
+            return;
+        
         if (other.gameObject.CompareTag("EnemyBullet")) // 대상이 총알이면 대상과 자신 파괴
         {
-            if (PlayerInvincibility.IsInvincible)
-                return;
-            
             var enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
             TriggerEnter(enemyBullet);
         }
 
         else if (other.gameObject.CompareTag("Enemy")) // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
         {
-            if (PlayerInvincibility.IsInvincible)
-                return;
             if (other.gameObject.CheckLayer(Layer.AIR) == false)
                 return;
             
@@ -54,12 +54,13 @@ public class PlayerCollisionDetector : PlayerObject
         }
     }
 
+    /*
     public override void ExecuteCollisionEnter(int id)
     {
         if (PlayerInvincibility.IsInvincible)
             return;
         
-        var unitObject = ObjectIdList[id];
+        var unitObject = EnemyUnitIdList[id];
         
         if (unitObject is EnemyBullet enemyBullet)
         {
@@ -70,6 +71,7 @@ public class PlayerCollisionDetector : PlayerObject
             TriggerEnter(enemyUnit);
         }
     }
+    */
 
     private void TriggerEnter(EnemyBullet enemyBullet)
     {

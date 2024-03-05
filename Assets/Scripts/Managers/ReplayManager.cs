@@ -237,7 +237,7 @@ public class ReplayManager : MonoBehaviour
 
         public override void RunData()
         {
-            UnitObject.ObjectIdList[selfId].ExecuteCollisionEnter(targetId);
+            //UnitObject.EnemyUnitIdList[selfId].ExecuteCollisionEnter(targetId);
         }
 
         public void SetCollisionData(int fromId, int toId)
@@ -263,7 +263,7 @@ public class ReplayManager : MonoBehaviour
 
         public override void RunData()
         {
-            UnitObject.ObjectIdList[selfId].ExecuteCollisionExit(targetId);
+            EnemyUnit.EnemyUnitIdList[selfId].ExecuteCollisionExit(targetId);
         }
 
         public void SetCollisionData(int fromId, int toId)
@@ -547,11 +547,11 @@ public class ReplayManager : MonoBehaviour
 
     public static void WriteReplayCollisionData(int selfId, int targetId)
     {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-
-        var replayData = new ReplayCollisionEnterData(CurrentFrame, selfId, targetId);
-        ReplayFileController.WriteBinaryReplayData(ReplayDataType.CollisionEnter, replayData);
+        // if (SystemManager.GameMode == GameMode.Replay)
+        //     return;
+        //
+        // var replayData = new ReplayCollisionEnterData(CurrentFrame, selfId, targetId);
+        // ReplayFileController.WriteBinaryReplayData(ReplayDataType.CollisionEnter, replayData);
     }
     #endregion
     

@@ -9,12 +9,6 @@ public abstract class UnitObject : MonoBehaviour
     [DrawIf("m_IsRoot", true, ComparisonType.Equals)]
     public bool m_IsAir;
 
-    public int ObjectId { get; set; } = -1;
-    private const int DefaultObjectIdCapacity = 1024;
-    private static int NextObjectId;
-    public static List<UnitObject> ObjectIdList = new(DefaultObjectIdCapacity);
-    private static Queue<int> ObjectIdQueue = new(DefaultObjectIdCapacity);
-
 	//[HideInInspector] public Vector2 m_Position2D;
 	protected float _currentAngle; // 현재 회전 각도
 
@@ -26,37 +20,6 @@ public abstract class UnitObject : MonoBehaviour
         set => _currentAngle = value;
     }
     public Vector2 m_Position2D => GetPosition2d();
-
-    public static void InitObjectId()
-    {
-        ObjectIdList.Clear();
-        ObjectIdQueue.Clear();
-        ObjectIdList = new List<UnitObject>(DefaultObjectIdCapacity);
-        ObjectIdQueue = new Queue<int>(DefaultObjectIdCapacity);
-        NextObjectId = 0;
-    }
-    
-    private void OnEnable()
-    {
-        if (ObjectIdQueue.Count > 0)
-        {
-            ObjectId = ObjectIdQueue.Dequeue();
-            ObjectIdList[ObjectId] = this;
-        }
-        else
-        {
-            ObjectId = NextObjectId;
-            NextObjectId = NextObjectId >= Int32.MaxValue ? NextObjectId = 1 : NextObjectId++;
-            ObjectIdList.Add(this);
-        }
-    }
-    
-    private void OnDisable()
-    {
-        ObjectIdList[ObjectId] = null;
-        ObjectIdQueue.Enqueue(ObjectId);
-        ObjectId = -1;
-    }
 
     public virtual void ExecuteCollisionEnter(int targetId) { }
 

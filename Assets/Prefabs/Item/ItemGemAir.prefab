@@ -88,6 +88,7 @@ MonoBehaviour:
   m_ItemData: {fileID: 11400000, guid: 414306d6290df594180c53fd39689ca6, type: 2}
   m_Collider2D: {fileID: 8443037383033269228}
   m_Renderer: {fileID: 4000011148536180}
+  m_Radius: 0.5
   m_ObjectName: ItemGemAir
   m_MeshRenderer: {fileID: 8147460482884559363}
   m_RandomScale: 0.04

@@ -61,8 +61,8 @@ public abstract class Item : UnitObject, IHasGroundCollider
         if (PlayerManager.IsPlayerAlive == false)
             return;
 
-        var offset = PlayerUnit.Instance.transform.position - transform.position;
-        var distance = Vector3.SqrMagnitude(offset);
+        var offset = (Vector2) PlayerUnit.Instance.transform.position - m_Position2D;
+        var distance = Vector2.SqrMagnitude(offset);
         var sqrRadius = (PlayerUnit.ItemRangeRadius + m_Radius) * (PlayerUnit.ItemRangeRadius + m_Radius);
         
         if (distance < sqrRadius)

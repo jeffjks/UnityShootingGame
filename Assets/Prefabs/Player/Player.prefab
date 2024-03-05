@@ -932,6 +932,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3189561362742921202}
     m_Modifications:
+    - target: {fileID: 728254808853718203, guid: 856274efb31d7f64bbaf88902e4b1875,
+        type: 3}
+      propertyPath: m_PlayerUnit
+      value: 
+      objectReference: {fileID: 6427289742828639506}
     - target: {fileID: 1260281993458157425, guid: 856274efb31d7f64bbaf88902e4b1875,
         type: 3}
       propertyPath: m_RootOrder
@@ -957,6 +962,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerLaser
       objectReference: {fileID: 0}
+    - target: {fileID: 2168611180881848993, guid: 856274efb31d7f64bbaf88902e4b1875,
+        type: 3}
+      propertyPath: m_PlayerUnit
+      value: 
+      objectReference: {fileID: 6427289742828639506}
+    - target: {fileID: 2785868186468651762, guid: 856274efb31d7f64bbaf88902e4b1875,
+        type: 3}
+      propertyPath: m_PlayerUnit
+      value: 
+      objectReference: {fileID: 6427289742828639506}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 856274efb31d7f64bbaf88902e4b1875, type: 3}
 --- !u!114 &809107896804380988 stripped

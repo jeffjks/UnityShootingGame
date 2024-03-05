@@ -7,7 +7,7 @@ public class PlayerBombDamage : PlayerObject
     public int m_BombDuration;
     [SerializeField] private BoxCollider2D m_BoxCollider2D;
 
-    private readonly HashSet<EnemyUnit> _enemySet = new();
+    //private readonly List<EnemyUnit> _enemyList = new();
     private IEnumerator _bombDamageCoroutine;
 
     void Start()
@@ -23,6 +23,7 @@ public class PlayerBombDamage : PlayerObject
         transform.position = new Vector2(0f, -Size.GAME_HEIGHT/2);
     }
 
+    /*
     private void LateUpdate()
     {
         if (PauseManager.IsGamePaused)
@@ -33,14 +34,15 @@ public class PlayerBombDamage : PlayerObject
 
     private void DealBombDamage()
     {
-        if (_enemySet.Count == 0)
+        if (_enemyList.Count == 0)
             return;
 
-        foreach (var enemyUnit in _enemySet)
+        for (var i = _enemyList.Count - 1; i >= 0; --i)
         {
-            DealDamage(enemyUnit);
+            DealDamage(_enemyList[i]);
         }
     }
+    */
 
     public void Activate()
     {
@@ -55,11 +57,27 @@ public class PlayerBombDamage : PlayerObject
             StopCoroutine(_bombDamageCoroutine);
         m_BoxCollider2D.enabled = false;
         
-        _enemySet.Clear();
+        //_enemyList.Clear();
+    }
+    
+    private void OnTriggerStay2D(Collider2D other) // 충돌 감지
+    {
+        if (PauseManager.IsGamePaused)
+            return;
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+
+            DealDamage(enemyUnit);
+        }
     }
 
+    /*
     private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     {
+        if (SystemManager.GameMode == GameMode.Replay)
+            return;
         if (PauseManager.IsGamePaused)
             return;
         
@@ -73,6 +91,8 @@ public class PlayerBombDamage : PlayerObject
 
     private void OnTriggerExit2D(Collider2D other) // 충돌 감지
     {
+        if (SystemManager.GameMode == GameMode.Replay)
+            return;
         if (PauseManager.IsGamePaused)
             return;
         
@@ -86,11 +106,11 @@ public class PlayerBombDamage : PlayerObject
 
     public override void ExecuteCollisionEnter(int id)
     {
-        var enemyUnit = ObjectIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{ObjectIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
@@ -99,11 +119,11 @@ public class PlayerBombDamage : PlayerObject
 
     public override void ExecuteCollisionExit(int id)
     {
-        var enemyUnit = ObjectIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{ObjectIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
@@ -114,15 +134,16 @@ public class PlayerBombDamage : PlayerObject
     {
         if (PauseManager.IsGamePaused)
             return;
-        _enemySet.Add(enemyUnit);
+        _enemyList.Add(enemyUnit);
     }
 
     private void TriggerExit(EnemyUnit enemyUnit)
     {
         if (PauseManager.IsGamePaused)
             return;
-        _enemySet.Remove(enemyUnit);
+        _enemyList.Remove(enemyUnit);
     }
+    */
 
     private IEnumerator BombDamageEnd() {
         yield return new WaitForMillisecondFrames(m_BombDuration);

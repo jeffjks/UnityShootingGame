@@ -72,6 +72,7 @@ MonoBehaviour:
   m_ItemData: {fileID: 11400000, guid: 2288ae9ea4d0b9047a21e2c8adaea0a1, type: 2}
   m_Collider2D: {fileID: 3366174822769475971}
   m_Renderer: {fileID: 3150842622778784455}
+  m_Radius: 0.5
   m_ObjectName: ItemGemGround
   m_MeshRenderer: {fileID: 1216906698411757149}
 --- !u!1 &974546520963165544

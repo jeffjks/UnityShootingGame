@@ -202,9 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc348cd0e159f841b730a14c7b28fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsAir: 0
-  m_ObjectName: PlayerPreview2
-  _playerDamageData: {fileID: 11400000, guid: 046a40f2cdbcec944be2538c2b20b547, type: 2}
   m_IsPreviewObject: 1
   m_PlayerRenderer: {fileID: 3387957367304060182}
   m_MaxLaserLength: 4
@@ -399,6 +396,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 273587242152034240}
     m_Modifications:
+    - target: {fileID: 728254808853718203, guid: 856274efb31d7f64bbaf88902e4b1875,
+        type: 3}
+      propertyPath: m_PlayerUnit
+      value: 
+      objectReference: {fileID: 989022632222629200}
     - target: {fileID: 1260281993458157425, guid: 856274efb31d7f64bbaf88902e4b1875,
         type: 3}
       propertyPath: m_RootOrder
@@ -424,6 +426,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerLaser
       objectReference: {fileID: 0}
+    - target: {fileID: 2168611180881848993, guid: 856274efb31d7f64bbaf88902e4b1875,
+        type: 3}
+      propertyPath: m_PlayerUnit
+      value: 
+      objectReference: {fileID: 989022632222629200}
+    - target: {fileID: 2785868186468651762, guid: 856274efb31d7f64bbaf88902e4b1875,
+        type: 3}
+      propertyPath: m_PlayerUnit
+      value: 
+      objectReference: {fileID: 989022632222629200}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 856274efb31d7f64bbaf88902e4b1875, type: 3}
 --- !u!114 &1233957929657116967 stripped

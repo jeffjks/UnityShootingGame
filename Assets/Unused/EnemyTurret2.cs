@@ -14,7 +14,7 @@ public class EnemyTurret2 : EnemyUnit
     }
 
     private void DestroyChildEnemy() {
-        if (m_EnemyHealth.HealthRatioScaled <= 0.50f) { // 체력 50% 이하
+        if (m_EnemyHealth.HealthRatioScaled <= 500) { // 체력 50% 이하
             if (m_Turret != null)
                 m_EnemyDeath.KillEnemy();
         }

@@ -44,8 +44,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         _trackMaterial = m_Track.material;
         _childEnemyUnits = GetComponentsInChildren<EnemyUnit>();
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -124,7 +124,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
@@ -169,8 +169,8 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
         _phase++;
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
@@ -306,7 +306,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_Launchers[0].StopPattern("2A");
             m_Launchers[1].StopPattern("2A");
             m_MissileLauncherAnimator.SetBool(_missileLauncherMoving, false);
-            if (m_EnemyHealth.HealthRatioScaled <= 0.25f) { // 체력 25% 이하
+            if (m_EnemyHealth.HealthRatioScaled <= 250) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -321,7 +321,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             yield return new WaitForMillisecondFrames(1000);
             m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
             m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
-            if (m_EnemyHealth.HealthRatioScaled <= 0.25f) { // 체력 25% 이하
+            if (m_EnemyHealth.HealthRatioScaled <= 250) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }
@@ -334,7 +334,7 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_SubTurrets[1].StartPattern("2C", new BulletPattern_EnemyBoss4_SubTurret_2C(m_SubTurrets[1]));
             yield return new WaitForMillisecondFrames(7000);
             StopAllSubUnitPattern();
-            if (m_EnemyHealth.HealthRatioScaled <= 0.25f) { // 체력 25% 이하
+            if (m_EnemyHealth.HealthRatioScaled <= 250) { // 체력 25% 이하
                 ToNextPhase();
                 break;
             }

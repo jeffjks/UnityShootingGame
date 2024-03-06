@@ -26,8 +26,8 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
         StartCoroutine(AppearanceSequence());
 
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -83,12 +83,12 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
                 case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 0.40f) // 체력 40% 이하
+                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
                         return;
                     break;
                 default:
@@ -110,8 +110,8 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
         NextPhaseExplosion();
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

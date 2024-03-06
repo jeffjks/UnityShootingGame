@@ -32,8 +32,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         // SystemManager.OnMiddleBossStart();
 
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     protected override void Update()
@@ -158,7 +158,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
@@ -188,8 +188,8 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         NextPhaseExplosion();
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

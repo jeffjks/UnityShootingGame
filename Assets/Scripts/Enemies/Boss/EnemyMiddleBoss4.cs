@@ -8,7 +8,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     public EnemyMiddleBoss4_Part[] m_Part = new EnemyMiddleBoss4_Part[2];
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
-    private int m_Phase;
+    private int _phase;
     private readonly Vector3 TARGET_POSITION = new (0f, -5f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 1500;
     private const int TIME_LIMIT = 36000;
@@ -28,6 +28,9 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
 
         // SystemManager.OnMiddleBossStart();
+
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     protected override void Update()
@@ -37,14 +40,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         if (Time.timeScale == 0)
             return;
         
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthRatioScaled <= 330) { // 체력 33% 이하
-                ToNextPhase();
-            }
-        }
-        
-        
-        if (!TimeLimitState && m_Phase > 0) {
+        if (!TimeLimitState && _phase > 0) {
             if (transform.position.x >= PlayerManager.GetPlayerPosition().x * 0.14f + 1.2f) {
                 m_MoveVector = new MoveVector(new Vector2(-Mathf.Abs(m_MoveVector.GetVector().x), m_MoveVector.GetVector().y));
             }
@@ -81,7 +77,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     private void OnAppearanceComplete() {
         float[] random_direction = { 80f, 100f, -80f, -100f };
         m_MoveVector = new MoveVector(0.8f, random_direction[Random.Range(0, 4)]);
-        m_Phase = 1;
+        _phase = 1;
         // IsColliderInit = true;
 
         EnableInteractableAll();
@@ -113,8 +109,24 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
     }
 
-    public void ToNextPhase() {
-        m_Phase++;
+    public void ToNextPhase()
+    {
+        // if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 330) // 체력 33% 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         BulletManager.SetBulletFreeState(1000);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
@@ -125,6 +137,9 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentPhase);
 
         NextPhaseExplosion();
+        
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {
@@ -134,7 +149,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator SubPattern() { // 서브 패턴 ============================
         int[] fireDelay = { 1800, 1300, 700 };
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 1)
+        while (_phase == 1)
         {
             StopAllPartPattern();
             if (m_Part[0] != null)
@@ -172,7 +187,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 1) {
+        while (_phase == 1) {
             m_FrontTurret.StartPattern("1A1", new BulletPattern_EnemyMiddleBoss4_MainTurret_1A(m_FrontTurret));
             m_BackTurret.StartPattern("1A2", new BulletPattern_EnemyMiddleBoss4_BackTurret_1A(m_BackTurret));
             yield return new WaitForMillisecondFrames(6000);
@@ -192,7 +207,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 2) {
+        while (_phase == 2) {
             m_FrontTurret.StartPattern("2A1", new BulletPattern_EnemyMiddleBoss4_MainTurret_2A1(m_FrontTurret));
             m_FrontTurret.StartPattern("2A2", new BulletPattern_EnemyMiddleBoss4_MainTurret_2A2(m_FrontTurret));
             yield return new WaitForMillisecondFrames(4400);
@@ -214,7 +229,7 @@ public class EnemyMiddleBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         if (_timeLimitCoroutine != null)
             StopCoroutine(_timeLimitCoroutine);
         m_MoveVector = new MoveVector(1.4f, 0f);
-        m_Phase = -1;
+        _phase = -1;
         
         yield break;
     }

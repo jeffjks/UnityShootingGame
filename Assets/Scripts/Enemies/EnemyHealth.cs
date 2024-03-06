@@ -183,8 +183,8 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         if (m_DefaultHealth >= 0f) {
             CurrentHealth -= amount;
 
-            if (SystemManager.GameMode == GameMode.Replay) // Only for game play
-                return;
+            //if (SystemManager.GameMode == GameMode.Replay) // Only for game play
+                //return;
 
             if (CurrentHealth <= 0)
                 OnHpZero();
@@ -274,6 +274,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
     public void WriteReplayHealthData()
     {
-        ReplayManager.WriteReplayEnemyHealth(EnemyId, CurrentHealth);
+        //ReplayManager.WriteReplayEnemyHealth(EnemyId, CurrentHealth);
     }
 }

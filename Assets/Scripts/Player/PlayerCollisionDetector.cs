@@ -43,13 +43,12 @@ public class PlayerCollisionDetector : PlayerObject
             var enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
             TriggerEnter(enemyBullet);
         }
-
         else if (other.gameObject.CompareTag("Enemy")) // 대상이 적 공중, 공격 가능 상태면 데미지 주고 자신 파괴
         {
             if (other.gameObject.CheckLayer(Layer.AIR) == false)
                 return;
             
-            var enemyObject = other.gameObject.GetComponentInParent<EnemyBullet>();
+            var enemyObject = other.gameObject.GetComponentInParent<EnemyUnit>();
             TriggerEnter(enemyObject);
         }
     }

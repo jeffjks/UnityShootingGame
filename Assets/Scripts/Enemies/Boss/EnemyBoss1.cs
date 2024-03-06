@@ -70,7 +70,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
@@ -104,8 +104,8 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
         DestroyPart();
 
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
 

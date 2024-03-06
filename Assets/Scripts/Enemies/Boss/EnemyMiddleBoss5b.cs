@@ -12,10 +12,11 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
     
     private readonly Vector3 TARGET_POSITION = new (0f, -3.8f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2000;
-    private int m_Phase;
+    private int _phase;
 
     private void Start()
     {
+        _phase = 1;
         m_MovementPattern = AppearanceSequence();
         StartCoroutine(m_MovementPattern);
         
@@ -68,17 +69,27 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
         if (Time.timeScale == 0)
             return;
         
-        if (m_Phase == 0) {
-            if (m_EnemyHealth.HealthRatioScaled <= 0.40f) { // 체력 40% 이하
-                ToNextPhase();
-            }
-        }
-        
         SetRotatePattern(new RotatePattern_TargetPlayer(40f, 100f));
     }
 
-    public void ToNextPhase() {
-        m_Phase++;
+    public void ToNextPhase()
+    {
+        // if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+        
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         StopPattern("B1");
         StopPattern("B2");
         m_Hull.SetActive(false);
@@ -86,6 +97,9 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Turret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5b_Turret_A(m_Turret));
         
         NextPhaseExplosion();
+        
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {
@@ -94,7 +108,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public int GetCurrentPhase()
     {
-        return m_Phase;
+        return _phase;
     }
 
 
@@ -117,7 +131,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
     protected override IEnumerator DyingEffect() { // 파괴 과정
         m_MoveVector = new MoveVector(1.2f, 0f);
         BulletManager.BulletsToGems(3000);
-        m_Phase = 2;
+        _phase = 2;
         StopAllPatterns();
         m_Turret.m_EnemyDeath.KillEnemy();
 

@@ -42,8 +42,8 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -144,7 +144,7 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
@@ -171,8 +171,8 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentPhase);
         _phase++;
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

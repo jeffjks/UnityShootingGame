@@ -47,14 +47,14 @@ public class PlayerBombDamage : PlayerObject
     public void Activate()
     {
         m_BoxCollider2D.enabled = true;
-        _bombDamageCoroutine = BombDamageEnd();
-        StartCoroutine(_bombDamageCoroutine);
+        //_bombDamageCoroutine = BombDamageEnd();
+        //StartCoroutine(_bombDamageCoroutine);
     }
 
     public void Deactivate()
     {
-        if (_bombDamageCoroutine != null)
-            StopCoroutine(_bombDamageCoroutine);
+        //if (_bombDamageCoroutine != null)
+        //    StopCoroutine(_bombDamageCoroutine);
         m_BoxCollider2D.enabled = false;
         
         //_enemyList.Clear();

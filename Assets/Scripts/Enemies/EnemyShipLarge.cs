@@ -13,8 +13,8 @@ public class EnemyShipLarge : EnemyUnit, IHasPhase
     {
         CurrentAngle = m_MoveVector.direction;
 
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
     
     protected override void Update()
@@ -26,7 +26,7 @@ public class EnemyShipLarge : EnemyUnit, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
@@ -49,8 +49,8 @@ public class EnemyShipLarge : EnemyUnit, IHasPhase
 
         StartPattern("2A", new EnemyShipLarge_BulletPattern_2A(this));
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정

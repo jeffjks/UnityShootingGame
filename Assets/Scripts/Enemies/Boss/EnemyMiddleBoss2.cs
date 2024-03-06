@@ -33,8 +33,8 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_MainTurret.m_EnemyDeath.Action_OnKilled += ToNextPhase;
         SetRotatePattern(new RotatePattern_MoveDirection());
 
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
         // SystemManager.OnMiddleBossStart();
     }
 
@@ -89,12 +89,12 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
                 case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 0.375f) // 체력 37.5% 이하
+                    if (m_EnemyHealth.HealthRatioScaled > 375) // 체력 37.5% 이하
                         return;
                     break;
                 default:
@@ -125,8 +125,8 @@ public class EnemyMiddleBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         //m_Collider2D[0].gameObject.SetActive(true);
         BulletManager.SetBulletFreeState(500);
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
 

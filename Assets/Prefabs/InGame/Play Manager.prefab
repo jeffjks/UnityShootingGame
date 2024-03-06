@@ -70,5 +70,5 @@ MonoBehaviour:
   m_PlayerAttackInputLog: 0
   m_PlayerWeaponStartLog: 0
   m_PlayerWeaponHitLog: 1
-  m_ItemLog: 1
-  m_HitCountLog: 1
+  m_ItemLog: 0
+  m_HitCountLog: 0

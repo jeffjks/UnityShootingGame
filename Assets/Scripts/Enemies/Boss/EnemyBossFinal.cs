@@ -11,7 +11,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
     public readonly float[] m_CustomDirectionDelta = new float[2];
     private int _directionSide = 1;
 
-    private int m_Phase;
+    private int _phase;
     private readonly Vector3 TARGET_POSITION = new (0f, -3.8f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 1600;
 
@@ -29,6 +29,9 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
+        
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -53,7 +56,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         m_MoveVector = new MoveVector(1f, random_direction[Random.Range(0, 4)]);
 
         // IsColliderInit = true;
-        m_Phase = 1;
+        _phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
         StageManager.IsTrueBossEnabled = false;
@@ -72,14 +75,8 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         
         if (Time.timeScale == 0)
             return;
-        
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthRatioScaled <= 0.40f) { // 체력 40% 이하
-                ToNextPhase();
-            }
-        }
 
-        if (m_Phase > 0) {
+        if (_phase > 0) {
             if (transform.position.x > TARGET_POSITION.x + 1.5f) {
                 m_MoveVector = new MoveVector(Vector2.Reflect(m_MoveVector.GetVector(), Vector2.left));
                 transform.position = new Vector3(TARGET_POSITION.x + 1.5f, transform.position.y, transform.position.z);
@@ -118,8 +115,24 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         m_BombBarrier.SetActive(state);
     }
 
-    public void ToNextPhase() {
-        m_Phase++;
+    public void ToNextPhase()
+    {
+        // if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         StopAllPatterns();
         BulletManager.SetBulletFreeState(2000);
         m_ParticleFireEffect.gameObject.SetActive(false);
@@ -131,6 +144,9 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
+        
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {
@@ -145,7 +161,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
         StopAllPatterns();
         yield return new WaitForMillisecondFrames(3000);
 
-        while (m_Phase == 1)
+        while (_phase == 1)
         {
             StartPattern("1B1", new EnemyBossFinal_BulletPattern_1B1(this));
             yield return new WaitForMillisecondFrames(3000);
@@ -195,7 +211,7 @@ public class EnemyBossFinal : EnemyUnit, IEnemyBossMain, IHasPhase
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_Phase = -1;
+        _phase = -1;
         StopAllPatterns();
         PlayerInvincibility.Action_OnInvincibilityChanged -= SetBombBarrier;
         m_BombBarrier.SetActive(false);

@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Score: 60
   m_IsRoot: 1
   m_Turret: {fileID: 3112153527212686602}
-  m_HealthPercentTurretDestroying: 50
+  m_HealthRatioScaledTurretDestroying: 500
 --- !u!114 &7074582856146585833
 MonoBehaviour:
   m_ObjectHideFlags: 0

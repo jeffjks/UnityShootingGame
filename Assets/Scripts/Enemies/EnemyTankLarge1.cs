@@ -17,13 +17,13 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
     {
         SetRotatePattern(new RotatePattern_MoveDirection());
 
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     public void ToNextPhase()
     {
-        if (SystemManager.GameMode != GameMode.Replay)
+        // if (SystemManager.GameMode != GameMode.Replay)
         {
             switch (_phase)
             {
@@ -51,8 +51,8 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
         _isSubTurretStart = true;
         StartPattern("B", new EnemyTankLarge1_BulletPattern_B(this));
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
+        // if (SystemManager.GameMode != GameMode.Replay)
+            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
     
     protected override void Update()

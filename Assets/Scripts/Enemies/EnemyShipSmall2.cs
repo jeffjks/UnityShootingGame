@@ -18,6 +18,7 @@ public class BulletPattern_EnemyShipSmall2_Turret_A : BulletFactory, IBulletPatt
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2400, 1200, 600 };
         float[] speedArray = { 6.2f, 7.3f, 7.3f };
         

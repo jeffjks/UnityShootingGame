@@ -10,10 +10,10 @@ public class EnemyDeath : MonoBehaviour
     public event Action Action_OnRemoved;
     public bool IsDead { get; private set; }
 
-    public bool KillEnemy()
+    public void KillEnemy()
     {
         if (IsDead) {
-            return false;
+            return;
         }
         IsDead = true;
         
@@ -27,7 +27,6 @@ public class EnemyDeath : MonoBehaviour
             enemyDeath.KillEnemy();
         }
         //Debug.Log($"{ReplayManager.CurrentFrame}: killed {name} at {transform.position}");
-        return true;
     }
 
     public void OnEndDeathAnimation() {

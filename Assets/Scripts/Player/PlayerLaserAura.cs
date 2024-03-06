@@ -58,8 +58,10 @@ public class PlayerLaserAura : PlayerObject
             }
             else // 소형이면
             {
-                if (enemyUnit.m_EnemyDeath.KillEnemy())
-                    HitCountController.Instance.AddHitCount();
+                if (enemyUnit.m_EnemyDeath.IsDead)
+                    return;
+                enemyUnit.m_EnemyDeath.KillEnemy();
+                HitCountController.Instance.AddHitCount();
             }
         }
     }
@@ -93,11 +95,11 @@ public class PlayerLaserAura : PlayerObject
 
     public override void ExecuteCollisionEnter(int id)
     {
-        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
@@ -106,11 +108,11 @@ public class PlayerLaserAura : PlayerObject
 
     public override void ExecuteCollisionExit(int id)
     {
-        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 

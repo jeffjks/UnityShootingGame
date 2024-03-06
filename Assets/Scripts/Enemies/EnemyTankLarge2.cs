@@ -34,6 +34,7 @@ public class EnemyTankLarge2_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1000, 400, 400 };
         
         while(true)
@@ -76,6 +77,7 @@ public class EnemyTankLarge2_BulletPattern_Turret_A : BulletFactory, IBulletPatt
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] number1 = {1, 1, 1, 1, 1};
         int[] number2 = {3, 3, 5, 5, 5, 3, 3};
         int[] number3 = {5, 5, 7, 7, 7, 5, 5};

@@ -106,11 +106,11 @@ public class PlayerBombDamage : PlayerObject
 
     public override void ExecuteCollisionEnter(int id)
     {
-        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 
@@ -119,11 +119,11 @@ public class PlayerBombDamage : PlayerObject
 
     public override void ExecuteCollisionExit(int id)
     {
-        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 

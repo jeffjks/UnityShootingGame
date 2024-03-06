@@ -51,6 +51,7 @@ public class BulletPattern_EnemyBoss1_1C : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 150, 100, 83 };
         int[] fire_number = { 20, 30, 36 };
         yield return new WaitForMillisecondFrames(1000);
@@ -72,6 +73,7 @@ public class BulletPattern_EnemyBoss1_Turret1_1A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 7f, BulletPivot.Current, Random.Range(-2f, 2f), 7, 14f));
         onCompleted?.Invoke();
         yield break;
@@ -84,6 +86,7 @@ public class BulletPattern_EnemyBoss1_Turret1_2A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         const float gap = 0.03f;
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -133,6 +136,7 @@ public class BulletPattern_EnemyBoss1_Turret2_1A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int random_value = Random.Range(0, 2);
         Vector3 pos = GetFirePos(0);
 
@@ -183,6 +187,7 @@ public class BulletPattern_EnemyBoss1_Turret2_2A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
             CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.PinkNeedle, 6.1f, BulletPivot.Current, 0f, 3, 25f));
@@ -221,6 +226,7 @@ public class BulletPattern_EnemyBoss1_Turret2_2B : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         for (int i = 0; i < 2; i++) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.PinkSmall, 6f, BulletPivot.Fixed, 0f));
@@ -245,6 +251,7 @@ public class BulletPattern_EnemyBoss1_Turret3_1A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         BulletAccel accel = new BulletAccel(8.8f, 1000);
         int[] fireDelay = { 2250, 1500, 1000 };
         
@@ -271,6 +278,7 @@ public class BulletPattern_EnemyBoss1_Turret3_2A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         Vector3 pos = GetFirePos(0);
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {

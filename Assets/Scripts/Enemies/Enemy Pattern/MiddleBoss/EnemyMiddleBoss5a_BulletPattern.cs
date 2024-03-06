@@ -9,6 +9,7 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_A : BulletFactory, IBull
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while(true)
         {
             var pos = GetFirePos(0);
@@ -45,6 +46,7 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_B : BulletFactory, IBull
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true)
             {
@@ -84,6 +86,7 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_C : BulletFactory, IBull
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
                 var pos = GetFirePos(0);
@@ -115,6 +118,7 @@ public class BulletPattern_EnemyMiddleBoss5a_MainTurret_D : BulletFactory, IBull
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while(true) {
             var pos = GetFirePos(0);
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -141,6 +145,7 @@ public class BulletPattern_EnemyMiddleBoss5a_SubTurret_A : BulletFactory, IBulle
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
             while(true)
@@ -189,6 +194,7 @@ public class BulletPattern_EnemyMiddleBoss5a_SubTurret_B : BulletFactory, IBulle
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         BulletAccel accel = new BulletAccel(0f, 0);
         int[] fireDelay = { 3000, 1500, 1000 };
         
@@ -232,6 +238,7 @@ public class BulletPattern_EnemyMiddleBoss5a_SubTurret_C : BulletFactory, IBulle
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
             while(true)

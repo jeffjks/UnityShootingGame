@@ -70,7 +70,7 @@ public class EnemyMiddleBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         transform.position = new Vector3(pos.x, pos.y, pos.z + backgroundSpeed / Application.targetFrameRate * Time.timeScale); // 배경 카메라 속도에 맞춰서 이동
 
         if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
+            if (m_EnemyHealth.HealthRatioScaled <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }

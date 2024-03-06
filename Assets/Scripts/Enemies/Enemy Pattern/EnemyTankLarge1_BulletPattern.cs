@@ -9,6 +9,7 @@ public class EnemyTankLarge1_BulletPattern_B : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(800);
         while(true)
         {
@@ -79,6 +80,7 @@ public class EnemyTankLarge1_BulletPattern_SubTurret_A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while(true) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
                 _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(90f));
@@ -192,6 +194,7 @@ public class EnemyTankLarge1_BulletPattern_BackTurret_A : BulletFactory, IBullet
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         const int accelDuration1 = 400;
         const int accelDuration2 = 700;
         var accel1 = new BulletAccel(0f, accelDuration1);

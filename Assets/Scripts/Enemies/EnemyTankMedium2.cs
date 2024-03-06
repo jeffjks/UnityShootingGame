@@ -39,6 +39,7 @@ public class EnemyTankMedium2_BulletPattern : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => _enemyObject.IsInteractable());
         yield return new WaitForMillisecondFrames(Random.Range(800, 1800));
         

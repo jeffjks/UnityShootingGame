@@ -84,11 +84,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     public override void ExecuteCollisionEnter(int id)
     {
-        var enemyUnit = EnemyUnitIdList[id] as EnemyUnit;
+        var enemyUnit = EnemyIdList[id] as EnemyUnit;
 
         if (enemyUnit == null)
         {
-            Debug.LogError($"{EnemyUnitIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
+            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
             return;
         }
 

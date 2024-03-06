@@ -9,6 +9,7 @@ public class BulletPattern_EnemyBoss3_1A1 : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var frame = 0;
         int[] fireDelay = { 12, 8, 6 };
         var frameTotal = 192;
@@ -41,6 +42,7 @@ public class BulletPattern_EnemyBoss3_1A2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var frame = 0;
         int[] fireDelay = { 18, 12, 9 };
         var frameTotal = 192;
@@ -75,6 +77,7 @@ public class BulletPattern_EnemyBoss3_1B : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1000, 500, 330 };
         
         yield return new WaitForMillisecondFrames(1500);
@@ -108,6 +111,7 @@ public class BulletPattern_EnemyBoss3_Turret_1B : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(1500);
         
         _enemyObject.SetRotatePattern(new RotatePattern_RotateAround_PingPong(_enemyObject.CurrentAngle, 0f, 160f, 100f*_side));
@@ -138,6 +142,7 @@ public class BulletPattern_EnemyBoss3_1C1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 210, 120, 80 };
 
         while (true) {
@@ -155,6 +160,7 @@ public class BulletPattern_EnemyBoss3_1C2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         Vector3 pos;
         yield return new WaitForMillisecondFrames(1000);
         
@@ -198,6 +204,7 @@ public class BulletPattern_EnemyBoss3_1D : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         BulletAccel accel = new BulletAccel(7.3f, 1500);
         Vector3 pos1 = GetFirePos(1);
         Vector3 pos2 = GetFirePos(2);
@@ -237,6 +244,7 @@ public class BulletPattern_EnemyBoss3_2A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         BulletAccel accel = new BulletAccel(0.5f, 1200);
         int[] fireDelay = { 6, 2, 1 };
         var duration = 0;
@@ -269,6 +277,7 @@ public class BulletPattern_EnemyBoss3_2B1 : BulletFactory, IBulletPattern // Pin
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         Vector3 pos1, pos2;
         int total_duration = 1400, duration, fireDelay = 80;
 
@@ -308,6 +317,7 @@ public class BulletPattern_EnemyBoss3_2B2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         BulletAccel accel = new BulletAccel(4.2f, 900);
         int[] fireDelay = { 100, 64, 50 };
         var duration = 0;
@@ -336,6 +346,7 @@ public class BulletPattern_EnemyBoss3_Turret_2B : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2400, 1800, 1800 };
         yield return new WaitForMillisecondFrames(1000);
 

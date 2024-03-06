@@ -79,6 +79,7 @@ public class EnemyPlaneMedium4_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1600, 1600, 1000 };
         yield return new WaitForMillisecondFrames(_appearanceTime);
 
@@ -125,6 +126,7 @@ public class EnemyPlaneMedium4_BulletPattern_Turret_A : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {

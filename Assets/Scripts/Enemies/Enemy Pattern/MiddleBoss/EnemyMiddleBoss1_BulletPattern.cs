@@ -9,6 +9,7 @@ public class BulletPattern_EnemyMiddleBoss1_1A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(600);
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true) {
@@ -96,6 +97,7 @@ public class BulletPattern_EnemyMiddleBoss1_2A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while(true) {
             CreateBullet(new BulletProperty(CurrentPos, BulletImage.PinkLarge, 7f, BulletPivot.Player, 0f, 8, 13f));
             yield return new WaitForMillisecondFrames(2000);
@@ -110,6 +112,7 @@ public class BulletPattern_EnemyMiddleBoss1_Turret_1A : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(1500);
 
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -163,6 +166,7 @@ public class BulletPattern_EnemyMiddleBoss1_Turret_2A : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _enemyObject.SetRotatePattern(new RotatePattern_RotateAround(300f * _side));
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {

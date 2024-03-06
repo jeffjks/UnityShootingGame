@@ -27,6 +27,7 @@ public class EnemyTurret1_BulletPattern_Turret_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1600, 800, 400 };
         int[] subFireDelay = { 5, 5, 5 };
         float[] speedArray = { 5.5f, 6f, 6.5f };

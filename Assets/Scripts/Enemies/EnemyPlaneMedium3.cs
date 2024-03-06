@@ -86,6 +86,7 @@ public class EnemyPlaneMedium3_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2400, 1800, 1200 };
         yield return new WaitForMillisecondFrames(_appearanceTime + Random.Range(-500, 500));
 
@@ -133,6 +134,7 @@ public class EnemyPlaneMedium3_BulletPattern_Turret_A : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var dir = Random.Range(-2f, 2f);
         _enemyObject.SetRotatePattern(new RotatePattern_Stop());
 

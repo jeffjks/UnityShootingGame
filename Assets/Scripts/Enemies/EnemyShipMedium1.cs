@@ -19,6 +19,7 @@ public class BulletPattern_EnemyPlaneMedium1_A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2200, 2000, 1500 };
         var accel = new BulletAccel(6f, 800);
 
@@ -53,6 +54,7 @@ public class BulletPattern_EnemyPlaneMedium1_Turret_A : BulletFactory, IBulletPa
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while(true) {
             for (var i = 0; i < 3; i++)
             {

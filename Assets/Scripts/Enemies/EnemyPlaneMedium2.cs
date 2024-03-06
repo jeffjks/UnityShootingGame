@@ -76,6 +76,7 @@ public class EnemyPlaneMedium2_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(_appearanceTime);
         while(!_enemyObject.TimeLimitState) {
             if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -149,6 +150,7 @@ public class EnemyPlaneMedium2_BulletPattern_B : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(_appearanceTime);
         while(!_enemyObject.TimeLimitState) {
             yield return new WaitForMillisecondFrames(Random.Range(0, 1500));

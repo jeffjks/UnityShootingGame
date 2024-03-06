@@ -9,7 +9,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     public EnemyUnit[] m_Part2Turrets = new EnemyUnit[4];
     public EnemyUnit[] m_Part3Turrets = new EnemyUnit[4];
     
-    private int m_Phase;
+    private int _phase;
     
     private Vector3 TARGET_POSITION;
     private const int APPEARANCE_TIME = 11000;
@@ -30,6 +30,9 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
+
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     protected override void Update()
@@ -39,7 +42,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         if (Time.timeScale == 0)
             return;
         
-        if (m_Phase > 0) {
+        if (_phase > 0) {
             if (transform.position.x >= TARGET_POSITION.x + 1f) {
                 m_MoveVector.direction = Random.Range(-110f, -70f);
             }
@@ -51,22 +54,6 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             }
             else if (transform.position.z <= TARGET_POSITION.z - 0.3f) {
                 m_MoveVector = new MoveVector(new Vector2(m_MoveVector.GetVector().x, -m_MoveVector.GetVector().y));
-            }
-        }
-
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.625f) { // 체력 62.5% 이하
-                ToNextPhase();
-            }
-        }
-        else if (m_Phase == 2) {
-            if (m_EnemyHealth.HealthPercent <= 0.25f) { // 체력 25% 이하
-                ToNextPhase();
-            }
-        }
-        else if (m_Phase == 3) {
-            if (m_EnemyHealth.CurrentHealth <= 7000) { // 체력 7000 이하
-                ToNextPhase();
             }
         }
     }
@@ -83,7 +70,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
     private void OnAppearanceComplete() {
         float random_direction = Random.Range(70f, 110f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
-        m_Phase = 1;
+        _phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
@@ -97,11 +84,32 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         SystemManager.OnBossInteractable();
     }
 
-    public void ToNextPhase() {
-        if (m_Phase == -1)
-            return;
+    public void ToNextPhase()
+    {
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 625) // 체력 62.5% 이하
+                        return;
+                    break;
+                case 2:
+                    if (m_EnemyHealth.HealthRatioScaled > 250) // 체력 25% 이하
+                        return;
+                    break;
+                case 3:
+                    if (m_EnemyHealth.CurrentHealth > 7000) // 체력 7000 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        m_EnemyHealth.WriteReplayHealthData();
         
-        if (m_Phase == 1) { // Phase 1 to 2
+        if (_phase == 1) { // Phase 1 to 2
             if (m_CurrentPhase != null)
                 StopCoroutine(m_CurrentPhase);
             
@@ -118,10 +126,9 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             StartCoroutine(m_CurrentPhase);
             BackgroundCamera.MoveBackgroundCameraOffset(true, 13f, NEXT_PHASE_DELAY);
             
-            m_Phase++;
             BulletManager.SetBulletFreeState(2000);
         }
-        else if (m_Phase == 2) { // Phase 2 to 3
+        else if (_phase == 2) { // Phase 2 to 3
             if (m_CurrentPhase != null)
                 StopCoroutine(m_CurrentPhase);
             
@@ -140,13 +147,12 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             StartCoroutine(m_CurrentPhase);
             BackgroundCamera.MoveBackgroundCameraOffset(true, -7.5f, NEXT_PHASE_DELAY);
             
-            m_Phase++;
             BulletManager.SetBulletFreeState(2000);
         }
-        else if (m_Phase == 3)
-        {
-            m_Phase++;
-        }
+        _phase++;
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
@@ -154,7 +160,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Part1Turrets[2].StartPattern("0", new BulletPattern_EnemyBoss2_Part1_Turret2_0(m_Part1Turrets[2]));
         yield return new WaitForMillisecondFrames(1000);
         
-        while (m_Phase == 1) {
+        while (_phase == 1) {
             yield return Phase1_PatternA();
             
             var side = Random.Range(0, 2) * 2 - 1;
@@ -196,7 +202,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(5000);
-        while (m_Phase == 2) {
+        while (_phase == 2) {
             yield return Pattern2A();
             yield return new WaitForMillisecondFrames(1500);
 
@@ -230,7 +236,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Part3Turrets[1].StartPattern("3A", new BulletPattern_EnemyBoss2_Part3_Turret2_3A(m_Part3Turrets[1]));
         m_Part3Turrets[2].StartPattern("3A", new BulletPattern_EnemyBoss2_Part3_Turret3_3A(m_Part3Turrets[2]));
         m_Part3Turrets[3].StartPattern("3A", new BulletPattern_EnemyBoss2_Part3_Turret3_3A(m_Part3Turrets[3]));
-        while (m_Phase <= 3)
+        while (_phase <= 3)
         {
             yield return new WaitForMillisecondFrames(0);
         }
@@ -245,7 +251,7 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_Phase = -1;
+        _phase = -1;
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
         BulletManager.BulletsToGems(2000);

@@ -20,6 +20,7 @@ public class EnemyPlaneMedium5_BulletPattern_BackTurret_A : BulletFactory, IBull
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2400, 2300, 2200 };
         yield return new WaitForMillisecondFrames(1000);
 

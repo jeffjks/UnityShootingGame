@@ -15,7 +15,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
     private const int TIME_LIMIT = 20000;
     private const float ROLLING_ANGLE_MAX = 30f;
     private readonly Vector3 TARGET_POSITION = new (0f, -5.2f, Depth.ENEMY);
-    private int m_Phase;
+    private int _phase;
 
     private void Start()
     {
@@ -25,6 +25,9 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
         DisableInteractableAll();
 
         StartCoroutine(AppearanceSequence());
+
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     private IEnumerator AppearanceSequence() {
@@ -47,7 +50,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
     }
 
     private void OnAppearanceComplete() {
-        m_Phase = 1;
+        _phase = 1;
         // IsColliderInit = true;
         EnableInteractableAll();
 
@@ -78,22 +81,24 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
         }
     }
 
-    protected override void Update()
+    public void ToNextPhase()
     {
-        base.Update();
-        
-        if (Time.timeScale == 0)
-            return;
-        
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
-                ToNextPhase();
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 0.40f) // 체력 40% 이하
+                        return;
+                    break;
+                default:
+                    return;
             }
         }
-    }
 
-    public void ToNextPhase() {
-        m_Phase++;
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         m_Turret[0].m_EnemyDeath.KillEnemy();
         m_Turret[1].m_EnemyDeath.KillEnemy();
         Destroy(m_Part[0]);
@@ -104,6 +109,9 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
         StartPattern("2B", new EnemyPlaneLarge1_BulletPattern_2B(this));
 
         NextPhaseExplosion();
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {
@@ -112,7 +120,7 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
         m_MoveVector = new MoveVector(1.2f, 0f);
-        m_Phase = -1;
+        _phase = -1;
         
         yield break;
     }

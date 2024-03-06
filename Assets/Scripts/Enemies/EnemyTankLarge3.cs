@@ -18,6 +18,7 @@ public class EnemyTankLarge3_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1000, 550, 250 };
 
         while(true)
@@ -45,6 +46,7 @@ public class EnemyTankLarge3_BulletPattern_Turret_A : BulletFactory, IBulletPatt
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000 - 300, 1500 - 200, 1200 - 200 };
         
         while(true)

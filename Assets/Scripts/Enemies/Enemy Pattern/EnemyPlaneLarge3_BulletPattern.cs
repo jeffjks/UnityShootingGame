@@ -14,6 +14,7 @@ public class EnemyPlaneLarge3_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1600, 1200, 1000 };
         yield return new WaitForMillisecondFrames(2300);
 
@@ -108,6 +109,7 @@ public class EnemyPlaneLarge3_BulletPattern_Turret_A : BulletFactory, IBulletPat
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 2; i++)
             {
@@ -143,6 +145,7 @@ public class EnemyPlaneLarge3_BulletPattern_Old : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal)
         {
             for (int i = 0; i < 3; i++)
@@ -186,6 +189,7 @@ public class EnemyPlaneLarge3_BulletPattern_Turret_Old : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 600, 600, 500 };
         var accel = new BulletAccel(0.1f, 800);
         yield return new WaitForMillisecondFrames(2300);

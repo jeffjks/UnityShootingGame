@@ -19,6 +19,7 @@ public class EnemyPlaneMedium5_BulletPattern_FrontTurret_A : BulletFactory, IBul
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(1000);
 
         while (true) {

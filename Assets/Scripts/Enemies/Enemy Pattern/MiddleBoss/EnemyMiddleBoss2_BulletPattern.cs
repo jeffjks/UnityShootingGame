@@ -9,6 +9,7 @@ public class BulletPattern_EnemyMiddleBoss2_1A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(2500);
         while(true)
         {
@@ -64,6 +65,7 @@ public class BulletPattern_EnemyMiddleBoss2_2A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 110, 70, 40 };
         while(true) {
             var dir = _enemyObject.m_CustomDirection[0];
@@ -92,6 +94,7 @@ public class BulletPattern_EnemyMiddleBoss2_2B : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1800, 900, 500 };
         yield return new WaitForMillisecondFrames(1000);
         
@@ -135,6 +138,7 @@ public class BulletPattern_EnemyMiddleBoss2_MainTurret_0 : BulletFactory, IBulle
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 3000, 2400, 1800 };
         yield return new WaitForMillisecondFrames(2500);
 
@@ -201,6 +205,7 @@ public class BulletPattern_EnemyMiddleBoss2_SubTurret_0 : BulletFactory, IBullet
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 1500, 1250 };
         const float gap = 0.25f;
         yield return new WaitForMillisecondFrames(2500);

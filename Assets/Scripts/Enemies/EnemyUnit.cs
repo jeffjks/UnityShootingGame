@@ -50,21 +50,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     public event Action Action_StartInteractable;
 
-    protected int EnemyUnitId { get; private set; } = -1;
-    private const int DefaultObjectIdCapacity = 1024;
-    private static int NextEnemyId;
-    public static List<UnitObject> EnemyUnitIdList = new(DefaultObjectIdCapacity);
-    private static Queue<int> ObjectIdQueue = new(DefaultObjectIdCapacity);
-
-    public static void InitObjectId()
-    {
-        EnemyUnitIdList.Clear();
-        ObjectIdQueue.Clear();
-        EnemyUnitIdList = new List<UnitObject>(DefaultObjectIdCapacity);
-        ObjectIdQueue = new Queue<int>(DefaultObjectIdCapacity);
-        NextEnemyId = 0;
-    }
-
     private void Awake()
     {
         if (!m_IsRoot)
@@ -82,38 +67,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
             childEnemy.Init(transform);
         }
 
-        AssignEnemyUnitId();
         StageManager.Action_BossWarningSign += Retreat;
-    }
-
-    private void AssignEnemyUnitId()
-    {
-        if (SystemManager.IsInGame == false)
-            return;
-        
-        if (ObjectIdQueue.Count > 0)
-        {
-            EnemyUnitId = ObjectIdQueue.Dequeue();
-            EnemyUnitIdList[EnemyUnitId] = this;
-        }
-        else
-        {
-            EnemyUnitId = NextEnemyId;
-            NextEnemyId = (NextEnemyId >= Int32.MaxValue) ? 1 : NextEnemyId + 1;
-            EnemyUnitIdList.Add(this);
-        }
-    }
-    
-    private void RetrieveEnemyUnitId()
-    {
-        if (SystemManager.IsInGame == false)
-            return;
-        if (EnemyUnitId == -1)
-            return;
-        
-        EnemyUnitIdList[EnemyUnitId] = null;
-        ObjectIdQueue.Enqueue(EnemyUnitId);
-        EnemyUnitId = -1;
     }
 
     private void Init(Transform root)
@@ -399,7 +353,6 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
 
     private void OnDestroy()
     {
-        RetrieveEnemyUnitId();
         StageManager.Action_BossWarningSign -= Retreat;
     }
 }

@@ -9,6 +9,7 @@ public class EnemyPlaneLarge2_BulletPattern_1A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(1000);
 
         while(true)
@@ -47,6 +48,7 @@ public class EnemyPlaneLarge2_BulletPattern_FrontTurret_A : BulletFactory, IBull
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 1500, 1000 };
         
         while(true)
@@ -75,6 +77,7 @@ public class EnemyPlaneLarge2_BulletPattern_BackTurret_A : BulletFactory, IBulle
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2500, 1900, 1400 };
 
         while(true)

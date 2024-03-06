@@ -73,6 +73,7 @@ public class BulletPattern_EnemyHelicopter : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 1000, 500 };
         float[] speed = { 7f, 8.3f, 8.3f };
         yield return new WaitForMillisecondFrames(1200);

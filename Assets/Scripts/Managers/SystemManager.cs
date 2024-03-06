@@ -115,7 +115,7 @@ public class SystemManager : MonoBehaviour
         IsInGame = true;
         Stage = stage;
 
-        EnemyUnit.InitObjectId();
+        EnemyHealth.InitEnemyId();
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터

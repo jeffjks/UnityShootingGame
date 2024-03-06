@@ -89,6 +89,7 @@ public class BulletPattern_EnemyItemHeli : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 4000, 2000, 1500 };
         yield return new WaitForMillisecondFrames(1500);
         

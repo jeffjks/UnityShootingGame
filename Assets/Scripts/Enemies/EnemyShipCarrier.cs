@@ -61,6 +61,7 @@ public class BulletPattern_EnemyShipCarrier_A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true)
             {
@@ -98,6 +99,7 @@ public class BulletPattern_EnemyShipCarrier_B : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             while(true)
             {

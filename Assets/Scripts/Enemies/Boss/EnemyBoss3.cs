@@ -11,7 +11,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
     public GameObject m_Engine;
 
-    private int m_Phase;
+    private int _phase;
     
     private Vector3 _targetPosition;
     private Vector3 _defaultScale;
@@ -37,6 +37,9 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
+
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     protected override void Update()
@@ -46,15 +49,9 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         if (Time.timeScale == 0)
             return;
         
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
-                ToNextPhase();
-            }
-        }
-        
         m_CustomDirection[0] += _directionDelta / Application.targetFrameRate * Time.timeScale;
 
-        if (m_Phase > 0) {
+        if (_phase > 0) {
             if (transform.position.x > _targetPosition.x + 0.7f) {
                 m_MoveVector.direction = Random.Range(-105f, -75f);
             }
@@ -71,10 +68,8 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private IEnumerator AppearanceSequence() {
-        int frame;
-
         float init_speed = m_MoveVector.speed;
-        frame = 2000 * Application.targetFrameRate / 1000;
+        var frame = 2000 * Application.targetFrameRate / 1000;
 
         for (int i = 0; i < frame; ++i) {
             float t_spd = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
@@ -108,7 +103,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         float random_direction = Random.Range(75f, 105f) + 180f*Random.Range(0, 2);
         m_MoveVector = new MoveVector(0.5f, random_direction);
         _targetPosition = transform.position;
-        m_Phase = 1;
+        _phase = 1;
         _currentPhase = Phase1();
         StartCoroutine(_currentPhase);
 
@@ -127,26 +122,40 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         return random_value;
     }
 
-    public void ToNextPhase() {
-        int duration = 2000;
-        m_Phase++;
-        if (m_Phase >= 2) {
-            BulletManager.SetBulletFreeState(1000);
-            
-            StopAllPatterns();
-            if (_currentPhase != null)
-                StopCoroutine(_currentPhase);
-            m_Turret[0].StopAllPatterns();
-            m_Turret[1].StopAllPatterns();
-
-            if (m_Phase == 2) {
-                _currentPhase = Phase2();
-                StartCoroutine(_currentPhase);
-                m_Part.m_EnemyDeath.KillEnemy();
-                m_EnemyHealth.SetInvincibility(duration);
-                NextPhaseExplosion();
+    public void ToNextPhase()
+    {
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
+                        return;
+                    break;
+                default:
+                    return;
             }
         }
+
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
+        BulletManager.SetBulletFreeState(1000);
+            
+        StopAllPatterns();
+        if (_currentPhase != null)
+            StopCoroutine(_currentPhase);
+        m_Turret[0].StopAllPatterns();
+        m_Turret[1].StopAllPatterns();
+        
+        _currentPhase = Phase2();
+        StartCoroutine(_currentPhase);
+        m_Part.m_EnemyDeath.KillEnemy();
+        m_EnemyHealth.SetInvincibility(2000);
+        NextPhaseExplosion();
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {
@@ -156,7 +165,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator Phase1() { // 페이즈 1 패턴 =================
         yield return new WaitForMillisecondFrames(1000);
         var repeatedNum = 0;
-        while (m_Phase == 1) {
+        while (_phase == 1) {
             yield return Pattern1A();
             yield return new WaitForMillisecondFrames(repeatedNum == 0 ? 1500 : 300);
             
@@ -187,7 +196,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
     private IEnumerator Phase2() { // 페이즈 2 패턴 =================
         yield return new WaitForMillisecondFrames(4000);
 
-        while (m_Phase == 2) {
+        while (_phase == 2) {
             yield return StartPattern("2A", new BulletPattern_EnemyBoss3_2A(this));
             yield return new WaitForMillisecondFrames(4000);
             
@@ -237,7 +246,7 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_Phase = -1;
+        _phase = -1;
         StopAllPatterns();
         if (_currentPhase != null)
             StopCoroutine(_currentPhase);

@@ -69,7 +69,7 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
             return;
         
         if (m_Phase == 0) {
-            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
+            if (m_EnemyHealth.HealthRatioScaled <= 0.40f) { // 체력 40% 이하
                 ToNextPhase();
             }
         }

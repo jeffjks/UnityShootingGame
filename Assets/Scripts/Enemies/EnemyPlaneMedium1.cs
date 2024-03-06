@@ -74,6 +74,7 @@ public class EnemyPlaneMedium1_BulletPattern_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1500, 1200, 1200 };
         var accel = new BulletAccel(7.2f, 1000);
         yield return new WaitForMillisecondFrames(_appearanceTime);

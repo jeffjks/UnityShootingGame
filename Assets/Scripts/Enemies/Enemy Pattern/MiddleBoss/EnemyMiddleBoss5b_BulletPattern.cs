@@ -14,6 +14,7 @@ public class BulletPattern_EnemyMiddleBoss5b_A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         string[] stateKey = { "B1", "B2" };
         int[] fireDelay = { 3200, 2600, 2000 };
         var pos = new Vector3[2];
@@ -102,6 +103,7 @@ public class BulletPattern_EnemyMiddleBoss5b_B : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(2000);
         var rand = Random.Range(-6f, 6f);
         
@@ -142,6 +144,7 @@ public class BulletPattern_EnemyMiddleBoss5b_Turret_A : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1800, 1400, 1200 };
         BulletAccel accel = new BulletAccel(7.4f, 900);
         
@@ -169,6 +172,7 @@ public class BulletPattern_EnemyMiddleBoss5b_Turret_B : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
         }
         else if (SystemManager.Difficulty == GameDifficulty.Expert) {

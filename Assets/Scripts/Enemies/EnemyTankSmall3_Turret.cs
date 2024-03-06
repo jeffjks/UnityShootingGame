@@ -19,6 +19,7 @@ public class EnemyTankSmall3_BulletPattern_Turret_A : BulletFactory, IBulletPatt
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 3000, 2000, 1400 };
         float[] speedArray = { 6f, 7.4f, 8.6f };
         yield return new WaitUntil(() => _enemyObject.IsInteractable());

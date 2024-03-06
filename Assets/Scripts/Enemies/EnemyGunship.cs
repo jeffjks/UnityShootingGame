@@ -71,6 +71,7 @@ public class BulletPattern_EnemyGunship : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 1500, 1000 };
         yield return new WaitForMillisecondFrames(1200);
         

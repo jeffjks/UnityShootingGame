@@ -96,7 +96,8 @@ public class ReplayManager : MonoBehaviour
     {
         PlayerControl = 1,
         CollisionEnter = 2,
-        CollisionExit = 3
+        CollisionExit = 3,
+        EnemyHealth = 4
     }
 
     [Serializable]
@@ -237,7 +238,7 @@ public class ReplayManager : MonoBehaviour
 
         public override void RunData()
         {
-            //UnitObject.EnemyUnitIdList[selfId].ExecuteCollisionEnter(targetId);
+            //UnitObject.EnemyIdList[selfId].ExecuteCollisionEnter(targetId);
         }
 
         public void SetCollisionData(int fromId, int toId)
@@ -263,7 +264,7 @@ public class ReplayManager : MonoBehaviour
 
         public override void RunData()
         {
-            EnemyUnit.EnemyUnitIdList[selfId].ExecuteCollisionExit(targetId);
+            //EnemyUnit.EnemyIdList[selfId].ExecuteCollisionExit(targetId);
         }
 
         public void SetCollisionData(int fromId, int toId)
@@ -271,6 +272,25 @@ public class ReplayManager : MonoBehaviour
             selfId = fromId;
             targetId = toId;
             isActive = true;
+        }
+    }
+
+    [Serializable]
+    public class ReplayEnemyHealth : ReplayData
+    {
+        private int enemyId;
+        private int health;
+
+        public ReplayEnemyHealth(int frame, int enemyId, int health)
+        {
+            this.frame = frame;
+            this.enemyId = enemyId;
+            this.health = health;
+        }
+
+        public override void RunData()
+        {
+            EnemyHealth.EnemyIdList[enemyId].CurrentHealth = health;
         }
     }
 
@@ -444,6 +464,9 @@ public class ReplayManager : MonoBehaviour
                     case ReplayDataType.CollisionExit:
                         _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayCollisionExitData>());
                         break;
+                    case ReplayDataType.EnemyHealth:
+                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayEnemyHealth>());
+                        break;
                 }
             }
             catch (EndOfStreamException)
@@ -552,6 +575,15 @@ public class ReplayManager : MonoBehaviour
         //
         // var replayData = new ReplayCollisionEnterData(CurrentFrame, selfId, targetId);
         // ReplayFileController.WriteBinaryReplayData(ReplayDataType.CollisionEnter, replayData);
+    }
+
+    public static void WriteReplayEnemyHealth(int enemyId, int health)
+    {
+        if (SystemManager.GameMode == GameMode.Replay)
+            return;
+        
+        var replayData = new ReplayEnemyHealth(CurrentFrame, enemyId, health);
+        ReplayFileController.WriteBinaryReplayData(ReplayDataType.EnemyHealth, replayData);
     }
     #endregion
     

@@ -32,9 +32,12 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     public int CurrentHealth
     {
         get => _currentHealth;
-        private set {
+        set {
             _currentHealth = value;
             Action_OnHealthChanged?.Invoke();
+            
+            if (value == 0)
+                OnHpZero();
         }
     }
 
@@ -43,7 +46,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         {
             if (m_DefaultHealth < 10000)
             {
-                if (HealthPercent < 0.30f) // 30% 미만
+                if (HealthRatioScaled < 300) // 30% 미만
                     return true;
             }
             else
@@ -57,7 +60,22 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         }
     }
 
-    public float HealthPercent => (float) _currentHealth / m_DefaultHealth;
+    public int HealthRatioScaled => CurrentHealth * 1000 / m_DefaultHealth;
+
+    protected int EnemyId { get; private set; } = -1;
+    private const int DefaultObjectIdCapacity = 1024;
+    private static int NextEnemyId;
+    public static List<EnemyHealth> EnemyIdList = new(DefaultObjectIdCapacity);
+    private static Queue<int> EnemyIdQueue = new(DefaultObjectIdCapacity);
+
+    public static void InitEnemyId()
+    {
+        EnemyIdList.Clear();
+        EnemyIdQueue.Clear();
+        EnemyIdList = new List<EnemyHealth>(DefaultObjectIdCapacity);
+        EnemyIdQueue = new Queue<int>(DefaultObjectIdCapacity);
+        NextEnemyId = 0;
+    }
 
     private void Awake()
     {
@@ -68,7 +86,38 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         
         CurrentHealth = m_DefaultHealth;
 
+        AssignEnemyId();
         ResetIsTakingDamage();
+    }
+
+    private void AssignEnemyId()
+    {
+        if (SystemManager.IsInGame == false)
+            return;
+        
+        if (EnemyIdQueue.Count > 0)
+        {
+            EnemyId = EnemyIdQueue.Dequeue();
+            EnemyIdList[EnemyId] = this;
+        }
+        else
+        {
+            EnemyId = NextEnemyId;
+            NextEnemyId = (NextEnemyId >= Int32.MaxValue) ? 1 : NextEnemyId + 1;
+            EnemyIdList.Add(this);
+        }
+    }
+    
+    private void RetrieveEnemyId()
+    {
+        if (SystemManager.IsInGame == false)
+            return;
+        if (EnemyId == -1)
+            return;
+        
+        EnemyIdList[EnemyId] = null;
+        EnemyIdQueue.Enqueue(EnemyId);
+        EnemyId = -1;
     }
 
     private void Update()
@@ -88,9 +137,14 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         }
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         ResetIsTakingDamage();
+    }
+
+    private void OnDestroy()
+    {
+        RetrieveEnemyId();
     }
 
     private void ResetIsTakingDamage() {
@@ -129,11 +183,11 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         if (m_DefaultHealth >= 0f) {
             CurrentHealth -= amount;
 
+            if (SystemManager.GameMode == GameMode.Replay) // Only for game play
+                return;
+
             if (CurrentHealth <= 0)
-            {
-                CurrentHealth = 0;
                 OnHpZero();
-            }
         }
     }
 
@@ -165,8 +219,9 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     {
         foreach (var colliderItem in m_Collider2D)
         {
-            colliderItem.transform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
-            colliderItem.transform.rotation = screenRotation;
+            var colliderTransform = colliderItem.transform;
+            colliderTransform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
+            colliderTransform.rotation = screenRotation;
         }
     }
     
@@ -206,9 +261,19 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         }
     }
 
-    private void OnHpZero()
+    public void OnHpZero()
     {
-        if (_enemyDeath.KillEnemy())
-            HitCountController.Instance.AddHitCount();
+        if (_enemyDeath.IsDead)
+            return;
+
+        WriteReplayHealthData();
+        _enemyDeath.KillEnemy();
+        
+        HitCountController.Instance.AddHitCount();
+    }
+
+    public void WriteReplayHealthData()
+    {
+        ReplayManager.WriteReplayEnemyHealth(EnemyId, CurrentHealth);
     }
 }

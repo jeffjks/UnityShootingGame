@@ -12,7 +12,8 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     public Transform m_Rotator;
     public AnimationCurve m_AnimationCurve_Turn;
 
-    private int m_Phase;
+    private int _phase;
+    private bool _isPartDestroyed;
 
     private readonly Vector3[] m_TargetPosition = new Vector3[2];
     private const int APPEARANCE_TIME = 2000;
@@ -37,8 +38,12 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
-        m_EnemyHealth.Action_OnHealthChanged += DestroyChildEnemy;
-        m_Part.m_EnemyDeath.Action_OnKilled += ToNextPhase;
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+            m_Part.m_EnemyDeath.Action_OnKilled += DestroyPart;
+        }
     }
 
     protected override void Update()
@@ -51,20 +56,36 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         OnPhase1();
     }
 
-    private void DestroyChildEnemy() {
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.30f) { // 체력 30% 이하
-                if (m_Part != null)
-                    m_Part.m_EnemyDeath.KillEnemy();
-            }
-        }
+    private void DestroyPart()
+    {
+        if (_isPartDestroyed)
+            return;
+        
+        _isPartDestroyed = true;
+        ToNextPhase();
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_Part.m_EnemyDeath.Action_OnKilled -= ToNextPhase;
     }
 
     public void ToNextPhase()
     {
-        if (m_Phase != 1)
-            return;
-        m_Phase++;
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 300 && _isPartDestroyed == false) // 체력 30% 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         m_MoveVector = new MoveVector(0f, 0f);
         if (m_CurrentPhase != null)
             StopCoroutine(m_CurrentPhase);
@@ -80,6 +101,11 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         m_CurrentMovement = OnPhase2();
         StartCoroutine(m_CurrentMovement);
+
+        DestroyPart();
+
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
 
@@ -123,7 +149,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void OnAppearanceComplete() {
-        m_Phase = 1;
+        _phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
 
@@ -136,7 +162,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void OnPhase1() {
-        if (m_Phase != 1) {
+        if (_phase != 1) {
             return;
         }
         if (transform.position.x < -1f) {
@@ -197,7 +223,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 1) {
+        while (_phase == 1) {
             yield return Phase1_PatternA();
             
             yield return StartPattern("1B", new BulletPattern_EnemyBoss1_1B(this)); // Blue Bomb
@@ -212,7 +238,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private IEnumerator Phase2() { // 페이즈2 패턴 ============================
         yield return new WaitForMillisecondFrames(1000);
-        while (m_Phase == 2) {
+        while (_phase == 2) {
             yield return Phase2_PatternA();
         }
     }
@@ -272,7 +298,7 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
 
 
     protected override IEnumerator DyingEffect() { // 파괴 과정
-        m_Phase = -1;
+        _phase = -1;
         if (m_CurrentMovement != null)
             StopCoroutine(m_CurrentMovement);
         if (m_CurrentPhase != null)

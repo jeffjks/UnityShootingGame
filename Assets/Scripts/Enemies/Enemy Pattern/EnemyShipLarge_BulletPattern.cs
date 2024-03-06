@@ -9,6 +9,7 @@ public class EnemyShipLarge_BulletPattern_2A : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 900, 360, 240 };
         var accel = new BulletAccel(0.1f, 600);
         
@@ -37,6 +38,7 @@ public class EnemyShipLarge_BulletPattern_FrontTurret_A : BulletFactory, IBullet
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 2000, 1600 };
         const float gap = 0.32f;
 
@@ -68,6 +70,7 @@ public class EnemyShipLarge_BulletPattern_BackTurret_A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 2000, 1600 };
         
         while(true)
@@ -107,6 +110,7 @@ public class EnemyShipLarge_BulletPattern_SubTurret_A : BulletFactory, IBulletPa
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2000, 1000, 500 };
         
         while(true)

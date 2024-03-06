@@ -9,6 +9,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret1_1A : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         Vector3 pos;
         
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
@@ -60,6 +61,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret1_1B : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1600, 900, 500 };
         const float gap = 0.32f;
         while(true) {
@@ -81,6 +83,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_0 : BulletFactory, IBulletPa
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while (true) {
             if (PlayerManager.GetPlayerPosition().y >= -5.8f) {
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.PinkLarge, 6.6f, BulletPivot.Current, 0f, 8, 2.5f));
@@ -102,6 +105,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1A : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2400, 1500, 1000 };
         if (_patternIndex == 1)
             yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty] / 2);
@@ -136,6 +140,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1B : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _enemyObject.SetRotatePattern(new RotatePattern_TargetAngle(90f + 90f * _patternIndex, 180f));
         yield return new WaitForMillisecondFrames(1200);
 
@@ -176,6 +181,7 @@ public class BulletPattern_EnemyBoss2_Part1_Turret2_1C : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         const float gap = 0.14f;
         float speed1 = 1.5f, speed2 = 7f;
         
@@ -242,6 +248,7 @@ public class BulletPattern_EnemyBoss2_Part2_Turret1_2B : BulletFactory, IBulletP
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int duration = 800;
         BulletAccel accel1 = new BulletAccel(3f, duration);
         BulletAccel accel2 = new BulletAccel(7.6f, 600);
@@ -295,6 +302,7 @@ public class BulletPattern_EnemyBoss2_Part2_Turret2_2A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         if (SystemManager.Difficulty == GameDifficulty.Normal) {
             for (int i = 0; i < 2; i++) {
                 CreateBullet(new BulletProperty(GetFirePos(0), BulletImage.BlueNeedle, 3.5f, BulletPivot.Current, 0f, 11, 17f));
@@ -333,6 +341,7 @@ public class BulletPattern_EnemyBoss2_Part2_Turret3_2A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         BulletAccel accel = new BulletAccel(5f, 500);
         
         if (_patternIndex == 1)
@@ -376,6 +385,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret1_3A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         const int duration = 600;
         BulletAccel accelInit = new BulletAccel(3f, duration);
         BulletAccel accel2 = new BulletAccel(6.1f, 500); // Normal
@@ -430,6 +440,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret1_3B : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         const int duration = 600;
         BulletAccel accelInit = new BulletAccel(3f, duration);
         BulletAccel accel2 = new BulletAccel(6.7f, 500);
@@ -478,6 +489,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret2_3A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 2100, 1500, 900 };
         const float gap = 0.07f;
 
@@ -501,6 +513,7 @@ public class BulletPattern_EnemyBoss2_Part3_Turret3_3A : BulletFactory, IBulletP
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 1800, 900, 600 };
         const float gap = 0.32f;
 

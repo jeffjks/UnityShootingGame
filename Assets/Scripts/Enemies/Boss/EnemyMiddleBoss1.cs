@@ -7,7 +7,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     public Transform m_Rotator;
     public EnemyExplosionCreater m_NextPhaseExplosionCreater;
 
-    private int m_Phase;
+    private int _phase;
     private readonly Vector3 TARGET_POSITION = new (0f, -5f, Depth.ENEMY);
     private const int APPEARANCE_TIME = 2000;
     private const int TIME_LIMIT = 17000;
@@ -31,6 +31,9 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
         
         // SystemManager.OnMiddleBossStart();
+
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     protected override void Update()
@@ -39,12 +42,6 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         
         if (Time.timeScale == 0)
             return;
-        
-        if (m_Phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.40f) { // 체력 40% 이하
-                ToNextPhase();
-            }
-        }
 
         MovePattern();
     }
@@ -53,7 +50,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         if (TimeLimitState) {
             return;
         }
-        if (m_Phase < 1) {
+        if (_phase < 1) {
             return;
         }
         if (transform.position.x > TARGET_POSITION.x + 2f) {
@@ -96,7 +93,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
     private void OnAppearanceComplete() {
         float[] randomDirection = { 70f, 110f, -70f, -110f };
         m_MoveVector = new MoveVector(0.8f, randomDirection[Random.Range(0, 4)]);
-        m_Phase = 1;
+        _phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
         
@@ -140,7 +137,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         yield return new WaitForFrames(5);
         m_Turret[0].StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(m_Turret[0]));
         m_Turret[1].StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_Turret_1A(m_Turret[1]));
-        while (m_Phase == 1)
+        while (_phase == 1)
         {
             yield return StartPattern("1A", new BulletPattern_EnemyMiddleBoss1_1A(this));
         }
@@ -150,7 +147,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         yield return new WaitForFrames(5);
         m_Turret[0].StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(m_Turret[0], -1));
         m_Turret[1].StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_Turret_2A(m_Turret[1], 1));
-        while (m_Phase == 2)
+        while (_phase == 2)
         {
             if (SystemManager.Difficulty == GameDifficulty.Hell)
                 yield return StartPattern("2A", new BulletPattern_EnemyMiddleBoss1_2A(this));
@@ -159,8 +156,24 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         }
     }
 
-    public void ToNextPhase() {
-        m_Phase++;
+    public void ToNextPhase()
+    {
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         BulletManager.SetBulletFreeState(1000);
         
         if (m_CurrentPhase != null)
@@ -174,6 +187,9 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentPhase);
 
         NextPhaseExplosion();
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {
@@ -185,7 +201,7 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         if (_timeLimitCoroutine != null)
             StopCoroutine(_timeLimitCoroutine);
         m_MoveVector = new MoveVector(1f, 0f);
-        m_Phase = -1;
+        _phase = -1;
         
         yield break;
     }

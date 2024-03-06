@@ -12,36 +12,45 @@ public class EnemyShipLarge : EnemyUnit, IHasPhase
     private void Start()
     {
         CurrentAngle = m_MoveVector.direction;
+
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
     
     protected override void Update()
     {
         base.Update();
         
-        if (Time.timeScale == 0)
-            return;
-        
-        if (_phase == 1) {
-            if (m_EnemyHealth.HealthPercent <= 0.33f) { // 체력 33% 이하
-                ToNextPhase();
-            }
-        }
-        
-        CurrentAngle = m_MoveVector.direction;
+        CurrentAngle = m_MoveVector.direction * Time.timeScale;
     }
 
     public void ToNextPhase()
     {
-        if (_phase == 2)
-            return;
-            
+        if (SystemManager.GameMode != GameMode.Replay)
+        {
+            switch (_phase)
+            {
+                case 1:
+                    if (m_EnemyHealth.HealthRatioScaled > 330) // 체력 33% 이하
+                        return;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        m_EnemyHealth.WriteReplayHealthData();
+        
+        _phase++;
         if (m_FrontTurret != null)
             m_FrontTurret.m_EnemyDeath.KillEnemy();
         if (m_BackTurret != null)
             m_BackTurret.m_EnemyDeath.KillEnemy();
 
         StartPattern("2A", new EnemyShipLarge_BulletPattern_2A(this));
-        _phase++;
+        
+        if (SystemManager.GameMode != GameMode.Replay)
+            m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     protected override IEnumerator DyingEffect() { // 파괴 과정

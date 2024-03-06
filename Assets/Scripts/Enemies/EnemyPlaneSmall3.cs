@@ -57,6 +57,7 @@ public class BulletPattern_EnemyPlaneSmall3_A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         int[] fireDelay = { 4000, 2000, 1700 };
         const float gap = 0.3f;
         yield return new WaitForMillisecondFrames(1000);

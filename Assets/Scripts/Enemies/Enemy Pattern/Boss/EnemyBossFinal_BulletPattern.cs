@@ -11,6 +11,7 @@ public class EnemyBossFinal_BulletPattern_1A1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while (true) {
             var pos = GetFirePos(0);
             CreateBullet(new BulletProperty(pos, BulletImage.PinkLarge, 4f, BulletPivot.Player, -20f, 6, 4f));
@@ -31,6 +32,7 @@ public class EnemyBossFinal_BulletPattern_1A2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var dir = Random.Range(0f, 360f);
         int timer;
         var timerDelta = 110;
@@ -73,6 +75,7 @@ public class EnemyBossFinal_BulletPattern_1B1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var accel1 = new BulletAccel(3f, 1000);
         var accel2 = new BulletAccel(6f, 400);
 
@@ -97,6 +100,7 @@ public class EnemyBossFinal_BulletPattern_1B2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var accel1 = new BulletAccel(0.1f, 1000);
 
         for (int i = 0; i < 10; i++)
@@ -123,6 +127,7 @@ public class EnemyBossFinal_BulletPattern_1C1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = 29f;
         
@@ -149,6 +154,7 @@ public class EnemyBossFinal_BulletPattern_1C2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[1] = 67f;
 
@@ -175,6 +181,7 @@ public class EnemyBossFinal_BulletPattern_1D1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = 23f * _patternIndex;
@@ -205,6 +212,7 @@ public class EnemyBossFinal_BulletPattern_1D2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         yield return new WaitForMillisecondFrames(5000);
 
         var initDirection = _typedEnemyObject.m_CustomDirectionDelta[1];
@@ -243,6 +251,7 @@ public class EnemyBossFinal_BulletPattern_1E1 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirectionDelta[0] = -79f * _patternIndex;
 
@@ -266,6 +275,7 @@ public class EnemyBossFinal_BulletPattern_1E2 : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while (true)
         {
             var pos = GetFirePos(0);
@@ -290,6 +300,7 @@ public class EnemyBossFinal_BulletPattern_2A : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         _typedEnemyObject.m_CustomDirectionDelta[0] = 31f;
 
         yield return ExecuteSubPattern(BulletImage.PinkLarge, 3, 30f);
@@ -354,6 +365,7 @@ public class EnemyBossFinal_BulletPattern_FinalA : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var accel = new BulletAccel(0.1f, BULLET_DELAY + 300);
         _typedEnemyObject.m_CustomDirection[0] = Random.Range(0f, 360f);
         _typedEnemyObject.m_CustomDirection[1] = Random.Range(0f, 360f);
@@ -478,6 +490,7 @@ public class EnemyBossFinal_BulletPattern_FinalB : BulletFactory, IBulletPattern
     
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         while (true)
         {
             var pos = GetFirePos(0);

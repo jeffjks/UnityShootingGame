@@ -58,6 +58,7 @@ public class BulletPattern_EnemyMissile : BulletFactory, IBulletPattern
 
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
+        yield return new WaitForEndOfFrame();
         var pos = _enemyObject.transform.position;
         
         if (SystemManager.Difficulty == GameDifficulty.Normal)

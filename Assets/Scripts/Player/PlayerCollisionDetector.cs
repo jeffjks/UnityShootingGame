@@ -60,7 +60,7 @@ public class PlayerCollisionDetector : PlayerObject
         if (PlayerInvincibility.IsInvincible)
             return;
         
-        var unitObject = EnemyUnitIdList[id];
+        var unitObject = EnemyIdList[id];
         
         if (unitObject is EnemyBullet enemyBullet)
         {

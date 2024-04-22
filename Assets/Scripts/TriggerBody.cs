@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-public class TriggerBody : MonoBehaviour // TODO. make circle type
+public class TriggerBody : MonoBehaviour
 {
     public enum BodyType
     {
@@ -25,6 +25,9 @@ public class TriggerBody : MonoBehaviour // TODO. make circle type
 
     public BodyCircle TransformedBodyCircle => GetTransformedBody(m_BodyCircle);
     public BodyPolygon TransformedBodyPolygon => GetTransformedBody(m_BodyPolygon);
+
+    private Dictionary<TriggerBody, bool> _triggerBodyDictionary = new();
+    private List<TriggerBody> _triggerBodyToRemove = new();
 
     private void OnEnable()
     {
@@ -144,15 +147,41 @@ public class TriggerBody : MonoBehaviour // TODO. make circle type
     private Vector2 TransformPoint(Vector2 point)
     {
         point *= transform.lossyScale;
-        point += (Vector2)transform.position;
         var rotationMatrix = Matrix4x4.Rotate(transform.rotation); 
         point = rotationMatrix.MultiplyPoint(point);
+        point += (Vector2)transform.position;
         return point;
     }
 
     private void OnTriggerBodyCollision(TriggerBody other)
     {
-        Debug.Log($"{this} collision with: {other}");
+        if (_triggerBodyDictionary.TryAdd(other, true))
+        {
+            Debug.Log($"{this} OnTriggerBodyCollisionEnter: {other}");
+        }
+        else
+        {
+            _triggerBodyDictionary[other] = true;
+            Debug.Log($"{this} OnTriggerBodyCollisionStay: {other}");
+        }
+    }
+
+    private void LateUpdate()
+    {
+        _triggerBodyToRemove.Clear();
+        
+        foreach (var pair in _triggerBodyDictionary)
+        {
+            if (!pair.Value)
+            {
+                _triggerBodyToRemove.Add(pair.Key);
+            }
+        }
+
+        foreach (var key in _triggerBodyToRemove)
+        {
+            _triggerBodyDictionary.Remove(key);
+        }
     }
 }
 

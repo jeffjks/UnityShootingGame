@@ -35,7 +35,10 @@ public class ItemGemAir : ItemGem
 
         RotateSelf();
 
-        transform.Translate(m_HorizontalSpeed / Application.targetFrameRate * Time.timeScale, m_VerticalSpeed / Application.targetFrameRate * Time.timeScale, 0f, Space.World);
+        var moveX = m_HorizontalSpeed;
+        var moveY = m_VerticalSpeed;
+        m_MoveVector = new MoveVector(new Vector2(moveX, moveY));
+        MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
 
         if (m_VerticalSpeed > -7f)
             m_VerticalSpeed -= 0.1f;

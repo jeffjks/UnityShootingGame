@@ -267,6 +267,7 @@ MonoBehaviour:
   m_PlayerUnit: {fileID: 989022632222629200}
   m_PlayerLaserHandler: {fileID: 6140773252724510464}
   m_AutoChangeMode: 1
+  m_PlayerShotHandler: {fileID: 1525603388574638372}
 --- !u!1001 &604798092995543312
 PrefabInstance:
   m_ObjectHideFlags: 0

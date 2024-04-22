@@ -20,7 +20,7 @@ public class EnemyPlaneLarge2 : EnemyUnit
             return;
         
         if (_phase == 0) {
-            if (m_Position2D.y < - 1f)
+            if (Position2D.y < - 1f)
             {
                 StartPattern("1A", new EnemyPlaneLarge2_BulletPattern_1A(this));
                 _phase = 1;

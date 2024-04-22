@@ -31,7 +31,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
             pos = transform.position;
         }
         else {
-            pos = m_Position2D;
+            pos = Position2D;
         }
         if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + BOUNDARY_PADDING) {
             OnItemRemoved();
@@ -48,7 +48,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
         }
         Quaternion screenRotation = Quaternion.AngleAxis(Size.BACKGROUND_CAMERA_ANGLE, Vector3.right);
         
-        SetColliderPositionOnScreen(m_Position2D, screenRotation);
+        SetColliderPositionOnScreen(Position2D, screenRotation);
     }
     
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation) {
@@ -61,7 +61,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
         if (PlayerManager.IsPlayerAlive == false)
             return;
 
-        var offset = (Vector2) PlayerUnit.Instance.transform.position - m_Position2D;
+        var offset = (Vector2) PlayerUnit.Instance.transform.position - Position2D;
         var distance = Vector2.SqrMagnitude(offset);
         var sqrRadius = (PlayerUnit.ItemRangeRadius + m_Radius) * (PlayerUnit.ItemRangeRadius + m_Radius);
         
@@ -114,7 +114,8 @@ public abstract class ItemBox : Item
         if (Time.timeScale == 0)
             return;
         
-        MoveDirection(m_MoveVector);
+        if (m_IsAir)
+            MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
 
         if (!m_Disappear && m_IsAir) {
             float angle;
@@ -134,13 +135,6 @@ public abstract class ItemBox : Item
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 0f + angle;
             }
-        }
-    }
-
-    private void MoveDirection(MoveVector moveVector) {
-        if (m_IsAir) {
-            Vector2 vector2 = Quaternion.AngleAxis(moveVector.direction, Vector3.forward) * Vector2.down;
-            transform.Translate(vector2 * moveVector.speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
     }
 

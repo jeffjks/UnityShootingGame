@@ -29,7 +29,7 @@ public class PlayerHomingMissile : PlayerWeapon {
                 _target = FindClosestEnemy();
             }
             else {
-                var targetAngle = GetAngleToTarget(m_Position2D, _target.transform.position);
+                var targetAngle = GetAngleToTarget(Position2D, _target.transform.position);
                 CurrentAngle = Mathf.MoveTowardsAngle(CurrentAngle, targetAngle, ROTATION_SPEED / Application.targetFrameRate * Time.timeScale);
                 
                 //Vector2 vec = (_target.transform.position - transform.position).normalized;
@@ -67,7 +67,7 @@ public class PlayerHomingMissile : PlayerWeapon {
                 continue;
             }
             
-            Vector2 diff = enemy.m_Position2D - m_Position2D;
+            Vector2 diff = enemy.Position2D - Position2D;
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance) {
                 target = target_temp;

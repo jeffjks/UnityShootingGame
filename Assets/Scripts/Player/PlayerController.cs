@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         }
         
         _playerMovement.ExecuteMovement();
-        ExecuteShot();
+        //ExecuteShot();
         ExecuteLaser();
     }
 
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         
         HandleFireInput(isPressed);
         
-        ReplayManager.WriteUserPressInput(isPressed, ReplayManager.KeyType.Fire);
+        ReplayManager.WriteUserActionInput(ReplayManager.KeyType.Fire, isPressed);
     }
 
     private void HandleFireInput(bool isPressed)
@@ -133,17 +133,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ExecuteShot()
-    {
-        if (_playerShotHandler.AutoShot > 0) {
-            if (!_playerUnit.IsShooting) {
-                _playerUnit.IsShooting = true;
-                _playerShotHandler.StartShotCoroutine();
-            }
-            _playerUnit.IsAttacking = true;
-        }
-    }
-
     private void ExecuteLaser()
     {
         if (!_playerUnit.SlowMode) {
@@ -163,7 +152,7 @@ public class PlayerController : MonoBehaviour
         
         ExecuteBomb(isPressed);
         
-        ReplayManager.WriteUserPressInput(isPressed, ReplayManager.KeyType.Bomb);
+        ReplayManager.WriteUserActionInput(ReplayManager.KeyType.Bomb, isPressed);
     }
     
     private void ExecuteBomb(bool isPressed)

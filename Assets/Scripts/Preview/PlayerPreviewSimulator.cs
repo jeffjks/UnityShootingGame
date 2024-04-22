@@ -10,13 +10,8 @@ public class PlayerPreviewSimulator : MonoBehaviour
     public PlayerLaserHandler m_PlayerLaserHandler;
     public bool m_AutoChangeMode;
     
-    private PlayerShotHandler _playerShotHandler;
+    [SerializeField] private PlayerShotHandler m_PlayerShotHandler;
     private bool _shotMode;
-    
-    private void Start()
-    {
-        _playerShotHandler = GetComponent<PlayerShotHandler>();
-    }
 
     private void OnEnable()
     {
@@ -26,6 +21,8 @@ public class PlayerPreviewSimulator : MonoBehaviour
         
         if (m_AutoChangeMode)
             StartCoroutine(PreviewSlowMode());
+        
+        m_PlayerShotHandler.StartShotCoroutine();
     }
 
     private void Update()
@@ -74,8 +71,7 @@ public class PlayerPreviewSimulator : MonoBehaviour
     {
         if (_shotMode && !m_PlayerUnit.IsShooting)
         {
-            _playerShotHandler.StartShotCoroutine();
-            m_PlayerUnit.IsShooting = true;
+            m_PlayerShotHandler.AutoShot = 1;
         }
     }
 }

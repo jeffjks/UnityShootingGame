@@ -63,7 +63,7 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
             return;
 
         if (_phase == 0) {
-            if (m_Position2D.y < -1f) {
+            if (Position2D.y < -1f) {
                 _phase = 1;
             }
         }
@@ -74,7 +74,7 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
     private void ActivateSubTurrets()
     {
         if (!_isSubTurretStart) {
-            if (Mathf.Abs(m_SubTurrets[0].m_Position2D.x) <= 7f && Mathf.Abs(m_SubTurrets[1].m_Position2D.x) <= 7f)
+            if (Mathf.Abs(m_SubTurrets[0].Position2D.x) <= 7f && Mathf.Abs(m_SubTurrets[1].Position2D.x) <= 7f)
             {
                 m_SubTurrets[0].StartPattern("A", new EnemyTankLarge1_BulletPattern_SubTurret_A(m_SubTurrets[0], m_BackTurret));
                 m_SubTurrets[1].StartPattern("A", new EnemyTankLarge1_BulletPattern_SubTurret_A(m_SubTurrets[1], null));

@@ -114,20 +114,14 @@ public class EnemyMiddleBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         int frame = 3500 * Application.targetFrameRate / 1000;
 
         Quaternion initQuaternion = m_Rotator.rotation;
-        float targetHorizontalSpeed;
-
-        if (Mathf.DeltaAngle(0f, m_MoveVector.direction) < 180f) {
-            targetHorizontalSpeed = 18f;
-        }
-        else {
-            targetHorizontalSpeed = -18f;
-        }
+        const float targetHorizontalSpeed = 18f;
+        m_MoveVector.direction = (Mathf.DeltaAngle(0f, m_MoveVector.direction) < 180f) ? 90f : -90f;
 
         for (int i = 0; i < frame; ++i) {
             float t_pos = AC_Ease.ac_ease[(int)EaseType.InQuad].Evaluate((float) (i+1) / frame);
             float t_rot = (float) (i+1) / frame;
-            
-            transform.Translate(new Vector3(Mathf.Lerp(0f, targetHorizontalSpeed / Application.targetFrameRate, t_pos), 0f, 0f));
+
+            m_MoveVector.speed = Mathf.Lerp(0f, targetHorizontalSpeed / Application.targetFrameRate, t_pos);
             m_Rotator.rotation = Quaternion.Lerp(initQuaternion, Quaternion.Euler(0f, ROLLING_ANGLE_MAX, 0f), t_rot);
             yield return new WaitForMillisecondFrames(0);
         }

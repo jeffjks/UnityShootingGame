@@ -23,7 +23,7 @@ public class DrawIfPropertyDrawer : PropertyDrawer
             return 0f;
    
         // The height of the property should be defaulted to the default height.
-        return base.GetPropertyHeight(property, label);
+        return EditorGUI.GetPropertyHeight(property, label, true);
     }
  
     /// <summary>
@@ -91,12 +91,12 @@ public class DrawIfPropertyDrawer : PropertyDrawer
         // If the condition is met, simply draw the field.
         if (ShowMe(property))
         {
-            EditorGUI.PropertyField(position, property, label);
+            EditorGUI.PropertyField(position, property, label, true);
         } //...check if the disabling type is read only. If it is, draw it disabled
         else if (drawIf.disablingType == DisablingType.ReadOnly)
         {
             GUI.enabled = false;
-            EditorGUI.PropertyField(position, property, label);
+            EditorGUI.PropertyField(position, property, label, true);
             GUI.enabled = true;
         }
     }

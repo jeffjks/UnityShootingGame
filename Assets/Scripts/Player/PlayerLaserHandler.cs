@@ -68,6 +68,9 @@ public class PlayerLaserHandler : MonoBehaviour
         m_PlayerLaserFireLight.gameObject.SetActive(true);
         Action_OnStartLaser?.Invoke();
         
+        if (ReplayManager.PlayerLaserStartLog)
+            ReplayManager.WriteReplayLogFile($"Start Laser {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        
         if (!m_PlayerUnit.m_IsPreviewObject)
             AudioService.PlaySound("PlayerLaser", true);
     }

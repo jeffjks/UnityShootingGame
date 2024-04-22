@@ -202,7 +202,7 @@ public class BulletFactory
             return false;
         if (pos.y > 0)
             return false;
-        if (_enemyObject.m_Position2D.y < limitLine)
+        if (_enemyObject.Position2D.y < limitLine)
             return false;
         if (!_enemyObject.IsInteractable())
             return false;

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5824299595195028252}
   - component: {fileID: 5824299595195028251}
   - component: {fileID: 887243823951567483}
+  - component: {fileID: 8658653992978215267}
   m_Layer: 0
   m_Name: Play Manager
   m_TagString: Untagged
@@ -66,9 +67,22 @@ MonoBehaviour:
     type: 2}
   m_KillLog: 1
   m_RemoveLog: 1
-  m_PlayerMovementInputLog: 0
-  m_PlayerAttackInputLog: 0
-  m_PlayerWeaponStartLog: 0
+  m_PlayerMovementInputLog: 1
+  m_PlayerActionInputLog: 1
+  m_PlayerWeaponStartLog: 1
   m_PlayerWeaponHitLog: 1
+  m_PlayerLaserStartLog: 1
   m_ItemLog: 0
   m_HitCountLog: 0
+--- !u!114 &8658653992978215267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824299595195028254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb8075ed587e924aa049863e2278075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
@@ -9,18 +11,11 @@ using Newtonsoft.Json;
 
 public class TestScript : MonoBehaviour
 {
-    private Quaternion m_DefaultRotation;
-    
-    private void Awake() {
-        //Debug.Log(transform.rotation);
-        //transform.root.rotation = Quaternion.Euler(0f, 20f, 0f);
-        //Debug.Log(transform.rotation);
-        
-        var temp = transform.root.rotation;
-        transform.root.rotation = Quaternion.identity;
-        m_DefaultRotation = transform.rotation * Quaternion.Inverse(transform.root.rotation);
-        transform.root.rotation = temp;
-        
-        Debug.Log(m_DefaultRotation.eulerAngles);
+    public TriggerBodyType m_TriggerBodyType;
+    private TriggerBody _triggerBody;
+    private void Start()
+    {
+        _triggerBody = GetComponent<TriggerBody>();
+        SimulationManager.TriggerBodies[m_TriggerBodyType].AddLast(_triggerBody);
     }
 }

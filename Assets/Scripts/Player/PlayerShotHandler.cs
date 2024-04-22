@@ -78,6 +78,7 @@ public class PlayerShotHandler : MonoBehaviour
     private void OnEnable()
     {
         PiercingShotDirection = 0f;
+        StartCoroutine(Shot());
         StartCoroutine(SubWeaponShot());
     }
 
@@ -121,32 +122,40 @@ public class PlayerShotHandler : MonoBehaviour
         StartCoroutine(Shot());
     }
     
-    private IEnumerator Shot() {
-        //Debug.Log($"{ReplayManager.CurrentFrame}: Shot {AutoShot}");
-        if (AutoShot > 0)
-            AutoShot--;
-        var shotNumber = _shotNumbers[m_PlayerUnit.PlayerAttackLevel];
-        
-        for (int i = 0; i < shotNumber; i++) { // FIRE_RATE초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
-            // Debug.Log($"{ReplayManager.CurrentFrame}: ShotNumber {shotNumber}, ShotIndex {ShotIndex}");
-            if (ShotIndex == 0)
-                CreateShotNormal(m_PlayerUnit.PlayerAttackLevel);
-            else if (ShotIndex == 1)
-                CreateShotStrong(m_PlayerUnit.PlayerAttackLevel);
-            else if (ShotIndex == 2)
-                CreateShotVeryStrong(m_PlayerUnit.PlayerAttackLevel);
+    private IEnumerator Shot()
+    {
+        while (true)
+        {
+            while ((!m_PlayerUnit.IsShooting && AutoShot > 0) == false)
+                yield return null;
             
-            if (!m_PlayerUnit.m_IsPreviewObject)
-                AudioService.PlaySound("PlayerShot1");
-            yield return new WaitForMillisecondFrames(FIRE_RATE);
+            AutoShot--;
+            m_PlayerUnit.IsAttacking = true;
+            m_PlayerUnit.IsShooting = true;
+        
+            var shotNumber = _shotNumbers[m_PlayerUnit.PlayerAttackLevel];
+        
+            for (int i = 0; i < shotNumber; i++) { // FIRE_RATE초 간격으로 ShotNumber회 실행. 실행 주기는 m_FireDelay
+                // Debug.Log($"{ReplayManager.CurrentFrame}: ShotNumber {shotNumber}, ShotIndex {ShotIndex}");
+                if (ShotIndex == 0)
+                    CreateShotNormal(m_PlayerUnit.PlayerAttackLevel);
+                else if (ShotIndex == 1)
+                    CreateShotStrong(m_PlayerUnit.PlayerAttackLevel);
+                else if (ShotIndex == 2)
+                    CreateShotVeryStrong(m_PlayerUnit.PlayerAttackLevel);
+            
+                if (!m_PlayerUnit.m_IsPreviewObject)
+                    AudioService.PlaySound("PlayerShot1");
+                yield return new WaitForMillisecondFrames(FIRE_RATE);
+            }
+
+            var cooldownByLevel = m_PlayerShotData.cooldownByLevel[m_PlayerUnit.PlayerAttackLevel];
+            //Debug.Log($"{ReplayManager.CurrentFrame}: {cooldownByLevel - FIRE_RATE*shotNumber}");
+            yield return new WaitForMillisecondFrames(cooldownByLevel - FIRE_RATE*shotNumber);
+
+            m_PlayerUnit.IsShooting = false;
+            CheckNowShooting();
         }
-
-        var cooldownByLevel = m_PlayerShotData.cooldownByLevel[m_PlayerUnit.PlayerAttackLevel];
-        //Debug.Log($"{ReplayManager.CurrentFrame}: {cooldownByLevel - FIRE_RATE*shotNumber}");
-        yield return new WaitForMillisecondFrames(cooldownByLevel - FIRE_RATE*shotNumber);
-
-        m_PlayerUnit.IsShooting = false;
-        CheckNowShooting();
     }
 
     private void CheckNowShooting() { // m_PlayerUnit.IsAttacking : 현재 공격 중 (모듈 공격을 위한 변수)

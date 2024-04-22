@@ -6,20 +6,22 @@ using UnityEngine;
 public abstract class UnitObject : MonoBehaviour
 {
     public MoveVector m_MoveVector;
+    //[DrawIf("m_IsRoot", true, ComparisonType.Equals)]
+    //public Rigidbody2D m_Rigidbody2D;
     [DrawIf("m_IsRoot", true, ComparisonType.Equals)]
     public bool m_IsAir;
 
 	//[HideInInspector] public Vector2 m_Position2D;
 	protected float _currentAngle; // 현재 회전 각도
 
-    public float AngleToPlayer => GetAngleToTarget(m_Position2D, PlayerManager.GetPlayerPosition());
+    public float AngleToPlayer => GetAngleToTarget(Position2D, PlayerManager.GetPlayerPosition());
 
     public virtual float CurrentAngle
     {
         get => _currentAngle;
         set => _currentAngle = value;
     }
-    public Vector2 m_Position2D => GetPosition2d();
+    public Vector2 Position2D => GetPosition2d();
 
     public virtual void ExecuteCollisionEnter(int targetId) { }
 
@@ -35,6 +37,7 @@ public abstract class UnitObject : MonoBehaviour
             Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
             transform.Translate(vector2 * speed / Application.targetFrameRate * Time.timeScale, Space.World);
         }
+        //m_Rigidbody2D.MovePosition(Position2D);
     }
 
     protected float GetAngleToTarget(Vector2 pos, Vector2 target) {

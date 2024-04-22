@@ -24,7 +24,7 @@ public class EnemyTankMedium2 : EnemyUnit
             return;
         
         if (!_isStartShooing) {
-            if (m_IsInteractable && m_Position2D.y < - 1.2f) {
+            if (m_IsInteractable && Position2D.y < - 1.2f) {
                 m_ArmorAnimator.SetBool(_armorOpenAnimationBool, true);
                 StartPattern("A", new EnemyTankMedium2_BulletPattern(this));
                 _isStartShooing = true;

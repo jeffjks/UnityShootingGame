@@ -141,7 +141,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         if (PlayerInvincibility.IsInvincible == false)
             return;
         
-        var offset = (Vector2) PlayerUnit.Instance.transform.position - m_Position2D;
+        var offset = (Vector2) PlayerUnit.Instance.transform.position - Position2D;
         var distance = Vector2.SqrMagnitude(offset);
         var sqrRadius = (PlayerShield.ShieldRadius) * (PlayerShield.ShieldRadius);
         

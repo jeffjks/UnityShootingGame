@@ -41,7 +41,7 @@ public class RotatePattern_TargetPlayer : IRotatePattern
         {
             return enemyObject.AngleToPlayer;
         }
-        var pointDirectionVector = (Vector2)PlayerManager.GetPlayerPosition() + _offsetPosition - enemyObject.m_Position2D;
+        var pointDirectionVector = (Vector2)PlayerManager.GetPlayerPosition() + _offsetPosition - enemyObject.Position2D;
         var targetAngle = Vector2.SignedAngle(Vector2.down, pointDirectionVector);
         return targetAngle;
     }
@@ -139,7 +139,7 @@ public class RotatePattern_TargetPosition : IRotatePattern
     
     public void ExecuteRotatePattern(EnemyObject enemyObject)
     {
-        var pointDirectionVector = enemyObject.m_Position2D - _targetPosition;
+        var pointDirectionVector = enemyObject.Position2D - _targetPosition;
         var targetAngle = Vector2.SignedAngle(Vector2.down, pointDirectionVector);
         enemyObject.RotateUnit(targetAngle + _offsetAngle, _speed);
     }

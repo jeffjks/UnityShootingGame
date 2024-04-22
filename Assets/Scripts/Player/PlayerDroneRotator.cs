@@ -15,6 +15,6 @@ public class PlayerDroneRotator : MonoBehaviour
     }
 
     private void RotateSelf() {
-        transform.Rotate(Vector3.forward * Time.deltaTime * 360f * m_RotateReverse, Space.Self);
+        transform.Rotate(Vector3.forward * (Time.deltaTime * 360f * m_RotateReverse), Space.Self);
     }
 }

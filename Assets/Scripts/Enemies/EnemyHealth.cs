@@ -61,20 +61,12 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     public int HealthRatioScaled => CurrentHealth * 1000 / m_DefaultHealth;
-
-    protected int EnemyId { get; private set; } = -1;
-    private const int DefaultObjectIdCapacity = 1024;
-    private static int NextEnemyId;
-    public static List<EnemyHealth> EnemyIdList = new(DefaultObjectIdCapacity);
-    private static Queue<int> EnemyIdQueue = new(DefaultObjectIdCapacity);
+    
+    public static readonly LinkedList<EnemyHealth> EnemyList = new();
 
     public static void InitEnemyId()
     {
-        EnemyIdList.Clear();
-        EnemyIdQueue.Clear();
-        EnemyIdList = new List<EnemyHealth>(DefaultObjectIdCapacity);
-        EnemyIdQueue = new Queue<int>(DefaultObjectIdCapacity);
-        NextEnemyId = 0;
+        EnemyList.Clear();
     }
 
     private void Awake()
@@ -85,39 +77,8 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         _enemyDeath = GetComponent<EnemyDeath>();
         
         CurrentHealth = m_DefaultHealth;
-
-        AssignEnemyId();
+        
         ResetIsTakingDamage();
-    }
-
-    private void AssignEnemyId()
-    {
-        if (SystemManager.IsInGame == false)
-            return;
-        
-        if (EnemyIdQueue.Count > 0)
-        {
-            EnemyId = EnemyIdQueue.Dequeue();
-            EnemyIdList[EnemyId] = this;
-        }
-        else
-        {
-            EnemyId = NextEnemyId;
-            NextEnemyId = (NextEnemyId >= Int32.MaxValue) ? 1 : NextEnemyId + 1;
-            EnemyIdList.Add(this);
-        }
-    }
-    
-    private void RetrieveEnemyId()
-    {
-        if (SystemManager.IsInGame == false)
-            return;
-        if (EnemyId == -1)
-            return;
-        
-        EnemyIdList[EnemyId] = null;
-        EnemyIdQueue.Enqueue(EnemyId);
-        EnemyId = -1;
     }
 
     private void Update()
@@ -140,11 +101,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     private void LateUpdate()
     {
         ResetIsTakingDamage();
-    }
-
-    private void OnDestroy()
-    {
-        RetrieveEnemyId();
     }
 
     private void ResetIsTakingDamage() {

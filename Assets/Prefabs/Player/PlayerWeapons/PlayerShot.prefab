@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 85686835335061324}
   - component: {fileID: 7308936934683739907}
   - component: {fileID: 7308936934683739908}
+  - component: {fileID: 5678930028167049675}
   m_Layer: 18
   m_Name: PlayerShot
   m_TagString: PlayerWeapon
@@ -199,7 +200,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7308936934683739909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -231,6 +232,30 @@ MonoBehaviour:
   - {fileID: 2428570251482540705}
   _playerMissileHit: PlayerMissileHitShot
   _removeTimer: 3000
+  m_TriggerBody: {fileID: 5678930028167049675}
+--- !u!114 &5678930028167049675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308936934683739909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BodyType: 1
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: -0.15, y: -0.375}
+      - {x: -0.15, y: 0.375}
+      - {x: 0.15, y: 0.375}
+      - {x: 0.15, y: -0.375}
 --- !u!1001 &384948561296495453
 PrefabInstance:
   m_ObjectHideFlags: 0

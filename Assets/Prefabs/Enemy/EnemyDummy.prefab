@@ -27,11 +27,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1078490353592866419, guid: 0537168c670fce04992d921bc592ff8d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653810268746708972, guid: 0537168c670fce04992d921bc592ff8d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3464091935021092665, guid: 0537168c670fce04992d921bc592ff8d,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8583834956727796092, guid: 0537168c670fce04992d921bc592ff8d,
+        type: 3}
+      propertyPath: m_TriggerBody
+      value: 
+      objectReference: {fileID: 6863831554206250307}
     - target: {fileID: 8583834956727796092, guid: 0537168c670fce04992d921bc592ff8d,
         type: 3}
       propertyPath: m_DefaultHealth
@@ -101,3 +116,40 @@ MonoBehaviour:
   m_FanR: {fileID: 8035719895947966488}
   m_FanB: {fileID: 8035465882091468190}
   m_FanRotationSpeed: 1200
+--- !u!1 &8940866937095879284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1410889031087544366, guid: 0537168c670fce04992d921bc592ff8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8034469026892980826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6863831554206250307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8940866937095879284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BodyType: 1
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: 0, y: 1}
+      - {x: -2, y: -0.35}
+      - {x: 0, y: -0.3}
+    - m_BodyPoints:
+      - {x: 0, y: 1}
+      - {x: 2, y: -0.35}
+      - {x: 0, y: -0.3}
+    - m_BodyPoints:
+      - {x: -0.4, y: -0.3}
+      - {x: -0.2, y: -1.5}
+      - {x: 0.2, y: -1.5}
+      - {x: 0.4, y: -0.3}

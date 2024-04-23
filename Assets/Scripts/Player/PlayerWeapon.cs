@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TriggerBody))]
 public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 {
     [SerializeField] protected float m_Speed;
@@ -10,6 +11,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     [SerializeField] private GameObject[] _activatedObject;
     [SerializeField] private string _playerMissileHit;
     [SerializeField] private int _removeTimer;
+    [SerializeField] private TriggerBody m_TriggerBody;
 
     private IEnumerator _removeTimerCoroutine;
     // private static int _playerWeaponIndex;
@@ -40,6 +42,9 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         // if (_playerWeaponIndex >= Int32.MaxValue)
         //     _playerWeaponIndex = 0;
         
+        SimulationManager.TriggerBodies[TriggerBodyType.PlayerWeapon].AddLast(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
+        
         _appliedDamage = false;
         _removeTimerCoroutine = SetRemoveTimer();
         //Debug.Log($"{ReplayManager.CurrentFrame}: PlayerWeapon Spawned {name} at {transform.position}");
@@ -62,24 +67,31 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     {
         _activatedObject[_currentForm].transform.position = position;
     }
-    
-    private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
+
+    public void OnTriggerBodyEnter(TriggerBody other)
     {
-        // if (SystemManager.GameMode == GameMode.Replay)
-        //     return;
-        // if (_appliedDamage)
-        //     return;
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
 
-            // var targetId = enemyUnit.EnemyUnitId;
-            // ReplayManager.WriteReplayCollisionData(EnemyId, targetId);
-
-            TriggerEnter(enemyUnit);
-        }
+        TriggerEnter(enemyUnit);
     }
+    
+    // private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
+    // {
+    //     // if (SystemManager.GameMode == GameMode.Replay)
+    //     //     return;
+    //     // if (_appliedDamage)
+    //     //     return;
+    //     
+    //     if (other.gameObject.CompareTag("Enemy"))
+    //     {
+    //         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+    //
+    //         // var targetId = enemyUnit.EnemyUnitId;
+    //         // ReplayManager.WriteReplayCollisionData(EnemyId, targetId);
+    //
+    //         TriggerEnter(enemyUnit);
+    //     }
+    // }
 
     // public override void ExecuteCollisionEnter(int id)
     // {
@@ -113,7 +125,8 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         }
     }
 
-    private void OnDeath() {
+    private void OnDeath()
+    {
         GameObject obj = PoolingManager.PopFromPool(_playerMissileHit, PoolingParent.Explosion); // 히트 이펙트
         PlayerMissileHitEffect hitEffect = obj.GetComponent<PlayerMissileHitEffect>();
         hitEffect.transform.position = new Vector3(transform.position.x, transform.position.y, Depth.HIT_EFFECT);
@@ -122,7 +135,11 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         ReturnToPool();
     }
 
-    public void ReturnToPool() {
+    public void ReturnToPool()
+    {
+        SimulationManager.TriggerBodies[TriggerBodyType.PlayerWeapon].Remove(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
+        
         if (_activatedObject.Length > 0)
         {
             _activatedObject[_currentForm].SetActive(false);

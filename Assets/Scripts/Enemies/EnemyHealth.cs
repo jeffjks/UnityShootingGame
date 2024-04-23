@@ -17,6 +17,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     [DrawIf("m_HealthType", HealthType.Share, ComparisonType.NotEqual)]
     [SerializeField] private int m_DefaultHealth = -1;
     [SerializeField] private Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
+    [SerializeField] private TriggerBody m_TriggerBody;
 
     public event Action Action_LowHealthState;
     public event Action Action_DamagingBlend;
@@ -79,6 +80,16 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         CurrentHealth = m_DefaultHealth;
         
         ResetIsTakingDamage();
+    }
+
+    private void OnEnable()
+    {
+        SimulationManager.TriggerBodies[TriggerBodyType.Enemy].AddLast(m_TriggerBody);
+    }
+
+    private void OnDisable()
+    {
+        SimulationManager.TriggerBodies[TriggerBodyType.Enemy].Remove(m_TriggerBody);
     }
 
     private void Update()

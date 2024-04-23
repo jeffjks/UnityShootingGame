@@ -832,7 +832,7 @@ PrefabInstance:
     - target: {fileID: 2951906547800564425, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2951906547800564425, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
@@ -1220,6 +1220,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[1].m_BodyPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
       propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[0].y
       value: -1
       objectReference: {fileID: 0}
@@ -1228,10 +1243,40 @@ PrefabInstance:
       propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[2].x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[3].x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[1].m_BodyPoints.Array.data[0].x
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[1].m_BodyPoints.Array.data[0].y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[1].m_BodyPoints.Array.data[1].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[1].m_BodyPoints.Array.data[1].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[1].m_BodyPoints.Array.data[2].x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2951906547800564425, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2951906547800564425, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
@@ -2490,6 +2535,7 @@ GameObject:
   - component: {fileID: 1577670869}
   - component: {fileID: 1577670867}
   - component: {fileID: 1577670870}
+  - component: {fileID: 1577670871}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2708,6 +2754,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f135119bcb1f904479873b71e8093bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1577670871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577670859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb8075ed587e924aa049863e2278075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerDatas: {fileID: 11400000, guid: a6bbda2d5776edf448e2252125433322, type: 2}
 --- !u!1001 &1619976108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2996,51 +3055,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 951628992}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1870792781
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1870792783}
-  - component: {fileID: 1870792782}
-  m_Layer: 13
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1870792782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870792781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fb8075ed587e924aa049863e2278075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerDatas: {fileID: 11400000, guid: a6bbda2d5776edf448e2252125433322, type: 2}
---- !u!4 &1870792783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870792781}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1929784282 stripped
 GameObject:

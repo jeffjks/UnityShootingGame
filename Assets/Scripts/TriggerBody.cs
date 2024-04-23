@@ -20,24 +20,16 @@ public class TriggerBody : MonoBehaviour
     
     [DrawIf("m_BodyType", BodyType.Polygon, ComparisonType.Equals)]
     public BodyPolygon m_BodyPolygon = new();
-
-    public UnityAction<TriggerBody> m_CollisionCallback;
+    
+    public UnityAction<TriggerBody> m_OnTriggerBodyEnter;
+    public UnityAction<TriggerBody> m_OnTriggerBodyExit;
+    public UnityAction<TriggerBody> m_OnTriggerBodyStay;
 
     public BodyCircle TransformedBodyCircle => GetTransformedBody(m_BodyCircle);
     public BodyPolygon TransformedBodyPolygon => GetTransformedBody(m_BodyPolygon);
 
-    private Dictionary<TriggerBody, bool> _triggerBodyDictionary = new();
+    private HashSet<TriggerBody> _triggerBodySet = new();
     private List<TriggerBody> _triggerBodyToRemove = new();
-
-    private void OnEnable()
-    {
-        m_CollisionCallback += OnTriggerBodyCollision;
-    }
-
-    private void OnDisable()
-    {
-        m_CollisionCallback -= OnTriggerBodyCollision;
-    }
 
     private void OnDrawGizmosSelected()
     {
@@ -153,34 +145,33 @@ public class TriggerBody : MonoBehaviour
         return point;
     }
 
-    private void OnTriggerBodyCollision(TriggerBody other)
+    public void OnTriggerBodyCollision(TriggerBody other, bool result)
     {
-        if (_triggerBodyDictionary.TryAdd(other, true))
+        var isContain = _triggerBodySet.Contains(other);
+        if (result)
         {
-            Debug.Log($"{this} OnTriggerBodyCollisionEnter: {other}");
+            if (isContain)
+                return;
+            _triggerBodySet.Add(other);
+            m_OnTriggerBodyEnter?.Invoke(other);
+            //Debug.Log($"{this} OnTriggerBodyCollisionEnter: {other}");
         }
         else
         {
-            _triggerBodyDictionary[other] = true;
-            Debug.Log($"{this} OnTriggerBodyCollisionStay: {other}");
+            if (!isContain)
+                return;
+            _triggerBodySet.Remove(other);
+            m_OnTriggerBodyExit?.Invoke(other);
+            //Debug.Log($"{this} OnTriggerBodyCollisionExit: {other}");
         }
     }
 
-    private void LateUpdate()
+    public void OnTriggerBodyCollisionStay()
     {
-        _triggerBodyToRemove.Clear();
-        
-        foreach (var pair in _triggerBodyDictionary)
+        foreach (var triggerBody in _triggerBodySet)
         {
-            if (!pair.Value)
-            {
-                _triggerBodyToRemove.Add(pair.Key);
-            }
-        }
-
-        foreach (var key in _triggerBodyToRemove)
-        {
-            _triggerBodyDictionary.Remove(key);
+            m_OnTriggerBodyStay?.Invoke(triggerBody);
+            //Debug.Log($"{this} OnTriggerBodyCollisionStay: {triggerBody}");
         }
     }
 }

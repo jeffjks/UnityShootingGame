@@ -21,11 +21,8 @@ public static class TriggerBodyManager
         else
             Debug.LogError($"There is no matching triggerBodyType ({bodyTypeA}, {bodyTypeB})");
 
-        if (result)
-        {
-            triggerBodyA.m_CollisionCallback?.Invoke(triggerBodyB);
-            triggerBodyB.m_CollisionCallback?.Invoke(triggerBodyA);
-        }
+        triggerBodyA.OnTriggerBodyCollision(triggerBodyB, result);
+        triggerBodyB.OnTriggerBodyCollision(triggerBodyA, result);
         
         return result;
     }
@@ -55,8 +52,10 @@ public static class TriggerBodyManager
 
     private static bool CheckOverlapBody(BodyCircle bodyCircleA, BodyCircle bodyCircleB)
     {
-        var distance = Vector2.Distance(bodyCircleA.m_BodyCenter, bodyCircleB.m_BodyCenter);
-        return distance < bodyCircleA.m_BodyRadius + bodyCircleA.m_BodyRadius;
+        var distanceVector = bodyCircleB.m_BodyCenter - bodyCircleA.m_BodyCenter;
+        var squaredDistance = distanceVector.sqrMagnitude;
+        var radiusSum = bodyCircleA.m_BodyRadius + bodyCircleA.m_BodyRadius;
+        return squaredDistance < radiusSum * radiusSum;
     }
 
     private static bool CheckOverlapBodyUnit(BodyPolygonUnit bodyPolygonUnitA, BodyPolygonUnit bodyPolygonUnitB)

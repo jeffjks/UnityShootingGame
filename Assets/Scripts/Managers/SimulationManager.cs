@@ -27,6 +27,13 @@ public class SimulationManager : MonoBehaviour
         { TriggerBodyType.Item, new () },
     };
 
+    private List<TriggerBodyType> _triggerBodyTypes = new()
+    {
+        TriggerBodyType.PlayerCenter,
+        TriggerBodyType.PlayerWeapon,
+        TriggerBodyType.PlayerLarge
+    };
+
     private void Update()
     {
         foreach (var movableObject in MovableObjects)
@@ -34,9 +41,24 @@ public class SimulationManager : MonoBehaviour
             movableObject.SimulateMovement();
         }
 
-        foreach (var otherTriggerBodyType in m_TriggerDatas.playerCenterTriggerList)
+        foreach (var triggerBodyType in _triggerBodyTypes)
         {
-            foreach (var triggerBody in TriggerBodies[TriggerBodyType.PlayerCenter])
+            ExecuteCheckOverlapTriggerBody(triggerBodyType);
+        }
+
+        foreach (var triggerBody in TriggerBodies[TriggerBodyType.PlayerWeapon])
+        {
+            triggerBody.OnTriggerBodyCollisionStay();
+        }
+    }
+
+    private void ExecuteCheckOverlapTriggerBody(TriggerBodyType triggerBodyType)
+    {
+        var triggerList = GetTriggerList(triggerBodyType);
+        
+        foreach (var otherTriggerBodyType in triggerList)
+        {
+            foreach (var triggerBody in TriggerBodies[triggerBodyType])
             {
                 foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
                 {
@@ -44,27 +66,20 @@ public class SimulationManager : MonoBehaviour
                 }
             }
         }
+    }
 
-        foreach (var otherTriggerBodyType in m_TriggerDatas.playerWeaponTriggerList)
+    private List<TriggerBodyType> GetTriggerList(TriggerBodyType triggerBodyType)
+    {
+        switch (triggerBodyType)
         {
-            foreach (var triggerBody in TriggerBodies[TriggerBodyType.PlayerWeapon])
-            {
-                foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
-                {
-                    TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
-                }
-            }
-        }
-
-        foreach (var otherTriggerBodyType in m_TriggerDatas.playerLargeTriggerList)
-        {
-            foreach (var triggerBody in TriggerBodies[TriggerBodyType.PlayerLarge])
-            {
-                foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
-                {
-                    TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
-                }
-            }
+            case TriggerBodyType.PlayerCenter:
+                return m_TriggerDatas.playerCenterTriggerList;
+            case TriggerBodyType.PlayerWeapon:
+                return m_TriggerDatas.playerWeaponTriggerList;
+            case TriggerBodyType.PlayerLarge:
+                return m_TriggerDatas.playerLargeTriggerList;
+            default:
+                return new();
         }
     }
 }

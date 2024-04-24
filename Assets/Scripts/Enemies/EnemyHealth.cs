@@ -84,12 +84,12 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
     private void OnEnable()
     {
-        SimulationManager.TriggerBodies[TriggerBodyType.Enemy].AddLast(m_TriggerBody);
+        SimulationManager.AddTriggerBody(m_TriggerBody);
     }
 
     private void OnDisable()
     {
-        SimulationManager.TriggerBodies[TriggerBodyType.Enemy].Remove(m_TriggerBody);
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
     }
 
     private void Update()

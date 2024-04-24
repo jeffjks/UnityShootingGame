@@ -4,31 +4,39 @@ using UnityEngine;
 
 public enum TriggerBodyType
 {
+    GameBoundary,
+    CameraBoundary,
     PlayerCenter,
     PlayerWeapon,
     PlayerLarge,
     Enemy,
     Bullet,
     Item,
+    Debris,
 }
 
 public class SimulationManager : MonoBehaviour
 {
     public TriggerDatas m_TriggerDatas;
     
-    public static readonly LinkedList<MovableObject> MovableObjects = new();
-    public static readonly Dictionary<TriggerBodyType, LinkedList<TriggerBody>> TriggerBodies = new()
+    public static readonly HashSet<MovableObject> MovableObjects = new();
+    private static readonly Dictionary<TriggerBodyType, HashSet<TriggerBody>> TriggerBodies = new()
     {
+        { TriggerBodyType.GameBoundary, new () },
+        { TriggerBodyType.CameraBoundary, new () },
         { TriggerBodyType.PlayerCenter, new () },
         { TriggerBodyType.PlayerWeapon, new () },
         { TriggerBodyType.PlayerLarge, new () },
         { TriggerBodyType.Enemy, new () },
         { TriggerBodyType.Bullet, new () },
-        { TriggerBodyType.Item, new () },
     };
+
+    private static readonly Queue<TriggerBody> TriggerBodiesToRemove = new();
 
     private List<TriggerBodyType> _triggerBodyTypes = new()
     {
+        TriggerBodyType.GameBoundary,
+        TriggerBodyType.CameraBoundary,
         TriggerBodyType.PlayerCenter,
         TriggerBodyType.PlayerWeapon,
         TriggerBodyType.PlayerLarge
@@ -36,16 +44,42 @@ public class SimulationManager : MonoBehaviour
 
     private void Update()
     {
+        SimulateMovement();
+
+        SimulateOnTriggerBodyInit();
+
+        RemoveTriggerBody();
+
+        SimulateOnTriggerBodyStay();
+    }
+
+    private void SimulateMovement()
+    {
         foreach (var movableObject in MovableObjects)
         {
-            movableObject.SimulateMovement();
+            movableObject.MoveTriggerBody();
         }
+    }
 
+    private void SimulateOnTriggerBodyInit()
+    {
         foreach (var triggerBodyType in _triggerBodyTypes)
         {
             ExecuteCheckOverlapTriggerBody(triggerBodyType);
         }
+    }
 
+    private void RemoveTriggerBody()
+    {
+        while (TriggerBodiesToRemove.Count > 0)
+        {
+            var triggerBody = TriggerBodiesToRemove.Dequeue();
+            TriggerBodies[triggerBody.m_TriggerBodyType].Remove(triggerBody);
+        }
+    }
+
+    private void SimulateOnTriggerBodyStay()
+    {
         foreach (var triggerBody in TriggerBodies[TriggerBodyType.PlayerWeapon])
         {
             triggerBody.OnTriggerBodyCollisionStay();
@@ -58,26 +92,6 @@ public class SimulationManager : MonoBehaviour
         
         foreach (var otherTriggerBodyType in triggerList)
         {
-            var outerList = TriggerBodies[triggerBodyType];
-            var outerNode = outerList.First;
-            while (outerNode != null)
-            {
-                var outerNext = outerNode.Next;
-                var triggerBody = outerNode.Value;
-                
-                var innerList = TriggerBodies[otherTriggerBodyType];
-                var innerNode = innerList.First;
-                while (innerNode != null)
-                {
-                    var innerNext = innerNode.Next;
-                    var otherTriggerBody = innerNode.Value;
-                    
-                    TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
-                    innerNode = innerNext;
-                }
-
-                outerNode = outerNext;
-            }
             foreach (var triggerBody in TriggerBodies[triggerBodyType])
             {
                 foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
@@ -101,5 +115,15 @@ public class SimulationManager : MonoBehaviour
             default:
                 return new();
         }
+    }
+
+    public static void AddTriggerBody(TriggerBody triggerBody)
+    {
+        TriggerBodies[triggerBody.m_TriggerBodyType].Add(triggerBody);
+    }
+
+    public static void RemoveTriggerBody(TriggerBody triggerBody)
+    {
+        TriggerBodiesToRemove.Enqueue(triggerBody);
     }
 }

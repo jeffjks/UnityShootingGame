@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface MovableObject
 {
-    public void SimulateMovement();
+    public void MoveTriggerBody();
 }
 

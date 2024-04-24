@@ -4894,6 +4894,7 @@ GameObject:
   - component: {fileID: 4039718997648977230}
   - component: {fileID: 26073578843723322}
   - component: {fileID: 7207203578444645310}
+  - component: {fileID: 2065880084112583127}
   m_Layer: 17
   m_Name: Fire
   m_TagString: PlayerLaser
@@ -4946,7 +4947,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275298233447551235}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -4970,6 +4971,27 @@ MonoBehaviour:
   m_IsAir: 0
   m_ObjectName: LaserAura2
   _playerDamageData: {fileID: 11400000, guid: 88fbf6886cc903841ae96c7c5e702460, type: 2}
+  m_PlayerUnit: {fileID: 0}
+  m_TriggerBody: {fileID: 2065880084112583127}
+--- !u!114 &2065880084112583127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275298233447551235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 3
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0.5
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
 --- !u!1 &2496822619237937528
 GameObject:
   m_ObjectHideFlags: 0

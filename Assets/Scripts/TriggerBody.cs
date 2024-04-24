@@ -13,6 +13,7 @@ public class TriggerBody : MonoBehaviour
         Polygon,
     }
 
+    public TriggerBodyType m_TriggerBodyType;
     public BodyType m_BodyType;
 
     [DrawIf("m_BodyType", BodyType.Circle, ComparisonType.Equals)]
@@ -29,8 +30,8 @@ public class TriggerBody : MonoBehaviour
     public BodyPolygon TransformedBodyPolygon => GetTransformedBody(m_BodyPolygon);
 
     private HashSet<TriggerBody> _triggerBodySet = new();
-    private List<TriggerBody> _triggerBodyToRemove = new();
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         switch (m_BodyType)
@@ -105,6 +106,7 @@ public class TriggerBody : MonoBehaviour
             }
         }
     }
+#endif
 
     private BodyCircle GetTransformedBody(BodyCircle bodyCircle)
     {

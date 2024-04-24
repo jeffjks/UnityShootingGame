@@ -42,13 +42,22 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         // if (_playerWeaponIndex >= Int32.MaxValue)
         //     _playerWeaponIndex = 0;
         
-        SimulationManager.TriggerBodies[TriggerBodyType.PlayerWeapon].AddLast(m_TriggerBody);
-        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
-        
         _appliedDamage = false;
         _removeTimerCoroutine = SetRemoveTimer();
         //Debug.Log($"{ReplayManager.CurrentFrame}: PlayerWeapon Spawned {name} at {transform.position}");
         StartCoroutine(_removeTimerCoroutine);
+    }
+
+    private void OnEnable()
+    {
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
+    }
+
+    private void OnDisable()
+    {
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
     }
 
     protected override void OnDamageLevelChanged()
@@ -70,8 +79,10 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     public void OnTriggerBodyEnter(TriggerBody other)
     {
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
+        
         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-
         TriggerEnter(enemyUnit);
     }
     
@@ -137,9 +148,6 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     public void ReturnToPool()
     {
-        SimulationManager.TriggerBodies[TriggerBodyType.PlayerWeapon].Remove(m_TriggerBody);
-        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
-        
         if (_activatedObject.Length > 0)
         {
             _activatedObject[_currentForm].SetActive(false);

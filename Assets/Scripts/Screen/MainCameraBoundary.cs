@@ -31,19 +31,19 @@ public class MainCameraBoundary : MonoBehaviour
         _boxCollider2D.size = new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT);
     }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (InGameDataManager.Instance == null)
-            return;
-        
-        var otherObject = other.gameObject;
-        
-        if (other.CompareTag("PlayerWeapon")) {
-            if (otherObject.activeSelf)
-            {
-                var playerWeapon = otherObject.GetComponent<PlayerWeapon>();
-                PoolingManager.PushToPool(playerWeapon.m_ObjectName, otherObject, PoolingParent.PlayerMissile);
-            }
-        }
-    }
+    // void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if (InGameDataManager.Instance == null)
+    //         return;
+    //     
+    //     var otherObject = other.gameObject;
+    //     
+    //     if (other.CompareTag("PlayerWeapon")) {
+    //         if (otherObject.activeSelf)
+    //         {
+    //             var playerWeapon = otherObject.GetComponent<PlayerWeapon>();
+    //             PoolingManager.PushToPool(playerWeapon.m_ObjectName, otherObject, PoolingParent.PlayerMissile);
+    //         }
+    //     }
+    // }
 }

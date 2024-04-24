@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6bf964c973d169439a3f23db128be0f, type: 3}
   m_Name: SO TriggerData
   m_EditorClassIdentifier: 
-  playerCenterTriggerList: 0300000004000000
-  playerWeaponTriggerList: 03000000
-  playerLargeTriggerList: 05000000
+  gameBoundaryTriggerList: 05000000060000000700000008000000
+  cameraBoundaryTriggerList: 03000000
+  playerCenterTriggerList: 0500000006000000
+  playerWeaponTriggerList: 05000000
+  playerLargeTriggerList: 07000000

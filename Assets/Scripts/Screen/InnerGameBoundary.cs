@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -16,6 +17,8 @@ public class InnerGameBoundary : MonoBehaviour
             }
         }
     #endif
+    
+    public TriggerBody m_TriggerBody;
 
     private BoxCollider2D _boxCollider2D;
 
@@ -27,31 +30,73 @@ public class InnerGameBoundary : MonoBehaviour
         transform.position = new Vector3(0f, -Size.GAME_HEIGHT/2, Depth.CAMERA);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnEnable()
+    {
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
+        m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
+    }
+
+    private void OnDisable()
+    {
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
+        m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
+    }
+
+    private void OnTriggerBodyEnter(TriggerBody other)
     {
         if (InGameDataManager.Instance == null)
             return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
         
-        if (other.CompareTag("Enemy")) {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-            if (enemyUnit.transform != enemyUnit.transform.root) // 본체가 아닐 경우
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+        if (enemyUnit.transform != enemyUnit.transform.root) // 본체가 아닐 경우
+            return;
+        enemyUnit.IsColliderInit = true;
+    }
+
+    private void OnTriggerBodyExit(TriggerBody other)
+    {
+        if (InGameDataManager.Instance == null)
+            return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Debris)
+            return;
+        
+        if (other.gameObject.activeSelf) {
+            var debris = other.gameObject.GetComponentInParent<DebrisEffect>();
+            if (debris == null)
                 return;
-            enemyUnit.IsColliderInit = true;
+            debris.ReturnToPool();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (InGameDataManager.Instance == null)
-            return;
-        
-        if (other.CompareTag("Debris")) {
-            if (other.gameObject.activeSelf) {
-                var debris = other.gameObject.GetComponentInParent<DebrisEffect>();
-                if (debris == null)
-                    return;
-                debris.ReturnToPool();
-            }
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (InGameDataManager.Instance == null)
+    //         return;
+    //     
+    //     if (other.CompareTag("Enemy")) {
+    //         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+    //         if (enemyUnit.transform != enemyUnit.transform.root) // 본체가 아닐 경우
+    //             return;
+    //         enemyUnit.IsColliderInit = true;
+    //     }
+    // }
+    //
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if (InGameDataManager.Instance == null)
+    //         return;
+    //     
+    //     if (other.CompareTag("Debris")) {
+    //         if (other.gameObject.activeSelf) {
+    //             var debris = other.gameObject.GetComponentInParent<DebrisEffect>();
+    //             if (debris == null)
+    //                 return;
+    //             debris.ReturnToPool();
+    //         }
+    //     }
+    // }
 }

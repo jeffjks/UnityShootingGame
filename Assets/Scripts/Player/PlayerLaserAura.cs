@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerLaserAura : PlayerObject
 {
     public PlayerUnit m_PlayerUnit;
+    public TriggerBody m_TriggerBody;
+    
     private PlayerLaserHandler _playerLaserHandler;
 
     private void Start()
@@ -14,6 +16,41 @@ public class PlayerLaserAura : PlayerObject
 
         _playerLaserHandler.Action_OnLaserIndexChanged += UpdateLaserIndex;
         m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += () => DamageLevel = m_PlayerUnit.PlayerAttackLevel;
+    }
+
+    public void OnEnable()
+    {
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
+    }
+
+    public void OnDisable()
+    {
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
+    }
+
+    private void OnTriggerBodyStay(TriggerBody other) // 충돌 감지
+    {
+        if (m_PlayerUnit.SlowMode == false)
+            return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
+        
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+            
+        if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
+        {
+            DealDamage(enemyUnit);
+            HitCountController.Instance.HitCountLaserCounter++;
+        }
+        else // 소형이면
+        {
+            if (enemyUnit.m_EnemyDeath.IsDead)
+                return;
+            enemyUnit.m_EnemyDeath.KillEnemy();
+            HitCountController.Instance.AddHitCount();
+        }
     }
     
     /*
@@ -42,29 +79,29 @@ public class PlayerLaserAura : PlayerObject
     }
     */
 
-    private void OnTriggerStay2D(Collider2D other) // 충돌 감지
-    {
-        if (m_PlayerUnit.SlowMode == false)
-            return;
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-            
-            if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
-            {
-                DealDamage(enemyUnit);
-                HitCountController.Instance.HitCountLaserCounter++;
-            }
-            else // 소형이면
-            {
-                if (enemyUnit.m_EnemyDeath.IsDead)
-                    return;
-                enemyUnit.m_EnemyDeath.KillEnemy();
-                HitCountController.Instance.AddHitCount();
-            }
-        }
-    }
+    // private void OnTriggerStay2D(Collider2D other) // 충돌 감지
+    // {
+    //     if (m_PlayerUnit.SlowMode == false)
+    //         return;
+    //     
+    //     if (other.gameObject.CompareTag("Enemy"))
+    //     {
+    //         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+    //         
+    //         if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
+    //         {
+    //             DealDamage(enemyUnit);
+    //             HitCountController.Instance.HitCountLaserCounter++;
+    //         }
+    //         else // 소형이면
+    //         {
+    //             if (enemyUnit.m_EnemyDeath.IsDead)
+    //                 return;
+    //             enemyUnit.m_EnemyDeath.KillEnemy();
+    //             HitCountController.Instance.AddHitCount();
+    //         }
+    //     }
+    // }
 
     /*
     private void OnTriggerEnter2D(Collider2D other) // 충돌 감지

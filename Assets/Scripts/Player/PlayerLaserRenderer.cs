@@ -14,7 +14,7 @@ public class PlayerLaserRenderer : MonoBehaviour
     private ParticleSystem[] _stormParticles;
     private ParticleSystem[] _rushParticles;
     private ParticleSystem[] _hitParticles;
-    private BoxCollider2D _collider2D;
+    private TriggerBody _triggerBody;
     private PlayerUnit _playerUnit;
     private Vector2 _laserHitBoxWidth;
     private bool _laserSaver;
@@ -38,7 +38,7 @@ public class PlayerLaserRenderer : MonoBehaviour
 
     private void Awake ()
     {
-        _collider2D = GetComponentInParent<BoxCollider2D>();
+        _triggerBody = GetComponentInParent<TriggerBody>();
         _playerLaserHandler = GetComponentInParent<PlayerLaserHandler>();
         _playerUnit = GetComponentInParent<PlayerUnit>();
 
@@ -137,9 +137,30 @@ public class PlayerLaserRenderer : MonoBehaviour
         if (_stormParticles.Length > 0)
             _particleMainModule.startLifetime = - CurrentLaserLength / _stormSpeed * 0.6f;
 
-        var colliderLength = Mathf.Min(CurrentLaserLength, -transform.position.y);
-        _collider2D.offset = new Vector2(_collider2D.offset.x, colliderLength / 2f);
-        _collider2D.size = new Vector2(_collider2D.size.x, colliderLength);
+        var triggerBodyLength = Mathf.Min(CurrentLaserLength, -transform.position.y);
+        SetLaserLength(triggerBodyLength);
+    }
+
+    private void SetLaserLength(float laserLength)
+    {
+        foreach (var bodyPolygonUnit in _triggerBody.m_BodyPolygon.m_BodyPolygonUnits)
+        {
+            bodyPolygonUnit.m_BodyPoints[1] = new Vector2(bodyPolygonUnit.m_BodyPoints[1].x, laserLength);
+            bodyPolygonUnit.m_BodyPoints[2] = new Vector2(bodyPolygonUnit.m_BodyPoints[2].x, laserLength);
+        }
+        // _triggerBody.offset = new Vector2(_triggerBody.offset.x, triggerBodyLength / 2f);
+        // _triggerBody.size = new Vector2(_triggerBody.size.x, triggerBodyLength);
+    }
+
+    private void SetLaserWidth(float laserWidth)
+    {
+        foreach (var bodyPolygonUnit in _triggerBody.m_BodyPolygon.m_BodyPolygonUnits)
+        {
+            bodyPolygonUnit.m_BodyPoints[0] = new Vector2(-laserWidth, bodyPolygonUnit.m_BodyPoints[0].y);
+            bodyPolygonUnit.m_BodyPoints[1] = new Vector2(-laserWidth, bodyPolygonUnit.m_BodyPoints[1].y);
+            bodyPolygonUnit.m_BodyPoints[2] = new Vector2(laserWidth, bodyPolygonUnit.m_BodyPoints[2].y);
+            bodyPolygonUnit.m_BodyPoints[3] = new Vector2(laserWidth, bodyPolygonUnit.m_BodyPoints[3].y);
+        }
     }
 
     private void OnStartLaser() {
@@ -170,7 +191,9 @@ public class PlayerLaserRenderer : MonoBehaviour
         
         var hitBoxWidth = laserWidth*0.75f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
         _laserHitBoxWidth = new Vector2(hitBoxWidth, 0.01f);
-        _collider2D.size = new Vector2(hitBoxWidth, 0f);
+        //_triggerBody.size = new Vector2(hitBoxWidth, 0f);
+        
+        SetLaserWidth(hitBoxWidth);
     }
 
     private void DisablePrepare() // Initiate Laser

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public abstract class Item : UnitObject, IHasGroundCollider
 {
     public ItemInfoDatas m_ItemData;
-    public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
+    public TriggerBody m_TriggerBody; // 지상 아이템 콜라이더 보정 및 충돌 체크
     public Transform m_Renderer;
     private const float BOUNDARY_PADDING = 0.5f;
     [SerializeField] protected float m_Radius;
@@ -21,8 +21,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
             return;
         
         CheckOutside();
-        CheckPlayerCollision();
-        SetColliderPosition();
+        SetTriggerBodyPosition();
     }
 
     private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
@@ -41,7 +40,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
         }
     }
 
-    private void SetColliderPosition() {
+    private void SetTriggerBodyPosition() {
         if (m_IsAir)
         {
             return;
@@ -51,30 +50,21 @@ public abstract class Item : UnitObject, IHasGroundCollider
         SetColliderPositionOnScreen(Position2D, screenRotation);
     }
     
-    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation) {
-        m_Collider2D.transform.position = screenPosition;
-        m_Collider2D.transform.rotation = screenRotation;
+    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation)
+    {
+        m_TriggerBody.transform.position = screenPosition;
+        m_TriggerBody.transform.rotation = screenRotation;
     }
 
-    private void CheckPlayerCollision() // 충돌 감지
+    public void GetItem()
     {
-        if (PlayerManager.IsPlayerAlive == false)
-            return;
-
-        var offset = (Vector2) PlayerUnit.Instance.transform.position - Position2D;
-        var distance = Vector2.SqrMagnitude(offset);
-        var sqrRadius = (PlayerUnit.ItemRangeRadius + m_Radius) * (PlayerUnit.ItemRangeRadius + m_Radius);
-        
-        if (distance < sqrRadius)
-        {
-            ItemEffect(PlayerUnit.Instance);
-            OnItemRemoved();
+        ItemEffect(PlayerUnit.Instance);
+        OnItemRemoved();
         
 #if UNITY_EDITOR
-            if (ReplayManager.ItemLog)
-                ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition().ToString("N6")}");
+        if (ReplayManager.ItemLog)
+            ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
-        }
     }
 }
 

@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
   m_BodyType: 1
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}

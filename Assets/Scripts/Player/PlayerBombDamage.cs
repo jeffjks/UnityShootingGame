@@ -5,14 +5,27 @@ using UnityEngine;
 public class PlayerBombDamage : PlayerObject
 {
     public int m_BombDuration;
-    [SerializeField] private BoxCollider2D m_BoxCollider2D;
+    public TriggerBody m_TriggerBody;
 
     //private readonly List<EnemyUnit> _enemyList = new();
     private IEnumerator _bombDamageCoroutine;
 
-    void Start()
+    private void Start()
     {
-        m_BoxCollider2D.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
+        m_TriggerBody.m_BodyPolygon.m_BodyPolygonUnits.Clear();
+        m_TriggerBody.m_BodyType = TriggerBody.BodyType.Polygon;
+        
+        var pointList = new List<Vector2>()
+        {
+            new (-Size.GAME_WIDTH / 2f, -Size.GAME_HEIGHT / 2f),
+            new (-Size.GAME_WIDTH / 2f, Size.GAME_HEIGHT / 2f),
+            new (Size.GAME_WIDTH / 2f, Size.GAME_HEIGHT / 2f),
+            new (Size.GAME_WIDTH / 2f, -Size.GAME_HEIGHT / 2f),
+        };
+        var bodyPolygonUnit = new BodyPolygonUnit(pointList);
+        m_TriggerBody.m_BodyPolygon.m_BodyPolygonUnits.Add(bodyPolygonUnit);
+        
+        //m_BoxCollider2D.size = new Vector2(Size.GAME_WIDTH, Size.GAME_HEIGHT);
     }
 
     private void Update()
@@ -21,6 +34,18 @@ public class PlayerBombDamage : PlayerObject
             return;
         
         transform.position = new Vector2(0f, -Size.GAME_HEIGHT/2);
+    }
+
+    public void Activate()
+    {
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
+    }
+
+    public void Deactivate()
+    {
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
     }
 
     /*
@@ -44,34 +69,30 @@ public class PlayerBombDamage : PlayerObject
     }
     */
 
-    public void Activate()
-    {
-        m_BoxCollider2D.enabled = true;
-        //_bombDamageCoroutine = BombDamageEnd();
-        //StartCoroutine(_bombDamageCoroutine);
-    }
-
-    public void Deactivate()
-    {
-        //if (_bombDamageCoroutine != null)
-        //    StopCoroutine(_bombDamageCoroutine);
-        m_BoxCollider2D.enabled = false;
-        
-        //_enemyList.Clear();
-    }
-    
-    private void OnTriggerStay2D(Collider2D other) // 충돌 감지
+    private void OnTriggerBodyStay(TriggerBody other)
     {
         if (PauseManager.IsGamePaused)
             return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
         
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
 
-            DealDamage(enemyUnit);
-        }
+        DealDamage(enemyUnit);
     }
+    
+    // private void OnTriggerStay2D(Collider2D other) // 충돌 감지
+    // {
+    //     if (PauseManager.IsGamePaused)
+    //         return;
+    //     
+    //     if (other.gameObject.CompareTag("Enemy"))
+    //     {
+    //         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+    //
+    //         DealDamage(enemyUnit);
+    //     }
+    // }
 
     /*
     private void OnTriggerEnter2D(Collider2D other) // 충돌 감지

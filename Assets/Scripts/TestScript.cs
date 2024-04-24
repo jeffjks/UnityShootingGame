@@ -11,19 +11,18 @@ using Newtonsoft.Json;
 
 public class TestScript : MonoBehaviour
 {
-    public TriggerBodyType m_TriggerBodyType;
     private TriggerBody _triggerBody;
     
     private void OnEnable()
     {
         _triggerBody = GetComponent<TriggerBody>();
-        SimulationManager.TriggerBodies[m_TriggerBodyType].AddLast(_triggerBody);
+        SimulationManager.AddTriggerBody(_triggerBody);
 
         _triggerBody.m_OnTriggerBodyEnter += OnTriggerTest;
     }
     private void OnDisable()
     {
-        SimulationManager.TriggerBodies[m_TriggerBodyType].Remove(_triggerBody);
+        SimulationManager.RemoveTriggerBody(_triggerBody);
 
         _triggerBody.m_OnTriggerBodyEnter -= OnTriggerTest;
     }

@@ -6,8 +6,18 @@ public static class TriggerBodyManager
 {
     public static bool CheckOverlapTriggerBody(TriggerBody triggerBodyA, TriggerBody triggerBodyB)
     {
-        var bodyTypeA = triggerBodyA.m_BodyType;
-        var bodyTypeB = triggerBodyB.m_BodyType;
+        var result = CheckOverlap(triggerBodyA, triggerBodyB);
+
+        triggerBodyA.OnTriggerBodyCollision(triggerBodyB, result);
+        triggerBodyB.OnTriggerBodyCollision(triggerBodyA, result);
+        
+        return result;
+    }
+
+    private static bool CheckOverlap(TriggerBody triggerBodyA, TriggerBody triggerBodyB)
+    {
+        var bodyTypeA = triggerBodyA.BodyTypeForComparison;
+        var bodyTypeB = triggerBodyB.BodyTypeForComparison;
         var result = false;
         
         if (bodyTypeA == TriggerBody.BodyType.Polygon && bodyTypeB == TriggerBody.BodyType.Polygon)
@@ -21,9 +31,6 @@ public static class TriggerBodyManager
         else
             Debug.LogError($"There is no matching triggerBodyType ({bodyTypeA}, {bodyTypeB})");
 
-        triggerBodyA.OnTriggerBodyCollision(triggerBodyB, result);
-        triggerBodyB.OnTriggerBodyCollision(triggerBodyA, result);
-        
         return result;
     }
     

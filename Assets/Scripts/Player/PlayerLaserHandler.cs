@@ -22,6 +22,8 @@ public class PlayerLaserHandler : MonoBehaviour
         }
     }
 
+    public bool IsLaserShooting { get; private set; }
+
     public event Action Action_OnStartLaser;
     public event Action Action_OnStopLaser;
     public event Action Action_OnLaserIndexChanged;
@@ -63,10 +65,12 @@ public class PlayerLaserHandler : MonoBehaviour
             StartLaser();
     }
 
-    public void StartLaser() {
+    public void StartLaser()
+    {
         _currentLaserInstance.SetActive(true);
         m_PlayerLaserFireLight.gameObject.SetActive(true);
         Action_OnStartLaser?.Invoke();
+        IsLaserShooting = true;
         
         if (ReplayManager.PlayerLaserStartLog)
             ReplayManager.WriteReplayLogFile($"Start Laser {PlayerManager.GetPlayerPosition().ToString("N6")}");
@@ -75,11 +79,13 @@ public class PlayerLaserHandler : MonoBehaviour
             AudioService.PlaySound("PlayerLaser", true);
     }
 
-    public void StopLaser() {
+    public void StopLaser()
+    {
         if (_currentLaserInstance != null)
             _currentLaserInstance.SetActive(false);
         m_PlayerLaserFireLight.gameObject.SetActive(false);
         Action_OnStopLaser?.Invoke();
+        IsLaserShooting = false;
 
         if (!m_PlayerUnit.m_IsPreviewObject)
             AudioService.StopSound("PlayerLaser");

@@ -39,13 +39,45 @@ public class PlayerBombDamage : PlayerObject
     public void Activate()
     {
         SimulationManager.AddTriggerBody(m_TriggerBody);
-        m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
+        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
+        m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
+        //m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
     }
 
     public void Deactivate()
     {
         SimulationManager.RemoveTriggerBody(m_TriggerBody);
-        m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
+        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
+        m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
+        //m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
+    }
+
+    private void OnTriggerBodyEnter(TriggerBody other) // 충돌 감지
+    {
+        if (PauseManager.IsGamePaused)
+            return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
+        
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+
+        var enemyHealth = enemyUnit.m_EnemyHealth;
+        var damageScale = _playerDamageData.damageScale[enemyUnit.m_EnemyType];
+        var damageType = _playerDamageData.playerDamageType;
+        var tickDamageContext = new TickDamageContext(Damage, damageScale, damageType);
+        enemyHealth.AddTickDamageContext(m_ObjectName, tickDamageContext);
+    }
+
+    private void OnTriggerBodyExit(TriggerBody other) // 충돌 감지
+    {
+        if (PauseManager.IsGamePaused)
+            return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
+        
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+        var enemyHealth = enemyUnit.m_EnemyHealth;
+        enemyHealth.RemoveTickDamageContext(m_ObjectName);
     }
 
     /*

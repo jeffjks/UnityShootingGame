@@ -74,10 +74,6 @@ public class PlayerLaserRenderer : MonoBehaviour
         var curPos2D = (Vector2)curPos;
         var hit = Physics2D.BoxCast(curPos2D, _laserHitBoxWidth, 0f, Vector2.up, CurrentLaserLength, Layer.LARGE);
 
-        // RaycastHit2D hit1 = Physics2D.Raycast((Vector2) curPos - _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
-        // RaycastHit2D hit2 = Physics2D.Raycast((Vector2) curPos, Vector2.up, CurrentLaserLength, Layer.LARGE);
-        // RaycastHit2D hit3 = Physics2D.Raycast((Vector2) curPos + _laserHitBoxWidth, Vector2.up, CurrentLaserLength, Layer.LARGE);
-
         //if (hit1.collider || hit2.collider || hit3.collider) // 하나라도 충돌하면
         if (hit.collider) // 하나라도 충돌하면
         {
@@ -143,24 +139,33 @@ public class PlayerLaserRenderer : MonoBehaviour
 
     private void SetLaserLength(float laserLength)
     {
-        foreach (var bodyPolygonUnit in _triggerBody.m_BodyPolygon.m_BodyPolygonUnits)
-        {
-            bodyPolygonUnit.m_BodyPoints[1] = new Vector2(bodyPolygonUnit.m_BodyPoints[1].x, laserLength);
-            bodyPolygonUnit.m_BodyPoints[2] = new Vector2(bodyPolygonUnit.m_BodyPoints[2].x, laserLength);
-        }
-        // _triggerBody.offset = new Vector2(_triggerBody.offset.x, triggerBodyLength / 2f);
-        // _triggerBody.size = new Vector2(_triggerBody.size.x, triggerBodyLength);
+        var bodySize = _triggerBody.m_BodyBox.m_BodySize;
+        bodySize.y = laserLength;
+        var bodyCenter = new Vector2(0f, laserLength / 2f);
+        _triggerBody.SetBoxSize(bodyCenter, bodySize);
+        // foreach (var bodyPolygonUnit in _triggerBody.m_BodyPolygon.m_BodyPolygonUnits)
+        // {
+        //     bodyPolygonUnit.m_BodyPoints[0] = new Vector2(bodyPolygonUnit.m_BodyPoints[0].x, 0f);
+        //     bodyPolygonUnit.m_BodyPoints[1] = new Vector2(bodyPolygonUnit.m_BodyPoints[1].x, laserLength);
+        //     bodyPolygonUnit.m_BodyPoints[2] = new Vector2(bodyPolygonUnit.m_BodyPoints[2].x, laserLength);
+        //     bodyPolygonUnit.m_BodyPoints[3] = new Vector2(bodyPolygonUnit.m_BodyPoints[3].x, 0f);
+        // }
+        // _boxCollider2D.offset = new Vector2(_boxCollider2D.offset.x, laserLength / 2f);
+        // _boxCollider2D.size = new Vector2(_boxCollider2D.size.x, laserLength);
     }
 
     private void SetLaserWidth(float laserWidth)
     {
-        foreach (var bodyPolygonUnit in _triggerBody.m_BodyPolygon.m_BodyPolygonUnits)
-        {
-            bodyPolygonUnit.m_BodyPoints[0] = new Vector2(-laserWidth, bodyPolygonUnit.m_BodyPoints[0].y);
-            bodyPolygonUnit.m_BodyPoints[1] = new Vector2(-laserWidth, bodyPolygonUnit.m_BodyPoints[1].y);
-            bodyPolygonUnit.m_BodyPoints[2] = new Vector2(laserWidth, bodyPolygonUnit.m_BodyPoints[2].y);
-            bodyPolygonUnit.m_BodyPoints[3] = new Vector2(laserWidth, bodyPolygonUnit.m_BodyPoints[3].y);
-        }
+        var bodySize = _triggerBody.m_BodyBox.m_BodySize;
+        bodySize.x = laserWidth;
+        _triggerBody.SetBoxSize(bodySize);
+        // foreach (var bodyPolygonUnit in _triggerBody.m_BodyPolygon.m_BodyPolygonUnits)
+        // {
+        //     bodyPolygonUnit.m_BodyPoints[0] = new Vector2(-laserWidth / 2f, bodyPolygonUnit.m_BodyPoints[0].y);
+        //     bodyPolygonUnit.m_BodyPoints[1] = new Vector2(-laserWidth / 2f, bodyPolygonUnit.m_BodyPoints[1].y);
+        //     bodyPolygonUnit.m_BodyPoints[2] = new Vector2(laserWidth / 2f, bodyPolygonUnit.m_BodyPoints[2].y);
+        //     bodyPolygonUnit.m_BodyPoints[3] = new Vector2(laserWidth / 2f, bodyPolygonUnit.m_BodyPoints[3].y);
+        // }
     }
 
     private void OnStartLaser() {
@@ -191,7 +196,7 @@ public class PlayerLaserRenderer : MonoBehaviour
         
         var hitBoxWidth = laserWidth*0.75f; // 레이저 히트박스 크기 (Raycast도 자동 조절)
         _laserHitBoxWidth = new Vector2(hitBoxWidth, 0.01f);
-        //_triggerBody.size = new Vector2(hitBoxWidth, 0f);
+        //_boxCollider2D.size = new Vector2(hitBoxWidth, 0f);
         
         SetLaserWidth(hitBoxWidth);
     }

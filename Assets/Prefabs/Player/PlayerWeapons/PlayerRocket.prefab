@@ -113,13 +113,17 @@ MonoBehaviour:
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}
     m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0.3, y: 0.75}
   m_BodyPolygon:
     m_BodyPolygonUnits:
     - m_BodyPoints:
       - {x: -0.15, y: -0.375}
-      - {x: -0.15, y: 0.375}
-      - {x: 0.15, y: 0.375}
       - {x: 0.15, y: -0.375}
+      - {x: 0.15, y: 0.375}
+      - {x: -0.15, y: 0.375}
+  m_DebugTriggerBody: []
 --- !u!1 &269455749668587506
 GameObject:
   m_ObjectHideFlags: 0

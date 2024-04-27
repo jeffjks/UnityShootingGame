@@ -351,7 +351,9 @@ MonoBehaviour:
   m_HealthType: 0
   m_DefaultHealth: 30
   m_Collider2D:
-  - {fileID: 8591351326049861345}
+  - {fileID: 4715962483239786651}
+  m_TriggerBodies:
+  - {fileID: 7467823134266735436}
 --- !u!114 &2726026014436905523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +424,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4801907514694639133}
   - component: {fileID: 6971875170565500184}
-  - component: {fileID: 8591351326049861345}
+  - component: {fileID: 4715962483239786651}
+  - component: {fileID: 7467823134266735436}
   m_Layer: 9
   m_Name: Collider
   m_TagString: Enemy
@@ -466,8 +469,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &8591351326049861345
-CapsuleCollider2D:
+--- !u!58 &4715962483239786651
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -476,12 +479,35 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_Size: {x: 0.75, y: 1.25}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -0.125}
+  serializedVersion: 2
+  m_Radius: 0.575
+--- !u!114 &7467823134266735436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4784653345405132788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: -0.125}
+    m_BodyRadius: 0.575
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &5398963806442561224
 GameObject:
   m_ObjectHideFlags: 0

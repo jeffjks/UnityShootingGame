@@ -18,14 +18,12 @@ public class CameraOuterBoundary : MonoBehaviour
     #endif
     
     public TriggerBody m_TriggerBody;
-    
-    private BoxCollider2D _boxCollider2D;
 
-    void Start()
+    private void Start()
     {
-        _boxCollider2D = GetComponent<BoxCollider2D>();
-        
-        SetColliderSize();
+        if (!SystemManager.IsInGame)
+            return;
+        SetTriggerBodySize();
     }
 
     private void OnEnable()
@@ -40,16 +38,18 @@ public class CameraOuterBoundary : MonoBehaviour
         m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
     }
 
-    private void SetColliderSize()
+    private void SetTriggerBodySize()
     {
-        _boxCollider2D.size = new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT);
+        m_TriggerBody.SetBoxSize(new Vector2(Size.MAIN_CAMERA_WIDTH, Size.MAIN_CAMERA_HEIGHT));
     }
 
     private void OnTriggerBodyExit(TriggerBody other)
     {
-        if (InGameDataManager.Instance == null)
-            return;
+        // if (InGameDataManager.Instance == null)
+        //     return;
         if (other.m_TriggerBodyType != TriggerBodyType.PlayerWeapon)
+            return;
+        if (other.CompareTag("PlayerWeapon") == false)
             return;
         
         var otherObject = other.gameObject;

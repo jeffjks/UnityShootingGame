@@ -24439,6 +24439,7 @@ GameObject:
   - component: {fileID: 2238518103982608255}
   - component: {fileID: 6714457375071548078}
   - component: {fileID: 3366579853204337647}
+  - component: {fileID: 3120763542581450944}
   m_Layer: 17
   m_Name: Bomb Damage
   m_TagString: Untagged
@@ -24524,4 +24525,32 @@ MonoBehaviour:
   m_ObjectName: PlayerBomb
   _playerDamageData: {fileID: 11400000, guid: f155fe93d170ddc46b8da169b6b33266, type: 2}
   m_BombDuration: 2000
-  m_BoxCollider2D: {fileID: 6714457375071548078}
+  m_TriggerBody: {fileID: 3120763542581450944}
+--- !u!114 &3120763542581450944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8759294813227080287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 3
+  m_BodyType: 1
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 15.11, y: 16}
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: -7.555, y: -8}
+      - {x: 7.555, y: -8}
+      - {x: 7.555, y: 8}
+      - {x: -7.555, y: 8}
+  m_DebugTriggerBody: []

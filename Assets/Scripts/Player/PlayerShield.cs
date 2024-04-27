@@ -8,7 +8,7 @@ public class PlayerShield : MonoBehaviour {
     public GameObject Ring2;
     public float RotateSpeed;
     public float ShieldOutShineTimeSpace;
-    public const float ShieldRadius = 1.4f;
+    public TriggerBody m_TriggerBody;
 
     private float m_EffectTimer;
     private bool m_IsShining = false;
@@ -16,6 +16,18 @@ public class PlayerShield : MonoBehaviour {
     private float m_OffsetY = 1;
     private Quaternion m_DefaultQuaternion;
     private readonly int _scanningOffsetYPropId = Shader.PropertyToID("_ScanningOffsetY");
+
+    public void OnEnable()
+    {
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
+    }
+
+    public void OnDisable()
+    {
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
+    }
 
 	private void Start ()
     {
@@ -48,5 +60,14 @@ public class PlayerShield : MonoBehaviour {
                 m_IsShining = true;
             }
         }
+    }
+    
+    private void OnTriggerBodyEnter(TriggerBody other) // 충돌 감지
+    {
+        if (other.m_TriggerBodyType != TriggerBodyType.Bullet)
+            return;
+        
+        var enemyBullet = other.gameObject.GetComponentInParent<EnemyBullet>();
+        enemyBullet.PlayEraseAnimation();
     }
 }

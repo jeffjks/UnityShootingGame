@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Score: 200
   m_IsRoot: 1
   m_Turret: {fileID: 5695442319512339495}
-  m_HealthPercentTurretDestroying: 0
+  m_HealthRatioScaledTurretDestroying: 0
 --- !u!114 &3224080496378450585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +506,9 @@ MonoBehaviour:
   m_HealthType: 0
   m_DefaultHealth: 700
   m_Collider2D:
-  - {fileID: 6376402927573840258}
+  - {fileID: 2859812721581495818}
+  m_TriggerBodies:
+  - {fileID: 1476763882291246812}
 --- !u!114 &7427637404073788237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,7 +760,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4977465660784268871}
   - component: {fileID: 649866041847052463}
-  - component: {fileID: 6376402927573840258}
+  - component: {fileID: 2859812721581495818}
+  - component: {fileID: 1476763882291246812}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -802,8 +805,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &6376402927573840258
-CapsuleCollider2D:
+--- !u!61 &2859812721581495818
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -812,12 +815,50 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1.6}
-  m_Direction: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.25}
+  m_EdgeRadius: 0
+--- !u!114 &1476763882291246812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217523165732191294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 1
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 1, y: 1.25}
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: -0.5, y: -0.625}
+      - {x: 0.5, y: -0.625}
+      - {x: 0.5, y: 0.625}
+      - {x: -0.5, y: 0.625}
+  m_DebugTriggerBody: []
 --- !u!1 &8559114021025441125
 GameObject:
   m_ObjectHideFlags: 0

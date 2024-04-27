@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +11,7 @@ public class TriggerBody : MonoBehaviour
     public enum BodyType
     {
         Circle,
+        Box,
         Polygon,
     }
 
@@ -18,6 +20,9 @@ public class TriggerBody : MonoBehaviour
 
     [DrawIf("m_BodyType", BodyType.Circle, ComparisonType.Equals)]
     public BodyCircle m_BodyCircle = new();
+
+    [DrawIf("m_BodyType", BodyType.Box, ComparisonType.Equals)]
+    public BodyBox m_BodyBox = new();
     
     [DrawIf("m_BodyType", BodyType.Polygon, ComparisonType.Equals)]
     public BodyPolygon m_BodyPolygon = new();
@@ -28,16 +33,31 @@ public class TriggerBody : MonoBehaviour
 
     public BodyCircle TransformedBodyCircle => GetTransformedBody(m_BodyCircle);
     public BodyPolygon TransformedBodyPolygon => GetTransformedBody(m_BodyPolygon);
+    public BodyType BodyTypeForComparison { get; private set; }
 
-    private HashSet<TriggerBody> _triggerBodySet = new();
+    private readonly HashSet<TriggerBody> _triggerBodySet = new();
 
 #if UNITY_EDITOR
+    public List<TriggerBody> m_DebugTriggerBody = new();
+    
+    private void Update()
+    {
+        m_DebugTriggerBody = _triggerBodySet.ToList();
+    }
+    
     private void OnDrawGizmosSelected()
     {
+        if (enabled == false)
+            return;
+        
         switch (m_BodyType)
         {
             case BodyType.Circle:
                 DrawCircleGizmos();
+                break;
+            case BodyType.Box:
+                m_BodyPolygon = new BodyPolygon(m_BodyBox);
+                DrawPolygonGizmos();
                 break;
             case BodyType.Polygon:
                 DrawPolygonGizmos();
@@ -108,6 +128,19 @@ public class TriggerBody : MonoBehaviour
     }
 #endif
 
+    private void Start()
+    {
+        if (m_BodyType == BodyType.Box)
+        {
+            m_BodyPolygon = new BodyPolygon(m_BodyBox);
+            BodyTypeForComparison = BodyType.Polygon;
+        }
+        else
+        {
+            BodyTypeForComparison = m_BodyType;
+        }
+    }
+
     private BodyCircle GetTransformedBody(BodyCircle bodyCircle)
     {
         var newBodyCircle = new BodyCircle();
@@ -149,22 +182,25 @@ public class TriggerBody : MonoBehaviour
 
     public void OnTriggerBodyCollision(TriggerBody other, bool result)
     {
-        var isContain = _triggerBodySet.Contains(other);
+        if (isActiveAndEnabled == false || other.isActiveAndEnabled == false)
+            return;
         if (result)
         {
-            if (isContain)
+            var isAdded = _triggerBodySet.Add(other);
+            if (isAdded == false)
                 return;
-            _triggerBodySet.Add(other);
+            other._triggerBodySet.Add(this);
             m_OnTriggerBodyEnter?.Invoke(other);
-            //Debug.Log($"{this} OnTriggerBodyCollisionEnter: {other}");
+            //Debug.Log($"{transform.parent.gameObject.name} OnTriggerBodyCollisionEnter: {other.transform.parent.gameObject.name}");
         }
         else
         {
-            if (!isContain)
+            var isRemoved = _triggerBodySet.Remove(other);
+            if (isRemoved == false)
                 return;
-            _triggerBodySet.Remove(other);
+            other._triggerBodySet.Remove(this);
             m_OnTriggerBodyExit?.Invoke(other);
-            //Debug.Log($"{this} OnTriggerBodyCollisionExit: {other}");
+            //Debug.Log($"{transform.parent.gameObject.name} OnTriggerBodyCollisionExit: {other.transform.parent.gameObject.name}");
         }
     }
 
@@ -175,6 +211,71 @@ public class TriggerBody : MonoBehaviour
             m_OnTriggerBodyStay?.Invoke(triggerBody);
             //Debug.Log($"{this} OnTriggerBodyCollisionStay: {triggerBody}");
         }
+    }
+
+    public void SetCircleSize(float radius)
+    {
+        if (m_BodyType != BodyType.Circle)
+        {
+            Debug.LogError($"Trying to set body box size to wrong body type!");
+            return;
+        }
+
+        m_BodyCircle.m_BodyRadius = radius;
+    }
+
+    public void SetBoxSize(Vector2 bodySize)
+    {
+        if (m_BodyType != BodyType.Box)
+        {
+            Debug.LogError($"Trying to set body box size to wrong body type!");
+            return;
+        }
+        m_BodyBox.m_BodySize = bodySize;
+        var bodyCenter = m_BodyBox.m_BodyCenter;
+        var bodyPoints = m_BodyPolygon.m_BodyPolygonUnits[0].m_BodyPoints;
+        
+        var halfWidth = bodySize.x / 2f;
+        var halfHeight = bodySize.y / 2f;
+        bodyPoints[0] = new Vector2(bodyCenter.x - halfWidth, bodyCenter.y - halfHeight);
+        bodyPoints[1] = new Vector2(bodyCenter.x + halfWidth, bodyCenter.y - halfHeight);
+        bodyPoints[2] = new Vector2(bodyCenter.x + halfWidth, bodyCenter.y + halfHeight);
+        bodyPoints[3] = new Vector2(bodyCenter.x - halfWidth, bodyCenter.y + halfHeight);
+    }
+
+    public void SetBoxSize(Vector2 bodyCenter, Vector2 bodySize)
+    {
+        if (m_BodyType != BodyType.Box)
+        {
+            Debug.LogError($"Trying to set body box size to wrong body type!");
+            return;
+        }
+        m_BodyBox.m_BodySize = bodySize;
+        m_BodyBox.m_BodyCenter = bodyCenter;
+        var bodyPoints = m_BodyPolygon.m_BodyPolygonUnits[0].m_BodyPoints;
+        
+        var halfWidth = bodySize.x / 2f;
+        var halfHeight = bodySize.y / 2f;
+        bodyPoints[0] = new Vector2(bodyCenter.x - halfWidth, bodyCenter.y - halfHeight);
+        bodyPoints[1] = new Vector2(bodyCenter.x + halfWidth, bodyCenter.y - halfHeight);
+        bodyPoints[2] = new Vector2(bodyCenter.x + halfWidth, bodyCenter.y + halfHeight);
+        bodyPoints[3] = new Vector2(bodyCenter.x - halfWidth, bodyCenter.y + halfHeight);
+    }
+    
+    private void OnDisable()
+    {
+        foreach (var triggerBody in _triggerBodySet)
+        {
+            if (gameObject.CompareTag("Enemy"))
+            {
+            }
+            triggerBody._triggerBodySet.Remove(this);
+            //Debug.LogError($"{gameObject.name} triggerBodySet removed {isRemoved}: {triggerBody}");
+        }
+        _triggerBodySet.Clear();
+#if UNITY_EDITOR
+        m_DebugTriggerBody.Clear();
+#endif
     }
 }
 
@@ -200,6 +301,27 @@ public class BodyCircle
 }
 
 [Serializable]
+public class BodyBox
+{
+    public Vector2 m_BodyCenter;
+    public Vector2 m_BodySize;
+    
+    public BodyBox() {}
+
+    public BodyBox(Vector2 bodyCenter, Vector2 bodySize)
+    {
+        m_BodyCenter = bodyCenter;
+        m_BodySize = bodySize;
+    }
+
+    public BodyBox(BodyBox bodyBox)
+    {
+        m_BodyCenter = bodyBox.m_BodyCenter;
+        m_BodySize = bodyBox.m_BodySize;
+    }
+}
+
+[Serializable]
 public class BodyPolygon
 {
     public List<BodyPolygonUnit> m_BodyPolygonUnits = new();
@@ -209,6 +331,24 @@ public class BodyPolygon
     public BodyPolygon(List<BodyPolygonUnit> bodyPolygonUnits)
     {
         m_BodyPolygonUnits = bodyPolygonUnits;
+    }
+
+    public BodyPolygon(BodyBox bodyBox)
+    {
+        var halfWidth = bodyBox.m_BodySize.x / 2f;
+        var halfHeight = bodyBox.m_BodySize.y / 2f;
+        List<Vector2> bodyPoints = new()
+        {
+            new Vector2(bodyBox.m_BodyCenter.x - halfWidth, bodyBox.m_BodyCenter.y - halfHeight),
+            new Vector2(bodyBox.m_BodyCenter.x + halfWidth, bodyBox.m_BodyCenter.y - halfHeight),
+            new Vector2(bodyBox.m_BodyCenter.x + halfWidth, bodyBox.m_BodyCenter.y + halfHeight),
+            new Vector2(bodyBox.m_BodyCenter.x - halfWidth, bodyBox.m_BodyCenter.y + halfHeight),
+        };
+        var bodyPolygonUnit = new BodyPolygonUnit(bodyPoints);
+        m_BodyPolygonUnits = new()
+        {
+            bodyPolygonUnit
+        };
     }
 }
 

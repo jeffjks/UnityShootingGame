@@ -156,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4823037082858435430}
   - component: {fileID: 7990827970895004786}
-  - component: {fileID: 9105284686158540672}
+  - component: {fileID: 8481723060827923668}
   m_Layer: 17
   m_Name: PlayerShield
   m_TagString: Untagged
@@ -199,22 +199,30 @@ MonoBehaviour:
   Ring2: {fileID: 569092495615570737}
   RotateSpeed: 15
   ShieldOutShineTimeSpace: 0
---- !u!58 &9105284686158540672
-CircleCollider2D:
+  m_TriggerBody: {fileID: 8481723060827923668}
+--- !u!114 &8481723060827923668
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3661508672885173497}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.3
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 0
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0.3
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &3907003548164574881
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,8 +232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3189561362742921202}
-  - component: {fileID: 8822412310277666794}
-  - component: {fileID: 8689824218996545568}
   - component: {fileID: 2559162095799568032}
   - component: {fileID: 5187105040290786053}
   - component: {fileID: 3874688915493209252}
@@ -252,53 +258,6 @@ Transform:
   m_Father: {fileID: 3812857445495274913}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!50 &8822412310277666794
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3907003548164574881}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &8689824218996545568
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3907003548164574881}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &2559162095799568032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,13 +314,17 @@ MonoBehaviour:
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}
     m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 1, y: 1}
   m_BodyPolygon:
     m_BodyPolygonUnits:
     - m_BodyPoints:
       - {x: -0.5, y: -0.5}
-      - {x: -0.5, y: 0.5}
-      - {x: 0.5, y: 0.5}
       - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: 0.5}
+      - {x: -0.5, y: 0.5}
+  m_DebugTriggerBody: []
 --- !u!1 &4363554286392401575
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,13 +890,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerBodyType: 2
+  m_TriggerBodyType: 4
   m_BodyType: 0
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}
     m_BodyRadius: 1
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
   m_BodyPolygon:
     m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &8289629652738031444
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,13 +946,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerBodyType: 0
+  m_TriggerBodyType: 2
   m_BodyType: 0
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}
     m_BodyRadius: 0.008
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
   m_BodyPolygon:
     m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1001 &2109210845105369903
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,13 +21,59 @@ public class PlayerLaserAura : PlayerObject
     public void OnEnable()
     {
         SimulationManager.AddTriggerBody(m_TriggerBody);
-        m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
+        m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
+        m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
+        //m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
     }
 
     public void OnDisable()
     {
         SimulationManager.RemoveTriggerBody(m_TriggerBody);
-        m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
+        m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
+        m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
+        //m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
+    }
+
+    private void OnTriggerBodyEnter(TriggerBody other) // 충돌 감지
+    {
+        if (m_PlayerUnit.SlowMode == false)
+            return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
+        
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+            
+        if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
+        {
+            var enemyHealth = enemyUnit.m_EnemyHealth;
+            var damageScale = _playerDamageData.damageScale[enemyUnit.m_EnemyType];
+            var damageType = _playerDamageData.playerDamageType;
+            var tickDamageContext = new TickDamageContext(Damage, damageScale, damageType);
+            enemyHealth.AddTickDamageContext(m_ObjectName, tickDamageContext);
+        }
+        else // 소형이면
+        {
+            if (enemyUnit.m_EnemyDeath.IsDead)
+                return;
+            enemyUnit.m_EnemyDeath.KillEnemy();
+            HitCountController.Instance.AddHitCount();
+        }
+    }
+
+    private void OnTriggerBodyExit(TriggerBody other) // 충돌 감지
+    {
+        if (m_PlayerUnit.SlowMode == false)
+            return;
+        if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
+            return;
+        
+        var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
+            
+        if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
+        {
+            var enemyHealth = enemyUnit.m_EnemyHealth;
+            enemyHealth.RemoveTickDamageContext(m_ObjectName);
+        }
     }
 
     private void OnTriggerBodyStay(TriggerBody other) // 충돌 감지

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum TriggerBodyType
@@ -29,11 +31,13 @@ public class SimulationManager : MonoBehaviour
         { TriggerBodyType.PlayerLarge, new () },
         { TriggerBodyType.Enemy, new () },
         { TriggerBodyType.Bullet, new () },
+        { TriggerBodyType.Item, new () },
+        { TriggerBodyType.Debris, new () },
     };
 
     private static readonly Queue<TriggerBody> TriggerBodiesToRemove = new();
 
-    private List<TriggerBodyType> _triggerBodyTypes = new()
+    private readonly List<TriggerBodyType> _triggerBodyTypes = new()
     {
         TriggerBodyType.GameBoundary,
         TriggerBodyType.CameraBoundary,
@@ -49,8 +53,7 @@ public class SimulationManager : MonoBehaviour
         SimulateOnTriggerBodyInit();
 
         RemoveTriggerBody();
-
-        SimulateOnTriggerBodyStay();
+        //SimulateOnTriggerBodyStay();
     }
 
     private void SimulateMovement()
@@ -96,6 +99,8 @@ public class SimulationManager : MonoBehaviour
             {
                 foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
                 {
+                    if (triggerBody == null || otherTriggerBody == null)
+                        continue;
                     TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
                 }
             }
@@ -106,6 +111,10 @@ public class SimulationManager : MonoBehaviour
     {
         switch (triggerBodyType)
         {
+            case TriggerBodyType.GameBoundary:
+                return m_TriggerDatas.gameBoundaryTriggerList;
+            case TriggerBodyType.CameraBoundary:
+                return m_TriggerDatas.cameraBoundaryTriggerList;
             case TriggerBodyType.PlayerCenter:
                 return m_TriggerDatas.playerCenterTriggerList;
             case TriggerBodyType.PlayerWeapon:
@@ -113,6 +122,7 @@ public class SimulationManager : MonoBehaviour
             case TriggerBodyType.PlayerLarge:
                 return m_TriggerDatas.playerLargeTriggerList;
             default:
+                Debug.LogError($"Unknown trigger body type detected: {triggerBodyType}");
                 return new();
         }
     }

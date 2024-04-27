@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Score: 500
   m_IsRoot: 1
   m_Turret: {fileID: 7724076099190385701}
-  m_HealthPercentTurretDestroying: 0
+  m_HealthRatioScaledTurretDestroying: 0
 --- !u!114 &3806967069370981789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +424,8 @@ MonoBehaviour:
   m_DefaultHealth: 1400
   m_Collider2D:
   - {fileID: 8455782903374224084}
+  m_TriggerBodies:
+  - {fileID: 6707851064060663243}
 --- !u!114 &515412261101433539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,6 +495,7 @@ GameObject:
   - component: {fileID: 3400842780292548288}
   - component: {fileID: 1773449819565641772}
   - component: {fileID: 8455782903374224084}
+  - component: {fileID: 6707851064060663243}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -562,6 +565,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.2, y: 3.2}
   m_EdgeRadius: 0
+--- !u!114 &6707851064060663243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493884270525782264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 1
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 3.2, y: 3.2}
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: -1.6, y: -1.6}
+      - {x: 1.6, y: -1.6}
+      - {x: 1.6, y: 1.6}
+      - {x: -1.6, y: 1.6}
+  m_DebugTriggerBody: []
 --- !u!1 &611414361245105371
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,16 @@ public abstract class Item : UnitObject, IHasGroundCollider
 
     protected abstract void ItemEffect(PlayerUnit playerUnit);
     protected abstract void OnItemRemoved();
+
+    public void OnEnable()
+    {
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+    }
+
+    public void OnDisable()
+    {
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+    }
     
     protected virtual void Update()
     {

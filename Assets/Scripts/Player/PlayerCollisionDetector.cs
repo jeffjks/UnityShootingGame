@@ -16,7 +16,6 @@ public class PlayerCollisionDetector : PlayerObject
     {
         _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
         
-        m_TriggerBodyCenter = GetComponent<TriggerBody>();
         _playerController = GetComponent<PlayerController>();
 
         PlayerManager.Action_OnPlayerRevive += ResetCollisionState;

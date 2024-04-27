@@ -829,6 +829,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugObject
       objectReference: {fileID: 0}
+    - target: {fileID: 1581038804045404303, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2951906547800564425, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1212,6 +1217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DebugObject (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581038804045404303, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}

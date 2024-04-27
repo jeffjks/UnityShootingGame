@@ -8,6 +8,20 @@ public interface IHasGroundCollider
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation);
 }
 
+public struct TickDamageContext
+{
+    public int defaultDamage;
+    public int damageScale;
+    public PlayerDamageType damageType;
+
+    public TickDamageContext(int defaultDamage, int damageScale, PlayerDamageType damageType)
+    {
+        this.defaultDamage = defaultDamage;
+        this.damageScale = damageScale;
+        this.damageType = damageType;
+    }
+}
+
 [RequireComponent(typeof(EnemyColorBlender))]
 public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 {
@@ -17,7 +31,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     [DrawIf("m_HealthType", HealthType.Share, ComparisonType.NotEqual)]
     [SerializeField] private int m_DefaultHealth = -1;
     [SerializeField] private Collider2D[] m_Collider2D; // 지상 적 콜라이더 보정 및 충돌 체크
-    [SerializeField] private TriggerBody m_TriggerBody;
+    [SerializeField] private TriggerBody[] m_TriggerBodies;
 
     public event Action Action_LowHealthState;
     public event Action Action_DamagingBlend;
@@ -29,6 +43,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     private bool _isLowHealthState;
     private bool _isInvincible;
     private int _remainingFrame;
+    private readonly Dictionary<string, TickDamageContext> _damageContextDict = new();
 
     public int CurrentHealth
     {
@@ -84,12 +99,18 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
     private void OnEnable()
     {
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        foreach (var triggerBody in m_TriggerBodies)
+        {
+            SimulationManager.AddTriggerBody(triggerBody);
+        }
     }
 
     private void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        foreach (var triggerBody in m_TriggerBodies)
+        {
+            SimulationManager.RemoveTriggerBody(triggerBody);
+        }
     }
 
     private void Update()
@@ -107,6 +128,8 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         {
             _isInvincible = false;
         }
+        
+        TakeTickDamage();
     }
 
     private void LateUpdate()
@@ -172,21 +195,25 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         return false;
     }
 
-    public void SetActiveColliders(bool state) {
-        if (m_Collider2D.Length == 0)
-            return;
-        foreach (var colliderItem in m_Collider2D)
+    public void SetActiveColliders(bool state)
+    {
+        foreach (var triggerBody in m_TriggerBodies)
         {
-            colliderItem.gameObject.SetActive(state);
-            //colliderItem.enabled = state;
+            triggerBody.gameObject.SetActive(state);
         }
     }
 
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation)
     {
-        foreach (var colliderItem in m_Collider2D)
+        // foreach (var colliderItem in m_Collider2D)
+        // {
+        //     var colliderTransform = colliderItem.transform;
+        //     colliderTransform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
+        //     colliderTransform.rotation = screenRotation;
+        // }
+        foreach (var triggerBody in m_TriggerBodies)
         {
-            var colliderTransform = colliderItem.transform;
+            var colliderTransform = triggerBody.transform;
             colliderTransform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
             colliderTransform.rotation = screenRotation;
         }
@@ -196,7 +223,7 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     {
         int frame = (millisecond == -1) ? -1 : millisecond * Application.targetFrameRate / 1000;
         
-        if (m_Collider2D.Length == 0)
+        if (m_TriggerBodies.Length == 0)
             return;
         if (frame < _remainingFrame && frame != -1)
             return;
@@ -242,5 +269,27 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     public void WriteReplayHealthData()
     {
         //ReplayManager.WriteReplayEnemyHealth(EnemyId, CurrentHealth);
+    }
+    
+    private void TakeTickDamage()
+    {
+        foreach (var item in _damageContextDict)
+        {
+            var damageContext = item.Value;
+            var finalDamage = damageContext.defaultDamage * damageContext.damageScale / 100;
+            var damageType = damageContext.damageType;
+            TakeDamage(finalDamage, damageType);
+            HitCountController.Instance.HitCountLaserCounter++;
+        }
+    }
+
+    public void AddTickDamageContext(string key, TickDamageContext tickDamageContext)
+    {
+        _damageContextDict.TryAdd(key, tickDamageContext);
+    }
+
+    public void RemoveTickDamageContext(string key)
+    {
+        _damageContextDict.Remove(key);
     }
 }

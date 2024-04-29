@@ -17,27 +17,21 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
     {
         SetRotatePattern(new RotatePattern_MoveDirection());
 
-        // if (SystemManager.GameMode != GameMode.Replay)
         m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 0:
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 330) // 체력 33% 이하
-                        return;
-                    break;
-                default:
+            case 0:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 330) // 체력 33% 이하
                     return;
-            }
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
             
         _phase = 2;
         if (m_SubTurrets[0] != null)
@@ -50,9 +44,6 @@ public class EnemyTankLarge1 : EnemyUnit, IHasPhase
         m_RotateAnimator.SetTrigger(_rotateAnimationTrigger);
         _isSubTurretStart = true;
         StartPattern("B", new EnemyTankLarge1_BulletPattern_B(this));
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
     
     protected override void Update()

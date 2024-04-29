@@ -18,6 +18,7 @@ public class PlayerLaser : PlayerObject
         DamageLevel = m_PlayerUnit.PlayerAttackLevel;
         
         _playerLaserHandler.Action_OnLaserIndexChanged += UpdateLaserIndex;
+        _playerLaserHandler.Action_OnStopLaser += RemoveAllTickDamageContext;
         m_PlayerUnit.Action_OnUpdatePlayerAttackLevel += UpdatePlayerAttackLevel;
     }
 
@@ -101,28 +102,13 @@ public class PlayerLaser : PlayerObject
         }
     }
 
-    // private void OnTriggerBodyStay(TriggerBody other) // 충돌 감지
-    // {
-    //     if (m_PlayerUnit.SlowMode == false)
-    //         return;
-    //     if (other.m_TriggerBodyType != TriggerBodyType.Enemy)
-    //         return;
-    //     
-    //     var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-    //         
-    //     if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
-    //     {
-    //         DealDamage(enemyUnit);
-    //         HitCountController.Instance.HitCountLaserCounter++;
-    //     }
-    //     else // 소형이면
-    //     {
-    //         if (enemyUnit.m_EnemyDeath.IsDead)
-    //             return;
-    //         enemyUnit.m_EnemyDeath.KillEnemy();
-    //         HitCountController.Instance.AddHitCount();
-    //     }
-    // }
+    private void RemoveAllTickDamageContext()
+    {
+        foreach (var triggerBody in m_TriggerBody.TriggerBodySet)
+        {
+            OnTriggerBodyExit(triggerBody);
+        }
+    }
 
     // private void OnTriggerStay2D(Collider2D other) // 충돌 감지
     // {
@@ -147,82 +133,6 @@ public class PlayerLaser : PlayerObject
     //         }
     //     }
     // }
-
-    
-    /*
-    private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
-    {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-        if (m_PlayerUnit.SlowMode == false)
-            return;
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-            TriggerEnter(enemyUnit);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other) // 충돌 감지
-    {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-            TriggerExit(enemyUnit);
-        }
-    }
-
-    public override void ExecuteCollisionEnter(int id)
-    {
-        var enemyUnit = EnemyIdList[id] as EnemyUnit;
-
-        if (enemyUnit == null)
-        {
-            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
-            return;
-        }
-
-        TriggerEnter(enemyUnit);
-    }
-
-    public override void ExecuteCollisionExit(int id)
-    {
-        var enemyUnit = EnemyIdList[id] as EnemyUnit;
-
-        if (enemyUnit == null)
-        {
-            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
-            return;
-        }
-
-        TriggerExit(enemyUnit);
-    }
-
-    private void TriggerEnter(EnemyUnit enemyUnit)
-    {
-        if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
-        {
-            _enemyList.Add(enemyUnit);
-        }
-        else // 소형이면
-        {
-            if (enemyUnit.m_EnemyDeath.KillEnemy())
-                HitCountController.Instance.AddHitCount();
-        }
-    }
-
-    private void TriggerExit(EnemyUnit enemyUnit)
-    {
-        if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
-        {
-            _enemyList.Remove(enemyUnit);
-        }
-    }
-    */
 
     private void UpdateLaserIndex()
     {

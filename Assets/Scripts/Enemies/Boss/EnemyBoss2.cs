@@ -31,7 +31,6 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
 
-        // if (SystemManager.GameMode != GameMode.Replay)
         m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
@@ -86,28 +85,23 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 625) // 체력 62.5% 이하
-                        return;
-                    break;
-                case 2:
-                    if (m_EnemyHealth.HealthRatioScaled > 250) // 체력 25% 이하
-                        return;
-                    break;
-                case 3:
-                    if (m_EnemyHealth.CurrentHealth > 7000) // 체력 7000 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 625) // 체력 62.5% 이하
                     return;
-            }
+                break;
+            case 2:
+                if (m_EnemyHealth.HealthRatioScaled > 250) // 체력 25% 이하
+                    return;
+                break;
+            case 3:
+                if (m_EnemyHealth.CurrentHealth > 7000) // 체력 7000 이하
+                    return;
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
         
         if (_phase == 1) { // Phase 1 to 2
             if (m_CurrentPhase != null)
@@ -150,9 +144,6 @@ public class EnemyBoss2 : EnemyUnit, IEnemyBossMain, IHasPhase
             BulletManager.SetBulletFreeState(2000);
         }
         _phase++;
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================

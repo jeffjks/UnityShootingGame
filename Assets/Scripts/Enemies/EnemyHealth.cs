@@ -92,7 +92,8 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         }
         _enemyDeath = GetComponent<EnemyDeath>();
         
-        CurrentHealth = m_DefaultHealth;
+        if (m_HealthType != HealthType.Share)
+            CurrentHealth = m_DefaultHealth;
         
         ResetIsTakingDamage();
     }
@@ -173,9 +174,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
         if (m_DefaultHealth >= 0f) {
             CurrentHealth -= amount;
 
-            //if (SystemManager.GameMode == GameMode.Replay) // Only for game play
-                //return;
-
             if (CurrentHealth <= 0)
                 OnHpZero();
         }
@@ -205,12 +203,12 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
 
     public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation)
     {
-        // foreach (var colliderItem in m_Collider2D)
-        // {
-        //     var colliderTransform = colliderItem.transform;
-        //     colliderTransform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
-        //     colliderTransform.rotation = screenRotation;
-        // }
+        foreach (var colliderItem in m_Collider2D)
+        {
+            var colliderTransform = colliderItem.transform;
+            colliderTransform.position = new Vector3(screenPosition.x, screenPosition.y, Depth.ENEMY);
+            colliderTransform.rotation = screenRotation;
+        }
         foreach (var triggerBody in m_TriggerBodies)
         {
             var colliderTransform = triggerBody.transform;
@@ -259,16 +257,10 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     {
         if (_enemyDeath.IsDead)
             return;
-
-        WriteReplayHealthData();
+        
         _enemyDeath.KillEnemy();
         
         HitCountController.Instance.AddHitCount();
-    }
-
-    public void WriteReplayHealthData()
-    {
-        //ReplayManager.WriteReplayEnemyHealth(EnemyId, CurrentHealth);
     }
     
     private void TakeTickDamage()

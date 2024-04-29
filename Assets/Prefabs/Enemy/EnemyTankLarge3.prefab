@@ -262,6 +262,8 @@ MonoBehaviour:
   m_DefaultHealth: 5000
   m_Collider2D:
   - {fileID: 7741329550041444642}
+  m_TriggerBodies:
+  - {fileID: 4400553684422854496}
 --- !u!114 &7427637404073788237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,10 +1206,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3629468124205707341}
-  - component: {fileID: 7774088995521769332}
   - component: {fileID: 7741329550041444642}
+  - component: {fileID: 4400553684422854496}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,27 +1230,6 @@ Transform:
   m_Father: {fileID: 6664143209562317660}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &7774088995521769332
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8924425901345374858}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &7741329550041444642
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1259,7 +1240,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1275,3 +1256,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.75, y: 4.4}
   m_EdgeRadius: 0
+--- !u!114 &4400553684422854496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8924425901345374858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 1
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 3.75, y: 4.4}
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: -1.875, y: -2.2}
+      - {x: 1.875, y: -2.2}
+      - {x: 1.875, y: 2.2}
+      - {x: -1.875, y: 2.2}
+  m_DebugTriggerBody: []

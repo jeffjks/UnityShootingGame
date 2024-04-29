@@ -35,14 +35,14 @@ public class TriggerBody : MonoBehaviour
     public BodyPolygon TransformedBodyPolygon => GetTransformedBody(m_BodyPolygon);
     public BodyType BodyTypeForComparison { get; private set; }
 
-    private readonly HashSet<TriggerBody> _triggerBodySet = new();
+    public HashSet<TriggerBody> TriggerBodySet { get; } = new();
 
 #if UNITY_EDITOR
     public List<TriggerBody> m_DebugTriggerBody = new();
     
     private void Update()
     {
-        m_DebugTriggerBody = _triggerBodySet.ToList();
+        m_DebugTriggerBody = TriggerBodySet.ToList();
     }
     
     private void OnDrawGizmosSelected()
@@ -186,19 +186,19 @@ public class TriggerBody : MonoBehaviour
             return;
         if (result)
         {
-            var isAdded = _triggerBodySet.Add(other);
+            var isAdded = TriggerBodySet.Add(other);
             if (isAdded == false)
                 return;
-            other._triggerBodySet.Add(this);
+            other.TriggerBodySet.Add(this);
             m_OnTriggerBodyEnter?.Invoke(other);
             //Debug.Log($"{transform.parent.gameObject.name} OnTriggerBodyCollisionEnter: {other.transform.parent.gameObject.name}");
         }
         else
         {
-            var isRemoved = _triggerBodySet.Remove(other);
+            var isRemoved = TriggerBodySet.Remove(other);
             if (isRemoved == false)
                 return;
-            other._triggerBodySet.Remove(this);
+            other.TriggerBodySet.Remove(this);
             m_OnTriggerBodyExit?.Invoke(other);
             //Debug.Log($"{transform.parent.gameObject.name} OnTriggerBodyCollisionExit: {other.transform.parent.gameObject.name}");
         }
@@ -206,7 +206,7 @@ public class TriggerBody : MonoBehaviour
 
     public void OnTriggerBodyCollisionStay()
     {
-        foreach (var triggerBody in _triggerBodySet)
+        foreach (var triggerBody in TriggerBodySet)
         {
             m_OnTriggerBodyStay?.Invoke(triggerBody);
             //Debug.Log($"{this} OnTriggerBodyCollisionStay: {triggerBody}");
@@ -264,15 +264,12 @@ public class TriggerBody : MonoBehaviour
     
     private void OnDisable()
     {
-        foreach (var triggerBody in _triggerBodySet)
+        foreach (var triggerBody in TriggerBodySet)
         {
-            if (gameObject.CompareTag("Enemy"))
-            {
-            }
-            triggerBody._triggerBodySet.Remove(this);
+            triggerBody.TriggerBodySet.Remove(this);
             //Debug.LogError($"{gameObject.name} triggerBodySet removed {isRemoved}: {triggerBody}");
         }
-        _triggerBodySet.Clear();
+        TriggerBodySet.Clear();
 #if UNITY_EDITOR
         m_DebugTriggerBody.Clear();
 #endif

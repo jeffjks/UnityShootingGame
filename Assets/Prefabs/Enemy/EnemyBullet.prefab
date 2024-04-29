@@ -1,82 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1121669127070940877
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5564972122749262219}
-  - component: {fileID: 5310439396215657491}
-  - component: {fileID: 6136908546741096029}
-  m_Layer: 13
-  m_Name: TriggerBodyCapsule
-  m_TagString: EnemyBullet
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &5564972122749262219
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121669127070940877}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8701620228518338747}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &5310439396215657491
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121669127070940877}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.16, y: 0.4}
-  m_Direction: 0
---- !u!114 &6136908546741096029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121669127070940877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerBodyType: 6
-  m_BodyType: 1
-  m_BodyCircle:
-    m_BodyCenter: {x: 0, y: 0}
-    m_BodyRadius: 0.143
-  m_BodyBox:
-    m_BodyCenter: {x: 0, y: 0}
-    m_BodySize: {x: 0.16, y: 0.375}
-  m_BodyPolygon:
-    m_BodyPolygonUnits:
-    - m_BodyPoints:
-      - {x: -0.08, y: -0.1875}
-      - {x: 0.08, y: -0.1875}
-      - {x: 0.08, y: 0.1875}
-      - {x: -0.08, y: 0.1875}
-  m_DebugTriggerBody: []
 --- !u!1 &2764002629251384728
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,8 +158,7 @@ MonoBehaviour:
   m_FirePosition: []
   m_ObjectName: EnemyBullet
   m_BulletData: {fileID: 11400000, guid: 5be4c033938ddf34b97637aad25a2d06, type: 2}
-  m_TriggerBodyCircle: {fileID: 299702439133252784}
-  m_TriggerBodyCapsule: {fileID: 6136908546741096029}
+  m_TriggerBody: {fileID: 299702439133252784}
   m_EraseAnimator:
   - {fileID: 8766502603699766989}
   - {fileID: 7679216333724276709}
@@ -378,7 +300,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4044363865258385344}
-  - {fileID: 5564972122749262219}
   m_Father: {fileID: 3062199160004300717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -464,15 +385,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4044363865258385344}
-  - component: {fileID: 3717022899659808088}
   - component: {fileID: 299702439133252784}
   m_Layer: 13
-  m_Name: TriggerBodyCircle
+  m_Name: TriggerBody
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4044363865258385344
 Transform:
   m_ObjectHideFlags: 0
@@ -488,22 +408,6 @@ Transform:
   m_Father: {fileID: 8701620228518338747}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3717022899659808088
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8018366301954423330}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.143
 --- !u!114 &299702439133252784
 MonoBehaviour:
   m_ObjectHideFlags: 0

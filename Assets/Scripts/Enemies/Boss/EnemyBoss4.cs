@@ -44,7 +44,6 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
         _trackMaterial = m_Track.material;
         _childEnemyUnits = GetComponentsInChildren<EnemyUnit>();
         
-        // if (SystemManager.GameMode != GameMode.Replay)
         m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
@@ -124,24 +123,19 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 650) // 체력 65% 이하
-                        return;
-                    break;
-                case 2:
-                    if (m_EnemyHealth.HealthRatioScaled > 250) // 체력 25% 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 650) // 체력 65% 이하
                     return;
-            }
+                break;
+            case 2:
+                if (m_EnemyHealth.HealthRatioScaled > 250) // 체력 25% 이하
+                    return;
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
         
         m_SubTurrets[0].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
         m_SubTurrets[1].SetRotatePattern(new RotatePattern_TargetPlayer(130f, 100f));
@@ -168,9 +162,6 @@ public class EnemyBoss4 : EnemyUnit, IEnemyBossMain, IHasPhase
             StartCoroutine(m_CurrentPhase);
         }
         _phase++;
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private IEnumerator Phase1() { // 페이즈1 패턴 ============================

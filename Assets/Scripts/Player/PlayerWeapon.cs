@@ -85,8 +85,6 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     
     // private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     // {
-    //     // if (SystemManager.GameMode == GameMode.Replay)
-    //     //     return;
     //     // if (_appliedDamage)
     //     //     return;
     //     

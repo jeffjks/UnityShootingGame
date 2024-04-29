@@ -26,7 +26,6 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
         StartCoroutine(AppearanceSequence());
 
-        // if (SystemManager.GameMode != GameMode.Replay)
         m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
@@ -83,20 +82,15 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
                     return;
-            }
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
         
         _phase++;
         m_Turret[0].m_EnemyDeath.KillEnemy();
@@ -109,9 +103,6 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
         StartPattern("2B", new EnemyPlaneLarge1_BulletPattern_2B(this));
 
         NextPhaseExplosion();
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

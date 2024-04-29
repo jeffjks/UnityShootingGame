@@ -42,7 +42,6 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
         
-        // if (SystemManager.GameMode != GameMode.Replay)
         m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
@@ -144,20 +143,15 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
                     return;
-            }
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
         
         StopAllPatterns();
         
@@ -170,9 +164,6 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_CurrentPhase = Phase2();
         StartCoroutine(m_CurrentPhase);
         _phase++;
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

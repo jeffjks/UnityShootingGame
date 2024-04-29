@@ -9,7 +9,6 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     public GameObject[] m_DebrisMedium;
     public GameObject[] m_DebrisSmall;
     public string m_ObjectName;
-    public Collider2D m_Collider2D; // 지상 아이템 콜라이더 보정 및 충돌 체크
     
     [SerializeField] private Transform _debrisTransform;
 
@@ -17,6 +16,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     //private Material[] m_Materials;
     private int m_DebrisIndex = -1;
     private readonly Dictionary<DebrisType, GameObject[]> _debrisDict = new();
+    private const float BoundaryGap = 3f;
 
     //private IEnumerator m_FadeOutAnimation;
 
@@ -34,14 +34,26 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         _debrisDict[DebrisType.Large] = m_DebrisLarge;
     }
     
-    void Update()
+    private void Update()
     {
         GetCoordinates();
+        CheckOutside();
     }
 
     private void GetCoordinates() {
         m_Position2D = BackgroundCamera.GetScreenPosition(transform.position);
-        m_Collider2D.transform.position = m_Position2D;
+    }
+
+    private void CheckOutside() // 화면 바깥으로 나갈시 파괴
+    {
+        if (m_Position2D.x is > Size.GAME_WIDTH*0.5f + BoundaryGap or < - Size.GAME_WIDTH*0.5f - BoundaryGap)
+        {
+            ReturnToPool();
+        }
+        else if (m_Position2D.y is > BoundaryGap or < - Size.GAME_HEIGHT - BoundaryGap)
+        {
+            ReturnToPool();
+        }
     }
     
     public void OnStart(DebrisType debrisType, float debrisScale)
@@ -54,6 +66,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         _debrisTransform.rotation = Quaternion.Euler(0f, rotationRandom, 0f);
         _debrisTransform.localScale = new Vector3(debrisScale, debrisScale, debrisScale);
         debrisObject.SetActive(true);
+        
         //m_Materials[m_DebrisIndex].color = Color.white;
         
         //m_FadeOutAnimation = FadeOutAnimation();
@@ -75,7 +88,8 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
         ReturnToPool();
     }*/
 
-    public void ReturnToPool() {
+    public void ReturnToPool()
+    {
         // if (m_FadeOutAnimation != null) {
         //     StopCoroutine(m_FadeOutAnimation);
         // }

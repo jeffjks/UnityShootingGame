@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 4245819964342738811}
   - component: {fileID: 5172497611951885127}
   m_Layer: 20
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: ItemGem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerBodyType: 0
+  m_TriggerBodyType: 7
   m_BodyType: 0
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}

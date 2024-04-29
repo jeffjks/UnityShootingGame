@@ -46,6 +46,7 @@ public class PlayerBombDamage : PlayerObject
 
     public void Deactivate()
     {
+        RemoveAllTickDamageContext();
         SimulationManager.RemoveTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
@@ -78,6 +79,14 @@ public class PlayerBombDamage : PlayerObject
         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
         var enemyHealth = enemyUnit.m_EnemyHealth;
         enemyHealth.RemoveTickDamageContext(m_ObjectName);
+    }
+
+    private void RemoveAllTickDamageContext()
+    {
+        foreach (var triggerBody in m_TriggerBody.TriggerBodySet)
+        {
+            OnTriggerBodyExit(triggerBody);
+        }
     }
 
     /*
@@ -125,78 +134,6 @@ public class PlayerBombDamage : PlayerObject
     //         DealDamage(enemyUnit);
     //     }
     // }
-
-    /*
-    private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
-    {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-        if (PauseManager.IsGamePaused)
-            return;
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-
-            TriggerEnter(enemyUnit);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other) // 충돌 감지
-    {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-        if (PauseManager.IsGamePaused)
-            return;
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
-
-            TriggerExit(enemyUnit);
-        }
-    }
-
-    public override void ExecuteCollisionEnter(int id)
-    {
-        var enemyUnit = EnemyIdList[id] as EnemyUnit;
-
-        if (enemyUnit == null)
-        {
-            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
-            return;
-        }
-
-        TriggerEnter(enemyUnit);
-    }
-
-    public override void ExecuteCollisionExit(int id)
-    {
-        var enemyUnit = EnemyIdList[id] as EnemyUnit;
-
-        if (enemyUnit == null)
-        {
-            Debug.LogError($"{EnemyIdList[id].GetType()} (id: {id}) can not cast to EnemyUnit!");
-            return;
-        }
-
-        TriggerExit(enemyUnit);
-    }
-
-    private void TriggerEnter(EnemyUnit enemyUnit)
-    {
-        if (PauseManager.IsGamePaused)
-            return;
-        _enemyList.Add(enemyUnit);
-    }
-
-    private void TriggerExit(EnemyUnit enemyUnit)
-    {
-        if (PauseManager.IsGamePaused)
-            return;
-        _enemyList.Remove(enemyUnit);
-    }
-    */
 
     private IEnumerator BombDamageEnd() {
         yield return new WaitForMillisecondFrames(m_BombDuration);

@@ -14,7 +14,6 @@ public enum TriggerBodyType
     Enemy,
     Bullet,
     Item,
-    Debris,
 }
 
 public class SimulationManager : MonoBehaviour
@@ -32,7 +31,6 @@ public class SimulationManager : MonoBehaviour
         { TriggerBodyType.Enemy, new () },
         { TriggerBodyType.Bullet, new () },
         { TriggerBodyType.Item, new () },
-        { TriggerBodyType.Debris, new () },
     };
 
     private static readonly Queue<TriggerBody> TriggerBodiesToRemove = new();

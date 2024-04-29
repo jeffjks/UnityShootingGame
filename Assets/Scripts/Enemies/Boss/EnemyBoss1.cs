@@ -39,11 +39,8 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
         
-        if (SystemManager.GameMode != GameMode.Replay)
-        {
-            m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
-            m_Part.m_EnemyDeath.Action_OnKilled += DestroyPart;
-        }
+        m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
+        m_Part.m_EnemyDeath.Action_OnKilled += DestroyPart;
     }
 
     protected override void Update()
@@ -64,26 +61,20 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         _isPartDestroyed = true;
         ToNextPhase();
         
-        if (SystemManager.GameMode != GameMode.Replay)
-            m_Part.m_EnemyDeath.Action_OnKilled -= ToNextPhase;
+        m_Part.m_EnemyDeath.Action_OnKilled -= ToNextPhase;
     }
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 300 && _isPartDestroyed == false) // 체력 30% 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 300 && _isPartDestroyed == false) // 체력 30% 이하
                     return;
-            }
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
         
         _phase++;
         m_MoveVector = new MoveVector(0f, 0f);
@@ -103,9 +94,6 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
         StartCoroutine(m_CurrentMovement);
 
         DestroyPart();
-
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
 
@@ -228,10 +216,12 @@ public class EnemyBoss1 : EnemyUnit, IEnemyBossMain, IHasPhase
             
             yield return StartPattern("1B", new BulletPattern_EnemyBoss1_1B(this)); // Blue Bomb
             
-            m_Part.SetOpenState(true);
+            if (_isPartDestroyed == false)
+                m_Part.SetOpenState(true);
             yield return StartPattern("1C", new BulletPattern_EnemyBoss1_1C(this)); // 청침탄 흩뿌리기
             
-            m_Part.SetOpenState(false);
+            if (_isPartDestroyed == false)
+                m_Part.SetOpenState(false);
             yield return new WaitForMillisecondFrames(2000);
         }
     }

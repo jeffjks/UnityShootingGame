@@ -61,7 +61,11 @@ public static class TriggerBodyManager
     {
         var distanceVector = bodyCircleB.m_BodyCenter - bodyCircleA.m_BodyCenter;
         var squaredDistance = distanceVector.sqrMagnitude;
-        var radiusSum = bodyCircleA.m_BodyRadius + bodyCircleA.m_BodyRadius;
+        var radiusSum = bodyCircleA.m_BodyRadius + bodyCircleB.m_BodyRadius;
+        if (squaredDistance < radiusSum * radiusSum)
+        {
+        }
+
         return squaredDistance < radiusSum * radiusSum;
     }
 

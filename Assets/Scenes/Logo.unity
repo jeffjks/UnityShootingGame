@@ -834,6 +834,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_TriggerBodyType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyCircle.m_BodyRadius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2951906547800564425, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1226,17 +1236,27 @@ PrefabInstance:
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_BodyType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
-      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.size
+      propertyPath: m_TriggerBodyType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
+      propertyPath: m_BodyCircle.m_BodyRadius
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
       propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
@@ -1245,18 +1265,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
       propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[0].y
-      value: -1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
+        type: 3}
+      propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[1].y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[2].x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}
       propertyPath: m_BodyPolygon.m_BodyPolygonUnits.Array.data[0].m_BodyPoints.Array.data[3].x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2227362392833772255, guid: 031d8375245ba024fa09908f264e33b4,
         type: 3}

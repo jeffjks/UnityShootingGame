@@ -18,6 +18,7 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: 50ea437a1d286f347877bd245ba82802,
       type: 2}
     eraseIndex: 0
+    triggerBodyRadius: 0.143
     colliderSize:
     - 0.143
   - sprite: {fileID: 2601847497093165394, guid: 72a90d6fa33d9794691602dd15e35960,
@@ -25,6 +26,7 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: 06c48eebf984eb542b2048e9a48e24bd,
       type: 2}
     eraseIndex: 0
+    triggerBodyRadius: 0.0875
     colliderSize:
     - 0.16
     - 0.4
@@ -33,6 +35,7 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: 5c6f3dc6de5cbd14fa3782fbc778fe13,
       type: 2}
     eraseIndex: 0
+    triggerBodyRadius: 0.1
     colliderSize:
     - 0.1
   - sprite: {fileID: 1938216527389007620, guid: 709aecf82ea8f2e43bbffff13faa146b,
@@ -40,6 +43,7 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: b26d8626f3c7a564db78a2ee9a4a205d,
       type: 2}
     eraseIndex: 1
+    triggerBodyRadius: 0.143
     colliderSize:
     - 0.143
   - sprite: {fileID: 7820871829904163982, guid: 01b0f496319f2c643be254cbd8b07e22,
@@ -47,6 +51,7 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: 5084999f91b0e1a4aaf4b1b62aa7904e,
       type: 2}
     eraseIndex: 1
+    triggerBodyRadius: 0.0875
     colliderSize:
     - 0.16
     - 0.4
@@ -54,5 +59,6 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: 88cf070456e306941b72315d04124968,
       type: 2}
     eraseIndex: 1
+    triggerBodyRadius: 0.1
     colliderSize:
     - 0.1

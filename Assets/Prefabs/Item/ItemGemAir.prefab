@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 2985597517908116561}
   - component: {fileID: 128218129366240410}
   m_Layer: 19
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

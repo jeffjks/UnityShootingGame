@@ -538,24 +538,6 @@ public class ReplayManager : MonoBehaviour
         _playerController.OnMoveInvoked(_movementContext.MoveVectorInt);
         _movementContext.isActive = false;
     }
-
-    public static void WriteReplayCollisionData(int selfId, int targetId)
-    {
-        // if (SystemManager.GameMode == GameMode.Replay)
-        //     return;
-        //
-        // var replayData = new ReplayCollisionEnterData(CurrentFrame, selfId, targetId);
-        // ReplayFileController.WriteBinaryReplayData(ReplayDataType.CollisionEnter, replayData);
-    }
-
-    public static void WriteReplayEnemyHealth(int enemyId, int health)
-    {
-        if (SystemManager.GameMode == GameMode.Replay)
-            return;
-        
-        var replayData = new ReplayEnemyHealth(CurrentFrame, enemyId, health);
-        ReplayFileController.WriteBinaryReplayData(ReplayDataType.EnemyHealth, replayData);
-    }
     #endregion
     
     private void InitPlayer(int playerAttackLevel)

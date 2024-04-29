@@ -38,7 +38,6 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnEndBossDeathAnimation;
 
-        // if (SystemManager.GameMode != GameMode.Replay)
         m_EnemyHealth.Action_OnHealthChanged += ToNextPhase;
     }
 
@@ -124,20 +123,15 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
                     return;
-            }
+                break;
+            default:
+                return;
         }
-
-        m_EnemyHealth.WriteReplayHealthData();
         
         _phase++;
         BulletManager.SetBulletFreeState(1000);
@@ -153,9 +147,6 @@ public class EnemyBoss3 : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Part.m_EnemyDeath.KillEnemy();
         m_EnemyHealth.SetInvincibility(2000);
         NextPhaseExplosion();
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

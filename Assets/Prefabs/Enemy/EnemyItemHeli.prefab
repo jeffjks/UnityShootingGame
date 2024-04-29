@@ -660,11 +660,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7628350071113481732}
-  - component: {fileID: 6370006740874069937}
   - component: {fileID: 2653810268746708972}
   - component: {fileID: 7082374305397890634}
   m_Layer: 10
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -685,27 +684,6 @@ Transform:
   m_Father: {fileID: 1578709227906996951}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!50 &6370006740874069937
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1410889031087544366}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!60 &2653810268746708972
 PolygonCollider2D:
   m_ObjectHideFlags: 0

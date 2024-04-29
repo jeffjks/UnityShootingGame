@@ -25,8 +25,6 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
         m_EnemyDeath.Action_OnKilled += OnBossKilled;
         m_EnemyDeath.Action_OnEndDeathAnimation += OnEndBossDeathAnimation;
         m_EnemyDeath.Action_OnRemoved += OnBossKilled;
-
-        // SystemManager.OnMiddleBossStart();
     }
 
     private IEnumerator AppearanceSequence() {
@@ -74,20 +72,15 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
 
     public void ToNextPhase()
     {
-        // if (SystemManager.GameMode != GameMode.Replay)
+        switch (_phase)
         {
-            switch (_phase)
-            {
-                case 1:
-                    if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
-                        return;
-                    break;
-                default:
+            case 1:
+                if (m_EnemyHealth.HealthRatioScaled > 400) // 체력 40% 이하
                     return;
-            }
+                break;
+            default:
+                return;
         }
-        
-        m_EnemyHealth.WriteReplayHealthData();
         
         _phase++;
         StopPattern("B1");
@@ -97,9 +90,6 @@ public class EnemyMiddleBoss5b : EnemyUnit, IEnemyBossMain, IHasPhase
         m_Turret.StartPattern("A", new BulletPattern_EnemyMiddleBoss5b_Turret_A(m_Turret));
         
         NextPhaseExplosion();
-        
-        // if (SystemManager.GameMode != GameMode.Replay)
-            // m_EnemyHealth.Action_OnHealthChanged -= ToNextPhase;
     }
 
     private void NextPhaseExplosion() {

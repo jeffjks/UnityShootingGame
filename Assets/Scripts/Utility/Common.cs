@@ -189,7 +189,7 @@ public class Bullet
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
     public int eraseIndex;
-    public float[] colliderSize;
+    public float triggerBodyRadius;
 }
 
 public interface IObjectPooling {

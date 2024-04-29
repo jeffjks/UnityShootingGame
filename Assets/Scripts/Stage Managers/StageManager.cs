@@ -147,7 +147,7 @@ public abstract class StageManager : MonoBehaviour
 
         yield return new WaitForMillisecondFrames(millisecond);
         Action_BossHealthBar?.Invoke(enemy_unit);
-        SystemManager.PlayState = PlayState.OnMiddleBoss;
+        SystemManager.OnMiddleBossStart();
     }
 
     protected IEnumerator BossStart(Vector3 pos, int millisecond, byte number = 0) // millisecond 후 체력바 활성화

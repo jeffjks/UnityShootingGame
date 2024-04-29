@@ -657,6 +657,7 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 4417317141876734764}
+  m_TriggerBodies: []
 --- !u!114 &748648914517165654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,6 +771,7 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 5653689540836584610}
+  m_TriggerBodies: []
 --- !u!114 &8590920233221446469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1389,7 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 6126094460631671931}
+  m_TriggerBodies: []
 --- !u!114 &7821914013008084646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1503,7 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 8330236720640189807}
+  m_TriggerBodies: []
 --- !u!114 &8947434179275376496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3142,6 +3146,7 @@ MonoBehaviour:
   m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 2714358893465278300}
+  m_TriggerBodies: []
 --- !u!114 &240741888577068434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3255,6 +3260,7 @@ MonoBehaviour:
   m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 157164651920185090}
+  m_TriggerBodies: []
 --- !u!114 &2166348856357856252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3993,6 +3999,8 @@ MonoBehaviour:
   m_DefaultHealth: 100000
   m_Collider2D:
   - {fileID: 7012390822520836271}
+  m_TriggerBodies:
+  - {fileID: 1729103761689621844}
 --- !u!114 &2908747836849494739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4924,9 +4932,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5976637970258512718}
   - component: {fileID: 7012390822520836271}
-  - component: {fileID: 7226322650037184892}
+  - component: {fileID: 1729103761689621844}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4980,27 +4988,38 @@ PolygonCollider2D:
       - {x: 7, y: -2}
       - {x: 7, y: 2}
       - {x: 5, y: 4}
---- !u!50 &7226322650037184892
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &1729103761689621844
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6749964755423374645}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 2
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 0
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits:
+    - m_BodyPoints:
+      - {x: -5, y: 4}
+      - {x: -7, y: 2}
+      - {x: -7, y: -2}
+      - {x: -5, y: -6}
+      - {x: 5, y: -6}
+      - {x: 7, y: -2}
+      - {x: 7, y: 2}
+      - {x: 5, y: 4}
+  m_DebugTriggerBody: []
 --- !u!1 &6834043487859664151
 GameObject:
   m_ObjectHideFlags: 0

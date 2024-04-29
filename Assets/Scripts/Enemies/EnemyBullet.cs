@@ -10,8 +10,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 {
     public string m_ObjectName;
     public BulletDatas m_BulletData;
-    public TriggerBody m_TriggerBodyCircle;
-    public TriggerBody m_TriggerBodyCapsule;
+    public TriggerBody m_TriggerBody;
+    //public TriggerBody m_TriggerBodyCapsule;
     public Animator[] m_EraseAnimator;
     
     private int _imageDepth;
@@ -21,11 +21,12 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private GameObject m_BulletExplosion;
-    private TriggerBody _currentTriggerBody;
+    //private TriggerBody _currentTriggerBody;
     private Bullet _currentBullet;
     private BulletImage _bulletImage;
     private SubBulletPattern _subBulletPattern;
     private bool _isInList;
+    private const float BoundaryGap = 0.5f;
 
     //private Tween m_Tween = null;
 
@@ -103,8 +104,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         if (bulletProperty.accel.duration > 0)
             StartCoroutine(ApplyBulletAccel(bulletProperty.accel));
         
-        SimulationManager.AddTriggerBody(m_TriggerBodyCircle);
-        SimulationManager.AddTriggerBody(m_TriggerBodyCapsule);
+        SimulationManager.AddTriggerBody(m_TriggerBody);
+        //SimulationManager.AddTriggerBody(m_TriggerBodyCapsule);
     }
 
     public void OnStart(BulletProperty bulletProperty, BulletSpawnTiming bulletSpawnTiming, BulletProperty newBulletProperty)
@@ -126,13 +127,11 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     }
 
     private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
-        const float gap = 0.5f;
-        
-        if (transform.position.x is > Size.GAME_WIDTH*0.5f + gap or < - Size.GAME_WIDTH*0.5f - gap)
+        if (transform.position.x is > Size.GAME_WIDTH*0.5f + BoundaryGap or < - Size.GAME_WIDTH*0.5f - BoundaryGap)
         {
             ReturnToPool();
         }
-        else if (transform.position.y is > 0f or < - Size.GAME_HEIGHT - gap)
+        else if (transform.position.y is > BoundaryGap or < - Size.GAME_HEIGHT - BoundaryGap)
         {
             ReturnToPool();
         }
@@ -165,17 +164,19 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             transform.rotation = Quaternion.identity;
         }
 
-        if (_currentBullet.colliderSize.Length == 1)
-        {
-            m_TriggerBodyCircle.SetCircleSize(_currentBullet.colliderSize[0]);
-            _currentTriggerBody = m_TriggerBodyCircle;
-        }
-        else
-        {
-            m_TriggerBodyCapsule.SetBoxSize(new Vector2(_currentBullet.colliderSize[0], _currentBullet.colliderSize[1]));
-            _currentTriggerBody = m_TriggerBodyCapsule;
-        }
-        _currentTriggerBody.gameObject.SetActive(true);
+        m_TriggerBody.SetCircleSize(_currentBullet.triggerBodyRadius);
+        // _currentTriggerBody = m_TriggerBody;
+        // if (_currentBullet.colliderSize.Length == 1)
+        // {
+        //     m_TriggerBody.SetCircleSize(_currentBullet.colliderSize[0]);
+        //     _currentTriggerBody = m_TriggerBody;
+        // }
+        // else
+        // {
+        //     m_TriggerBodyCapsule.SetBoxSize(new Vector2(_currentBullet.colliderSize[0], _currentBullet.colliderSize[1]));
+        //     _currentTriggerBody = m_TriggerBodyCapsule;
+        // }
+        m_TriggerBody.gameObject.SetActive(true);
     }
 
     private void SetSortingLayer()
@@ -271,7 +272,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         IsPlayingEraseAnimation = true;
         StopAllCoroutines();
         _bulletImageObject.SetActive(false);
-        _currentTriggerBody.gameObject.SetActive(false);
+        m_TriggerBody.gameObject.SetActive(false);
         
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(true);
         m_EraseAnimator[_currentBullet.eraseIndex].Play("Erase", -1, 0f);
@@ -291,7 +292,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         RemoveFromBulletList();
         StopAllCoroutines();
         IsPlayingEraseAnimation = false;
-        _currentTriggerBody.gameObject.SetActive(false);
+        //m_TriggerBody.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
         
@@ -305,8 +306,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBodyCircle);
-        SimulationManager.RemoveTriggerBody(m_TriggerBodyCapsule);
+        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        //SimulationManager.RemoveTriggerBody(m_TriggerBodyCapsule);
     }
 
     private void AddToBulletList()

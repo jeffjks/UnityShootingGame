@@ -15,6 +15,7 @@ public class PlayerCollisionDetector : PlayerObject
     private void Awake()
     {
         _maxDamageLevel = _playerDamageData.damageByLevel.Count - 1;
+        DamageLevel = 0;
         
         _playerController = GetComponent<PlayerController>();
 
@@ -72,8 +73,6 @@ public class PlayerCollisionDetector : PlayerObject
     
     // private void OnTriggerEnter2D(Collider2D other) // 충돌 감지
     // {
-    //     // if (SystemManager.GameMode == GameMode.Replay)
-    //     //     return;
     //     if (PlayerInvincibility.IsInvincible)
     //         return;
     //     
@@ -91,25 +90,6 @@ public class PlayerCollisionDetector : PlayerObject
     //         TriggerEnter(enemyObject);
     //     }
     // }
-
-    /*
-    public override void ExecuteCollisionEnter(int id)
-    {
-        if (PlayerInvincibility.IsInvincible)
-            return;
-        
-        var unitObject = EnemyIdList[id];
-        
-        if (unitObject is EnemyBullet enemyBullet)
-        {
-            TriggerEnter(enemyBullet);
-        }
-        else if (unitObject is EnemyUnit enemyUnit)
-        {
-            TriggerEnter(enemyUnit);
-        }
-    }
-    */
 
     private void TriggerEnter(EnemyBullet enemyBullet)
     {

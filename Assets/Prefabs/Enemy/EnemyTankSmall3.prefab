@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 2859812721581495818}
   - component: {fileID: 1476763882291246812}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

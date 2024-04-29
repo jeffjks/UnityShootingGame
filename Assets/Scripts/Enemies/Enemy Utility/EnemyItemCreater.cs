@@ -39,8 +39,10 @@ public class EnemyItemCreater : MonoBehaviour
                 for (int i = 0; i < m_ItemNumber; i++) {
                     GameObject obj = PoolingManager.PopFromPool(gemItem.m_ObjectName, PoolingParent.GemAir);
                     var pos = (Vector2) transform.position + Random.insideUnitCircle * 0.8f;
+                    var gemAir = obj.GetComponent<ItemGemAir>();
                     obj.transform.position = new Vector3(pos.x, pos.y, Depth.ITEMS);
                     obj.SetActive(true);
+                    gemAir.Init();
                 }
             }
             else {

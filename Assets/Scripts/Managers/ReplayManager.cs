@@ -207,77 +207,6 @@ public class ReplayManager : MonoBehaviour
     }
 
     [Serializable]
-    public class ReplayCollisionEnterData : ReplayData
-    {
-        private int selfId;
-        private int targetId;
-
-        public ReplayCollisionEnterData(int frame, int selfId, int targetId)
-        {
-            this.frame = frame;
-            this.selfId = selfId;
-            this.targetId = targetId;
-        }
-
-        public override void RunData()
-        {
-            //UnitObject.EnemyIdList[selfId].ExecuteCollisionEnter(targetId);
-        }
-
-        public void SetCollisionData(int fromId, int toId)
-        {
-            selfId = fromId;
-            targetId = toId;
-            isActive = true;
-        }
-    }
-
-    [Serializable]
-    public class ReplayCollisionExitData : ReplayData
-    {
-        private int selfId;
-        private int targetId;
-
-        public ReplayCollisionExitData(int frame, int selfId, int targetId)
-        {
-            this.frame = frame;
-            this.selfId = selfId;
-            this.targetId = targetId;
-        }
-
-        public override void RunData()
-        {
-            //EnemyUnit.EnemyIdList[selfId].ExecuteCollisionExit(targetId);
-        }
-
-        public void SetCollisionData(int fromId, int toId)
-        {
-            selfId = fromId;
-            targetId = toId;
-            isActive = true;
-        }
-    }
-
-    [Serializable]
-    public class ReplayEnemyHealth : ReplayData
-    {
-        private int enemyId;
-        private int health;
-
-        public ReplayEnemyHealth(int frame, int enemyId, int health)
-        {
-            this.frame = frame;
-            this.enemyId = enemyId;
-            this.health = health;
-        }
-
-        public override void RunData()
-        {
-            //EnemyHealth.EnemyList[enemyId].CurrentHealth = health;
-        }
-    }
-
-    [Serializable]
     public class ReplayInfo
     {
         public readonly int m_Seed;
@@ -443,15 +372,6 @@ public class ReplayManager : MonoBehaviour
                         break;
                     case ReplayDataType.PlayerActionInput:
                         _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayActionData>());
-                        break;
-                    case ReplayDataType.CollisionEnter:
-                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayCollisionEnterData>());
-                        break;
-                    case ReplayDataType.CollisionExit:
-                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayCollisionExitData>());
-                        break;
-                    case ReplayDataType.EnemyHealth:
-                        _replayDataBuffer.Enqueue(ReplayFileController.ReadBinaryReplayData<ReplayEnemyHealth>());
                         break;
                 }
             }

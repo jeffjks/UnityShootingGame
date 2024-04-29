@@ -336,8 +336,9 @@ MonoBehaviour:
   m_HealthType: 0
   m_DefaultHealth: 30
   m_Collider2D:
-  - {fileID: 0}
-  m_TriggerBodies: []
+  - {fileID: 3307330625520333177}
+  m_TriggerBodies:
+  - {fileID: 6120517376921685393}
 --- !u!114 &2726026014436905523
 MonoBehaviour:
   m_ObjectHideFlags: 0

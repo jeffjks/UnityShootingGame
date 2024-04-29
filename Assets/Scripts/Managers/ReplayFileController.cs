@@ -145,7 +145,6 @@ public class ReplayFileController : MonoBehaviour
     {
         _formatter.Serialize(_cryptoStream, dataType);
         _formatter.Serialize(_cryptoStream, data);
-        //_bw.Write(data.GetData());
     }
 
     public static ReplayManager.ReplayInfo ReadBinaryReplayInfo()

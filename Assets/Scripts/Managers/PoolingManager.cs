@@ -83,8 +83,7 @@ public class PoolingManager : MonoBehaviour
             pool.PushToPool(item, Instance.transform);
         else
             pool.PushToPool(item, Instance.GetChildByPoolingParent(parent));
-
-        //pool.PushToPool(item, parent == null ? transform : parent);
+        
         return true;
     }
 
@@ -100,8 +99,7 @@ public class PoolingManager : MonoBehaviour
             gameObject = pool.PopFromPool(Instance.transform);
         else
             gameObject = pool.PopFromPool(Instance.GetChildByPoolingParent(child_number));
-
-        //gameObject.SetActive(true);
+        
         return gameObject;
     }
 

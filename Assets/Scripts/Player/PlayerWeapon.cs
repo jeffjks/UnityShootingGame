@@ -119,7 +119,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
             ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyUnit.name}, {transform.position.ToString("N6")}");
 #endif
             
-        if (m_IsPenetrate && gameObject.CheckLayer(Layer.SMALL))
+        if (m_IsPenetrate && enemyUnit.gameObject.CheckLayer(Layer.SMALL))
         {
             enemyUnit.m_EnemyDeath.KillEnemy();
         }

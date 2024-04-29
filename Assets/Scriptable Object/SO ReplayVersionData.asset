@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee21d8fab042c494c85fd1e32fb7a9c7, type: 3}
   m_Name: SO ReplayVersionData
   m_EditorClassIdentifier: 
-  replayVersion: 1002
+  replayVersion: 1003

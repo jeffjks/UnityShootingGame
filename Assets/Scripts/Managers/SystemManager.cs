@@ -127,6 +127,11 @@ public class SystemManager : MonoBehaviour
             QuitGame(null);
             yield break;
         }
+        if (GameMode == GameMode.Replay && Stage >= 5)
+        {
+            QuitGame(null);
+            yield break;
+        }
         
         if (Stage < 4 && DebugOption.SceneMode == 0) {
             var sceneName = $"Stage{Stage + 2}";

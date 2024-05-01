@@ -38,6 +38,7 @@ public class PlayerBombDamage : PlayerObject
 
     public void Activate()
     {
+        m_TriggerBody.enabled = true;
         SimulationManager.AddTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
@@ -51,6 +52,7 @@ public class PlayerBombDamage : PlayerObject
         m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
         //m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;
+        m_TriggerBody.enabled = false;
     }
 
     private void OnTriggerBodyEnter(TriggerBody other) // 충돌 감지

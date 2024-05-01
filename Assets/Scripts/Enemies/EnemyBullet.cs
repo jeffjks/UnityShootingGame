@@ -289,14 +289,14 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void ReturnToPool()
     {
+        BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
+        
         RemoveFromBulletList();
         StopAllCoroutines();
         IsPlayingEraseAnimation = false;
         //m_TriggerBody.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);
-        
-        BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
     }
 
     private void OnDestroy()

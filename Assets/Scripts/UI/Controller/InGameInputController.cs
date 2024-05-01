@@ -21,7 +21,7 @@ public class InGameInputController : MonoBehaviour
     
     public void OnFire(InputValue inputValue)
     {
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.GameMode == GameMode.Replay && SystemManager.PlayState != PlayState.OnStageResult)
             return;
         Action_OnFireInput?.Invoke(inputValue.isPressed);
     }

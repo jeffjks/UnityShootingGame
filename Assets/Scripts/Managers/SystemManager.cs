@@ -111,11 +111,9 @@ public class SystemManager : MonoBehaviour
     public static void StartStage(int stage, int seed)
     {
         CurrentSeed = seed;
-        SceneManager.LoadScene($"Stage{stage + 1}");
         IsInGame = true;
+        SceneManager.LoadScene($"Stage{stage + 1}");
         Stage = stage;
-
-        EnemyHealth.InitEnemyId();
     }
 
     private IEnumerator NextStage() { // 2스테이지 부터

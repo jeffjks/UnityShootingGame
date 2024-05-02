@@ -77,13 +77,6 @@ public class EnemyHealth : MonoBehaviour, IHasGroundCollider
     }
 
     public int HealthRatioScaled => CurrentHealth * 1000 / m_DefaultHealth;
-    
-    public static readonly LinkedList<EnemyHealth> EnemyList = new();
-
-    public static void InitEnemyId()
-    {
-        EnemyList.Clear();
-    }
 
     private void Awake()
     {

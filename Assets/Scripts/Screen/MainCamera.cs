@@ -90,8 +90,6 @@ public class MainCamera : MonoBehaviour
 
     public static bool IsOutOfCamera(Vector3 pos, float padding = 0f)
     {
-        if (SystemManager.IsInGame == false)
-            return false;
         if (pos.x < BOUNDARY_LEFT - padding || pos.x > BOUNDARY_RIGHT + padding)
             return true;
         if (pos.y < BOUNDARY_BOTTOM - padding || pos.y > BOUNDARY_TOP + padding)

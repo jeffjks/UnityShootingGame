@@ -171,10 +171,18 @@ public class PlayerShotHandler : MonoBehaviour
 
     public void CreatePlayerAttack(string objectName, Vector3 pos, float dir, int damageLevel)
     {
-        if (!m_PlayerUnit.m_IsPreviewObject && !PlayerManager.IsPlayerAlive)
-            return;
-        if (MainCamera.IsOutOfCamera(pos))
-            return;
+        if (m_PlayerUnit.m_IsPreviewObject)
+        {
+            if (SystemManager.IsInGame)
+                return;
+        }
+        else
+        {
+            if (PlayerManager.IsPlayerAlive == false)
+                return;
+            if (MainCamera.IsOutOfCamera(pos))
+                return;
+        }
         GameObject obj = PoolingManager.PopFromPool(objectName, PoolingParent.PlayerMissile);
         PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
         obj.transform.position = pos;

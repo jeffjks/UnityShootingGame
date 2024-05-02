@@ -40,7 +40,6 @@ public class PlayerUnit : MonoBehaviour
     public static PlayerUnit Instance { get; private set; }
     
     private const int MAX_PLAYER_ATTACK_LEVEL = 4;
-    public const float ItemRangeRadius = 1f;
 
     public event Action Action_OnUpdatePlayerAttackLevel;
     public event Action<bool> Action_OnControllableChanged;

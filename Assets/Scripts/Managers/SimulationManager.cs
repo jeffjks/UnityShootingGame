@@ -16,11 +16,17 @@ public enum TriggerBodyType
     Item,
 }
 
-public class SimulationManager : MonoBehaviour
+public interface ISimulationObject
+{
+    
+}
+
+[DefaultExecutionOrder(-99)]
+public class SimulationManager : MonoBehaviour, ISimulationObject
 {
     public TriggerDatas m_TriggerDatas;
     
-    public static readonly HashSet<MovableObject> MovableObjects = new();
+    public static readonly HashSet<IMovable> MovableObjects = new();
     private static readonly Dictionary<TriggerBodyType, HashSet<TriggerBody>> TriggerBodies = new()
     {
         { TriggerBodyType.GameBoundary, new () },
@@ -46,7 +52,7 @@ public class SimulationManager : MonoBehaviour
 
     private void Update()
     {
-        SimulateMovement();
+        //SimulateMovement();
 
         SimulateOnTriggerBodyInit();
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-101)]
 public class PlayerController : MonoBehaviour
 {
     public PlayerBombHandler m_PlayerBomb;

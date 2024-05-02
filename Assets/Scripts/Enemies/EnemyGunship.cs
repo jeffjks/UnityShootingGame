@@ -87,7 +87,7 @@ public class BulletPattern_EnemyGunship : BulletFactory, IBulletPattern
                 }
                 if (SystemManager.Difficulty == GameDifficulty.Expert)
                 {
-                    CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 18f));
+                    CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8f, BulletPivot.Current, -18f));
                     CreateBullet(new BulletProperty(pos2, BulletImage.BlueNeedle, 8f, BulletPivot.Current, -8f));
                     CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 8f));
                     CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, 8f, BulletPivot.Current, 18f));

@@ -15,6 +15,11 @@ public class MainCamera : MonoBehaviour
     private static IEnumerator _shakeCamera;
     
     public static MainCamera Instance { get; private set; }
+    
+    public static float BOUNDARY_LEFT => Instance.transform.position.x - Size.MAIN_CAMERA_WIDTH/2f;
+    public static float BOUNDARY_RIGHT => Instance.transform.position.x + Size.MAIN_CAMERA_WIDTH/2f;
+    public static float BOUNDARY_BOTTOM => Instance.transform.position.y - Size.MAIN_CAMERA_HEIGHT/2f;
+    public static float BOUNDARY_TOP => Instance.transform.position.y + Size.MAIN_CAMERA_HEIGHT/2f;
 
     private void Awake()
     {
@@ -81,6 +86,17 @@ public class MainCamera : MonoBehaviour
             yield return new WaitForFrames(1);
         }
         Instance._shakingPosition = Vector2.zero;
+    }
+
+    public static bool IsOutOfCamera(Vector3 pos, float padding = 0f)
+    {
+        if (SystemManager.IsInGame == false)
+            return false;
+        if (pos.x < BOUNDARY_LEFT - padding || pos.x > BOUNDARY_RIGHT + padding)
+            return true;
+        if (pos.y < BOUNDARY_BOTTOM - padding || pos.y > BOUNDARY_TOP + padding)
+            return true;
+        return false;
     }
 
     public Vector3 GetCameraScreenPosition()

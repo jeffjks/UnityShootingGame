@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface MovableObject
+public interface IMovable
 {
     public void MoveTriggerBody();
 }

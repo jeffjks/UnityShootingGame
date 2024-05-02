@@ -16,7 +16,7 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
     //private Material[] m_Materials;
     private int m_DebrisIndex = -1;
     private readonly Dictionary<DebrisType, GameObject[]> _debrisDict = new();
-    private const float BoundaryGap = 3f;
+    private const float BoundaryPadding = 3f;
 
     //private IEnumerator m_FadeOutAnimation;
 
@@ -46,14 +46,8 @@ public class DebrisEffect : MonoBehaviour, IObjectPooling
 
     private void CheckOutside() // 화면 바깥으로 나갈시 파괴
     {
-        if (m_Position2D.x is > Size.GAME_WIDTH*0.5f + BoundaryGap or < - Size.GAME_WIDTH*0.5f - BoundaryGap)
-        {
+        if (InnerGameBoundary.IsOutOfCamera(m_Position2D, BoundaryPadding))
             ReturnToPool();
-        }
-        else if (m_Position2D.y is > BoundaryGap or < - Size.GAME_HEIGHT - BoundaryGap)
-        {
-            ReturnToPool();
-        }
     }
     
     public void OnStart(DebrisType debrisType, float debrisScale)

@@ -57,6 +57,17 @@ public class InnerGameBoundary : MonoBehaviour
         enemyUnit.IsColliderInit = true;
     }
 
+    public static bool IsOutOfCamera(Vector3 pos, float padding = 0f)
+    {
+        if (SystemManager.IsInGame == false)
+            return false;
+        if (pos.x < - Size.GAME_WIDTH/2f - padding || pos.x > Size.GAME_WIDTH/2f + padding)
+            return true;
+        if (pos.y < - Size.GAME_HEIGHT - padding || pos.y > padding)
+            return true;
+        return false;
+    }
+
     // private void OnTriggerBodyExit(TriggerBody other)
     // {
     //     if (InGameDataManager.Instance == null)

@@ -26,7 +26,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     private BulletImage _bulletImage;
     private SubBulletPattern _subBulletPattern;
     private bool _isInList;
-    private const float BoundaryGap = 0.5f;
+    private const float BoundaryPadding = 0.375f;
 
     //private Tween m_Tween = null;
 
@@ -121,20 +121,11 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         if (Time.timeScale == 0)
             return;
         
-        CheckOutside();
         MoveDirection(m_MoveVector.speed, m_MoveVector.direction);
+        
+        if (MainCamera.IsOutOfCamera(transform.position, BoundaryPadding))
+            ReturnToPool();
         //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();
-    }
-
-    private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
-        if (transform.position.x is > Size.GAME_WIDTH*0.5f + BoundaryGap or < - Size.GAME_WIDTH*0.5f - BoundaryGap)
-        {
-            ReturnToPool();
-        }
-        else if (transform.position.y is > BoundaryGap or < - Size.GAME_HEIGHT - BoundaryGap)
-        {
-            ReturnToPool();
-        }
     }
     
     void LateUpdate()

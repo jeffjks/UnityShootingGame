@@ -9,7 +9,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
     public ItemInfoDatas m_ItemData;
     public TriggerBody m_TriggerBody; // 지상 아이템 콜라이더 보정 및 충돌 체크
     public Transform m_Renderer;
-    private const float BOUNDARY_PADDING = 0.5f;
+    private const float BoundaryPadding = 0.5f;
     [SerializeField] protected float m_Radius;
 
     protected abstract void ItemEffect(PlayerUnit playerUnit);
@@ -34,20 +34,12 @@ public abstract class Item : UnitObject, IHasGroundCollider
         SetTriggerBodyPosition();
     }
 
-    private void CheckOutside() { // 화면 바깥으로 나갈시 파괴
-        Vector3 pos;
-        if (m_IsAir) {
-            pos = transform.position;
-        }
-        else {
-            pos = Position2D;
-        }
-        if (Mathf.Abs(pos.x) > Size.GAME_WIDTH*0.5f + BOUNDARY_PADDING) {
+    private void CheckOutside() // 화면 바깥으로 나갈시 파괴
+    {
+        var pos = m_IsAir ? transform.position : (Vector3) Position2D;
+        
+        if (InnerGameBoundary.IsOutOfCamera(pos, BoundaryPadding))
             OnItemRemoved();
-        }
-        else if (Mathf.Abs(pos.y + Size.GAME_HEIGHT*0.5f) > Size.GAME_HEIGHT*0.5f + BOUNDARY_PADDING) {
-            OnItemRemoved();
-        }
     }
 
     private void SetTriggerBodyPosition() {
@@ -119,19 +111,19 @@ public abstract class ItemBox : Item
 
         if (!m_Disappear && m_IsAir) {
             float angle;
-            if (transform.position.x <= MainCamera.Instance.transform.position.x - (Size.MAIN_CAMERA_WIDTH / 2f - PADDING)) { // left
+            if (transform.position.x <= MainCamera.BOUNDARY_LEFT + PADDING) { // left
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 90f + angle;
             }
-            else if (transform.position.x >= MainCamera.Instance.transform.position.x + (Size.MAIN_CAMERA_WIDTH / 2f - PADDING)) { // right
+            else if (transform.position.x >= MainCamera.BOUNDARY_RIGHT - PADDING) { // right
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = -90f + angle;
             }
-            else if (transform.position.y <= MainCamera.Instance.transform.position.y - (Size.MAIN_CAMERA_HEIGHT / 2f - PADDING)) { // bottom
+            else if (transform.position.y <= MainCamera.BOUNDARY_BOTTOM + PADDING) { // bottom
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 180f + angle;
             }
-            else if (transform.position.y >= MainCamera.Instance.transform.position.y + (Size.MAIN_CAMERA_HEIGHT / 2f - PADDING)) { // top
+            else if (transform.position.y >= MainCamera.BOUNDARY_TOP - PADDING) { // top
                 angle = Random.Range(-45f, 45f);
                 m_MoveVector.direction = 0f + angle;
             }

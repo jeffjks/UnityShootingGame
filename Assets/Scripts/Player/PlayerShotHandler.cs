@@ -103,7 +103,7 @@ public class PlayerShotHandler : MonoBehaviour
     private IEnumerator SubWeaponShot() {
         while(true) {
             if (SubWeaponIndex > 0 && m_PlayerUnit.IsAttacking) {
-                _currentSubWeapon.Shoot(this, m_PlayerSubWeaponDamageData[SubWeaponIndex - 1], m_PlayerUnit.PlayerAttackLevel);
+                _currentSubWeapon.Shoot(this, m_PlayerUnit.PlayerAttackLevel);
                 yield return new WaitForMillisecondFrames(_currentSubWeaponDelay[m_PlayerUnit.PlayerAttackLevel]);
             }
             yield return new WaitForFrames(1);
@@ -169,9 +169,11 @@ public class PlayerShotHandler : MonoBehaviour
         }
     }
 
-    public void CreatePlayerAttack(string objectName, PlayerDamageDatas playerDamage, Vector3 pos, float dir, int damageLevel)
+    public void CreatePlayerAttack(string objectName, Vector3 pos, float dir, int damageLevel)
     {
         if (!m_PlayerUnit.m_IsPreviewObject && !PlayerManager.IsPlayerAlive)
+            return;
+        if (MainCamera.IsOutOfCamera(pos))
             return;
         GameObject obj = PoolingManager.PopFromPool(objectName, PoolingParent.PlayerMissile);
         PlayerWeapon playerWeapon = obj.GetComponent<PlayerWeapon>();
@@ -200,22 +202,22 @@ public class PlayerShotHandler : MonoBehaviour
 
         if (level <= 1) { // ----------------------------------[ 0 0 0 0 0 ]
             for (int i = 0; i < 5; i++) {
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 0);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i], shotDirection[i], 0);
             }
         }
         else if (level <= 3) { // ---------------------------------- [ 0 1 0 1 0 ]
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[0], shotDirection[0], 0);
             for (int i = 1; i < 3; i++) {
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i+2], shotDirection[i+2], 0);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i], shotDirection[i], 1);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i+2], shotDirection[i+2], 0);
             }
         }
         else { // ---------------------------------- [ 0 1 2 1 0 ]
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[1], shotDirection[1], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[2], shotDirection[2], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[0], shotDirection[0], 2);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[1], shotDirection[1], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[2], shotDirection[2], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[4], shotDirection[4], 0);
         }
     }
     
@@ -235,23 +237,23 @@ public class PlayerShotHandler : MonoBehaviour
             shotPosition[i] = new Vector3(m_PlayerShotPosition[i].position[0], m_PlayerShotPosition[i].position[1], Depth.PLAYER_MISSILE);
         }
         if (level <= 1) { // ---------------------------------- [ 0 1 0 1 0 ]
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 0);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[1], shotDirection[1], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[2], shotDirection[2], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[0], shotDirection[0], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[1], shotDirection[1], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[2], shotDirection[2], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[4], shotDirection[4], 0);
         }
         else if (level <= 3) { // ---------------------------------- [ 0 1 2 1 0 ]
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[1], shotDirection[1], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[2], shotDirection[2], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[0], shotDirection[0], 2);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[1], shotDirection[1], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[2], shotDirection[2], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[4], shotDirection[4], 0);
         }
         else { // ---------------------------------- [ 1 1 2 1 1 ]
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[0], shotDirection[0], 2);
             for (int i = 1; i < 5; i++) {
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i], shotDirection[i], 1);
             }
         }
     }
@@ -274,23 +276,23 @@ public class PlayerShotHandler : MonoBehaviour
 
         if (level <= 1) { // ---------------------------------- [ 0 1 1 1 0 ]
             for (int i = 0; i < 3; i++) {
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i], shotDirection[i], 1);
             }
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 0);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[3], shotDirection[3], 0);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[4], shotDirection[4], 0);
         }
         else if (level <= 3) { // ---------------------------------- [ 1 1 2 1 1 ]
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[0], shotDirection[0], 2);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[0], shotDirection[0], 2);
             for (int i = 1; i < 5; i++) {
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 1);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i], shotDirection[i], 1);
             }
         }
         else { // ---------------------------------- [ 1 2 2 2 1 ]
             for (int i = 0; i < 3; i++) {
-                CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[i], shotDirection[i], 2);
+                CreatePlayerAttack(PLAYER_SHOT, shotPosition[i], shotDirection[i], 2);
             }
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[3], shotDirection[3], 1);
-            CreatePlayerAttack(PLAYER_SHOT, m_PlayerShotData, shotPosition[4], shotDirection[4], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[3], shotDirection[3], 1);
+            CreatePlayerAttack(PLAYER_SHOT, shotPosition[4], shotDirection[4], 1);
         }
     }
 

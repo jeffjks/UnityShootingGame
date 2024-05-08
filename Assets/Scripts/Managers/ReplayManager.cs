@@ -108,7 +108,6 @@ public class ReplayManager : MonoBehaviour
     [Serializable]
     public abstract class ReplayData
     {
-        public ReplayDataType replayDataType;
         [NonSerialized] public bool isActive;
         public int frame;
 
@@ -139,7 +138,6 @@ public class ReplayManager : MonoBehaviour
 
         public ReplayMovementData(int frame, byte inputMovement)
         {
-            replayDataType = ReplayDataType.PlayerMovement;
             this.frame = frame;
             InputMovement = inputMovement;
         }
@@ -178,7 +176,6 @@ public class ReplayManager : MonoBehaviour
 
         public ReplayActionData(int frame, KeyType keyType, bool isPressed)
         {
-            replayDataType = ReplayDataType.PlayerActionInput;
             this.frame = frame;
             this.keyType = keyType;
             this.isPressed = isPressed;
@@ -251,6 +248,7 @@ public class ReplayManager : MonoBehaviour
 
         SystemManager.Action_OnQuitInGame += OnClose;
         SystemManager.Action_OnNextStage += OnNextStage;
+        SystemManager.Action_OnStageClear += OnStageClear;
 
 #if UNITY_EDITOR
         if (!SystemManager.IsInGame)
@@ -297,7 +295,8 @@ public class ReplayManager : MonoBehaviour
                 OpenPopupMenu();
             return;
         }
-        CurrentFrame++;
+        if (CurrentFrame != -1)
+            CurrentFrame++;
     }
 
     private static void OpenPopupMenu()
@@ -348,7 +347,7 @@ public class ReplayManager : MonoBehaviour
             ReadReplayDataToBuffer();
         }
         
-        while (_replayDataBuffer.Count > 0 && _replayDataBuffer.Peek().frame <= CurrentFrame)
+        while (_replayDataBuffer.Count > 0 && _replayDataBuffer.Peek().frame == CurrentFrame)
         {
             var replayData = _replayDataBuffer.Dequeue();
             replayData.RunData();
@@ -483,6 +482,11 @@ public class ReplayManager : MonoBehaviour
         }
         
         CurrentFrame = 0;
+    }
+
+    private void OnStageClear()
+    {
+        CurrentFrame = -1;
     }
 
     private void OnClose()

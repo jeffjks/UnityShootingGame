@@ -80,6 +80,8 @@ public class PlayerLaser : PlayerObject
             var damageType = _playerDamageData.playerDamageType;
             var tickDamageContext = new TickDamageContext(Damage, damageScale, damageType);
             enemyHealth.AddTickDamageContext(m_ObjectName, tickDamageContext);
+            HitCountController.Instance.MaintainHitCount();
+            HitCountController.Instance.HitCountLaserCounter++;
         }
         else // 소형이면
         {

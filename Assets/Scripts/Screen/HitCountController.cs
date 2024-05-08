@@ -119,6 +119,12 @@ public class HitCountController : MonoBehaviour
             DecreaseHitCount();
     }
 
+    public void MaintainHitCount()
+    {
+        _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
+        SetHitCountState(HitCountState.Default);
+    }
+
     public void AddHitCount(int value = 1)
     {
         if (!PlayerManager.IsPlayerAlive)
@@ -135,9 +141,8 @@ public class HitCountController : MonoBehaviour
         if (ReplayManager.HitCountLog)
             ReplayManager.WriteReplayLogFile($"AddHitCount (+{value}) {_hitCount}");
 #endif
-        _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
+        MaintainHitCount();
         UpdateHitCountBonus();
-        SetHitCountState(HitCountState.Default);
     }
 
     private void SubtractHitCount(int value = 1)

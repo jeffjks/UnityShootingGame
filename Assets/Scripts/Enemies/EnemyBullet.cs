@@ -70,8 +70,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void OnStart(BulletProperty bulletProperty)
     {
-        BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
-        
         SetSortingLayer();
         IsPlayingEraseAnimation = false;
 
@@ -105,7 +103,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             StartCoroutine(ApplyBulletAccel(bulletProperty.accel));
         
         SimulationManager.AddTriggerBody(m_TriggerBody);
-        //SimulationManager.AddTriggerBody(m_TriggerBodyCapsule);
+        BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
     }
 
     public void OnStart(BulletProperty bulletProperty, BulletSpawnTiming bulletSpawnTiming, BulletProperty newBulletProperty)

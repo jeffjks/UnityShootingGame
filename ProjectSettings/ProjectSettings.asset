@@ -802,7 +802,13 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -817,11 +823,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 529fee2e-1658-4674-8e03-38a2df85a2ff
+  cloudProjectId: 335b2b6e-66ec-4cad-9344-c0518231a1fe
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: New Unity Project
-  organizationId: beanpeanut
+  projectName: Dead Planet 2
+  organizationId: jeffjks93
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

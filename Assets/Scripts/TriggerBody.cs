@@ -19,23 +19,59 @@ public class TriggerBody : MonoBehaviour
     public BodyType m_BodyType;
 
     [DrawIf("m_BodyType", BodyType.Circle, ComparisonType.Equals)]
-    public BodyCircle m_BodyCircle = new();
+    public BodyCircle m_BodyCircle;
 
     [DrawIf("m_BodyType", BodyType.Box, ComparisonType.Equals)]
-    public BodyBox m_BodyBox = new();
+    public BodyBox m_BodyBox;
     
     [DrawIf("m_BodyType", BodyType.Polygon, ComparisonType.Equals)]
-    public BodyPolygon m_BodyPolygon = new();
+    public BodyPolygon m_BodyPolygon;
     
     public UnityAction<TriggerBody> m_OnTriggerBodyEnter;
     public UnityAction<TriggerBody> m_OnTriggerBodyExit;
     public UnityAction<TriggerBody> m_OnTriggerBodyStay;
 
-    public BodyCircle TransformedBodyCircle => GetTransformedBody(m_BodyCircle);
-    public BodyPolygon TransformedBodyPolygon => GetTransformedBody(m_BodyPolygon);
+    public BodyCircle TransformedBodyCircle
+    {
+        get
+        {
+            if (_isTransformedBodyCircleDirty)
+            {
+                _cachedTransformedBodyCircle = GetTransformedBody(m_BodyCircle);
+                _isTransformedBodyCircleDirty = false;
+            }
+            return _cachedTransformedBodyCircle;
+        }
+        private set
+        {
+            _cachedTransformedBodyCircle = value;
+        }
+    }
+    public BodyPolygon TransformedBodyPolygon
+    {
+        get
+        {
+            if (_isTransformedBodyPolygonDirty)
+            {
+                _cachedTransformedBodyPolygon = GetTransformedBody(m_BodyPolygon);
+                _isTransformedBodyPolygonDirty = false;
+            }
+            return GetTransformedBody(m_BodyPolygon);
+        }
+        private set
+        {
+            _cachedTransformedBodyPolygon = value;
+        }
+    }
+
     public BodyType BodyTypeForComparison { get; private set; }
 
     public HashSet<TriggerBody> TriggerBodySet { get; } = new();
+
+    private BodyCircle _cachedTransformedBodyCircle;
+    private bool _isTransformedBodyCircleDirty = true;
+    private BodyPolygon _cachedTransformedBodyPolygon;
+    private bool _isTransformedBodyPolygonDirty = true;
 
 #if UNITY_EDITOR
     public List<TriggerBody> m_DebugTriggerBody = new();
@@ -128,7 +164,7 @@ public class TriggerBody : MonoBehaviour
     }
 #endif
 
-    private void Start()
+    private void Awake()
     {
         if (m_BodyType == BodyType.Box)
         {
@@ -139,36 +175,52 @@ public class TriggerBody : MonoBehaviour
         {
             BodyTypeForComparison = m_BodyType;
         }
+
+        switch (m_BodyType)
+        {
+            case BodyType.Circle:
+                _cachedTransformedBodyCircle = new BodyCircle();
+                break;
+            case BodyType.Polygon:
+            case BodyType.Box:
+                _cachedTransformedBodyPolygon = new BodyPolygon(m_BodyPolygon);
+                break;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        _isTransformedBodyCircleDirty = true;
+        _isTransformedBodyPolygonDirty = true;
     }
 
     private BodyCircle GetTransformedBody(BodyCircle bodyCircle)
     {
-        var newBodyCircle = new BodyCircle();
         var point = TransformPoint(bodyCircle.m_BodyCenter);
-        newBodyCircle.m_BodyCenter = point;
+        _cachedTransformedBodyCircle.m_BodyCenter = point;
         
         var radius = m_BodyCircle.m_BodyRadius * Mathf.Max(transform.lossyScale.x, transform.lossyScale.y);
-        newBodyCircle.m_BodyRadius = radius;
-        return newBodyCircle;
+        _cachedTransformedBodyCircle.m_BodyRadius = radius;
+        return _cachedTransformedBodyCircle;
     }
 
     private BodyPolygon GetTransformedBody(BodyPolygon bodyPolygon)
     {
-        var newBodyPolygon = new BodyPolygon(new List<BodyPolygonUnit>(bodyPolygon.m_BodyPolygonUnits.Count));
-        foreach (var bodyPolygonUnit in bodyPolygon.m_BodyPolygonUnits)
+        //var newBodyPolygon = new BodyPolygon(new List<BodyPolygonUnit>(bodyPolygon.m_BodyPolygonUnits.Count));
+        for (var i = 0; i < bodyPolygon.m_BodyPolygonUnits.Count; ++i)
         {
-            var newBodyPolygonUnit = new BodyPolygonUnit(new List<Vector2>(bodyPolygonUnit.m_BodyPoints.Count));
-            
-            foreach (var point in bodyPolygonUnit.m_BodyPoints)
+            for (var j = 0; j < bodyPolygon.m_BodyPolygonUnits[i].m_BodyPoints.Count; ++j)
             {
-                var transformedPoint = TransformPoint(point);
-                newBodyPolygonUnit.m_BodyPoints.Add(transformedPoint);
+                var transformedPoint = TransformPoint(bodyPolygon.m_BodyPolygonUnits[i].m_BodyPoints[j]);
+                _cachedTransformedBodyPolygon.m_BodyPolygonUnits[i].m_BodyPoints[j] = transformedPoint;
+                //newBodyPolygonUnit.m_BodyPoints.Add(transformedPoint);
             }
 
-            newBodyPolygon.m_BodyPolygonUnits.Add(newBodyPolygonUnit);
+            //_cachedTransformedBodyPolygon.m_BodyPolygonUnits[i] = newBodyPolygonUnit;
+            //_cachedTransformedBodyPolygon.m_BodyPolygonUnits.Add(newBodyPolygonUnit);
         }
         
-        return newBodyPolygon;
+        return _cachedTransformedBodyPolygon;
     }
 
     private Vector2 TransformPoint(Vector2 point)
@@ -330,6 +382,16 @@ public class BodyPolygon
         m_BodyPolygonUnits = bodyPolygonUnits;
     }
 
+    public BodyPolygon(BodyPolygon bodyPolygon)
+    {
+        m_BodyPolygonUnits = new List<BodyPolygonUnit>(bodyPolygon.m_BodyPolygonUnits.Count);
+        
+        foreach (var bodyPolygonUnit in bodyPolygon.m_BodyPolygonUnits)
+        {
+            m_BodyPolygonUnits.Add(new BodyPolygonUnit(bodyPolygonUnit));
+        }
+    }
+
     public BodyPolygon(BodyBox bodyBox)
     {
         var halfWidth = bodyBox.m_BodySize.x / 2f;
@@ -357,6 +419,16 @@ public class BodyPolygonUnit
     public BodyPolygonUnit(List<Vector2> bodyPoints)
     {
         m_BodyPoints = bodyPoints;
+    }
+
+    public BodyPolygonUnit(BodyPolygonUnit bodyPolygonUnit)
+    {
+        m_BodyPoints = new List<Vector2>(bodyPolygonUnit.m_BodyPoints.Count);
+        
+        foreach (var bodyPoint in bodyPolygonUnit.m_BodyPoints)
+        {
+            m_BodyPoints.Add(bodyPoint);
+        }
     }
 }
 

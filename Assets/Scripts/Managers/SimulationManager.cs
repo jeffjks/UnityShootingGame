@@ -26,6 +26,7 @@ public class SimulationManager : MonoBehaviour, ISimulationObject
 {
     public TriggerDatas m_TriggerDatas;
     
+    private readonly Dictionary<TriggerBodyType, List<TriggerBodyType>> TriggerList = new();
     public static readonly HashSet<IMovable> MovableObjects = new();
     private static readonly Dictionary<TriggerBodyType, HashSet<TriggerBody>> TriggerBodies = new()
     {
@@ -50,10 +51,18 @@ public class SimulationManager : MonoBehaviour, ISimulationObject
         TriggerBodyType.PlayerLarge
     };
 
+    private void Start()
+    {
+        TriggerList[TriggerBodyType.GameBoundary] = m_TriggerDatas.gameBoundaryTriggerList;
+        TriggerList[TriggerBodyType.CameraBoundary] = m_TriggerDatas.cameraBoundaryTriggerList;
+        TriggerList[TriggerBodyType.PlayerCenter] = m_TriggerDatas.playerCenterTriggerList;
+        TriggerList[TriggerBodyType.PlayerWeapon] = m_TriggerDatas.playerWeaponTriggerList;
+        TriggerList[TriggerBodyType.PlayerLarge] = m_TriggerDatas.playerLargeTriggerList;
+    }
+
     private void Update()
     {
         //SimulateMovement();
-
         SimulateOnTriggerBodyInit();
 
         RemoveTriggerBody();
@@ -95,7 +104,7 @@ public class SimulationManager : MonoBehaviour, ISimulationObject
 
     private void ExecuteCheckOverlapTriggerBody(TriggerBodyType triggerBodyType)
     {
-        var triggerList = GetTriggerList(triggerBodyType);
+        var triggerList = TriggerList[triggerBodyType];
         
         foreach (var otherTriggerBodyType in triggerList)
         {
@@ -111,6 +120,7 @@ public class SimulationManager : MonoBehaviour, ISimulationObject
         }
     }
 
+/*
     private List<TriggerBodyType> GetTriggerList(TriggerBodyType triggerBodyType)
     {
         switch (triggerBodyType)
@@ -130,6 +140,7 @@ public class SimulationManager : MonoBehaviour, ISimulationObject
                 return new();
         }
     }
+*/
 
     public static void AddTriggerBody(TriggerBody triggerBody)
     {

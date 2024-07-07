@@ -56,7 +56,7 @@ public class TriggerBody : MonoBehaviour
                 _cachedTransformedBodyPolygon = GetTransformedBody(m_BodyPolygon);
                 _isTransformedBodyPolygonDirty = false;
             }
-            return GetTransformedBody(m_BodyPolygon);
+            return _cachedTransformedBodyPolygon;
         }
         private set
         {

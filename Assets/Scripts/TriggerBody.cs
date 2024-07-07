@@ -69,9 +69,9 @@ public class TriggerBody : MonoBehaviour
     public HashSet<TriggerBody> TriggerBodySet { get; } = new();
 
     private BodyCircle _cachedTransformedBodyCircle;
-    private bool _isTransformedBodyCircleDirty = true;
+    private bool _isTransformedBodyCircleDirty;
     private BodyPolygon _cachedTransformedBodyPolygon;
-    private bool _isTransformedBodyPolygonDirty = true;
+    private bool _isTransformedBodyPolygonDirty;
 
 #if UNITY_EDITOR
     public List<TriggerBody> m_DebugTriggerBody = new();
@@ -85,6 +85,8 @@ public class TriggerBody : MonoBehaviour
     {
         if (enabled == false)
             return;
+        
+        InitCachedTransformedBody();
         
         switch (m_BodyType)
         {
@@ -175,6 +177,14 @@ public class TriggerBody : MonoBehaviour
         {
             BodyTypeForComparison = m_BodyType;
         }
+
+        InitCachedTransformedBody();
+    }
+
+    private void InitCachedTransformedBody()
+    {
+        _isTransformedBodyCircleDirty = true;
+        _isTransformedBodyPolygonDirty = true;
 
         switch (m_BodyType)
         {

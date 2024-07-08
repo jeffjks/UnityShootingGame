@@ -160,10 +160,25 @@ public abstract class StageManager : MonoBehaviour
         SystemManager.PlayState = PlayState.OnBoss;
     }
 
-    protected void InitEnemies() {
+    protected void InitEnemies()
+    {
         m_EnemySpawners.SetActive(true);
-        for (int i = 0; i < 3; i++)
-            m_EnemyPreloaded[i].SetActive(true);
+        
+        for (int i = 0; i < (int) SystemManager.Difficulty + 1; i++)
+        {
+            LoadChildEnemyObject(m_EnemyPreloaded[i]);
+        }
+    }
+
+    private void LoadChildEnemyObject(GameObject preloadedObject)
+    {
+        var enemyUnits = preloadedObject.GetComponentsInChildren<EnemyUnit>(true);
+        foreach (var enemyUnit in enemyUnits)
+        {
+            if (enemyUnit.m_IsRoot == false)
+                continue;
+            enemyUnit.gameObject.SetActive(true);
+        }
     }
 
     public void StartFinalBoss(Vector3 pos)

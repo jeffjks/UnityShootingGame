@@ -529,6 +529,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -670,6 +674,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -726,6 +734,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
@@ -794,7 +806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &475876282
 Transform:
   m_ObjectHideFlags: 0
@@ -905,7 +917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &833339605
 Transform:
   m_ObjectHideFlags: 0
@@ -1175,6 +1187,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_Name
       value: EnemyTankMedium1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
@@ -1994,6 +2010,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2061,7 +2081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1486902135
 Transform:
   m_ObjectHideFlags: 0
@@ -2571,6 +2591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2633,6 +2657,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
@@ -3105,6 +3133,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder

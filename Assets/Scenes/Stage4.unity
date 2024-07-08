@@ -315,6 +315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -540,6 +544,10 @@ PrefabInstance:
     - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_Name
       value: EnemyTankSmall3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder
@@ -1392,7 +1400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &285032344
 Transform:
   m_ObjectHideFlags: 0
@@ -1800,6 +1808,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
@@ -2474,6 +2486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankSmall2
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 37082ba0f130558408b298430506019a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 37082ba0f130558408b298430506019a, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -2675,7 +2691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &555169996
 Transform:
   m_ObjectHideFlags: 0
@@ -2769,7 +2785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &559187581
 Transform:
   m_ObjectHideFlags: 0
@@ -3281,6 +3297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -3343,6 +3363,10 @@ PrefabInstance:
     - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_Name
       value: EnemyTankSmall3 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder
@@ -3903,6 +3927,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
@@ -4748,6 +4776,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -4923,6 +4955,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_Name
       value: EnemyTurret1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
@@ -5364,6 +5400,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_Name
       value: EnemyTurret1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
@@ -5952,6 +5992,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -6014,6 +6058,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
@@ -6301,6 +6349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankSmall3 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -6553,6 +6605,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -6777,6 +6833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6987,6 +7047,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_Name
       value: EnemyTurret1 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
@@ -7720,6 +7784,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -7845,6 +7913,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_Name
       value: EnemyTurret1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
@@ -7972,6 +8044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTankMedium1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -8034,6 +8110,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_Name
       value: EnemyTurret1 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
@@ -8161,6 +8241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTurret1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 209a7fe0ffb83614d91a7658db0b1dcb, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -8223,6 +8307,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_Name
       value: EnemyTankMedium1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7f71ca8d301cd5e42952884da283fcd1, type: 3}
       propertyPath: m_RootOrder
@@ -8490,6 +8578,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_Name
       value: EnemyTurret2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f1d372a5b0f69e428bfecd0a21d3b5e, type: 3}
       propertyPath: m_RootOrder
@@ -9465,6 +9557,10 @@ PrefabInstance:
     - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_Name
       value: EnemyTankSmall3 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: c7c57e1830349914dbad94867eaa8a23, type: 3}
       propertyPath: m_RootOrder

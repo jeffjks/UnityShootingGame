@@ -17,11 +17,13 @@ public class EnemyTurret1_Turret : EnemyUnit
 
 public class EnemyTurret1_BulletPattern_Turret_A : BulletFactory, IBulletPattern
 {
+    private readonly EnemyTurret1_Turret _typedEnemyObject;
     private readonly IRotatePattern _defaultRotatePattern;
 
     public EnemyTurret1_BulletPattern_Turret_A(EnemyObject enemyObject, IRotatePattern defaultRotatePattern) :
         base(enemyObject)
     {
+        _typedEnemyObject = enemyObject as EnemyTurret1_Turret;
         _defaultRotatePattern = defaultRotatePattern;
     }
 

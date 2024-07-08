@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         var r = Random.Range(r1, r2);
         //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
         if (SystemManager.IsInGame && ReplayManager.DebugLog)
-            ReplayManager.WriteReplayLogFile($"Debug float {r1}, {r2} -> {r}");
+            ReplayManager.WriteReplayLogFile($"Debug float ({r1}, {r2}) -> {r}");
         return r;
     }
 
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         var r = Random.Range(r1, r2);
         //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
         if (SystemManager.IsInGame && ReplayManager.DebugLog)
-            ReplayManager.WriteReplayLogFile($"Debug int {r1}, {r2} -> {r}");
+            ReplayManager.WriteReplayLogFile($"Debug int ({r1}, {r2}) -> {r}");
         return r;
     }
 #endif

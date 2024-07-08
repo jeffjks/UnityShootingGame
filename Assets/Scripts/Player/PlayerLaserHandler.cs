@@ -72,7 +72,7 @@ public class PlayerLaserHandler : MonoBehaviour
         Action_OnStartLaser?.Invoke();
         IsLaserShooting = true;
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (ReplayManager.PlayerLaserStartLog)
             ReplayManager.WriteReplayLogFile($"Start Laser {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif

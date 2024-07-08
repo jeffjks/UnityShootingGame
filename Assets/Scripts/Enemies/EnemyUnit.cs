@@ -89,7 +89,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         m_EnemyDeath.Action_OnKilled += HandleOnKilled;
         m_EnemyDeath.Action_OnKilled += DisableInteractable;
         m_EnemyDeath.Action_OnKilled += StopAllPatterns;
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (ReplayManager.KillLog)
             m_EnemyDeath.Action_OnKilled += WriteReplayKillLog;
         if (ReplayManager.RemoveLog)
@@ -109,7 +109,7 @@ public abstract class EnemyUnit : EnemyObject // 적 개체, 포탑 (적 총알 
         // IsColliderInit = true;
     }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void WriteReplayKillLog()
     {
         if (!m_IsRoot)

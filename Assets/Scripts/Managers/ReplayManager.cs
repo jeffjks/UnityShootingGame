@@ -39,7 +39,7 @@ public class ReplayManager : MonoBehaviour
     private const string ReplayWriteFile = "replayLog_Play.log";
     private const string ReplayReadFile = "replayLog_Replay.log";
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     private StreamWriter _logFileStream;
 
     public bool m_KillLog;
@@ -51,6 +51,7 @@ public class ReplayManager : MonoBehaviour
     public bool m_PlayerLaserStartLog;
     public bool m_ItemLog;
     public bool m_HitCountLog;
+    public bool m_DebugLog;
 
     public static bool KillLog => Instance != null && Instance.m_KillLog;
     public static bool RemoveLog => Instance != null && Instance.m_RemoveLog;
@@ -61,6 +62,7 @@ public class ReplayManager : MonoBehaviour
     public static bool PlayerLaserStartLog => Instance != null && Instance.m_PlayerLaserStartLog;
     public static bool ItemLog => Instance != null && Instance.m_ItemLog;
     public static bool HitCountLog => Instance != null && Instance.m_HitCountLog;
+    public static bool DebugLog => Instance != null && Instance.m_DebugLog;
 #endif
 
     private int PlayerAttackLevel
@@ -147,7 +149,7 @@ public class ReplayManager : MonoBehaviour
             InputMovement = InputMovement;
             _playerController.OnMoveInvoked(MoveVectorInt);
             
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (PlayerMovementInputLog)
                 WriteReplayLogFile($"{MoveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
@@ -196,7 +198,7 @@ public class ReplayManager : MonoBehaviour
                     break;
             }
             
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (PlayerActionInputLog)
                 WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
@@ -250,7 +252,7 @@ public class ReplayManager : MonoBehaviour
         SystemManager.Action_OnNextStage += OnNextStage;
         SystemManager.Action_OnStageClear += OnStageClear;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (!SystemManager.IsInGame)
             return;
         
@@ -435,7 +437,7 @@ public class ReplayManager : MonoBehaviour
         
         ReplayFileController.WriteBinaryReplayData(ReplayDataType.PlayerActionInput, actionContext);
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (PlayerActionInputLog)
             WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
@@ -449,7 +451,7 @@ public class ReplayManager : MonoBehaviour
         
         ReplayFileController.WriteBinaryReplayData(ReplayDataType.PlayerMovement, _movementContext);
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (PlayerMovementInputLog)
             WriteReplayLogFile($"{_movementContext.MoveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif
@@ -494,7 +496,7 @@ public class ReplayManager : MonoBehaviour
         ReplayFileController.OnClose();
         _replayDataBuffer.Clear();
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (_logFileStream == null)
             return;
         
@@ -511,7 +513,7 @@ public class ReplayManager : MonoBehaviour
         OnClose();
     }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     public static void WriteReplayLogFile(string str)
     {
         if (!IsReplayAvailable)

@@ -21,6 +21,7 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
 {
     private readonly EnemyTurret3_Turret _typedEnemyObject;
     private readonly int _animationHash;
+    private readonly int[] _fireDelay = { 2000, 2000, 1800 };
 
     public EnemyTurret3_BulletPattern_Turret_A(EnemyObject enemyObject, int animationHash) : base(enemyObject)
     {
@@ -31,10 +32,10 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
     public IEnumerator ExecutePattern(UnityAction onCompleted)
     {
         yield return new WaitForEndOfFrame();
-        int[] fireDelay = { 2000, 2000, 1800 };
         List<EnemyBullet> enemyBullets = new (16);
         
-        yield return new WaitForMillisecondFrames(Random.Range(0, fireDelay[(int) SystemManager.Difficulty]));
+        var delay = GetFireDelay();
+        yield return new WaitForMillisecondFrames(delay);
         while(true)
         {
             var pos0 = GetFirePos(0);
@@ -70,13 +71,23 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
                     enemyBullets.AddRange(CreateBullet(new BulletProperty(pos1, BulletImage.BlueNeedle, speed2, BulletPivot.Current, 2f)));
                 }
             }
-
             if (enemyBullets.Count > 0)
             {
                 _typedEnemyObject.m_BarrelAnimator.SetTrigger(_animationHash);
                 enemyBullets.Clear();
             }
-            yield return new WaitForMillisecondFrames(fireDelay[(int) SystemManager.Difficulty]);
+            delay = GetFireDelay();
+            yield return new WaitForMillisecondFrames(delay);
         }
+    }
+
+    private int GetFireDelay()
+    {
+        var delay = Random.Range(0, _fireDelay[(int) SystemManager.Difficulty]);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (SystemManager.IsInGame && ReplayManager.DebugLog)
+            ReplayManager.WriteReplayLogFile($"Debug {_typedEnemyObject.name}: {delay}");
+#endif
+        return delay;
     }
 }

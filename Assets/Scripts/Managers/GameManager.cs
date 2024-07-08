@@ -96,11 +96,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     public static float RandomTest(float r1, float r2)
     {
         var r = Random.Range(r1, r2);
         //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
+        if (SystemManager.IsInGame && ReplayManager.DebugLog)
+            ReplayManager.WriteReplayLogFile($"Debug float {r1}, {r2} -> {r}");
         return r;
     }
 
@@ -108,6 +110,8 @@ public class GameManager : MonoBehaviour
     {
         var r = Random.Range(r1, r2);
         //Debug.LogWarning($"{ReplayManager.CurrentFrame}: {r}");
+        if (SystemManager.IsInGame && ReplayManager.DebugLog)
+            ReplayManager.WriteReplayLogFile($"Debug int {r1}, {r2} -> {r}");
         return r;
     }
 #endif

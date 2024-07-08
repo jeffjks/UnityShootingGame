@@ -33,7 +33,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
     
     public virtual void OnStart()
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (SystemManager.IsInGame && ReplayManager.PlayerWeaponStartLog)
             ReplayManager.WriteReplayLogFile($"PlayerWeaponStart {name}: {transform.position.ToString("N6")}");
 #endif
@@ -114,7 +114,7 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
 
     private void TriggerEnter(EnemyUnit enemyUnit)
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (ReplayManager.PlayerWeaponHitLog)
             ReplayManager.WriteReplayLogFile($"PlayerWeaponHit {name}->{enemyUnit.name}, {transform.position.ToString("N6")}");
 #endif

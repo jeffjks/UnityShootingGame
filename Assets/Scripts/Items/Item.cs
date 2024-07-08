@@ -63,7 +63,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
         ItemEffect(PlayerUnit.Instance);
         OnItemRemoved();
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (ReplayManager.ItemLog)
             ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition().ToString("N6")}");
 #endif

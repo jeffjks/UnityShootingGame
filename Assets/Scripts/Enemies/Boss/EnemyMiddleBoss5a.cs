@@ -165,10 +165,17 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
     }
 
 
-    private IEnumerator LaunchMissile() {
-        for (int i = 0; i < 4; i++) {
+    private IEnumerator LaunchMissile()
+    {
+        for (int i = 0; i < 4; i++)
+        {
             yield return new WaitForMillisecondFrames(2000);
-            if (_phase > 0) {
+            if (m_EnemyDeath.IsDead)
+            {
+                break;
+            }
+            if (_phase > 0)
+            {
                 _enemyMissiles[i * 2].Launch();
                 _enemyMissiles[i * 2 + 1].Launch();
                 _enemyMissileItemCreaters[i * 2].enabled = true;
@@ -179,14 +186,26 @@ public class EnemyMiddleBoss5a : EnemyUnit, IEnemyBossMain
         }
     }
 
+    private void DestroyLaunchingMissile()
+    {
+        foreach (var enemyMissile in _enemyMissiles)
+        {
+            if (enemyMissile == null)
+            {
+                continue;
+            }
+            enemyMissile.DestroyIfNotInteractable();
+        }
+    }
+
     protected override IEnumerator DyingEffect() { // 파괴 과정
         BulletManager.BulletsToGems(2500);
         if (_currentPhase != null)
             StopCoroutine(_currentPhase);
         if (_timeLimit != null)
             StopCoroutine(_timeLimit);
-        if (_missileLaunch != null)
-            StopCoroutine(_missileLaunch);
+        
+        DestroyLaunchingMissile();
         m_MoveVector = new MoveVector(1.5f, 0f);
         
         _phase = -1;

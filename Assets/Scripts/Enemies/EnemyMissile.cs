@@ -6,7 +6,10 @@ using UnityEngine.Events;
 public class EnemyMissile : EnemyUnit
 {
     public GameObject m_Engine;
+
     private bool _isLaunched;
+    private IEnumerator _appearanceSequence;
+    private bool _enableInteractable;
 
     //private Quaternion m_Rotation;
 
@@ -24,13 +27,29 @@ public class EnemyMissile : EnemyUnit
         m_IsRoot = true;
         m_MoveVector = new MoveVector(1f, 0f);
         //m_Renderer.rotation = m_Rotation;
-        StartCoroutine(AppearanceSequence());
+        _appearanceSequence = AppearanceSequence();
+        StartCoroutine(_appearanceSequence);
+    }
+
+    public void DestroyIfNotInteractable()
+    {
+        if (_enableInteractable)
+        {
+            return;
+        }
+        if (_appearanceSequence != null)
+        {
+            StopCoroutine(_appearanceSequence);
+        }
+        m_Score = 0;
+        m_EnemyDeath.KillEnemy();
     }
 
     private IEnumerator AppearanceSequence() {
         yield return new WaitForMillisecondFrames(1000);
         m_Engine.SetActive(true);
 
+        _enableInteractable = true;
         EnableInteractableAll();
 
         float init_speed = 1f;

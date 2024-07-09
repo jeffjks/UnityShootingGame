@@ -34,8 +34,8 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
         yield return new WaitForEndOfFrame();
         List<EnemyBullet> enemyBullets = new (16);
         
-        var delay = GetFireDelay();
-        yield return new WaitForMillisecondFrames(delay);
+        var delay = _fireDelay[(int) SystemManager.Difficulty];
+        yield return new WaitForMillisecondFrames(Random.Range(0, delay));
         while(true)
         {
             var pos0 = GetFirePos(0);
@@ -76,18 +76,7 @@ public class EnemyTurret3_BulletPattern_Turret_A : BulletFactory, IBulletPattern
                 _typedEnemyObject.m_BarrelAnimator.SetTrigger(_animationHash);
                 enemyBullets.Clear();
             }
-            delay = GetFireDelay();
             yield return new WaitForMillisecondFrames(delay);
         }
-    }
-
-    private int GetFireDelay()
-    {
-        var delay = Random.Range(0, _fireDelay[(int) SystemManager.Difficulty]);
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-        if (SystemManager.IsInGame && ReplayManager.DebugLog)
-            ReplayManager.WriteReplayLogFile($"Debug {_typedEnemyObject.name}: {delay}");
-#endif
-        return delay;
     }
 }

@@ -27,10 +27,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     private SubBulletPattern _subBulletPattern;
     private bool _isInList;
     private const float BoundaryPadding = 0.375f;
+    private bool _isPlayingEraseAnimation { get; set; }
 
-    //private Tween m_Tween = null;
-
-    public bool IsPlayingEraseAnimation { get; private set; }
     public EnemyObject OwnerEnemyObject { private get; set; }
 
     public BulletImage BulletImage
@@ -71,7 +69,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
     public void OnStart(BulletProperty bulletProperty)
     {
         SetSortingLayer();
-        IsPlayingEraseAnimation = false;
+        _isPlayingEraseAnimation = false;
 
         var pivotDirection = 0f;
         switch (bulletProperty.pivot)
@@ -126,7 +124,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         //PlayerManager.GetPlayerPosition() = PlayerManager.GetPlayerPosition();
     }
     
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (_isRotating) {
             _bulletImageObject.transform.Rotate(Vector3.back, 200f / Application.targetFrameRate * Time.timeScale, Space.Self);
@@ -199,7 +197,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private IEnumerator SubBulletPattern(BulletSpawnTiming spawnTiming, BulletProperty property)
     {
-        if (IsPlayingEraseAnimation)
+        if (_isPlayingEraseAnimation)
             yield break;
         if (spawnTiming.delay > 0)
             yield return new WaitForMillisecondFrames(spawnTiming.delay);
@@ -248,18 +246,16 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void PlayEraseAnimation()
     {
-        if (RemoveFromBulletList() == false)
-            return;
         PlayEraseAnimation(true);
     }
 
     private void PlayEraseAnimation(bool hasSpeed)
     {
-        if (IsPlayingEraseAnimation)
+        if (_isPlayingEraseAnimation)
             return;
         if (!hasSpeed)
             m_MoveVector.speed = 0f;
-        IsPlayingEraseAnimation = true;
+        _isPlayingEraseAnimation = true;
         StopAllCoroutines();
         _bulletImageObject.SetActive(false);
         m_TriggerBody.gameObject.SetActive(false);
@@ -283,7 +279,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         
         RemoveFromBulletList();
         StopAllCoroutines();
-        IsPlayingEraseAnimation = false;
+        //_isPlayingEraseAnimation = false;
         //m_TriggerBody.gameObject.SetActive(false);
         m_EraseAnimator[_currentBullet.eraseIndex].gameObject.SetActive(false);
         PoolingManager.PushToPool(m_ObjectName, gameObject, PoolingParent.EnemyBullet);

@@ -248,7 +248,8 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void PlayEraseAnimation()
     {
-        BulletManager.EnemyBulletList.Remove(this);
+        if (RemoveFromBulletList() == false)
+            return;
         PlayEraseAnimation(true);
     }
 
@@ -299,19 +300,21 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         //SimulationManager.RemoveTriggerBody(m_TriggerBodyCapsule);
     }
 
-    private void AddToBulletList()
+    private bool AddToBulletList()
     {
         if (_isInList)
-            return;
+            return false;
         _isInList = true;
         BulletManager.EnemyBulletList.AddLast(this);
+        return true;
     }
 
-    private void RemoveFromBulletList()
+    private bool RemoveFromBulletList()
     {
         if (!_isInList)
-            return;
+            return false;
         _isInList = false;
         BulletManager.EnemyBulletList.Remove(this);
+        return true;
     }
 }

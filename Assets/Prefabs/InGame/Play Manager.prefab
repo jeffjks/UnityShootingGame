@@ -73,4 +73,4 @@ MonoBehaviour:
   m_PlayerLaserStartLog: 1
   m_ItemLog: 0
   m_HitCountLog: 0
-  m_DebugLog: 1
+  m_DebugLog: 0

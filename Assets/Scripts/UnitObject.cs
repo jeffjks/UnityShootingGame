@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Burst;
 
+[BurstCompile(FloatPrecision.Standard, FloatMode.Deterministic)]
 [DefaultExecutionOrder(-100)]
 public abstract class UnitObject : MonoBehaviour
 {

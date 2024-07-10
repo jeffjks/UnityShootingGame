@@ -2,8 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
+using Unity.Burst;
 
+[BurstCompile(FloatPrecision.Standard, FloatMode.Deterministic)]
 public abstract class StageManager : MonoBehaviour
 {
     [SerializeField] protected GameObject[] m_BossUnit = null;

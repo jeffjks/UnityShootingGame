@@ -267,6 +267,7 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             m_EnemyBoss5Wings[i].m_EnemyDeath.KillEnemy();
         }
         Destroy(m_AllWings);
+        m_AllWings = null;
         BulletManager.BulletsToGems(2000);
         m_MoveVector = new MoveVector(0f, 0f);
         

@@ -76,16 +76,13 @@ public static class TriggerBodyManager
             var currentEdge = i < countA
                 ? bodyPolygonUnitA.m_BodyPoints[(i + 1) % countA] - bodyPolygonUnitA.m_BodyPoints[i]
                 : bodyPolygonUnitB.m_BodyPoints[(i - countA + 1) % countB] - bodyPolygonUnitB.m_BodyPoints[i - countA];
-                
-            // Find the axis perpendicular to the current edge
+            
             var axis = new Vector2(-currentEdge.y, currentEdge.x);
             axis.Normalize();
 
-            // Find the projection of the polygon on the current axis
             ProjectBodyUnit(axis, bodyPolygonUnitA.m_BodyPoints, out var minA, out var maxA);
             ProjectBodyUnit(axis, bodyPolygonUnitB.m_BodyPoints, out var minB, out var maxB);
-
-            // Check if the polygon projections are currently intersecting
+            
             if (IsIntersectDistance(minA, maxA, minB, maxB) == false)
                 return false;
         }
@@ -103,11 +100,9 @@ public static class TriggerBodyManager
             var nextPoint = bodyPolygonUnit.m_BodyPoints[(i + 1) % count];
             var currentEdge = nextPoint - currentPoint;
             
-            // Find the axis perpendicular to the current edge
             var axis = new Vector2(-currentEdge.y, currentEdge.x);
             axis.Normalize();
 
-            // Find the projection of the polygon on the current axis
             ProjectBodyUnit(axis, bodyPolygonUnit.m_BodyPoints, out var minA, out var maxA);
             var projectedCircleCenter = Vector2.Dot(axis, bodyCircle.m_BodyCenter);
             var minB = projectedCircleCenter - bodyCircle.m_BodyRadius;
@@ -115,11 +110,6 @@ public static class TriggerBodyManager
             
             if (IsIntersectDistance(minA, maxA, minB, maxB) == false)
                 return false;
-
-            // var distance = GetDistanceFromPointToLine(currentPoint, nextPoint, bodyCircle.m_BodyCenter);
-            //
-            // if (distance < bodyCircle.m_BodyRadius)
-            //     return true;
         }
     
         return true;
@@ -127,14 +117,12 @@ public static class TriggerBodyManager
     
     private static float GetDistanceFromPointToLine(Vector2 origin, Vector2 end, Vector2 point)
     {
-        //Get heading
-        Vector2 heading = (end - origin);
+        var heading = (end - origin);
         float magnitudeMax = heading.magnitude;
         heading.Normalize();
-
-        //Do projection from the point but clamp it
-        Vector2 lhs = point - origin;
-        float dotP = Vector2.Dot(lhs, heading);
+        
+        var lhs = point - origin;
+        var dotP = Vector2.Dot(lhs, heading);
         dotP = Mathf.Clamp(dotP, 0f, magnitudeMax);
         
         var closestPoint = origin + heading * dotP;

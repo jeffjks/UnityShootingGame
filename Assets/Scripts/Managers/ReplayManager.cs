@@ -151,7 +151,7 @@ public class ReplayManager : MonoBehaviour
             
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (PlayerMovementInputLog)
-                WriteReplayLogFile($"{MoveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+                WriteReplayLogFile($"{MoveVectorInt} Move {PlayerManager.GetPlayerPosition():N6}");
 #endif
         }
 
@@ -200,7 +200,7 @@ public class ReplayManager : MonoBehaviour
             
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (PlayerActionInputLog)
-                WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition().ToString("N6")}");
+                WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition():N6}");
 #endif
         }
     }
@@ -439,7 +439,7 @@ public class ReplayManager : MonoBehaviour
         
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (PlayerActionInputLog)
-            WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition():N6}");
 #endif
     }
 
@@ -453,7 +453,7 @@ public class ReplayManager : MonoBehaviour
         
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (PlayerMovementInputLog)
-            WriteReplayLogFile($"{_movementContext.MoveVectorInt} Move {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            WriteReplayLogFile($"{_movementContext.MoveVectorInt} Move {PlayerManager.GetPlayerPosition():N6}");
 #endif
         
         _playerController.OnMoveInvoked(_movementContext.MoveVectorInt);

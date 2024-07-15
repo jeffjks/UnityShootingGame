@@ -74,7 +74,7 @@ public class PlayerLaserHandler : MonoBehaviour
         
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (ReplayManager.PlayerLaserStartLog)
-            ReplayManager.WriteReplayLogFile($"Start Laser {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            ReplayManager.WriteReplayLogFile($"Start Laser {PlayerManager.GetPlayerPosition():N6}");
 #endif
         
         if (!m_PlayerUnit.m_IsPreviewObject)

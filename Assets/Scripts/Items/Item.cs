@@ -65,7 +65,7 @@ public abstract class Item : UnitObject, IHasGroundCollider
         
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (ReplayManager.ItemLog)
-            ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition().ToString("N6")}");
+            ReplayManager.WriteReplayLogFile($"GetItem {gameObject.name}: {PlayerManager.GetPlayerPosition():N6}");
 #endif
     }
 }

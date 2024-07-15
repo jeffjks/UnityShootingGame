@@ -97,6 +97,8 @@ public class EnemyPlaneLarge1 : EnemyUnit, IHasPhase
         m_Turret[1].m_EnemyDeath.KillEnemy();
         Destroy(m_Part[0]);
         Destroy(m_Part[1]);
+        m_Part[0] = null;
+        m_Part[1] = null;
         
         StopAllPatterns();
         StartPattern("2A", new EnemyPlaneLarge1_BulletPattern_2A(this));

@@ -80,6 +80,7 @@ public static class TriggerBodyManager
             var axis = new Vector2(-currentEdge.y, currentEdge.x);
             axis.Normalize();
 
+            // Axis에 대해 사영한 그림자의 범위 (min ~ max)
             ProjectBodyUnit(axis, bodyPolygonUnitA.m_BodyPoints, out var minA, out var maxA);
             ProjectBodyUnit(axis, bodyPolygonUnitB.m_BodyPoints, out var minB, out var maxB);
             

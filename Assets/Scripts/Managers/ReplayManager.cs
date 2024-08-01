@@ -110,13 +110,12 @@ public class ReplayManager : MonoBehaviour
     [Serializable]
     public abstract class ReplayData
     {
-        [NonSerialized] public bool isActive;
+        [NonSerialized] public bool isActive; // 동시에 여러 Input 방지
         public int frame;
 
         public abstract void RunData();
     }
 
-    // int = 0bAAAA_BBBB_CCCC_DDDD_EEEE_FFFF_GGGG_HHHH // GGGG_HHHH: movementInputFlag, EEEE_FFFF: movementInput, CCCC_DDDD: fire/bomb
     [Serializable]
     public class ReplayMovementData : ReplayData
     {

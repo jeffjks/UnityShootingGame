@@ -16,13 +16,8 @@ public enum TriggerBodyType
     Item,
 }
 
-public interface ISimulationObject
-{
-    
-}
-
 [DefaultExecutionOrder(-99)]
-public class SimulationManager : MonoBehaviour, ISimulationObject
+public class SimulationManager : MonoBehaviour
 {
     public TriggerDatas m_TriggerDatas;
     

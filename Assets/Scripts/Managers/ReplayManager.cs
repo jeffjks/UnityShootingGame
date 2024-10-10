@@ -2,24 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Runtime.Serialization;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
-using Vector2 = System.Numerics.Vector2;
-
-public struct ReplayInput<T>
-{
-    public int timeStamp;
-    public T input;
-    
-    public ReplayInput(int timeStamp, T input)
-    {
-        this.timeStamp = timeStamp;
-        this.input = input;
-    }
-}
 
 public class ReplayManager : MonoBehaviour
 {

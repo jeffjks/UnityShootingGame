@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public abstract class Item : UnitObject, IHasGroundCollider
+public abstract class Item : UnitObject
 {
     public ItemInfoDatas m_ItemData;
     public TriggerBody m_TriggerBody; // 지상 아이템 콜라이더 보정 및 충돌 체크

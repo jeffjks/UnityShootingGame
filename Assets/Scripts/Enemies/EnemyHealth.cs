@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public interface IHasGroundCollider
-{
-    public void SetColliderPositionOnScreen(Vector2 screenPosition, Quaternion screenRotation);
-}
-
 public struct TickDamageContext
 {
     public int defaultDamage;
@@ -23,7 +18,7 @@ public struct TickDamageContext
 }
 
 [RequireComponent(typeof(EnemyColorBlender))]
-public class EnemyHealth : MonoBehaviour, IHasGroundCollider
+public class EnemyHealth : MonoBehaviour
 {
     private EnemyDeath _enemyDeath;
     [Tooltip("None: 독립적인 Blend, 자체 체력이 있지만 본체에도 데미지 전달\nIndependent: 독립적인 Blend, 독립적인 자체 체력\nShare: 본체와 Blend와 체력 모두 공유")]

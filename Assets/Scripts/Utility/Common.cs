@@ -196,10 +196,6 @@ public interface IObjectPooling {
     public void ReturnToPool();
 }
 
-public interface IExplosionCreater {
-    public void StartExplosion();
-}
-
 public struct MoveVector
 {
     public float speed, direction;

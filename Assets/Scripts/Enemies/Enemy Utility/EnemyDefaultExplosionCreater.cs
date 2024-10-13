@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDefaultExplosionCreater : MonoBehaviour, IExplosionCreater
+public class EnemyDefaultExplosionCreater : MonoBehaviour
 {
     [SerializeField] private EnemyDeath m_EnemyDeath;
     [SerializeField] private ExplType m_ExplType = ExplType.None;
@@ -17,7 +17,7 @@ public class EnemyDefaultExplosionCreater : MonoBehaviour, IExplosionCreater
         m_EnemyDeath.Action_OnKilled += StartExplosion;
     }
 
-    public void StartExplosion() {
+    private void StartExplosion() {
         Effect effect = new Effect(m_ExplType, m_ExplAudioType);
         _explosionJsonManager.CreateExplosionEffect(m_EnemyDeath, effect);
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyExplosionCreater : MonoBehaviour, IExplosionCreater
+public class EnemyExplosionCreater : MonoBehaviour
 {
     [SerializeField] private EnemyDeath m_EnemyDeath;
     [SerializeField] private string m_JsonKey;

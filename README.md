@@ -11,7 +11,7 @@
 
 ## 프로젝트 개요
 
-프로젝트에 대한 자세한 내용은 '조건상 포트폴리오.pdf' 파일에 있습니다.
+프로젝트에 대한 자세한 내용은 ['조건상 포트폴리오.pdf'](https://github.com/jeffjks/UnityShootingGame/blob/master/%EC%A1%B0%EA%B1%B4%EC%83%81%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4.pdf) 파일에 있습니다.
 
 
 ![ex_screenshot](./img/complete_01.png)

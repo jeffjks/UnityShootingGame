@@ -657,7 +657,8 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 4417317141876734764}
-  m_TriggerBodies: []
+  m_TriggerBodies:
+  - {fileID: 5123212818824897963}
 --- !u!114 &748648914517165654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,7 +772,8 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 5653689540836584610}
-  m_TriggerBodies: []
+  m_TriggerBodies:
+  - {fileID: 6044513510450224070}
 --- !u!114 &8590920233221446469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1389,7 +1391,8 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 6126094460631671931}
-  m_TriggerBodies: []
+  m_TriggerBodies:
+  - {fileID: 7927424977962141801}
 --- !u!114 &7821914013008084646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,7 +1506,8 @@ MonoBehaviour:
   m_DefaultHealth: 3600
   m_Collider2D:
   - {fileID: 8330236720640189807}
-  m_TriggerBodies: []
+  m_TriggerBodies:
+  - {fileID: 3395006870138581239}
 --- !u!114 &8947434179275376496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3146,7 +3150,8 @@ MonoBehaviour:
   m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 2714358893465278300}
-  m_TriggerBodies: []
+  m_TriggerBodies:
+  - {fileID: 5725397582118370413}
 --- !u!114 &240741888577068434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,7 +3265,8 @@ MonoBehaviour:
   m_DefaultHealth: 7500
   m_Collider2D:
   - {fileID: 157164651920185090}
-  m_TriggerBodies: []
+  m_TriggerBodies:
+  - {fileID: 8421939064599091832}
 --- !u!114 &2166348856357856252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4234,9 +4240,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3579193017122849287}
   - component: {fileID: 4417317141876734764}
-  - component: {fileID: 3014963407219724400}
+  - component: {fileID: 5123212818824897963}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4273,27 +4279,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
---- !u!50 &3014963407219724400
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &5123212818824897963
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713987991628468597}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 1.2
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &1313608597132985817
 GameObject:
   m_ObjectHideFlags: 0
@@ -4335,9 +4343,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4991118066584865917}
   - component: {fileID: 6126094460631671931}
-  - component: {fileID: 2793659163537041579}
+  - component: {fileID: 7927424977962141801}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4374,27 +4382,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
---- !u!50 &2793659163537041579
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &7927424977962141801
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2851233479205885944}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 1.2
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &2928418591711431917
 GameObject:
   m_ObjectHideFlags: 0
@@ -4488,9 +4498,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3236132440696968461}
   - component: {fileID: 8330236720640189807}
-  - component: {fileID: 2382102301089056941}
+  - component: {fileID: 3395006870138581239}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4527,27 +4537,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
---- !u!50 &2382102301089056941
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &3395006870138581239
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3352951997320216733}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 1.2
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &3464107443106588295
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,9 +5073,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9078659264394371385}
   - component: {fileID: 157164651920185090}
-  - component: {fileID: 6253344180719869002}
+  - component: {fileID: 8421939064599091832}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5100,27 +5112,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
---- !u!50 &6253344180719869002
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &8421939064599091832
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7205014352979068136}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 1.5
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &7735267488881791788
 GameObject:
   m_ObjectHideFlags: 0
@@ -5193,9 +5207,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7753415846989577637}
   - component: {fileID: 5653689540836584610}
-  - component: {fileID: 2406517483235289986}
+  - component: {fileID: 6044513510450224070}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5232,27 +5246,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2
---- !u!50 &2406517483235289986
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &6044513510450224070
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8336956856578684500}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 1.2
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []
 --- !u!1 &8798155570103628825
 GameObject:
   m_ObjectHideFlags: 0
@@ -5294,9 +5310,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6059361779775606022}
   - component: {fileID: 2714358893465278300}
-  - component: {fileID: 1145624928454452802}
+  - component: {fileID: 5725397582118370413}
   m_Layer: 12
-  m_Name: Collider
+  m_Name: TriggerBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5333,24 +5349,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
---- !u!50 &1145624928454452802
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &5725397582118370413
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8799177408631359033}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerBodyType: 5
+  m_BodyType: 0
+  m_BodyCircle:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodyRadius: 1.5
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
+  m_BodyPolygon:
+    m_BodyPolygonUnits: []
+  m_DebugTriggerBody: []

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1548389382636396976}
   - component: {fileID: 313019428045316330}
   - component: {fileID: 2227362392833772255}
-  - component: {fileID: 3693179507674795380}
   m_Layer: 13
   m_Name: DebugObject
   m_TagString: Untagged
@@ -97,26 +96,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3471e83989c156c47b6c238140a977ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TriggerBodyType: 0
   m_BodyType: 0
   m_BodyCircle:
     m_BodyCenter: {x: 0, y: 0}
     m_BodyRadius: 1
+  m_BodyBox:
+    m_BodyCenter: {x: 0, y: 0}
+    m_BodySize: {x: 0, y: 0}
   m_BodyPolygon:
     m_BodyPolygonUnits:
     - m_BodyPoints:
       - {x: 1, y: 0}
       - {x: 1, y: 1}
       - {x: 1, y: 0}
---- !u!114 &3693179507674795380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581038804045404303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54e4ce5d96ae5d4bb4a4bf031dd2286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _triggerBody: {fileID: 0}
+  m_DebugTriggerBody: []

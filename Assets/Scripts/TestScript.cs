@@ -6,29 +6,37 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using System.Collections;
 
 // yield return new WaitForMillisecondFrames -> WaitFor
 
+public class Test
+{
+    int a;
+}
+
 public class TestScript : MonoBehaviour
 {
-    private TriggerBody _triggerBody;
+    public GameObject m_Test;
     
-    private void OnEnable()
+    private void Start()
     {
-        _triggerBody = GetComponent<TriggerBody>();
-        SimulationManager.AddTriggerBody(_triggerBody);
-
-        _triggerBody.m_OnTriggerBodyEnter += OnTriggerTest;
-    }
-    private void OnDisable()
-    {
-        SimulationManager.RemoveTriggerBody(_triggerBody);
-
-        _triggerBody.m_OnTriggerBodyEnter -= OnTriggerTest;
+        Destroy(m_Test);
+        m_Test?.SetActive(true);
+        StartCoroutine(TestCoroutine());
     }
 
-    private void OnTriggerTest(TriggerBody other)
+    private IEnumerator TestCoroutine()
     {
-        Debug.Log($"OnTriggerTest: {other}");
+        yield return null;
+        if (m_Test == null)
+            Debug.Log("m_Test is Null");
+        yield return null;
+        if (m_Test is null)
+            Debug.Log("m_Test is Null");
+        yield return null;
+        if (ReferenceEquals(m_Test, null))
+            Debug.Log("m_Test is Reference Null");
+        yield return null;
     }
 }

@@ -101,7 +101,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             StartCoroutine(ApplyBulletAccel(bulletProperty.accel));
         
         SimulationManager.AddTriggerBody(m_TriggerBody);
-        BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
     }
 
     public void OnStart(BulletProperty bulletProperty, BulletSpawnTiming bulletSpawnTiming, BulletProperty newBulletProperty)
@@ -275,7 +274,6 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     public void ReturnToPool()
     {
-        BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
         
         RemoveFromBulletList();
         StopAllCoroutines();
@@ -302,6 +300,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
             return false;
         _isInList = true;
         BulletManager.EnemyBulletList.AddLast(this);
+        BulletManager.Action_OnBulletFreeStateStart += PlayEraseAnimation;
         return true;
     }
 
@@ -310,6 +309,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         if (!_isInList)
             return false;
         _isInList = false;
+        BulletManager.Action_OnBulletFreeStateStart -= PlayEraseAnimation;
         BulletManager.EnemyBulletList.Remove(this);
         return true;
     }

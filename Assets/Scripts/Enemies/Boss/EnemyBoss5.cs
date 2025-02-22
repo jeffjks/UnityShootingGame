@@ -19,7 +19,6 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
     private const int APPEARANCE_TIME = 10000;
     private const float DEFAULT_SPEED = 0.2f;
     private int m_MoveDirection;
-    private float m_MoveSpeed;
     private float m_TrackPos;
     private readonly MeshRenderer[] _wingMeshRenderers = new MeshRenderer[3];
     private readonly int _openedBoolAnimation = Animator.StringToHash("Opened");
@@ -62,10 +61,12 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
     }
 
     private void OnAppearanceComplete() {
-        float random_direction = 180f*Random.Range(0, 2);
-        m_MoveVector = new MoveVector(0.05f, random_direction);
-        m_MoveDirection = Random.Range(0, 2)*2 - 1;
+        int index = Random.Range(0, 2);
+        Debug.Log(index);
+        m_MoveDirection = index*2 - 1;
+        m_MoveVector = new MoveVector(0.05f, m_MoveDirection * 90f);
         
+        _phase = 1;
         m_CurrentPhase = Phase1();
         StartCoroutine(m_CurrentPhase);
         
@@ -93,25 +94,21 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             else if (transform.position.x <= TARGET_POSITION.x - 0.5f) {
                 m_MoveDirection = 1;
             }
-            else if (transform.position.y >= TARGET_POSITION.y + 0.2f) {
-                m_MoveVector.direction = 0f;
-            }
-            else if (transform.position.y <= TARGET_POSITION.y - 0.2f) {
-                m_MoveVector.direction = 180f;
-            }
 
-            if (m_MoveSpeed < DEFAULT_SPEED && m_MoveDirection == 1) {
-                m_MoveSpeed += 0.13f / Application.targetFrameRate * Time.timeScale;
+            if (m_MoveVector.GetVector().x < DEFAULT_SPEED * m_MoveDirection && m_MoveDirection == 1) {
+                m_MoveVector = new MoveVector(m_MoveVector.GetVector() + new Vector2(0.13f / Application.targetFrameRate * Time.timeScale, 0f));
             }
-            else if (m_MoveSpeed > DEFAULT_SPEED && m_MoveDirection == -1) {
-                m_MoveSpeed -= 0.13f / Application.targetFrameRate * Time.timeScale;
+            else if (m_MoveVector.GetVector().x > DEFAULT_SPEED * m_MoveDirection && m_MoveDirection == -1) {
+                m_MoveVector = new MoveVector(m_MoveVector.GetVector() - new Vector2(0.13f / Application.targetFrameRate * Time.timeScale, 0f));
             }
             else {
-                m_MoveSpeed = DEFAULT_SPEED*m_MoveDirection;
+                m_MoveVector = new MoveVector(new Vector2(DEFAULT_SPEED * m_MoveDirection, 0f));
             }
 
-            Vector3 pos = transform.position;
-            transform.position = new Vector3(pos.x + m_MoveSpeed / Application.targetFrameRate * Time.timeScale, pos.y, Depth.ENEMY);
+            Debug.Log($"{m_MoveVector.speed}, {m_MoveVector.direction}");
+
+            //Vector3 pos = transform.position;
+            //transform.position = new Vector3(pos.x + m_MoveSpeed / Application.targetFrameRate * Time.timeScale, pos.y, Depth.ENEMY);
         }
 
         m_CustomDirection[0] -= 111f / Application.targetFrameRate * Time.timeScale;

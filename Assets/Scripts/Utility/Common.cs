@@ -206,12 +206,12 @@ public struct MoveVector
     }
 
     public MoveVector(Vector2 vector2) {
-        this.speed = vector2.magnitude;
-        this.direction = Vector2.SignedAngle(Vector2.down, vector2);
+        speed = vector2.magnitude;
+        direction = Vector2.SignedAngle(Vector2.down, vector2);
     }
 
     public Vector2 GetVector() {
-        Vector2 vector2 = Quaternion.AngleAxis(this.direction, Vector3.forward) * Vector2.down;
+        Vector2 vector2 = Quaternion.AngleAxis(direction, Vector3.forward) * Vector2.down;
         vector2 = vector2.normalized * speed;
         return vector2;
     }

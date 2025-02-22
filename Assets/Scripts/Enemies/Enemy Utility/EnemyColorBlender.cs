@@ -82,7 +82,13 @@ public class EnemyColorBlender : MonoBehaviour
 
         for (int i = 0; i < meshRenderers.Length; i++) {
             m_Materials[i] = meshRenderers[i].material;
-            m_DefaultAlbedo[i] = meshRenderers[i].material.color;
+            
+            if (m_Materials[i].HasProperty("_Color")) {
+                m_DefaultAlbedo[i] = m_Materials[i].color;
+            }
+            else {
+                m_DefaultAlbedo[i] = Color.white;
+            }
         }
         
         foreach (GameObject value in inactivatedGameObjects) { // 복구

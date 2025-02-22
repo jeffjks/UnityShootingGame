@@ -62,7 +62,6 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
 
     private void OnAppearanceComplete() {
         int index = Random.Range(0, 2);
-        Debug.Log(index);
         m_MoveDirection = index*2 - 1;
         m_MoveVector = new MoveVector(0.05f, m_MoveDirection * 90f);
         
@@ -104,11 +103,6 @@ public class EnemyBoss5 : EnemyUnit, IEnemyBossMain, IHasPhase
             else {
                 m_MoveVector = new MoveVector(new Vector2(DEFAULT_SPEED * m_MoveDirection, 0f));
             }
-
-            Debug.Log($"{m_MoveVector.speed}, {m_MoveVector.direction}");
-
-            //Vector3 pos = transform.position;
-            //transform.position = new Vector3(pos.x + m_MoveSpeed / Application.targetFrameRate * Time.timeScale, pos.y, Depth.ENEMY);
         }
 
         m_CustomDirection[0] -= 111f / Application.targetFrameRate * Time.timeScale;

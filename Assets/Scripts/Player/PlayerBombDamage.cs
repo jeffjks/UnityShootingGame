@@ -68,7 +68,7 @@ public class PlayerBombDamage : PlayerObject
         var damageScale = _playerDamageData.damageScale[enemyUnit.m_EnemyType];
         var damageType = _playerDamageData.playerDamageType;
         var tickDamageContext = new TickDamageContext(Damage, damageScale, damageType);
-        enemyHealth.AddTickDamageContext(m_ObjectName, tickDamageContext);
+        enemyHealth.AddTickDamageContext(m_ObjectName, other, tickDamageContext);
     }
 
     private void OnTriggerBodyExit(TriggerBody other) // 충돌 감지
@@ -80,7 +80,7 @@ public class PlayerBombDamage : PlayerObject
         
         var enemyUnit = other.gameObject.GetComponentInParent<EnemyUnit>();
         var enemyHealth = enemyUnit.m_EnemyHealth;
-        enemyHealth.RemoveTickDamageContext(m_ObjectName);
+        enemyHealth.RemoveTickDamageContext(m_ObjectName, other);
     }
 
     private void RemoveAllTickDamageContext()

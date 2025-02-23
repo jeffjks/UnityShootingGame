@@ -17,6 +17,18 @@ public struct TickDamageContext
     }
 }
 
+public struct TickDamageState
+{
+    public TickDamageContext tickDamageContext;
+    public HashSet<TriggerBody> triggerBodies;
+
+    public TickDamageState(TickDamageContext context)
+    {
+        tickDamageContext = context;
+        triggerBodies = new();
+    }
+}
+
 [RequireComponent(typeof(EnemyColorBlender))]
 public class EnemyHealth : MonoBehaviour
 {
@@ -38,7 +50,7 @@ public class EnemyHealth : MonoBehaviour
     private bool _isLowHealthState;
     private bool _isInvincible;
     private int _remainingFrame;
-    private readonly Dictionary<string, TickDamageContext> _damageContextDict = new();
+    private readonly Dictionary<string, TickDamageState> _damageContextDict = new();
 
     public int CurrentHealth
     {
@@ -253,23 +265,34 @@ public class EnemyHealth : MonoBehaviour
     
     private void TakeTickDamage()
     {
+        if (_enemyDeath.IsDead)
+            return;
+        
         foreach (var item in _damageContextDict)
         {
-            var damageContext = item.Value;
+            if (CurrentHealth <= 0f)
+                continue;
+            var damageContext = item.Value.tickDamageContext;
             var finalDamage = damageContext.defaultDamage * damageContext.damageScale / 100;
             var damageType = damageContext.damageType;
             TakeDamage(finalDamage, damageType);
-            HitCountController.Instance.HitCountLaserCounter++;
+            HitCountController.Instance.HitCountLaserDamageCounter += finalDamage;
         }
     }
 
-    public void AddTickDamageContext(string key, TickDamageContext tickDamageContext)
+    public void AddTickDamageContext(string key, TriggerBody triggerBody, TickDamageContext tickDamageContext)
     {
-        _damageContextDict.TryAdd(key, tickDamageContext);
+        _damageContextDict.TryAdd(key, new TickDamageState(tickDamageContext));
+        _damageContextDict[key].triggerBodies.Add(triggerBody);
     }
 
-    public void RemoveTickDamageContext(string key)
+    public void RemoveTickDamageContext(string key, TriggerBody triggerBody)
     {
-        _damageContextDict.Remove(key);
+        if (_damageContextDict.ContainsKey(key) == false)
+            return;
+        
+        _damageContextDict[key].triggerBodies.Remove(triggerBody);
+        if (_damageContextDict[key].triggerBodies.Count == 0)
+            _damageContextDict.Remove(key);
     }
 }

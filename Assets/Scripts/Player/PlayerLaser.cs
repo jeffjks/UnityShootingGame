@@ -79,7 +79,7 @@ public class PlayerLaser : PlayerObject
             var damageScale = _playerDamageData.damageScale[enemyUnit.m_EnemyType];
             var damageType = _playerDamageData.playerDamageType;
             var tickDamageContext = new TickDamageContext(Damage, damageScale, damageType);
-            enemyHealth.AddTickDamageContext(m_ObjectName, tickDamageContext);
+            enemyHealth.AddTickDamageContext(m_ObjectName, other, tickDamageContext);
             HitCountController.Instance.MaintainHitCount();
             //HitCountController.Instance.HitCountLaserCounter++;
         }
@@ -100,7 +100,7 @@ public class PlayerLaser : PlayerObject
         if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
         {
             var enemyHealth = enemyUnit.m_EnemyHealth;
-            enemyHealth.RemoveTickDamageContext(m_ObjectName);
+            enemyHealth.RemoveTickDamageContext(m_ObjectName, other);
         }
     }
 

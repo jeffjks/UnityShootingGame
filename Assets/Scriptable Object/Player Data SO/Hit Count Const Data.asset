@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitCountDecreasingFrame: 80
   HitCountDecreasingPeriodFrame: 4
-  HitCountLaserMaxCountField: 20
-  HitCountLaserMaxCountBoss: 10
+  HitCountLaserMaxDamageCountField: 800
+  HitCountLaserMaxDamageCountBoss: 400
   MaxHitCount: 99999
   MinHitCount: 0
   hitCountBonus:

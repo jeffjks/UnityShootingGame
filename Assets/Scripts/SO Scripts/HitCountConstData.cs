@@ -15,8 +15,8 @@ public class HitCountConstData : ScriptableObject
 {
     public int HitCountDecreasingFrame;
     public int HitCountDecreasingPeriodFrame;
-    public int HitCountLaserMaxCountField;
-    public int HitCountLaserMaxCountBoss;
+    public int HitCountLaserMaxDamageCountField;
+    public int HitCountLaserMaxDamageCountBoss;
     public int MaxHitCount;
     public int MinHitCount;
 

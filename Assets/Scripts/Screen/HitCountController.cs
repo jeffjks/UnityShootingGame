@@ -31,8 +31,8 @@ public class HitCountController : MonoBehaviour
     private bool _destroySingleton;
     private int _hitCount;
     private int _hitCountDecreasingTimer;
-    private int _hitCountLaserCounter;
-    private int _hitCountLaserMaxCounter = 20;
+    private int _hitCountLaserDamageCounter;
+    private int _hitCountLaserMaxDamageCounter = 800;
     private HitCountState _currentHitCountState = HitCountState.Default;
     private HitCountType _currentHitCountType = HitCountType.None;
 
@@ -48,13 +48,13 @@ public class HitCountController : MonoBehaviour
             switch (_currentHitCountType)
             {
                 case HitCountType.Field:
-                    _hitCountLaserMaxCounter = m_HitCountConstData.HitCountLaserMaxCountField;
+                    _hitCountLaserMaxDamageCounter = m_HitCountConstData.HitCountLaserMaxDamageCountField;
                     break;
                 case HitCountType.Boss:
-                    _hitCountLaserMaxCounter = m_HitCountConstData.HitCountLaserMaxCountBoss;
+                    _hitCountLaserMaxDamageCounter = m_HitCountConstData.HitCountLaserMaxDamageCountBoss;
                     break;
                 default:
-                    _hitCountLaserMaxCounter = 20;
+                    _hitCountLaserMaxDamageCounter = m_HitCountConstData.HitCountLaserMaxDamageCountField;
                     break;
             }
 
@@ -121,6 +121,8 @@ public class HitCountController : MonoBehaviour
 
     public void MaintainHitCount()
     {
+        if (PlayerBombHandler.IsBombInUse)
+            return;
         _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
         SetHitCountState(HitCountState.Default);
     }
@@ -168,7 +170,7 @@ public class HitCountController : MonoBehaviour
     {
         _hitCount = 0;
         _hitCountDecreasingTimer = -1;
-        _hitCountLaserCounter = 0;
+        _hitCountLaserDamageCounter = 0;
         Action_OnUpdateHitCount?.Invoke(_hitCount);
         UpdateHitCountBonus();
         SetHitCountState(HitCountState.Default);
@@ -178,7 +180,7 @@ public class HitCountController : MonoBehaviour
     {
         _hitCount = 0;
         _hitCountDecreasingTimer = -1;
-        _hitCountLaserCounter = 0;
+        _hitCountLaserDamageCounter = 0;
         UpdateHitCountBonus();
         SetHitCountState(HitCountState.BreakDown);
     }
@@ -206,9 +208,9 @@ public class HitCountController : MonoBehaviour
         CurrentHitCountType = HitCountType.Boss;
     }
 
-    public int HitCountLaserCounter
+    public int HitCountLaserDamageCounter
     {
-        get => _hitCountLaserCounter;
+        get => _hitCountLaserDamageCounter;
         set
         {
             if (!PlayerManager.IsPlayerAlive)
@@ -216,12 +218,12 @@ public class HitCountController : MonoBehaviour
             if (PlayerBombHandler.IsBombInUse)
                 return;
             
-            _hitCountLaserCounter = value;
+            _hitCountLaserDamageCounter = value;
             _hitCountDecreasingTimer = m_HitCountConstData.HitCountDecreasingFrame;
             
-            if (_hitCountLaserCounter >= _hitCountLaserMaxCounter)
+            if (_hitCountLaserDamageCounter >= _hitCountLaserMaxDamageCounter)
             {
-                _hitCountLaserCounter %= _hitCountLaserMaxCounter;
+                _hitCountLaserDamageCounter %= _hitCountLaserMaxDamageCounter;
                 AddHitCount();
             }
         }

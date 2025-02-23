@@ -88,7 +88,7 @@ public class PlayerLaserAura : PlayerObject
         if (enemyUnit.gameObject.CheckLayer(Layer.LARGE)) // 대형이면
         {
             DealDamage(enemyUnit);
-            HitCountController.Instance.HitCountLaserCounter++;
+            //HitCountController.Instance.HitCountLaserCounter++;
         }
         else // 소형이면
         {

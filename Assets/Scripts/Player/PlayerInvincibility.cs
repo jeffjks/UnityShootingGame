@@ -24,7 +24,7 @@ public class PlayerInvincibility : MonoBehaviour
     
     private static int _remainingFrame;
 
-    private void Start()
+    private void OnEnable()
     {
         Action_OnInvincibilityChanged += SetPlayerShield;
         
@@ -35,7 +35,7 @@ public class PlayerInvincibility : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Action_OnInvincibilityChanged -= SetPlayerShield;
     }

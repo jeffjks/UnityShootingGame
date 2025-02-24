@@ -16,7 +16,7 @@ public class ReplayManager : MonoBehaviour
     
     private ReplayInfo _replayInfo;
     private static readonly ReplayMovementData _movementContext = new();
-    private static readonly Queue<ReplayData> _replayDataBuffer = new();
+    private static readonly Queue<IReplayInput> _replayDataBuffer = new();
     private const int QueueMinCount = 16;
     private const int QueueMaxCount = 32;
     private static bool _eof;
@@ -92,82 +92,83 @@ public class ReplayManager : MonoBehaviour
         EnemyHealth = 5
     }
 
-    [Serializable]
-    public abstract class ReplayData
+    public interface IReplayInput
     {
-        [NonSerialized] public bool isActive; // 동시에 여러 Input 방지
-        public int frame;
+        public bool IsActive { get; set; } // 동시에 여러 Input 방지
+        public int Frame { get; set; }
 
-        public abstract void RunData();
+        public void RunData();
     }
 
     [Serializable]
-    public class ReplayMovementData : ReplayData
+    public class ReplayMovementData : IReplayInput
     {
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
+
+        public int Frame
+        {
+            get { return frame; }
+            set { frame = value; }
+        }
+
+        [NonSerialized] private bool isActive;
+        private int frame;
+
         private byte inputMovement;
-        private byte InputMovement
-        {
-            get => inputMovement;
-            set
-            {
-                var moveLeft = (value >> 0) & 1;
-                var moveRight = (value >> 1) & 1;
-                var moveDown = (value >> 2) & 1;
-                var moveUp = (value >> 3) & 1;
-                MoveVectorInt = new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
-            }
-        }
-        
-        [NonSerialized] public Vector2Int MoveVectorInt;
 
-        public ReplayMovementData() { }
-
-        public ReplayMovementData(int frame, byte inputMovement)
+        public void RunData()
         {
-            this.frame = frame;
-            InputMovement = inputMovement;
-        }
-
-        public override void RunData()
-        {
-            InputMovement = InputMovement;
-            _playerController.OnMoveInvoked(MoveVectorInt);
+            var moveVectorInt = GetMoveVectorData();
+            _playerController.OnMoveInvoked(moveVectorInt);
             
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (PlayerMovementInputLog)
-                WriteReplayLogFile($"{MoveVectorInt} Move {PlayerManager.GetPlayerPosition():N6}");
+                WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition():N6}");
 #endif
         }
 
-        public void SetMoveVectorData(Vector2Int inputVector)
+        public Vector2Int GetMoveVectorData()
+        {
+            var moveLeft = (inputMovement >> 0) & 1;
+            var moveRight = (inputMovement >> 1) & 1;
+            var moveDown = (inputMovement >> 2) & 1;
+            var moveUp = (inputMovement >> 3) & 1;
+            return new Vector2Int(moveRight - moveLeft, moveUp - moveDown);
+        }
+
+        public void SetByteData(Vector2Int inputVector)
         {
             var moveLeft = (byte) (inputVector.x == -1 ? 1 : 0);
             var moveRight = (byte) (inputVector.x == 1 ? 1 : 0);
             var moveDown = (byte) (inputVector.y == -1 ? 1 : 0);
             var moveUp = (byte) (inputVector.y == 1 ? 1 : 0);
-
-            MoveVectorInt = inputVector;
+            
             inputMovement = (byte) ((moveLeft << 0) | (moveRight << 1) | (moveDown << 2)| (moveUp << 3));
-            isActive = true;
+            IsActive = true;
         }
     }
     
     [Serializable]
-    public class ReplayActionData : ReplayData
+    public class ReplayActionData : IReplayInput
     {
-        private KeyType keyType;
-        private bool isPressed;
+        public bool IsActive { get; set; }
+        public int Frame { get; set; }
 
-        public ReplayActionData() { }
-
+        private readonly KeyType keyType;
+        private readonly bool isPressed;
+        
         public ReplayActionData(int frame, KeyType keyType, bool isPressed)
         {
-            this.frame = frame;
+            Frame = frame;
             this.keyType = keyType;
             this.isPressed = isPressed;
         }
 
-        public override void RunData()
+        public void RunData()
         {
             switch (keyType)
             {
@@ -181,11 +182,6 @@ public class ReplayManager : MonoBehaviour
                     Debug.LogError($"Unknown key type: {keyType}");
                     break;
             }
-            
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if (PlayerActionInputLog)
-                WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition():N6}");
-#endif
         }
     }
 
@@ -229,7 +225,7 @@ public class ReplayManager : MonoBehaviour
 
         Instance = this;
         CurrentFrame = 0;
-        _movementContext.isActive = false;
+        _movementContext.IsActive = false;
         _replayDataBuffer.Clear();
 
         SystemManager.Action_OnQuitInGame += OnClose;
@@ -333,7 +329,7 @@ public class ReplayManager : MonoBehaviour
             ReadReplayDataToBuffer();
         }
         
-        while (_replayDataBuffer.Count > 0 && _replayDataBuffer.Peek().frame == CurrentFrame)
+        while (_replayDataBuffer.Count > 0 && _replayDataBuffer.Peek().Frame == CurrentFrame)
         {
             var replayData = _replayDataBuffer.Dequeue();
             replayData.RunData();
@@ -409,7 +405,7 @@ public class ReplayManager : MonoBehaviour
         if (SystemManager.IsReplayMode)
             return;
         
-        _movementContext.SetMoveVectorData(inputVector);
+        _movementContext.SetByteData(inputVector);
     }
 
     public static void WriteUserActionInput(KeyType keyType, bool isPressed)
@@ -429,19 +425,21 @@ public class ReplayManager : MonoBehaviour
 
     public static void WriteReplayMovementData()
     {
-        if (_movementContext.isActive == false)
+        if (_movementContext.IsActive == false)
             return;
-        _movementContext.frame = CurrentFrame;
+        _movementContext.Frame = CurrentFrame;
         
         ReplayFileController.WriteBinaryReplayData(ReplayDataType.PlayerMovement, _movementContext);
+
+        var moveVectorInt = _movementContext.GetMoveVectorData();
         
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (PlayerMovementInputLog)
-            WriteReplayLogFile($"{_movementContext.MoveVectorInt} Move {PlayerManager.GetPlayerPosition():N6}");
+            WriteReplayLogFile($"{moveVectorInt} Move {PlayerManager.GetPlayerPosition():N6}");
 #endif
         
-        _playerController.OnMoveInvoked(_movementContext.MoveVectorInt);
-        _movementContext.isActive = false;
+        _playerController.OnMoveInvoked(moveVectorInt);
+        _movementContext.IsActive = false;
     }
     #endregion
     

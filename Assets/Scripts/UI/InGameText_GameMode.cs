@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using System.Linq;
 
 public class InGameText_GameMode : MonoBehaviour
 {
@@ -13,14 +14,17 @@ public class InGameText_GameMode : MonoBehaviour
     private readonly Dictionary<GameMode, string> _gameModeString = new ()
     {
         { GameMode.Normal, string.Empty },
-        { GameMode.Training, "TRAINING" },
-        { GameMode.Replay, "REPLAY" }
+        { GameMode.Training, "TRAINING" }
     };
 
     private void Start()
     {
         if (_gameModeString.TryGetValue(SystemManager.GameMode, out var str))
         {
+            if (SystemManager.IsReplayMode)
+            {
+                str += "\n(REPLAY MODE)";
+            }
             m_GameModeText.SetText(str);
         }
         else

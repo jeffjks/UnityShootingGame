@@ -14,6 +14,7 @@ public class SystemManager : MonoBehaviour
     public static GameDifficulty Difficulty { get; private set; }
     public static GameDifficulty DebugDifficulty;
     public static TrainingInfo TrainingInfo;
+    public static bool IsReplayMode;
     public static bool IsInGame;
     public static int Stage = -1;
     public static int CurrentSeed;
@@ -125,7 +126,7 @@ public class SystemManager : MonoBehaviour
             QuitGame(null);
             yield break;
         }
-        if (GameMode == GameMode.Replay && Stage >= 5)
+        if (IsReplayMode && Stage >= 5)
         {
             QuitGame(null);
             yield break;

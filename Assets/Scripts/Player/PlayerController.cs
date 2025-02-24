@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (!IsInputInvokable)
             return;
         
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
             ReplayManager.ReadUserInput();
         else
             ReplayManager.WriteReplayMovementData();

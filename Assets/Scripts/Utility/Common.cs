@@ -50,6 +50,7 @@ public static class Layer // AirSmall(9), AirLarge(10), GroundSmall(11), GroundL
     public const int GROUND = 6144; // (1 << 11 | 1 << 12) LayerMask.GetMask("GroundSmallEnemy", "GroundLargeEnemy")
 }
 
+[Serializable]
 public struct TrainingInfo
 {
     public int stage;

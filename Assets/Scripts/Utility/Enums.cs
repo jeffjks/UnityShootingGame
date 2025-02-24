@@ -36,8 +36,7 @@ public enum GameDifficulty
 public enum GameMode
 {
     Normal = 0,
-    Training = 1,
-    Replay = 2
+    Training = 1
 }
 
 public enum UnitMovementType {

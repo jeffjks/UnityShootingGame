@@ -156,8 +156,10 @@ public class LoadReplayMenuHandler : MenuHandler
 
         ReplayManager.CurrentReplaySlot = _currentSelectedSlot;
         PlayerManager.CurrentAttributes = replayInfo.m_Attributes;
+        SystemManager.TrainingInfo = replayInfo.m_TrainingInfo;
+        SystemManager.SetGameMode(replayInfo.m_GameMode);
         SystemManager.SetDifficulty(replayInfo.m_Difficulty);
-        SystemManager.StartStage(replayInfo.m_Stage, replayInfo.m_Seed);
+        SystemManager.StartStage(replayInfo.m_TrainingInfo.stage, replayInfo.m_Seed);
         
         _previousMenuStack.Clear();
     }

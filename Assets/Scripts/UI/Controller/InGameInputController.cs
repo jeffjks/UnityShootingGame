@@ -21,14 +21,14 @@ public class InGameInputController : MonoBehaviour
     
     public void OnFire(InputValue inputValue)
     {
-        if (SystemManager.GameMode == GameMode.Replay && SystemManager.PlayState != PlayState.OnStageResult)
+        if (SystemManager.IsReplayMode && SystemManager.PlayState != PlayState.OnStageResult)
             return;
         Action_OnFireInput?.Invoke(inputValue.isPressed);
     }
     
     public void OnBomb(InputValue inputValue)
     {
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
             return;
         Action_OnBombInput?.Invoke(inputValue.isPressed);
     }
@@ -40,7 +40,7 @@ public class InGameInputController : MonoBehaviour
 
     public void OnMove(InputValue inputValue)
     {
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
             return;
         var inputValueVector = inputValue.Get<Vector2>();
         var inputVector = new Vector2Int(Math.Sign(inputValueVector.x), Math.Sign(inputValueVector.y));

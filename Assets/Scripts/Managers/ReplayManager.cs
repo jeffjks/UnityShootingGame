@@ -198,10 +198,10 @@ public class ReplayManager : MonoBehaviour
         public readonly ShipAttributes m_Attributes;
         public readonly int m_PlayerAttackLevel;
         public readonly GameMode m_GameMode;
-        public readonly int m_Stage;
+        public readonly TrainingInfo m_TrainingInfo;
         public readonly GameDifficulty m_Difficulty;
 
-        public ReplayInfo(int seed, long dateTime, string version, ShipAttributes attributes, int playerAttackLevel, GameMode gameMode, int stage, GameDifficulty difficulty)
+        public ReplayInfo(int seed, long dateTime, string version, ShipAttributes attributes, int playerAttackLevel, GameMode gameMode, TrainingInfo trainingInfo, GameDifficulty difficulty)
         {
             m_Seed = seed;
             m_DateTime = dateTime;
@@ -209,7 +209,7 @@ public class ReplayManager : MonoBehaviour
             m_Attributes = attributes;
             m_PlayerAttackLevel = playerAttackLevel;
             m_GameMode = gameMode;
-            m_Stage = stage;
+            m_TrainingInfo = trainingInfo;
             m_Difficulty = difficulty;
         }
 
@@ -244,7 +244,7 @@ public class ReplayManager : MonoBehaviour
         if (!directoryInfo.Exists)
             directoryInfo.Create();
         
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
         {
             if (!File.Exists($"{GameManager.ReplayLogFilePath}{ReplayReadFile}"))
             {
@@ -287,7 +287,7 @@ public class ReplayManager : MonoBehaviour
 
     private static void OpenPopupMenu()
     {
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
             PauseManager.Instance.OpenPopupMenu("리플레이 파일을 읽는 중 오류가 발생하였습니다.",
                 "Error has occured while reading replay file.");
         else
@@ -308,7 +308,7 @@ public class ReplayManager : MonoBehaviour
         Random.InitState(SystemManager.CurrentSeed);
         Debug.Log($"Current Seed: {SystemManager.CurrentSeed}");
 
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
         {
             ErrorOccured = !ReplayFileController.InitReadingReplayFile(OnCompleteInitReading, CurrentReplaySlot);
         }
@@ -396,7 +396,7 @@ public class ReplayManager : MonoBehaviour
             PlayerManager.CurrentAttributes,
             playerAttackLevel,
             SystemManager.GameMode,
-            SystemManager.Stage,
+            SystemManager.TrainingInfo,
             SystemManager.Difficulty
         );
         ReplayFileController.WriteBinaryReplayInfo(_replayInfo);
@@ -406,7 +406,7 @@ public class ReplayManager : MonoBehaviour
     
     public static void WriteUserMovementInput(Vector2Int inputVector)
     {
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
             return;
         
         _movementContext.SetMoveVectorData(inputVector);
@@ -414,7 +414,7 @@ public class ReplayManager : MonoBehaviour
 
     public static void WriteUserActionInput(KeyType keyType, bool isPressed)
     {
-        if (SystemManager.GameMode == GameMode.Replay)
+        if (SystemManager.IsReplayMode)
             return;
 
         var actionContext = new ReplayActionData(CurrentFrame, keyType, isPressed);
@@ -423,7 +423,7 @@ public class ReplayManager : MonoBehaviour
         
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (PlayerActionInputLog)
-            WriteReplayLogFile($"{isPressed} {keyType.ToString()} {PlayerManager.GetPlayerPosition():N6}");
+            WriteReplayLogFile($"{isPressed} {keyType} {PlayerManager.GetPlayerPosition():N6}");
 #endif
     }
 

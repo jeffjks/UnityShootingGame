@@ -1,5 +1,11 @@
 # Dead Planet 2
 
+[![Gameplay Demo](https://img.youtube.com/vi/9DInsFAXjYQ/0.jpg)](https://www.youtube.com/watch?v=9DInsFAXjYQ)
+
+이미지 클릭 시 데모 영상 (유튜브 링크)
+
+
+
 ## 게임 정보
 
 * 장르 : 탄막 슈팅 게임

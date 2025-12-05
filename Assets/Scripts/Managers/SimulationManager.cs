@@ -21,7 +21,7 @@ public class SimulationManager : MonoBehaviour
 {
     public TriggerDatas m_TriggerDatas;
     
-    private readonly Dictionary<TriggerBodyType, List<TriggerBodyType>> TriggerList = new();
+    private readonly Dictionary<TriggerBodyType, List<TriggerBodyType>> _triggerCollisionMasks = new();
     public static readonly HashSet<IMovable> MovableObjects = new();
     private static readonly Dictionary<TriggerBodyType, HashSet<TriggerBody>> TriggerBodies = new()
     {
@@ -48,11 +48,11 @@ public class SimulationManager : MonoBehaviour
 
     private void Start()
     {
-        TriggerList[TriggerBodyType.GameBoundary] = m_TriggerDatas.gameBoundaryTriggerList;
-        TriggerList[TriggerBodyType.CameraBoundary] = m_TriggerDatas.cameraBoundaryTriggerList;
-        TriggerList[TriggerBodyType.PlayerCenter] = m_TriggerDatas.playerCenterTriggerList;
-        TriggerList[TriggerBodyType.PlayerWeapon] = m_TriggerDatas.playerWeaponTriggerList;
-        TriggerList[TriggerBodyType.PlayerLarge] = m_TriggerDatas.playerLargeTriggerList;
+        _triggerCollisionMasks[TriggerBodyType.GameBoundary] = m_TriggerDatas.gameBoundaryTriggerList;
+        _triggerCollisionMasks[TriggerBodyType.CameraBoundary] = m_TriggerDatas.cameraBoundaryTriggerList;
+        _triggerCollisionMasks[TriggerBodyType.PlayerCenter] = m_TriggerDatas.playerCenterTriggerList;
+        _triggerCollisionMasks[TriggerBodyType.PlayerWeapon] = m_TriggerDatas.playerWeaponTriggerList;
+        _triggerCollisionMasks[TriggerBodyType.PlayerLarge] = m_TriggerDatas.playerLargeTriggerList;
     }
 
     private void Update()
@@ -76,7 +76,12 @@ public class SimulationManager : MonoBehaviour
     {
         foreach (var triggerBodyType in _triggerBodyTypes)
         {
-            ExecuteCheckOverlapTriggerBody(triggerBodyType);
+            var masks = _triggerCollisionMasks[triggerBodyType];
+            
+            foreach (var otherTriggerBodyType in masks)
+            {
+                ExecuteCheckOverlapTriggerBody(triggerBodyType, otherTriggerBodyType);
+            }
         }
     }
 
@@ -97,20 +102,15 @@ public class SimulationManager : MonoBehaviour
         }
     }
 
-    private void ExecuteCheckOverlapTriggerBody(TriggerBodyType triggerBodyType)
+    private void ExecuteCheckOverlapTriggerBody(TriggerBodyType triggerBodyType, TriggerBodyType otherTriggerBodyType)
     {
-        var triggerList = TriggerList[triggerBodyType];
-        
-        foreach (var otherTriggerBodyType in triggerList)
+        foreach (var triggerBody in TriggerBodies[triggerBodyType])
         {
-            foreach (var triggerBody in TriggerBodies[triggerBodyType])
+            foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
             {
-                foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
-                {
-                    if (triggerBody == null || otherTriggerBody == null)
-                        continue;
-                    TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
-                }
+                if (triggerBody == null || otherTriggerBody == null)
+                    continue;
+                TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
             }
         }
     }

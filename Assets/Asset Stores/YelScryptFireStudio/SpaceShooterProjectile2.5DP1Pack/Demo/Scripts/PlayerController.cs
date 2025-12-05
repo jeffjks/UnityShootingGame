@@ -68,7 +68,7 @@ namespace SSP25DP1
         private void TranslationProcess()
         {
             Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
-            rbPlayer.velocity = movement * speed;
+            rbPlayer.linearVelocity = movement * speed;
             rbPlayer.position = new Vector3(Mathf.Clamp(rbPlayer.position.x, boundary.xMin, boundary.xMax), 0f, Mathf.Clamp(rbPlayer.position.z, boundary.zMin, boundary.zMax));
         }
         #endregion

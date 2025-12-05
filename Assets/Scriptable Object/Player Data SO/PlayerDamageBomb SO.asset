@@ -16,6 +16,6 @@ MonoBehaviour:
   damageScale:
     zakoEnemy: 100
     middleBossEnemy: 50
-    bossEnemy: 33
+    bossEnemy: 330
   cooldownByLevel: 
   damageByLevel: 32000000

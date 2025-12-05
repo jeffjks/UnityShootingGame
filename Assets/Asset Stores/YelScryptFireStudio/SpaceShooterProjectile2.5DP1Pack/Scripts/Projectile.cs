@@ -26,7 +26,7 @@ namespace SSP25DP1
         void Start()
         {
             // Moves the Projectile by Rigidbody Velocity Physics
-            rbProjectile.velocity = transform.forward * speed;
+            rbProjectile.linearVelocity = transform.forward * speed;
         }
 
         private void OnTriggerEnter(Collider other)

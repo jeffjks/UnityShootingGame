@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 10
 --- !u!114 &-8121978974161643381
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -34,15 +34,21 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: matS_Laser_Projectile_01
-  m_Shader: {fileID: -6465566751694194690, guid: eaaca12a9cce8f14ba09f6dad0fbde92, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: eaaca12a9cce8f14ba09f6dad0fbde92,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -79,8 +85,10 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_7ccd7ade58f2495db32be60a45fde162: {r: 3.0156896, g: 3.4209397, b: 4.7357492, a: 0}
+    - Color_7ccd7ade58f2495db32be60a45fde162: {r: 3.0156896, g: 3.4209397, b: 4.7357492,
+        a: 0}
     - Color_aa90bb9502c54a85a9c087156b4590e8: {r: 0, g: 0.4769405, b: 2.670157, a: 0}
     - Vector2_1: {r: -0.3, g: 0.46, b: 0, a: 0}
     - Vector2_80eec5748da5408d8565bd556ce86461: {r: 0, g: 0.46, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

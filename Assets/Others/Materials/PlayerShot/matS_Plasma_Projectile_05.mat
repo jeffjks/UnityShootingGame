@@ -10,14 +10,19 @@ Material:
   m_Name: matS_Plasma_Projectile_05
   m_Shader: {fileID: -6465566751694194690, guid: eaaca12a9cce8f14ba09f6dad0fbde92,
     type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -55,6 +60,7 @@ Material:
     - Vector2_1: {r: -0.42, g: 0.67, b: 0, a: 0}
     - Vector2_80eec5748da5408d8565bd556ce86461: {r: 0.42, g: 0.67, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &5959349036373457686
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -67,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 10
 --- !u!114 &8127871922329767573
 MonoBehaviour:
   m_ObjectHideFlags: 11

@@ -36,18 +36,6 @@ public class SimulationManager : MonoBehaviour
     };
 
     private static readonly SpatialGrid _spatialGrid = new();
-    /*
-    private static readonly Dictionary<TriggerBodyType, SpatialGrid> _spatialGrids = new()
-    {
-        { TriggerBodyType.GameBoundary, new (TriggerBodyType.GameBoundary) },
-        { TriggerBodyType.CameraBoundary, new (TriggerBodyType.CameraBoundary) },
-        { TriggerBodyType.PlayerCenter, new (TriggerBodyType.PlayerCenter) },
-        { TriggerBodyType.PlayerWeapon, new (TriggerBodyType.PlayerWeapon) },
-        { TriggerBodyType.PlayerLarge, new (TriggerBodyType.PlayerLarge) },
-        { TriggerBodyType.Enemy, new (TriggerBodyType.Enemy) },
-        { TriggerBodyType.Bullet, new (TriggerBodyType.Bullet) },
-        { TriggerBodyType.Item, new (TriggerBodyType.Item) },
-    };*/
 
     private static readonly Queue<TriggerBody> TriggerBodiesToRemove = new();
 
@@ -71,8 +59,6 @@ public class SimulationManager : MonoBehaviour
 
     private void Update()
     {
-        //SimulateMovement();
-
         RemoveTriggerBody();
         
         InitSpatialGrids();
@@ -107,32 +93,21 @@ public class SimulationManager : MonoBehaviour
 
     private void Simulate()
     {
-        var str = string.Empty;
         foreach (var triggerBodyType in _triggerBodyTypes)
         {
-            //if (triggerBodyType == TriggerBodyType.PlayerCenter)
-                //str += $"[{triggerBodyType}]\n";
             foreach (var body in TriggerBodies[triggerBodyType])
             {
                 var nearByResult = _spatialGrid.GetNearbyTriggerBodies(body);
 
                 foreach (var near in nearByResult)
                 {
-                    //if (body.m_TriggerBodyType == TriggerBodyType.PlayerWeapon && near.m_TriggerBodyType == TriggerBodyType.Enemy)
-                    //    Debug.Log($"AAA: {body}, {near}");
-                    var result = false;
                     if (_triggerCollisionMasks[body.m_TriggerBodyType].Contains(near.m_TriggerBodyType))
                     {
-                        result = TriggerBodyManager.CheckOverlapTriggerBody(body, near);
+                        TriggerBodyManager.CheckOverlapTriggerBody(body, near);
                     }
-                    // if (triggerBodyType == TriggerBodyType.PlayerWeapon && near.m_TriggerBodyType == TriggerBodyType.Enemy)
-                    // {
-                    //     str += $"{body} -> {near} ({near.m_TriggerBodyType}), {result}\n";
-                    // }
                 }
             }
         }
-        //Debug.Log(str);
     }
 
     private void SimulateOnTriggerBodyInitLegacy()
@@ -175,8 +150,6 @@ public class SimulationManager : MonoBehaviour
             var otherTriggerBodies = _spatialGrid.GetNearbyTriggerBodies(triggerBody);
             foreach (var otherTriggerBody in otherTriggerBodies)
             {
-                //if (triggerBody == null || otherTriggerBody == null)
-                //    continue;
                 TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
             }
         }
@@ -188,34 +161,10 @@ public class SimulationManager : MonoBehaviour
         {
             foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
             {
-                //if (triggerBody == null || otherTriggerBody == null)
-                //    continue;
                 TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
             }
         }
     }
-
-/*
-    private List<TriggerBodyType> GetTriggerList(TriggerBodyType triggerBodyType)
-    {
-        switch (triggerBodyType)
-        {
-            case TriggerBodyType.GameBoundary:
-                return m_TriggerDatas.gameBoundaryTriggerList;
-            case TriggerBodyType.CameraBoundary:
-                return m_TriggerDatas.cameraBoundaryTriggerList;
-            case TriggerBodyType.PlayerCenter:
-                return m_TriggerDatas.playerCenterTriggerList;
-            case TriggerBodyType.PlayerWeapon:
-                return m_TriggerDatas.playerWeaponTriggerList;
-            case TriggerBodyType.PlayerLarge:
-                return m_TriggerDatas.playerLargeTriggerList;
-            default:
-                Debug.LogError($"Unknown trigger body type detected: {triggerBodyType}");
-                return new();
-        }
-    }
-*/
 
     public static void AddTriggerBody(TriggerBody triggerBody)
     {

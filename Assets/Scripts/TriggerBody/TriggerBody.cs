@@ -236,18 +236,13 @@ public class TriggerBody : MonoBehaviour
 
     private BodyPolygon GetTransformedBody(BodyPolygon bodyPolygon)
     {
-        //var newBodyPolygon = new BodyPolygon(new List<BodyPolygonUnit>(bodyPolygon.m_BodyPolygonUnits.Count));
         for (var i = 0; i < bodyPolygon.m_BodyPolygonUnits.Count; ++i)
         {
             for (var j = 0; j < bodyPolygon.m_BodyPolygonUnits[i].m_BodyPoints.Count; ++j)
             {
                 var transformedPoint = TransformPoint(bodyPolygon.m_BodyPolygonUnits[i].m_BodyPoints[j]);
                 _cachedTransformedBodyPolygon.m_BodyPolygonUnits[i].m_BodyPoints[j] = transformedPoint;
-                //newBodyPolygonUnit.m_BodyPoints.Add(transformedPoint);
             }
-
-            //_cachedTransformedBodyPolygon.m_BodyPolygonUnits[i] = newBodyPolygonUnit;
-            //_cachedTransformedBodyPolygon.m_BodyPolygonUnits.Add(newBodyPolygonUnit);
         }
         
         return _cachedTransformedBodyPolygon;
@@ -391,22 +386,12 @@ public class BodyBox
 public class BodyPolygon
 {
     public List<BodyPolygonUnit> m_BodyPolygonUnits = new();
-
-    private readonly List<Vector2> _allBodyPoints = new();
     
     public BodyPolygon() {}
 
     public BodyPolygon(List<BodyPolygonUnit> bodyPolygonUnits)
     {
         m_BodyPolygonUnits = bodyPolygonUnits;
-
-        foreach (var bodyPolygonUnit in bodyPolygonUnits)
-        {
-            foreach (var bodyPoint in bodyPolygonUnit.m_BodyPoints)
-            {
-                _allBodyPoints.Add(bodyPoint);
-            }
-        }
     }
 
     public BodyPolygon(BodyPolygon bodyPolygon)
@@ -416,11 +401,6 @@ public class BodyPolygon
         foreach (var bodyPolygonUnit in bodyPolygon.m_BodyPolygonUnits)
         {
             m_BodyPolygonUnits.Add(new BodyPolygonUnit(bodyPolygonUnit));
-
-            foreach (var bodyPoint in bodyPolygonUnit.m_BodyPoints)
-            {
-                _allBodyPoints.Add(bodyPoint);
-            }
         }
     }
 
@@ -440,13 +420,6 @@ public class BodyPolygon
         {
             bodyPolygonUnit
         };
-
-        _allBodyPoints = bodyPoints;
-    }
-
-    public List<Vector2> GetAllBodyPoints()
-    {
-        return _allBodyPoints;
     }
 }
 

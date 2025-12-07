@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpatialGrid
 {
-    private const float CellSize = 0; // 2
+    private const float CellSize = 2; // 2
     private readonly Dictionary<Vector2Int, HashSet<TriggerBody>> _cells = new();
     private readonly Vector2 _worldMin;
     private readonly Vector2 _worldMax;
@@ -92,7 +92,7 @@ public class SpatialGrid
         {
             var circle = body.TransformedBodyCircle;
             var radius = circle.m_BodyRadius;
-            var center = new Vector2(circle.m_BodyCenter.x, circle.m_BodyCenter.y);
+            var center = circle.m_BodyCenter;
             var size = new Vector2(radius * 2, radius * 2);
 
             return new Bounds(center, size);
@@ -100,21 +100,25 @@ public class SpatialGrid
         else if (bodyType == TriggerBody.BodyType.Polygon || bodyType == TriggerBody.BodyType.Box)
         {
             var polygon = body.TransformedBodyPolygon;
-            var vertices = polygon.GetAllBodyPoints();
-            
-            if (vertices.Count == 0)
-                return new Bounds(Vector2.zero, Vector2.zero);
 
             var min = new Vector2(float.MaxValue, float.MaxValue);
             var max = new Vector2(float.MinValue, float.MinValue);
+            bool modified = false;
 
-            foreach (var vertex in vertices)
+            foreach (var bodyPolygonUnit in polygon.m_BodyPolygonUnits)
             {
-                min.x = Mathf.Min(min.x, vertex.x);
-                min.y = Mathf.Min(min.y, vertex.y);
-                max.x = Mathf.Max(max.x, vertex.x);
-                max.y = Mathf.Max(max.y, vertex.y);
+                foreach (var bodyPoint in bodyPolygonUnit.m_BodyPoints)
+                {
+                    min.x = Mathf.Min(min.x, bodyPoint.x);
+                    min.y = Mathf.Min(min.y, bodyPoint.y);
+                    max.x = Mathf.Max(max.x, bodyPoint.x);
+                    max.y = Mathf.Max(max.y, bodyPoint.y);
+                    modified = true;
+                }
             }
+            
+            if (modified == false)
+                return new Bounds(Vector2.zero, Vector2.zero);
 
             var center = (min + max) / 2f;
             var size = max - min;
@@ -129,12 +133,8 @@ public class SpatialGrid
     {
         _cellsInBounds.Clear();
 
-        if (CellSize == 0)
-        {
-            _cellsInBounds.Add(new Vector2Int(0, 0));
-            return _cellsInBounds;
-        }
-        
+        // Debug.DrawLine(bounds.min, bounds.max);
+
         var minCell = WorldToCell(bounds.min);
         var maxCell = WorldToCell(bounds.max);
         

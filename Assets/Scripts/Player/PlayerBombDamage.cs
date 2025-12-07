@@ -39,7 +39,7 @@ public class PlayerBombDamage : PlayerObject
     public void Activate()
     {
         m_TriggerBody.enabled = true;
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
         //m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
@@ -48,7 +48,7 @@ public class PlayerBombDamage : PlayerObject
     public void Deactivate()
     {
         RemoveAllTickDamageContext();
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
         //m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;

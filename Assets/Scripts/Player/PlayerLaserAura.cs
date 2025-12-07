@@ -20,7 +20,7 @@ public class PlayerLaserAura : PlayerObject
 
     public void OnEnable()
     {
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
         //m_TriggerBody.m_OnTriggerBodyStay += OnTriggerBodyStay;
@@ -28,7 +28,7 @@ public class PlayerLaserAura : PlayerObject
 
     public void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
         m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
         //m_TriggerBody.m_OnTriggerBodyStay -= OnTriggerBodyStay;

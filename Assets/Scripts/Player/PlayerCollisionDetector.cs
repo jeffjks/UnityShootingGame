@@ -20,8 +20,8 @@ public class PlayerCollisionDetector : PlayerObject
         _playerController = GetComponent<PlayerController>();
 
         PlayerManager.Action_OnPlayerRevive += ResetCollisionState;
-        SimulationManager.AddTriggerBody(m_TriggerBodyCenter);
-        SimulationManager.AddTriggerBody(m_TriggerBodyLarge);
+        //SimulationManager.AddTriggerBody(m_TriggerBodyCenter);
+        //SimulationManager.AddTriggerBody(m_TriggerBodyLarge);
         m_TriggerBodyCenter.m_OnTriggerBodyEnter += OnTriggerBodyCenterEnter;
         m_TriggerBodyLarge.m_OnTriggerBodyEnter += OnTriggerBodyLargeEnter;
     }
@@ -29,8 +29,8 @@ public class PlayerCollisionDetector : PlayerObject
     private void OnDestroy()
     {
         PlayerManager.Action_OnPlayerRevive -= ResetCollisionState;
-        SimulationManager.RemoveTriggerBody(m_TriggerBodyCenter);
-        SimulationManager.RemoveTriggerBody(m_TriggerBodyLarge);
+        //SimulationManager.RemoveTriggerBody(m_TriggerBodyCenter);
+        //SimulationManager.RemoveTriggerBody(m_TriggerBodyLarge);
         m_TriggerBodyCenter.m_OnTriggerBodyEnter -= OnTriggerBodyCenterEnter;
         m_TriggerBodyLarge.m_OnTriggerBodyEnter -= OnTriggerBodyLargeEnter;
     }

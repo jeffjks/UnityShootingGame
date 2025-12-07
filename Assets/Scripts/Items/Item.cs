@@ -17,12 +17,12 @@ public abstract class Item : UnitObject
 
     public void OnEnable()
     {
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
     }
 
     public void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
     }
     
     protected virtual void Update()

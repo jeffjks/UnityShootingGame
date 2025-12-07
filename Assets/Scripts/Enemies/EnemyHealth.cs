@@ -102,7 +102,7 @@ public class EnemyHealth : MonoBehaviour
     {
         foreach (var triggerBody in m_TriggerBodies)
         {
-            SimulationManager.AddTriggerBody(triggerBody);
+            // SimulationManager.AddTriggerBody(triggerBody);
         }
     }
 
@@ -110,7 +110,7 @@ public class EnemyHealth : MonoBehaviour
     {
         foreach (var triggerBody in m_TriggerBodies)
         {
-            SimulationManager.RemoveTriggerBody(triggerBody);
+            // SimulationManager.RemoveTriggerBody(triggerBody);
         }
     }
 

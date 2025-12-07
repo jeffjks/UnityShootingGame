@@ -19,13 +19,13 @@ public class PlayerShield : MonoBehaviour {
 
     public void OnEnable()
     {
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
     }
 
     public void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
     }
 

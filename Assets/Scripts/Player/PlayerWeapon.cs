@@ -47,13 +47,13 @@ public abstract class PlayerWeapon : PlayerObject, IObjectPooling
         //Debug.Log($"{ReplayManager.CurrentFrame}: PlayerWeapon Spawned {name} at {transform.position}");
         StartCoroutine(_removeTimerCoroutine);
         
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter += OnTriggerBodyEnter;
     }
 
     private void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyEnter -= OnTriggerBodyEnter;
     }
 

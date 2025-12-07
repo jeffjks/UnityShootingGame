@@ -21,7 +21,7 @@ public class SimulationManager : MonoBehaviour
 {
     public TriggerDatas m_TriggerDatas;
     
-    private readonly Dictionary<TriggerBodyType, List<TriggerBodyType>> _triggerCollisionMasks = new();
+    private readonly Dictionary<TriggerBodyType, HashSet<TriggerBodyType>> _triggerCollisionMasks = new();
     public static readonly HashSet<IMovable> MovableObjects = new();
     private static readonly Dictionary<TriggerBodyType, HashSet<TriggerBody>> TriggerBodies = new()
     {
@@ -34,6 +34,20 @@ public class SimulationManager : MonoBehaviour
         { TriggerBodyType.Bullet, new () },
         { TriggerBodyType.Item, new () },
     };
+
+    private static readonly SpatialGrid _spatialGrid = new();
+    /*
+    private static readonly Dictionary<TriggerBodyType, SpatialGrid> _spatialGrids = new()
+    {
+        { TriggerBodyType.GameBoundary, new (TriggerBodyType.GameBoundary) },
+        { TriggerBodyType.CameraBoundary, new (TriggerBodyType.CameraBoundary) },
+        { TriggerBodyType.PlayerCenter, new (TriggerBodyType.PlayerCenter) },
+        { TriggerBodyType.PlayerWeapon, new (TriggerBodyType.PlayerWeapon) },
+        { TriggerBodyType.PlayerLarge, new (TriggerBodyType.PlayerLarge) },
+        { TriggerBodyType.Enemy, new (TriggerBodyType.Enemy) },
+        { TriggerBodyType.Bullet, new (TriggerBodyType.Bullet) },
+        { TriggerBodyType.Item, new (TriggerBodyType.Item) },
+    };*/
 
     private static readonly Queue<TriggerBody> TriggerBodiesToRemove = new();
 
@@ -48,19 +62,24 @@ public class SimulationManager : MonoBehaviour
 
     private void Start()
     {
-        _triggerCollisionMasks[TriggerBodyType.GameBoundary] = m_TriggerDatas.gameBoundaryTriggerList;
-        _triggerCollisionMasks[TriggerBodyType.CameraBoundary] = m_TriggerDatas.cameraBoundaryTriggerList;
-        _triggerCollisionMasks[TriggerBodyType.PlayerCenter] = m_TriggerDatas.playerCenterTriggerList;
-        _triggerCollisionMasks[TriggerBodyType.PlayerWeapon] = m_TriggerDatas.playerWeaponTriggerList;
-        _triggerCollisionMasks[TriggerBodyType.PlayerLarge] = m_TriggerDatas.playerLargeTriggerList;
+        _triggerCollisionMasks[TriggerBodyType.GameBoundary] = new (m_TriggerDatas.gameBoundaryTriggerList);
+        _triggerCollisionMasks[TriggerBodyType.CameraBoundary] = new (m_TriggerDatas.cameraBoundaryTriggerList);
+        _triggerCollisionMasks[TriggerBodyType.PlayerCenter] = new (m_TriggerDatas.playerCenterTriggerList);
+        _triggerCollisionMasks[TriggerBodyType.PlayerWeapon] = new (m_TriggerDatas.playerWeaponTriggerList);
+        _triggerCollisionMasks[TriggerBodyType.PlayerLarge] = new (m_TriggerDatas.playerLargeTriggerList);
     }
 
     private void Update()
     {
         //SimulateMovement();
-        SimulateOnTriggerBodyInit();
 
         RemoveTriggerBody();
+        
+        InitSpatialGrids();
+
+        Simulate();
+
+        //Debug.Log(_spatialGrid);
         //SimulateOnTriggerBodyStay();
     }
 
@@ -72,7 +91,51 @@ public class SimulationManager : MonoBehaviour
         }
     }
 
-    private void SimulateOnTriggerBodyInit()
+    private void InitSpatialGrids()
+    {
+        _spatialGrid.Clear();
+
+        foreach (var item in TriggerBodies)
+        {
+            var triggerBodyType = item.Key;
+            foreach (var body in TriggerBodies[triggerBodyType])
+            {
+                _spatialGrid.Add(body);
+            }
+        }
+    }
+
+    private void Simulate()
+    {
+        var str = string.Empty;
+        foreach (var triggerBodyType in _triggerBodyTypes)
+        {
+            //if (triggerBodyType == TriggerBodyType.PlayerCenter)
+                //str += $"[{triggerBodyType}]\n";
+            foreach (var body in TriggerBodies[triggerBodyType])
+            {
+                var nearByResult = _spatialGrid.GetNearbyTriggerBodies(body);
+
+                foreach (var near in nearByResult)
+                {
+                    //if (body.m_TriggerBodyType == TriggerBodyType.PlayerWeapon && near.m_TriggerBodyType == TriggerBodyType.Enemy)
+                    //    Debug.Log($"AAA: {body}, {near}");
+                    var result = false;
+                    if (_triggerCollisionMasks[body.m_TriggerBodyType].Contains(near.m_TriggerBodyType))
+                    {
+                        result = TriggerBodyManager.CheckOverlapTriggerBody(body, near);
+                    }
+                    // if (triggerBodyType == TriggerBodyType.PlayerWeapon && near.m_TriggerBodyType == TriggerBodyType.Enemy)
+                    // {
+                    //     str += $"{body} -> {near} ({near.m_TriggerBodyType}), {result}\n";
+                    // }
+                }
+            }
+        }
+        //Debug.Log(str);
+    }
+
+    private void SimulateOnTriggerBodyInitLegacy()
     {
         foreach (var triggerBodyType in _triggerBodyTypes)
         {
@@ -80,7 +143,7 @@ public class SimulationManager : MonoBehaviour
             
             foreach (var otherTriggerBodyType in masks)
             {
-                ExecuteCheckOverlapTriggerBody(triggerBodyType, otherTriggerBodyType);
+                ExecuteCheckOverlapTriggerBodyLegacy(triggerBodyType, otherTriggerBodyType);
             }
         }
     }
@@ -102,14 +165,31 @@ public class SimulationManager : MonoBehaviour
         }
     }
 
-    private void ExecuteCheckOverlapTriggerBody(TriggerBodyType triggerBodyType, TriggerBodyType otherTriggerBodyType)
+    private void ExecuteCheckOverlapTriggerBody(TriggerBodyType triggerBodyType)
+    {
+        foreach (var triggerBody in TriggerBodies[triggerBodyType])
+        {
+            if (triggerBody == null)
+                continue;
+            
+            var otherTriggerBodies = _spatialGrid.GetNearbyTriggerBodies(triggerBody);
+            foreach (var otherTriggerBody in otherTriggerBodies)
+            {
+                //if (triggerBody == null || otherTriggerBody == null)
+                //    continue;
+                TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
+            }
+        }
+    }
+
+    private void ExecuteCheckOverlapTriggerBodyLegacy(TriggerBodyType triggerBodyType, TriggerBodyType otherTriggerBodyType)
     {
         foreach (var triggerBody in TriggerBodies[triggerBodyType])
         {
             foreach (var otherTriggerBody in TriggerBodies[otherTriggerBodyType])
             {
-                if (triggerBody == null || otherTriggerBody == null)
-                    continue;
+                //if (triggerBody == null || otherTriggerBody == null)
+                //    continue;
                 TriggerBodyManager.CheckOverlapTriggerBody(triggerBody, otherTriggerBody);
             }
         }

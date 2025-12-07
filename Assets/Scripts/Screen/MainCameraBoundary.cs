@@ -28,13 +28,13 @@ public class MainCameraBoundary : MonoBehaviour
 
     private void OnEnable()
     {
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyExit += OnTriggerBodyExit;
     }
 
     private void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
         m_TriggerBody.m_OnTriggerBodyExit -= OnTriggerBodyExit;
     }
 

@@ -31,6 +31,15 @@ public class TriggerBody : MonoBehaviour
     public UnityAction<TriggerBody> m_OnTriggerBodyExit;
     public UnityAction<TriggerBody> m_OnTriggerBodyStay;
 
+    public BodyType BodyTypeForComparison { get; private set; }
+
+    public HashSet<TriggerBody> TriggerBodySet { get; } = new();
+
+    private BodyCircle _cachedTransformedBodyCircle;
+    private bool _isTransformedBodyCircleDirty = true;
+    private BodyPolygon _cachedTransformedBodyPolygon;
+    private bool _isTransformedBodyPolygonDirty = true;
+
     public BodyCircle TransformedBodyCircle
     {
         get
@@ -63,15 +72,6 @@ public class TriggerBody : MonoBehaviour
             _cachedTransformedBodyPolygon = value;
         }
     }
-
-    public BodyType BodyTypeForComparison { get; private set; }
-
-    public HashSet<TriggerBody> TriggerBodySet { get; } = new();
-
-    private BodyCircle _cachedTransformedBodyCircle;
-    private bool _isTransformedBodyCircleDirty;
-    private BodyPolygon _cachedTransformedBodyPolygon;
-    private bool _isTransformedBodyPolygonDirty;
 
 #if UNITY_EDITOR
     public List<TriggerBody> m_DebugTriggerBody = new();
@@ -179,6 +179,26 @@ public class TriggerBody : MonoBehaviour
         }
 
         InitCachedTransformedBody();
+    }
+
+    private void OnEnable()
+    {
+        SimulationManager.AddTriggerBody(this);
+    }
+    
+    private void OnDisable()
+    {
+        SimulationManager.RemoveTriggerBody(this);
+
+        foreach (var triggerBody in TriggerBodySet)
+        {
+            triggerBody.TriggerBodySet.Remove(this);
+            //Debug.LogError($"{gameObject.name} triggerBodySet removed {isRemoved}: {triggerBody}");
+        }
+        TriggerBodySet.Clear();
+#if UNITY_EDITOR
+        m_DebugTriggerBody.Clear();
+#endif
     }
 
     private void InitCachedTransformedBody()
@@ -323,19 +343,6 @@ public class TriggerBody : MonoBehaviour
         bodyPoints[2] = new Vector2(bodyCenter.x + halfWidth, bodyCenter.y + halfHeight);
         bodyPoints[3] = new Vector2(bodyCenter.x - halfWidth, bodyCenter.y + halfHeight);
     }
-    
-    private void OnDisable()
-    {
-        foreach (var triggerBody in TriggerBodySet)
-        {
-            triggerBody.TriggerBodySet.Remove(this);
-            //Debug.LogError($"{gameObject.name} triggerBodySet removed {isRemoved}: {triggerBody}");
-        }
-        TriggerBodySet.Clear();
-#if UNITY_EDITOR
-        m_DebugTriggerBody.Clear();
-#endif
-    }
 }
 
 [Serializable]
@@ -384,12 +391,22 @@ public class BodyBox
 public class BodyPolygon
 {
     public List<BodyPolygonUnit> m_BodyPolygonUnits = new();
+
+    private readonly List<Vector2> _allBodyPoints = new();
     
     public BodyPolygon() {}
 
     public BodyPolygon(List<BodyPolygonUnit> bodyPolygonUnits)
     {
         m_BodyPolygonUnits = bodyPolygonUnits;
+
+        foreach (var bodyPolygonUnit in bodyPolygonUnits)
+        {
+            foreach (var bodyPoint in bodyPolygonUnit.m_BodyPoints)
+            {
+                _allBodyPoints.Add(bodyPoint);
+            }
+        }
     }
 
     public BodyPolygon(BodyPolygon bodyPolygon)
@@ -399,6 +416,11 @@ public class BodyPolygon
         foreach (var bodyPolygonUnit in bodyPolygon.m_BodyPolygonUnits)
         {
             m_BodyPolygonUnits.Add(new BodyPolygonUnit(bodyPolygonUnit));
+
+            foreach (var bodyPoint in bodyPolygonUnit.m_BodyPoints)
+            {
+                _allBodyPoints.Add(bodyPoint);
+            }
         }
     }
 
@@ -418,6 +440,13 @@ public class BodyPolygon
         {
             bodyPolygonUnit
         };
+
+        _allBodyPoints = bodyPoints;
+    }
+
+    public List<Vector2> GetAllBodyPoints()
+    {
+        return _allBodyPoints;
     }
 }
 

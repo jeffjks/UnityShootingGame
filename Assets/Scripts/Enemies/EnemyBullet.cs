@@ -100,7 +100,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
         if (bulletProperty.accel.duration > 0)
             StartCoroutine(ApplyBulletAccel(bulletProperty.accel));
         
-        SimulationManager.AddTriggerBody(m_TriggerBody);
+        // SimulationManager.AddTriggerBody(m_TriggerBody);
     }
 
     public void OnStart(BulletProperty bulletProperty, BulletSpawnTiming bulletSpawnTiming, BulletProperty newBulletProperty)
@@ -290,7 +290,7 @@ public class EnemyBullet : EnemyObject, IObjectPooling
 
     private void OnDisable()
     {
-        SimulationManager.RemoveTriggerBody(m_TriggerBody);
+        // SimulationManager.RemoveTriggerBody(m_TriggerBody);
         //SimulationManager.RemoveTriggerBody(m_TriggerBodyCapsule);
     }
 

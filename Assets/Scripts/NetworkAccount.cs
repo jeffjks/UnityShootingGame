@@ -8,12 +8,13 @@ public class NetworkAccount : MonoBehaviour
 {
     public GameObject m_LoginPanel;
 
-    private string[] _sceneList =
+    private readonly string[] _sceneList =
     {
         "MainMenu",
         "DebugPlayer",
         "DebugEnemy",
-        "DebugEnding"
+        "DebugEnding",
+        "DebugTriggerBody"
     };
 
     public void Init()

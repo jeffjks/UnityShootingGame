@@ -9,7 +9,8 @@ public class DebugMenu : EditorWindow
     {
         "Tools/Scene Mode/Default",
         "Tools/Scene Mode/Debug Player",
-        "Tools/Scene Mode/Debug Enemy"
+        "Tools/Scene Mode/Debug Enemy",
+        "Tools/Scene Mode/Debug Trigger Body"
     };
     
     [MenuItem("Tools/Invincible Mod")]
@@ -153,6 +154,25 @@ public class DebugMenu : EditorWindow
     {
         var value = EditorPrefsGetInt("SceneMode", 0);
         Menu.SetChecked("Tools/Scene Mode/Debug Ending", value == 3);
+        return true;
+    }
+
+    [MenuItem("Tools/Scene Mode/Debug Trigger Body")]
+    private static void RadioButtonSceneModeTriggerBodyDebug()
+    {
+        EditorPrefsSetInt("SceneMode", 4);
+        foreach (var menuPath in SceneModeRadioMenus)
+        {
+            Menu.SetChecked(menuPath, false);
+        }
+        Menu.SetChecked("Tools/Scene Mode/Debug Trigger Body", true);
+    }
+    
+    [MenuItem("Tools/Scene Mode/Debug Trigger Body", true)]
+    private static bool RadioButtonSceneModeTriggerBodyDebugValidate()
+    {
+        var value = EditorPrefsGetInt("SceneMode", 0);
+        Menu.SetChecked("Tools/Scene Mode/Debug Trigger Body", value == 4);
         return true;
     }
 

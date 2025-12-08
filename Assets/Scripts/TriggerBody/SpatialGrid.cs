@@ -16,6 +16,7 @@ public class SpatialGrid
     {
         _worldMin = new Vector2(-12, -4);
         _worldMax = new Vector2(12, 20);
+        _cellsInBounds.Add(new Vector2Int(0, 0));
         //_type = type;
     }
 

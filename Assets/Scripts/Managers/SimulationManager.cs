@@ -34,10 +34,10 @@ public class SimulationManager : MonoBehaviour
         { TriggerBodyType.Bullet, new () },
         { TriggerBodyType.Item, new () },
     };
+    
+    private static readonly List<TriggerBody> _iterateBuffer = new();
 
     private static readonly SpatialGrid _spatialGrid = new();
-
-    private static readonly Queue<TriggerBody> TriggerBodiesToRemove = new();
 
     private readonly List<TriggerBodyType> _triggerBodyTypes = new()
     {
@@ -59,22 +59,11 @@ public class SimulationManager : MonoBehaviour
 
     private void Update()
     {
-        RemoveTriggerBody();
-        
         InitSpatialGrids();
 
         Simulate();
 
         //Debug.Log(_spatialGrid);
-        //SimulateOnTriggerBodyStay();
-    }
-
-    private void SimulateMovement()
-    {
-        foreach (var movableObject in MovableObjects)
-        {
-            movableObject.MoveTriggerBody();
-        }
     }
 
     private void InitSpatialGrids()
@@ -95,16 +84,31 @@ public class SimulationManager : MonoBehaviour
     {
         foreach (var triggerBodyType in _triggerBodyTypes)
         {
-            foreach (var body in TriggerBodies[triggerBodyType])
+            if (!TriggerBodies.TryGetValue(triggerBodyType, out var hashSet))
+                continue;
+
+            _iterateBuffer.Clear();
+            _iterateBuffer.AddRange(hashSet);
+
+            foreach (var body in _iterateBuffer)
             {
+                if (!body || !body.isActiveAndEnabled)
+                    continue;
+
                 var nearByResult = _spatialGrid.GetNearbyTriggerBodies(body);
 
                 foreach (var near in nearByResult)
                 {
-                    if (_triggerCollisionMasks[body.m_TriggerBodyType].Contains(near.m_TriggerBodyType))
-                    {
-                        TriggerBodyManager.CheckOverlapTriggerBody(body, near);
-                    }
+                    if (!near || !near.isActiveAndEnabled)
+                        continue;
+                    
+                    if (!_triggerCollisionMasks.TryGetValue(body.m_TriggerBodyType, out var mask))
+                        continue;
+
+                    if (!mask.Contains(near.m_TriggerBodyType))
+                        continue;
+
+                    TriggerBodyManager.CheckOverlapTriggerBody(body, near);
                 }
             }
         }
@@ -120,15 +124,6 @@ public class SimulationManager : MonoBehaviour
             {
                 ExecuteCheckOverlapTriggerBodyLegacy(triggerBodyType, otherTriggerBodyType);
             }
-        }
-    }
-
-    private void RemoveTriggerBody()
-    {
-        while (TriggerBodiesToRemove.Count > 0)
-        {
-            var triggerBody = TriggerBodiesToRemove.Dequeue();
-            TriggerBodies[triggerBody.m_TriggerBodyType].Remove(triggerBody);
         }
     }
 
@@ -173,6 +168,6 @@ public class SimulationManager : MonoBehaviour
 
     public static void RemoveTriggerBody(TriggerBody triggerBody)
     {
-        TriggerBodiesToRemove.Enqueue(triggerBody);
+        TriggerBodies[triggerBody.m_TriggerBodyType].Remove(triggerBody);
     }
 }
